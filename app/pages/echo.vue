@@ -1,5 +1,6 @@
 <template>
   <section class="pages-echo space-y-6">
+    <!-- Page de démonstration technique : garde le contexte lisible sans dépendre du layout screen. -->
     <header class="space-y-2">
       <h1 class="text-3xl font-bold text-gray-900">Echo (Zod + types partagés)</h1>
       <p class="text-gray-600">
@@ -7,6 +8,7 @@
       </p>
     </header>
 
+    <!-- Formulaire volontairement minimal pour exercer la validation partagée et l'endpoint echo. -->
     <form class="space-y-4" @submit.prevent="submit">
       <label class="block space-y-2">
         <span class="text-sm font-medium text-gray-800">Message</span>
@@ -34,11 +36,13 @@
       </button>
     </form>
 
+    <!-- Retour d'erreur API/composable affiché hors champ pour distinguer validation et transport. -->
     <div v-if="error" class="rounded-md border border-red-200 bg-red-50 p-4 text-sm text-red-900">
       <p class="font-semibold">Erreur ({{ error.status }})</p>
       <p>{{ error.message }}</p>
     </div>
 
+    <!-- Réponse validée du serveur, utilisée pour vérifier le contrat partagé de bout en bout. -->
     <div
       v-if="echoed"
       class="rounded-md border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900"
@@ -52,5 +56,6 @@
 <script setup lang="ts">
 import { useEcho } from '~/composables/useEcho'
 
+// Le composable porte l'état, la validation et l'appel endpoint afin que la page reste une démo UI.
 const { message, validationError, echoed, loading, error, submit } = useEcho()
 </script>
