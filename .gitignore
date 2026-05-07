@@ -1,0 +1,49 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+localhost.*
+lighthouse.*
+lighthouse*.json
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Nginx local certs
+nginx/certs/*
+!nginx/certs/.gitkeep
+
+# Bun
+.bun-cache
+
+# Content
+# /content/*
+# !/content/README.md
+
+# Schemas
+/schemas/interfaces/
+/schemas/dtos/
+
+# Nuxt 4 ref
+nuxt-4-reference
+
+public/images/originals/
+lighthouse-*
+firefox.*

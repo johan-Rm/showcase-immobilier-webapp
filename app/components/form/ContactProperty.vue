@@ -1,0 +1,191 @@
+<template>
+  <UForm :state="formState" :validate="validate" class="space-y-8" @submit="onSubmit">
+    <input
+      v-model="formState.website"
+      type="text"
+      name="website"
+      tabindex="-1"
+      autocomplete="off"
+      class="hidden"
+      aria-hidden="true"
+    />
+
+    <input type="hidden" name="propertyReference" :value="props.propertyReference" />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <UFormField name="lastName" :ui="fieldUi">
+        <UInput
+          v-model="formState.lastName"
+          name="lastName"
+          placeholder="Nom"
+          variant="none"
+          class="border-foreground/30 w-full rounded-none border-b px-0"
+          autocomplete="family-name"
+          :disabled="isSubmitting"
+          :ui="inputUi"
+        />
+      </UFormField>
+
+      <UFormField name="firstName" required :ui="fieldUi">
+        <UInput
+          v-model="formState.firstName"
+          name="firstName"
+          placeholder="Prénom"
+          variant="none"
+          class="border-foreground/30 w-full rounded-none border-b px-0"
+          autocomplete="given-name"
+          :disabled="isSubmitting"
+          :ui="inputUi"
+        />
+      </UFormField>
+    </div>
+
+    <UFormField name="email" required :ui="fieldUi">
+      <UInput
+        v-model="formState.email"
+        type="email"
+        name="email"
+        placeholder="E-mail"
+        variant="none"
+        class="border-foreground/30 w-full rounded-none border-b px-0"
+        autocomplete="email"
+        :disabled="isSubmitting"
+        :ui="inputUi"
+      />
+    </UFormField>
+
+    <UFormField name="phone" :ui="fieldUi">
+      <UInput
+        v-model="formState.phone"
+        type="tel"
+        name="phone"
+        placeholder="Téléphone"
+        variant="none"
+        class="border-foreground/30 w-full rounded-none border-b px-0"
+        autocomplete="tel"
+        :disabled="isSubmitting"
+        :ui="inputUi"
+      />
+    </UFormField>
+
+    <UFormField name="message" required :ui="fieldUi">
+      <UTextarea
+        v-model="formState.message"
+        name="message"
+        placeholder="Message"
+        :rows="4"
+        variant="none"
+        class="border-foreground/30 w-full resize-none rounded-none border-b px-0"
+        :disabled="isSubmitting"
+        :ui="inputUi"
+      />
+    </UFormField>
+
+    <p
+      v-if="submitStatus === 'success'"
+      class="text-foreground/80 text-sm leading-relaxed"
+      role="status"
+      aria-live="polite"
+    >
+      Votre message a bien été envoyé. Nous vous répondrons rapidement.
+    </p>
+
+    <p
+      v-else-if="submitStatus === 'error'"
+      class="text-sm leading-relaxed text-red-700"
+      role="alert"
+    >
+      {{ submitErrorMessage }}
+    </p>
+
+    <div class="pt-4">
+      <UButton
+        type="submit"
+        class="bg-foreground px-8 py-3 tracking-[0.2em] text-white uppercase"
+        :loading="isSubmitting"
+        :disabled="isSubmitting"
+      >
+        {{ isSubmitting ? 'Envoi en cours' : 'Envoyer' }}
+      </UButton>
+    </div>
+  </UForm>
+</template>
+
+<script setup lang="ts">
+import type { FormError } from '@nuxt/ui'
+
+type ContactPropertyFormState = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  message: string
+  website: string
+}
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+const props = defineProps<{
+  propertyReference: string
+}>()
+
+const createInitialFormState = (): ContactPropertyFormState => ({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  message: '',
+  website: '',
+})
+
+const formState = reactive<ContactPropertyFormState>({
+  ...createInitialFormState(),
+})
+
+const { isSubmitting, submitStatus, submitErrorMessage, submitContact } = useContactForm()
+
+const fieldUi = {
+  label: 'block mb-2 text-xs uppercase tracking-[0.3em] text-foreground/70',
+  error: 'text-red-700',
+} as const
+
+const inputUi = {
+  base: 'placeholder:text-foreground/40 placeholder:text-xs',
+} as const
+
+const validate = (state: Partial<ContactPropertyFormState>): FormError<string>[] => {
+  const errors: FormError<string>[] = []
+
+  if (!state.firstName?.trim()) {
+    errors.push({ name: 'firstName', message: 'Le prénom est requis.' })
+  }
+
+  if (!state.email?.trim()) {
+    errors.push({ name: 'email', message: 'L’email est requis.' })
+  } else if (!EMAIL_PATTERN.test(state.email)) {
+    errors.push({ name: 'email', message: 'L’email est invalide.' })
+  }
+
+  if (!state.message?.trim()) {
+    errors.push({ name: 'message', message: 'Le message est requis.' })
+  }
+
+  return errors
+}
+
+const onSubmit = async (): Promise<void> => {
+  const response = await submitContact({
+    firstName: formState.firstName,
+    lastName: formState.lastName,
+    email: formState.email,
+    phone: formState.phone,
+    message: formState.message,
+    website: formState.website,
+    propertyReference: props.propertyReference,
+  })
+
+  if (response.success) {
+    Object.assign(formState, createInitialFormState())
+  }
+}
+</script>

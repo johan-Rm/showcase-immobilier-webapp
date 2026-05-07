@@ -1,0 +1,172 @@
+items:
+  - codeValue: acces-route
+    name: Accès route
+    inCodeSet: amenity-feature
+  - codeValue: accessibilite
+    name: accessibilité
+    inCodeSet: amenity-feature
+  - codeValue: agence-immobiliere
+    name: Agence immobilière
+    inCodeSet: article-section
+  - codeValue: air-conditionne
+    name: Air conditionné
+    inCodeSet: amenity-feature
+  - codeValue: alarme
+    name: Alarme
+    inCodeSet: amenity-feature
+  - codeValue: arganier
+    name: Arganier
+    inCodeSet: tag
+  - codeValue: ascenseur
+    name: Ascenseur
+    inCodeSet: tag
+  - codeValue: atelier
+    name: Atelier
+    inCodeSet: tag
+  - codeValue: balcon
+    name: Balcon
+    inCodeSet: tag
+  - codeValue: bien-titre
+    name: Bien titré
+    inCodeSet: tag
+  - codeValue: boutique
+    name: Boutique
+    inCodeSet: tag
+  - codeValue: campagne
+    name: Campagne
+    inCodeSet: tag
+  - codeValue: centre
+    name: Centre
+    inCodeSet: tag
+  - codeValue: centre-ville
+    name: Centre Ville
+    inCodeSet: tag
+  - codeValue: chateau-d-eau
+    name: Château d'eau
+    inCodeSet: amenity-feature
+  - codeValue: cheminee
+    name: Cheminee
+    inCodeSet: tag
+  - codeValue: climatisation
+    name: Climatisation
+    inCodeSet: amenity-feature
+  - codeValue: climatisation-reversible
+    name: Climatisation réversible
+    inCodeSet: amenity-feature
+  - codeValue: commerce
+    name: Commerce
+    inCodeSet: tag
+  - codeValue: contemporaine
+    name: Contemporaine
+    inCodeSet: tag
+  - codeValue: exposition-sud
+    name: Exposition Sud
+    inCodeSet: amenity-feature
+  - codeValue: essaouira
+    name: Essaouira
+    inCodeSet: tag
+  - codeValue: garage
+    name: Garage
+    inCodeSet: amenity-feature
+  - codeValue: gardien
+    name: Gardien
+    inCodeSet: amenity-feature
+  - codeValue: gestion-locative
+    name: Gestion locative
+    inCodeSet: tag
+  - codeValue: golf
+    name: Golf
+    inCodeSet: tag
+  - codeValue: hammam
+    name: Hammam
+    inCodeSet: amenity-feature
+  - codeValue: immobilier
+    name: Immobilier
+    inCodeSet: tag
+  - codeValue: investissement
+    name: Investissement
+    inCodeSet: tag
+  - codeValue: jacuzzi
+    name: Jacuzzi
+    inCodeSet: amenity-feature
+  - codeValue: jardin
+    name: Jardin
+    inCodeSet: tag
+  - codeValue: marina
+    name: Marina
+    inCodeSet: tag
+  - codeValue: medina
+    name: Medina
+    inCodeSet: tag
+  - codeValue: mezzanine
+    name: Mezzanine
+    inCodeSet: tag
+  - codeValue: parking
+    name: Parking
+    inCodeSet: tag
+  - codeValue: patio
+    name: Patio
+    inCodeSet: tag
+  - codeValue: petit-dejeuner
+    name: Petit Dejeuner
+    inCodeSet: tag
+  - codeValue: piscine
+    name: Piscine
+    inCodeSet: tag
+  - codeValue: piscine-chauffee
+    name: Piscine chauffée
+    inCodeSet: amenity-feature
+  - codeValue: riad
+    name: Riad
+    inCodeSet: tag
+  - codeValue: room-service
+    name: Room service
+    inCodeSet: amenity-feature
+  - codeValue: route-de-safi
+    name: Route De Safi
+    inCodeSet: tag
+  - codeValue: salle-de-bain
+    name: Salle de bain
+    inCodeSet: amenity-feature
+  - codeValue: salle-de-sport
+    name: Salle de sport
+    inCodeSet: amenity-feature
+  - codeValue: sidi-kaouki
+    name: Sidi Kaouki
+    inCodeSet: tag
+  - codeValue: solarium
+    name: Solarium
+    inCodeSet: amenity-feature
+  - codeValue: spa
+    name: Spa
+    inCodeSet: tag
+  - codeValue: terrain
+    name: Terrain
+    inCodeSet: tag
+  - codeValue: terrasse
+    name: Terrasse
+    inCodeSet: tag
+  - codeValue: terrasse-attenante
+    name: Terrasse attenante
+    inCodeSet: amenity-feature
+  - codeValue: toit-terrasse
+    name: Toit Terrasse
+    inCodeSet: tag
+  - codeValue: viabilise
+    name: Viabilise
+    inCodeSet: tag
+  - codeValue: vitrine
+    name: Vitrine
+    inCodeSet: tag
+  - codeValue: vue-degagee
+    name: Vue dégagée
+    inCodeSet: amenity-feature
+  - codeValue: vue-ocean
+    name: Vue Ocean
+    inCodeSet: tag
+  - codeValue: vue-sur-mer
+    name: Vue sur mer
+    inCodeSet: amenity-feature
+  - codeValue: wifi
+    name: Wifi
+    inCodeSet: amenity-feature

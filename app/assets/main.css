@@ -1,0 +1,9 @@
+@config '../../tailwind.config.ts';
+@import './styles/theme.css';
+@import './styles/markdown.css';
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+@theme {
+  --text-tiny: 0.525rem;
+}

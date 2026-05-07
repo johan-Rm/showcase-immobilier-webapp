@@ -1,0 +1,15 @@
+.git
+.gitignore
+.vscode
+.nuxt
+.output
+.data
+.tmp
+node_modules
+coverage
+dist
+*.log
+.env
+.env.*
+schemas/dtos
+schemas/interfaces

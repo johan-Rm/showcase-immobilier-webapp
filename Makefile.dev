@@ -1,0 +1,68 @@
+SHELL := /bin/bash
+COMPOSE_FILE := docker-compose.dev.yml
+
+export DOCKER_UID := $(shell id -u)
+export DOCKER_GID := $(shell id -g)
+
+.PHONY: dev-env dev-webapp-localhost dev-webapp-ssr dev-nginx dev-build dev-build-no-cache dev-down dev-logs dev-shell-webapp-localhost dev-shell-webapp-ssr dev-shell-nginx dev-analyze dev-analyse quality-check type-check lint-check lint-fix format-check
+
+# Initialise les fichiers .env Docker si absents
+
+dev-env:
+	@test -f .env || cp .env.example .env
+
+# Docker
+
+dev-webapp-localhost: dev-env
+	docker compose -f $(COMPOSE_FILE) up webapp-localhost
+
+dev-webapp-ssr: dev-env
+	docker compose -f $(COMPOSE_FILE) up $(if $(BUILD),--build) webapp-ssr nginx
+
+dev-nginx: dev-env
+	docker compose -f $(COMPOSE_FILE) up nginx
+
+dev-build:
+	docker compose -f $(COMPOSE_FILE) build $(if $(NO_CACHE),--no-cache)
+
+dev-build-no-cache:
+	docker compose -f $(COMPOSE_FILE) build --no-cache
+
+dev-down:
+	docker compose -f $(COMPOSE_FILE) down
+
+dev-logs:
+	docker compose -f $(COMPOSE_FILE) logs -f --tail=200
+
+dev-shell-webapp-localhost:
+	docker compose -f $(COMPOSE_FILE) exec webapp-localhost sh
+
+dev-shell-webapp-ssr:
+	docker compose -f $(COMPOSE_FILE) exec webapp-ssr sh
+
+dev-shell-nginx:
+	docker compose -f $(COMPOSE_FILE) exec nginx sh
+
+# Analyse bundle Nuxt (local)
+
+dev-analyze:
+	bunx nuxi analyze
+
+dev-analyse: dev-analyze
+
+# Qualité (local)
+
+quality-check:
+	bun run quality:check
+
+lint-check:
+	bun run lint:check
+
+lint-fix:
+	bun run lint:fix
+
+format-check:
+	bun run format:check
+
+type-check:
+	bun run type-check

@@ -1,0 +1,10 @@
+approval_policy = "on-request"
+sandbox_mode = "danger-full-access"
+
+[context]
+include = [
+  "AGENTS.md",
+  "CONSTITUTION.md",
+  "**/README.md",
+  "./docs/2.architecture/"
+]

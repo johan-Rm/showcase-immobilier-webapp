@@ -1,0 +1,396 @@
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.layout-enter-from {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.layout-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 250ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Track global pour la navigation par écrans (déplacement via CSS variables). */
+.screen-track {
+  transform: var(--screen-translate, translate3d(0, 0, 0));
+  transition: transform var(--screen-duration, 700ms) ease;
+}
+
+/*
+  Transitions d'ecrans pilotees par le composable de navigation.
+  Contrat d'integration:
+  - Le composable applique une classe `screen-transition-*` sur le conteneur (ex: `screen-transition-depth`).
+  - Le composable met a jour `data-screen-active` et `data-screen-state` sur chaque `.page-section-ui-root`.
+  - `--screen-duration` permet d'ajuster la duree sans changer les regles CSS.
+  Ces classes definissent uniquement le rendu visuel; la logique de changement d'etat reste cote composable.
+*/
+
+.screen-motion-overlay {
+  position: relative;
+  display: block;
+}
+
+.screen-motion-overlay .page-section-ui-root {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.screen-motion-overlay .page-section-ui-root[data-screen-active='true'] {
+  pointer-events: auto;
+}
+
+.screen-transition-curtain .page-section-ui-root {
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-curtain .page-section-ui-root[data-screen-active='true'] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.screen-transition-depth .page-section-ui-root {
+  opacity: 0;
+  transform: scale(0.94);
+  filter: blur(2px);
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease,
+    filter var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-depth .page-section-ui-root[data-screen-active='true'] {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.screen-transition-reveal .page-section-ui-root {
+  opacity: 0;
+  transform: scale(0.985);
+  clip-path: inset(0 12% 0 0);
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease,
+    clip-path var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-reveal .page-section-ui-root[data-screen-active='true'] {
+  opacity: 1;
+  transform: scale(1);
+  clip-path: inset(0 0 0 0);
+}
+
+.screen-transition-split-columns .screen-split-columns__col {
+  opacity: 0;
+  transition:
+    transform var(--screen-duration, 700ms) ease,
+    opacity var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-split-columns
+  .page-section-ui-root[data-screen-active='true']
+  .screen-split-columns__col {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.screen-transition-split-columns
+  .page-section-ui-root[data-screen-active='false']
+  .screen-split-columns__col--left {
+  transform: translate3d(-12%, 0, 0);
+}
+
+.screen-transition-split-columns
+  .page-section-ui-root[data-screen-active='false']
+  .screen-split-columns__col--right {
+  transform: translate3d(12%, 0, 0);
+}
+
+.screen-transition-push-parallax .page-section-ui-root {
+  opacity: 0;
+  transform: scale(0.985) translate3d(0, 0, 0);
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-push-parallax .page-section-ui-root[data-screen-active='true'] {
+  opacity: 1;
+  transform: scale(1) translate3d(0, 0, 0);
+}
+
+.screen-transition-push-parallax .page-section-ui-root[data-screen-state='before'] {
+  opacity: 0.35;
+  transform: scale(0.97) translate3d(-4%, 0, 0);
+}
+
+.screen-transition-push-parallax .page-section-ui-root[data-screen-state='after'] {
+  opacity: 0.5;
+  transform: scale(0.985) translate3d(6%, 0, 0);
+}
+
+.screen-transition-fade-up .page-section-ui-root {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-fade-up .page-section-ui-root[data-screen-active='true'] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.fade-up-enter-active,
+.fade-up-leave-active {
+  transition:
+    opacity 350ms ease,
+    transform 350ms ease;
+}
+
+.fade-up-enter-from,
+.fade-up-leave-to {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+}
+
+.screen-transition-cross-zoom .page-section-ui-root {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease;
+}
+
+.screen-transition-cross-zoom .page-section-ui-root[data-screen-active='true'] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.screen-transition-cross-zoom .page-section-ui-root[data-screen-state='before'] {
+  transform: scale(1.03);
+}
+
+.screen-transition-cross-zoom .page-section-ui-root[data-screen-state='after'] {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-track,
+  .page-section-ui-root,
+  .screen-split-columns__col,
+  .fade-up-enter-active,
+  .fade-up-leave-active {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .screen-track,
+  .screen-transition-curtain .page-section-ui-root,
+  .screen-transition-depth .page-section-ui-root,
+  .screen-transition-reveal .page-section-ui-root,
+  .screen-transition-split-columns .screen-split-columns__col,
+  .screen-transition-push-parallax .page-section-ui-root,
+  .screen-transition-fade-up .page-section-ui-root,
+  .screen-transition-cross-zoom .page-section-ui-root,
+  .fade-up-enter-from,
+  .fade-up-leave-to {
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}
+
+.soft-fade-enter-active,
+.soft-fade-leave-active {
+  transition: opacity 420ms ease;
+}
+
+.soft-fade-enter-from,
+.soft-fade-leave-to {
+  opacity: 0;
+}
+
+.zoom-cut-enter-active,
+.zoom-cut-leave-active {
+  transition:
+    opacity 450ms ease,
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center;
+}
+
+.zoom-cut-enter-from {
+  opacity: 0;
+  transform: scale(1.035);
+}
+
+.zoom-cut-leave-to {
+  opacity: 0;
+  transform: scale(0.985);
+}
+
+.cinema-mask-enter-active,
+.cinema-mask-leave-active {
+  transition:
+    opacity 520ms ease,
+    clip-path 720ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.cinema-mask-enter-from {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+}
+
+.cinema-mask-enter-to {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+.cinema-mask-leave-from {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+.cinema-mask-leave-to {
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+}
+
+.crossfade-enter-active,
+.crossfade-leave-active {
+  position: absolute;
+  inset: 0;
+  transition: opacity 400ms ease;
+}
+
+.crossfade-enter-from,
+.crossfade-leave-to {
+  opacity: 0;
+}
+
+.overlay-wipe-enter-active,
+.overlay-wipe-leave-active {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: black; /* ou var(--color-background) */
+  pointer-events: none;
+  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.overlay-wipe-enter-from {
+  transform: translateY(100%);
+}
+
+.overlay-wipe-enter-to,
+.overlay-wipe-leave-from {
+  transform: translateY(0);
+}
+
+.overlay-wipe-leave-to {
+  transform: translateY(-100%);
+}
+
+/* ENTER uniquement */
+.zoom-in-enter-active {
+  transition:
+    opacity 450ms ease,
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.zoom-in-enter-from {
+  opacity: 0;
+  transform: scale(1.035);
+}
+
+.zoom-in-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* LEAVE désactivé */
+.zoom-in-leave-active {
+  transition: none;
+}
+
+.zoom-in-leave-from,
+.zoom-in-leave-to {
+  opacity: 1;
+  transform: none;
+}
+
+/* état initial entrée */
+.cross-zoom-enter-from {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+/* état final entrée */
+.cross-zoom-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* pendant l’entrée */
+.cross-zoom-enter-active {
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease;
+}
+
+/* état initial sortie */
+.cross-zoom-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* état final sortie */
+.cross-zoom-leave-to {
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+/* pendant la sortie */
+.cross-zoom-leave-active {
+  transition:
+    opacity var(--screen-duration, 700ms) ease,
+    transform var(--screen-duration, 700ms) ease;
+}

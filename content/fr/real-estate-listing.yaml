@@ -1,0 +1,14 @@
+items:
+  - slug: bien-a-vendre
+    name: Biens a vendre
+    text: Découvrez notre sélection de maisons, riads et villas à vendre à Essaouira. Que vous recherchiez une résidence principale, secondaire ou un investissement locatif, nos biens sont sélectionnés pour leur emplacement et leur potentiel.
+  - slug: location-saisonniere
+    name: Locations saisonniere
+    text: Profitez d’une expérience unique grâce à nos locations saisonnières à Essaouira. Des biens confortables et authentiques, idéalement situés pour découvrir la médina et le littoral.
+  - slug: location-longue-duree
+    name: Locations longue durée
+    text: Nous proposons également des biens en location longue durée, adaptés à une installation durable dans la région, avec des options variées selon vos besoins.
+  - slug: professionnels
+    name: Professionnels
+    isActive: false
+    text: 'Explorez nos opportunités pour les professionnels : locaux commerciaux, maisons d’hôtes, projets touristiques ou investissements à fort potentiel.'

@@ -1,0 +1,176 @@
+<template>
+  <div class="screen-real-estate-three-col-properties bg-background relative h-full w-full">
+    <div class="relative z-10 flex h-full w-full flex-col">
+      <LazyHeadingH2Screen :to="sectionLink">
+        {{ sectionTitle }}
+      </LazyHeadingH2Screen>
+
+      <div
+        class="screen-real-estate-three-col-properties__panels grid min-h-0 flex-1 md:h-screen"
+        :class="[
+          screenColumnTemplate[columnTemplate].value,
+          isMobilePortrait || isTabletPortrait ? 'pt-24 pb-14' : '',
+        ]"
+      >
+        <LazyPanelThreeCols
+          v-for="(panel, index) in panels"
+          :key="panel.to"
+          :panel="panel"
+          :index="index"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
+import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
+
+type ThreeColPropertiesScreenProps = {
+  data?: CreativeWork
+}
+
+const props = defineProps<ThreeColPropertiesScreenProps>()
+
+type TryptiquePanel = {
+  image: string
+  imageAlt: string
+  title: string
+  description: string
+  to: string
+  headingId: string
+}
+
+const SCREEN_ID = 'screen-real-estate-three-col-properties'
+const columnTemplate: ScreenColumnTemplate = 'triple-equal'
+
+const metadataStore = useMetadataStore()
+const localePath = useLocalePath()
+const logger = useLogger({ module: 'screen-real-estate-three-col-properties' })
+
+const { getPageBySlug, getPageComponentByIdentifier } = useWebPage()
+const { isMobilePortrait, isTabletPortrait } = useDeviceDetect()
+const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
+const { warmQuickActionTarget } = useQuickActionWarmup()
+
+let hasWarmedTargets = false
+
+const sectionLink = computed<string>(() => localePath('/properties/bien-a-vendre'))
+
+const fallbackPage = computed(() => getPageBySlug('home'))
+
+const screenData = computed<CreativeWork | undefined>(() => {
+  if (props.data) {
+    return props.data
+  }
+
+  return getPageComponentByIdentifier(fallbackPage.value, SCREEN_ID) ?? undefined
+})
+
+const imageObjectByIdentifier = computed<Map<string, MediaObject>>(
+  () =>
+    new Map(
+      metadataStore.getImageObjects
+        .filter((item): item is MediaObject & { identifier: string } => Boolean(item.identifier))
+        .map((item) => [item.identifier, item] as const),
+    ),
+)
+
+function toPanelHeadingId(to: string): string {
+  const safe = to.replaceAll('/', '-').replace(/^-+/, '')
+  return `panel-${safe}-title`
+}
+
+const resolvedMenuItems = computed<MenuItem[]>(() => {
+  return screenData.value?.links ?? []
+})
+
+const panels = computed<TryptiquePanel[]>(() =>
+  resolvedMenuItems.value
+    .map((menuItem) => {
+      const imageIdentifier =
+        typeof menuItem.imageIdentifier === 'string' ? menuItem.imageIdentifier : undefined
+      if (!imageIdentifier) return null
+
+      const image = imageObjectByIdentifier.value.get(imageIdentifier)
+      const imageUrl = image?.url?.trim() ?? ''
+      if (!imageUrl) return null
+
+      const title = menuItem.name ?? ''
+      if (!title) return null
+
+      const description = menuItem.description ?? ''
+      const to = menuItem.url ?? ''
+      if (!to) return null
+
+      return {
+        image: imageUrl,
+        imageAlt: image?.caption?.trim() || title,
+        title,
+        description,
+        to,
+        headingId: toPanelHeadingId(to),
+      }
+    })
+    .filter((panel): panel is TryptiquePanel => panel !== null),
+)
+
+const sectionTitle = computed<string>(() => screenData.value?.headline ?? 'Nos biens immobiliers')
+
+const warmThreeColTargets = (): void => {
+  if (hasWarmedTargets) return
+
+  const targets = [sectionLink.value, ...panels.value.map((panel) => localePath(panel.to))].filter(
+    (target, index, list) => {
+      return target && target !== '/' && list.indexOf(target) === index
+    },
+  )
+
+  if (targets.length === 0) return
+
+  hasWarmedTargets = true
+
+  targets.forEach((to) => {
+    warmQuickActionTarget({
+      id: `${SCREEN_ID}:${to}`,
+      to,
+    })
+  })
+
+  logger.info('Warm three col property targets', {
+    screenId: SCREEN_ID,
+    targets,
+  })
+}
+
+onMounted(() => {
+  setScreenMeta(SCREEN_ID, {
+    type: 'landing',
+    logo: {
+      visible: true,
+    },
+    layout: {
+      column: columnTemplate,
+      contentZone: 'none',
+      imageZone: 'background',
+    },
+  })
+
+  warmThreeColTargets()
+})
+</script>
+
+<style scoped>
+@media (max-width: 767px), (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .screen-real-estate-three-col-properties__panels {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .screen-real-estate-three-col-properties__panel {
+    min-height: 0 !important;
+    height: 100%;
+  }
+}
+</style>

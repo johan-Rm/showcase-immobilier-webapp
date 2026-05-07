@@ -1,0 +1,50 @@
+services:
+  webapp-ssr:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      additional_contexts:
+        schemas: ${SCHEMAS_PATH:-../../schemas}
+    working_dir: /app
+    init: true
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      SCHEMAS_PATH: /app/schemas
+      NUXT_RESEND_API_KEY: ${RESEND_API_KEY:-}
+      NUXT_RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-MLK - My Little Kasbah <contact@mlk-my-little-kasbah.immo>}
+      NUXT_CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
+      NUXT_CONTACT_BCC_EMAILS: ${CONTACT_BCC_EMAILS:-developer@graines-digitales.online}
+      NUXT_CONTACT_REPLY_TO_EMAIL: ${CONTACT_REPLY_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
+      NUXT_CONTACT_SUBMISSIONS_PATH: ${CONTACT_SUBMISSIONS_PATH:-.data/contact-submissions.csv}
+    expose:
+      - '3000'
+    volumes:
+      - ${SCHEMAS_PATH:-../../schemas}:/app/schemas
+    networks:
+      mlk_network_prod: {}
+      edge_network:
+        aliases:
+          - mlk-webapp-prod
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
+
+networks:
+  mlk_network_prod:
+    name: mlk_network_prod
+    driver: bridge
+  edge_network:
+    external: true
+    name: edge-net

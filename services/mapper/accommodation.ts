@@ -1,0 +1,511 @@
+import type {
+  Accommodation,
+  AccommodationCategory,
+  AccommodationMedia,
+  AccommodationPlace,
+  CategoryCode,
+  MediaObject,
+  Person,
+  RealEstateListing,
+} from '@schemas/interfaces'
+
+/**
+ * Mapper de normalisation des biens immobiliers.
+ *
+ * Objectif :
+ * - accepter des entrées hétérogènes (slugs, objets partiels, champs optionnels)
+ * - résoudre les références via des index en mémoire (catégories, lieux, médias, personnes)
+ * - produire un contrat `Accommodation` stable pour les stores et l'UI
+ *
+ * Le module ne réalise aucun accès I/O : il applique uniquement des transformations pures.
+ */
+
+/**
+ * Collections référentielles passées au mapper pour enrichir les relations d'un bien.
+ */
+export type AccommodationMetadata = {
+  categoryCodes?: CategoryCode[]
+  categories?: AccommodationCategory[]
+  places?: AccommodationPlace[]
+  listings?: RealEstateListing[]
+  people?: Person[]
+  images?: MediaObject[]
+}
+
+/**
+ * Index internes calculés une seule fois pour éviter des recherches linéaires répétées.
+ */
+type AccommodationMetadataIndexes = {
+  categoryCodes: Map<string, CategoryCode>
+  categories: Map<string, AccommodationCategory>
+  places: Map<string, AccommodationPlace>
+  listings: Map<string, RealEstateListing>
+  people: Map<string, Person>
+  images: Map<string, MediaObject>
+}
+
+type UnknownRecord = Record<string, unknown>
+type AccommodationMediaWithRepresentativeFlag = AccommodationMedia & {
+  representativeOfPage?: boolean
+}
+
+const IMAGE_EXTENSION_REGEX = /\.(avif|webp|png|jpe?g|gif|svg)(?:[?#].*)?$/i
+
+/**
+ * Détecte si la valeur peut être traitée comme un objet simple.
+ *
+ * @param value Valeur à vérifier.
+ * @returns `true` si la valeur est un objet non nul, sinon `false`.
+ */
+const isRecord = (value: unknown): value is UnknownRecord =>
+  typeof value === 'object' && value !== null
+
+/**
+ * Lit une valeur textuelle avec fallback.
+ *
+ * @param value Valeur source.
+ * @param fallback Valeur de secours lorsque `value` n'est pas une chaîne.
+ * @returns Chaîne validée ou fallback.
+ */
+const getString = (value: unknown, fallback = ''): string =>
+  typeof value === 'string' ? value : fallback
+
+const isDirectImageUrl = (value: string): boolean => {
+  if (value.startsWith('/images/')) return true
+  if (value.startsWith('/_ipx/')) return true
+  if (value.startsWith('http://') || value.startsWith('https://')) return true
+  if (value.startsWith('/')) return IMAGE_EXTENSION_REGEX.test(value)
+  return IMAGE_EXTENSION_REGEX.test(value)
+}
+
+/**
+ * Normalise une liste de chaînes en supprimant les valeurs vides/non textuelles.
+ *
+ * @param value Valeur source potentiellement non typée.
+ * @returns Tableau de chaînes filtrées, ou `undefined` si aucune valeur exploitable.
+ */
+const getStringArray = (value: unknown): string[] | undefined => {
+  if (!Array.isArray(value)) return undefined
+  const items = value.filter((item): item is string => typeof item === 'string' && item.length > 0)
+  return items.length ? items : undefined
+}
+
+const getLocationDescription = (
+  place: Accommodation['place'],
+  indexes: AccommodationMetadataIndexes,
+): string => {
+  if (!place?.slug) return ''
+  return indexes.places.get(place.slug)?.description ?? ''
+}
+
+/**
+ * Transforme un enregistrement brut en objet `CategoryCode` tolérant plusieurs formats.
+ *
+ * @param value Source contenant `codeValue`, `slug` et/ou `name`.
+ * @returns Instance `CategoryCode` construite à partir des champs disponibles.
+ */
+const toCategoryCode = (value: UnknownRecord): CategoryCode => ({
+  codeValue: getString(value.codeValue, getString(value.slug)),
+  name: getString(value.name, getString(value.codeValue, getString(value.slug))),
+})
+
+/**
+ * Crée un objet `AccommodationPlace` à partir d’un record partiel.
+ *
+ * @param value Données brutes contenant un slug et/ou un nom.
+ * @returns Instance minimale de `AccommodationPlace` réutilisable dans les index.
+ */
+const toAccommodationPlace = (value: UnknownRecord): AccommodationPlace => ({
+  slug: getString(value.slug, getString(value.name)),
+  name: getString(value.name, getString(value.slug)),
+})
+
+/**
+ * Crée un objet `RealEstateListing` compact à partir d’une source générique.
+ *
+ * @param value Données brutes pouvant être un slug ou un objet complet.
+ * @returns Objet `RealEstateListing` contenant les champs clés.
+ */
+const toRealEstateListing = (value: UnknownRecord): RealEstateListing => ({
+  slug: getString(value.slug, getString(value.name)),
+  name: getString(value.name, getString(value.slug)),
+  isActive: typeof value.isActive === 'boolean' ? value.isActive : false,
+})
+
+/**
+ * Construit une entité `Person` en validant les champs attendus.
+ *
+ * @param value Source brute contenant éventuellement `identifier`, `name`, `phone`, `email`.
+ * @returns Objet `Person` avec les champs conformes ou `undefined`.
+ */
+const toPerson = (value: UnknownRecord): Person => ({
+  identifier: getString(value.identifier),
+  name: getString(value.name, getString(value.identifier)),
+  phone: getString(value.phone),
+  email: getString(value.email),
+})
+
+/**
+ * Normalise le bloc `offer` pour garantir un contrat stable côté UI.
+ *
+ * La fonction force notamment :
+ * - un `price` sérialisé en string (quelle que soit la source)
+ * - une devise par défaut (`EUR`) lorsque l'information est absente
+ *
+ * @param value Valeur brute issue du contenu.
+ * @returns Offre homogène compatible avec le contrat `Accommodation`.
+ */
+const mapOffer = (value: unknown): Accommodation['offer'] => {
+  if (!isRecord(value)) {
+    return { price: '', priceCurrency: 'EUR' }
+  }
+
+  const rawPrice = value.price
+  const price = typeof rawPrice === 'number' ? String(rawPrice) : getString(rawPrice)
+
+  const priceSpecification = getString(value.priceSpecification)
+
+  return {
+    price,
+    priceCurrency: getString(value.priceCurrency, 'EUR'),
+    ...(priceSpecification ? { priceSpecification } : {}),
+  }
+}
+
+/**
+ * Indexe une collection à l’aide d’une clé optionnelle afin de permettre un lookup rapide.
+ *
+ * @param items Collection à indexer.
+ * @param getKey Fonction qui retourne la clé unique pour chaque élément.
+ * @returns Map des éléments indexés par leur clé.
+ */
+const buildIndex = <T>(
+  items: readonly T[],
+  getKey: (item: T) => string | undefined,
+): Map<string, T> => {
+  const index = new Map<string, T>()
+  for (const item of items) {
+    const key = getKey(item)
+    if (key) {
+      index.set(key, item)
+    }
+  }
+  return index
+}
+
+/**
+ * Génère tous les index utiles à partir des métadonnées et facilite la résolution des relations.
+ *
+ * @param metadata Métadonnées contenant les listes référentielles (categories, personnes, etc.).
+ * @returns Objet contenant les Maps prêtes à être utilisées par les mappers.
+ */
+const buildIndexes = (metadata: AccommodationMetadata): AccommodationMetadataIndexes => ({
+  categoryCodes: buildIndex(metadata.categoryCodes ?? [], (item) =>
+    typeof item.codeValue === 'string' ? item.codeValue : undefined,
+  ),
+  categories: buildIndex(metadata.categories ?? [], (item) => item.slug),
+  places: buildIndex(metadata.places ?? [], (item) => item.slug),
+  listings: buildIndex(metadata.listings ?? [], (item) => item.slug),
+  people: buildIndex(metadata.people ?? [], (item) => item.identifier),
+  images: buildIndex(metadata.images ?? [], (item) => item.identifier),
+})
+
+const normalizeMediaObject = (value: MediaObject): MediaObject => {
+  const record = value as unknown as UnknownRecord
+  const url = getString(record.url, getString(record.contentUrl))
+  const sourceUrl = getString(record.sourceUrl, url)
+
+  return {
+    ...value,
+    url,
+    sourceUrl,
+  }
+}
+
+/**
+ * Résout un champ `category` en transformant un slug en objet enrichi ou vice-versa.
+ *
+ * @param value Chaîne ou objet brut représentant une catégorie.
+ * @param indexes Index pré-calculés pour retrouver les objets complets.
+ * @returns `AccommodationCategory` enrichi ou `undefined` si rien n’est trouvé.
+ */
+const mapCategory = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation['category'] => {
+  if (typeof value !== 'string') {
+    if (!isRecord(value)) {
+      return { slug: '', name: '' }
+    }
+
+    return {
+      slug: getString(value.slug, getString(value.codeValue)),
+      name: getString(value.name, getString(value.slug, getString(value.codeValue))),
+    }
+  }
+
+  const category = indexes.categories.get(value)
+  if (category) {
+    return {
+      slug: category.slug,
+      name: category.name,
+    }
+  }
+
+  const categoryCode = indexes.categoryCodes.get(value)
+
+  return {
+    slug: categoryCode?.codeValue ?? value,
+    name: categoryCode?.name ?? value,
+  }
+}
+
+/**
+ * Transforme une liste de catégories slugs/objets en objets `CategoryCode` validés.
+ *
+ * @param value Liste brute de slugs ou d’objets partiels.
+ * @param indexes Index de références permettant de enrichir les slugs.
+ * @returns Liste filtrée ne contenant que des `CategoryCode` ou des slugs valides.
+ */
+const mapCategoryList = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation['amenityFeature'] => {
+  if (!Array.isArray(value)) return undefined
+  return value
+    .map((entry): CategoryCode | undefined => {
+      if (typeof entry === 'string') {
+        return indexes.categoryCodes.get(entry) ?? { codeValue: entry, name: entry }
+      }
+      if (isRecord(entry)) {
+        return toCategoryCode(entry)
+      }
+      return undefined
+    })
+    .filter((entry): entry is CategoryCode => typeof entry !== 'undefined')
+}
+
+/**
+ * Résout le lieu (`place`) à partir d’un slug ou d’un objet partiel.
+ *
+ * @param value Chaîne ou objet décrivant un lieu.
+ * @param indexes Index des lieux disponibles.
+ * @returns `AccommodationPlace`, slug ou `undefined`.
+ */
+const mapPlace = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation['place'] => {
+  if (typeof value !== 'string') {
+    return isRecord(value) ? toAccommodationPlace(value) : { slug: '', name: '' }
+  }
+  return indexes.places.get(value) ?? { slug: value, name: value }
+}
+
+/**
+ * Résout le champ `realEstateListing`, en supportant les slugs ou les objets.
+ *
+ * @param value Slug ou objet d’annonce immobilière.
+ * @param indexes Index des annonces disponibles.
+ * @returns `RealEstateListing` enrichi ou le slug original.
+ */
+const mapListing = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation['realEstateListing'] => {
+  if (typeof value !== 'string') {
+    return isRecord(value) ? toRealEstateListing(value) : { slug: '', name: '', isActive: false }
+  }
+  return indexes.listings.get(value) ?? { slug: value, name: value, isActive: false }
+}
+
+/**
+ * Résout le champ `realEstateAgent` et normalise les données de contact.
+ *
+ * @param value Chaîne ou objet représentant un agent.
+ * @param indexes Index des personnes disponibles.
+ * @returns `Person` ou chaîne initiale si aucun objet n’est trouvé.
+ */
+const mapRealEstateAgent = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation['realEstateAgent'] => {
+  if (typeof value !== 'string') {
+    return isRecord(value) ? toPerson(value) : { identifier: '', name: '', phone: '', email: '' }
+  }
+
+  const lookup = indexes.people.get(value)
+  return lookup ?? { identifier: value, name: value, phone: '', email: '' }
+}
+
+/**
+ * Résout une image brute vers un `MediaObject` homogène.
+ *
+ * @param value Identifiant, URL ou objet image brut.
+ * @param indexes Index des objets `ImageObject`.
+ * @returns `MediaObject` normalisé ou `undefined`.
+ */
+const mapMediaObject = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): MediaObject | undefined => {
+  if (typeof value === 'string') {
+    if (!value.length) return undefined
+    const image = indexes.images.get(value)
+    if (image) return normalizeMediaObject(image)
+    const url = isDirectImageUrl(value) ? value : ''
+    return {
+      identifier: value,
+      name: value,
+      caption: '',
+      url,
+      source: 'content',
+      sourceUrl: url,
+      mainEntity: 'ImageObject',
+    }
+  }
+
+  if (!isRecord(value)) return undefined
+
+  const identifier = getString(value.identifier, getString(value.url, getString(value.name)))
+  if (identifier) {
+    const image = indexes.images.get(identifier)
+    if (image) return normalizeMediaObject(image)
+  }
+
+  const rawUrl = getString(value.url)
+  const url = isDirectImageUrl(rawUrl) ? rawUrl : ''
+  const name = getString(value.name, identifier)
+  const caption = getString(value.caption, name)
+  const source = getString(value.source, 'content')
+  const sourceUrl = getString(value.sourceUrl, url)
+  const mainEntity = getString(value.mainEntity, 'ImageObject')
+
+  if (!identifier && !url && !name && !caption && !source && !sourceUrl && !mainEntity) {
+    return undefined
+  }
+
+  return {
+    identifier,
+    url,
+    name,
+    caption,
+    source,
+    sourceUrl,
+    mainEntity,
+  }
+}
+
+/**
+ * Transforme `associatedMedia` du DTO en galerie exploitable par l’UI.
+ *
+ * @param value Liste d’objets média DTO.
+ * @param indexes Index des objets `ImageObject`.
+ * @returns Liste de médias enrichis avec URL résolue.
+ */
+const mapAssociatedMedia = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation['associatedMedia'] => {
+  if (!Array.isArray(value)) return []
+
+  const mapped: Accommodation['associatedMedia'] = []
+
+  for (const entry of value) {
+    if (!isRecord(entry)) continue
+
+    const media = mapMediaObject(entry.image, indexes)
+    if (!media) continue
+
+    const caption = getString(entry.caption, media.caption)
+    const keywords = getStringArray(entry.keywords)
+    const representativeOfPage =
+      typeof entry.representativeOfPage === 'boolean' ? entry.representativeOfPage : undefined
+
+    mapped.push({
+      image: media,
+      caption,
+      keywords,
+      ...(typeof representativeOfPage === 'boolean' ? { representativeOfPage } : {}),
+    } satisfies AccommodationMediaWithRepresentativeFlag)
+  }
+
+  return mapped
+}
+
+/**
+ * Applique tous les mappers sur un bien en utilisant les index déjà construits.
+ *
+ * @param item Bien qui sera enrichi par les références.
+ * @param indexes Index partagés pour éviter de reconstruire les Maps à chaque appel.
+ * @returns Bien transformé avec les relations résolues.
+ */
+const mapAccommodationWithIndexes = (
+  item: Accommodation,
+  indexes: AccommodationMetadataIndexes,
+): Accommodation => {
+  // Les loaders injectent parfois des structures partielles ; le record local
+  // permet de lire ces variantes sans casser le contrat de sortie.
+  const record = item as unknown as UnknownRecord
+  const place = mapPlace(record.place, indexes)
+
+  return {
+    ...item,
+    name: getString(record.name, getString(record.metaTitle, getString(record.slug))),
+    description: getString(record.body, getString(record.description)),
+    identifier: getString(record.identifier, getString(record.slug)),
+    category: mapCategory(record.category, indexes),
+    offer: mapOffer(record.offer),
+    place: mapPlace(record.place, indexes),
+    amenityFeature: mapCategoryList(record.amenityFeature, indexes),
+    qualities: Array.isArray(record.qualities) ? record.qualities : undefined,
+    associatedMedia: mapAssociatedMedia(record.associatedMedia, indexes),
+    realEstateListing: mapListing(record.realEstateListing, indexes),
+    isActive: typeof record.isActive === 'boolean' ? record.isActive : false,
+    locationDescription: getLocationDescription(place, indexes),
+    tags: mapCategoryList(record.tags, indexes),
+    realEstateAgent: mapRealEstateAgent(record.realEstateAgent, indexes),
+    metaTitle: getString(record.metaTitle, getString(record.name, getString(record.slug))),
+    metaDescription: getString(record.metaDescription, getString(record.description)),
+    slug: getString(record.slug, getString(record.identifier)),
+  }
+}
+
+/**
+ * Enrichit un bien avec les collections référentielles (catégories, listings,
+ * personnes, images) afin de transformer les slugs en objets complets et
+ * d’unifier les champs métier utilisés dans l’UI.
+ *
+ * @param item Bien brut provenant d’un CMS ou d’un loader.
+ * @param metadata Collections de référence servant d’index pour le mapping.
+ * @returns Une version du bien dont les relations sont résolues.
+ */
+export const mapAccommodation = (
+  item: Accommodation,
+  metadata: AccommodationMetadata = {},
+): Accommodation => {
+  // Cas unitaire : index construits à la volée pour garder une API simple
+  // lorsque le mapper est utilisé hors pipeline liste.
+  const indexes = buildIndexes(metadata)
+  return mapAccommodationWithIndexes(item, indexes)
+}
+
+/**
+ * Applique `mapAccommodation` sur chaque élément d’une liste, en réutilisant
+ * les mêmes métadonnées pour les index.
+ *
+ * @param items Liste de biens à transformer.
+ * @param metadata Métadonnées partagées (categories, listings, etc.).
+ * @returns Liste de biens enrichis.
+ */
+export const mapAccommodations = (
+  items: Accommodation[],
+  metadata: AccommodationMetadata = {},
+): Accommodation[] => {
+  const list = Array.isArray(items) ? items : []
+  if (!list.length) return []
+  // Cas liste : mutualisation des index pour réduire le coût CPU
+  // lorsque de nombreux biens partagent les mêmes référentiels.
+  const indexes = buildIndexes(metadata)
+  return list.map((item) => mapAccommodationWithIndexes(item, indexes))
+}

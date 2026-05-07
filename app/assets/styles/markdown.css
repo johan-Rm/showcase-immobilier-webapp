@@ -1,0 +1,298 @@
+/* =========================
+   MARKDOWN THEME (GLOBAL)
+========================= */
+
+.markdown-panel {
+  color: rgb(var(--color-foreground) / 0.9);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.markdown-panel * {
+  min-width: 0;
+}
+
+/* =========================
+   HEADINGS
+========================= */
+
+.markdown-panel h2 {
+  font-size: clamp(1.45rem, 2vw, 2.1rem);
+  margin-top: 2.2rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.markdown-panel h3 {
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
+
+.markdown-panel h4 {
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  letter-spacing: -0.005em;
+  position: relative;
+}
+
+/* .markdown-panel h2:not(:first-child)::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin-bottom: 2rem;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--color-border, var(--color-foreground)) / 0.18),
+    transparent
+  );
+
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+
+  animation: separatorFadeIn 0.8s ease-out forwards;
+} */
+
+/* =========================
+   HR
+========================= */
+.markdown-panel hr {
+  position: relative;
+  border: 0;
+  height: 1px;
+  margin: 3rem 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--color-border, var(--color-foreground)) / 0.18),
+    transparent
+  );
+
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+
+  animation: separatorFadeIn 0.8s ease-out forwards;
+}
+
+.markdown-panel hr::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+
+  background: rgb(var(--color-border, var(--color-foreground)) / 0.6);
+
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+
+  animation: dotFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.markdown-panel p {
+  font-size: clamp(1rem, 1.02vw, 1.08rem);
+  color: rgb(var(--color-foreground) / 0.9);
+  /* max-width: 72ch; */
+  margin-bottom: 1.1rem;
+  text-align: justify;
+}
+
+/* =========================
+   LISTS
+========================= */
+
+.markdown-panel ul {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-bottom: 1.1rem;
+  /* max-width: 72ch; */
+}
+
+.markdown-panel ul > li {
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.25;
+}
+
+/* .markdown-panel ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+
+  background: rgb(var(--color-foreground, var(--color-primary)) / 0.95);
+  transform: translateY(-50%);
+} */
+
+.markdown-panel ol {
+  list-style: decimal;
+  padding-left: 1.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.markdown-panel ol > li {
+  padding-left: 0.25rem;
+  line-height: 1.25;
+  margin-bottom: 0.4rem;
+}
+
+.markdown-panel ol > li::marker {
+  color: rgb(var(--color-foreground, var(--color-primary)) / 0.9);
+  font-weight: 500;
+}
+
+/* =========================
+   BLOCKQUOTE
+========================= */
+
+.markdown-panel blockquote {
+  margin: 2rem 0;
+  padding-left: 1.2rem;
+
+  border-left: 2px solid rgb(var(--color-foreground, var(--color-primary)) / 0.7);
+
+  background: linear-gradient(
+    90deg,
+    rgb(var(--color-foreground, var(--color-secondary)) / 0.05),
+    transparent
+  );
+
+  font-style: italic;
+  color: rgb(var(--color-foreground) / 0.8);
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.markdown-panel a {
+  color: rgb(var(--color-surface, var(--color-primary)) / 1);
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.markdown-panel a:not(footer *):hover {
+  text-decoration: underline;
+  color: rgb(var(--color-primary) / 1);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes separatorFadeIn {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes dotFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* =========================
+   TABLES
+========================= */
+
+.markdown-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.95rem;
+}
+
+.markdown-panel thead th {
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: rgb(var(--color-heading, var(--color-foreground)) / 1);
+
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgb(var(--color-border, var(--color-foreground)) / 0.22);
+}
+
+.markdown-panel tbody td {
+  padding: 0.7rem 0;
+  color: rgb(var(--color-foreground) / 0.9);
+  border-bottom: 1px solid rgb(var(--color-border, var(--color-foreground)) / 0.1);
+}
+
+.markdown-panel tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================
+   STRONG / EMPHASIS
+========================= */
+
+.markdown-panel strong {
+  font-weight: 700;
+  color: rgb(var(--color-foreground) / 1);
+}
+
+.markdown-panel em {
+  font-style: italic;
+  color: rgb(var(--color-foreground) / 0.9);
+}
+
+/* =========================
+   DESKTOP-WIDE
+========================= */
+
+@media (min-width: 1920px) {
+  .markdown-panel h2 {
+    font-size: clamp(1.35rem, 2.4vw, 2.25rem);
+  }
+
+  .markdown-panel p {
+    font-size: clamp(1.08rem, 0.72vw, 1.74rem);
+  }
+
+  .markdown-panel ul > li {
+    font-size: clamp(1.08rem, 0.72vw, 1.2rem);
+  }
+
+  .markdown-panel blockquote {
+    font-size: clamp(1.1rem, 0.78vw, 1.26rem);
+  }
+
+  .markdown-panel table {
+    font-size: 1rem;
+  }
+}

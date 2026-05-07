@@ -1,0 +1,104 @@
+---
+identifier: LSCD001
+name: Chambre d'hôtes avec jardin sur la corniche
+description: 32 m2 - suite - jardin partagé
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
+category: chambre-dhotes
+offer:
+  price: 125
+  priceCurrency: EUR
+  priceSpecification: Par nuit
+place: corniche
+floorSize: 32
+numberOfRooms: 1
+landArea: 32
+numberOfGarages: 0
+numberOfBedrooms: 1
+numberOfBathroomsTotal: 1
+occupancy: 2
+amenityFeature:
+  - petit-dejeuner
+  - wifi
+  - vue-ocean
+image:
+  - media-chambre-hotes-jardin-corniche-01
+  - media-chambre-hotes-jardin-corniche-02
+  - media-chambre-hotes-jardin-corniche-03
+associatedMedia:
+  - image: media-chambre-hotes-jardin-corniche-01
+    caption: Chambre d’hôtes corniche - bord de mer
+    keywords: [gallery]
+  - image: media-chambre-hotes-jardin-corniche-02
+    caption: Chambre d’hôtes corniche - chambre lumineuse
+    keywords: [gallery]
+  - image: media-chambre-hotes-jardin-corniche-03
+    caption: Chambre d’hôtes corniche - jardin
+    keywords: [gallery]
+realEstateListing: location-saisonniere
+areaSize: 32
+areaTerrace: 8
+isActive: true
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
+tags:
+  - corniche
+  - ocean
+  - sejour-court
+realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
+metaTitle: Chambre d'hôtes avec jardin proche corniche
+metaDescription: Suite de charme à louer à la nuit sur la corniche avec jardin partagé et ambiance calme.
+slug: chambre-dhotes-avec-jardin-sur-la-corniche-corniche-lscd001
+highlight: Un format simple et soigné pour un séjour bord de mer sans lourdeur
+review: |
+  Cette adresse conviendra à des voyageurs qui cherchent une base confortable, une ambiance calme et un accès rapide à la corniche.
+  Le jardin partagé renforce la sensation de respiration sans complexifier l'exploitation du bien.
+blockquote: |
+  Une chambre d'hôtes sobre et agréable, pensée pour des séjours courts bien calibrés.
+locationDescription: |
+  La corniche permet de profiter de la mer, des promenades et d'une lecture plus ouverte du littoral. Le secteur fonctionne bien pour l'hébergement court.
+screens:
+  exterior:
+    isEnabled: true
+    texts:
+      - Ambiance littorale simple avec accès rapide à la promenade en bord de mer.
+  bedrooms:
+    isEnabled: true
+    texts:
+      - Une suite confortable pensée pour un couple ou un séjour en solo prolongé.
+  entrance:
+    isEnabled: true
+    texts:
+      - Entrée indépendante qui facilite les rotations de courte durée.
+  living:
+    isEnabled: false
+    texts:
+      - Le bien privilégie l'espace nuit et l'accès extérieur plutôt qu'un grand salon.
+  kitchen:
+    isEnabled: false
+    texts:
+      - Le format chambre d'hôtes s'appuie davantage sur les services et la simplicité de séjour.
+  bathrooms:
+    isEnabled: true
+    texts:
+      - Salle d'eau privative confortable pour un usage hôtelier léger.
+---
+## Visite guidee
+
+Une chambre d'hôtes qui joue la carte du calme et de l'accès mer.
+
+### Un format léger, cohérent avec des séjours courts
+
+La suite reste simple, soignée et facile à comprendre. Le jardin partagé apporte une vraie qualité perçue sans alourdir la logistique du lieu.
+
+Cette fiche se prête à un positionnement sobre, crédible et accessible, avec un bon rapport entre confort, emplacement et lecture produit.
+
+## Descriptif
+
+- Surface annoncée : 32 m2
+- Configuration : 1 chambre, 1 salle d'eau
+- Extérieur : jardin partagé et terrasse de 8 m2
+- Usage possible : week-end, séjour court, étape bord de mer
+- Registre : hébergement saisonnier de petite capacité

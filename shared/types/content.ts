@@ -1,0 +1,12 @@
+export type ResourceKey =
+  | 'app'
+  | 'web-pages'
+  | 'articles'
+  | 'travels'
+  | 'real-estate-listing'
+  | 'accommodation-category'
+  | 'category-code'
+  | 'accommodation-place'
+  | 'person'
+  | 'media-object'
+  | 'accommodations'

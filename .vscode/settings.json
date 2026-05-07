@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {},
+  "eslint.useFlatConfig": true,
+  "eslint.validate": ["javascript", "typescript", "vue"],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]]
+}

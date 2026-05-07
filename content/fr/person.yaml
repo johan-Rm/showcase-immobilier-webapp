@@ -1,0 +1,53 @@
+items:
+  - identifier: fa37320c-5f32-4b10-a32a-2be43bdcc308
+    name: Sofia El Idrissi
+    phone: '+212677445566'
+    email: sofia.elidrissi@example.com
+  - identifier: 89e24a12-a8fd-4eca-ab29-35b57e538413
+    name: Claire Delaunay
+    phone: '+212612345678'
+    email: claire.delaunay@example.com
+  - identifier: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
+    name: Yasmine Benali
+    phone: '+212611223344'
+    email: yasmine.benali@example.com
+  - identifier: ac191e74-476f-4461-a7b2-18e0da7d925d
+    name: Hugo Martin
+    phone: '+212655778899'
+    email: hugo.martin@example.com
+  - identifier: ce4ec9d0-70cd-422a-b09e-9472afe84f57
+    name: Nadia El Amrani
+    phone: '+212622334455'
+    email: nadia.elamrani@example.com
+  - identifier: 64ff27b9-6e7f-47de-bfd8-f8fa8398217f
+    name: Omar Idrissi
+    phone: '+212633889900'
+    email: omar.idrissi@example.com
+  - identifier: 0a5aa847-7a17-4a3d-b04f-1e2d98b55bab
+    name: Karim Bennis
+    phone: '+212633221100'
+    email: karim.bennis@example.com
+  - identifier: ff36d255-d1b0-4710-948c-ecb028ac86f7
+    name: Lina Ouali
+    phone: '+212644556677'
+    email: lina.ouali@example.com
+  - identifier: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
+    name: Amina Ziani
+    phone: '+212677112244'
+    email: amina.ziani@example.com
+  - identifier: 0204e750-0078-4e28-98d6-5b8fb943b4f6
+    name: Salma Haddad
+    phone: '+212677889900'
+    email: salma.haddad@example.com
+  - identifier: e2e3b81c-8023-4bb9-b5d5-66736e5fc71b
+    name: Rachid Ait Taleb
+    phone: '+212600112233'
+    email: rachid.aittaleb@example.com
+  - identifier: 7eef434d-cfca-4332-99a8-b29fda03d121
+    name: Julien Rossi
+    phone: '+212688445566'
+    email: julien.rossi@example.com
+  - identifier: a94d9755-ed63-469a-8530-35f797ac19c6
+    name: Mehdi Azoulay
+    phone: '+212699112233'
+    email: mehdi.azoulay@example.com

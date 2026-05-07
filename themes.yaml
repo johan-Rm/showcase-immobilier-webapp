@@ -1,0 +1,225 @@
+# Responsabilite des couleurs (tokens)
+#
+# background : fond principal de l'interface
+# surface : surfaces elevees (cartes, panneaux)
+# foreground : texte principal (contenu par defaut)
+# primary : action principale (boutons, liens, accents)
+# secondary : action secondaire (accents secondaires)
+# border : contours et separations
+# ring : focus/etat actif (anneau d'accessibilite)
+#
+themes:
+  colors:
+    shark:
+      50: '#fafafa'
+      100: '#f5f5f5'
+      200: '#e6e6e6'
+      300: '#d6d6d6'
+      400: '#a5a5a5'
+      500: '#767676'
+      600: '#575757'
+      700: '#434343'
+      800: '#212121'
+      900: '#1a1a1a'
+      950: '#0a0a0a'
+    midnight:
+      50: '#eff8ff'
+      100: '#dbeffe'
+      200: '#bfe4fe'
+      300: '#93d4fd'
+      400: '#60bbfa'
+      500: '#3a9df7'
+      600: '#2480ec'
+      700: '#1c69d9'
+      800: '#1e55af'
+      900: '#1e498a'
+      950: '#10203b'
+    boston-blue:
+      50: '#f1f8fa'
+      100: '#dcedf1'
+      200: '#bcd9e5'
+      300: '#8ebfd2'
+      400: '#599cb7'
+      500: '#438bab'
+      600: '#366884'
+      700: '#31566d'
+      800: '#2f4a5b'
+      900: '#2b3f4e'
+      950: '#182734'
+    tan:
+      50: '#faf7f2'
+      100: '#f4eee0'
+      200: '#e7dbc1'
+      300: '#d8c499'
+      400: '#ceb182'
+      500: '#bb8f54'
+      600: '#ae7c48'
+      700: '#90643e'
+      800: '#755137'
+      900: '#5f432f'
+      950: '#332217'
+    albescent-white:
+      50: '#fcf8f0'
+      100: '#f8edd6'
+      200: '#f2dcb6'
+      300: '#e9c488'
+      400: '#dfa358'
+      500: '#d88a37'
+      600: '#ca732c'
+      700: '#a75927'
+      800: '#864826'
+      900: '#6d3d21'
+      950: '#3a1d10'
+    cod-gray:
+      50: '#f7f7f6'
+      100: '#e7e7e0'
+      200: '#cbcec1'
+      300: '#aaae9a'
+      400: '#878c75'
+      500: '#6c725a'
+      600: '#555a47'
+      700: '#464a3b'
+      800: '#3a3d32'
+      900: '#33352c'
+      950: '#0d0e0b'
+    putty:
+      50: '#fbf9f1'
+      100: '#f6f1de'
+      200: '#ede0bb'
+      300: '#dfc689'
+      400: '#d4ac63'
+      500: '#ca9545'
+      600: '#bc803a'
+      700: '#9d6631'
+      800: '#7e522e'
+      900: '#664428'
+      950: '#372213'
+    bunker:
+      50: '#f3f7fc'
+      100: '#e5f0f9'
+      200: '#c6dff1'
+      300: '#94c6e5'
+      400: '#5aa8d6'
+      500: '#358dc2'
+      600: '#2571a4'
+      700: '#1f5a85'
+      800: '#1d4d6f'
+      900: '#1d415d'
+      950: '#070f16'
+    brandy-punch:
+      50: '#fbf7eb'
+      100: '#f6ebcb'
+      200: '#efd599'
+      300: '#e6b75e'
+      400: '#dc9a33'
+      500: '#c17d23'
+      600: '#b0661e'
+      700: '#8d491b'
+      800: '#763b1d'
+      900: '#65331e'
+      950: '#3a190e'
+    hawaiian-tan:
+      50: '#fcf8ea'
+      100: '#f8eec9'
+      200: '#f2db96'
+      300: '#ebc159'
+      400: '#e3a72c'
+      500: '#d3901f'
+      600: '#b66f18'
+      700: '#9b5518'
+      800: '#79401a'
+      900: '#67371c'
+      950: '#3c1b0c'
+  light:
+    name: Light
+    source: Mood Board 2
+    fonts:
+      heading: Inter
+      body: Inter
+    colors:
+      - label: primary
+        color: midnight
+        shade: 950
+      - label: secondary
+        color: boston-blue
+        shade: 500
+      - label: background
+        color: tan
+        shade: 400
+      - label: surface
+        color: albescent-white
+        shade: 100
+      - label: overlay
+        color: cod-gray
+        shade: 950
+      - label: foreground
+        color: midnight
+        shade: 950
+      - label: heading
+        color: midnight
+        shade: 950
+      - label: transition
+        color: shark
+        shade: 800
+  dark:
+    name: Dark
+    source: Mood Board 3
+    fonts:
+      heading: Inter
+      body: Inter
+    colors:
+      - label: primary
+        color: putty
+        shade: 300
+      - label: secondary
+        color: boston-blue
+        shade: 500
+      - label: background
+        color: bunker
+        shade: 950
+      - label: surface
+        color: brandy-punch
+        shade: 500
+      - label: overlay
+        color: cod-gray
+        shade: 950
+      - label: foreground
+        color: putty
+        shade: 300
+      - label: heading
+        color: putty
+        shade: 300
+      - label: transition
+        color: shark
+        shade: 800
+  kasbah:
+    name: Kasbah
+    source: Mood Board 2
+    fonts:
+      heading: Inter
+      body: Inter
+    colors:
+      - label: primary
+        color: albescent-white
+        shade: 100
+      - label: secondary
+        color: hawaiian-tan
+        shade: 700
+      - label: background
+        color: boston-blue
+        shade: 500
+      - label: surface
+        color: cod-gray
+        shade: 950
+      - label: overlay
+        color: cod-gray
+        shade: 950
+      - label: foreground
+        color: albescent-white
+        shade: 100
+      - label: heading
+        color: albescent-white
+        shade: 100
+      - label: transition
+        color: shark
+        shade: 800

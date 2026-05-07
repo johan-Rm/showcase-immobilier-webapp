@@ -1,0 +1,19 @@
+FROM oven/bun:1-alpine
+
+RUN apk add --no-cache bash git curl python3 make g++ nodejs
+RUN git config --global --add safe.directory /app
+
+WORKDIR /app
+
+COPY package.json bun.lock ./
+RUN bun install
+
+COPY . ./
+
+ENV NODE_ENV=development
+ENV CONTENT_PATH=/app/content
+ENV SCHEMAS_PATH=/opt/mlk-schemas
+
+EXPOSE 3000
+
+CMD ["bun", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]

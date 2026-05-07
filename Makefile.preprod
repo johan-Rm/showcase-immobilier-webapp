@@ -1,0 +1,77 @@
+# ============================
+# Docker Compose (PREPROD)
+# ============================
+
+PREPROD_PROJECT_NAME ?= mlk-webapp-preprod
+PREPROD_STACK_NETWORK_NAME ?= mlk_network_preprod
+PREPROD_EDGE_ALIAS ?= mlk-webapp-preprod
+COMPOSE_PREPROD_ENV = APP_STACK_NETWORK_NAME=$(PREPROD_STACK_NETWORK_NAME) EDGE_ALIAS=$(PREPROD_EDGE_ALIAS)
+COMPOSE_PREPROD = $(COMPOSE_PREPROD_ENV) docker compose -p $(PREPROD_PROJECT_NAME) -f docker-compose.preprod.yml
+
+# Logs options
+TAIL ?= 200
+FOLLOW ?= -f
+
+# Service groups
+PREPROD_CORE_SERVICES = webapp-ssr
+PREPROD_BUILD_SERVICES = webapp-ssr
+
+.PHONY: preprod-up preprod-up-build preprod-down preprod-clean preprod-stop preprod-status
+.PHONY: preprod-build preprod-build-no-cache preprod-pull preprod-deploy
+.PHONY: preprod-logs preprod-logs-service preprod-logs-webapp
+
+# ----------------------------
+# Up / Build / Deploy
+# ----------------------------
+
+preprod-up:
+	$(COMPOSE_PREPROD) up -d $(PREPROD_CORE_SERVICES)
+
+preprod-up-build:
+	$(COMPOSE_PREPROD) up -d --build $(PREPROD_CORE_SERVICES)
+
+preprod-build:
+	$(COMPOSE_PREPROD) build $(PREPROD_BUILD_SERVICES)
+
+preprod-build-no-cache:
+	$(COMPOSE_PREPROD) build --no-cache $(PREPROD_BUILD_SERVICES)
+
+preprod-pull:
+	$(COMPOSE_PREPROD) pull $(PREPROD_CORE_SERVICES)
+
+preprod-deploy:
+	$(MAKE) preprod-build-no-cache
+	$(MAKE) preprod-up
+
+# ----------------------------
+# Lifecycle
+# ----------------------------
+
+preprod-stop:
+	$(COMPOSE_PREPROD) stop
+
+preprod-down:
+	$(COMPOSE_PREPROD) down
+
+preprod-clean:
+	$(COMPOSE_PREPROD) down -v --remove-orphans
+
+preprod-status:
+	$(COMPOSE_PREPROD) ps
+
+# ----------------------------
+# Logs
+# ----------------------------
+
+preprod-logs:
+	$(COMPOSE_PREPROD) logs $(FOLLOW) --tail=$(TAIL)
+
+preprod-logs-service:
+	@if [ -z "$(S)" ]; then \
+		echo "Missing S=<service>. Example: make preprod-logs-service S=webapp-ssr"; \
+		exit 2; \
+	fi
+	$(COMPOSE_PREPROD) logs $(FOLLOW) --tail=$(TAIL) $(S)
+
+preprod-logs-webapp:
+	$(COMPOSE_PREPROD) logs $(FOLLOW) --tail=$(TAIL) webapp-ssr

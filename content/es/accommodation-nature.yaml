@@ -1,0 +1,7 @@
+items:
+  - slug: bienes-en-venta
+    label: Bienes en venta
+  - slug: alquileres-vacacionales
+    label: Alquileres vacacionales
+  - slug: profesionales
+    label: Profesionales

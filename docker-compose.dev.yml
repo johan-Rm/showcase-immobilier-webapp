@@ -1,0 +1,73 @@
+services:
+  webapp-localhost:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: mlk_my_little_kasbah_webapp_localhost
+    user: '${DOCKER_UID:-1000}:${DOCKER_GID:-1000}'
+    working_dir: /app
+    init: true
+    command: bun run dev -- --host 0.0.0.0 --port 3000
+    volumes:
+      - ./app:/app/app
+      - ./server:/app/server
+      - ./shared:/app/shared
+      - ./services:/app/services
+      - ./nuxt.config.ts:/app/nuxt.config.ts
+      - ./schemas:/app/schemas
+      - ./.data:/app/.data
+      - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      SCHEMAS_PATH: /opt/mlk-schemas
+      CONTENT_PATH: /app/content
+
+  webapp-ssr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      additional_contexts:
+        schemas: ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}
+      args:
+        APP_ENV: ${APP_ENV:-dev}
+        SITE_URL: ${SITE_URL:-http://localhost:8080}
+        SITE_NAME: ${SITE_NAME:-MLK - My Little Kasbah}
+        WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
+    container_name: mlk_my_little_kasbah_webapp_ssr
+    working_dir: /app
+    init: true
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      SCHEMAS_PATH: /opt/mlk-schemas
+      CONTENT_PATH: /app/content
+      PUBLIC_HOST: ${PUBLIC_HOST:-mlk-my-little-kasbah-nuxt-ssr.localhost}
+      PUBLIC_PORT: ${PUBLIC_PORT:-8080}
+      WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
+    volumes:
+      - ./.data:/app/.data
+      - ./content:/app/content:ro
+      - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -q --spider http://127.0.0.1:3000/ || exit 1']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: mlk_my_little_kasbah_nginx
+    depends_on:
+      webapp-ssr:
+        condition: service_healthy
+    ports:
+      - '8080:80'
+    volumes:
+      - ./nginx/vhost.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro

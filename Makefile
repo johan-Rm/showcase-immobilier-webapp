@@ -1,0 +1,39 @@
+include Makefile.preprod
+include Makefile.prod
+include Makefile.dev
+
+.PHONY: help
+
+help:
+	@printf "Targets:\n"
+	@printf "  dev-webapp-localhost  Lancer le dev Nuxt (HMR) dans Docker\n"
+	@printf "  dev-webapp-ssr        Lancer le SSR via Nginx (prod-like) sur :8080/:8443\n"
+	@printf "  dev-webapp-ssr BUILD=1  Force le rebuild du SSR avant lancement via Nginx\n"
+	@printf "  dev-nginx             Lancer le vhost Nginx SSR (demarre aussi le SSR)\n"
+	@printf "  dev-build                  Builder les images Docker\n"
+	@printf "  dev-build-no-cache         Builder les images Docker sans cache\n"
+	@printf "  dev-build NO_CACHE=1       Variante sans cache de dev-build\n"
+	@printf "  dev-down                   Stopper les containers Docker\n"
+	@printf "  dev-logs                   Suivre les logs Docker\n"
+	@printf "  dev-analyze                Analyser le bundle Nuxt (mode normal)\n"
+	@printf "  dev-analyse                Alias francise de dev-analyze\n"
+	@printf "  dev-shell-webapp-localhost  Ouvrir un shell dans le container dev\n"
+	@printf "  dev-shell-webapp-ssr        Ouvrir un shell dans le container SSR\n"
+	@printf "  dev-shell-nginx                  Ouvrir un shell dans le container Nginx\n"
+	@printf "  quality-check     Lancer lint + format + type-check\n"
+	@printf "  lint-check        Lancer ESLint\n"
+	@printf "  format-check      Lancer Prettier\n"
+	@printf "  type-check        Lancer vue-tsc\n"
+	@printf "  preprod-up        Lancer les services preprod\n"
+	@printf "  preprod-up-build  Lancer les services preprod (build)\n"
+	@printf "  preprod-build     Builder les images preprod\n"
+	@printf "  preprod-build-no-cache  Builder sans cache\n"
+	@printf "  preprod-down      Stopper les containers preprod\n"
+	@printf "  preprod-logs      Suivre les logs preprod\n"
+	@printf "  prod-up           Lancer les services de prod (APP_ENV=prod)\n"
+	@printf "  prod-up-build     Lancer la prod avec rebuild\n"
+	@printf "  prod-build        Builder les images de prod\n"
+	@printf "  prod-build-no-cache  Builder la prod sans cache\n"
+	@printf "  prod-deploy       Build puis lancement de la prod\n"
+	@printf "  prod-down         Stopper les containers de prod\n"
+	@printf "  prod-logs         Suivre les logs de prod\n"

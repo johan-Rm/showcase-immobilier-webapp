@@ -1,0 +1,13 @@
+.nuxt
+.output
+.data
+coverage
+dist
+node_modules
+content/**
+l-agence-style-components.md
+lighthouse*.json
+bun.lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
