@@ -20,9 +20,9 @@ type UsePropertyListOptionsReturn = {
   realEstateListingOptions: ComputedRef<RealEstateListingSelectOption[]>
 }
 
-export function usePropertyListOptions(
+export const usePropertyListOptions = (
   sourcePropertyItems: ComputedRef<PropertyItem[]>,
-): UsePropertyListOptionsReturn {
+): UsePropertyListOptionsReturn => {
   const metadataStore = useMetadataStore()
   const accommodationStore = useAccommodationStore()
 

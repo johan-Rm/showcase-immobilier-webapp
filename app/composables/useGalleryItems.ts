@@ -15,9 +15,9 @@ function extractImageSrc(image: MediaObject | MediaObject[] | string | undefined
   return image?.url?.trim() ?? ''
 }
 
-export function useGalleryItems(hasPart: ComputedRef<CreativeWork[] | undefined>): {
-  galleryItems: ComputedRef<GalleryItem[]>
-} {
+export const useGalleryItems = (
+  hasPart: ComputedRef<CreativeWork[] | undefined>,
+): { galleryItems: ComputedRef<GalleryItem[]> } => {
   const metadataStore = useMetadataStore()
 
   const galleryItems = computed<GalleryItem[]>(() =>
