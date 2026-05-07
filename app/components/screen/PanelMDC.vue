@@ -11,11 +11,7 @@
         class="h-full w-full object-cover"
         :src="bgImageUrl"
         alt="Decorative landscape"
-        :width="IMAGE_PRESETS.vertical3col.width"
-        :format="IMAGE_PRESETS.vertical3col.format"
-        :quality="IMAGE_PRESETS.vertical3col.quality"
-        :fit="IMAGE_PRESETS.vertical3col.fit"
-        :sizes="IMAGE_PRESETS.vertical3col.sizes"
+        v-bind="IMAGE_PRESETS.vertical3col"
       />
 
       <AppOverlay :percentage="30" />

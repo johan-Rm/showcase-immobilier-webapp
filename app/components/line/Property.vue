@@ -21,11 +21,7 @@
                 :src="screen[0].image"
                 :alt="getAltText(screen[0].title, screen[0].city)"
                 :loading="sIdx === 0 ? 'eager' : 'lazy'"
-                :width="IMAGE_PRESETS.fullscreenCover.width"
-                :format="IMAGE_PRESETS.fullscreenCover.format"
-                :quality="IMAGE_PRESETS.fullscreenCover.quality"
-                :fit="IMAGE_PRESETS.fullscreenCover.fit"
-                :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+                v-bind="IMAGE_PRESETS.fullscreenCover"
               />
               <div
                 v-if="cinemaMode !== 'none'"
@@ -66,11 +62,7 @@
                   :src="it.image"
                   :alt="getAltText(it.title, it.city)"
                   :loading="sIdx === 0 && i === 0 ? 'eager' : 'lazy'"
-                  :width="IMAGE_PRESETS.fullscreenCover.width"
-                  :format="IMAGE_PRESETS.fullscreenCover.format"
-                  :quality="IMAGE_PRESETS.fullscreenCover.quality"
-                  :fit="IMAGE_PRESETS.fullscreenCover.fit"
-                  :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+                  v-bind="IMAGE_PRESETS.fullscreenCover"
                 />
                 <div
                   class="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),rgba(0,0,0,0.32)_55%,rgba(0,0,0,0.08))]"
@@ -108,11 +100,7 @@
                   :src="it.image"
                   :alt="getAltText(it.title, it.city)"
                   :loading="sIdx === 0 && i === 0 ? 'eager' : 'lazy'"
-                  :width="IMAGE_PRESETS.fullscreenCover.width"
-                  :format="IMAGE_PRESETS.fullscreenCover.format"
-                  :quality="IMAGE_PRESETS.fullscreenCover.quality"
-                  :fit="IMAGE_PRESETS.fullscreenCover.fit"
-                  :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+                  v-bind="IMAGE_PRESETS.fullscreenCover"
                 />
                 <div
                   class="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),rgba(0,0,0,0.32)_55%,rgba(0,0,0,0.08))]"

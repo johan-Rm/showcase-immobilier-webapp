@@ -9,11 +9,7 @@
       :placeholder="false"
       decoding="async"
       class="absolute inset-0 h-full w-full object-cover object-center"
-      :width="IMAGE_PRESETS.fullscreenCover.width"
-      :format="IMAGE_PRESETS.fullscreenCover.format"
-      :quality="IMAGE_PRESETS.fullscreenCover.quality"
-      :fit="IMAGE_PRESETS.fullscreenCover.fit"
-      :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+      v-bind="IMAGE_PRESETS.fullscreenCover"
     />
 
     <AppOverlay :percentage="20" />

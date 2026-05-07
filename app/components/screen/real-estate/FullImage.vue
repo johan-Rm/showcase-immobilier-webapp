@@ -4,8 +4,7 @@
       v-if="hasBackgroundImage && !usePortraitHeroImage"
       :src="bgImageUrl"
       :alt="heroImageAlt"
-      :width="HERO_LANDSCAPE_WIDTH"
-      :quality="70"
+      v-bind="IMAGE_PRESETS.heroFullScreen"
       loading="eager"
       :placeholder="false"
       fetchpriority="high"
@@ -20,8 +19,7 @@
       v-if="usePortraitHeroImage"
       :src="bgImagePortraitUrl"
       :alt="heroImageAlt"
-      :width="HERO_PORTRAIT_WIDTH"
-      :quality="70"
+      v-bind="IMAGE_PRESETS.heroMobile"
       loading="eager"
       :placeholder="false"
       fetchpriority="high"
@@ -92,7 +90,7 @@
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
 
-import { useAppImage } from '~/composables/useAppImage'
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
 
 type FullImageScreenProps = {
@@ -108,7 +106,6 @@ type MenuItemWithAvailability = MenuItem & {
 const props = defineProps<FullImageScreenProps>()
 const logger = useLogger({ module: 'screen-real-estate-full-image' })
 
-const { IMAGE_DIMENSIONS } = useAppImage()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 const { getItemsByRealEstateListing } = useAccommodation()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
@@ -119,8 +116,6 @@ const MOBILE_PORTRAIT_BACKGROUND_TYPE = 'mobile-portrait-background'
 const PORTRAIT_HERO_MEDIA_QUERY =
   '(max-width: 767px), (min-width: 768px) and (max-width: 1023px) and (orientation: portrait)'
 const HERO_IMAGE_READY_STATE_KEY = 'screen.real-estate-full-image.hero-ready'
-const HERO_LANDSCAPE_WIDTH = IMAGE_DIMENSIONS.heroFullScreen.width
-const HERO_PORTRAIT_WIDTH = IMAGE_DIMENSIONS.heroMobile.width
 
 const metadataStore = useMetadataStore()
 const appConfig = useAppConfig()

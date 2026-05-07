@@ -194,12 +194,13 @@
       >
         <div class="bg-foreground/20 absolute -inset-4 rounded-xl blur-2xl" />
         <div class="bg-surface/40 overflow-hidden rounded-3xl">
-          <img
+          <AppImage
             :src="centerImageUrl"
             alt=""
             class="h-90 w-full object-cover transition duration-300 group-hover:scale-[1.02] sm:h-105 lg:h-115 2xl:h-150"
             loading="lazy"
             decoding="async"
+            v-bind="IMAGE_PRESETS.galleryColumn"
           />
         </div>
       </NuxtLink>
@@ -214,6 +215,7 @@ import type { MenuItem } from '@schemas/interfaces'
 
 import { useAppFooter } from '~/composables/useAppFooter'
 import { useAppNavigation } from '~/composables/useAppNavigation'
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 type TryptiqueMenuItem = MenuItem
 
