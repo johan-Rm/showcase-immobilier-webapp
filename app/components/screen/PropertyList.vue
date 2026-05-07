@@ -61,6 +61,8 @@
 import type { PropertyItem } from '#shared/types/accommodation'
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 
+import { usePropertyListOptions } from '~/composables/usePropertyListOptions'
+
 const emit = defineEmits<{
   (e: 'next-screen'): void
 }>()
