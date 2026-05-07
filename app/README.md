@@ -1,97 +1,43 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/app/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# app/
 
-# Dossier App
+Couche frontend Nuxt. Contient les pages, composants, composables, stores, layouts, middleware et plugins.
 
-## 1. Rôle et responsabilité
+## Rôle et responsabilités
 
-Ce dossier contient l’application frontend basée sur **Nuxt 4** et tout ce qui concerne le rendu UI.
+- orchestration du routing et des layouts (`pages/`, `layouts/`)
+- rendu UI et composition visuelle (`components/`)
+- état global réactif (`stores/`)
+- logique transverse et passerelles vers les services (`composables/`)
+- initialisation et plugins (`plugins/`)
 
-Responsabilités principales :
+## Conventions techniques
 
-- point d’entrée UI (`app.vue`) et orchestration globale
-- routing, layouts, middleware, plugins et composables
-- rendu SSR/hydration côté client
+> Les conventions décrites dans cette section peuvent être vérifiées automatiquement via des scripts CI/CD.
 
-Hors périmètre :
+### Ordre des blocs dans un fichier Vue
 
-- backend, API, services server
-- contenu statique brut ou sources de données
+L'ordre des blocs dans un composant Vue est `<template>`, `<script setup lang="ts">`, `<style scoped>`.
 
-Nuxt gère le bootstrap automatiquement.
-Le point d’entrée applicatif est :
+Enforcement : règle ESLint `vue/block-order`.
 
-```
-app.vue
-```
+### Images
 
-## 2. Notes importantes
+Toute image affichée dans `app/` passe par le composant `<AppImage>`.
 
-- `app.vue` orchestre le shell de boot initial et le bootstrap global des données core.
-- La normalisation de la locale est gérée par un middleware global, pas par `useLang()`.
-- Les stores core (`webPage`, `accommodation`) doivent rester alignés avec l’init centrale.
-- Les composants UI ne doivent pas appeler des services server directement (passer par composables).
+Les balises `<img>`, `<NuxtImg>` et `<NuxtPicture>` sont interdites en dehors de `app/components/AppImage.vue`.
 
-## 3. Bonnes pratiques
+`<AppImage>` doit recevoir ses paramètres via `v-bind` avec un preset nommé issu de `IMAGE_PRESETS` ou `IMAGE_WARMUP_PRESETS`. Les props `width`, `format`, `quality`, `fit`, `sizes` ne doivent pas être écrites en dur.
 
-### 🔹 Structure du projet
+### Logique métier dans les composants
 
-- `app/` : répertoire principal de l’application Nuxt
-  - `app/assets/` : assets traités par l’outil de build (Vite/Webpack)
-  - `app/components/` : composants Vue de l’application
-  - `app/composables/` : composables Vue
-  - `app/layouts/` : layouts qui enveloppent les pages
-  - `app/middleware/` : code exécuté avant la navigation
-  - `app/pages/` : routing basé sur les fichiers
-  - `app/plugins/` : plugins exécutés à l’initialisation Nuxt
-  - `app/utils/` : fonctions utilitaires partagées
+Un composant dans `app/components/` ne doit pas construire de donnée dérivée à partir de l'état global.
 
-  - `app/app.vue` : composant racine
-  - `app/app.config.ts` : configuration réactive de l’application
-  - `app/error.vue` : page d’erreur
+Un `computed` ne doit pas combiner une source globale (store Pinia, `appConfig`, composable sans argument) avec une transformation de données (`.map`, `.filter`, `.reduce`, `.push`).
 
-- `nuxt.config.ts` : configuration globale
+Les données dérivées appartiennent aux getters de store ou aux composables.
 
----
+### Placement des types
 
-### 🔹 Organisation du code
+Un type TypeScript utilisé par plus d'un fichier doit être défini dans `shared/types/`.
 
-- Garder la logique métier hors des composants UI (UI = rendu + interactions).
-- Placer la logique transverse dans les composables (auth, locale, data, UI globale).
-- Centraliser les intégrations globales dans les plugins (injections, config, libs).
-- Préférer les alias Nuxt (`@/`, `#imports`) pour des imports stables et clairs.
-- Respecter le triptyque Stores / Composables / Services pour structurer les données et l’état réactif (voir `docs/2.architecture/`).
-
----
-
-### 🔹 Ordre des blocs de code principales dans un fichier Vue
-
-L’ordre propre et recommandé dans un fichier Vue est :
-
-```vue
-<template>
-  <!-- Structure HTML -->
-</template>
-
-<script setup lang="ts">
-// Logique du composant
-</script>
-
-<style scoped>
-/* Styles */
-</style>
-```
-
-Cet ordre doit être respecté dans tous les composants pour garantir une structure homogène et lisible.
-
-## 4. Autres considérations
-
-### 🔹 Performance
-
-- Distinguer le rendu initial critique du bootstrap métier: `initCoreData` ne doit pas bloquer le premier rendu visible.
-- Utiliser `useAsyncData`/`useFetch` pour les données spécifiques à une page.
-- Éviter les rechargements inutiles lors des changements de locale.
-- Charger en lazy-loading les composants lourds ou rarement utilisés.
-- Appliquer un smart-prefetch ciblé pour précharger les données “N+1” avant l’action utilisateur.
+Un type local non exporté reste dans le fichier qui l'utilise.
