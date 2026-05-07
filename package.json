@@ -12,6 +12,7 @@
     "check:app:types": "bun scripts/ci/app/verify-types-placement.ts",
     "check:app:images": "bun scripts/ci/app/verify-app-image.ts",
     "check:app:components:no-business-logic": "bun scripts/ci/app/verify-no-business-logic.ts",
+    "check:app:script-setup-standard": "bun scripts/ci/app/verify-script-setup-standard.ts",
     "lint:check": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format:check": "prettier . --check",

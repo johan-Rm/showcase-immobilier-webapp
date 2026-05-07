@@ -20,6 +20,14 @@ L'ordre des blocs dans un composant Vue est `<template>`, `<script setup lang="t
 
 Enforcement : règle ESLint `vue/block-order`.
 
+### Structure interne de `<script setup>`
+
+Le contenu de `<script setup lang="ts">` suit un ordre de blocs défini : imports, types et constantes, props et emits, composables et stores, état local, data inputs, helpers purs, computed UI-ready, handlers, watchers, métadonnées de page, lifecycle.
+
+Le template consomme des valeurs déjà préparées. La logique métier ne doit pas fuir dans la couche d'affichage.
+
+@see [docs/2.architecture/7.script-setup-standard.md](../docs/2.architecture/7.script-setup-standard.md)
+
 ### Images
 
 Toute image affichée dans `app/` passe par le composant `<AppImage>`.
