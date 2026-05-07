@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import { useEcho } from '~/composables/useEcho'
-
-const { message, validationError, echoed, loading, error, submit } = useEcho()
-</script>
-
 <template>
   <section class="pages-echo space-y-6">
     <header class="space-y-2">
@@ -54,3 +48,9 @@ const { message, validationError, echoed, loading, error, submit } = useEcho()
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { useEcho } from '~/composables/useEcho'
+
+const { message, validationError, echoed, loading, error, submit } = useEcho()
+</script>

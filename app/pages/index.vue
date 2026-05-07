@@ -3,7 +3,11 @@
     <h1 v-if="accessibleTitle" class="sr-only">{{ accessibleTitle }}</h1>
 
     <UPageSection :data-screen="SCREEN_IDS.landing" :ui="screenUi.pageSection">
-      <component :is="activeLandingScreen.component" :data="landingScreenData" @next-screen="next" />
+      <component
+        :is="activeLandingScreen.component"
+        :data="landingScreenData"
+        @next-screen="next"
+      />
     </UPageSection>
 
     <UPageSection

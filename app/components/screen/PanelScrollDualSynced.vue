@@ -200,7 +200,9 @@ const rootGridClass = computed<string>(() => {
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex min-w-0 flex-col overflow-hidden'
-  return isTabletPortrait.value ? `${baseClass} row-start-2 h-full` : `${baseClass} row-start-1 h-full`
+  return isTabletPortrait.value
+    ? `${baseClass} row-start-2 h-full`
+    : `${baseClass} row-start-1 h-full`
 })
 
 onMounted(() => {

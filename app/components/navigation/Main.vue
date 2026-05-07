@@ -214,8 +214,8 @@ import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { MenuItem } from '@schemas/interfaces'
 
 import { useAppFooter } from '~/composables/useAppFooter'
-import { useAppNavigation } from '~/composables/useAppNavigation'
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
+import { useAppNavigation } from '~/composables/useAppNavigation'
 
 type TryptiqueMenuItem = MenuItem
 

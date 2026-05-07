@@ -458,7 +458,9 @@ const rootGridClass = computed<string>(() => {
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex h-full min-h-0 flex-col'
-  return isTabletPortrait.value || isPhoneDevice.value ? `${baseClass} row-start-2` : `${baseClass} row-start-1`
+  return isTabletPortrait.value || isPhoneDevice.value
+    ? `${baseClass} row-start-2`
+    : `${baseClass} row-start-1`
 })
 
 const visualColumnClass = computed<string>(() => {

@@ -67,19 +67,16 @@
         aria-hidden="true"
       >
         <UButton
-        aria-label="Aller au screen suivant"
-        variant="ghost"
-        color="neutral"
-        class="group pointer-events-auto inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border-0 bg-transparent p-3 text-white/88 shadow-none ring-0 transition-transform duration-200 hover:-translate-y-1 hover:bg-transparent hover:text-white"
-        :ui="{
-          base: 'cursor-pointer rounded-full border-0 bg-transparent shadow-none ring-0',
-        }"
-        @click="$emit('next-screen')"
-      >
-        <UIcon
-          name="i-heroicons-arrow-down"
-          class="text-2xl opacity-80 animate-bounce"
-        />
+          aria-label="Aller au screen suivant"
+          variant="ghost"
+          color="neutral"
+          class="group pointer-events-auto inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border-0 bg-transparent p-3 text-white/88 shadow-none ring-0 transition-transform duration-200 hover:-translate-y-1 hover:bg-transparent hover:text-white"
+          :ui="{
+            base: 'cursor-pointer rounded-full border-0 bg-transparent shadow-none ring-0',
+          }"
+          @click="emit('next-screen')"
+        >
+          <UIcon name="i-heroicons-arrow-down" class="animate-bounce text-2xl opacity-80" />
         </UButton>
       </div>
     </div>
@@ -104,6 +101,7 @@ type MenuItemWithAvailability = MenuItem & {
 }
 
 const props = defineProps<FullImageScreenProps>()
+const emit = defineEmits<{ 'next-screen': [] }>()
 const logger = useLogger({ module: 'screen-real-estate-full-image' })
 
 const { warmQuickActionTarget } = useQuickActionWarmup()

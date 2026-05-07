@@ -29,8 +29,11 @@
                 :class="cinemaOverlayClass"
               />
             </template>
-            <div v-else class="bg-foreground absolute -bottom-1/2 inset-0 flex items-center justify-center">
-              <span class="text-orange-400 text-4xl tracking-wide">Aucune image disponible</span>
+            <div
+              v-else
+              class="bg-foreground absolute inset-0 -bottom-1/2 flex items-center justify-center"
+            >
+              <span class="text-4xl tracking-wide text-orange-400">Aucune image disponible</span>
             </div>
 
             <div :class="cardOverlayClass">
@@ -136,7 +139,6 @@ import type { CinemaMode } from '#shared/types/ui'
 import type { ComponentPublicInstance } from 'vue'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
-
 
 const props = defineProps<{
   onLinePropertyRefUpdate: (element: HTMLDivElement | null) => void
