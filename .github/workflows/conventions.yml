@@ -16,4 +16,4 @@ jobs:
       - run: bun install
       - run: bun run check:app:types
       - run: bun run check:app:images
-      - run: bun run check:app:components
+      - run: bun run check:app:components:no-business-logic

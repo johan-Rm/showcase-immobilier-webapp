@@ -32,21 +32,14 @@
 
 <script setup lang="ts">
 import type { CreativeWork } from '@schemas/interfaces'
+import type { GalleryItem } from '~/composables/useGalleryItems'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
-import { useMetadataStore } from '~/stores/metadata'
+import { useGalleryItems } from '~/composables/useGalleryItems'
 
 type Props = {
   data?: CreativeWork
-}
-
-type GalleryItem = {
-  id: string
-  title: string
-  alternateName: string
-  src: string
-  sourceIndex: number
 }
 
 type GalleryExpose = {
@@ -60,7 +53,6 @@ const props = defineProps<Props>()
 const logger = useLogger({ module: 'screen-essaouira-the-jewel' })
 const { getMenuItemByIdentifier } = useAppNavigation()
 const { isPhoneDevice, isLandscape, isTabletPortrait } = useDeviceDetect()
-const store = useMetadataStore()
 const localePath = useLocalePath()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 const image = useImage()
@@ -91,32 +83,7 @@ const sectionParagraphs = computed<string[]>(() => {
     .filter(Boolean)
 })
 
-const galleryItems = computed<GalleryItem[]>(() => {
-  return (props.data?.hasPart ?? [])
-    .map((part, index) => {
-      const image = part.image
-      const src =
-        typeof image === 'string'
-          ? image.trim()
-          : Array.isArray(image)
-            ? (image[0]?.url?.trim() ?? '')
-            : (image?.url?.trim() ?? '')
-
-      if (!src) return null
-
-      const imageMeta = store.imageObjects.find((item) => item.url === src)
-      const title = imageMeta?.name ?? `Visuel ${index + 1}`
-
-      return {
-        id: `img-${index + 1}`,
-        title,
-        alternateName: title,
-        src,
-        sourceIndex: index,
-      }
-    })
-    .filter((item): item is GalleryItem => item !== null)
-})
+const { galleryItems } = useGalleryItems(computed(() => props.data?.hasPart))
 
 const shouldRenderVisual = computed<boolean>(() => !isPhoneDevice.value)
 

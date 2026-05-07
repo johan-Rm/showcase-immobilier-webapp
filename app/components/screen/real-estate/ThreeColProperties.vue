@@ -69,12 +69,7 @@ const screenData = computed<CreativeWork | undefined>(() => {
 })
 
 const imageObjectByIdentifier = computed<Map<string, MediaObject>>(
-  () =>
-    new Map(
-      metadataStore.getImageObjects
-        .filter((item): item is MediaObject & { identifier: string } => Boolean(item.identifier))
-        .map((item) => [item.identifier, item] as const),
-    ),
+  () => metadataStore.getImageObjectsByIdentifier,
 )
 
 function toPanelHeadingId(to: string): string {

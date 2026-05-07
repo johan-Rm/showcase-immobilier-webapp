@@ -71,25 +71,11 @@ type PropertyListProps = {
   activeRealEstateListingSlug?: string
 }
 
-type RealEstateListingSelectOption = {
-  label: string
-  value: string
-  count: number
-  disabled: boolean
-}
-
-type RealEstateListingFilterItem = {
-  slug?: string | null
-  name?: string | null
-  isActive?: boolean | null
-}
-
 const props = defineProps<PropertyListProps>()
 
 const logger = useLogger({ module: 'screen-property-list' })
 const { viewModeList, itemsList: defaultItemsList } = useAccommodation()
 const metadataStore = useMetadataStore()
-const accommodationStore = useAccommodationStore()
 const localePath = useLocalePath()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
@@ -112,6 +98,8 @@ const sourceItemsList = computed<PropertyItem[][]>(() => {
 })
 
 const sourcePropertyItems = computed<PropertyItem[]>(() => sourceItemsList.value.flat())
+const { accommodationCategories, realEstateListingOptions } =
+  usePropertyListOptions(sourcePropertyItems)
 const selectedCategorySlug = ref<string | null>(null)
 
 const safeItemsList = computed<PropertyItem[][]>(() => {
@@ -133,57 +121,6 @@ const renderedItemsList = computed(() => {
 
   return safeItemsList.value
 })
-
-const categoryCountBySlug = computed<Map<string, number>>(() => {
-  const counts = new Map<string, number>()
-
-  for (const item of sourcePropertyItems.value) {
-    if (!item.categorySlug) continue
-    counts.set(item.categorySlug, (counts.get(item.categorySlug) ?? 0) + 1)
-  }
-
-  return counts
-})
-
-const accommodationCategories = computed(() => {
-  const categories = metadataStore.getAccommodationCategories
-  const categoryItems = Array.isArray(categories) ? categories : []
-
-  return [
-    { slug: 'all', name: 'Tout', count: sourcePropertyItems.value.length },
-    ...categoryItems.map((category) => ({
-      slug: category.slug,
-      name: category.name,
-      count: categoryCountBySlug.value.get(category.slug) ?? 0,
-    })),
-  ].map((category) => ({
-    ...category,
-    disabled: category.count === 0,
-  }))
-})
-
-const isRealEstateListingFilterVisible = (listing: RealEstateListingFilterItem): boolean => {
-  return listing.isActive !== false
-}
-
-const realEstateListingOptions = computed<RealEstateListingSelectOption[]>(() =>
-  metadataStore.getAccommodationRealEstateListings
-    .filter(
-      (listing: RealEstateListingFilterItem) =>
-        listing.slug && listing.name && isRealEstateListingFilterVisible(listing),
-    )
-    .map((listing) => {
-      const slug = String(listing.slug)
-      const count = accommodationStore.getAccommodationsByRealEstateListing(slug).length
-
-      return {
-        label: String(listing.name),
-        value: slug,
-        count,
-        disabled: count === 0,
-      }
-    }),
-)
 
 const activeRealEstateListingSlug = computed<string>(() => {
   return props.activeRealEstateListingSlug ?? realEstateListingOptions.value[0]?.value ?? ''

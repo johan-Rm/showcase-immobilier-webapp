@@ -134,6 +134,21 @@ export const useMetadataStore = defineStore('metadata', {
     getImageObjects(state: MetadataState): MediaObject[] {
       return state.imageObjects
     },
+
+    /**
+     * Index des `MediaObject` par `identifier`, filtré sur les entrées valides.
+     *
+     * @param state État contenant `imageObjects`.
+     *
+     * @returns Map `identifier → MediaObject`.
+     */
+    getImageObjectsByIdentifier(state: MetadataState): Map<string, MediaObject> {
+      return new Map(
+        state.imageObjects
+          .filter((item): item is MediaObject & { identifier: string } => Boolean(item.identifier))
+          .map((item) => [item.identifier, item] as const),
+      )
+    },
   },
 
   actions: {
