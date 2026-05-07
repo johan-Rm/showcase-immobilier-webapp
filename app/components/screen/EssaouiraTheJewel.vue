@@ -59,7 +59,7 @@ const props = defineProps<Props>()
 
 const logger = useLogger({ module: 'screen-essaouira-the-jewel' })
 const { getMenuItemByIdentifier } = useAppNavigation()
-const { segment, isPhoneDevice, isLandscape } = useDeviceDetect()
+const { isPhoneDevice, isLandscape, isTabletPortrait } = useDeviceDetect()
 const store = useMetadataStore()
 const localePath = useLocalePath()
 const { warmQuickActionTarget } = useQuickActionWarmup()
@@ -194,20 +194,13 @@ onMounted(() => {
 const rootGridClass = computed<string>(() => {
   const base = 'grid min-h-0'
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${base} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${base} h-full grid-cols-[33.33%_66.67%]`
-    default:
-      return `${base} h-dvh grid-cols-1`
-  }
+  if (isTabletPortrait.value) return `${base} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
+  if (!isPhoneDevice.value) return `${base} h-full grid-cols-[33.33%_66.67%]`
+  return `${base} h-dvh grid-cols-1`
 })
 
 const contentColumnClass = computed<string>(() => {
-  return segment.value === 'tablet-portrait' ? 'row-start-2 h-full' : 'row-start-1 h-full'
+  return isTabletPortrait.value ? 'row-start-2 h-full' : 'row-start-1 h-full'
 })
 
 const contentTopPaddingClass = computed<string>(() => {
@@ -216,15 +209,6 @@ const contentTopPaddingClass = computed<string>(() => {
 
 const visualColumnClass = computed<string>(() => {
   const base = 'relative h-full w-full overflow-hidden px-1'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${base} flex`
-    default:
-      return 'hidden'
-  }
+  return !isPhoneDevice.value ? `${base} flex` : 'hidden'
 })
 </script>

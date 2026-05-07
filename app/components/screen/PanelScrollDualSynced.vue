@@ -52,7 +52,7 @@ type Panel = {
 const props = defineProps<PanelScrollDualSyncedProps>()
 
 const { setScreenMeta } = useScreenSystem()
-const { segment } = useDeviceDetect()
+const { isTabletPortrait, isPhoneDevice } = useDeviceDetect()
 const reducedMotion = usePreferredReducedMotion()
 
 const activeIndex = ref(0)
@@ -193,24 +193,14 @@ watch(
 const rootGridClass = computed<string>(() => {
   const baseClass = 'grid min-h-0'
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${baseClass} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} h-full grid-cols-[33.33%_66.67%] grid-rows-1`
-    default:
-      return `${baseClass} h-dvh grid-cols-1 grid-rows-1`
-  }
+  if (isTabletPortrait.value) return `${baseClass} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
+  if (!isPhoneDevice.value) return `${baseClass} h-full grid-cols-[33.33%_66.67%] grid-rows-1`
+  return `${baseClass} h-dvh grid-cols-1 grid-rows-1`
 })
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex min-w-0 flex-col overflow-hidden'
-
-  return segment.value === 'tablet-portrait'
-    ? `${baseClass} row-start-2 h-full`
-    : `${baseClass} row-start-1 h-full`
+  return isTabletPortrait.value ? `${baseClass} row-start-2 h-full` : `${baseClass} row-start-1 h-full`
 })
 
 onMounted(() => {

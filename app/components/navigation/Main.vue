@@ -232,7 +232,7 @@ const localePath = useLocalePath()
 const route = useRoute()
 const { appData, primaryMenuItems, secondaryMenuItems } = useAppNavigation()
 const { getItemsByRealEstateListing } = useAccommodation()
-const { segment } = useDeviceDetect()
+const { isPhoneDevice } = useDeviceDetect()
 
 const contactMenuItem = computed<TryptiqueMenuItem | undefined>(() =>
   secondaryMenuItems.value?.find((item) => item.url === '/contact'),
@@ -307,12 +307,8 @@ const centerImageUrl = computed<string>(() => appConfig.menu.mainMenuCenterImage
 const primaryMenuLinkClass =
   'group relative inline-flex text-left text-xl text-white/90 transition duration-200 hover:text-white after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-white/90 after:transition-all after:duration-200 hover:after:w-full sm:text-2xl 2xl:text-[2.8rem] 2xl:leading-[1.16]'
 
-const isMobileSegment = computed<boolean>(
-  () => segment.value === 'mobile-portrait' || segment.value === 'mobile-landscape',
-)
-
-const contactPanelClass = computed<string>(() => (isMobileSegment.value ? 'order-2' : 'order-1'))
-const menuPanelClass = computed<string>(() => (isMobileSegment.value ? 'order-1' : 'order-2'))
+const contactPanelClass = computed<string>(() => (isPhoneDevice.value ? 'order-2' : 'order-1'))
+const menuPanelClass = computed<string>(() => (isPhoneDevice.value ? 'order-1' : 'order-2'))
 
 const getListingSlugFromUrl = (url?: string): string => {
   if (!url) return ''

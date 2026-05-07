@@ -64,7 +64,7 @@ const { IMAGE_DIMENSIONS } = useAppImage()
 const localePath = useLocalePath()
 const columnTemplate: ScreenColumnTemplate = 'split-67-33'
 const VISUAL_IMAGE_WIDTH = IMAGE_DIMENSIONS.vertical3col.width
-const { isMobileLandscape, segment, isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+const { isMobileLandscape, isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
 const { getMenuItemByIdentifier } = useAppNavigation()
@@ -141,48 +141,24 @@ const visualImage = computed<{ url: string; alt: string } | null>(() => {
 const rootGridClass = computed<string>(() => {
   const baseClass = 'grid min-h-0'
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${baseClass} h-screen grid-cols-1 grid-rows-[45%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-    default:
-      return `${baseClass} h-screen grid-cols-1 grid-rows-1`
-  }
+  if (isTabletPortrait.value) return `${baseClass} h-screen grid-cols-1 grid-rows-[45%_1fr]`
+  if (!isPhoneDevice.value) return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
+  return `${baseClass} h-screen grid-cols-1 grid-rows-1`
 })
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex h-full'
-
-  return segment.value === 'tablet-portrait'
-    ? `${baseClass} row-start-2`
-    : `${baseClass} row-start-1`
+  return isTabletPortrait.value ? `${baseClass} row-start-2` : `${baseClass} row-start-1`
 })
 
 const visualColumnClass = computed<string>(() => {
   const baseClass = 'relative h-full min-h-0 min-w-0 overflow-hidden'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} row-start-1 block`
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-    default:
-      return `${baseClass} hidden`
-  }
+  return !isPhoneDevice.value ? `${baseClass} row-start-1 block` : `${baseClass} hidden`
 })
 
 const contentBodyClass = computed<string>(() => {
   const baseClass = 'flex h-full min-h-0 flex-1 items-center justify-center'
-
-  return segment.value === 'mobile-landscape' ? baseClass : `${baseClass} py-8 pb-12`
+  return isMobileLandscape.value ? baseClass : `${baseClass} py-8 pb-12`
 })
 
 const contentGridClass = computed<string>(() => {

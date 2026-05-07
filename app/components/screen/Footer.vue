@@ -285,7 +285,7 @@ type ContactEntry = {
   icon: string
 }
 
-const { isPhoneDevice, segment } = useDeviceDetect()
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const LINK_FILL_TEXT_CLASS = 'from-secondary to-foreground/70 inline-block'
 
 const SCREEN_ID = 'screen-footer'
@@ -451,50 +451,19 @@ const hasCreditsLine = computed<boolean>(() => creditsParts.value.length > 0)
 const rootGridClass = computed<string>(() => {
   const baseClass = 'grid min-h-0'
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${baseClass} h-screen grid-cols-1 grid-rows-[40%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-    default:
-      return `${baseClass} h-screen grid-cols-1 grid-rows-[50%_1fr]`
-  }
+  if (isTabletPortrait.value) return `${baseClass} h-screen grid-cols-1 grid-rows-[40%_1fr]`
+  if (!isPhoneDevice.value) return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
+  return `${baseClass} h-screen grid-cols-1 grid-rows-[50%_1fr]`
 })
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex h-full min-h-0 flex-col'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-      return `${baseClass} row-start-2`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-    default:
-      return `${baseClass} row-start-1`
-  }
+  return isTabletPortrait.value || isPhoneDevice.value ? `${baseClass} row-start-2` : `${baseClass} row-start-1`
 })
 
 const visualColumnClass = computed<string>(() => {
   const baseClass = 'relative h-full min-h-0 min-w-0 overflow-hidden'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-      return `${baseClass} row-start-1`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-    default:
-      return baseClass
-  }
+  return isTabletPortrait.value || isPhoneDevice.value ? `${baseClass} row-start-1` : baseClass
 })
 const shouldLoadVisuals = useDeferredScreenVisuals(
   SCREEN_ID,
