@@ -1,12 +1,28 @@
 /**
- * @rule docs/2.architecture/6.script-setup-standard.md
+ * @rule docs/2.architecture/7.script-setup-standard.md
  * @see app/README.md — Convention : Structure interne de <script setup>
  *
- * Vérifie l'ordre des blocs dans <script setup lang="ts"> :
- *   Règle 1 — defineProps/defineEmits (bloc 3) avant les composables et stores (bloc 4)
- *   Règle 2 — computed/watch/watchEffect (blocs 8-10) avant les hooks lifecycle (bloc 12)
+ * Vérifie que chaque <script setup lang="ts"> contient les 12 commentaires de section
+ * numérotés dans l'ordre croissant :
  *
- * Scope : app/components/, app/pages/
+ *   // 1. Imports
+ *   // 2. Types et constantes statiques
+ *   // 3. Props et emits
+ *   // 4. Composables, stores, routeur
+ *   // 5. Etat local
+ *   // 6. Data inputs
+ *   // 7. Validation et helpers purs
+ *   // 8. Computed UI-ready
+ *   // 9. Actions et handlers
+ *   // 10. Watch et watchEffect
+ *   // 11. Metadonnees ecran ou page
+ *   // 12. Lifecycle
+ *
+ * Violations détectées :
+ *   1. Commentaire(s) de section absent(s)
+ *   2. Commentaire(s) de section dans le mauvais ordre
+ *
+ * Scope : app/components/, app/pages/, app/layouts/
  * Mode : erreur bloquante (exit 1)
  */
 
@@ -15,30 +31,24 @@ import { extname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = resolve(fileURLToPath(new URL('../../..', import.meta.url)))
-const SCAN_DIRS = [join(ROOT, 'app', 'components'), join(ROOT, 'app', 'pages')]
+const SCAN_DIRS = [
+  join(ROOT, 'app', 'components'),
+  join(ROOT, 'app', 'pages'),
+  join(ROOT, 'app', 'layouts'),
+]
 const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git'])
+const SECTION_COUNT = 12
 
-// Bloc 3 : contrats d'interface du composant
-const BLOCK3 = /\b(?:defineProps|defineEmits)\s*[<(]/
-// Bloc 4 : composables, stores, routeur (use + majuscule, ou storeToRefs)
-const BLOCK4 = /\b(?:use[A-Z]\w*|storeToRefs)\s*\(/
-// Blocs 8-10 : computed, watch, watchEffect
-const BLOCK8_10 = /\b(?:computed|watch|watchEffect)\s*\(/
-// Bloc 12 : hooks lifecycle Vue
-const BLOCK12 =
-  /\b(?:onMounted|onUnmounted|onBeforeMount|onBeforeUnmount|onUpdated|onBeforeUpdate|onErrorCaptured|onActivated|onDeactivated|onServerPrefetch)\s*\(/
+// Correspond à "// N. " en début de ligne (espaces avant autorisés)
+const SECTION_PATTERN = /^\s*\/\/\s*(\d+)\.\s/
 
 export type FilePath = string
-export type BlockScan = {
-  firstBlock3: number | null
-  firstBlock4: number | null
-  lastBlock8_10: number | null
-  firstBlock12: number | null
-}
+// section number (1-12) → numéro de ligne dans le bloc script (1-based)
+export type SectionMap = Map<number, number>
 export type Violation = {
   file: FilePath
-  rule: 1 | 2
   line: number
+  rule: 1 | 2
   message: string
 }
 
@@ -79,60 +89,56 @@ export function extractScriptBlock(content: string): { text: string; lineOffset:
   return { text: match[1], lineOffset }
 }
 
-function isCommentOrEmpty(line: string): boolean {
-  const t = line.trimStart()
-  return t === '' || t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')
-}
-
-export function scanBlocks(script: string): BlockScan {
+export function scanSections(script: string): SectionMap {
+  const sections: SectionMap = new Map()
   const lines = script.split('\n')
-  let firstBlock3: number | null = null
-  let firstBlock4: number | null = null
-  let lastBlock8_10: number | null = null
-  let firstBlock12: number | null = null
 
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]!
-    if (isCommentOrEmpty(line)) continue
-    const lineNo = i + 1
-
-    if (firstBlock3 === null && BLOCK3.test(line)) firstBlock3 = lineNo
-    if (firstBlock4 === null && BLOCK4.test(line)) firstBlock4 = lineNo
-    if (BLOCK8_10.test(line)) lastBlock8_10 = lineNo
-    if (firstBlock12 === null && BLOCK12.test(line)) firstBlock12 = lineNo
+    const match = lines[i]!.match(SECTION_PATTERN)
+    if (!match) continue
+    const num = parseInt(match[1]!, 10)
+    if (num >= 1 && num <= SECTION_COUNT && !sections.has(num)) {
+      sections.set(num, i + 1)
+    }
   }
 
-  return { firstBlock3, firstBlock4, lastBlock8_10, firstBlock12 }
+  return sections
 }
 
-export function findViolations(scan: BlockScan, lineOffset: number, file: FilePath): Violation[] {
-  const abs = (n: number) => lineOffset + n
+export function findViolations(
+  sections: SectionMap,
+  lineOffset: number,
+  file: FilePath,
+): Violation[] {
   const violations: Violation[] = []
 
-  if (
-    scan.firstBlock3 !== null &&
-    scan.firstBlock4 !== null &&
-    scan.firstBlock3 > scan.firstBlock4
-  ) {
+  // Règle 1 — sections manquantes
+  const missing = Array.from({ length: SECTION_COUNT }, (_, i) => i + 1).filter(
+    (n) => !sections.has(n),
+  )
+  if (missing.length > 0) {
     violations.push({
       file,
       rule: 1,
-      line: abs(scan.firstBlock3),
-      message: `defineProps/defineEmits (script:${scan.firstBlock3}) après un composable/store (script:${scan.firstBlock4}) — bloc 3 doit précéder bloc 4`,
+      line: lineOffset + 1,
+      message: `commentaires de section absents : ${missing.map((n) => `// ${n}.`).join(', ')}`,
     })
   }
 
-  if (
-    scan.firstBlock12 !== null &&
-    scan.lastBlock8_10 !== null &&
-    scan.firstBlock12 < scan.lastBlock8_10
-  ) {
-    violations.push({
-      file,
-      rule: 2,
-      line: abs(scan.firstBlock12),
-      message: `hook lifecycle (script:${scan.firstBlock12}) avant un computed/watch (script:${scan.lastBlock8_10}) — bloc 12 doit suivre les blocs 8-10`,
-    })
+  // Règle 2 — sections dans le mauvais ordre (parcourir par ordre d'apparition dans le fichier)
+  const byLine = [...sections.entries()].sort((a, b) => a[1] - b[1])
+  let lastNum = 0
+  for (const [num, scriptLine] of byLine) {
+    if (num < lastNum) {
+      violations.push({
+        file,
+        rule: 2,
+        line: lineOffset + scriptLine,
+        message: `// ${num}. apparaît après // ${lastNum}. — les sections doivent être dans l'ordre croissant`,
+      })
+    } else {
+      lastNum = num
+    }
   }
 
   return violations
@@ -149,8 +155,8 @@ export function checkFile(file: FilePath): Violation[] {
   const block = extractScriptBlock(content)
   if (!block) return []
 
-  const scan = scanBlocks(block.text)
-  return findViolations(scan, block.lineOffset, file)
+  const sections = scanSections(block.text)
+  return findViolations(sections, block.lineOffset, file)
 }
 
 function rel(file: FilePath): string {
@@ -159,11 +165,13 @@ function rel(file: FilePath): string {
 
 function report(violations: Violation[]): void {
   if (violations.length === 0) {
-    process.stdout.write('✓ Script setup order OK\n')
+    process.stdout.write('✓ Script setup structure OK\n')
     return
   }
 
-  process.stderr.write(`\n✗ ${violations.length} violation(s) d'ordre de blocs détectée(s)\n\n`)
+  process.stderr.write(
+    `\n✗ ${violations.length} violation(s) de structure script setup détectée(s)\n\n`,
+  )
   for (const v of violations) {
     process.stderr.write(`  [règle ${v.rule}] ${rel(v.file)}:${v.line}\n`)
     process.stderr.write(`  ${v.message}\n\n`)
