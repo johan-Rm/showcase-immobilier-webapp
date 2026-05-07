@@ -1,5 +1,5 @@
 /**
- * @rule docs/2.architecture/7.script-setup-standard.md
+ * @rule docs/2.architecture/6.script-setup-standard.md
  * @see app/README.md — Convention : Structure interne de <script setup>
  *
  * Vérifie l'ordre des blocs dans <script setup lang="ts"> :

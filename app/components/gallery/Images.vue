@@ -30,6 +30,9 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 type GalleryImageItem = {
   id: string
   title: string
@@ -45,24 +48,39 @@ type GalleryImagesProps = {
 
 // nombre d'images visibles dans la colonne au-dessus du fold pour ce composant
 const EAGER_COUNT = 6
+
 const SCROLL_SPEED = 0.35
+
 const AUTO_SCROLL_ENABLED = true
 
-const { IMAGE_PRESETS } = useAppImage()
-const GALLERY_IMAGE_PRESET = IMAGE_PRESETS.galleryColumn
-
+// 3. Props et emits
 const props = withDefaults(defineProps<GalleryImagesProps>(), {
   active: false,
   items: () => [],
 })
 
+// 4. Composables, stores, routeur
+const { IMAGE_PRESETS } = useAppImage()
+const GALLERY_IMAGE_PRESET = IMAGE_PRESETS.galleryColumn
+
+// 5. Etat local
 const containerRef = ref<HTMLElement | null>(null)
+
 const hasBeenActivated = ref(false)
+
 const loadedImageIndexes = ref<Set<number>>(new Set())
+
 const loadedCriticalImageIndexes = ref<Set<number>>(new Set())
+
 let rafId: number | null = null
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const galleryItems = computed<GalleryImageItem[]>(() => props.items ?? [])
+
 const isActive = computed<boolean>(() => props.active || hasBeenActivated.value)
 
 const criticalVisibleImageIndexes = computed<number[]>(() => {
@@ -127,6 +145,7 @@ const getImageProps = (sourceIndex: number) => {
   } as const
 }
 
+// 9. Actions et handlers
 const markImageAsLoaded = (sourceIndex: number): void => {
   if (loadedImageIndexes.value.has(sourceIndex)) return
 
@@ -188,11 +207,15 @@ const start = (): void => {
 
 defineExpose({ activate, start, stop })
 
+// 10. Watch et watchEffect
 watch(galleryItems, () => {
   loadedImageIndexes.value = new Set()
   loadedCriticalImageIndexes.value = new Set()
 })
 
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onUnmounted(stop)
 </script>
 

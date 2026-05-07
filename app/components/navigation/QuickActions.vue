@@ -41,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { MenuItem } from '@schemas/interfaces'
 import type { ComponentPublicInstance } from 'vue'
 
@@ -50,17 +51,21 @@ import { useConstructionModal } from '~/composables/useConstructionModal'
 import { prefetchImage } from '~/composables/useImageWarmup'
 import { useQuickActionWarmup } from '~/composables/useQuickActionWarmup'
 
+// 2. Types et constantes statiques
 type QuickActionsContainerVariant = 'glass'
 
 const MAIN_MENU_CENTER_IMAGE_URL = '/images/essaouira-navigation-hero.jpg'
 
 const DEFAULT_COLOR_CLASS = 'text-foreground/90'
+
 const CONTRAST_COLOR_CLASS = 'text-white/90'
 
 const DEFAULT_TEXT_HOVER_COLOR_CLASS = 'group-hover:text-white'
+
 const CONTRAST_TEXT_HOVER_COLOR_CLASS = 'group-hover:text-white'
 
 const DEFAULT_ICON_HOVER_COLOR_CLASS = 'group-hover:text-white'
+
 const CONTRAST_ICON_HOVER_COLOR_CLASS = 'group-hover:text-white'
 
 type QuickActionsColorClass = typeof DEFAULT_COLOR_CLASS | typeof CONTRAST_COLOR_CLASS
@@ -85,44 +90,81 @@ type QuickActionElementEntry = {
   item: QuickActionItem
 }
 
+const listClass = 'h-full flex-col items-end justify-start gap-1'
+
+const quickActionIconClass = 'text-base xl:text-lg 2xl:text-[2.5rem]'
+
+// 3. Props et emits
 const props = defineProps<{
   containerVariant?: QuickActionsContainerVariant
   colorClass?: QuickActionsColorClass
 }>()
 
+// 4. Composables, stores, routeur
 const { toggleSidePanel } = useDashboard()
+
 const { isConstructionEnabled, open: openConstructionModal } = useConstructionModal()
+
 const localePath = useLocalePath()
+
 const route = useRoute()
+
 const { appData, navigationItems } = useAppNavigation()
+
 const { currentMeta } = useScreenSystem()
+
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
-const latestEffectiveColorClass = ref<QuickActionsColorClass>(DEFAULT_COLOR_CLASS)
+const observeVisibleQuickActions = (): void => {
+  quickActionElements.value.forEach(({ element, item }) => {
+    if (observedQuickActionElements.has(element)) return
+
+    observedQuickActionElements.add(element)
+
+    const { stop } = useIntersectionObserver(
+      element,
+      ([entry]) => {
+        if (!entry?.isIntersecting) return
+
+        warmQuickActionEntry(item)
+        stop()
+      },
+      {
+        threshold: 0.25,
+      },
+    )
+
+    stopQuickActionObservers.push(stop)
+  })
+}
+
+const { start: scheduleVisibleQuickActionsWarmup } = useTimeoutFn(
+  () => {
+    observeVisibleQuickActions()
+  },
+  300,
+  {
+    immediate: false,
+  },
+)
+
+// 5. Etat local
 const warmedQuickActionIds = new Set<string>()
+
 const warmedImageUrls = new Set<string>()
+
 const observedQuickActionElements = new WeakSet<HTMLElement>()
+
+// 6. Data inputs
+const latestEffectiveColorClass = ref<QuickActionsColorClass>(DEFAULT_COLOR_CLASS)
+
 const stopQuickActionObservers: Array<() => void> = []
+
 const quickActionElements = ref<QuickActionElementEntry[]>([])
 
-const navigationMainContent = computed(() => appData.value?.components?.navigationMain)
-
-const warmImage = (src: string): void => {
-  if (warmedImageUrls.has(src)) return
-
-  warmedImageUrls.add(src)
-  void prefetchImage(src)
-}
-
+// 7. Validation et helpers purs
 const findMenuItemByUrl = (url: string): MenuItem | null => {
   return navigationItems.value.find((item) => item.url === url) ?? null
-}
-
-const propertiesMenuItem = computed(() => findMenuItemByUrl('/properties/bien-a-vendre'))
-const contactMenuItem = computed(() => findMenuItemByUrl('/contact'))
-
-const openMainMenu = () => {
-  toggleSidePanel('mainMenu')
 }
 
 const getQuickActionTo = (item: QuickActionItem): string => {
@@ -145,6 +187,64 @@ const getQuickActionTarget = (item: QuickActionItem) => {
 const getQuickActionRel = (item: QuickActionItem) => {
   if (item.external) return 'noopener noreferrer'
   return item.rel
+}
+
+const shouldUseContrastColor = (contentZone?: string, imageZone?: string) => {
+  return contentZone === 'none' || imageZone === 'background' || imageZone === 'right'
+}
+
+// 8. Computed UI-ready
+const navigationMainContent = computed(() => appData.value?.components?.navigationMain)
+
+const propertiesMenuItem = computed(() => findMenuItemByUrl('/properties/bien-a-vendre'))
+
+const contactMenuItem = computed(() => findMenuItemByUrl('/contact'))
+
+const visibleQuickActions = computed(() =>
+  quickActions.value.filter((item) => item.visible !== false),
+)
+
+const textHoverColorClass = computed(() => {
+  return colorClass.value === CONTRAST_COLOR_CLASS
+    ? CONTRAST_TEXT_HOVER_COLOR_CLASS
+    : DEFAULT_TEXT_HOVER_COLOR_CLASS
+})
+
+const iconHoverColorClass = computed(() => {
+  return colorClass.value === CONTRAST_COLOR_CLASS
+    ? CONTRAST_ICON_HOVER_COLOR_CLASS
+    : DEFAULT_ICON_HOVER_COLOR_CLASS
+})
+
+const quickActionTextClass = computed(() => {
+  return [colorClass.value, textHoverColorClass.value].join(' ')
+})
+
+const textControlClass = computed(() => {
+  return [
+    'relative inline-flex items-center justify-end gap-2 bg-transparent px-0 text-right text-xs font-semibold tracking-[0.12em] uppercase transition duration-300 hover:bg-transparent hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.18)] after:absolute after:right-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-white/80 after:transition-all after:duration-300 hover:after:w-full backdrop-blur-none xl:text-sm xl:tracking-[0.13em] 2xl:text-[2rem] 2xl:tracking-[0.24em]',
+  ].join(' ')
+})
+
+const effectiveContainerVariant = computed(() => {
+  return props.containerVariant ?? currentMeta.value?.quickActions?.containerVariant
+})
+
+const navClass = computed(() => {
+  if (effectiveContainerVariant.value !== 'glass') return undefined
+  return 'rounded-lg bg-black/20 p-2 backdrop-blur'
+})
+
+// 9. Actions et handlers
+const warmImage = (src: string): void => {
+  if (warmedImageUrls.has(src)) return
+
+  warmedImageUrls.add(src)
+  void prefetchImage(src)
+}
+
+const openMainMenu = () => {
+  toggleSidePanel('mainMenu')
 }
 
 const handleQuickActionClick = (event: MouseEvent, item: QuickActionItem) => {
@@ -188,50 +288,8 @@ const quickActions = computed<QuickActionItem[]>(() => [
   },
 ])
 
-const visibleQuickActions = computed(() =>
-  quickActions.value.filter((item) => item.visible !== false),
-)
-
-const listClass = 'h-full flex-col items-end justify-start gap-1'
-const quickActionIconClass = 'text-base xl:text-lg 2xl:text-[2.5rem]'
-
 const colorClass = computed<QuickActionsColorClass>(() => {
   return props.colorClass ?? latestEffectiveColorClass.value
-})
-
-const textHoverColorClass = computed(() => {
-  return colorClass.value === CONTRAST_COLOR_CLASS
-    ? CONTRAST_TEXT_HOVER_COLOR_CLASS
-    : DEFAULT_TEXT_HOVER_COLOR_CLASS
-})
-
-const iconHoverColorClass = computed(() => {
-  return colorClass.value === CONTRAST_COLOR_CLASS
-    ? CONTRAST_ICON_HOVER_COLOR_CLASS
-    : DEFAULT_ICON_HOVER_COLOR_CLASS
-})
-
-const quickActionTextClass = computed(() => {
-  return [colorClass.value, textHoverColorClass.value].join(' ')
-})
-
-const shouldUseContrastColor = (contentZone?: string, imageZone?: string) => {
-  return contentZone === 'none' || imageZone === 'background' || imageZone === 'right'
-}
-
-const textControlClass = computed(() => {
-  return [
-    'relative inline-flex items-center justify-end gap-2 bg-transparent px-0 text-right text-xs font-semibold tracking-[0.12em] uppercase transition duration-300 hover:bg-transparent hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.18)] after:absolute after:right-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-white/80 after:transition-all after:duration-300 hover:after:w-full backdrop-blur-none xl:text-sm xl:tracking-[0.13em] 2xl:text-[2rem] 2xl:tracking-[0.24em]',
-  ].join(' ')
-})
-
-const effectiveContainerVariant = computed(() => {
-  return props.containerVariant ?? currentMeta.value?.quickActions?.containerVariant
-})
-
-const navClass = computed(() => {
-  if (effectiveContainerVariant.value !== 'glass') return undefined
-  return 'rounded-lg bg-black/20 p-2 backdrop-blur'
 })
 
 const warmQuickActionEntry = (item: QuickActionItem) => {
@@ -261,49 +319,7 @@ const registerQuickActionElement = (
   })
 }
 
-const observeVisibleQuickActions = (): void => {
-  quickActionElements.value.forEach(({ element, item }) => {
-    if (observedQuickActionElements.has(element)) return
-
-    observedQuickActionElements.add(element)
-
-    const { stop } = useIntersectionObserver(
-      element,
-      ([entry]) => {
-        if (!entry?.isIntersecting) return
-
-        warmQuickActionEntry(item)
-        stop()
-      },
-      {
-        threshold: 0.25,
-      },
-    )
-
-    stopQuickActionObservers.push(stop)
-  })
-}
-
-const { start: scheduleVisibleQuickActionsWarmup } = useTimeoutFn(
-  () => {
-    observeVisibleQuickActions()
-  },
-  300,
-  {
-    immediate: false,
-  },
-)
-
-onMounted(() => {
-  scheduleVisibleQuickActionsWarmup()
-})
-
-onBeforeUnmount(() => {
-  stopQuickActionObservers.forEach((stop) => stop())
-  stopQuickActionObservers.length = 0
-  quickActionElements.value = []
-})
-
+// 10. Watch et watchEffect
 watch(
   () => quickActionElements.value.length,
   () => {
@@ -327,4 +343,17 @@ watch(
   },
   { immediate: true },
 )
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
+onMounted(() => {
+  scheduleVisibleQuickActionsWarmup()
+})
+
+onBeforeUnmount(() => {
+  stopQuickActionObservers.forEach((stop) => stop())
+  stopQuickActionObservers.length = 0
+  quickActionElements.value = []
+})
 </script>

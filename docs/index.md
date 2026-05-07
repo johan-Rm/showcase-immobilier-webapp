@@ -8,7 +8,7 @@ Cette documentation complete les README locaux et centralise les conventions tra
 Ordre de lecture recommande :
 
 1. [DOCS_GUIDELINES](../DOCS_GUIDELINES.md)
-2. [Architecture](./2.architecture/1.index.md)
+2. [Architecture](./2.architecture/index.md)
 3. la section thematique concernee
 4. le `README.md` local du dossier concerne
 

@@ -18,38 +18,24 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 // Slug simple en kebab-case : évite que la catch-all absorbe des chemins profonds
 // ou des valeurs incompatibles avec les slugs éditoriaux attendus.
 const pattern = /^[a-z](?:[a-z0-9]*)(?:-[a-z0-9]+)*$/
-const route = useRoute()
-
-definePageMeta({
-  validate: (route) => {
-    // Validation Nuxt exécutée avant rendu : elle protège la route catch-all
-    // contre les URL ambiguës et limite les 404 tardives.
-    const param = route.params.page
-    if (Array.isArray(param)) {
-      return param.length === 1 && pattern.test(param[0] ?? '')
-    }
-    return typeof param === 'string' && pattern.test(param)
-  },
-})
-
-// Normalise le paramètre dynamique pour fournir un slug stable au screen MDC
-// et au lookup de page, quel que soit le format reçu par Vue Router.
-const slug = computed(() => {
-  const param = route.params.page
-  if (Array.isArray(param)) return param[0] ?? ''
-  return typeof param === 'string' ? param : ''
-})
-const { getPageBySlug } = useWebPage()
-// Page éditoriale résolue depuis le slug public de la route.
-const page = computed(() => getPageBySlug(slug.value))
-// Conteneur utilisé par la navigation plein écran pour scoper wheel, touch et ancres.
-const pageRef = ref<HTMLElement | null>(null)
 
 // Transition partagée avec les pages éditoriales à screens verticaux.
 const transitionMode = 'cross-zoom'
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
+const route = useRoute()
+const { getPageBySlug } = useWebPage()
+
+// Conteneur utilisé par la navigation plein écran pour scoper wheel, touch et ancres.
+const pageRef = useTemplateRef<HTMLElement>('pageRef')
 
 const { screenUi } = useScreenSystem({
   // Navigation verticale : lecture éditoriale, relance immobilière, puis footer.
@@ -84,12 +70,48 @@ const { screenUi } = useScreenSystem({
   },
 })
 
-// SEO générique de page éditoriale, piloté par le contenu résolu.
-usePageSeo(page)
+// 5. Etat local
 
+// 6. Data inputs
+// Normalise le paramètre dynamique pour fournir un slug stable au screen MDC
+// et au lookup de page, quel que soit le format reçu par Vue Router.
+const slug = computed(() => {
+  const param = route.params.page
+  if (Array.isArray(param)) return param[0] ?? ''
+  return typeof param === 'string' ? param : ''
+})
+
+// Page éditoriale résolue depuis le slug public de la route.
+const page = computed(() => getPageBySlug(slug.value))
+
+// 7. Validation et helpers purs
 if (!page.value) {
   // Un slug valide syntaxiquement mais absent du contenu doit produire une vraie 404
   // pour éviter une page indexable sans contenu éditorial.
   throw createError({ statusCode: 404, statusMessage: 'Page not found' })
 }
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+definePageMeta({
+  validate: (route) => {
+    // Validation Nuxt exécutée avant rendu : elle protège la route catch-all
+    // contre les URL ambiguës et limite les 404 tardives.
+    const param = route.params.page
+    if (Array.isArray(param)) {
+      return param.length === 1 && pattern.test(param[0] ?? '')
+    }
+    return typeof param === 'string' && pattern.test(param)
+  },
+})
+
+// SEO générique de page éditoriale, piloté par le contenu résolu.
+usePageSeo(page)
+
+// 12. Lifecycle
 </script>

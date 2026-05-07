@@ -105,6 +105,9 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 type CategoryItem = {
   slug: string
   name: string
@@ -129,6 +132,7 @@ type Props = {
   progress: number
 }
 
+// 3. Props et emits
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
@@ -139,9 +143,20 @@ const emit = defineEmits<{
   (e: 'next-screen'): void
 }>()
 
+// 4. Composables, stores, routeur
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const isPrevDisabled = computed<boolean>(() => props.current <= 1)
+
 const isNextDisabled = computed<boolean>(() => props.total <= 1 || props.current >= props.total)
 
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
 const onUpdateValue = (value: string | number): void => {
   emit('update:value', String(value))
 }
@@ -149,6 +164,12 @@ const onUpdateValue = (value: string | number): void => {
 const onSelectCategory = (value: string | null): void => {
   emit('select-category', value)
 }
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
 
 <style scoped>

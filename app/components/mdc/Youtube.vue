@@ -33,6 +33,9 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 type YoutubeVideo = {
   id?: number
   name?: string
@@ -45,13 +48,30 @@ type YoutubeProps = {
   video?: YoutubeVideo
 }
 
+// 3. Props et emits
 const props = defineProps<YoutubeProps>()
 
+// 4. Composables, stores, routeur
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const getVideoId = (url?: string): string | null => {
   if (!url) return null
   const match = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/)
   return match?.[1] ?? null
 }
 
+// 8. Computed UI-ready
 const videoId = computed(() => getVideoId(props.video?.url))
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

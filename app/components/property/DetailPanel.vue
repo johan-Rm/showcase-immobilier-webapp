@@ -211,10 +211,12 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { Accommodation } from '@schemas/interfaces'
 
 import { useTemplateRef } from 'vue'
 
+// 2. Types et constantes statiques
 type SummaryItem = {
   key: string
   label: string
@@ -239,6 +241,7 @@ type SectionLabels = {
   review: string
 }
 
+// 3. Props et emits
 const props = defineProps<{
   property?: Accommodation
   placeLabel: string
@@ -251,19 +254,19 @@ const props = defineProps<{
   sections: SectionLabels
 }>()
 
+// 4. Composables, stores, routeur
 const appConfig = useAppConfig()
+
+// 5. Etat local
+
+// 6. Data inputs
 const scrollContainer = useTemplateRef<HTMLDivElement>('scrollContainer')
+
 const contactSection = useTemplateRef<HTMLElement>('contactSection')
 
-const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
-const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
-const firstWhatsAppHref = computed<string | undefined>(() => {
-  const phone = organizationPhoneNumbers.value.find((phoneNumber) => phoneNumber.trim().length > 0)
-  const normalizedPhone = phone?.replace(/\D/g, '')
+// 7. Validation et helpers purs
 
-  return normalizedPhone ? `https://wa.me/${normalizedPhone}` : undefined
-})
-
+// 8. Computed UI-ready
 const orderedSummaryItems = computed(() => {
   if (!props.summaryItems?.length) return []
 
@@ -279,6 +282,18 @@ const orderedSummaryItems = computed(() => {
   return referenceItem ? [referenceItem, ...otherItems] : props.summaryItems
 })
 
+const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
+
+const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
+
+const firstWhatsAppHref = computed<string | undefined>(() => {
+  const phone = organizationPhoneNumbers.value.find((phoneNumber) => phoneNumber.trim().length > 0)
+  const normalizedPhone = phone?.replace(/\D/g, '')
+
+  return normalizedPhone ? `https://wa.me/${normalizedPhone}` : undefined
+})
+
+// 9. Actions et handlers
 const resetScrollPosition = (): void => {
   scrollContainer.value?.scrollTo({ top: 0, behavior: 'auto' })
 }
@@ -292,4 +307,10 @@ defineExpose<{
 }>({
   resetScrollPosition,
 })
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

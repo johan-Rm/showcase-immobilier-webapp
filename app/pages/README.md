@@ -19,7 +19,7 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
 - Le modele de page (Template / Layout / Screens / Composants) est defini dans `docs/2.architecture/`.
   Ce README ne fait qu'y renvoyer pour eviter les doublons.
 - Le standard de structure des fichiers Vue en `script setup` est documente dans
-  `docs/2.architecture/7.script-setup-standard.md`.
+  `docs/2.architecture/6.script-setup-standard.md`.
 - Si l'application n'utilise que `app.vue`, activer le routing pages via `pages: true` ou `router.options.ts`.
 - Les pages doivent rester SSR-safe (pas de logique client-only sans besoin explicite).
 

@@ -187,6 +187,7 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { Accommodation, CategoryCode } from '@schemas/interfaces'
 
@@ -197,22 +198,7 @@ import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
 import { useAccommodationStore } from '~/stores/accommodation'
 
-const SCREEN_ID = 'screen-property-detail'
-const columnTemplate: ScreenColumnTemplate = 'split-33-67'
-const GALLERY_AUTOPLAY_RESUME_DELAY_MS = 5000
-const GALLERY_NAVIGATION_KEYS = new Set(['ArrowLeft', 'ArrowRight'])
-
-const props = defineProps<{ slug: string }>()
-
-const store = useAccommodationStore()
-const { appData, locale } = useApp()
-const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
-const { screenStatus, setScreenMeta } = useScreenSystem()
-const property = computed(() => store.getAccommodationBySlug(props.slug))
-const isMobileAsideOpen = ref(false)
-const isDetailScreenActive = computed(() => screenStatus.value.currentId === SCREEN_ID)
-const activeGalleryIndex = ref(0)
-
+// 2. Types et constantes statiques
 type GalleryItem = {
   url: string
   caption: string
@@ -232,68 +218,32 @@ type DetailPanelExpose = {
   resetScrollPosition: () => void
 }
 
+const SCREEN_ID = 'screen-property-detail'
+const columnTemplate: ScreenColumnTemplate = 'split-33-67'
+const GALLERY_AUTOPLAY_RESUME_DELAY_MS = 5000
+const GALLERY_NAVIGATION_KEYS = new Set(['ArrowLeft', 'ArrowRight'])
+
+// 3. Props et emits
+const props = defineProps<{ slug: string }>()
+
+// 4. Composables, stores, routeur
+const store = useAccommodationStore()
+const { appData, locale } = useApp()
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+const { screenStatus, setScreenMeta } = useScreenSystem()
+
 const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')
 const detailPanel = useTemplateRef<DetailPanelExpose>('detailPanel')
+
+// 5. Etat local
+const isMobileAsideOpen = ref(false)
+const activeGalleryIndex = ref(0)
 const galleryAutoplayResumeTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
-const galleryImages = computed<GalleryItem[]>(() => {
-  const list = property.value?.associatedMedia
-  if (!Array.isArray(list)) return []
-  return list
-    .filter((item) => typeof item.image?.url === 'string' && item.image.url.length > 0)
-    .map((item) => ({
-      url: item.image.url,
-      caption: item.caption,
-    }))
-})
-const currentGalleryCaption = computed(() => {
-  return (
-    galleryImages.value[activeGalleryIndex.value]?.caption ||
-    galleryImages.value[0]?.caption ||
-    property.value?.name ||
-    ''
-  )
-})
+// 6. Data inputs
+const property = computed(() => store.getAccommodationBySlug(props.slug))
 
-const placeLabel = computed(() => getPlaceLabel(property.value?.place))
-const offerLabel = computed(() => formatOffer(property.value?.offer))
-const listingLabel = computed(() => getEntityLabel(property.value?.realEstateListing))
-const categoryLabel = computed(() => getEntityLabel(property.value?.category))
-
-const accommodationLabels = computed(() => ({
-  bathrooms: appData.value?.accommodation?.labels.bathrooms ?? 'Bathrooms',
-  bedrooms: appData.value?.accommodation?.labels.bedrooms ?? 'Bedrooms',
-  garages: appData.value?.accommodation?.labels.garages ?? 'Garages',
-  price: appData.value?.accommodation?.labels.price ?? 'Price',
-  propertyReference: appData.value?.accommodation?.labels.propertyReference ?? 'Reference',
-  propertyStatus: appData.value?.accommodation?.labels.propertyStatus ?? 'Property status',
-  propertyType: appData.value?.accommodation?.labels.propertyType ?? 'Property type',
-  rooms: appData.value?.accommodation?.labels.rooms ?? 'Rooms',
-  surface: appData.value?.accommodation?.labels.surface ?? 'Surface',
-  surfaceHabitable: appData.value?.accommodation?.labels.surfaceHabitable ?? 'Living area',
-  surfaceTerrain: appData.value?.accommodation?.labels.surfaceTerrain ?? 'Land area',
-}))
-
-const accommodationSections = computed(() => ({
-  details: appData.value?.accommodation?.sections.details ?? 'Details',
-  detailsSummary: appData.value?.accommodation?.sections.detailsSummary ?? 'Summary details',
-  location: appData.value?.accommodation?.sections.location ?? 'Location',
-  review: appData.value?.accommodation?.sections.review ?? 'Our view',
-  visitGuide: appData.value?.accommodation?.sections.visitGuide ?? 'Guided tour / Description',
-  wellness: appData.value?.accommodation?.sections.wellness ?? 'Comfort features',
-}))
-const detailSectionLabels = computed(() => ({
-  visitGuide: accommodationSections.value.visitGuide,
-  wellness: accommodationSections.value.wellness,
-  location: accommodationSections.value.location,
-  review: accommodationSections.value.review,
-}))
-
-const accommodationTexts = computed(() => ({
-  noImageAvailable: appData.value?.accommodation?.texts.noImageAvailable ?? 'No image available',
-  propertyVisual: appData.value?.accommodation?.texts.propertyVisual ?? 'Property visual',
-}))
-
+// 7. Validation et helpers purs
 const formatOffer = (offer?: Accommodation['offer']): string => {
   if (!offer) return '—'
   const parsedPrice =
@@ -400,6 +350,67 @@ const formatTextMetric = (value?: number | string, unit?: string): string => {
   return '—'
 }
 
+// 8. Computed UI-ready
+const isDetailScreenActive = computed(() => screenStatus.value.currentId === SCREEN_ID)
+
+const galleryImages = computed<GalleryItem[]>(() => {
+  const list = property.value?.associatedMedia
+  if (!Array.isArray(list)) return []
+  return list
+    .filter((item) => typeof item.image?.url === 'string' && item.image.url.length > 0)
+    .map((item) => ({
+      url: item.image.url,
+      caption: item.caption,
+    }))
+})
+const currentGalleryCaption = computed(() => {
+  return (
+    galleryImages.value[activeGalleryIndex.value]?.caption ||
+    galleryImages.value[0]?.caption ||
+    property.value?.name ||
+    ''
+  )
+})
+
+const placeLabel = computed(() => getPlaceLabel(property.value?.place))
+const offerLabel = computed(() => formatOffer(property.value?.offer))
+const listingLabel = computed(() => getEntityLabel(property.value?.realEstateListing))
+const categoryLabel = computed(() => getEntityLabel(property.value?.category))
+
+const accommodationLabels = computed(() => ({
+  bathrooms: appData.value?.accommodation?.labels.bathrooms ?? 'Bathrooms',
+  bedrooms: appData.value?.accommodation?.labels.bedrooms ?? 'Bedrooms',
+  garages: appData.value?.accommodation?.labels.garages ?? 'Garages',
+  price: appData.value?.accommodation?.labels.price ?? 'Price',
+  propertyReference: appData.value?.accommodation?.labels.propertyReference ?? 'Reference',
+  propertyStatus: appData.value?.accommodation?.labels.propertyStatus ?? 'Property status',
+  propertyType: appData.value?.accommodation?.labels.propertyType ?? 'Property type',
+  rooms: appData.value?.accommodation?.labels.rooms ?? 'Rooms',
+  surface: appData.value?.accommodation?.labels.surface ?? 'Surface',
+  surfaceHabitable: appData.value?.accommodation?.labels.surfaceHabitable ?? 'Living area',
+  surfaceTerrain: appData.value?.accommodation?.labels.surfaceTerrain ?? 'Land area',
+}))
+
+const accommodationSections = computed(() => ({
+  details: appData.value?.accommodation?.sections.details ?? 'Details',
+  detailsSummary: appData.value?.accommodation?.sections.detailsSummary ?? 'Summary details',
+  location: appData.value?.accommodation?.sections.location ?? 'Location',
+  review: appData.value?.accommodation?.sections.review ?? 'Our view',
+  visitGuide: appData.value?.accommodation?.sections.visitGuide ?? 'Guided tour / Description',
+  wellness: appData.value?.accommodation?.sections.wellness ?? 'Comfort features',
+}))
+const detailSectionLabels = computed(() => ({
+  visitGuide: accommodationSections.value.visitGuide,
+  wellness: accommodationSections.value.wellness,
+  location: accommodationSections.value.location,
+  review: accommodationSections.value.review,
+}))
+
+const accommodationTexts = computed(() => ({
+  noImageAvailable: appData.value?.accommodation?.texts.noImageAvailable ?? 'No image available',
+  propertyVisual: appData.value?.accommodation?.texts.propertyVisual ?? 'Property visual',
+}))
+
 const summaryItems = computed(() => [
   {
     key: 'rooms',
@@ -475,6 +486,7 @@ const featureItems = computed(() =>
   })),
 )
 
+// 9. Actions et handlers
 const clearGalleryAutoplayResumeTimer = (): void => {
   if (galleryAutoplayResumeTimer.value === null) return
 
@@ -516,6 +528,7 @@ const scheduleGalleryAutoplayResumeFromKey = (event: KeyboardEvent): void => {
   scheduleGalleryAutoplayResume()
 }
 
+// 10. Watch et watchEffect
 watch(
   () => property.value?.slug,
   () => {
@@ -545,6 +558,9 @@ watchEffect(() => {
   })
 })
 
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onBeforeUnmount(() => {
   clearGalleryAutoplayResumeTimer()
 })

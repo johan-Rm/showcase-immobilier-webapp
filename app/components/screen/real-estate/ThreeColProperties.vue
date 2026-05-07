@@ -24,14 +24,14 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
 
+// 2. Types et constantes statiques
 type ThreeColPropertiesScreenProps = {
   data?: CreativeWork
 }
-
-const props = defineProps<ThreeColPropertiesScreenProps>()
 
 type TryptiquePanel = {
   image: string
@@ -45,6 +45,10 @@ type TryptiquePanel = {
 const SCREEN_ID = 'screen-real-estate-three-col-properties'
 const columnTemplate: ScreenColumnTemplate = 'triple-equal'
 
+// 3. Props et emits
+const props = defineProps<ThreeColPropertiesScreenProps>()
+
+// 4. Composables, stores, routeur
 const metadataStore = useMetadataStore()
 const localePath = useLocalePath()
 const logger = useLogger({ module: 'screen-real-estate-three-col-properties' })
@@ -54,8 +58,18 @@ const { isMobilePortrait, isTabletPortrait } = useDeviceDetect()
 const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
+// 5. Etat local
 let hasWarmedTargets = false
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+function toPanelHeadingId(to: string): string {
+  const safe = to.replaceAll('/', '-').replace(/^-+/, '')
+  return `panel-${safe}-title`
+}
+
+// 8. Computed UI-ready
 const sectionLink = computed<string>(() => localePath('/properties/bien-a-vendre'))
 
 const fallbackPage = computed(() => getPageBySlug('home'))
@@ -71,11 +85,6 @@ const screenData = computed<CreativeWork | undefined>(() => {
 const imageObjectByIdentifier = computed<Map<string, MediaObject>>(
   () => metadataStore.getImageObjectsByIdentifier,
 )
-
-function toPanelHeadingId(to: string): string {
-  const safe = to.replaceAll('/', '-').replace(/^-+/, '')
-  return `panel-${safe}-title`
-}
 
 const resolvedMenuItems = computed<MenuItem[]>(() => {
   return screenData.value?.links ?? []
@@ -113,6 +122,7 @@ const panels = computed<TryptiquePanel[]>(() =>
 
 const sectionTitle = computed<string>(() => screenData.value?.headline ?? 'Nos biens immobiliers')
 
+// 9. Actions et handlers
 const warmThreeColTargets = (): void => {
   if (hasWarmedTargets) return
 
@@ -139,6 +149,11 @@ const warmThreeColTargets = (): void => {
   })
 }
 
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   setScreenMeta(SCREEN_ID, {
     type: 'landing',

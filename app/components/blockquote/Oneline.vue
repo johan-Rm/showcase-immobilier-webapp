@@ -12,6 +12,9 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 type BlockquoteOnelineTextSize = 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'
 
 type Props = {
@@ -19,11 +22,6 @@ type Props = {
   iconName?: string
   textSize?: BlockquoteOnelineTextSize
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  iconName: 'i-lucide-quote',
-  textSize: 'base',
-})
 
 const textSizeClass: Record<BlockquoteOnelineTextSize, string> = {
   sm: 'text-sm md:text-base',
@@ -35,4 +33,28 @@ const textSizeClass: Record<BlockquoteOnelineTextSize, string> = {
   '4xl': 'text-4xl md:text-5xl',
   '5xl': 'text-5xl md:text-6xl',
 }
+
+// 3. Props et emits
+const props = withDefaults(defineProps<Props>(), {
+  iconName: 'i-lucide-quote',
+  textSize: 'base',
+})
+
+// 4. Composables, stores, routeur
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

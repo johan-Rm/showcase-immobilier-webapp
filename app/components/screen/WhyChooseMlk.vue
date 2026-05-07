@@ -34,12 +34,14 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject } from '@schemas/interfaces'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
 
+// 2. Types et constantes statiques
 type ValueItem = {
   title: string
   accent: string
@@ -56,21 +58,30 @@ type RawImageObject = {
   caption?: string
 }
 
+const columnTemplate: ScreenColumnTemplate = 'split-67-33'
+
+// 3. Props et emits
 const props = defineProps<WhyChooseMlkProps>()
 
+// 4. Composables, stores, routeur
 const logger = useLogger({ module: 'screen-why-choose-mlk' })
 const { setScreenMeta } = useScreenSystem()
 const { IMAGE_DIMENSIONS } = useAppImage()
 const localePath = useLocalePath()
-const columnTemplate: ScreenColumnTemplate = 'split-67-33'
 const VISUAL_IMAGE_WIDTH = IMAGE_DIMENSIONS.vertical3col.width
 const { isMobileLandscape, isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
 const { getMenuItemByIdentifier } = useAppNavigation()
 
+// 5. Etat local
 let hasWarmedAgencyPageTarget = false
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const agencyPageLink = computed<string>(() => {
   const agencyItem = getMenuItemByIdentifier('agency')
   return localePath(agencyItem?.url ?? '/')
@@ -167,6 +178,7 @@ const contentGridClass = computed<string>(() => {
   return isMobileLandscape.value ? baseClass : `${baseClass} md:gap-6 lg:gap-10`
 })
 
+// 9. Actions et handlers
 const warmAgencyPageTarget = (): void => {
   if (hasWarmedAgencyPageTarget) return
 
@@ -194,6 +206,11 @@ const onVisualImageLoaded = (payload: { src: string; time: number }) => {
   })
 }
 
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   logger.info('Mounted screen', {
     screenId: 'screen-why-choose-mlk',

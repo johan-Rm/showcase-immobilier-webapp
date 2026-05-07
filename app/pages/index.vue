@@ -76,12 +76,14 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { Component } from 'vue'
 
 import ScreenRealEstateFullImage from '~/components/screen/real-estate/FullImage.vue'
 import ScreenRealEstateSplit from '~/components/screen/real-estate/Split.vue'
 import ScreenRealEstateThreeColProperties from '~/components/screen/real-estate/ThreeColProperties.vue'
 
+// 2. Types et constantes statiques
 /**
  * Associe une variante de landing à son slug public, à son bloc éditorial
  * et au composant Vue chargé de son rendu.
@@ -146,24 +148,64 @@ const HOME_PAGE_SLUG = 'home'
 // entre la landing dynamique et les sections différées.
 const transitionMode = 'cross-zoom'
 
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
 const { isPhoneDevice } = useDeviceDetect()
 const route = useRoute()
 const appConfig = useAppConfig()
-
 const { getPageBySlug, getPageComponentByIdentifier } = useWebPage()
 const { items: accommodations } = useAccommodation()
 const { runtimeReady } = useDeferredRuntime()
 
 // Référence du conteneur racine transmise au système d'écrans.
 // Elle permet de limiter les interactions wheel/touch au viewport de cette route.
-const pageRef = ref<HTMLElement | null>(null)
+const pageRef = useTemplateRef<HTMLElement>('pageRef')
+
+const { next, screenUi } = useScreenSystem({
+  // Navigation horizontale pensée comme une exploration séquentielle de screens.
+  axis: 'x',
+  // Empêche le retour automatique au premier screen pour préserver un parcours maîtrisé.
+  loop: false,
+  // Garde une navigation clavier disponible pour l'accessibilité et les usages desktop.
+  keyboard: true,
+  // Active l'avancement automatique prévu par le système d'écrans.
+  auto: true,
+  // Autorise le swipe mobile avec un seuil volontairement franc pour éviter les erreurs.
+  touch: true,
+  touchThreshold: 60,
+  // Limite les déclenchements successifs pendant les transitions tactiles.
+  touchCooldownMs: 700,
+  // Bloque le scroll natif quand le geste est pris en charge par la navigation écran.
+  touchPreventScroll: true,
+  // Active la navigation wheel desktop, calibrée avec un seuil plus élevé que le touch.
+  wheel: true,
+  wheelThreshold: 120,
+  // Réduit les doubles déclenchements sur trackpads et molettes sensibles.
+  wheelCooldownMs: 300,
+  transitionMode,
+  // Attache le système d'interaction au conteneur de page plutôt qu'au document global.
+  container: pageRef,
+  anchors: {
+    // Les ancres rendent les screens adressables sans transformer la page en routing imbriqué.
+    enabled: true,
+    // Synchronisation explicite uniquement : évite qu'un simple scroll interne modifie l'URL.
+    syncMode: 'explicit-only',
+    // Nettoie le hash lors des navigations implicites pour éviter une URL trompeuse.
+    clearHashOnImplicitNavigation: true,
+  },
+})
+
+// 5. Etat local
 // Les sections non critiques attendent que le runtime client soit prêt afin de préserver
 // le rendu initial, l'hydratation et le poids JavaScript de la première vue.
 const shouldRenderDeferredScreens = ref(false)
 
+// 6. Data inputs
 // Donnée éditoriale normalisée de la page d'accueil, résolue par slug stable.
 const page = computed(() => getPageBySlug(HOME_PAGE_SLUG))
 
+// 7. Validation et helpers purs
 /**
  * Résout un bloc éditorial par identifiant dans la page active.
  *
@@ -175,6 +217,7 @@ const page = computed(() => getPageBySlug(HOME_PAGE_SLUG))
 const getComponentByIdentifier = (identifier: string) =>
   getPageComponentByIdentifier(page.value, identifier)
 
+// 8. Computed UI-ready
 // Titre accessible hors écran : conserve un H1 indexable sans imposer de titre visuel
 // dans une expérience plein écran déjà portée par les screens.
 const accessibleTitle = computed<string | undefined>(() => appConfig.organization.fullName)
@@ -228,44 +271,9 @@ const realEstateThreeColPropertiesData = computed(
 
 const footerData = computed(() => getComponentByIdentifier(SCREEN_IDS.footer) ?? undefined)
 
-const { next, screenUi } = useScreenSystem({
-  // Navigation horizontale pensée comme une exploration séquentielle de screens.
-  axis: 'x',
-  // Empêche le retour automatique au premier screen pour préserver un parcours maîtrisé.
-  loop: false,
-  // Garde une navigation clavier disponible pour l'accessibilité et les usages desktop.
-  keyboard: true,
-  // Active l'avancement automatique prévu par le système d'écrans.
-  auto: true,
-  // Autorise le swipe mobile avec un seuil volontairement franc pour éviter les erreurs.
-  touch: true,
-  touchThreshold: 60,
-  // Limite les déclenchements successifs pendant les transitions tactiles.
-  touchCooldownMs: 700,
-  // Bloque le scroll natif quand le geste est pris en charge par la navigation écran.
-  touchPreventScroll: true,
-  // Active la navigation wheel desktop, calibrée avec un seuil plus élevé que le touch.
-  wheel: true,
-  wheelThreshold: 120,
-  // Réduit les doubles déclenchements sur trackpads et molettes sensibles.
-  wheelCooldownMs: 300,
-  transitionMode,
-  // Attache le système d'interaction au conteneur de page plutôt qu'au document global.
-  container: pageRef,
-  anchors: {
-    // Les ancres rendent les screens adressables sans transformer la page en routing imbriqué.
-    enabled: true,
-    // Synchronisation explicite uniquement : évite qu'un simple scroll interne modifie l'URL.
-    syncMode: 'explicit-only',
-    // Nettoie le hash lors des navigations implicites pour éviter une URL trompeuse.
-    clearHashOnImplicitNavigation: true,
-  },
-})
+// 9. Actions et handlers
 
-// Métadonnées SEO construites depuis le contenu éditorial et les biens disponibles.
-// La page transmet des sources réactives strictes au composable dédié.
-usePageSeo(page, accommodations)
-
+// 10. Watch et watchEffect
 watch(
   runtimeReady,
   (value) => {
@@ -277,4 +285,11 @@ watch(
   },
   { immediate: true },
 )
+
+// 11. Metadonnees ecran ou page
+// Métadonnées SEO construites depuis le contenu éditorial et les biens disponibles.
+// La page transmet des sources réactives strictes au composable dédié.
+usePageSeo(page, accommodations)
+
+// 12. Lifecycle
 </script>

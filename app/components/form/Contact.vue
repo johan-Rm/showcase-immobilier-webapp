@@ -100,8 +100,10 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { FormError } from '@nuxt/ui'
 
+// 2. Types et constantes statiques
 type ContactFormState = {
   firstName: string
   lastName: string
@@ -112,21 +114,6 @@ type ContactFormState = {
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-const createInitialFormState = (): ContactFormState => ({
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  message: '',
-  website: '',
-})
-
-const formState = reactive<ContactFormState>({
-  ...createInitialFormState(),
-})
-
-const { isSubmitting, submitStatus, submitErrorMessage, submitContact } = useContactForm()
 
 const fieldUi = {
   label: 'text-white/75 text-[0.7rem] tracking-[0.22em] uppercase',
@@ -144,6 +131,32 @@ const textareaUi = {
   base: 'w-full bg-transparent border-0 border-b border-white/55 rounded-none px-0 py-2 text-white placeholder:text-white/45 resize-none',
 } as const
 
+const createInitialFormState = (): ContactFormState => ({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  message: '',
+  website: '',
+})
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
+const { isSubmitting, submitStatus, submitErrorMessage, submitContact } = useContactForm()
+
+// 5. Etat local
+
+// 6. Data inputs
+const formState = reactive<ContactFormState>({
+  ...createInitialFormState(),
+})
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
 const validate = (state: Partial<ContactFormState>): FormError<string>[] => {
   const errors: FormError<string>[] = []
 
@@ -178,4 +191,10 @@ const onSubmit = async (): Promise<void> => {
     Object.assign(formState, createInitialFormState())
   }
 }
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

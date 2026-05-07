@@ -68,8 +68,8 @@ const buildAlternateLinks = (
  * - l'entry point reste responsable de ne fournir que les données qui doivent
  *   réellement être exposées en JSON-LD
  *
- * @see ../../docs/8.seo/1.index.md
- * @see ../../docs/2.architecture/6.responsibility-boundaries.md
+ * @see ../../docs/8.seo/index.md
+ * @see ../../docs/2.architecture/5.responsibility-boundaries.md
  *
  * @param page Page éditoriale source, fournie en `ComputedRef`.
  * @param accommodations Liste de biens à exposer en `ItemList`, fournie en `ComputedRef`.

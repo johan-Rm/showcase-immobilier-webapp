@@ -47,8 +47,10 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
+// 2. Types et constantes statiques
 type TryptiquePanel = {
   image: string
   imageAlt: string
@@ -63,12 +65,21 @@ type ThreeColPropertyPanelProps = {
   index: number
 }
 
+// 3. Props et emits
 const props = defineProps<ThreeColPropertyPanelProps>()
 
+// 4. Composables, stores, routeur
 const localePath = useLocalePath()
+
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+
 const { getItemsByRealEstateListing } = useAccommodation()
 
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const getListingSlugFromUrl = (url?: string): string => {
   if (!url) return ''
   return url.split('/').filter(Boolean).at(-1) ?? ''
@@ -85,6 +96,13 @@ const isDisabled = computed<boolean>(() => {
   return getItemsByRealEstateListing(listingSlug).value.length === 0
 })
 
+const shouldShowDescription = computed<boolean>(() => {
+  return !isPhoneDevice.value && !isTabletPortrait.value
+})
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
 const panelAriaLabel = computed<string>(() => {
   if (isDisabled.value) {
     return `${props.panel.title} – Aucun bien disponible`
@@ -95,12 +113,14 @@ const panelAriaLabel = computed<string>(() => {
     : props.panel.title
 })
 
-const shouldShowDescription = computed<boolean>(() => {
-  return !isPhoneDevice.value && !isTabletPortrait.value
-})
-
 const panelAlignmentClass = computed<string>(() => {
   if (props.index === 0) return 'items-end'
   return isPhoneDevice.value ? 'items-center' : 'items-end'
 })
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

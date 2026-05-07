@@ -13,16 +13,38 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
+
+// 3. Props et emits
 const props = defineProps<{
   to?: string
 }>()
 
+// 4. Composables, stores, routeur
 const { currentMeta } = useScreenSystem()
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const hasLink = computed<boolean>(() => Boolean(props.to?.trim()))
-const linkTarget = computed<string>(() => props.to?.trim() ?? '')
+
+// 8. Computed UI-ready
 const hoverCss = computed(() => {
   return currentMeta.value?.layout?.imageZone === 'background'
     ? ''
     : 'hover:text-primary transition-colors'
 })
+
+// 9. Actions et handlers
+const linkTarget = computed<string>(() => props.to?.trim() ?? '')
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

@@ -134,12 +134,16 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { PropertyItem, ViewModeList } from '#shared/types/accommodation'
 import type { CinemaMode } from '#shared/types/ui'
 import type { ComponentPublicInstance } from 'vue'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
+// 2. Types et constantes statiques
+
+// 3. Props et emits
 const props = defineProps<{
   onLinePropertyRefUpdate: (element: HTMLDivElement | null) => void
   accommodations: PropertyItem[][]
@@ -151,18 +155,16 @@ const props = defineProps<{
   getAltText: (title?: string, city?: string) => string
 }>()
 
+// 4. Composables, stores, routeur
 const metadataStore = useMetadataStore()
+
 const { isMobileLandscape } = useDeviceDetect()
 
-const cardOverlayClass = computed<string>(() => {
-  const base = 'absolute z-50 flex w-full items-center justify-center'
-  return isMobileLandscape.value ? `${base} top-16` : `${base} top-32 2xl:top-64`
-})
+// 5. Etat local
 
-const setLinePropertyRef = (el: Element | ComponentPublicInstance | null): void => {
-  props.onLinePropertyRefUpdate(el instanceof HTMLDivElement ? el : null)
-}
+// 6. Data inputs
 
+// 7. Validation et helpers purs
 const normalize = (v?: string | null): string =>
   String(v ?? '')
     .toLowerCase()
@@ -180,4 +182,22 @@ const getPlaceDescription = (place?: string, city?: string): string | null => {
 
   return found?.description ?? null
 }
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+const cardOverlayClass = computed<string>(() => {
+  const base = 'absolute z-50 flex w-full items-center justify-center'
+  return isMobileLandscape.value ? `${base} top-16` : `${base} top-32 2xl:top-64`
+})
+
+const setLinePropertyRef = (el: Element | ComponentPublicInstance | null): void => {
+  props.onLinePropertyRefUpdate(el instanceof HTMLDivElement ? el : null)
+}
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

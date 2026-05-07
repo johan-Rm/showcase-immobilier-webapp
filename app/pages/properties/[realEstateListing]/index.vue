@@ -26,64 +26,27 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
+// Page de référence utilisée pour les métadonnées du listing immobilier.
+const PROPERTY_LISTING_PAGE_SLUG = 'nos-biens-immobiliers'
+
+// Transition cohérente avec les autres parcours immobiliers verticaux.
+const transitionMode = 'cross-zoom'
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
 const route = useRoute()
 const localePath = useLocalePath()
 const accommodationStore = useAccommodationStore()
 const { getItemsListByAccommodations } = useAccommodation()
 const metadataStore = useMetadataStore()
-
 const { getPageBySlug } = useWebPage()
 
-// Page de référence utilisée pour les métadonnées du listing immobilier.
-const page = computed(() => getPageBySlug('nos-biens-immobiliers'))
-
-// H1 hors écran pour conserver une structure sémantique sans doubler le titre du screen.
-const accessibleTitle = computed<string | undefined>(() => page.value?.headline)
-
-// Normalise le paramètre dynamique pour comparer des slugs stables côté SSR et client.
-const realEstateListingSlug = computed(() => {
-  const param = route.params.realEstateListing
-  if (Array.isArray(param)) return String(param[0] ?? '')
-  return String(param ?? '')
-})
-
-// Ensemble des types de biens connus, dérivé des métadonnées chargées.
-// Le Set garde la vérification de route lisible et évite les recherches répétées.
-const knownRealEstateListingSlugs = computed(
-  () =>
-    new Set(
-      metadataStore.getAccommodationRealEstateListings
-        .map((item: { slug?: string | null }) => item.slug)
-        .filter((slug: unknown): slug is string => typeof slug === 'string' && slug.length > 0),
-    ),
-)
-
-// Données métier filtrées par type de bien, exposées ensuite en format carte via le composable.
-const accommodations = computed(() =>
-  accommodationStore.getAccommodationsByRealEstateListing(realEstateListingSlug.value),
-)
-// Mapping UI-ready centralisé dans `useAccommodation` pour éviter de transformer les données
-// dans le template.
-const propertyItemsList = getItemsListByAccommodations(accommodations)
-
-if (
-  metadataStore.getAccommodationRealEstateListings.length > 0 &&
-  !knownRealEstateListingSlugs.value.has(realEstateListingSlug.value)
-) {
-  // Redirection douce des anciens slugs ou slugs inconnus vers leur équivalent éditorial.
-  // Elle évite une 404 lorsque la route peut être comprise comme une page de contenu.
-  const target =
-    realEstateListingSlug.value.length > 0
-      ? localePath(`/${realEstateListingSlug.value}`)
-      : localePath('/')
-
-  await navigateTo(target, { replace: true })
-}
-
 // Conteneur de la navigation par screens pour limiter les interactions à cette page.
-const pageRef = ref<HTMLElement | null>(null)
-// Transition cohérente avec les autres parcours immobiliers verticaux.
-const transitionMode = 'cross-zoom'
+const pageRef = useTemplateRef<HTMLElement>('pageRef')
 
 const { next, screenUi } = useScreenSystem({
   // Parcours vertical : liste, relance, footer.
@@ -118,6 +81,65 @@ const { next, screenUi } = useScreenSystem({
   },
 })
 
+// 5. Etat local
+
+// 6. Data inputs
+// Page de référence utilisée pour les métadonnées du listing immobilier.
+const page = computed(() => getPageBySlug(PROPERTY_LISTING_PAGE_SLUG))
+
+// Normalise le paramètre dynamique pour comparer des slugs stables côté SSR et client.
+const realEstateListingSlug = computed(() => {
+  const param = route.params.realEstateListing
+  if (Array.isArray(param)) return String(param[0] ?? '')
+  return String(param ?? '')
+})
+
+// Ensemble des types de biens connus, dérivé des métadonnées chargées.
+// Le Set garde la vérification de route lisible et évite les recherches répétées.
+const knownRealEstateListingSlugs = computed(
+  () =>
+    new Set(
+      metadataStore.getAccommodationRealEstateListings
+        .map((item: { slug?: string | null }) => item.slug)
+        .filter((slug: unknown): slug is string => typeof slug === 'string' && slug.length > 0),
+    ),
+)
+
+// Données métier filtrées par type de bien, exposées ensuite en format carte via le composable.
+const accommodations = computed(() =>
+  accommodationStore.getAccommodationsByRealEstateListing(realEstateListingSlug.value),
+)
+
+// 7. Validation et helpers purs
+if (
+  metadataStore.getAccommodationRealEstateListings.length > 0 &&
+  !knownRealEstateListingSlugs.value.has(realEstateListingSlug.value)
+) {
+  // Redirection douce des anciens slugs ou slugs inconnus vers leur équivalent éditorial.
+  // Elle évite une 404 lorsque la route peut être comprise comme une page de contenu.
+  const target =
+    realEstateListingSlug.value.length > 0
+      ? localePath(`/${realEstateListingSlug.value}`)
+      : localePath('/')
+
+  await navigateTo(target, { replace: true })
+}
+
+// 8. Computed UI-ready
+// H1 hors écran pour conserver une structure sémantique sans doubler le titre du screen.
+const accessibleTitle = computed<string | undefined>(() => page.value?.headline)
+
+// Mapping UI-ready centralisé dans `useAccommodation` pour éviter de transformer les données
+// dans le template.
+const propertyItemsList = getItemsListByAccommodations(accommodations)
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
 // SEO enrichi par la page de listing et les biens filtrés pour produire des données structurées utiles.
 usePageSeo(page, accommodations)
+
+// 12. Lifecycle
 </script>

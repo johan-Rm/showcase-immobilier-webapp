@@ -21,28 +21,23 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 // Slug éditorial stable attendu dans le contenu pour alimenter la route contact.
 const CONTACT_PAGE_SLUG = 'contact'
 
+// Transition cohérente avec les pages éditoriales plein écran du site.
+const transitionMode = 'cross-zoom'
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
 const { getPageBySlug } = useWebPage()
 const { items: accommodations } = useAccommodation()
 
-// Donnée éditoriale de la page, transmise ensuite au composable SEO.
-const page = computed(() => getPageBySlug(CONTACT_PAGE_SLUG))
-
-if (!page.value) {
-  // Une page contact absente est bloquante : laisser le screen s'afficher sans contenu
-  // produirait une route indexable incohérente.
-  throw createError({ statusCode: 404, statusMessage: 'Contact Page not found' })
-}
-
-// H1 accessible dérivé du contenu pour préserver la hiérarchie sémantique de la route.
-const accessibleTitle = computed<string | undefined>(() => page.value?.headline)
-
 // Conteneur scanné par le système de navigation afin de limiter les interactions à cette page.
-const pageRef = ref<HTMLElement | null>(null)
-// Transition cohérente avec les pages éditoriales plein écran du site.
-const transitionMode = 'cross-zoom'
+const pageRef = useTemplateRef<HTMLElement>('pageRef')
 
 const { screenUi } = useScreenSystem({
   // Parcours vertical adapté à une page contact courte avec sections complémentaires.
@@ -77,6 +72,30 @@ const { screenUi } = useScreenSystem({
   },
 })
 
+// 5. Etat local
+
+// 6. Data inputs
+// Donnée éditoriale de la page, transmise ensuite au composable SEO.
+const page = computed(() => getPageBySlug(CONTACT_PAGE_SLUG))
+
+// 7. Validation et helpers purs
+if (!page.value) {
+  // Une page contact absente est bloquante : laisser le screen s'afficher sans contenu
+  // produirait une route indexable incohérente.
+  throw createError({ statusCode: 404, statusMessage: 'Contact Page not found' })
+}
+
+// 8. Computed UI-ready
+// H1 accessible dérivé du contenu pour préserver la hiérarchie sémantique de la route.
+const accessibleTitle = computed<string | undefined>(() => page.value?.headline)
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
 // Métadonnées SEO construites depuis la page contact et les biens disponibles pour le JSON-LD.
 usePageSeo(page, accommodations)
+
+// 12. Lifecycle
 </script>

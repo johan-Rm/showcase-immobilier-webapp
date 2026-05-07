@@ -72,15 +72,10 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import { useConstructionModal } from '~/composables/useConstructionModal'
 
-const { isConstructionEnabled, isOpen } = useConstructionModal()
-const appConfig = useAppConfig()
-const EMAIL = appConfig.organization.email
-const phoneEntries = computed(() =>
-  getOrganizationPhoneEntries(appConfig.organization.phoneNumbers ?? []),
-)
-
+// 2. Types et constantes statiques
 const modalUi = {
   overlay: 'bg-background/70 backdrop-blur-sm',
   content: 'bg-foreground text-background shadow-2xl overflow-hidden ring-0 sm:max-w-2xl',
@@ -88,4 +83,31 @@ const modalUi = {
   body: 'p-8 text-center',
   footer: 'p-6 text-center',
 } as const
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
+const { isConstructionEnabled, isOpen } = useConstructionModal()
+
+const appConfig = useAppConfig()
+
+// 5. Etat local
+
+// 6. Data inputs
+const EMAIL = appConfig.organization.email
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+const phoneEntries = computed(() =>
+  getOrganizationPhoneEntries(appConfig.organization.phoneNumbers ?? []),
+)
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

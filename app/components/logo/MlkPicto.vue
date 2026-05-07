@@ -9,12 +9,15 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import { computed } from 'vue'
 
 import LogoPictoSvg from '~/assets/logo/picto.svg'
 
+// 2. Types et constantes statiques
 type PresetSize = 'xs' | 'sm' | 'md' | 'lg'
 
+// 3. Props et emits
 const props = withDefaults(
   defineProps<{
     colorClass?: string
@@ -30,6 +33,15 @@ const props = withDefaults(
   },
 )
 
+// 4. Composables, stores, routeur
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const sizeClass = computed(() => {
   if (typeof props.size === 'number') return ''
   const map: Record<PresetSize, string> = {
@@ -44,6 +56,14 @@ const sizeClass = computed(() => {
 const inlineSize = computed(() =>
   typeof props.size === 'number' ? { height: `${props.size}px` } : undefined,
 )
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
 
 <style scoped>

@@ -141,9 +141,11 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
 
+// 2. Types et constantes statiques
 /**
  * Props du screen landing en mise en page scindée.
  *
@@ -158,24 +160,25 @@ type SplitScreenProps = {
   data?: CreativeWork
 }
 
-// Types et constantes statiques
 // Identifiant technique stable utilisé par la navigation d’écrans.
 const SCREEN_ID = 'screen-real-estate-split'
 const columnTemplate: ScreenColumnTemplate = 'split-50-50'
 
+// 3. Props et emits
+const props = defineProps<SplitScreenProps>()
+
+// 4. Composables, stores, routeur
 // Le store applicatif fournit ici l’identité d’organisation utilisée comme
 // fallback éditorial et comme repère d’accessibilité pour l’écran.
 const appConfig = useAppConfig()
 const localePath = useLocalePath()
 const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
-const props = defineProps<SplitScreenProps>()
 
-// Les informations institutionnelles restent globales à l’application afin
-// de ne pas dupliquer ces contenus dans chaque section éditoriale.
-const organizationFullName = computed<string | undefined>(() => appConfig.organization.fullName)
+// 5. Etat local
 
-const organizationLocation = computed<string | undefined>(() => appConfig.organization.location)
+// 6. Data inputs
 
+// 7. Validation et helpers purs
 /**
  * Découpe un bloc éditorial en paragraphes stables pour le rendu.
  *
@@ -195,6 +198,13 @@ const getParagraphsFromText = (text: string | undefined): string[] => {
     .map((paragraph) => paragraph.trim())
     .filter((paragraph) => paragraph.length > 0)
 }
+
+// 8. Computed UI-ready
+// Les informations institutionnelles restent globales à l’application afin
+// de ne pas dupliquer ces contenus dans chaque section éditoriale.
+const organizationFullName = computed<string | undefined>(() => appConfig.organization.fullName)
+
+const organizationLocation = computed<string | undefined>(() => appConfig.organization.location)
 
 // Le fond visuel est déjà enrichi côté mapper. Ce computed ne conserve que
 // les images réellement affichables afin d’éviter un état visuel incohérent.
@@ -242,6 +252,13 @@ const resolvedMenuItems = computed<MenuItem[]>(() => {
   return props.data?.links ?? []
 })
 
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   // Déclare la configuration de layout après montage pour aligner la navigation
   // par screens avec l’état réellement affiché et les ressources de fond disponibles.

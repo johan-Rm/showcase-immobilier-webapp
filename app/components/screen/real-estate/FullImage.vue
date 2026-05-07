@@ -84,12 +84,14 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
 
+// 2. Types et constantes statiques
 type FullImageScreenProps = {
   data?: CreativeWork
 }
@@ -100,14 +102,6 @@ type MenuItemWithAvailability = MenuItem & {
   text?: string
 }
 
-const props = defineProps<FullImageScreenProps>()
-const emit = defineEmits<{ 'next-screen': [] }>()
-const logger = useLogger({ module: 'screen-real-estate-full-image' })
-
-const { warmQuickActionTarget } = useQuickActionWarmup()
-const { getItemsByRealEstateListing } = useAccommodation()
-const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
-
 const SCREEN_ID = 'screen-real-estate-full-image'
 const column: ScreenColumnTemplate = 'single'
 const MOBILE_PORTRAIT_BACKGROUND_TYPE = 'mobile-portrait-background'
@@ -115,19 +109,37 @@ const PORTRAIT_HERO_MEDIA_QUERY =
   '(max-width: 767px), (min-width: 768px) and (max-width: 1023px) and (orientation: portrait)'
 const HERO_IMAGE_READY_STATE_KEY = 'screen.real-estate-full-image.hero-ready'
 
+// 3. Props et emits
+const props = defineProps<FullImageScreenProps>()
+const emit = defineEmits<{ 'next-screen': [] }>()
+
+// 4. Composables, stores, routeur
+const logger = useLogger({ module: 'screen-real-estate-full-image' })
+const { warmQuickActionTarget } = useQuickActionWarmup()
+const { getItemsByRealEstateListing } = useAccommodation()
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const metadataStore = useMetadataStore()
 const appConfig = useAppConfig()
-
 const localePath = useLocalePath()
 const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
+const isHeroImageReady = useState<boolean>(HERO_IMAGE_READY_STATE_KEY, () => false)
 
+// 5. Etat local
+const isPortraitHeroViewport = ref(isPhoneDevice.value || isTabletPortrait.value)
+
+let portraitHeroMediaQuery: MediaQueryList | null = null
+let hasWarmedHeroNavigationTargets = false
+
+// 6. Data inputs
 const menuItems = computed<MenuItem[]>(() => props.data?.links ?? [])
 
+// 7. Validation et helpers purs
 const getListingSlugFromUrl = (url?: string): string => {
   if (!url) return ''
   return url.split('/').filter(Boolean).at(-1) ?? ''
 }
 
+// 8. Computed UI-ready
 const menuItemsWithAvailability = computed<MenuItemWithAvailability[]>(() =>
   menuItems.value.map((item) => {
     const listingSlug = getListingSlugFromUrl(item.url)
@@ -176,8 +188,6 @@ const hasPortraitBackgroundImage = computed<boolean>(
   () => bgImagePortraitUrl.value.trim().length > 0,
 )
 
-const isPortraitHeroViewport = ref(isPhoneDevice.value || isTabletPortrait.value)
-
 const hasHeroImage = computed<boolean>(() => {
   return hasBackgroundImage.value || hasPortraitBackgroundImage.value
 })
@@ -192,11 +202,7 @@ const heroImageAlt = computed<string>(() => {
     : bgImageAlt.value || bgImagePortraitAlt.value
 })
 
-const isHeroImageReady = useState<boolean>(HERO_IMAGE_READY_STATE_KEY, () => false)
-
-let portraitHeroMediaQuery: MediaQueryList | null = null
-let hasWarmedHeroNavigationTargets = false
-
+// 9. Actions et handlers
 const syncPortraitHeroViewport = (): void => {
   isPortraitHeroViewport.value = portraitHeroMediaQuery?.matches ?? false
 }
@@ -235,6 +241,20 @@ const warmHeroNavigationTargets = (): void => {
   })
 }
 
+// 10. Watch et watchEffect
+watch(
+  () => hasHeroImage.value,
+  (hasImage) => {
+    if (!hasImage) {
+      isHeroImageReady.value = true
+    }
+  },
+  { immediate: true },
+)
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   if (!hasHeroImage.value) {
     isHeroImageReady.value = true
@@ -277,14 +297,4 @@ onUnmounted(() => {
   portraitHeroMediaQuery?.removeEventListener('change', syncPortraitHeroViewport)
   portraitHeroMediaQuery = null
 })
-
-watch(
-  () => hasHeroImage.value,
-  (hasImage) => {
-    if (!hasImage) {
-      isHeroImageReady.value = true
-    }
-  },
-  { immediate: true },
-)
 </script>

@@ -26,7 +26,7 @@ Le contenu de `<script setup lang="ts">` suit un ordre de blocs défini : import
 
 Le template consomme des valeurs déjà préparées. La logique métier ne doit pas fuir dans la couche d'affichage.
 
-@see [docs/2.architecture/7.script-setup-standard.md](../docs/2.architecture/7.script-setup-standard.md)
+@see [docs/2.architecture/6.script-setup-standard.md](../docs/2.architecture/6.script-setup-standard.md)
 
 ### Images
 

@@ -62,36 +62,93 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { AppFooterSocialLink } from '#shared/types/app'
 
 import { useApp } from '~/composables/useApp'
 import { useAppFooter } from '~/composables/useAppFooter'
 
+// 2. Types et constantes statiques
 type SocialNetworkBackgroundTone = 'white' | 'black'
 
 type SocialLink = AppFooterSocialLink
 
 const MOBILE_BREAKPOINT_MAX_WIDTH = 767
+
 const DESKTOP_SSR_WIDTH = 1280
 
+// 3. Props et emits
 const props = defineProps<{
   backgroundTone?: SocialNetworkBackgroundTone
 }>()
 
+// 4. Composables, stores, routeur
 const { appData } = useApp()
+
 const { footer } = useAppFooter()
+
 const { currentMeta } = useScreenSystem()
+
 const route = useRoute()
+
 const mobileMenuId = useId()
-const rootElement = ref<HTMLElement | null>(null)
+
 const isMobile = useMediaQuery(`(max-width: ${MOBILE_BREAKPOINT_MAX_WIDTH}px)`, {
   ssrWidth: DESKTOP_SSR_WIDTH,
 })
+
+// 5. Etat local
 const isMenuOpen = ref(false)
 
+// 6. Data inputs
+const rootElement = ref<HTMLElement | null>(null)
+
+onClickOutside(rootElement, () => {
+  if (isMenuOpen.value) {
+    closeMenu()
+  }
+})
+
+onKeyStroke('Escape', () => {
+  if (isMenuOpen.value) {
+    closeMenu()
+  }
+})
+
+// 7. Validation et helpers purs
+const getToneButtonClass = (link: SocialLink): string | undefined => {
+  if (link.tone === 'whatsapp') {
+    return 'bg-emerald-400/25 hover:bg-emerald-400/70'
+  }
+
+  return undefined
+}
+
+const shouldRenderDesktopList = computed<boolean>(() => {
+  return isVisible.value && orderedSocialLinks.value.length > 0 && !isMobile.value
+})
+
+const shouldRenderMobileToggle = computed<boolean>(() => {
+  return isVisible.value && orderedSocialLinks.value.length > 0 && isMobile.value
+})
+
+const toggleButtonAriaLabel = computed<string>(() => {
+  return isMenuOpen.value
+    ? (socialNetworkContent.value?.closeMenuAriaLabel ?? '')
+    : (socialNetworkContent.value?.openMenuAriaLabel ?? '')
+})
+
+const toggleMenu = (): void => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+// 8. Computed UI-ready
 const socialNetworkContent = computed(() => appData.value?.components?.socialNetwork)
-const socialLinks = computed<SocialLink[]>(() => footer.value?.socialLinks ?? [])
+
 const isVisible = computed(() => currentMeta.value?.socialNetwork?.visible !== false)
+
+// 9. Actions et handlers
+const socialLinks = computed<SocialLink[]>(() => footer.value?.socialLinks ?? [])
 
 const effectiveBackgroundTone = computed<SocialNetworkBackgroundTone>(
   () => props.backgroundTone ?? currentMeta.value?.socialNetwork?.backgroundTone ?? 'white',
@@ -104,14 +161,6 @@ const buttonBgClass = computed<string>(() => {
 
   return 'bg-white/20 hover:bg-white/15'
 })
-
-const getToneButtonClass = (link: SocialLink): string | undefined => {
-  if (link.tone === 'whatsapp') {
-    return 'bg-emerald-400/25 hover:bg-emerald-400/70'
-  }
-
-  return undefined
-}
 
 const orderedSocialLinks = computed<SocialLink[]>(() => {
   return [...socialLinks.value].sort((left, right) => {
@@ -127,41 +176,13 @@ const rootClass = computed<string>(() => {
   return 'relative pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)]'
 })
 
-const shouldRenderDesktopList = computed<boolean>(() => {
-  return isVisible.value && orderedSocialLinks.value.length > 0 && !isMobile.value
-})
-
-const shouldRenderMobileToggle = computed<boolean>(() => {
-  return isVisible.value && orderedSocialLinks.value.length > 0 && isMobile.value
-})
-
 const navAriaLabel = computed<string>(() => socialNetworkContent.value?.navAriaLabel ?? '')
-const toggleButtonAriaLabel = computed<string>(() => {
-  return isMenuOpen.value
-    ? (socialNetworkContent.value?.closeMenuAriaLabel ?? '')
-    : (socialNetworkContent.value?.openMenuAriaLabel ?? '')
-})
 
 const closeMenu = (): void => {
   isMenuOpen.value = false
 }
 
-const toggleMenu = (): void => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-
-onClickOutside(rootElement, () => {
-  if (isMenuOpen.value) {
-    closeMenu()
-  }
-})
-
-onKeyStroke('Escape', () => {
-  if (isMenuOpen.value) {
-    closeMenu()
-  }
-})
-
+// 10. Watch et watchEffect
 watch(
   () => route.fullPath,
   () => {
@@ -174,6 +195,10 @@ watch([isMobile, isVisible], ([mobile, visible]) => {
     closeMenu()
   }
 })
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
 
 <style scoped>

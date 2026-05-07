@@ -18,16 +18,22 @@
 </template>
 
 <script setup lang="ts">
-// Page SEO volontairement absente pour l'instant : le composable reçoit les biens filtrés
-// sans inventer de contenu éditorial non disponible pour cette route.
-const page = computed(() => null)
-// Conteneur racine utilisé pour scoper la navigation plein écran.
-const pageRef = ref<HTMLElement | null>(null)
-// Logger de diagnostic local à cette route dynamique.
-const logger = useLogger({ module: 'page-properties-category-index' })
+// 1. Imports
 
+// 2. Types et constantes statiques
 // Transition partagée par les parcours verticaux de propriétés.
 const transitionMode = 'cross-zoom'
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
+// Logger de diagnostic local à cette route dynamique.
+const logger = useLogger({ module: 'page-properties-category-index' })
+const route = useRoute()
+const accommodationStore = useAccommodationStore()
+
+// Conteneur racine utilisé pour scoper la navigation plein écran.
+const pageRef = useTemplateRef<HTMLElement>('pageRef')
 
 const { screenUi } = useScreenSystem({
   // Parcours vertical : liste filtrée, relance, footer.
@@ -62,8 +68,12 @@ const { screenUi } = useScreenSystem({
   },
 })
 
-const route = useRoute()
-const accommodationStore = useAccommodationStore()
+// 5. Etat local
+
+// 6. Data inputs
+// Page SEO volontairement absente pour l'instant : le composable reçoit les biens filtrés
+// sans inventer de contenu éditorial non disponible pour cette route.
+const page = computed(() => null)
 // Normalise le segment de type de bien pour alimenter le filtre store.
 const realEstateListingSlug = computed(() => {
   const raw = route.params.realEstateListing
@@ -82,6 +92,33 @@ const accommodations = computed(() =>
   ),
 )
 
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+watch(
+  () => route.fullPath,
+  (nextFullPath, previousFullPath) => {
+    // Les paramètres dynamiques peuvent changer sans recréer immédiatement le composant.
+    // Cette trace confirme que les filtres réactifs suivent bien l'URL active.
+    logger.info('Route changed inside page', {
+      page: 'properties-category-index',
+      previousFullPath,
+      nextFullPath,
+      realEstateListingSlug: realEstateListingSlug.value,
+      accommodationCategorySlug: accommodationCategorySlug.value,
+    })
+  },
+)
+
+// 11. Metadonnees ecran ou page
+// SEO basé sur les biens filtrés ; la page éditoriale reste nulle tant qu'aucun contenu dédié n'existe.
+usePageSeo(page, accommodations)
+
+// 12. Lifecycle
 onMounted(() => {
   // Trace de diagnostic client : utile pour vérifier les routes dynamiques et les volumes filtrés.
   logger.info('Mounted page', {
@@ -102,22 +139,4 @@ onUnmounted(() => {
     accommodationCategorySlug: accommodationCategorySlug.value,
   })
 })
-
-watch(
-  () => route.fullPath,
-  (nextFullPath, previousFullPath) => {
-    // Les paramètres dynamiques peuvent changer sans recréer immédiatement le composant.
-    // Cette trace confirme que les filtres réactifs suivent bien l'URL active.
-    logger.info('Route changed inside page', {
-      page: 'properties-category-index',
-      previousFullPath,
-      nextFullPath,
-      realEstateListingSlug: realEstateListingSlug.value,
-      accommodationCategorySlug: accommodationCategorySlug.value,
-    })
-  },
-)
-
-// SEO basé sur les biens filtrés ; la page éditoriale reste nulle tant qu'aucun contenu dédié n'existe.
-usePageSeo(page, accommodations)
 </script>

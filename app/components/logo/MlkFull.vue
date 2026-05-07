@@ -12,8 +12,10 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import LogoSvg from '~/assets/logo/mlk_full.svg'
 
+// 2. Types et constantes statiques
 /**
  * Tailles prédéfinies du logo
  */
@@ -23,10 +25,12 @@ type PresetSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5x
  * Couleurs autorisées (strictement 2)
  */
 const DEFAULT_COLOR_CLASS = 'text-foreground/90'
+
 const CONTRAST_COLOR_CLASS = 'text-white/90'
 
 type LogoColorClass = typeof DEFAULT_COLOR_CLASS | typeof CONTRAST_COLOR_CLASS
 
+// 3. Props et emits
 /**
  * Props du composant
  * - colorClass : permet de forcer la couleur du logo
@@ -48,12 +52,17 @@ const props = withDefaults(
   },
 )
 
+// 4. Composables, stores, routeur
 /**
  * Composables
  */
 const { currentMeta } = useScreenSystem()
+
 const localePath = useLocalePath()
 
+// 5. Etat local
+
+// 6. Data inputs
 /**
  * Lien vers l’accueil (localisé)
  */
@@ -151,4 +160,16 @@ watch(
   },
   { immediate: true },
 )
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

@@ -160,32 +160,15 @@
 </template>
 
 <script setup lang="ts">
-const { sidePanels } = useDashboard()
-const { viewModeList, setViewModeList } = useAccommodation()
-const { themeMode, setTheme, cinemaMode, setCinema } = useDesignSystem()
-const colorMode = useColorMode()
+// 1. Imports
 
-const transitionMode = useState<TransitionMode>('ui.transition.mode', () => 'slide')
-const setTransition = (mode: TransitionMode): void => {
-  transitionMode.value = mode
-}
-
+// 2. Types et constantes statiques
 type PaletteItem = {
   name: string
   value: string
   usage: string
   shade: string
 }
-
-const paletteKeys = new Map<string, Omit<PaletteItem, 'value'>>([
-  ['primary', { name: 'Primary', usage: 'Accent principal', shade: '500' }],
-  ['secondary', { name: 'Secondary', usage: 'Accent secondaire', shade: '500' }],
-  ['background', { name: 'Background', usage: 'Fond principal', shade: '500' }],
-  ['surface', { name: 'Surface', usage: 'Cartes & panneaux', shade: '500' }],
-  ['foreground', { name: 'Foreground', usage: 'Texte principal', shade: '500' }],
-  ['heading', { name: 'Heading', usage: 'Titres et en-têtes', shade: '500' }],
-  ['link', { name: 'Link', usage: 'Liens et états focus', shade: '500' }],
-])
 
 type ThemesPayload = {
   themes: Record<
@@ -200,9 +183,44 @@ type ThemesPayload = {
   >
 }
 
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
+const { sidePanels } = useDashboard()
+
+const { viewModeList, setViewModeList } = useAccommodation()
+
+const { themeMode, setTheme, cinemaMode, setCinema } = useDesignSystem()
+
+const colorMode = useColorMode()
+
 const { data: themes } = await useAsyncData('themes-json', () =>
   $fetch<ThemesPayload>('/themes.json'),
 )
+
+// 5. Etat local
+const paletteKeys = new Map<string, Omit<PaletteItem, 'value'>>([
+  ['primary', { name: 'Primary', usage: 'Accent principal', shade: '500' }],
+  ['secondary', { name: 'Secondary', usage: 'Accent secondaire', shade: '500' }],
+  ['background', { name: 'Background', usage: 'Fond principal', shade: '500' }],
+  ['surface', { name: 'Surface', usage: 'Cartes & panneaux', shade: '500' }],
+  ['foreground', { name: 'Foreground', usage: 'Texte principal', shade: '500' }],
+  ['heading', { name: 'Heading', usage: 'Titres et en-têtes', shade: '500' }],
+  ['link', { name: 'Link', usage: 'Liens et états focus', shade: '500' }],
+])
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+const transitionMode = useState<TransitionMode>('ui.transition.mode', () => 'slide')
+
+const setTransition = (mode: TransitionMode): void => {
+  transitionMode.value = mode
+}
 
 const paletteByTheme = computed<Record<ThemeMode, PaletteItem[]>>(() => {
   const themesMap = themes.value?.themes ?? {}
@@ -252,4 +270,10 @@ const palette = computed<PaletteItem[]>(() => {
   const byTheme = paletteByTheme.value
   return byTheme[themeMode.value] ?? byTheme[colorMode.preference as ThemeMode] ?? []
 })
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

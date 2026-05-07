@@ -209,6 +209,7 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { AppFooterSocialLink, AppLinkTarget } from '#shared/types/app'
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { MenuItem } from '@schemas/interfaces'
@@ -217,6 +218,7 @@ import { useAppFooter } from '~/composables/useAppFooter'
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useAppNavigation } from '~/composables/useAppNavigation'
 
+// 2. Types et constantes statiques
 type TryptiqueMenuItem = MenuItem
 
 type SocialLink = AppFooterSocialLink
@@ -228,14 +230,73 @@ type SocialButtonLink = {
   target?: AppLinkTarget
 }
 
+const primaryMenuLinkClass =
+  'group relative inline-flex text-left text-xl text-white/90 transition duration-200 hover:text-white after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-white/90 after:transition-all after:duration-200 hover:after:w-full sm:text-2xl 2xl:text-[2.8rem] 2xl:leading-[1.16]'
+
+const columnTemplate: ScreenColumnTemplate = 'split-50-50'
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
 const { footer } = useAppFooter()
+
 const appConfig = useAppConfig()
+
 const localePath = useLocalePath()
+
 const route = useRoute()
+
 const { appData, primaryMenuItems, secondaryMenuItems } = useAppNavigation()
+
 const { getItemsByRealEstateListing } = useAccommodation()
+
 const { isPhoneDevice } = useDeviceDetect()
 
+const { sidePanels, closeSidePanel } = useDashboard()
+
+const { warmQuickActionTarget } = useQuickActionWarmup()
+
+const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+const getListingSlugFromUrl = (url?: string): string => {
+  if (!url) return ''
+  return url.split('/').filter(Boolean).at(-1) ?? ''
+}
+
+const isListingUrl = (url?: string): boolean => {
+  return typeof url === 'string' && url.includes('/properties/')
+}
+
+const isDisabledMenuItem = (item: MenuItem): boolean => {
+  if (!isListingUrl(item.url)) return false
+
+  const listingSlug = getListingSlugFromUrl(item.url)
+  const count = getItemsByRealEstateListing(listingSlug).value.length
+
+  return count === 0
+}
+
+const isOpen = computed<boolean>(() => sidePanels.value.mainMenu.visible)
+
+const resolveMenuItemPath = (url?: string): string => localePath(url ?? '/')
+
+const isActiveMenuPath = (url?: string): boolean => route.path === resolveMenuItemPath(url)
+
+// 8. Computed UI-ready
+const organization = computed(() => appConfig.organization)
+
+const organizationPhoneEntries = computed(() =>
+  getOrganizationPhoneEntries(organizationPhoneNumbers.value ?? []),
+)
+
+const navigationMainContent = computed(() => appData.value?.components?.navigationMain)
+
+// 9. Actions et handlers
 const contactMenuItem = computed<TryptiqueMenuItem | undefined>(() =>
   secondaryMenuItems.value?.find((item) => item.url === '/contact'),
 )
@@ -244,20 +305,17 @@ const homeMenuItem = computed<TryptiqueMenuItem | undefined>(() =>
   primaryMenuItems.value?.find((item) => item.url === '/'),
 )
 
-const organization = computed(() => appConfig.organization)
 const organizationAcronym = computed<string | undefined>(() => organization.value?.acronym)
+
 const organizationFullName = computed<string | undefined>(() => organization.value?.fullName)
+
 const organizationName = computed<string | undefined>(() => organization.value?.alternateName)
+
 const organizationEmail = computed<string | undefined>(() => organization.value?.email)
+
 const organizationPhoneNumbers = computed<string[] | undefined>(
   () => organization.value?.phoneNumbers,
 )
-
-const organizationPhoneEntries = computed(() =>
-  getOrganizationPhoneEntries(organizationPhoneNumbers.value ?? []),
-)
-
-const navigationMainContent = computed(() => appData.value?.components?.navigationMain)
 
 const closeMenuAriaLabel = computed<string | undefined>(
   () => navigationMainContent.value?.closeMenuAriaLabel,
@@ -306,44 +364,17 @@ const socialButtonLinks = computed<SocialButtonLink[]>(() => {
 
 const centerImageUrl = computed<string>(() => appConfig.menu.mainMenuCenterImageUrl)
 
-const primaryMenuLinkClass =
-  'group relative inline-flex text-left text-xl text-white/90 transition duration-200 hover:text-white after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-white/90 after:transition-all after:duration-200 hover:after:w-full sm:text-2xl 2xl:text-[2.8rem] 2xl:leading-[1.16]'
-
 const contactPanelClass = computed<string>(() => (isPhoneDevice.value ? 'order-2' : 'order-1'))
+
 const menuPanelClass = computed<string>(() => (isPhoneDevice.value ? 'order-1' : 'order-2'))
 
-const getListingSlugFromUrl = (url?: string): string => {
-  if (!url) return ''
-  return url.split('/').filter(Boolean).at(-1) ?? ''
-}
-
-const isListingUrl = (url?: string): boolean => {
-  return typeof url === 'string' && url.includes('/properties/')
-}
-
-const isDisabledMenuItem = (item: MenuItem): boolean => {
-  if (!isListingUrl(item.url)) return false
-
-  const listingSlug = getListingSlugFromUrl(item.url)
-  const count = getItemsByRealEstateListing(listingSlug).value.length
-
-  return count === 0
-}
-
-const { sidePanels, closeSidePanel } = useDashboard()
-const isOpen = computed<boolean>(() => sidePanels.value.mainMenu.visible)
-
 const closeMainMenu = (): void => closeSidePanel('mainMenu')
-const resolveMenuItemPath = (url?: string): string => localePath(url ?? '/')
-const isActiveMenuPath = (url?: string): boolean => route.path === resolveMenuItemPath(url)
 
 const handleMenuRouteClick = (url?: string): void => {
   if (!isActiveMenuPath(url)) return
 
   closeMainMenu()
 }
-
-const { warmQuickActionTarget } = useQuickActionWarmup()
 
 const warmMenuItems = (): void => {
   const items = [...primaryMenuItems.value, ...secondaryMenuItems.value]
@@ -360,15 +391,16 @@ const warmMenuItems = (): void => {
     })
 }
 
+// 10. Watch et watchEffect
 watch(isOpen, (open) => {
   if (!open) return
 
   warmMenuItems()
 })
 
-const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
-const columnTemplate: ScreenColumnTemplate = 'split-50-50'
+// 11. Metadonnees ecran ou page
 
+// 12. Lifecycle
 onMounted(() => {
   setScreenMeta('screen-tryptique-menu-v1', {
     type: 'standard',

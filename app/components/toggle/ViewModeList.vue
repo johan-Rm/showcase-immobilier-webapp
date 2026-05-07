@@ -49,10 +49,12 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ViewModeList } from '#shared/types/accommodation'
 
 import { computed } from 'vue'
 
+// 2. Types et constantes statiques
 type Props = {
   modelValue: ViewModeList
   size?: 'sm' | 'md'
@@ -62,13 +64,20 @@ type Emits = {
   'update:modelValue': [ViewModeList]
 }
 
+// 3. Props et emits
 const props = defineProps<Props>()
+
 const emit = defineEmits<Emits>()
 
-const setMode = (mode: ViewModeList): void => {
-  emit('update:modelValue', mode)
-}
+// 4. Composables, stores, routeur
 
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const size = computed(() => props.size ?? 'md')
 
 const buttonSizeClass = computed(() =>
@@ -86,4 +95,15 @@ const selectedLabel = computed(() => {
   if (props.modelValue === 'row4') return 'Vue ligne'
   return 'Vue single'
 })
+
+// 9. Actions et handlers
+const setMode = (mode: ViewModeList): void => {
+  emit('update:modelValue', mode)
+}
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

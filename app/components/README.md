@@ -6,9 +6,9 @@
 - Les composants consomment des donnees deja preparees par les pages, composables ou stores.
 - Les composants de ce projet sont organises par responsabilite visuelle : `screen/`, `navigation/`, `Markdown/`, `Logo/`, `Toggle/`, `form/`, etc.
 
-Voir `docs/2.architecture/2.application-architecture.md` pour le partage global des couches.
-Voir `docs/2.architecture/4.page-layout-screen-model.md` pour le modele `page -> layout -> screen -> component`.
-Voir `docs/2.architecture/7.script-setup-standard.md` pour la structure recommandee des fichiers Vue.
+Voir `docs/2.architecture/1.application-architecture.md` pour le partage global des couches.
+Voir `docs/2.architecture/3.page-layout-screen-model.md` pour le modele `page -> layout -> screen -> component`.
+Voir `docs/2.architecture/6.script-setup-standard.md` pour la structure recommandee des fichiers Vue.
 
 ## Conventions locales
 

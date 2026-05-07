@@ -29,6 +29,9 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 type CarouselPanelItem = {
   category: string
   title: string
@@ -43,6 +46,7 @@ type CarouselPanelProps = {
 }
 
 type ImageLoading = 'eager' | 'lazy'
+
 type ImageFetchPriority = 'high' | 'low' | 'auto'
 
 type CarouselPanelImageLoadPayload = {
@@ -54,6 +58,7 @@ type CarouselPanelImagesLoadedPayload = {
   total: number
 }
 
+// 3. Props et emits
 const props = withDefaults(defineProps<CarouselPanelProps>(), {
   items: () => [],
   activeIndex: 0,
@@ -65,32 +70,17 @@ const emit = defineEmits<{
   'images-loaded': [payload: CarouselPanelImagesLoadedPayload]
 }>()
 
+// 4. Composables, stores, routeur
+
+// 5. Etat local
+
+// 6. Data inputs
 const loadedImageKeys = ref<Set<string>>(new Set())
+
 const emittedLoadedSignature = ref<string | null>(null)
 
-const items = computed<CarouselPanelItem[]>(() => props.items ?? [])
-
-const safeActiveIndex = computed<number>(() => {
-  if (items.value.length === 0) return 0
-
-  return Math.min(Math.max(props.activeIndex, 0), items.value.length - 1)
-})
-
+// 7. Validation et helpers purs
 const getImageKey = (index: number, src: string): string => `${index}:${src}`
-
-const itemsSignature = computed<string>(() => {
-  return items.value.map((item, index) => getImageKey(index, item.image)).join('|')
-})
-
-const expectedImageKeys = computed<string[]>(() => {
-  if (items.value.length === 0) return []
-
-  const expectedItems = props.loadAllImages ? items.value : items.value.slice(0, 1)
-
-  return expectedItems.map((item, index) => getImageKey(index, item.image))
-})
-
-const expectedImageSignature = computed<string>(() => expectedImageKeys.value.join('|'))
 
 const shouldRenderImage = (index: number): boolean => {
   return index === 0 || props.loadAllImages
@@ -106,6 +96,31 @@ const getImageFetchPriority = (index: number): ImageFetchPriority => {
   if (index === safeActiveIndex.value) return 'high'
   return props.loadAllImages ? 'auto' : 'low'
 }
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+const items = computed<CarouselPanelItem[]>(() => props.items ?? [])
+
+const safeActiveIndex = computed<number>(() => {
+  if (items.value.length === 0) return 0
+
+  return Math.min(Math.max(props.activeIndex, 0), items.value.length - 1)
+})
+
+const itemsSignature = computed<string>(() => {
+  return items.value.map((item, index) => getImageKey(index, item.image)).join('|')
+})
+
+const expectedImageKeys = computed<string[]>(() => {
+  if (items.value.length === 0) return []
+
+  const expectedItems = props.loadAllImages ? items.value : items.value.slice(0, 1)
+
+  return expectedItems.map((item, index) => getImageKey(index, item.image))
+})
+
+const expectedImageSignature = computed<string>(() => expectedImageKeys.value.join('|'))
 
 const trackStyle = computed<Record<string, string>>(() => {
   return {
@@ -125,6 +140,7 @@ const handleImageLoaded = (index: number, item: CarouselPanelItem): void => {
   })
 }
 
+// 10. Watch et watchEffect
 watch(itemsSignature, () => {
   loadedImageKeys.value = new Set()
   emittedLoadedSignature.value = null
@@ -143,6 +159,10 @@ watchEffect(() => {
   emittedLoadedSignature.value = signature
   emit('images-loaded', { total: expectedKeys.length })
 })
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
 
 <style scoped>
