@@ -49,3 +49,5 @@ Les données dérivées appartiennent aux getters de store ou aux composables.
 Un type TypeScript utilisé par plus d'un fichier doit être défini dans `shared/types/`.
 
 Un type local non exporté reste dans le fichier qui l'utilise.
+
+@see [docs/2.architecture/9.types-placement.md](../docs/2.architecture/9.types-placement.md)

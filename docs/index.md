@@ -18,7 +18,7 @@ Sections disponibles :
 - `2.architecture` : architecture globale et invariants structurels
 - `3.application` : conventions applicatives Nuxt
 - `4.design-system` : fondations UI et direction graphique
-- `5.i18n-and-content` : conventions de langue et contenu
+- `5.content-and-i18n` : conventions de langue et contenu
 - `6.schemas-and-data` : schemas, generation et contrats
 - `7.server` : architecture serveur et conventions API
 - `8.seo` : conventions SEO transverses

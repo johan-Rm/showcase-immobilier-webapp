@@ -1,1 +1,8 @@
 title: Design System
+links:
+  - title: Tailwind et tokens
+    path: /4.design-system/1.tailwind-et-tokens
+  - title: Thèmes et palettes
+    path: /4.design-system/2.themes-et-palettes
+  - title: Color mode et useDesignSystem
+    path: /4.design-system/3.color-mode

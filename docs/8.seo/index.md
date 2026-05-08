@@ -2,17 +2,19 @@
 
 - Role: documenter les conventions SEO transverses du projet.
 
-Cette section couvre les metas, le multilingue, les donnees structurees, le sitemap, `robots.txt` et les checklists SEO.
+Cette section couvre l'architecture du système SEO, les métadonnées, les données structurées JSON-LD, le sitemap et le multilingue.
 
-## Conventions
+## Sous-sections
 
-- Le SEO local des pages est declare avec `useSeoMeta`.
-- Le head global et les attributs `html` passent par `useHead` dans `app.vue`.
-- L infrastructure SEO transverse repose sur les composables SEO du projet et des routes serveur locales.
-- Le sitemap XML est genere par `@nuxtjs/sitemap` avec mapping i18n automatique active.
-- `SITE_URL` et `SITE_NAME` alimentent les URLs absolues, les metas sociales et le JSON-LD.
-- `APP_ENV` pilote l indexabilite globale sur les runtimes non-dev: `dev` produit `noindex, nofollow`, `prod` autorise l indexation.
-- En production indexable, seule la page d accueil localisee peut sortir en `index, follow`; toutes les autres routes exposent `noindex, nofollow`.
-- En mode `nuxt dev`, l indexation reste forcee a `noindex, nofollow` meme si `APP_ENV=prod`.
-- `robots.txt` est servi par `server/routes/robots.txt.ts` et reste une regle globale de crawl; l exclusion des routes hors accueil repose sur la meta `robots` par page.
-- Les donnees editoriales SEO des pages continuent de venir du contenu et des stores metadata.
+- [1. Architecture SEO](1.architecture.md) — rôles de `usePageSeo` et `services/seo/schema.ts`, flux de données
+- [2. Métadonnées et balises sociales](2.meta-et-social.md) — title, canonical, Open Graph, Twitter Card, indexation
+- [3. Données structurées JSON-LD](3.donnees-structurees.md) — graphe Schema.org, nœuds, conventions `@id`
+- [4. Sitemap et multilingue](4.sitemap-multilingue.md) — `@nuxtjs/sitemap`, hreflang, robots.txt
+
+## Principes transverses
+
+- Toute métadonnée dynamique passe par `usePageSeo()` — jamais directement dans une page.
+- Les transformations SEO pures vivent dans `services/seo/schema.ts`, jamais dans le composable.
+- `SITE_URL` et `SITE_NAME` sont les seules sources d'URLs absolues et de noms de site.
+- `APP_ENV=prod` + runtime de production est la seule combinaison qui active l'indexation.
+- En mode `nuxt dev`, l'indexation reste forcée à `noindex, nofollow` même si `APP_ENV=prod`.

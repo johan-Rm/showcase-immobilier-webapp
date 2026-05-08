@@ -28,7 +28,7 @@ Avant d'agir, lire uniquement les sources utiles au périmètre, dans cet ordre 
 3. `~/CONSTITUTION.md`
 4. documentation d'architecture pertinente, par exemple `docs/2.architecture/`
 5. README du périmètre concerné
-6. specs, tasks ou documents fonctionnels directement liés à la demande
+6. tasks ou documents fonctionnels directement liés à la demande
 
 Ne pas charger toute la documentation sans nécessité. Si un fichier attendu est absent,
 poursuivre avec les sources disponibles et expliciter seulement les hypothèses qui

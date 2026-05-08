@@ -24,7 +24,7 @@ Portes d entree documentaires :
 
 - `DOCS_GUIDELINES.md` : gouvernance documentaire, placement de l information et liens croises
 - `docs/2.architecture/` : source de verite de l architecture applicative
-- `dev-book/specs/` : specs fonctionnelles et techniques rattachees aux changements
+- `dev-book/tasks/` : taches d implementation actives rattachees aux changements en cours
 - `app/**/README.md` et `server/README.md` : conventions locales au plus pres du code
 
 ## Setup

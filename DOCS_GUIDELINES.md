@@ -3,7 +3,7 @@
 - Role: definir la hierarchie documentaire du projet et les regles de redaction, de non-duplication et de liens croises.
 - Audience: mainteneurs, developpeurs, reviewers et agents IA qui lisent ou modifient le repository.
 - Scope: documents racine, `docs/`, `./**/README.md`, commentaires et JSDoc.
-- Does not cover: architecture applicative detaillee, perimetres fonctionnels de specs, details d implementation d une feature.
+- Does not cover: architecture applicative detaillee, perimetres fonctionnels et plans d execution des taches, details d implementation d une feature.
 - Source of truth: ce document pour la gouvernance documentaire ; `docs/2.architecture/` pour l architecture globale du systeme.
 
 ## 1. Ordre de lecture recommande
@@ -68,7 +68,7 @@ Doit contenir :
 Ne doit pas contenir :
 
 - duplication des README locaux
-- plan d execution d une spec
+- plan d execution detaille d une tache
 
 ### `./**/README.md`
 

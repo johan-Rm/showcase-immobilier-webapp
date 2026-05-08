@@ -75,15 +75,10 @@ En cas de conflit, l ordre d autorite est le suivant :
 - Les refactors hors perimetre doivent etre evites.
 - Toute exception a cette constitution doit etre rare, justifiee et tracee.
 
-## Specifications et taches
+## Taches
 
-- Toute fonctionnalite non triviale doit etre decrite dans `dev-book/specs/` avant implementation.
-- Chaque specification doit exprimer clairement le besoin, le perimetre, les contraintes et les criteres d acceptation.
-- Toute specification destinee a etre executee doit avoir un fichier associe dans `dev-book/tasks/`.
-- Le fichier de taches associe doit porter le meme identifiant que la specification afin de garantir une tracabilite simple et stable.
-- Les taches decrivent l execution du travail ; elles ne remplacent ni le besoin, ni les criteres d acceptation, ni les contraintes definies dans la specification.
-- Aucune implementation significative ne doit etre engagee sans alignement explicite entre la specification, les taches, les tests attendus et le perimetre reel du changement.
-- Toute modification du perimetre, des contraintes ou des criteres d acceptation doit d abord etre repercutee dans la specification avant adaptation de l implementation.
-- Les tests critiques doivent etre derives des criteres d acceptation de la specification.
-- Une tache ne doit jamais exister sans specification de reference.
-- Une specification ne doit pas contenir de plan d execution detaille lorsque ce contenu releve du fichier de taches associe.
+- Toute fonctionnalite non triviale doit etre decrite dans `dev-book/tasks/` avant implementation.
+- Chaque tache doit exprimer clairement le besoin, le perimetre, les contraintes, les criteres d acceptation et le plan d execution.
+- Aucune implementation significative ne doit etre engagee sans alignement explicite entre la tache, les tests attendus et le perimetre reel du changement.
+- Toute modification du perimetre, des contraintes ou des criteres d acceptation doit d abord etre repercutee dans la tache avant adaptation de l implementation.
+- Les tests critiques doivent etre derives des criteres d acceptation de la tache.
