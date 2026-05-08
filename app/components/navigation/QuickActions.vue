@@ -47,14 +47,13 @@ import type { ComponentPublicInstance } from 'vue'
 
 import { useIntersectionObserver, useTimeoutFn } from '@vueuse/core'
 
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useConstructionModal } from '~/composables/useConstructionModal'
 import { prefetchImage } from '~/composables/useImageWarmup'
 import { useQuickActionWarmup } from '~/composables/useQuickActionWarmup'
 
 // 2. Types et constantes statiques
 type QuickActionsContainerVariant = 'glass'
-
-const MAIN_MENU_CENTER_IMAGE_URL = '/images/essaouira-navigation-hero.jpg'
 
 const DEFAULT_COLOR_CLASS = 'text-foreground/90'
 
@@ -104,6 +103,10 @@ const props = defineProps<{
 const { toggleSidePanel } = useDashboard()
 
 const { isConstructionEnabled, open: openConstructionModal } = useConstructionModal()
+
+const appConfig = useAppConfig()
+
+const image = useImage()
 
 const localePath = useLocalePath()
 
@@ -235,6 +238,32 @@ const navClass = computed(() => {
   return 'rounded-lg bg-black/20 p-2 backdrop-blur'
 })
 
+const mainMenuCenterImageWarmupUrl = computed<string>(() => {
+  const preset = IMAGE_PRESETS.galleryColumn
+  const src = appConfig.menu.mainMenuCenterImageUrl
+  const responsiveImage = image.getSizes(src, {
+    sizes: preset.sizes,
+    modifiers: {
+      width: preset.width,
+      height: preset.height,
+      format: preset.format,
+      quality: preset.quality,
+      fit: preset.fit,
+    },
+  })
+
+  return (
+    responsiveImage.src ??
+    image(src, {
+      width: preset.width,
+      height: preset.height,
+      format: preset.format,
+      quality: preset.quality,
+      fit: preset.fit,
+    })
+  )
+})
+
 // 9. Actions et handlers
 const warmImage = (src: string): void => {
   if (warmedImageUrls.has(src)) return
@@ -299,7 +328,7 @@ const warmQuickActionEntry = (item: QuickActionItem) => {
   warmQuickActionTarget(item)
 
   if (item.id === 'menu') {
-    warmImage(MAIN_MENU_CENTER_IMAGE_URL)
+    warmImage(mainMenuCenterImageWarmupUrl.value)
   }
 }
 
