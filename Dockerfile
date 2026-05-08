@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1.4
 # Dockerfile (prod)
 FROM oven/bun:1-alpine AS build
-ARG APP_ENV=dev
-ARG SITE_URL=http://localhost:3001
-ARG SITE_NAME="MLK - MLK My Little Kasbah"
+ARG APP_ENV=prod
+ARG SITE_URL=https://mlk-my-little-kasbah.immo
+ARG SITE_NAME="MLK My Little Kasbah"
 ARG WEB_VITALS_ENABLED=false
 ARG NODE_BUILD_MEMORY_MB=4096
 
