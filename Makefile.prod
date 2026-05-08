@@ -3,7 +3,10 @@
 # ============================
 
 PROD_PROJECT_NAME ?= mlk-webapp-prod
-COMPOSE_PROD = docker compose -p $(PROD_PROJECT_NAME) -f docker-compose.prod.yml
+PROD_SITE_URL ?= https://mlk-my-little-kasbah.immo
+PROD_SITE_NAME ?= MLK - My Little Kasbah
+COMPOSE_PROD_ENV = APP_ENV=prod SITE_URL=$(PROD_SITE_URL) SITE_NAME="$(PROD_SITE_NAME)"
+COMPOSE_PROD = $(COMPOSE_PROD_ENV) docker compose -p $(PROD_PROJECT_NAME) -f docker-compose.prod.yml
 
 # Logs options
 TAIL ?= 200
