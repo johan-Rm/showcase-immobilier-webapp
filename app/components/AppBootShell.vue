@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-background fixed inset-0 flex w-screen items-center justify-center text-center"
+    class="bg-background fixed inset-0 flex w-screen items-center justify-center text-center transition-opacity duration-500 ease-out"
     :class="props.overlayClass"
     role="status"
     aria-live="polite"

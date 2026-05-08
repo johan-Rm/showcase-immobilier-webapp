@@ -102,6 +102,11 @@ type MenuItemWithAvailability = MenuItem & {
   text?: string
 }
 
+type HeroImageEventPayload = {
+  src: string
+  time: number
+}
+
 const SCREEN_ID = 'screen-real-estate-full-image'
 const column: ScreenColumnTemplate = 'single'
 const MOBILE_PORTRAIT_BACKGROUND_TYPE = 'mobile-portrait-background'
@@ -132,6 +137,7 @@ let hasWarmedHeroNavigationTargets = false
 
 // 6. Data inputs
 const menuItems = computed<MenuItem[]>(() => props.data?.links ?? [])
+const hasLandingScreenData = computed<boolean>(() => props.data !== undefined)
 
 // 7. Validation et helpers purs
 const getListingSlugFromUrl = (url?: string): string => {
@@ -196,6 +202,10 @@ const usePortraitHeroImage = computed<boolean>(
   () => hasPortraitBackgroundImage.value && isPortraitHeroViewport.value,
 )
 
+const selectedHeroImageUrl = computed<string>(() => {
+  return usePortraitHeroImage.value ? bgImagePortraitUrl.value : bgImageUrl.value
+})
+
 const heroImageAlt = computed<string>(() => {
   return usePortraitHeroImage.value
     ? bgImagePortraitAlt.value
@@ -207,13 +217,15 @@ const syncPortraitHeroViewport = (): void => {
   isPortraitHeroViewport.value = portraitHeroMediaQuery?.matches ?? false
 }
 
-const handleHeroImageLoad = (): void => {
+const markSelectedHeroImageReady = (payload: HeroImageEventPayload): void => {
+  if (payload.src !== selectedHeroImageUrl.value) return
+
   isHeroImageReady.value = true
 }
 
-const handleHeroImageError = (): void => {
-  isHeroImageReady.value = true
-}
+const handleHeroImageLoad = markSelectedHeroImageReady
+
+const handleHeroImageError = markSelectedHeroImageReady
 
 const warmHeroNavigationTargets = (): void => {
   if (hasWarmedHeroNavigationTargets) return
@@ -243,11 +255,9 @@ const warmHeroNavigationTargets = (): void => {
 
 // 10. Watch et watchEffect
 watch(
-  () => hasHeroImage.value,
-  (hasImage) => {
-    if (!hasImage) {
-      isHeroImageReady.value = true
-    }
+  [hasLandingScreenData, selectedHeroImageUrl],
+  ([hasData, imageUrl]) => {
+    isHeroImageReady.value = hasData && imageUrl.trim().length === 0
   },
   { immediate: true },
 )
@@ -256,7 +266,7 @@ watch(
 
 // 12. Lifecycle
 onMounted(() => {
-  if (!hasHeroImage.value) {
+  if (hasLandingScreenData.value && !hasHeroImage.value) {
     isHeroImageReady.value = true
   }
 

@@ -28,9 +28,11 @@ const route = useRoute()
 const localePath = useLocalePath()
 
 const baseAssetUrl = runtimeConfig.app.baseURL || '/'
+const LANDING_SHELL_EXIT_DURATION_MS = 500
 
 let initPromise: Promise<boolean> | null = null
 let hasInitializedOnce = false
+let landingShellCompletionTimer: ReturnType<typeof setTimeout> | null = null
 
 const { initCoreData, initCoreDataStatus, isInitCoreDataReady } = useNuxtServerInit()
 
@@ -56,7 +58,9 @@ const shouldMountLandingShell = computed<boolean>(() => {
 })
 
 const landingShellOverlayClass = computed<string>(() => {
-  return isLandingShellVisible.value ? 'z-[100]' : '-z-10 pointer-events-none'
+  return isLandingShellVisible.value
+    ? 'z-[100] opacity-100'
+    : 'z-[100] pointer-events-none opacity-0'
 })
 
 const landingShellLogoClass = computed<string>(() => {
@@ -137,13 +141,36 @@ onNuxtReady(() => {
 
 watch(
   isLandingShellVisible,
-  (visible) => {
-    if (!visible && initCoreDataStatus.value !== 'loading') {
-      hasLandingShellCompleted.value = true
+  async (visible) => {
+    if (import.meta.server) return
+    if (landingShellCompletionTimer) {
+      clearTimeout(landingShellCompletionTimer)
+      landingShellCompletionTimer = null
+    }
+
+    if (visible || initCoreDataStatus.value === 'loading') return
+
+    await nextTick()
+
+    if (!isLandingShellVisible.value) {
+      landingShellCompletionTimer = setTimeout(() => {
+        if (!isLandingShellVisible.value) {
+          hasLandingShellCompleted.value = true
+        }
+
+        landingShellCompletionTimer = null
+      }, LANDING_SHELL_EXIT_DURATION_MS)
     }
   },
   { immediate: true },
 )
+
+onUnmounted(() => {
+  if (landingShellCompletionTimer) {
+    clearTimeout(landingShellCompletionTimer)
+    landingShellCompletionTimer = null
+  }
+})
 
 watch(
   () => localeSetting.value,
