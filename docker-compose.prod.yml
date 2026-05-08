@@ -7,12 +7,19 @@ services:
       additional_contexts:
         schemas: ${SCHEMAS_PATH:-../../schemas}
       args:
+        APP_ENV: ${APP_ENV:-prod}
+        SITE_URL: ${SITE_URL:-https://mlk-my-little-kasbah.immo}
+        SITE_NAME: ${SITE_NAME:-MLK - My Little Kasbah}
+        WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
         NODE_BUILD_MEMORY_MB: ${NODE_BUILD_MEMORY_MB:-4096}
     working_dir: /app
     init: true
     env_file:
       - .env
     environment:
+      APP_ENV: ${APP_ENV:-prod}
+      SITE_URL: ${SITE_URL:-https://mlk-my-little-kasbah.immo}
+      SITE_NAME: ${SITE_NAME:-MLK - My Little Kasbah}
       NODE_ENV: production
       SCHEMAS_PATH: /app/schemas
       NUXT_RESEND_API_KEY: ${RESEND_API_KEY:-}
