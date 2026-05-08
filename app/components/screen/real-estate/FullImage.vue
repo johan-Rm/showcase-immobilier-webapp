@@ -4,8 +4,7 @@
       v-if="hasBackgroundImage && !usePortraitHeroImage"
       :src="bgImageUrl"
       :alt="heroImageAlt"
-      :width="HERO_LANDSCAPE_WIDTH"
-      :quality="70"
+      v-bind="IMAGE_PRESETS.heroFullScreen"
       loading="eager"
       :placeholder="false"
       fetchpriority="high"
@@ -20,8 +19,7 @@
       v-if="usePortraitHeroImage"
       :src="bgImagePortraitUrl"
       :alt="heroImageAlt"
-      :width="HERO_PORTRAIT_WIDTH"
-      :quality="70"
+      v-bind="IMAGE_PRESETS.heroMobile"
       loading="eager"
       :placeholder="false"
       fetchpriority="high"
@@ -69,19 +67,16 @@
         aria-hidden="true"
       >
         <UButton
-        aria-label="Aller au screen suivant"
-        variant="ghost"
-        color="neutral"
-        class="group pointer-events-auto inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border-0 bg-transparent p-3 text-white/88 shadow-none ring-0 transition-transform duration-200 hover:-translate-y-1 hover:bg-transparent hover:text-white"
-        :ui="{
-          base: 'cursor-pointer rounded-full border-0 bg-transparent shadow-none ring-0',
-        }"
-        @click="$emit('next-screen')"
-      >
-        <UIcon
-          name="i-heroicons-arrow-down"
-          class="text-2xl opacity-80 animate-bounce"
-        />
+          aria-label="Aller au screen suivant"
+          variant="ghost"
+          color="neutral"
+          class="group pointer-events-auto inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border-0 bg-transparent p-3 text-white/88 shadow-none ring-0 transition-transform duration-200 hover:-translate-y-1 hover:bg-transparent hover:text-white"
+          :ui="{
+            base: 'cursor-pointer rounded-full border-0 bg-transparent shadow-none ring-0',
+          }"
+          @click="emit('next-screen')"
+        >
+          <UIcon name="i-heroicons-arrow-down" class="animate-bounce text-2xl opacity-80" />
         </UButton>
       </div>
     </div>
@@ -89,12 +84,14 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
 
-import { useAppImage } from '~/composables/useAppImage'
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
 
+// 2. Types et constantes statiques
 type FullImageScreenProps = {
   data?: CreativeWork
 }
@@ -105,36 +102,44 @@ type MenuItemWithAvailability = MenuItem & {
   text?: string
 }
 
-const props = defineProps<FullImageScreenProps>()
-const logger = useLogger({ module: 'screen-real-estate-full-image' })
-
-const { IMAGE_DIMENSIONS } = useAppImage()
-const { warmQuickActionTarget } = useQuickActionWarmup()
-const { getItemsByRealEstateListing } = useAccommodation()
-const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
-
 const SCREEN_ID = 'screen-real-estate-full-image'
 const column: ScreenColumnTemplate = 'single'
 const MOBILE_PORTRAIT_BACKGROUND_TYPE = 'mobile-portrait-background'
 const PORTRAIT_HERO_MEDIA_QUERY =
   '(max-width: 767px), (min-width: 768px) and (max-width: 1023px) and (orientation: portrait)'
 const HERO_IMAGE_READY_STATE_KEY = 'screen.real-estate-full-image.hero-ready'
-const HERO_LANDSCAPE_WIDTH = IMAGE_DIMENSIONS.heroFullScreen.width
-const HERO_PORTRAIT_WIDTH = IMAGE_DIMENSIONS.heroMobile.width
 
+// 3. Props et emits
+const props = defineProps<FullImageScreenProps>()
+const emit = defineEmits<{ 'next-screen': [] }>()
+
+// 4. Composables, stores, routeur
+const logger = useLogger({ module: 'screen-real-estate-full-image' })
+const { warmQuickActionTarget } = useQuickActionWarmup()
+const { getItemsByRealEstateListing } = useAccommodation()
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const metadataStore = useMetadataStore()
 const appConfig = useAppConfig()
-
 const localePath = useLocalePath()
 const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
+const isHeroImageReady = useState<boolean>(HERO_IMAGE_READY_STATE_KEY, () => false)
 
+// 5. Etat local
+const isPortraitHeroViewport = ref(isPhoneDevice.value || isTabletPortrait.value)
+
+let portraitHeroMediaQuery: MediaQueryList | null = null
+let hasWarmedHeroNavigationTargets = false
+
+// 6. Data inputs
 const menuItems = computed<MenuItem[]>(() => props.data?.links ?? [])
 
+// 7. Validation et helpers purs
 const getListingSlugFromUrl = (url?: string): string => {
   if (!url) return ''
   return url.split('/').filter(Boolean).at(-1) ?? ''
 }
 
+// 8. Computed UI-ready
 const menuItemsWithAvailability = computed<MenuItemWithAvailability[]>(() =>
   menuItems.value.map((item) => {
     const listingSlug = getListingSlugFromUrl(item.url)
@@ -183,8 +188,6 @@ const hasPortraitBackgroundImage = computed<boolean>(
   () => bgImagePortraitUrl.value.trim().length > 0,
 )
 
-const isPortraitHeroViewport = ref(isPhoneDevice.value || isTabletPortrait.value)
-
 const hasHeroImage = computed<boolean>(() => {
   return hasBackgroundImage.value || hasPortraitBackgroundImage.value
 })
@@ -199,11 +202,7 @@ const heroImageAlt = computed<string>(() => {
     : bgImageAlt.value || bgImagePortraitAlt.value
 })
 
-const isHeroImageReady = useState<boolean>(HERO_IMAGE_READY_STATE_KEY, () => false)
-
-let portraitHeroMediaQuery: MediaQueryList | null = null
-let hasWarmedHeroNavigationTargets = false
-
+// 9. Actions et handlers
 const syncPortraitHeroViewport = (): void => {
   isPortraitHeroViewport.value = portraitHeroMediaQuery?.matches ?? false
 }
@@ -242,6 +241,20 @@ const warmHeroNavigationTargets = (): void => {
   })
 }
 
+// 10. Watch et watchEffect
+watch(
+  () => hasHeroImage.value,
+  (hasImage) => {
+    if (!hasImage) {
+      isHeroImageReady.value = true
+    }
+  },
+  { immediate: true },
+)
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   if (!hasHeroImage.value) {
     isHeroImageReady.value = true
@@ -284,14 +297,4 @@ onUnmounted(() => {
   portraitHeroMediaQuery?.removeEventListener('change', syncPortraitHeroViewport)
   portraitHeroMediaQuery = null
 })
-
-watch(
-  () => hasHeroImage.value,
-  (hasImage) => {
-    if (!hasImage) {
-      isHeroImageReady.value = true
-    }
-  },
-  { immediate: true },
-)
 </script>

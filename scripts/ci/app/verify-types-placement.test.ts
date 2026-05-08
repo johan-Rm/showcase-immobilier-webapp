@@ -11,7 +11,7 @@ import {
   extractScriptContent,
   extractUsages,
   resolveImportPath,
-} from './check-types-placement'
+} from './verify-types-placement'
 
 const TMP = join(fileURLToPath(new URL('.', import.meta.url)), '.tmp-test')
 

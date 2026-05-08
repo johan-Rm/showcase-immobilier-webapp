@@ -24,8 +24,8 @@
  *
  * @see app/plugins/deferred-runtime.client.ts
  * @see ../README.md
- * @see ../../docs/2.architecture/2.application-architecture.md
- * @see ../../docs/2.architecture/5.ssr-safety.md
+ * @see ../../docs/2.architecture/1.application-architecture.md
+ * @see ../../docs/2.architecture/4.ssr-safety.md
  */
 export const useDeferredRuntime = () => {
   // Premier palier : la navigation Nuxt est terminée et la page peut être considérée visible.

@@ -13,9 +13,11 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject } from '@schemas/interfaces'
 
+// 2. Types et constantes statiques
 type FooterScreenProps = {
   data?: CreativeWork
   imageLoading?: 'lazy' | 'eager'
@@ -27,11 +29,22 @@ type RawImageObject = {
   caption?: string
 }
 
-const props = defineProps<FooterScreenProps>()
-const { setScreenMeta } = useScreenSystem()
 const columnTemplate: ScreenColumnTemplate = 'single'
 const bgImageUrl = '/images/essaouira-navigation-hero.jpg'
 
+// 3. Props et emits
+const props = defineProps<FooterScreenProps>()
+
+// 4. Composables, stores, routeur
+const { setScreenMeta } = useScreenSystem()
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const backgroundImage = computed<{ url: string; alt: string }>(() => {
   const image = props.data?.image
 
@@ -71,6 +84,13 @@ const backgroundImage = computed<{ url: string; alt: string }>(() => {
   }
 })
 
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   setScreenMeta('screen-footer', {
     type: 'standard',

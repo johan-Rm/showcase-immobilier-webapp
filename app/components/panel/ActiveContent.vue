@@ -40,8 +40,10 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import { computed } from 'vue'
 
+// 2. Types et constantes statiques
 type PanelActiveContentItem = {
   category: string
   title: string
@@ -54,9 +56,20 @@ type PanelActiveContentProps = {
   activeIndex: number
 }
 
+// 3. Props et emits
 const props = defineProps<PanelActiveContentProps>()
+
+// 4. Composables, stores, routeur
 const { isPhoneDevice, isLandscape } = useDeviceDetect()
 
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+const shouldHideQuote = computed<boolean>(() => isPhoneDevice.value && isLandscape.value)
+
+// 8. Computed UI-ready
 const bodyParagraphs = computed(() => (props.panel?.paragraphs ?? []).slice(0, -1))
 
 const quoteParagraph = computed(() => {
@@ -64,8 +77,7 @@ const quoteParagraph = computed(() => {
   return paragraphs.at(-1) ?? ''
 })
 
-const shouldHideQuote = computed<boolean>(() => isPhoneDevice.value && isLandscape.value)
-
+// 9. Actions et handlers
 const contentTopPaddingClass = computed<string>(() => {
   if (isPhoneDevice.value && isLandscape.value) {
     return 'pt-0 md:pt-0'
@@ -73,6 +85,12 @@ const contentTopPaddingClass = computed<string>(() => {
 
   return 'pt-4 md:pt-16'
 })
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
 
 <style scoped>

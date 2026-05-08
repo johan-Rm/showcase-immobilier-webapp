@@ -9,11 +9,7 @@
       :placeholder="false"
       decoding="async"
       class="absolute inset-0 h-full w-full object-cover object-center"
-      :width="IMAGE_PRESETS.fullscreenCover.width"
-      :format="IMAGE_PRESETS.fullscreenCover.format"
-      :quality="IMAGE_PRESETS.fullscreenCover.quality"
-      :fit="IMAGE_PRESETS.fullscreenCover.fit"
-      :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+      v-bind="IMAGE_PRESETS.fullscreenCover"
     />
 
     <AppOverlay :percentage="20" />
@@ -68,9 +64,12 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
+
+// 2. Types et constantes statiques
 type ContactInfoLink = {
   label: string
   to: string
@@ -80,15 +79,24 @@ const SCREEN_ID = 'screen-contact'
 const backgroundImageUrl = '/images/contact-essaouira-port-mouette.jpeg'
 const columnTemplate: ScreenColumnTemplate = 'single'
 
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
 const appConfig = useAppConfig()
 const { setScreenMeta } = useScreenSystem()
 const { isMobilePortrait, isTabletPortrait } = useDeviceDetect()
 
+// 5. Etat local
 const contactLineRef = ref<HTMLElement | null>(null)
 const wrappedContactLinkIndexes = ref<Set<number>>(new Set())
 
 let contactResizeObserver: ResizeObserver | null = null
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const contactEmail = computed(() => appConfig.organization.email)
 const contactPhoneEntries = computed(() =>
   getOrganizationPhoneEntries(appConfig.organization.phoneNumbers ?? []),
@@ -105,6 +113,7 @@ const contactLinks = computed<ContactInfoLink[]>(() => [
   })),
 ])
 
+// 9. Actions et handlers
 const shouldShowContactSeparator = (index: number): boolean => {
   return index > 0 && !wrappedContactLinkIndexes.value.has(index)
 }
@@ -135,6 +144,11 @@ const updateContactSeparators = async (): Promise<void> => {
   wrappedContactLinkIndexes.value = nextWrappedIndexes
 }
 
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   setScreenMeta(SCREEN_ID, {
     type: 'standard',

@@ -21,26 +21,38 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork } from '@schemas/interfaces'
 
+// 2. Types et constantes statiques
 type BlockquoteScreenProps = {
   data?: CreativeWork
 }
 
+const columnTemplate: ScreenColumnTemplate = 'single'
+
+// 3. Props et emits
 const props = defineProps<BlockquoteScreenProps>()
+
+// 4. Composables, stores, routeur
 const logger = useLogger({ module: 'screen-blockquote' })
 const localePath = useLocalePath()
 const { getMenuItemByIdentifier } = useAppNavigation()
 const { setScreenMeta } = useScreenSystem()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
-const columnTemplate: ScreenColumnTemplate = 'single'
+// 5. Etat local
 const activeQuoteIndex = ref<number>(0)
 
 let quoteInterval: ReturnType<typeof setInterval> | null = null
 let hasWarmedSectionTarget = false
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const quotePhrases = computed<string[]>(() =>
   (props.data?.hasPart ?? [])
     .map((part) => part.headline?.trim() ?? '')
@@ -63,6 +75,7 @@ const sectionLink = computed<string>(() => {
   return localePath(getMenuItemByIdentifier(rawValue)?.url ?? '/')
 })
 
+// 9. Actions et handlers
 const warmSectionTarget = (): void => {
   if (hasWarmedSectionTarget) return
 
@@ -82,6 +95,21 @@ const warmSectionTarget = (): void => {
   })
 }
 
+// 10. Watch et watchEffect
+watchEffect(() => {
+  if (quotePhrases.value.length === 0) {
+    activeQuoteIndex.value = 0
+    return
+  }
+
+  if (activeQuoteIndex.value >= quotePhrases.value.length) {
+    activeQuoteIndex.value = 0
+  }
+})
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   logger.info('Mounted screen', {
     screenId: 'screen-blockquote',
@@ -122,17 +150,6 @@ onUnmounted(() => {
 
   if (quoteInterval) {
     clearInterval(quoteInterval)
-  }
-})
-
-watchEffect(() => {
-  if (quotePhrases.value.length === 0) {
-    activeQuoteIndex.value = 0
-    return
-  }
-
-  if (activeQuoteIndex.value >= quotePhrases.value.length) {
-    activeQuoteIndex.value = 0
   }
 })
 </script>

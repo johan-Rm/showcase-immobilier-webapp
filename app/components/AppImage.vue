@@ -18,10 +18,17 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
 type ImageFormat = 'webp' | 'avif' | 'jpeg' | 'jpg' | 'png'
+
 type LoadingStrategy = 'lazy' | 'eager'
+
 type DecodingStrategy = 'sync' | 'async' | 'auto'
+
 type FetchPriority = 'high' | 'low' | 'auto'
+
 type ObjectFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
 
 /**
@@ -58,6 +65,7 @@ type AppImageProps = {
   placeholder?: boolean | string
 }
 
+// 3. Props et emits
 const props = withDefaults(defineProps<AppImageProps>(), {
   width: undefined,
   height: undefined,
@@ -76,6 +84,17 @@ const emit = defineEmits<{
   loaded: [payload: { src: string; time: number }]
 }>()
 
+// 4. Composables, stores, routeur
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
 const onLoad = () => {
   const payload = {
     src: props.src,
@@ -85,4 +104,10 @@ const onLoad = () => {
   // console.log('[AppImage] loaded', payload)
   emit('loaded', payload)
 }
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

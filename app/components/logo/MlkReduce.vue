@@ -33,10 +33,13 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import ReduceLogoSvg from '~/assets/logo/mlk_reduce.svg'
 
+// 2. Types et constantes statiques
 type PresetSize = 'sm' | 'md' | 'lg' | 'xl'
 
+// 3. Props et emits
 const props = withDefaults(
   defineProps<{
     colorClass?: string
@@ -62,10 +65,24 @@ const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
 
+// 4. Composables, stores, routeur
 const { currentMeta } = useScreenSystem()
+
 const route = useRoute()
+
 const localePath = useLocalePath()
 
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+const normalizePath = (value: string): string => (value !== '/' ? value.replace(/\/+$/, '') : '/')
+
+const isPlainLeftClick = (event: MouseEvent): boolean =>
+  event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
+
+// 8. Computed UI-ready
 const sizeClass = computed(() => {
   if (typeof props.size === 'number') return ''
   const map: Record<PresetSize, string> = {
@@ -82,6 +99,7 @@ const inlineSize = computed(() =>
 )
 
 const isVisible = computed(() => currentMeta.value?.logo?.visible === true)
+
 const effectiveVisible = computed(() => props.forceVisible || isVisible.value)
 
 const contextualContainerClass = computed(() => {
@@ -93,11 +111,12 @@ const needsContainer = computed(
   () => Boolean(props.containerClass) || Boolean(contextualContainerClass.value),
 )
 
-const normalizePath = (value: string): string => (value !== '/' ? value.replace(/\/+$/, '') : '/')
+const isHomeLandingTarget = computed(() => {
+  const target = splitTarget(props.to)
+  return target.path === normalizePath(localePath('/')) && target.hash === '#screen-landing'
+})
 
-const isPlainLeftClick = (event: MouseEvent): boolean =>
-  event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
-
+// 9. Actions et handlers
 const splitTarget = (value: string): { path: string; hash: string } => {
   const [pathPart, hashPart] = value.split('#', 2)
 
@@ -106,11 +125,6 @@ const splitTarget = (value: string): { path: string; hash: string } => {
     hash: hashPart ? `#${hashPart}` : '',
   }
 }
-
-const isHomeLandingTarget = computed(() => {
-  const target = splitTarget(props.to)
-  return target.path === normalizePath(localePath('/')) && target.hash === '#screen-landing'
-})
 
 const triggerHashSync = (): void => {
   window.dispatchEvent(new Event('hashchange'))
@@ -134,6 +148,12 @@ const handleClick = (event: MouseEvent): void => {
 
   triggerHashSync()
 }
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
 
 <style scoped>

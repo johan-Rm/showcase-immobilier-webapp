@@ -41,11 +41,13 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 
+// 2. Types et constantes statiques
 type InvestScreenProps = {
   data?: CreativeWork
 }
@@ -56,24 +58,33 @@ type RawImageObject = {
   caption?: string
 }
 
+const column: ScreenColumnTemplate = 'single'
+
+// 3. Props et emits
 const props = defineProps<InvestScreenProps>()
+
+// 4. Composables, stores, routeur
 const logger = useLogger({ module: 'screen-invest' })
 const localePath = useLocalePath()
 const { getMenuItemByIdentifier } = useAppNavigation()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 const { IMAGE_DIMENSIONS } = useAppImage()
+const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
+const { isPhoneDevice, isLandscape } = useDeviceDetect()
+const BACKGROUND_IMAGE_WIDTH = IMAGE_DIMENSIONS.fullscreenCover.width
 
+// 5. Etat local
+let hasWarmedSectionTarget = false
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const investingPageLink = computed<string>(() => {
   const investingItem = getMenuItemByIdentifier('investing')
   return localePath(investingItem?.url ?? '/')
 })
-
-const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
-const { isPhoneDevice, isLandscape } = useDeviceDetect()
-const column: ScreenColumnTemplate = 'single'
-const BACKGROUND_IMAGE_WIDTH = IMAGE_DIMENSIONS.fullscreenCover.width
-
-let hasWarmedSectionTarget = false
 
 const sectionLabel = computed<string>(() => props.data?.name?.trim() ?? '')
 const sectionTitle = computed<string>(() => props.data?.headline?.trim() ?? '')
@@ -169,6 +180,7 @@ const shouldLoadVisuals = useDeferredScreenVisuals(
   { stage: 'runtime' },
 )
 
+// 9. Actions et handlers
 const warmSectionTarget = (): void => {
   if (hasWarmedSectionTarget) return
 
@@ -188,6 +200,11 @@ const warmSectionTarget = (): void => {
   })
 }
 
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   logger.info('Mounted screen', {
     screenId: 'screen-invest',

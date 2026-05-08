@@ -47,8 +47,10 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { WebPage } from '@schemas/interfaces'
 
+// 2. Types et constantes statiques
 type MarkdownPanelMdcProps = {
   content: WebPage | null
 }
@@ -59,19 +61,70 @@ type ContactEntry = {
   icon: string
 }
 
-const props = defineProps<MarkdownPanelMdcProps>()
-
-const appConfig = useAppConfig()
-const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
-
 const LINK_FILL_TEXT_CLASS = 'from-secondary to-foreground/70 inline-block'
+
 const SCROLL_END_TOLERANCE_PX = 2
 
-const panelRef = ref<HTMLElement | null>(null)
+// 3. Props et emits
+const props = defineProps<MarkdownPanelMdcProps>()
+
+// 4. Composables, stores, routeur
+const appConfig = useAppConfig()
+
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+
+// 5. Etat local
 const canScrollFurther = ref(false)
-const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
-const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
+
+let resizeObserver: ResizeObserver | null = null
+
+// 6. Data inputs
+const panelRef = ref<HTMLElement | null>(null)
+
+// 7. Validation et helpers purs
 const isCompactFooterNav = computed<boolean>(() => isPhoneDevice.value || isTabletPortrait.value)
+
+const isMiddleFooterNavItem = (index: number): boolean => {
+  return index === Math.floor(contactEntries.value.length / 2)
+}
+
+const getFooterNavItemClass = (index: number): string => {
+  if (isCompactFooterNav.value) {
+    return ''
+  }
+
+  const alignmentClass = isMiddleFooterNavItem(index) ? 'justify-center' : 'justify-start'
+
+  return `min-w-0 flex-1 whitespace-nowrap ${alignmentClass}`
+}
+
+const getFooterNavLinkClass = (index: number): string => {
+  if (isCompactFooterNav.value) {
+    return 'text-left'
+  }
+
+  const alignmentClass = isMiddleFooterNavItem(index)
+    ? 'justify-center text-center'
+    : 'justify-start text-left'
+
+  return `w-full ${alignmentClass}`
+}
+
+// 8. Computed UI-ready
+const markdownValue = computed(() => {
+  if (!props.content) return ''
+
+  if (typeof props.content.text === 'string' && props.content.text.length > 0) {
+    return props.content.text
+  }
+
+  return ''
+})
+
+// 9. Actions et handlers
+const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
+
+const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
 
 const contactEntries = computed<ContactEntry[]>(() => {
   const entries: ContactEntry[] = []
@@ -119,45 +172,9 @@ const footerNavClass = computed<string>(() => {
   return 'w-full flex-nowrap items-start justify-start gap-x-8'
 })
 
-const isMiddleFooterNavItem = (index: number): boolean => {
-  return index === Math.floor(contactEntries.value.length / 2)
-}
-
-const getFooterNavItemClass = (index: number): string => {
-  if (isCompactFooterNav.value) {
-    return ''
-  }
-
-  const alignmentClass = isMiddleFooterNavItem(index) ? 'justify-center' : 'justify-start'
-
-  return `min-w-0 flex-1 whitespace-nowrap ${alignmentClass}`
-}
-
-const getFooterNavLinkClass = (index: number): string => {
-  if (isCompactFooterNav.value) {
-    return 'text-left'
-  }
-
-  const alignmentClass = isMiddleFooterNavItem(index)
-    ? 'justify-center text-center'
-    : 'justify-start text-left'
-
-  return `w-full ${alignmentClass}`
-}
-
 const showContactSeparator = (index: number): boolean => {
   return isCompactFooterNav.value && index < contactEntries.value.length - 1
 }
-
-const markdownValue = computed(() => {
-  if (!props.content) return ''
-
-  if (typeof props.content.text === 'string' && props.content.text.length > 0) {
-    return props.content.text
-  }
-
-  return ''
-})
 
 const updateScrollState = (): void => {
   const panel = panelRef.value
@@ -171,8 +188,15 @@ const updateScrollState = (): void => {
   canScrollFurther.value = remainingScroll > SCROLL_END_TOLERANCE_PX
 }
 
-let resizeObserver: ResizeObserver | null = null
+// 10. Watch et watchEffect
+watch([markdownValue, contactEntries, isPhoneDevice, isTabletPortrait], async () => {
+  await nextTick()
+  updateScrollState()
+})
 
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   updateScrollState()
 
@@ -185,11 +209,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   resizeObserver?.disconnect()
   resizeObserver = null
-})
-
-watch([markdownValue, contactEntries, isPhoneDevice, isTabletPortrait], async () => {
-  await nextTick()
-  updateScrollState()
 })
 </script>
 

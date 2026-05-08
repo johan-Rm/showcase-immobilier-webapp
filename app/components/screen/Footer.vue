@@ -252,6 +252,7 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { AppFooterLink, AppFooterSocialLink, AppLinkTarget } from '#shared/types/app'
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject } from '@schemas/interfaces'
@@ -259,6 +260,7 @@ import type { CreativeWork, MediaObject } from '@schemas/interfaces'
 import { useAppFooter } from '~/composables/useAppFooter'
 import { useAppNavigation } from '~/composables/useAppNavigation'
 
+// 2. Types et constantes statiques
 type FooterLink = AppFooterLink
 type FooterSocialLink = AppFooterSocialLink
 
@@ -285,15 +287,18 @@ type ContactEntry = {
   icon: string
 }
 
-const { isPhoneDevice, segment } = useDeviceDetect()
-const LINK_FILL_TEXT_CLASS = 'from-secondary to-foreground/70 inline-block'
-
 const SCREEN_ID = 'screen-footer'
 const COLUMN_TEMPLATE: ScreenColumnTemplate = 'split-67-33'
 const DEFAULT_BACKGROUND_IMAGE_URL = '/images/essaouira-navigation-hero.jpg'
 const DEFAULT_BACKGROUND_IMAGE_ALT = 'MLK - My Little Kasbah'
+const LINK_FILL_TEXT_CLASS = 'from-secondary to-foreground/70 inline-block'
 
+// 3. Props et emits
 const props = defineProps<FooterScreenProps>()
+
+// 4. Composables, stores, routeur
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+
 const logger = useLogger({ module: 'screen-footer' })
 
 const { footer } = useAppFooter()
@@ -305,30 +310,14 @@ const appConfig = useAppConfig()
 const localePath = useLocalePath()
 const BACKGROUND_IMAGE_WIDTH = IMAGE_DIMENSIONS.vertical3col.width
 
+// 5. Etat local
+
+// 6. Data inputs
 const footerContent = computed(() => footer.value)
 const navigationMainContent = computed(() => appData.value?.components?.navigationMain)
 const footerMenus = computed(() => appConfig.menu ?? {})
 
-const contactPageLink = computed(() => localePath('/contact'))
-const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
-const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
-
-const stayConnectedTitle = computed<string>(
-  () => navigationMainContent.value?.stayConnectedTitle ?? '',
-)
-
-const contactDetailsTitle = computed<string>(
-  () => navigationMainContent.value?.contactDetailsTitle ?? '',
-)
-
-const accommodationMenuName = computed<string | undefined>(
-  () => footerContent.value?.accommodationTypes?.menu,
-)
-
-const servicesMenuName = computed<string | undefined>(() => footerContent.value?.services?.menu)
-
-const metaMenuName = computed<string | undefined>(() => footerContent.value?.meta?.menu)
-
+// 7. Validation et helpers purs
 const getImageAlt = (image: MediaObject | RawImageObject): string | undefined => {
   if ('alt' in image && typeof image.alt === 'string' && image.alt.trim().length > 0) {
     return image.alt
@@ -385,6 +374,27 @@ const resolveMenuLinks = (menuName?: string): FooterLink[] => {
       to: item.url ?? '/',
     }))
 }
+
+// 8. Computed UI-ready
+const contactPageLink = computed(() => localePath('/contact'))
+const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
+const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
+
+const stayConnectedTitle = computed<string>(
+  () => navigationMainContent.value?.stayConnectedTitle ?? '',
+)
+
+const contactDetailsTitle = computed<string>(
+  () => navigationMainContent.value?.contactDetailsTitle ?? '',
+)
+
+const accommodationMenuName = computed<string | undefined>(
+  () => footerContent.value?.accommodationTypes?.menu,
+)
+
+const servicesMenuName = computed<string | undefined>(() => footerContent.value?.services?.menu)
+
+const metaMenuName = computed<string | undefined>(() => footerContent.value?.meta?.menu)
 
 const backgroundImage = computed<{ url: string; alt: string }>(() =>
   resolveBackgroundImage(props.data?.image),
@@ -451,56 +461,34 @@ const hasCreditsLine = computed<boolean>(() => creditsParts.value.length > 0)
 const rootGridClass = computed<string>(() => {
   const baseClass = 'grid min-h-0'
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${baseClass} h-screen grid-cols-1 grid-rows-[40%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-    default:
-      return `${baseClass} h-screen grid-cols-1 grid-rows-[50%_1fr]`
-  }
+  if (isTabletPortrait.value) return `${baseClass} h-screen grid-cols-1 grid-rows-[40%_1fr]`
+  if (!isPhoneDevice.value) return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
+  return `${baseClass} h-screen grid-cols-1 grid-rows-[50%_1fr]`
 })
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex h-full min-h-0 flex-col'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-      return `${baseClass} row-start-2`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-    default:
-      return `${baseClass} row-start-1`
-  }
+  return isTabletPortrait.value || isPhoneDevice.value
+    ? `${baseClass} row-start-2`
+    : `${baseClass} row-start-1`
 })
 
 const visualColumnClass = computed<string>(() => {
   const baseClass = 'relative h-full min-h-0 min-w-0 overflow-hidden'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-      return `${baseClass} row-start-1`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-    default:
-      return baseClass
-  }
+  return isTabletPortrait.value || isPhoneDevice.value ? `${baseClass} row-start-1` : baseClass
 })
 const shouldLoadVisuals = useDeferredScreenVisuals(
   SCREEN_ID,
   computed(() => backgroundImage.value.url.trim().length > 0),
 )
 
+// 9. Actions et handlers
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   logger.info('Mounted screen', {
     screenId: SCREEN_ID,

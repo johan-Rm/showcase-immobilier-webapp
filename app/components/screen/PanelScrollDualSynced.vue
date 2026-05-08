@@ -35,9 +35,11 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork } from '@schemas/interfaces'
 
+// 2. Types et constantes statiques
 type PanelScrollDualSyncedProps = {
   data?: CreativeWork
 }
@@ -49,20 +51,27 @@ type Panel = {
   paragraphs: string[]
 }
 
-const props = defineProps<PanelScrollDualSyncedProps>()
-
-const { setScreenMeta } = useScreenSystem()
-const { segment } = useDeviceDetect()
-const reducedMotion = usePreferredReducedMotion()
-
-const activeIndex = ref(0)
-const hasMounted = ref(false)
-const hasLoadedCarouselImages = ref(false)
 const columnTemplate: ScreenColumnTemplate = 'split-33-67'
 const AUTOPLAY_DELAY_MS = 4500
 
+// 3. Props et emits
+const props = defineProps<PanelScrollDualSyncedProps>()
+
+// 4. Composables, stores, routeur
+const { setScreenMeta } = useScreenSystem()
+const { isTabletPortrait, isPhoneDevice } = useDeviceDetect()
+const reducedMotion = usePreferredReducedMotion()
+
+// 5. Etat local
+const activeIndex = ref(0)
+const hasMounted = ref(false)
+const hasLoadedCarouselImages = ref(false)
+
 let autoplayIntervalId: number | null = null
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const getParagraphsFromText = (text: string | undefined): string[] => {
   if (typeof text !== 'string' || text.trim().length === 0) return []
 
@@ -72,6 +81,7 @@ const getParagraphsFromText = (text: string | undefined): string[] => {
     .filter((paragraph) => paragraph.length > 0)
 }
 
+// 8. Computed UI-ready
 const panels = computed<Panel[]>(() => {
   return (props.data?.hasPart ?? [])
     .map((part) => {
@@ -119,6 +129,22 @@ const shouldLoadAllVisuals = computed<boolean>(
 
 const sectionTitle = computed<string>(() => props.data?.headline?.trim() ?? '')
 
+const rootGridClass = computed<string>(() => {
+  const baseClass = 'grid min-h-0'
+
+  if (isTabletPortrait.value) return `${baseClass} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
+  if (!isPhoneDevice.value) return `${baseClass} h-full grid-cols-[33.33%_66.67%] grid-rows-1`
+  return `${baseClass} h-dvh grid-cols-1 grid-rows-1`
+})
+
+const contentColumnClass = computed<string>(() => {
+  const baseClass = 'relative flex min-w-0 flex-col overflow-hidden'
+  return isTabletPortrait.value
+    ? `${baseClass} row-start-2 h-full`
+    : `${baseClass} row-start-1 h-full`
+})
+
+// 9. Actions et handlers
 const stopAutoplay = (): void => {
   if (autoplayIntervalId !== null) {
     window.clearInterval(autoplayIntervalId)
@@ -149,6 +175,7 @@ const handleCarouselImagesLoaded = (): void => {
   hasLoadedCarouselImages.value = true
 }
 
+// 10. Watch et watchEffect
 watchEffect(() => {
   if (panels.value.length === 0) {
     activeIndex.value = 0
@@ -190,29 +217,9 @@ watch(
   },
 )
 
-const rootGridClass = computed<string>(() => {
-  const baseClass = 'grid min-h-0'
+// 11. Metadonnees ecran ou page
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${baseClass} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} h-full grid-cols-[33.33%_66.67%] grid-rows-1`
-    default:
-      return `${baseClass} h-dvh grid-cols-1 grid-rows-1`
-  }
-})
-
-const contentColumnClass = computed<string>(() => {
-  const baseClass = 'relative flex min-w-0 flex-col overflow-hidden'
-
-  return segment.value === 'tablet-portrait'
-    ? `${baseClass} row-start-2 h-full`
-    : `${baseClass} row-start-1 h-full`
-})
-
+// 12. Lifecycle
 onMounted(() => {
   hasMounted.value = true
 

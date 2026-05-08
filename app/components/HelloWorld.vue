@@ -36,10 +36,34 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+
+// 2. Types et constantes statiques
+
+// 3. Props et emits
+
+// 4. Composables, stores, routeur
 const { appData } = useApp()
+
 const appConfig = useAppConfig()
 
-const logoAriaLabel = computed<string>(() => appData.value?.components?.logo?.ariaLabel ?? '')
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const organization = computed(() => appConfig.organization)
+
+// 9. Actions et handlers
+const logoAriaLabel = computed<string>(() => appData.value?.components?.logo?.ariaLabel ?? '')
+
 const organizationJson = computed<string>(() => JSON.stringify(organization.value, null, 2))
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

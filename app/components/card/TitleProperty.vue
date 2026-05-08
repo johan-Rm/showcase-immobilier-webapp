@@ -115,9 +115,9 @@
 </template>
 
 <script setup lang="ts">
-const localePath = useLocalePath()
-const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+// 1. Imports
 
+// 2. Types et constantes statiques
 type CardTitlePropertyProps = {
   identifier?: string
   title?: string
@@ -131,6 +131,7 @@ type CardTitlePropertyProps = {
   size?: 'hero' | 'compact'
 }
 
+// 3. Props et emits
 const props = withDefaults(defineProps<CardTitlePropertyProps>(), {
   identifier: '',
   title: '',
@@ -143,10 +144,18 @@ const props = withDefaults(defineProps<CardTitlePropertyProps>(), {
   size: 'compact',
 })
 
-const drawerDirection = computed<'right' | 'bottom'>(() => {
-  return isPhoneDevice.value || isTabletPortrait.value ? 'bottom' : 'right'
-})
+// 4. Composables, stores, routeur
+const localePath = useLocalePath()
 
+const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const isHero = computed(() => props.size === 'hero')
 
 const cardUi = computed(() => ({
@@ -155,4 +164,15 @@ const cardUi = computed(() => ({
     : 'w-full max-w-4xl rounded-4xl border-0 p-4 bg-transparent shadow-none ring-0',
   body: isHero.value ? 'p-5 sm:p-6 2xl:px-8' : 'p-4',
 }))
+
+// 9. Actions et handlers
+const drawerDirection = computed<'right' | 'bottom'>(() => {
+  return isPhoneDevice.value || isTabletPortrait.value ? 'bottom' : 'right'
+})
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

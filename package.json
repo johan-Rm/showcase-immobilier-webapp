@@ -9,7 +9,10 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "check:feat001": "bash scripts/check-feature-001.sh",
-    "check:types": "bun scripts/check-types-placement.ts",
+    "check:app:types": "bun scripts/ci/app/verify-types-placement.ts",
+    "check:app:images": "bun scripts/ci/app/verify-app-image.ts",
+    "check:app:components:no-business-logic": "bun scripts/ci/app/verify-no-business-logic.ts",
+    "check:app:script-setup-standard": "bun scripts/ci/app/verify-script-setup-standard.ts",
     "lint:check": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format:check": "prettier . --check",
@@ -39,6 +42,7 @@
     "zod": "^4.4.2"
   },
   "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.3",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@nuxt/hints": "^1.1.0",
     "@pinia/nuxt": "^0.11.3",

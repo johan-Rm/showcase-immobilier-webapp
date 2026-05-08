@@ -51,13 +51,17 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { AppLinkTarget } from '#shared/types/app'
 import type { RouteLocationRaw } from 'vue-router'
 
 import { useConstructionModal } from '~/composables/useConstructionModal'
 
+// 2. Types et constantes statiques
 type AppLinkVariant = 'icon' | 'text'
+
 type AppLinkTextAnimation = 'none' | 'fill' | 'slide-line' | 'slide-arrow'
+
 type AppLinkIconPosition = 'left' | 'right'
 
 type AppLinkProps = {
@@ -75,6 +79,7 @@ type AppLinkProps = {
   disabled?: boolean // 🔥 NEW
 }
 
+// 3. Props et emits
 const props = withDefaults(defineProps<AppLinkProps>(), {
   icon: '',
   iconPosition: 'left',
@@ -94,18 +99,24 @@ const emit = defineEmits<{
   focus: []
 }>()
 
+// 4. Composables, stores, routeur
 const slots = useSlots()
+
 const { isConstructionEnabled, open: openConstructionModal } = useConstructionModal()
 
-const computedRel = computed<string | undefined>(() => {
-  if (props.rel) return props.rel
-  return props.target === '_blank' ? 'noopener noreferrer' : undefined
-})
+// 5. Etat local
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const isIconVariant = computed<boolean>(() => props.variant === 'icon')
+
 const isTextVariant = computed<boolean>(() => props.variant === 'text')
+
 const hasDefaultSlot = computed<boolean>(() => Boolean(slots.default))
+
 const hasTextContent = computed<boolean>(() => Boolean(props.label) || hasDefaultSlot.value)
+
 const shouldRenderTextContent = computed<boolean>(() => isTextVariant.value || hasTextContent.value)
 
 const shouldRenderLeadingIcon = computed<boolean>(() => {
@@ -116,6 +127,34 @@ const shouldRenderLeadingIcon = computed<boolean>(() => {
 const shouldRenderTrailingIcon = computed<boolean>(() => {
   if (!props.icon || !hasTextContent.value) return false
   return isTextVariant.value && props.iconPosition === 'right'
+})
+
+const resolvedTextClass = computed<string>(() => {
+  const base = props.textClass?.trim() ?? ''
+
+  if (!isTextVariant.value) return base
+
+  if (props.textAnimation === 'fill') {
+    const fillClass =
+      'inline-block bg-gradient-to-r from-white from-50% to-foreground to-50% bg-[length:200%_100%] bg-right bg-clip-text text-transparent transition-[background-position] duration-500 group-hover:bg-left'
+    return [fillClass, base].filter(Boolean).join(' ')
+  }
+
+  if (props.textAnimation === 'slide-line' || props.textAnimation === 'slide-arrow') {
+    const slideClass =
+      'inline-block transition-transform duration-300 ease-out group-hover:translate-x-4'
+    return [slideClass, base].filter(Boolean).join(' ')
+  }
+
+  return base
+})
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+const computedRel = computed<string | undefined>(() => {
+  if (props.rel) return props.rel
+  return props.target === '_blank' ? 'noopener noreferrer' : undefined
 })
 
 const rootClass = computed<string>(() => {
@@ -140,26 +179,6 @@ const disabledClass = computed<string>(() => {
     .join(' ')
 })
 
-const resolvedTextClass = computed<string>(() => {
-  const base = props.textClass?.trim() ?? ''
-
-  if (!isTextVariant.value) return base
-
-  if (props.textAnimation === 'fill') {
-    const fillClass =
-      'inline-block bg-gradient-to-r from-white from-50% to-foreground to-50% bg-[length:200%_100%] bg-right bg-clip-text text-transparent transition-[background-position] duration-500 group-hover:bg-left'
-    return [fillClass, base].filter(Boolean).join(' ')
-  }
-
-  if (props.textAnimation === 'slide-line' || props.textAnimation === 'slide-arrow') {
-    const slideClass =
-      'inline-block transition-transform duration-300 ease-out group-hover:translate-x-4'
-    return [slideClass, base].filter(Boolean).join(' ')
-  }
-
-  return base
-})
-
 const lineClass = computed<string>(() => {
   return 'pointer-events-none absolute top-1/2 left-0 h-[1px] w-3 -translate-y-1/2 -translate-x-5 bg-current opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100'
 })
@@ -179,4 +198,10 @@ const handleAppLinkClick = (event: MouseEvent): void => {
   event.preventDefault()
   openConstructionModal()
 }
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

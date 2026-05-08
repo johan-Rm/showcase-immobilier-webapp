@@ -58,43 +58,60 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { PropertyItem } from '#shared/types/accommodation'
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 
-const emit = defineEmits<{
-  (e: 'next-screen'): void
-}>()
+import { usePropertyListOptions } from '~/composables/usePropertyListOptions'
 
+// 2. Types et constantes statiques
 type PropertyListProps = {
   totalCount?: number
   itemsList?: PropertyItem[][]
   activeRealEstateListingSlug?: string
 }
 
-type RealEstateListingSelectOption = {
-  label: string
-  value: string
-  count: number
-  disabled: boolean
-}
+const columnTemplate: ScreenColumnTemplate = 'single'
+const WHEEL_GESTURE_RELEASE_MS = 90
+const TOUCH_SWIPE_THRESHOLD_PX = 48
 
-type RealEstateListingFilterItem = {
-  slug?: string | null
-  name?: string | null
-  isActive?: boolean | null
-}
+// 3. Props et emits
+const emit = defineEmits<{
+  (e: 'next-screen'): void
+}>()
 
 const props = defineProps<PropertyListProps>()
 
+// 4. Composables, stores, routeur
 const logger = useLogger({ module: 'screen-property-list' })
 const { viewModeList, itemsList: defaultItemsList } = useAccommodation()
 const metadataStore = useMetadataStore()
-const accommodationStore = useAccommodationStore()
 const localePath = useLocalePath()
 const { warmQuickActionTarget } = useQuickActionWarmup()
+const { setScreenMeta } = useScreenSystem()
+const { cinemaOverlayClass, cinemaMode } = useDesignSystem()
 
+// 5. Etat local
 const warmedPropertyDetailTargets = new Set<string>()
 
+const selectedCategorySlug = ref<string | null>(null)
+const isBackgroundListReady = ref(false)
+const stageRef = ref<HTMLElement | null>(null)
+const navigationRef = ref<HTMLDivElement | null>(null)
+const linePropertyRef = ref<HTMLDivElement | null>(null)
+const index = ref(0)
+const viewportW = ref(typeof window === 'undefined' ? 1 : window.innerWidth)
+
+let wheelLock = false
+let wheelUnlockTimer: number | null = null
+let resizeObserver: ResizeObserver | null = null
+const touchStartPoint = reactive({ x: 0, y: 0 })
+const touchCurrentPoint = reactive({ x: 0, y: 0 })
+let isTouchTracking = false
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
 const getChunkSize = (): number => (viewModeList.value === 'single' ? 1 : 4)
 
 const chunkPropertyItems = (items: PropertyItem[], size: number): PropertyItem[][] => {
@@ -106,13 +123,15 @@ const chunkPropertyItems = (items: PropertyItem[], size: number): PropertyItem[]
   return chunks
 }
 
+// 8. Computed UI-ready
 const sourceItemsList = computed<PropertyItem[][]>(() => {
   const sourceItemsList = props.itemsList ?? defaultItemsList.value
   return Array.isArray(sourceItemsList) ? sourceItemsList : []
 })
 
 const sourcePropertyItems = computed<PropertyItem[]>(() => sourceItemsList.value.flat())
-const selectedCategorySlug = ref<string | null>(null)
+const { accommodationCategories, realEstateListingOptions } =
+  usePropertyListOptions(sourcePropertyItems)
 
 const safeItemsList = computed<PropertyItem[][]>(() => {
   if (!selectedCategorySlug.value) return sourceItemsList.value
@@ -124,8 +143,6 @@ const safeItemsList = computed<PropertyItem[][]>(() => {
   return chunkPropertyItems(filteredItems, getChunkSize())
 })
 
-const isBackgroundListReady = ref(false)
-
 const renderedItemsList = computed(() => {
   if (!isBackgroundListReady.value) {
     return safeItemsList.value.slice(0, 1)
@@ -133,57 +150,6 @@ const renderedItemsList = computed(() => {
 
   return safeItemsList.value
 })
-
-const categoryCountBySlug = computed<Map<string, number>>(() => {
-  const counts = new Map<string, number>()
-
-  for (const item of sourcePropertyItems.value) {
-    if (!item.categorySlug) continue
-    counts.set(item.categorySlug, (counts.get(item.categorySlug) ?? 0) + 1)
-  }
-
-  return counts
-})
-
-const accommodationCategories = computed(() => {
-  const categories = metadataStore.getAccommodationCategories
-  const categoryItems = Array.isArray(categories) ? categories : []
-
-  return [
-    { slug: 'all', name: 'Tout', count: sourcePropertyItems.value.length },
-    ...categoryItems.map((category) => ({
-      slug: category.slug,
-      name: category.name,
-      count: categoryCountBySlug.value.get(category.slug) ?? 0,
-    })),
-  ].map((category) => ({
-    ...category,
-    disabled: category.count === 0,
-  }))
-})
-
-const isRealEstateListingFilterVisible = (listing: RealEstateListingFilterItem): boolean => {
-  return listing.isActive !== false
-}
-
-const realEstateListingOptions = computed<RealEstateListingSelectOption[]>(() =>
-  metadataStore.getAccommodationRealEstateListings
-    .filter(
-      (listing: RealEstateListingFilterItem) =>
-        listing.slug && listing.name && isRealEstateListingFilterVisible(listing),
-    )
-    .map((listing) => {
-      const slug = String(listing.slug)
-      const count = accommodationStore.getAccommodationsByRealEstateListing(slug).length
-
-      return {
-        label: String(listing.name),
-        value: slug,
-        count,
-        disabled: count === 0,
-      }
-    }),
-)
 
 const activeRealEstateListingSlug = computed<string>(() => {
   return props.activeRealEstateListingSlug ?? realEstateListingOptions.value[0]?.value ?? ''
@@ -212,36 +178,11 @@ const propertyFilterTransitionKey = computed<string>(() => {
   return `${activeRealEstateListingSlug.value}:${activeCategorySlug.value ?? 'all'}`
 })
 
-const { setScreenMeta } = useScreenSystem()
-const columnTemplate: ScreenColumnTemplate = 'single'
-
-const stageRef = ref<HTMLElement | null>(null)
-const navigationRef = ref<HTMLDivElement | null>(null)
-const linePropertyRef = ref<HTMLDivElement | null>(null)
-
-const handleLinePropertyRefUpdate = (element: HTMLDivElement | null): void => {
-  linePropertyRef.value = element
-}
-
-const selectCategory = (categorySlug: string | null): void => {
-  selectedCategorySlug.value = categorySlug || null
-}
-
-const selectRealEstateListing = async (listingSlug: string): Promise<void> => {
-  if (!listingSlug || listingSlug === activeRealEstateListingSlug.value) return
-
-  await navigateTo(localePath(`/properties/${listingSlug}`))
-}
-
-const index = ref(0)
-
 const getMaxIndex = (): number => Math.max(0, safeItemsList.value.length - 1)
 const maxIndex = computed(getMaxIndex)
 
 const getProgress = (): number => (maxIndex.value === 0 ? 0 : index.value / maxIndex.value)
 const progress = computed(getProgress)
-
-const viewportW = ref(typeof window === 'undefined' ? 1 : window.innerWidth)
 
 const getViewportWidth = (): number => {
   const stageWidth = stageRef.value?.clientWidth
@@ -314,8 +255,6 @@ const syncLayoutNextFrame = (): void => {
   })
 }
 
-const { cinemaOverlayClass, cinemaMode } = useDesignSystem()
-
 const { zoomScale, isAnimating, transitionToIndex, resetTransitionState, cancelTransition } =
   useTransitions({
     linePropertyRef,
@@ -324,6 +263,21 @@ const { zoomScale, isAnimating, transitionToIndex, resetTransitionState, cancelT
     maxIndex,
     applyTransformForIndex,
   })
+
+// 9. Actions et handlers
+const handleLinePropertyRefUpdate = (element: HTMLDivElement | null): void => {
+  linePropertyRef.value = element
+}
+
+const selectCategory = (categorySlug: string | null): void => {
+  selectedCategorySlug.value = categorySlug || null
+}
+
+const selectRealEstateListing = async (listingSlug: string): Promise<void> => {
+  if (!listingSlug || listingSlug === activeRealEstateListingSlug.value) return
+
+  await navigateTo(localePath(`/properties/${listingSlug}`))
+}
 
 const goNext = (): void => {
   if (!isBackgroundListReady.value) return
@@ -344,15 +298,6 @@ const goEnd = (): void => {
   if (!isBackgroundListReady.value) return
   transitionToIndex(maxIndex.value)
 }
-
-let wheelLock = false
-let wheelUnlockTimer: number | null = null
-const WHEEL_GESTURE_RELEASE_MS = 90
-const TOUCH_SWIPE_THRESHOLD_PX = 48
-let resizeObserver: ResizeObserver | null = null
-const touchStartPoint = reactive({ x: 0, y: 0 })
-const touchCurrentPoint = reactive({ x: 0, y: 0 })
-let isTouchTracking = false
 
 const isInteractiveEventTarget = (target: EventTarget | null): boolean => {
   if (!(target instanceof HTMLElement)) return false
@@ -546,6 +491,7 @@ const handleCategoryChange = async (): Promise<void> => {
   warmPropertyDetailTargets()
 }
 
+// 10. Watch et watchEffect
 watch(getViewModeList, handleViewModeListChange)
 watch(getScreensLength, handleScreensChange)
 watch(selectedCategorySlug, handleCategoryChange)
@@ -561,6 +507,9 @@ watch(linePropertyRef, (element) => {
   }
 })
 
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 const handleMounted = (): void => {
   setScreenMeta('screen-property-list', {
     type: 'landing',

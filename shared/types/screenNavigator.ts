@@ -1,7 +1,7 @@
 /**
  * Contrats de types purs du sous-systeme de navigation fullscreen.
  *
- * @see ../../docs/2.architecture/2.application-architecture.md
+ * @see ../../docs/2.architecture/1.application-architecture.md
  * @see ../README.md
  */
 export type ScreenAxis = 'x' | 'y'

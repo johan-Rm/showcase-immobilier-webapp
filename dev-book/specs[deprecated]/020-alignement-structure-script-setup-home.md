@@ -20,7 +20,7 @@ La page d accueil respecte deja globalement son role d orchestration, mais son b
 - valeurs derivees pour le template
 
 Le besoin est de remettre ce fichier dans un ordre plus conforme au standard local
-documente dans `docs/2.architecture/7.script-setup-standard.md`, afin de rendre
+documente dans `docs/2.architecture/6.script-setup-standard.md`, afin de rendre
 la structure plus immediate a comprendre en review et en maintenance.
 
 ---
@@ -59,7 +59,7 @@ Hors scope :
 
 ## Contraintes
 
-- respecter `docs/2.architecture/7.script-setup-standard.md`
+- respecter `docs/2.architecture/6.script-setup-standard.md`
 - conserver un diff minimal et intentionnel
 - ne pas modifier les contrats utilises par `useWebPage`, `useScreenSystem`, `useScreenUi` ou `useScreenAnchors`
 - rester SSR-safe et sans dependance DOM supplementaire

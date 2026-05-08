@@ -86,6 +86,7 @@ const config: Linter.FlatConfig[] = [
       ],
 
       'prettier/prettier': 'error',
+      'vue/block-order': ['error', { order: ['template', 'script', 'style'] }],
       'vue/multi-word-component-names': 'off',
     },
     settings: {

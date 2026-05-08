@@ -1,10 +1,18 @@
+/**
+ * @rule app/README.md — Convention : Placement des types
+ *
+ * Vérifie que tout type TypeScript utilisé par plus d'un fichier est défini dans shared/types/.
+ * Détecte les doublons (même nom exporté dans ≥2 fichiers hors shared/types/)
+ * et les types à migrer (importés par un fichier externe à leur fichier de définition).
+ */
+
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, extname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { parse } from '@typescript-eslint/parser'
 
-const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)))
+const ROOT = resolve(fileURLToPath(new URL('../../..', import.meta.url)))
 const SCAN_DIRS = ['app', 'server', 'services', 'shared']
 const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git', '.tmp-test'])
 const DEFAULT_SHARED_TYPES_DIR = join(ROOT, 'shared', 'types')

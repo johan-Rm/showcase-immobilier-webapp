@@ -6,25 +6,10 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 
-<TypewriterText
-  :phrases="[
-    'MLK — immobilier premium.',
-    'Nuxt 4 • SEO • Performance.',
-    'Essaouira vibes.'
-  ]"
-  :typeSpeed="30"
-  :deleteSpeed="15"
-  :pause="2000"
-  :loop="true"
-  :deleteBeforeNext="true"
-  :caret="false"
-/>
-
- */
+// 1. Imports
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
+// 2. Types et constantes statiques
 interface Props {
   phrases: string[]
   typeSpeed?: number
@@ -35,6 +20,7 @@ interface Props {
   caret?: boolean
 }
 
+// 3. Props et emits
 const props = withDefaults(defineProps<Props>(), {
   typeSpeed: 40,
   deleteSpeed: 25,
@@ -44,13 +30,26 @@ const props = withDefaults(defineProps<Props>(), {
   caret: true,
 })
 
+// 4. Composables, stores, routeur
+
+// 5. Etat local
 const text = ref('')
+
 const phraseIndex = ref(0)
+
 const charIndex = ref(0)
+
 const deleting = ref(false)
 
 let timer: ReturnType<typeof setTimeout> | null = null
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
 const clear = () => {
   if (timer) clearTimeout(timer)
 }
@@ -93,12 +92,7 @@ const nextPhrase = () => {
   step()
 }
 
-onMounted(() => {
-  if (props.phrases.length) step()
-})
-
-onUnmounted(clear)
-
+// 10. Watch et watchEffect
 watch(
   () => props.phrases,
   () => {
@@ -107,4 +101,13 @@ watch(
     charIndex.value = 0
   },
 )
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
+onMounted(() => {
+  if (props.phrases.length) step()
+})
+
+onUnmounted(clear)
 </script>

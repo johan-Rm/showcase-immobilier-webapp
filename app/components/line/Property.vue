@@ -21,11 +21,7 @@
                 :src="screen[0].image"
                 :alt="getAltText(screen[0].title, screen[0].city)"
                 :loading="sIdx === 0 ? 'eager' : 'lazy'"
-                :width="IMAGE_PRESETS.fullscreenCover.width"
-                :format="IMAGE_PRESETS.fullscreenCover.format"
-                :quality="IMAGE_PRESETS.fullscreenCover.quality"
-                :fit="IMAGE_PRESETS.fullscreenCover.fit"
-                :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+                v-bind="IMAGE_PRESETS.fullscreenCover"
               />
               <div
                 v-if="cinemaMode !== 'none'"
@@ -33,8 +29,11 @@
                 :class="cinemaOverlayClass"
               />
             </template>
-            <div v-else class="bg-foreground absolute -bottom-1/2 inset-0 flex items-center justify-center">
-              <span class="text-orange-400 text-4xl tracking-wide">Aucune image disponible</span>
+            <div
+              v-else
+              class="bg-foreground absolute inset-0 -bottom-1/2 flex items-center justify-center"
+            >
+              <span class="text-4xl tracking-wide text-orange-400">Aucune image disponible</span>
             </div>
 
             <div :class="cardOverlayClass">
@@ -66,11 +65,7 @@
                   :src="it.image"
                   :alt="getAltText(it.title, it.city)"
                   :loading="sIdx === 0 && i === 0 ? 'eager' : 'lazy'"
-                  :width="IMAGE_PRESETS.fullscreenCover.width"
-                  :format="IMAGE_PRESETS.fullscreenCover.format"
-                  :quality="IMAGE_PRESETS.fullscreenCover.quality"
-                  :fit="IMAGE_PRESETS.fullscreenCover.fit"
-                  :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+                  v-bind="IMAGE_PRESETS.fullscreenCover"
                 />
                 <div
                   class="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),rgba(0,0,0,0.32)_55%,rgba(0,0,0,0.08))]"
@@ -108,11 +103,7 @@
                   :src="it.image"
                   :alt="getAltText(it.title, it.city)"
                   :loading="sIdx === 0 && i === 0 ? 'eager' : 'lazy'"
-                  :width="IMAGE_PRESETS.fullscreenCover.width"
-                  :format="IMAGE_PRESETS.fullscreenCover.format"
-                  :quality="IMAGE_PRESETS.fullscreenCover.quality"
-                  :fit="IMAGE_PRESETS.fullscreenCover.fit"
-                  :sizes="IMAGE_PRESETS.fullscreenCover.sizes"
+                  v-bind="IMAGE_PRESETS.fullscreenCover"
                 />
                 <div
                   class="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),rgba(0,0,0,0.32)_55%,rgba(0,0,0,0.08))]"
@@ -143,13 +134,16 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { PropertyItem, ViewModeList } from '#shared/types/accommodation'
 import type { CinemaMode } from '#shared/types/ui'
 import type { ComponentPublicInstance } from 'vue'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
+// 2. Types et constantes statiques
 
+// 3. Props et emits
 const props = defineProps<{
   onLinePropertyRefUpdate: (element: HTMLDivElement | null) => void
   accommodations: PropertyItem[][]
@@ -161,18 +155,16 @@ const props = defineProps<{
   getAltText: (title?: string, city?: string) => string
 }>()
 
+// 4. Composables, stores, routeur
 const metadataStore = useMetadataStore()
+
 const { isMobileLandscape } = useDeviceDetect()
 
-const cardOverlayClass = computed<string>(() => {
-  const base = 'absolute z-50 flex w-full items-center justify-center'
-  return isMobileLandscape.value ? `${base} top-16` : `${base} top-32 2xl:top-64`
-})
+// 5. Etat local
 
-const setLinePropertyRef = (el: Element | ComponentPublicInstance | null): void => {
-  props.onLinePropertyRefUpdate(el instanceof HTMLDivElement ? el : null)
-}
+// 6. Data inputs
 
+// 7. Validation et helpers purs
 const normalize = (v?: string | null): string =>
   String(v ?? '')
     .toLowerCase()
@@ -190,4 +182,22 @@ const getPlaceDescription = (place?: string, city?: string): string | null => {
 
   return found?.description ?? null
 }
+
+// 8. Computed UI-ready
+
+// 9. Actions et handlers
+const cardOverlayClass = computed<string>(() => {
+  const base = 'absolute z-50 flex w-full items-center justify-center'
+  return isMobileLandscape.value ? `${base} top-16` : `${base} top-32 2xl:top-64`
+})
+
+const setLinePropertyRef = (el: Element | ComponentPublicInstance | null): void => {
+  props.onLinePropertyRefUpdate(el instanceof HTMLDivElement ? el : null)
+}
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>

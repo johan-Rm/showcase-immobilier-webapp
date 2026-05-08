@@ -31,22 +31,17 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { CreativeWork } from '@schemas/interfaces'
+import type { GalleryItem } from '~/composables/useGalleryItems'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
-import { useMetadataStore } from '~/stores/metadata'
+import { useGalleryItems } from '~/composables/useGalleryItems'
 
+// 2. Types et constantes statiques
 type Props = {
   data?: CreativeWork
-}
-
-type GalleryItem = {
-  id: string
-  title: string
-  alternateName: string
-  src: string
-  sourceIndex: number
 }
 
 type GalleryExpose = {
@@ -55,23 +50,32 @@ type GalleryExpose = {
   stop: () => void
 }
 
+// 3. Props et emits
 const props = defineProps<Props>()
 
+// 4. Composables, stores, routeur
 const logger = useLogger({ module: 'screen-essaouira-the-jewel' })
 const { getMenuItemByIdentifier } = useAppNavigation()
-const { segment, isPhoneDevice, isLandscape } = useDeviceDetect()
-const store = useMetadataStore()
+const { isPhoneDevice, isLandscape, isTabletPortrait } = useDeviceDetect()
 const localePath = useLocalePath()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 const image = useImage()
 const { IMAGE_PRESETS } = useAppImage()
+const { galleryItems } = useGalleryItems(computed(() => props.data?.hasPart))
 
+// 5. Etat local
 const galleryRef = ref<GalleryExpose | null>(null)
 const currentScreenId = useState<string | null>('screen.current', () => null)
-const isScreenActive = computed(() => currentScreenId.value === 'screen-essaouira-the-jewel')
 
 let hasWarmedSectionTarget = false
 const GALLERY_IMAGE_PRESET = IMAGE_PRESETS.galleryColumn
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
+const isScreenActive = computed(() => currentScreenId.value === 'screen-essaouira-the-jewel')
 
 const jewelPageLink = computed<string>(() => {
   const item = getMenuItemByIdentifier('essaouira-the-jewel')
@@ -89,33 +93,6 @@ const sectionParagraphs = computed<string[]>(() => {
     .split(/\n\s*\n/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean)
-})
-
-const galleryItems = computed<GalleryItem[]>(() => {
-  return (props.data?.hasPart ?? [])
-    .map((part, index) => {
-      const image = part.image
-      const src =
-        typeof image === 'string'
-          ? image.trim()
-          : Array.isArray(image)
-            ? (image[0]?.url?.trim() ?? '')
-            : (image?.url?.trim() ?? '')
-
-      if (!src) return null
-
-      const imageMeta = store.imageObjects.find((item) => item.url === src)
-      const title = imageMeta?.name ?? `Visuel ${index + 1}`
-
-      return {
-        id: `img-${index + 1}`,
-        title,
-        alternateName: title,
-        src,
-        sourceIndex: index,
-      }
-    })
-    .filter((item): item is GalleryItem => item !== null)
 })
 
 const shouldRenderVisual = computed<boolean>(() => !isPhoneDevice.value)
@@ -152,6 +129,28 @@ const criticalGalleryImageWarmupUrls = computed<string[]>(() => {
     .filter((url, index, urls) => url.length > 0 && urls.indexOf(url) === index)
 })
 
+const rootGridClass = computed<string>(() => {
+  const base = 'grid min-h-0'
+
+  if (isTabletPortrait.value) return `${base} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
+  if (!isPhoneDevice.value) return `${base} h-full grid-cols-[33.33%_66.67%]`
+  return `${base} h-dvh grid-cols-1`
+})
+
+const contentColumnClass = computed<string>(() => {
+  return isTabletPortrait.value ? 'row-start-2 h-full' : 'row-start-1 h-full'
+})
+
+const contentTopPaddingClass = computed<string>(() => {
+  return isPhoneDevice.value && isLandscape.value ? 'pt-0' : 'pt-4 md:pt-16'
+})
+
+const visualColumnClass = computed<string>(() => {
+  const base = 'relative h-full w-full overflow-hidden px-1'
+  return !isPhoneDevice.value ? `${base} flex` : 'hidden'
+})
+
+// 9. Actions et handlers
 useImageWarmup(criticalGalleryImageWarmupUrls, {
   stateKey: 'screen-essaouira-the-jewel:critical-gallery',
   warmupEnabled: shouldMountGallery,
@@ -178,6 +177,7 @@ const warmSectionTarget = (): void => {
   })
 }
 
+// 10. Watch et watchEffect
 watch(isScreenActive, (active) => {
   if (active) {
     warmSectionTarget()
@@ -187,44 +187,10 @@ watch(isScreenActive, (active) => {
   }
 })
 
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   warmSectionTarget()
-})
-
-const rootGridClass = computed<string>(() => {
-  const base = 'grid min-h-0'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${base} h-dvh grid-cols-1 grid-rows-[45%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${base} h-full grid-cols-[33.33%_66.67%]`
-    default:
-      return `${base} h-dvh grid-cols-1`
-  }
-})
-
-const contentColumnClass = computed<string>(() => {
-  return segment.value === 'tablet-portrait' ? 'row-start-2 h-full' : 'row-start-1 h-full'
-})
-
-const contentTopPaddingClass = computed<string>(() => {
-  return isPhoneDevice.value && isLandscape.value ? 'pt-0' : 'pt-4 md:pt-16'
-})
-
-const visualColumnClass = computed<string>(() => {
-  const base = 'relative h-full w-full overflow-hidden px-1'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${base} flex`
-    default:
-      return 'hidden'
-  }
 })
 </script>

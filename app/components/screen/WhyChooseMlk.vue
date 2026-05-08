@@ -34,12 +34,14 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { CreativeWork, MediaObject } from '@schemas/interfaces'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
 
+// 2. Types et constantes statiques
 type ValueItem = {
   title: string
   accent: string
@@ -56,21 +58,30 @@ type RawImageObject = {
   caption?: string
 }
 
+const columnTemplate: ScreenColumnTemplate = 'split-67-33'
+
+// 3. Props et emits
 const props = defineProps<WhyChooseMlkProps>()
 
+// 4. Composables, stores, routeur
 const logger = useLogger({ module: 'screen-why-choose-mlk' })
 const { setScreenMeta } = useScreenSystem()
 const { IMAGE_DIMENSIONS } = useAppImage()
 const localePath = useLocalePath()
-const columnTemplate: ScreenColumnTemplate = 'split-67-33'
 const VISUAL_IMAGE_WIDTH = IMAGE_DIMENSIONS.vertical3col.width
-const { isMobileLandscape, segment, isPhoneDevice, isTabletPortrait } = useDeviceDetect()
+const { isMobileLandscape, isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
 const { getMenuItemByIdentifier } = useAppNavigation()
 
+// 5. Etat local
 let hasWarmedAgencyPageTarget = false
 
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const agencyPageLink = computed<string>(() => {
   const agencyItem = getMenuItemByIdentifier('agency')
   return localePath(agencyItem?.url ?? '/')
@@ -141,48 +152,24 @@ const visualImage = computed<{ url: string; alt: string } | null>(() => {
 const rootGridClass = computed<string>(() => {
   const baseClass = 'grid min-h-0'
 
-  switch (segment.value) {
-    case 'tablet-portrait':
-      return `${baseClass} h-screen grid-cols-1 grid-rows-[45%_1fr]`
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-    default:
-      return `${baseClass} h-screen grid-cols-1 grid-rows-1`
-  }
+  if (isTabletPortrait.value) return `${baseClass} h-screen grid-cols-1 grid-rows-[45%_1fr]`
+  if (!isPhoneDevice.value) return `${baseClass} h-full grid-cols-[66.67%_33.33%] grid-rows-1`
+  return `${baseClass} h-screen grid-cols-1 grid-rows-1`
 })
 
 const contentColumnClass = computed<string>(() => {
   const baseClass = 'relative flex h-full'
-
-  return segment.value === 'tablet-portrait'
-    ? `${baseClass} row-start-2`
-    : `${baseClass} row-start-1`
+  return isTabletPortrait.value ? `${baseClass} row-start-2` : `${baseClass} row-start-1`
 })
 
 const visualColumnClass = computed<string>(() => {
   const baseClass = 'relative h-full min-h-0 min-w-0 overflow-hidden'
-
-  switch (segment.value) {
-    case 'tablet-portrait':
-    case 'tablet-landscape':
-    case 'desktop':
-    case 'desktop-wide':
-      return `${baseClass} row-start-1 block`
-    case 'mobile-landscape':
-    case 'mobile-portrait':
-    default:
-      return `${baseClass} hidden`
-  }
+  return !isPhoneDevice.value ? `${baseClass} row-start-1 block` : `${baseClass} hidden`
 })
 
 const contentBodyClass = computed<string>(() => {
   const baseClass = 'flex h-full min-h-0 flex-1 items-center justify-center'
-
-  return segment.value === 'mobile-landscape' ? baseClass : `${baseClass} py-8 pb-12`
+  return isMobileLandscape.value ? baseClass : `${baseClass} py-8 pb-12`
 })
 
 const contentGridClass = computed<string>(() => {
@@ -191,6 +178,7 @@ const contentGridClass = computed<string>(() => {
   return isMobileLandscape.value ? baseClass : `${baseClass} md:gap-6 lg:gap-10`
 })
 
+// 9. Actions et handlers
 const warmAgencyPageTarget = (): void => {
   if (hasWarmedAgencyPageTarget) return
 
@@ -218,6 +206,11 @@ const onVisualImageLoaded = (payload: { src: string; time: number }) => {
   })
 }
 
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   logger.info('Mounted screen', {
     screenId: 'screen-why-choose-mlk',

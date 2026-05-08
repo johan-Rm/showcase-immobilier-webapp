@@ -11,11 +11,7 @@
         class="h-full w-full object-cover"
         :src="bgImageUrl"
         alt="Decorative landscape"
-        :width="IMAGE_PRESETS.vertical3col.width"
-        :format="IMAGE_PRESETS.vertical3col.format"
-        :quality="IMAGE_PRESETS.vertical3col.quality"
-        :fit="IMAGE_PRESETS.vertical3col.fit"
-        :sizes="IMAGE_PRESETS.vertical3col.sizes"
+        v-bind="IMAGE_PRESETS.vertical3col"
       />
 
       <AppOverlay :percentage="30" />
@@ -51,24 +47,38 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { WebPage } from '@schemas/interfaces'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
+// 2. Types et constantes statiques
 type PanelMdcProps = {
   webPageSlug?: string
 }
 
+const realEstatePropertiesAnchor = '#screen-real-estate-three-col-properties'
+const columnTemplate: ScreenColumnTemplate = 'split-33-67'
+
+// 3. Props et emits
 const props = withDefaults(defineProps<PanelMdcProps>(), {
   webPageSlug: 'l-agence',
 })
 
+// 4. Composables, stores, routeur
 const { getPageBySlug } = useWebPage()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
-const page = computed<WebPage | null>(() => getPageBySlug(props.webPageSlug))
-const realEstatePropertiesAnchor = '#screen-real-estate-three-col-properties'
+const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
 
+// 5. Etat local
+
+// 6. Data inputs
+const page = computed<WebPage | null>(() => getPageBySlug(props.webPageSlug))
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const bgImageUrl = computed<string>(() => {
   const image = page.value?.image
 
@@ -95,9 +105,13 @@ const panelTitle = computed(() => {
   return alternativeHeadline || headline
 })
 
-const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
-const columnTemplate: ScreenColumnTemplate = 'split-33-67'
+// 9. Actions et handlers
 
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 onMounted(() => {
   setScreenMeta('screen-panel-mdc', {
     type: 'standard',

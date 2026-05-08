@@ -49,10 +49,12 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
 import type { ThemeMode } from '#shared/types/ui'
 
 import { computed } from 'vue'
 
+// 2. Types et constantes statiques
 type Props = {
   modelValue: ThemeMode
 }
@@ -61,16 +63,34 @@ type Emits = {
   'update:modelValue': [ThemeMode]
 }
 
+// 3. Props et emits
 const props = defineProps<Props>()
+
 const emit = defineEmits<Emits>()
 
-const setMode = (mode: ThemeMode): void => {
-  emit('update:modelValue', mode)
-}
+// 4. Composables, stores, routeur
 
+// 5. Etat local
+
+// 6. Data inputs
+
+// 7. Validation et helpers purs
+
+// 8. Computed UI-ready
 const selectedLabel = computed(() => {
   if (props.modelValue === 'dark') return 'Sombre'
   if (props.modelValue === 'kasbah') return 'Kasbah'
   return 'Clair'
 })
+
+// 9. Actions et handlers
+const setMode = (mode: ThemeMode): void => {
+  emit('update:modelValue', mode)
+}
+
+// 10. Watch et watchEffect
+
+// 11. Metadonnees ecran ou page
+
+// 12. Lifecycle
 </script>
