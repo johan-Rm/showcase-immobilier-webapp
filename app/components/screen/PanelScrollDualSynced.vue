@@ -52,6 +52,7 @@ type Panel = {
 }
 
 const columnTemplate: ScreenColumnTemplate = 'split-33-67'
+const SCREEN_ID = 'screen-panel-scroll-dual-synced'
 const AUTOPLAY_DELAY_MS = 4500
 
 // 3. Props et emits
@@ -61,6 +62,7 @@ const props = defineProps<PanelScrollDualSyncedProps>()
 const { setScreenMeta } = useScreenSystem()
 const { isTabletPortrait, isPhoneDevice } = useDeviceDetect()
 const reducedMotion = usePreferredReducedMotion()
+const currentScreenId = useState<string | null>('screen.current', () => null)
 
 // 5. Etat local
 const activeIndex = ref(0)
@@ -118,13 +120,10 @@ const panelSignature = computed<string>(() => {
 
 const shouldMountVisuals = computed<boolean>(() => hasMounted.value && panels.value.length > 0)
 
-const shouldLoadVisuals = useDeferredScreenVisuals(
-  'screen-panel-scroll-dual-synced',
-  computed(() => panels.value.length > 0),
-)
+const isScreenActive = computed<boolean>(() => currentScreenId.value === SCREEN_ID)
 
 const shouldLoadAllVisuals = computed<boolean>(
-  () => shouldMountVisuals.value && shouldLoadVisuals.value,
+  () => shouldMountVisuals.value && isScreenActive.value,
 )
 
 const sectionTitle = computed<string>(() => props.data?.headline?.trim() ?? '')
@@ -223,7 +222,7 @@ watch(
 onMounted(() => {
   hasMounted.value = true
 
-  setScreenMeta('screen-panel-scroll-dual-synced', {
+  setScreenMeta(SCREEN_ID, {
     type: 'standard',
     logo: { visible: true },
     layout: {
