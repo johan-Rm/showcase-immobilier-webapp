@@ -14,6 +14,7 @@
     :fit="props.fit"
     :placeholder="props.placeholder"
     @load="onLoad"
+    @error="onError"
   />
 </template>
 
@@ -82,6 +83,7 @@ const props = withDefaults(defineProps<AppImageProps>(), {
 
 const emit = defineEmits<{
   loaded: [payload: { src: string; time: number }]
+  error: [payload: { src: string; time: number; error: string | Event }]
 }>()
 
 // 4. Composables, stores, routeur
@@ -95,14 +97,48 @@ const emit = defineEmits<{
 // 8. Computed UI-ready
 
 // 9. Actions et handlers
-const onLoad = () => {
+const waitForNextPaint = async (): Promise<void> => {
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        resolve()
+      })
+    })
+  })
+}
+
+const decodeImage = async (event: string | Event): Promise<void> => {
+  if (typeof event === 'string') return
+
+  const image = event.target instanceof HTMLImageElement ? event.target : null
+
+  if (!image?.decode) return
+
+  try {
+    await image.decode()
+  } catch {
+    // L'événement load reste suffisant si decode échoue sur une image déjà chargée.
+  }
+}
+
+const onLoad = async (event: string | Event) => {
+  await decodeImage(event)
+  await waitForNextPaint()
+
   const payload = {
     src: props.src,
     time: performance.now(),
   }
 
-  // console.log('[AppImage] loaded', payload)
   emit('loaded', payload)
+}
+
+const onError = (error: string | Event) => {
+  emit('error', {
+    src: props.src,
+    time: performance.now(),
+    error,
+  })
 }
 
 // 10. Watch et watchEffect
