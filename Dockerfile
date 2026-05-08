@@ -5,6 +5,7 @@ ARG APP_ENV=dev
 ARG SITE_URL=http://localhost:3001
 ARG SITE_NAME="MLK - MLK My Little Kasbah"
 ARG WEB_VITALS_ENABLED=false
+ARG NODE_BUILD_MEMORY_MB=4096
 
 RUN apk add --no-cache bash git curl python3 make g++ nodejs \
     && git config --global --add safe.directory /app
@@ -16,6 +17,7 @@ ENV APP_ENV=${APP_ENV}
 ENV SITE_URL=${SITE_URL}
 ENV SITE_NAME=${SITE_NAME}
 ENV WEB_VITALS_ENABLED=${WEB_VITALS_ENABLED}
+ENV NODE_OPTIONS=--max-old-space-size=${NODE_BUILD_MEMORY_MB}
 ENV SCHEMAS_PATH=/opt/mlk-schemas
 ENV NITRO_PRESET=node-server
 ENV PUBLIC_HOST=localhost
