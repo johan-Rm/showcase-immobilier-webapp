@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
       additional_contexts:
         schemas: ${SCHEMAS_PATH:-../../schemas}
+      args:
+        NODE_BUILD_MEMORY_MB: ${NODE_BUILD_MEMORY_MB:-4096}
     working_dir: /app
     init: true
     env_file:
