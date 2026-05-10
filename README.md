@@ -22,7 +22,7 @@ Socle technique principal :
 
 Portes d entree documentaires :
 
-- `DOCS_GUIDELINES.md` : gouvernance documentaire, placement de l information et liens croises
+- `docs/` : gouvernance documentaire et conventions transverses du projet
 - `docs/2.architecture/` : source de verite de l architecture applicative
 - `dev-book/tasks/` : taches d implementation actives rattachees aux changements en cours
 - `app/**/README.md` et `server/README.md` : conventions locales au plus pres du code
