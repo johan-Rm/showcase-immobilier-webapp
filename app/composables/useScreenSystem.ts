@@ -478,8 +478,10 @@ export const useScreenSystem = <T extends string = string>(
 
     sectionElements.value.forEach((item, index) => {
       const isActive = index === currentIndex.value
-      const state =
-        index === currentIndex.value ? 'active' : index < currentIndex.value ? 'before' : 'after'
+      let state: 'active' | 'before' | 'after'
+      if (isActive) state = 'active'
+      else if (index < currentIndex.value) state = 'before'
+      else state = 'after'
 
       item.dataset.screenActive = isActive ? 'true' : 'false'
       item.dataset.screenState = state
@@ -820,7 +822,8 @@ export const useScreenSystem = <T extends string = string>(
     const handleWheel = (event: WheelEvent) => {
       if (!isWheelEnabled.value || !isReady.value) return
 
-      const deltaModeScale = event.deltaMode === 1 ? 40 : event.deltaMode === 2 ? 800 : 1
+      const DELTA_MODE_SCALE: Record<number, number> = { 1: 40, 2: 800 }
+      const deltaModeScale = DELTA_MODE_SCALE[event.deltaMode] ?? 1
       const deltaX = event.deltaX
       const deltaY = event.deltaY
       const useDominantDelta = interactionAxisMode === 'both'

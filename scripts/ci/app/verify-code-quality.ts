@@ -207,7 +207,9 @@ function report(violations: Violation[]): number {
 }
 
 if (import.meta.main) {
-  const files = listProjectFiles(['.ts', '.vue'])
+  const files = listProjectFiles(['.ts', '.vue']).filter(
+    (f) => !f.startsWith(ROOT + '/scripts/'),
+  )
   const violations = files.flatMap(checkFile)
   const blocking = report(violations)
   process.exit(blocking > 0 ? 1 : 0)

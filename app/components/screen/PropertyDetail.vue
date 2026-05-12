@@ -199,7 +199,7 @@ import { useDeviceDetect } from '~/composables/useDeviceDetect'
 import { useAccommodationStore } from '~/stores/accommodation'
 
 // 2. Types et constantes statiques
-type GalleryItem = {
+type GalleryCarouselItem = {
   url: string
   caption: string
 }
@@ -253,7 +253,8 @@ const formatOffer = (offer?: Accommodation['offer']): string => {
         ? Number(offer.price)
         : Number.NaN
   const currency = typeof offer.priceCurrency === 'string' ? offer.priceCurrency : 'EUR'
-  const localeCode = locale.value === 'en' ? 'en-US' : locale.value === 'es' ? 'es-ES' : 'fr-FR'
+  const LOCALE_CODE_MAP: Record<string, string> = { en: 'en-US', es: 'es-ES', fr: 'fr-FR' }
+  const localeCode = LOCALE_CODE_MAP[locale.value] ?? 'fr-FR'
   const formatter = new Intl.NumberFormat(localeCode, {
     style: 'currency',
     currency,
@@ -353,7 +354,7 @@ const formatTextMetric = (value?: number | string, unit?: string): string => {
 // 8. Computed UI-ready
 const isDetailScreenActive = computed(() => screenStatus.value.currentId === SCREEN_ID)
 
-const galleryImages = computed<GalleryItem[]>(() => {
+const galleryImages = computed<GalleryCarouselItem[]>(() => {
   const list = property.value?.associatedMedia
   if (!Array.isArray(list)) return []
   return list

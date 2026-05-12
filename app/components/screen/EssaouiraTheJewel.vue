@@ -33,7 +33,7 @@
 <script setup lang="ts">
 // 1. Imports
 import type { CreativeWork } from '@schemas/interfaces'
-import type { GalleryItem } from '~/composables/useGalleryItems'
+import type { GalleryItem } from '#shared/types/gallery'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
