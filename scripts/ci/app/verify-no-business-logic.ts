@@ -1,5 +1,5 @@
 /**
- * @rule app/README.md — Convention : Logique métier dans les composants
+ * @rule app/README.md — Logique métier dans les composants
  *
  * Vérifie qu'aucun computed dans app/components/ ne combine une source globale
  * (store Pinia, appConfig, storeToRefs) avec une transformation de données
@@ -10,18 +10,28 @@
  * Mode : warning uniquement (exit 0)
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { extname, join, relative, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { readFileSync } from 'node:fs'
+import { relative } from 'node:path'
 
 import { parse } from '@typescript-eslint/parser'
 
-const ROOT = resolve(fileURLToPath(new URL('../../..', import.meta.url)))
-const COMPONENTS_DIR = join(ROOT, 'app', 'components')
-const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git'])
+import { ROOT, listProjectFiles, loadValidationRule } from './validation-rules'
 
-const GLOBAL_SOURCE_PATTERN = /^use\w+Store$|^useAppConfig$/
-const TRANSFORMS = ['.map(', '.filter(', '.reduce(', '.push(']
+type NoBusinessLogicRule = {
+  globalSourcePattern?: string
+  globalSourceFunctions?: string[]
+  transforms?: string[]
+}
+
+const RULE = loadValidationRule<
+  NoBusinessLogicRule & { name: string; requiresManualReview: boolean }
+>('app-components-no-business-logic')
+
+const GLOBAL_SOURCE_PATTERN = new RegExp(
+  RULE.globalSourcePattern ?? '^use\\w+Store$|^useAppConfig$',
+)
+const GLOBAL_SOURCE_FUNCTIONS = new Set(RULE.globalSourceFunctions ?? ['storeToRefs'])
+const TRANSFORMS = RULE.transforms ?? ['.map(', '.filter(', '.reduce(', '.push(']
 
 export type FilePath = string
 export type Violation = {
@@ -32,30 +42,8 @@ export type Violation = {
   transforms: string[]
 }
 
-export function collectVueFiles(dir: string): FilePath[] {
-  const files: FilePath[] = []
-
-  function walk(current: string): void {
-    let entries: string[]
-    try {
-      entries = readdirSync(current)
-    } catch {
-      return
-    }
-    for (const entry of entries) {
-      if (EXCLUDED.has(entry)) continue
-      const full = join(current, entry)
-      try {
-        if (statSync(full).isDirectory()) walk(full)
-        else if (extname(entry) === '.vue') files.push(full)
-      } catch {
-        /* skip unreadable */
-      }
-    }
-  }
-
-  walk(dir)
-  return files
+export function collectVueFiles(): FilePath[] {
+  return listProjectFiles(['.vue']).filter((f) => relative(ROOT, f).startsWith('app/components/'))
 }
 
 export function extractScriptContent(content: string): string {
@@ -88,7 +76,8 @@ export function findGlobalSources(ast: ReturnType<typeof parse>): Set<string> {
         init.type === 'CallExpression' &&
         init.callee?.type === 'Identifier' &&
         init.callee.name !== undefined &&
-        (GLOBAL_SOURCE_PATTERN.test(init.callee.name) || init.callee.name === 'storeToRefs')
+        (GLOBAL_SOURCE_PATTERN.test(init.callee.name) ||
+          GLOBAL_SOURCE_FUNCTIONS.has(init.callee.name))
 
       if (!isGlobalCall) continue
 
@@ -203,7 +192,7 @@ function report(violations: Violation[]): void {
 }
 
 if (import.meta.main) {
-  const files = collectVueFiles(COMPONENTS_DIR)
+  const files = collectVueFiles()
   const violations = files.flatMap(checkFile)
   report(violations)
   process.exit(0)

@@ -8,55 +8,58 @@
  *   1. <img>, <NuxtImg>, <NuxtPicture> en dehors de app/components/AppImage.vue
  *   2. <AppImage> avec des props image écrites en dur (:width, :format, :quality, :fit, :sizes)
  *      au lieu de v-bind="IMAGE_PRESETS.xxx" ou v-bind="IMAGE_WARMUP_PRESETS.xxx"
+ *   3. <AppImage> avec une prop height explicite
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { extname, join, relative, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { readFileSync } from 'node:fs'
+import { relative } from 'node:path'
 
-const ROOT = resolve(fileURLToPath(new URL('../../..', import.meta.url)))
-const APP_DIR = join(ROOT, 'app')
-const APP_IMAGE_FILE = join(ROOT, 'app', 'components', 'AppImage.vue')
-const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git'])
+import { ROOT, listProjectFiles, loadValidationRule, projectPaths } from './validation-rules'
 
-const FORBIDDEN_TAGS = ['img', 'NuxtImg', 'NuxtPicture']
-const INLINE_IMAGE_PROPS = [':width=', ':height=', ':format=', ':quality=', ':fit=', ':sizes=']
+type AppImageRule = {
+  allowedFiles?: string[]
+  forbiddenTags?: string[]
+  inlineImageProps?: string[]
+}
+
+type NoHeightPropRule = {
+  forbiddenProps?: string[]
+}
+
+const RULE = loadValidationRule<AppImageRule & { name: string; requiresManualReview: boolean }>(
+  'app-images-use-app-image',
+)
+const NO_HEIGHT_RULE = loadValidationRule<
+  NoHeightPropRule & { name: string; requiresManualReview: boolean }
+>('app-images-no-height-prop')
+const ALLOWED_FILES = new Set(projectPaths(RULE.allowedFiles ?? ['app/components/AppImage.vue']))
+
+const FORBIDDEN_TAGS = RULE.forbiddenTags ?? ['img', 'NuxtImg', 'NuxtPicture']
+const INLINE_IMAGE_PROPS = RULE.inlineImageProps ?? [
+  ':width=',
+  ':height=',
+  ':format=',
+  ':quality=',
+  ':fit=',
+  ':sizes=',
+]
+const FORBIDDEN_IMAGE_PROPS = NO_HEIGHT_RULE.forbiddenProps ?? ['height']
 
 export type FilePath = string
 export type Violation = {
   file: FilePath
   line: number
-  rule: 1 | 2
+  rule: 1 | 2 | 3
   message: string
 }
 
-export function collectVueFiles(dir: string): FilePath[] {
-  const files: FilePath[] = []
+function hasVueProp(block: string, prop: string): boolean {
+  const escaped = prop.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`(?:^|\\s):?${escaped}\\s*=`, 'm').test(block)
+}
 
-  function walk(current: string): void {
-    let entries: string[]
-    try {
-      entries = readdirSync(current)
-    } catch {
-      return
-    }
-    for (const entry of entries) {
-      if (EXCLUDED.has(entry)) continue
-      const full = join(current, entry)
-      try {
-        if (statSync(full).isDirectory()) {
-          walk(full)
-        } else if (extname(entry) === '.vue') {
-          files.push(full)
-        }
-      } catch {
-        /* skip unreadable */
-      }
-    }
-  }
-
-  walk(dir)
-  return files
+export function collectVueFiles(): FilePath[] {
+  return listProjectFiles(['.vue']).filter((f) => relative(ROOT, f).startsWith('app/'))
 }
 
 export function extractTemplate(content: string): { text: string; offset: number } | null {
@@ -87,7 +90,7 @@ export function checkFile(file: FilePath): Violation[] {
   const { text: template, offset } = tpl
 
   // Règle 1 — balises image brutes interdites (sauf AppImage.vue qui wrap NuxtImg)
-  if (file !== APP_IMAGE_FILE) {
+  if (!ALLOWED_FILES.has(file)) {
     for (const tag of FORBIDDEN_TAGS) {
       const regex = new RegExp(`<${tag}\\b`, 'g')
       let match: RegExpExecArray | null
@@ -116,6 +119,16 @@ export function checkFile(file: FilePath): Violation[] {
         message: `<AppImage> avec props en dur (${inlineProps.join(', ')}) — utiliser v-bind="IMAGE_PRESETS.xxx"`,
       })
     }
+
+    const forbiddenProps = FORBIDDEN_IMAGE_PROPS.filter((prop) => hasVueProp(block, prop))
+    if (forbiddenProps.length > 0) {
+      violations.push({
+        file,
+        line: lineAt(content, offset + match.index),
+        rule: 3,
+        message: `<AppImage> avec prop interdite (${forbiddenProps.join(', ')}) — ne pas déclarer height dans le template`,
+      })
+    }
   }
 
   return violations
@@ -139,7 +152,7 @@ function report(violations: Violation[]): void {
 }
 
 if (import.meta.main) {
-  const files = collectVueFiles(APP_DIR)
+  const files = collectVueFiles()
   const violations = files.flatMap(checkFile)
   report(violations)
   process.exit(violations.length > 0 ? 1 : 0)
