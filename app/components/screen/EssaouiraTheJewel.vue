@@ -117,7 +117,6 @@ const criticalGalleryImageWarmupUrls = computed<string[]>(() => {
         sizes: GALLERY_IMAGE_PRESET.sizes,
         modifiers: {
           width: GALLERY_IMAGE_PRESET.width,
-          height: GALLERY_IMAGE_PRESET.height,
           format: GALLERY_IMAGE_PRESET.format,
           quality: GALLERY_IMAGE_PRESET.quality,
           fit: GALLERY_IMAGE_PRESET.fit,

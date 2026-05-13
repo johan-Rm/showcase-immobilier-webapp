@@ -126,7 +126,6 @@ const getImageProps = (sourceIndex: number) => {
 
   return {
     width: GALLERY_IMAGE_PRESET.width,
-    height: GALLERY_IMAGE_PRESET.height,
     sizes: GALLERY_IMAGE_PRESET.sizes,
     format: GALLERY_IMAGE_PRESET.format,
     quality: GALLERY_IMAGE_PRESET.quality,

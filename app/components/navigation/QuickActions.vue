@@ -245,7 +245,6 @@ const mainMenuCenterImageWarmupUrl = computed<string>(() => {
     sizes: preset.sizes,
     modifiers: {
       width: preset.width,
-      height: preset.height,
       format: preset.format,
       quality: preset.quality,
       fit: preset.fit,
@@ -256,7 +255,6 @@ const mainMenuCenterImageWarmupUrl = computed<string>(() => {
     responsiveImage.src ??
     image(src, {
       width: preset.width,
-      height: preset.height,
       format: preset.format,
       quality: preset.quality,
       fit: preset.fit,

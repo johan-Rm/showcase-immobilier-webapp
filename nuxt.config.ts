@@ -186,14 +186,6 @@ export default defineNuxtConfig({
           manualChunks(id) {
             if (!id.includes('node_modules')) return
 
-            if (
-              id.includes('/@nuxt/ui/') ||
-              id.includes('/reka-ui/') ||
-              id.includes('/tailwind-variants/')
-            ) {
-              return 'vendor-ui'
-            }
-
             if (id.includes('/vue-i18n/') || id.includes('/@intlify/')) {
               return 'vendor-i18n'
             }
