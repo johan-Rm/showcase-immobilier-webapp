@@ -2,7 +2,7 @@
 set -euo pipefail
 
 URL="${1:-http://localhost:3001/fr}"
-OUT="${2:-./lighthouse.mobile.json}"
+OUT="${2:-./lighthouse.mobile-4g.json}"
 PORT="${LH_PORT:-$((9222 + RANDOM % 1000))}"
 PROFILE_DIR="$(mktemp -d /tmp/chrome-lh-mobile.XXXXXX)"
 
@@ -90,11 +90,11 @@ sleep 2
 if ! npx lighthouse "${URL}" \
   --form-factor=mobile \
   --screenEmulation.mobile=true \
-  --throttling.rttMs=150 \
-  --throttling.throughputKbps=1638.4 \
-  --throttling.requestLatencyMs=562.5 \
-  --throttling.downloadThroughputKbps=1474.56 \
-  --throttling.uploadThroughputKbps=675 \
+  --throttling.rttMs=40 \
+  --throttling.throughputKbps=10240 \
+  --throttling.requestLatencyMs=160 \
+  --throttling.downloadThroughputKbps=9216 \
+  --throttling.uploadThroughputKbps=9216 \
   --throttling.cpuSlowdownMultiplier=4 \
   --port="${PORT}" \
   --output=json \
@@ -126,7 +126,7 @@ score_bp="$(jq -r 'if .categories["best-practices"] then (.categories["best-prac
 score_seo="$(jq -r 'if .categories.seo then (.categories.seo.score * 100 | round) else -1 end' "${OUT}")"
 
 printf '\n'
-printf 'Lighthouse mobile report: %s\n' "${OUT}"
+printf 'Lighthouse mobile Fast 4G: %s\n' "${OUT}"
 printf 'URL: %s\n' "${URL}"
 printf '\n'
 

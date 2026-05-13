@@ -9,13 +9,11 @@ reprendre les fichiers runtime propres à Codex.
 
 En cas de conflit, appliquer l'ordre suivant :
 
-1. constitution locale du projet si elle existe
-2. `CLAUDE.md` local du projet si il existe
-3. `AGENTS.md` local du projet si il existe
-4. `~/CONSTITUTION.md`
-5. ce fichier `~/.agents/CLAUDE.md`
-6. README locaux et documentation du périmètre concerné
-7. instructions ponctuelles de tâche
+1. `CLAUDE.md` local du projet si il existe
+2. `AGENTS.md` local du projet si il existe
+3. ce fichier `~/.agents/CLAUDE.md`
+4. `docs/` et README locaux du périmètre concerné
+5. instructions ponctuelles de tâche
 
 Les instructions système de Claude restent évidemment prioritaires sur ce fichier.
 
@@ -24,11 +22,9 @@ Les instructions système de Claude restent évidemment prioritaires sur ce fich
 Avant d'agir, lire uniquement les sources utiles au périmètre, dans cet ordre :
 
 1. fichier de gouvernance local du projet : `CLAUDE.md`, `AGENTS.md` ou équivalent
-2. constitution locale du projet si elle existe
-3. `~/CONSTITUTION.md`
-4. documentation d'architecture pertinente, par exemple `docs/2.architecture/`
-5. README du périmètre concerné
-6. tasks ou documents fonctionnels directement liés à la demande
+2. documentation d'architecture pertinente : `docs/2.architecture/` en priorité
+3. README du périmètre concerné
+4. tasks ou documents fonctionnels directement liés à la demande
 
 Ne pas charger toute la documentation sans nécessité. Si un fichier attendu est absent,
 poursuivre avec les sources disponibles et expliciter seulement les hypothèses qui

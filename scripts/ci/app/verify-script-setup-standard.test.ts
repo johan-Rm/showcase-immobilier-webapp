@@ -106,7 +106,10 @@ describe('findViolations', () => {
   })
 
   test('règle 1 — violation si des sections sont absentes', () => {
-    const sections = new Map([[1, 1], [2, 2]]) // sections 3-12 manquantes
+    const sections = new Map([
+      [1, 1],
+      [2, 2],
+    ]) // sections 3-12 manquantes
     const v = findViolations(sections, 0, 'f.vue')
     expect(v).toHaveLength(1)
     expect(v[0]!.rule).toBe(1)
@@ -115,7 +118,11 @@ describe('findViolations', () => {
   })
 
   test('règle 1 — liste toutes les sections manquantes dans le message', () => {
-    const sections = new Map([[1, 1], [3, 3], [5, 5]])
+    const sections = new Map([
+      [1, 1],
+      [3, 3],
+      [5, 5],
+    ])
     const v = findViolations(sections, 0, 'f.vue').filter((x) => x.rule === 1)
     expect(v[0]!.message).toContain('// 2.')
     expect(v[0]!.message).toContain('// 4.')
@@ -124,8 +131,18 @@ describe('findViolations', () => {
   test('règle 2 — violation si une section apparaît avant une section de numéro inférieur', () => {
     // sections 1-12 présentes mais 5 apparaît après 6
     const sections = new Map<number, number>([
-      [1, 1], [2, 2], [3, 3], [4, 4], [6, 5], [5, 6],
-      [7, 7], [8, 8], [9, 9], [10, 10], [11, 11], [12, 12],
+      [1, 1],
+      [2, 2],
+      [3, 3],
+      [4, 4],
+      [6, 5],
+      [5, 6],
+      [7, 7],
+      [8, 8],
+      [9, 9],
+      [10, 10],
+      [11, 11],
+      [12, 12],
     ])
     const v = findViolations(sections, 0, 'f.vue')
     expect(v.some((x) => x.rule === 2)).toBe(true)

@@ -1,13 +1,9 @@
 import type { CreativeWork, MediaObject } from '@schemas/interfaces'
 import type { ComputedRef } from 'vue'
 
-export type GalleryItem = {
-  id: string
-  title: string
-  alternateName: string
-  src: string
-  sourceIndex: number
-}
+import type { GalleryItem } from '#shared/types/gallery'
+
+export type { GalleryItem }
 
 function extractImageSrc(image: MediaObject | MediaObject[] | string | undefined): string {
   if (typeof image === 'string') return image.trim()

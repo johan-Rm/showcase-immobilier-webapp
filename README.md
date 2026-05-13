@@ -22,7 +22,7 @@ Socle technique principal :
 
 Portes d entree documentaires :
 
-- `DOCS_GUIDELINES.md` : gouvernance documentaire, placement de l information et liens croises
+- `docs/` : gouvernance documentaire et conventions transverses du projet
 - `docs/2.architecture/` : source de verite de l architecture applicative
 - `dev-book/tasks/` : taches d implementation actives rattachees aux changements en cours
 - `app/**/README.md` et `server/README.md` : conventions locales au plus pres du code
@@ -118,6 +118,55 @@ make prod-down
 Ces cibles reutilisent le compose SSR existant en forcant `APP_ENV=prod`, avec un nom de projet Docker dedie (`mlk-webapp-prod`) et des identifiants reseau/alias distincts de la preprod.
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Conventions techniques
+
+> Ces conventions s appliquent a l ensemble de la base de code : `app/`, `server/`, `services/`, `shared/`.
+> Elles sont verifiees automatiquement via des scripts CI/CD declares en YAML dans `scripts/ci/app/`.
+> Pour le detail du modele, voir [docs/3.application/ci-conventions-validation.md](./docs/3.application/ci-conventions-validation.md).
+
+### Code commente
+
+Le code commente est du code mort. Il doit etre supprime ou converti en commentaire
+explicatif si le contexte le justifie.
+
+Les lignes commencant par `// const`, `// function`, `// return`, `// if`, `// for`,
+`// let`, `// type`, `// interface` signalent du code commente a traiter.
+
+Règle YAML : `app-no-commented-code`
+
+### Ternaires imbriques
+
+Un ternaire imbrique (`condition ? a ? b : c : d`) est presque toujours un `if/else`
+deguise. Utiliser une variable intermediaire nommee ou un bloc conditionnel explicite.
+
+Règle YAML : `app-no-nested-ternary`
+
+### Niveaux d imbrication
+
+La logique dans les fichiers `.ts` et les blocs `<script>` des fichiers `.vue` ne doit
+pas depasser 3 niveaux d imbrication consecutifs.
+
+Un niveau d imbrication profond signale une complexite excessive : extraire une fonction,
+appliquer early return ou inverser la condition.
+
+Règle YAML : `app-deep-nesting`
+
+### Types et interfaces larges
+
+Une interface ou un type avec plus de 8 champs signale un possible probleme
+d Interface Segregation (ISP).
+
+Verifier si le type peut etre decoupe en types plus petits et plus cohesifs.
+
+Règle YAML : `app-large-type`
+
+### Dettes techniques
+
+Les commentaires `TODO`, `FIXME`, `HACK` et `XXX` sont toleres temporairement mais doivent
+rester tracables. Chaque occurrence doit etre assumee ou soldee activement.
+
+Règle YAML : `app-todo-fixme`
 
 ## Docker Production
 

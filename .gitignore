@@ -46,4 +46,5 @@ nuxt-4-reference
 
 public/images/originals/
 lighthouse-*
+!scripts/lighthouse-*.sh
 firefox.*

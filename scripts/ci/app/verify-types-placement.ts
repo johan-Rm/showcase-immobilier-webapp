@@ -8,21 +8,32 @@
 
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, extname, join, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 import { parse } from '@typescript-eslint/parser'
 
-const ROOT = resolve(fileURLToPath(new URL('../../..', import.meta.url)))
-const SCAN_DIRS = ['app', 'server', 'services', 'shared']
+import { ROOT, listProjectFiles, loadValidationRule, projectPath } from './validation-rules'
+
+type TypesPlacementRule = {
+  name: string
+  requiresManualReview: boolean
+  sharedTypesDir?: string
+  aliases?: Record<string, string>
+}
+
+const RULE = loadValidationRule<TypesPlacementRule>('app-types-placement')
 const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git', '.tmp-test'])
-const DEFAULT_SHARED_TYPES_DIR = join(ROOT, 'shared', 'types')
+const DEFAULT_SHARED_TYPES_DIR = projectPath(RULE.sharedTypesDir ?? 'shared/types')
 
 const ALIAS_MAP: [prefix: string, target: string][] = [
-  ['~/', join(ROOT, 'app') + '/'],
-  ['@/', join(ROOT, 'app') + '/'],
-  ['#shared/', join(ROOT, 'shared') + '/'],
-  ['@schemas/', join(ROOT, 'schemas') + '/'],
-  ['@services/', join(ROOT, 'services') + '/'],
+  ...Object.entries(
+    RULE.aliases ?? {
+      '~/': 'app',
+      '@/': 'app',
+      '#shared/': 'shared',
+      '@schemas/': 'schemas',
+      '@services/': 'services',
+    },
+  ).map(([prefix, target]) => [prefix, projectPath(target) + '/'] as [string, string]),
 ]
 
 export type FilePath = string
@@ -230,8 +241,9 @@ function report(violations: Violation[]): void {
 }
 
 if (import.meta.main) {
-  const dirs = SCAN_DIRS.map((d) => join(ROOT, d))
-  const files = collectFiles(dirs)
+  const files = listProjectFiles(['.ts', '.vue']).filter(
+    (f) => !f.startsWith(ROOT + '/scripts/'),
+  )
   const violations = analyze(files)
   report(violations)
   process.exit(violations.length > 0 ? 1 : 0)

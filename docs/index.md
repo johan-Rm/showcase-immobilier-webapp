@@ -1,18 +1,29 @@
 # Documentation
 
-- Role: point d entree de la documentation de reference du projet.
-- Source of truth: [../DOCS_GUIDELINES.md](../DOCS_GUIDELINES.md)
+- Role: point d entree et gouvernance documentaire du projet.
 
 Cette documentation complete les README locaux et centralise les conventions transverses du projet.
 
-Ordre de lecture recommande :
+## Ordre de lecture
 
-1. [DOCS_GUIDELINES](../DOCS_GUIDELINES.md)
-2. [Architecture](./2.architecture/index.md)
-3. la section thematique concernee
-4. le `README.md` local du dossier concerne
+1. [Architecture](./2.architecture/index.md)
+2. la section thematique concernee
+3. le `README.md` local du dossier concerne
 
-Sections disponibles :
+## Hierarchie d autorite
+
+1. `docs/2.architecture/` : invariants structurels et architecture globale
+2. `docs/` : conventions transverses par theme
+3. `./**/README.md` : conventions locales au plus pres du code
+4. commentaires et JSDoc : intention locale et liens vers la doc
+
+## Regles
+
+- chaque information a un proprietaire principal ; les autres niveaux referencent, ne recopient pas
+- mettre a jour la doc impactee dans le meme scope que le code
+- toute JSDoc sur une API structurante inclut un `@see` vers `docs/` ou le README local
+
+## Sections disponibles
 
 - `1.getting-started` : demarrage et structure du projet
 - `2.architecture` : architecture globale et invariants structurels

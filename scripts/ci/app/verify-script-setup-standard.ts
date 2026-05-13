@@ -26,21 +26,23 @@
  * Mode : erreur bloquante (exit 1)
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { extname, join, relative, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { readFileSync } from 'node:fs'
+import { join, relative } from 'node:path'
 
-const ROOT = resolve(fileURLToPath(new URL('../../..', import.meta.url)))
-const SCAN_DIRS = [
-  join(ROOT, 'app', 'components'),
-  join(ROOT, 'app', 'pages'),
-  join(ROOT, 'app', 'layouts'),
-]
-const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git'])
-const SECTION_COUNT = 12
+import { ROOT, listProjectFiles, loadValidationRule } from './validation-rules'
+
+type ScriptSetupRule = {
+  sectionCount?: number
+  sectionPattern?: string
+}
+
+const RULE = loadValidationRule<ScriptSetupRule & { name: string; requiresManualReview: boolean }>(
+  'app-script-setup-standard',
+)
+const SECTION_COUNT = RULE.sectionCount ?? 12
 
 // Correspond à "// N. " en début de ligne (espaces avant autorisés)
-const SECTION_PATTERN = /^\s*\/\/\s*(\d+)\.\s/
+const SECTION_PATTERN = new RegExp(RULE.sectionPattern ?? '^\\s*\\/\\/\\s*(\\d+)\\.\\s')
 
 export type FilePath = string
 // section number (1-12) → numéro de ligne dans le bloc script (1-based)
@@ -52,30 +54,9 @@ export type Violation = {
   message: string
 }
 
-export function collectVueFiles(dirs: string[]): FilePath[] {
-  const files: FilePath[] = []
-
-  function walk(dir: string): void {
-    let entries: string[]
-    try {
-      entries = readdirSync(dir)
-    } catch {
-      return
-    }
-    for (const entry of entries) {
-      if (EXCLUDED.has(entry)) continue
-      const full = join(dir, entry)
-      try {
-        if (statSync(full).isDirectory()) walk(full)
-        else if (extname(entry) === '.vue') files.push(full)
-      } catch {
-        /* skip unreadable */
-      }
-    }
-  }
-
-  for (const dir of dirs) walk(dir)
-  return files
+export function collectVueFiles(): FilePath[] {
+  const scopes = ['app/components/', 'app/pages/', 'app/layouts/']
+  return listProjectFiles(['.vue']).filter((f) => scopes.some((s) => f.startsWith(join(ROOT, s))))
 }
 
 export function extractScriptBlock(content: string): { text: string; lineOffset: number } | null {
@@ -179,7 +160,7 @@ function report(violations: Violation[]): void {
 }
 
 if (import.meta.main) {
-  const files = collectVueFiles(SCAN_DIRS)
+  const files = collectVueFiles()
   const violations = files.flatMap(checkFile)
   report(violations)
   process.exit(violations.length > 0 ? 1 : 0)

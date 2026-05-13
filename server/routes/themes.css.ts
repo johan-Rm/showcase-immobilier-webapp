@@ -84,7 +84,8 @@ const buildThemeCss = (key: string, theme: ThemeDefinition, palettes: ThemeYaml[
   const primaryFg = colors['primary-foreground'] ?? background ?? '#ffffff'
   const secondaryFg = colors['secondary-foreground'] ?? foreground ?? '#000000'
 
-  const selector = key === 'light' ? ':root' : key === 'dark' ? '.dark' : `.theme-${key}`
+  const THEME_SELECTORS: Record<string, string> = { light: ':root', dark: '.dark' }
+  const selector = THEME_SELECTORS[key] ?? `.theme-${key}`
 
   const heading = theme.fonts?.heading
   const body = theme.fonts?.body
