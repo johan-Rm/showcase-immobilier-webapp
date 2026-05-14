@@ -75,3 +75,4 @@ conventions-check:
 	bun run check:app:soc
 	bun run check:app:code-quality
 	bun run check:app:solid
+	bun run check:app:guards

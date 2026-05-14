@@ -7,6 +7,8 @@
       <NuxtPage />
     </NuxtLayout>
 
+    <ConstructionModal />
+
     <!-- v-if: maintenu en DOM jusqu'à completion pour permettre la transition CSS avant démontage -->
     <AppBootShell
       v-if="shouldMountLandingShell"
@@ -26,6 +28,7 @@ const { localeSetting } = useLang()
 const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
 const localePath = useLocalePath()
+const { isConstructionEnabled } = useConstructionModal()
 
 const baseAssetUrl = runtimeConfig.app.baseURL || '/'
 const LANDING_SHELL_EXIT_DURATION_MS = 500
@@ -45,6 +48,7 @@ const isHomeRoute = computed<boolean>(() => {
 })
 
 const isLandingShellVisible = computed<boolean>(() => {
+  if (isConstructionEnabled.value) return false
   if (hasLandingShellCompleted.value) return false
   if (initCoreDataStatus.value === 'error') return false
   if (!isInitCoreDataReady.value) return true

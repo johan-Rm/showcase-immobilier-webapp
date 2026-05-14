@@ -16,6 +16,7 @@
     "check:app:soc": "bun scripts/ci/app/verify-soc-components.ts",
     "check:app:code-quality": "bun scripts/ci/app/verify-code-quality.ts",
     "check:app:solid": "bun scripts/ci/app/verify-solid.ts",
+    "check:app:guards": "bun scripts/ci/app/verify-no-redundant-guards.ts",
     "lint:check": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format:check": "prettier . --check",
