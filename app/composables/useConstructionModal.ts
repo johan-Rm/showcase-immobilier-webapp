@@ -1,6 +1,6 @@
 export const useConstructionModal = () => {
-  const isConstructionEnabled = useState<boolean>('is-construction-enabled', () => true)
-  const isOpen = useState<boolean>('construction-modal-open', () => true)
+  const isConstructionEnabled = useState<boolean>('is-construction-enabled', () => false)
+  const isOpen = useState<boolean>('construction-modal-open', () => false)
 
   const open = (): void => {
     isOpen.value = true
