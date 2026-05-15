@@ -47,7 +47,16 @@ const isHomeRoute = computed<boolean>(() => {
   return normalizePath(route.path) === normalizePath(localePath('/'))
 })
 
+const isDashboardRoute = computed<boolean>(() => {
+  const normalizedPath = normalizePath(route.path)
+
+  return (
+    normalizedPath === '/dashboard' || normalizedPath === normalizePath(localePath('/dashboard'))
+  )
+})
+
 const isLandingShellVisible = computed<boolean>(() => {
+  if (isDashboardRoute.value) return false
   if (isConstructionEnabled.value) return false
   if (hasLandingShellCompleted.value) return false
   if (initCoreDataStatus.value === 'error') return false
@@ -58,6 +67,8 @@ const isLandingShellVisible = computed<boolean>(() => {
 })
 
 const shouldMountLandingShell = computed<boolean>(() => {
+  if (isDashboardRoute.value) return false
+
   return !hasLandingShellCompleted.value
 })
 
