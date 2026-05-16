@@ -19,6 +19,15 @@ const isApiPath = (path: string): boolean => {
   return path === '/api' || path.startsWith('/api/')
 }
 
+const isServerAuthPath = (path: string): boolean => {
+  return path === '/auth' || path.startsWith('/auth/')
+}
+
+const getLocaleFromCookie = (): string | null => {
+  const redirectedLocale = useCookie<string | null>('i18n_redirected').value
+  return isLocaleCode(redirectedLocale ?? undefined) ? redirectedLocale : null
+}
+
 /**
  * Middleware global de normalisation de locale.
  *
@@ -31,6 +40,7 @@ const isApiPath = (path: string): boolean => {
  */
 export default defineNuxtRouteMiddleware((to) => {
   if (isApiPath(to.path)) return
+  if (isServerAuthPath(to.path)) return
 
   const pathLocale = getLocaleFromPath(to.path)
   const paramLocale =
@@ -41,8 +51,7 @@ export default defineNuxtRouteMiddleware((to) => {
   // Si la route porte déjà une locale (path ou param), on n’intervient pas.
   if (pathLocale || paramLocale) return
 
-  const { localeSetting } = useLang()
-  const locale = localeSetting.value || FALLBACK_LOCALE
+  const locale = getLocaleFromCookie() ?? FALLBACK_LOCALE
 
   // Redirection vers la version localisée pour stabiliser le routing et l’init.
   return navigateTo({

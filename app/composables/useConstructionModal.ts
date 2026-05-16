@@ -7,11 +7,14 @@ export const useConstructionModal = () => {
   }
 
   const close = (): void => {
+    if (isConstructionEnabled.value) return
+
     isOpen.value = false
   }
 
   const toggleConstructionMode = (value: boolean): void => {
     isConstructionEnabled.value = value
+    isOpen.value = value
   }
 
   return {

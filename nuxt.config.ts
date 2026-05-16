@@ -68,6 +68,14 @@ export default defineNuxtConfig({
     contactSubmissionsPath:
       process.env.CONTACT_SUBMISSIONS_PATH ??
       join(process.cwd(), '.data', 'contact-submissions.csv'),
+    authorizedClientEmails: process.env.AUTHORIZED_CLIENT_EMAILS ?? '',
+    oauth: {
+      google: {
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
+        redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL,
+      },
+    },
 
     public: {
       appEnv,
@@ -127,6 +135,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
+    'nuxt-auth-utils',
   ],
 
   mdc: {

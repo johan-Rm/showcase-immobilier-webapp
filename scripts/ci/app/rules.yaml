@@ -133,3 +133,12 @@ rules:
       - '.filter('
       - '.reduce('
       - '.push('
+
+  - name: app-no-redundant-guards
+    requiresManualReview: true
+    severity: warning
+    description: 'Detecte les gardes defensives residuelles sur des variables dont le contrat de type est suffisant.'
+    patterns:
+      - '?? undefined'
+      - '?? null'
+    templateDoubleCheckRegex: '\b(\w+)\s+&&\s+\1\.'

@@ -50,6 +50,10 @@ Variables d environnement importantes :
 - `APP_ENV` : `dev` ou `prod` (pilotage global de l indexabilite SEO hors mode dev: `dev` = noindex, `prod` autorise l indexation de la home uniquement)
 - `ENABLE_MONITORING`, `SENTRY_DSN_PUBLIC`, `SENTRY_DSN` : monitoring Sentry
 - `WEB_VITALS_ENABLED` : active la collecte client des Core Web Vitals
+- `NUXT_SESSION_PASSWORD`, `NUXT_OAUTH_GOOGLE_CLIENT_ID`,
+  `NUXT_OAUTH_GOOGLE_CLIENT_SECRET`, `NUXT_OAUTH_GOOGLE_REDIRECT_URL`,
+  `AUTHORIZED_CLIENT_EMAILS` : configuration de l authentification Google pour
+  le dashboard limite aux emails autorises
 
 Pour le detail complet des variables, voir [`.env.example`](./.env.example).
 

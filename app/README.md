@@ -16,6 +16,16 @@ Couche frontend Nuxt. Contient les pages, composants, composables, stores, layou
 > Les règles concrètes de validation automatisée sont déclarées en YAML dans `scripts/ci/app/`.
 > Pour le détail, voir [docs/3.application/ci-conventions-validation.md](../docs/3.application/ci-conventions-validation.md).
 
+### Sur-vérification des variables
+
+Les gardes défensives (`if (!x)`, `x?.y`, `x && x.y`) ajoutées quand une structure de données était instable ou incomplète doivent être supprimées une fois le contrat de type stabilisé.
+
+Un type non-nullable, une prop requise ou une valeur garantie par le contexte d'exécution ne se vérifie pas dans le template ni dans `<script setup>`. Ces vérifications parasites masquent l'intention réelle du code et signalent un type insuffisamment précis plutôt qu'une vraie précaution.
+
+Lorsqu'une vérification est légitime, elle appartient à la couche de validation (boundary API, formulaire, middleware) — pas à la couche d'affichage.
+
+Règle YAML : `app-no-redundant-guards`
+
 ### Ordre des blocs dans un fichier Vue
 
 L'ordre des blocs dans un composant Vue est `<template>`, `<script setup lang="ts">`, `<style scoped>`.
