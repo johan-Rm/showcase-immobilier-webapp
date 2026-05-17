@@ -1,12 +1,14 @@
 <template>
-  <UModal v-model:open="isCommandPropertyOpen">
+  <UModal v-model:open="isCommandPropertyOpen" :ui="{ overlay: 'bg-black/80' }">
     <template #content>
-      <UCommandPalette
-        :groups="groups"
-        :close="true"
-        placeholder="Rechercher par référence ou nom…"
-        @update:open="closeCommandProperty"
-      />
+      <div class="dark">
+        <UCommandPalette
+          :groups="groups"
+          :close="true"
+          placeholder="Rechercher par référence ou nom…"
+          @update:open="closeCommandProperty"
+        />
+      </div>
     </template>
   </UModal>
 </template>
@@ -47,11 +49,16 @@ const buildPropertyItem = (accommodation: Accommodation): CommandPaletteItem | n
 }
 
 // 8. Computed UI-ready
-const propertyItems = computed<CommandPaletteItem[]>(() =>
-  items.value
+const propertyItems = computed<CommandPaletteItem[]>(() => {
+  const seen = new Set<string>()
+  return items.value
     .map(buildPropertyItem)
-    .filter((item): item is CommandPaletteItem => item !== null),
-)
+    .filter((item): item is CommandPaletteItem => {
+      if (!item || seen.has(item.id)) return false
+      seen.add(item.id)
+      return true
+    })
+})
 
 const groups = computed<CommandPaletteGroup[]>(() => {
   if (!propertyItems.value.length) return []
