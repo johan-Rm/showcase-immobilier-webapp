@@ -21,6 +21,10 @@ type UseDashboardReturn = {
   openCommandPalette: () => void
   closeCommandPalette: () => void
   toggleCommandPalette: () => void
+  isCommandPropertyOpen: Ref<boolean>
+  openCommandProperty: () => void
+  closeCommandProperty: () => void
+  toggleCommandProperty: () => void
   sidePanels: Ref<SidePanels>
   openSidePanel: (key: keyof SidePanels) => void
   closeSidePanel: (key: keyof SidePanels) => void
@@ -42,6 +46,20 @@ const _useDashboard = (): UseDashboardReturn => {
 
   const toggleCommandPalette = (): void => {
     isCommandPaletteOpen.value = !isCommandPaletteOpen.value
+  }
+
+  const isCommandPropertyOpen = useState<boolean>('ui.commandProperty.open', () => false)
+
+  const openCommandProperty = (): void => {
+    isCommandPropertyOpen.value = true
+  }
+
+  const closeCommandProperty = (): void => {
+    isCommandPropertyOpen.value = false
+  }
+
+  const toggleCommandProperty = (): void => {
+    isCommandPropertyOpen.value = !isCommandPropertyOpen.value
   }
 
   const sidePanels = ref<SidePanels>({
@@ -111,6 +129,12 @@ const _useDashboard = (): UseDashboardReturn => {
           toggleSidePanel('mainMenu')
         },
       },
+      ctrl_s: {
+        usingInput: false,
+        handler: () => {
+          toggleCommandProperty()
+        },
+      },
     })
   }
   watch(
@@ -127,6 +151,10 @@ const _useDashboard = (): UseDashboardReturn => {
     openCommandPalette,
     closeCommandPalette,
     toggleCommandPalette,
+    isCommandPropertyOpen,
+    openCommandProperty,
+    closeCommandProperty,
+    toggleCommandProperty,
     sidePanels,
     openSidePanel,
     closeSidePanel,
