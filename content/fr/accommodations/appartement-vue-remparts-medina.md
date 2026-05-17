@@ -1,5 +1,5 @@
 ---
-identifier: BAVA006
+identifier: FBAVA006
 name: Appartement avec vue sur les remparts
 description: 97 m2 - 2 chambres - adresse medina
 dateCreated: '2022-10-11T01:57:04+02:00'

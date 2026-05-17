@@ -1,5 +1,5 @@
 ---
-identifier: LSR001
+identifier: FLSR001
 name: Riad avec patio et spa en médina
 description: 185 m2 - 4 chambres - patio, hammam et terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'

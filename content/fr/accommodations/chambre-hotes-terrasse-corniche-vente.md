@@ -1,5 +1,5 @@
 ---
-identifier: BAVCD002
+identifier: FBAVCD002
 name: Chambre d'hotes avec terrasse sur la corniche
 description: 30 m2 - suite - terrasse et vue mer
 dateCreated: '2022-10-11T01:57:04+02:00'

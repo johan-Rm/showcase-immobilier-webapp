@@ -1,5 +1,5 @@
 ---
-identifier: BAVLG001
+identifier: FBAVLG001
 name: Location gerance de cafe sur la corniche
 description: 140 m2 - salle et terrasse - forte visibilite
 dateCreated: '2022-10-11T01:57:04+02:00'

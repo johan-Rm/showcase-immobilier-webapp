@@ -1,5 +1,5 @@
 ---
-identifier: BAVLG002
+identifier: FBAVLG002
 name: Location gerance de maison d'hotes en medina
 description: 230 m2 - 5 suites - exploitation cle en main
 dateCreated: '2022-10-11T01:57:04+02:00'

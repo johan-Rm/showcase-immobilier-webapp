@@ -1,5 +1,5 @@
 ---
-identifier: LSMDV001
+identifier: FLSMDV001
 name: Maison de ville avec terrasse à Sidi Kaouki
 description: 110 m2 - 2 chambres - terrasse et accès plage
 dateCreated: '2022-10-11T01:57:04+02:00'

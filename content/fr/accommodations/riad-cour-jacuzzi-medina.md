@@ -1,5 +1,5 @@
 ---
-identifier: BAVR002
+identifier: FBAVR002
 name: Riad avec cour et jacuzzi en medina
 description: 245 m2 - 5 chambres - cour et toit-terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'

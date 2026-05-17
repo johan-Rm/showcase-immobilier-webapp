@@ -1,5 +1,5 @@
 ---
-identifier: LSA001
+identifier: FLSA001
 name: Appartement jardin à la marina
 description: 94 m2 - 2 chambres - terrasse jardin
 dateCreated: '2022-10-11T01:57:04+02:00'

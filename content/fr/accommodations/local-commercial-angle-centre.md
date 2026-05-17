@@ -1,5 +1,5 @@
 ---
-identifier: BAVLC001
+identifier: FBAVLC001
 name: Local commercial d'angle au centre-ville
 description: 92 m2 - double vitrine - angle passant
 dateCreated: '2022-10-11T01:57:04+02:00'

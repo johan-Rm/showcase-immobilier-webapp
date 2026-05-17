@@ -1,5 +1,5 @@
 ---
-identifier: LSCD002
+identifier: FLSCD002
 name: Chambre d'hotes vue ocean
 description: 28 m2 - 1 chambre - acces terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'

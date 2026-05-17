@@ -1,5 +1,5 @@
 ---
-identifier: BAVR004
+identifier: FBAVR004
 name: Riad hôtel au cœur de la médina d’Essaouira
 description: Riad hôtel de 238 m² avec 20 chambres en exploitation, terrasse aménagée et fort potentiel touristique
 dateCreated: '2022-10-11T01:57:04+02:00'
