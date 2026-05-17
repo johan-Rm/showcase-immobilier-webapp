@@ -37,8 +37,8 @@ fields:
   isActive: Actif
 
 blocks:
-  body: Body
-  frontmatter: Frontmatter
+  body: Description
+  frontmatter: Caractéristiques
   images: Images
   associatedMedia: Médias associés
 

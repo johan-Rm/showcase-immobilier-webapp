@@ -37,7 +37,7 @@
       </div>
 
       <!-- Sidebar droite (desktop) / Topbar mobile -->
-      <aside class="hidden h-full w-68 shrink-0 flex-col bg-[#212121] lg:flex">
+      <aside class="flex h-full w-0 shrink-0 flex-col overflow-hidden bg-[#212121] lg:w-68">
         <DashboardPropertySidebar
           :user="user"
           :listing-options="listingOptions"

@@ -1,13 +1,9 @@
 <template>
   <!-- Desktop : slideover gauche -->
   <USlideover
-    :open="isDesktopOpen"
-    side="left"
-    :ui="{
-      content:
-        'max-w-[min(92vw,34rem)] bg-[#212121] text-white ring-0 sm:ring-0 shadow-none sm:shadow-none',
-      overlay: 'bg-black/95',
-    }"
+    :open="isOpen"
+    :side="isMobile ? 'bottom' : 'left'"
+    :ui="slideroverUi"
     @update:open="isOpen = $event"
   >
     <template #content>
@@ -36,54 +32,6 @@
       </div>
     </template>
   </USlideover>
-
-  <!-- Mobile : bottom bar (lg:hidden) -->
-  <div
-    v-if="accommodation"
-    class="fixed right-0 bottom-0 left-0 z-30 flex flex-col bg-[#212121] lg:hidden"
-  >
-    <div
-      v-if="isOpen"
-      class="flex max-h-[78vh] min-h-0 flex-col overflow-hidden border-t border-white/10"
-    >
-      <DashboardPropertyEditorPanel
-        :active-section="activeSection"
-        :active-locale="activeLocale"
-        :active-draft="activeDraft"
-        :accommodation="accommodation"
-        :expanded-blocks="expandedBlocks"
-        :title-value="titleDraftValue"
-        :associated-media-value="associatedMediaValue"
-        :media-image-value="mediaImageValue"
-        :property-menu-items="propertyMenuItems"
-        @update:active-section="activeSection = $event"
-        @update:active-locale="activeLocale = $event"
-        @toggle-block="toggleBlock"
-        @update-field="updateField"
-        @update-body="updateBody"
-        @update-associated-media="updateAssociatedMedia"
-        @update-media-image="updateMediaImage"
-      />
-    </div>
-
-    <!-- Handle (toujours visible en bas) -->
-    <button
-      type="button"
-      class="flex items-center gap-3 border-t border-white/10 px-4 py-3"
-      :aria-label="isOpen ? 'Réduire l\'éditeur' : 'Ouvrir l\'éditeur'"
-      @click="isOpen = !isOpen"
-    >
-      <UIcon name="i-lucide-square-pen" class="shrink-0 text-white/35" aria-hidden="true" />
-      <span class="flex-1 truncate text-sm font-medium text-white/55">
-        {{ accommodation.preview.title }}
-      </span>
-      <UIcon
-        :name="isOpen ? 'i-lucide-chevron-down' : 'i-lucide-chevron-up'"
-        class="shrink-0 text-white/30"
-        aria-hidden="true"
-      />
-    </button>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -114,6 +62,29 @@ const activeLocale = ref<DashboardLocale>('fr')
 const drafts = ref<Record<DashboardLocale, DashboardDraft> | null>(null)
 const expandedBlocks = ref<Set<string>>(new Set(['body']))
 const isMobile = ref(false)
+
+const slideroverUi = computed(() =>
+  isMobile.value
+    ? {
+        content: 'max-h-[82dvh] bg-[#212121] text-white ring-0 shadow-none',
+        overlay: 'bg-black/95',
+      }
+    : {
+        content:
+          'max-w-[min(92vw,34rem)] bg-[#212121] text-white ring-0 sm:ring-0 shadow-none sm:shadow-none',
+        overlay: 'bg-black/95',
+      },
+)
+
+onMounted(() => {
+  const mq = window.matchMedia('(max-width: 1023px)')
+  isMobile.value = mq.matches
+  const handler = (e: MediaQueryListEvent) => {
+    isMobile.value = e.matches
+  }
+  mq.addEventListener('change', handler)
+  onUnmounted(() => mq.removeEventListener('change', handler))
+})
 
 const cloneEditableRecord = (value: DashboardEditableRecord): DashboardEditableRecord =>
   JSON.parse(JSON.stringify(value)) as DashboardEditableRecord
@@ -162,8 +133,6 @@ const isOpen = computed<boolean>({
   get: () => props.open,
   set: (value) => emit('update:open', value),
 })
-
-const isDesktopOpen = computed<boolean>(() => isOpen.value && !isMobile.value)
 
 const activeDraft = computed<DashboardDraft | null>(
   () => drafts.value?.[activeLocale.value] ?? null,
@@ -232,14 +201,4 @@ watch(
   },
   { immediate: true },
 )
-
-onMounted(() => {
-  const mq = window.matchMedia('(max-width: 1023px)')
-  isMobile.value = mq.matches
-  const handler = (e: MediaQueryListEvent) => {
-    isMobile.value = e.matches
-  }
-  mq.addEventListener('change', handler)
-  onUnmounted(() => mq.removeEventListener('change', handler))
-})
 </script>

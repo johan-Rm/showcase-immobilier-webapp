@@ -83,7 +83,7 @@
     <div class="min-h-0 flex-1 overflow-y-auto">
       <template v-if="activeDraft">
         <template v-if="activeSection === 'content'">
-          <div v-for="block in contentBlocks" :key="block.id">
+          <div v-for="block in contentBlocks" :key="block.id" class="border-b border-white/6">
             <div class="flex items-stretch transition-colors hover:bg-white/5">
               <button
                 type="button"
@@ -415,13 +415,13 @@ const contentBlocks = computed<Block[]>(() => {
   return [
     {
       id: 'body',
-      label: form?.blocks['body'] ?? 'Body',
+      label: form?.blocks['body'] ?? 'Description',
       icon: 'i-lucide-file-text',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
     },
     {
       id: 'frontmatter',
-      label: form?.blocks['frontmatter'] ?? 'Frontmatter',
+      label: form?.blocks['frontmatter'] ?? 'Caractéristiques',
       icon: 'i-lucide-file-code',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
     },
