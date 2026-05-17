@@ -1,7 +1,6 @@
 ---
 identifier: FBAVMDC001
 name: Maison de campagne au milieu des arganiers
-description: 180 m2 - 3 chambres - jardin
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
@@ -55,35 +54,8 @@ highlight: Un refuge paisible au milieu des arganiers
 review: |
   Une maison de campagne rassurante, avec un bon equilibre entre intimite, exterieurs et usage familial.
   Le cadre vegetal et la surface habitable en font une option credible pour une residence secondaire ou un projet d'accueil confidentiel.
-blockquote: |
-  Une maison entouree d'arganiers, pensee pour ralentir le rythme et profiter d'un cadre plus naturel.
 locationDescription: |
   La campagne d'Essaouira attire pour son calme, sa lumiere et ses parcelles plus ouvertes, tout en restant connectee a la ville par les grands axes. Le secteur convient aux acquereurs qui recherchent davantage d'espace, de jardin et une ambiance plus decontractee que dans le centre.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Maison ouverte sur un environnement vegetal, avec jardin et respiration paysagere autour du bien.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres qui permettent une organisation familiale simple ou un usage de residence secondaire confortable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree douce et accueillante, en lien avec l'esprit campagne du bien.
-  living:
-    isEnabled: true
-    texts:
-      - Piece de vie conviviale, orientee vers les exterieurs et la lumiere naturelle.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine familiale facile a projeter pour des sejours prolonges ou une occupation annuelle.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau adaptees a un usage regulier, avec une logique de confort simple et robuste.
 ---
 ## Visite guidee
 

@@ -1,7 +1,6 @@
 ---
 identifier: FBAVAC001
 name: Affaire commerciale boutique au centre
-description: 86 m2 - vitrine - axe passant
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: affaires-commerciales
@@ -50,35 +49,8 @@ slug: affaire-commerciale-boutique-au-centre-centre-ville-bavac001
 highlight: Une base de commerce claire pour une activite visible
 review: |
   Une affaire simple a projeter, avec une forte dependance positive a la visibilite et au passage.
-blockquote: |
-  Un format boutique lisible pour une activite de centre-ville.
 locationDescription: |
   Le centre-ville soutient les activites de proximite, de service et de vente avec besoin de visibilite.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Vitrine simple a exploiter sur un flux urbain regulier.
-  bedrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace nuit sur cette fiche commerciale.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree immediate depuis l'axe principal.
-  living:
-    isEnabled: true
-    texts:
-      - Plateau principal facilement amenageable selon l'activite.
-  kitchen:
-    isEnabled: false
-    texts:
-      - Aucun espace cuisine structurant mis en avant.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Point d'eau ou sanitaires a organiser selon le besoin.
 ---
 ## Visite guidee
 

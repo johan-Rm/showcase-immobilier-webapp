@@ -1,7 +1,6 @@
 ---
 identifier: FLLDVG001
 name: Villa golf résidentielle à Mogador
-description: 190 m2 - 3 chambres - jardin et piscine
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: villa-golf
@@ -55,35 +54,8 @@ highlight: Une villa résidentielle calme pour s'installer dans un cadre plus ou
 review: |
   La villa cible un usage résidentiel confortable, avec piscine et jardin comme agréments de vie plus que comme simple argument marketing.
   Le secteur du golf favorise un positionnement plus posé, cohérent avec une location au mois ou à la saison longue.
-blockquote: |
-  Une villa stable et lumineuse pour habiter dans un environnement plus premium et plus calme.
 locationDescription: |
   Mogador offre un cadre résidentiel plus aéré, plus végétalisé et plus maîtrisé. C'est un bon choix pour une installation durable avec besoin d'espace et de tranquillité.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Jardin et piscine donnent un vrai confort de vie sans excès démonstratif.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres adaptées à une résidence principale à plusieurs.
-  entrance:
-    isEnabled: true
-    texts:
-      - Accès simple dans un environnement plus maîtrisé et résidentiel.
-  living:
-    isEnabled: true
-    texts:
-      - Grande pièce de vie ouverte sur les extérieurs, pensée pour un usage quotidien.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compatible avec une occupation régulière et familiale.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Trois salles d'eau qui confortent une installation au long cours.
 ---
 ## Visite guidee
 

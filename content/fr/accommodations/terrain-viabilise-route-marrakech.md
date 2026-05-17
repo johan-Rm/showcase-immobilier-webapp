@@ -1,7 +1,6 @@
 ---
 identifier: FBAVT009
 name: Terrain viabilise route de Marrakech
-description: 1240 m2 - plat - acces direct
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: terrain
@@ -49,35 +48,8 @@ slug: terrain-viabilise-route-de-marrakech-route-de-marrakech-bavt009
 highlight: Une base fonciere simple pour un projet neuf bien cadre
 review: |
   Une parcelle facile a lire pour un projet residentiel sobre ou une operation de petite taille.
-blockquote: |
-  Un terrain pret a projeter sans complexite inutile.
 locationDescription: |
   La route de Marrakech attire pour ses acces et son potentiel de developpement dans une logique plus ouverte.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Parcelle lisible, avec acces terrain simple et exposition claire.
-  bedrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace nuit bati a ce stade.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree de parcelle facile a projeter.
-  living:
-    isEnabled: false
-    texts:
-      - Aucun espace de vie bati sur cette fiche fonciere.
-  kitchen:
-    isEnabled: false
-    texts:
-      - Aucun programme developpe a ce stade.
-  bathrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace sanitaire bati sur la parcelle actuelle.
 ---
 ## Visite guidee
 

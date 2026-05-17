@@ -1,7 +1,6 @@
 ---
 identifier: FBAVR004
 name: Riad hôtel au cœur de la médina d’Essaouira
-description: Riad hôtel de 238 m² avec 20 chambres en exploitation, terrasse aménagée et fort potentiel touristique
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -53,8 +52,6 @@ highlight: Un riad hôtel avec emplacement exceptionnel et potentiel immédiat e
 review: |
   Ce riad hôtel bénéficie d’un positionnement rare au cœur de la médina d’Essaouira, avec une exploitation déjà en place et une capacité d’accueil importante.
   Le bien présente un fort potentiel après rénovation, idéal pour un projet hôtelier ou une maison d’hôtes de charme.
-blockquote: |
-  Une opportunité stratégique dans l’un des secteurs les plus recherchés d’Essaouira.
 locationDescription: |
   Situé au cœur de la médina d’Essaouira, classée au patrimoine mondial de l’UNESCO, le riad profite d’un environnement touristique dynamique, avec une forte fréquentation toute l’année.
 ---

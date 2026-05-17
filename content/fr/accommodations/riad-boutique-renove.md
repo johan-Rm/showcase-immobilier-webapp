@@ -1,7 +1,6 @@
 ---
 identifier: FBAVR001
 name: Riad boutique renove
-description: 260 m2 - 6 chambres - spa
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -56,35 +55,8 @@ highlight: Un riad de prestige pret a rayonner
 review: |
   Un actif premium qui coche les marqueurs attendus pour une exploitation hospitality haut de gamme ou une residence de prestige.
   Le nombre de suites, le spa et la terrasse renforcent clairement son positionnement boutique dans la medina.
-blockquote: |
-  Un riad renove avec une vraie signature d'hospitalite, pense pour une exploitation haut de gamme ou un usage prive remarquable.
 locationDescription: |
   La medina d'Essaouira reste l'un des secteurs les plus identitaires et recherches pour les riads de charme. Le tissu historique, la frequentation touristique et la vie de quartier y creent un contexte favorable aux projets hoteliers, para-hoteliers ou aux residences d'exception.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Facade de riad preservee dans le tissu ancien, avec une presence discrete et qualitative en medina.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Six suites permettant une exploitation d'accueil bien structuree ou une grande residence privee.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree soignee qui annonce une experience plus premium des l'arrivee.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces communs elegants, articules autour d'une logique d'hospitalite et de confort.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine de service ou de maison, a dimensionner selon le niveau d'exploitation souhaite.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau en nombre suffisant pour soutenir un usage boutique ou une grande capacite d'accueil.
 ---
 
 ## Visite guidee

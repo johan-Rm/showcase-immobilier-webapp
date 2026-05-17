@@ -1,0 +1,75 @@
+sections:
+  classement: Classement
+  avis: Notre avis
+  details: Détails
+  confort: Éléments de confort
+  qualites: Qualités
+  seo: SEO
+  meta: Meta
+
+fields:
+  realEstateListing: Type de listing
+  category: Catégorie
+  place: Lieu
+  offer: Offre
+  review: Avis agence
+  highlight: Accroche
+  label: Badge
+  floorSize: Surface habitable
+  areaSize: Surface totale
+  landArea: Surface terrain
+  areaTerrace: Terrasse
+  numberOfBedrooms: Chambres
+  numberOfRooms: Pièces
+  numberOfBathroomsTotal: Salles de bain
+  numberOfGarages: Garages
+  occupancy: Capacité
+  level: De plain-pied
+  yearBuilt: Année de construction
+  amenityFeature: Équipements
+  qualities: Qualités
+  metaTitle: Méta Title
+  metaDescription: Méta Description
+  slug: Slug
+  dateCreated: Créé le
+  dateModified: Modifié le
+  name: Nom du bien
+  isActive: Actif
+
+blocks:
+  body: Body
+  frontmatter: Frontmatter
+  images: Images
+  associatedMedia: Médias associés
+
+ui:
+  close: Fermer l'éditeur
+  reset: Réinitialiser
+  addQuality: Ajouter une qualité
+  editionNote: Edition locale — sauvegarde non disponible
+  editTitle: Modifier le nom du bien
+  propertyActions: Actions sur le bien
+  blockActions: Actions
+
+amenities:
+  acces-route: Accès route
+  accessibilite: Accessibilité
+  air-conditionne: Air conditionné
+  alarme: Alarme
+  chateau-d-eau: Château d'eau
+  climatisation: Climatisation
+  climatisation-reversible: Climatisation réversible
+  exposition-sud: Exposition Sud
+  garage: Garage
+  gardien: Gardien
+  hammam: Hammam
+  jacuzzi: Jacuzzi
+  piscine-chauffee: Piscine chauffée
+  room-service: Room service
+  salle-de-bain: Salle de bain
+  salle-de-sport: Salle de sport
+  solarium: Solarium
+  terrasse-attenante: Terrasse attenante
+  vue-degagee: Vue dégagée
+  vue-sur-mer: Vue sur mer
+  wifi: Wifi

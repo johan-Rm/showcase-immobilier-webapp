@@ -1,7 +1,6 @@
 ---
 identifier: FBAVR005
 name: Riad medina avec terrasse ensoleillee
-description: 220 m2 - 5 chambres - patio
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -56,35 +55,8 @@ highlight: Un riad lumineux avec une vraie terrasse de vie
 review: |
   Un riad bien calibre pour qui cherche une grande capacite d'accueil avec une ambiance medina plus lumineuse et accessible.
   Le patio central et la terrasse ensoleillee donnent une lecture claire du bien et facilitent sa valorisation commerciale.
-blockquote: |
-  Un riad familial et lumineux en medina, avec patio central et terrasse faite pour prolonger les sejours.
 locationDescription: |
   En medina, l'environnement met en avant une vie de quartier animee, un patrimoine fort et une praticite a pied tres appreciable. Ce type d'adresse reste recherche pour sa dimension immersive, son cachet et son potentiel locatif lorsqu'il est bien presente.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Riad bien inscrit dans la medina, avec une adresse qui privilegie le charme du tissu ancien.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cinq chambres qui autorisent une occupation familiale large ou une activite d'accueil souple.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree de riad traditionnelle, avec un cheminement naturel vers le patio central.
-  living:
-    isEnabled: true
-    texts:
-      - Volumes interieurs chaleureux, organises autour du patio et prolonges par la terrasse.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine fonctionnelle, compatible avec une vie de maison ou un usage semi-locatif.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau adaptees a un bien de capacite intermediaire en medina.
 ---
 ## Visite guidee
 

@@ -1,7 +1,6 @@
 ---
 identifier: FLLDD001
 name: Dar rénovée en médina pour longue durée
-description: 118 m2 - 2 chambres - patio compact
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: dar
@@ -55,35 +54,8 @@ highlight: Une médina résidentielle plus calme, pensée pour une vraie install
 review: |
   Cette dar convient à une résidence durable pour un couple ou un foyer réduit qui cherche le charme de la médina avec une mise à niveau de confort.
   Le format reste maîtrisé, sans excès de surface ni complexité d'entretien.
-blockquote: |
-  Une dar rénovée, stable et crédible pour vivre la médina au long cours.
 locationDescription: |
   La médina offre un cadre de vie fort, avec un tissu ancien, des déplacements à pied et un quotidien plus immersif. Le bien vise des locataires qui veulent habiter le centre historique plutôt que seulement le visiter.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de médina adaptée à une installation durable dans un quartier vivant.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres bien calibrées pour une occupation principale stable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrée discrète et circulation claire autour d'un patio compact.
-  living:
-    isEnabled: true
-    texts:
-      - Pièce de vie chaleureuse, facile à habiter au quotidien.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine adaptée à un usage complet de résidence principale.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau qui sécurisent le confort quotidien.
 ---
 ## Visite guidee
 

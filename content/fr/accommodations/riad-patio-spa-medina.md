@@ -1,7 +1,6 @@
 ---
 identifier: FLSR001
 name: Riad avec patio et spa en médina
-description: 185 m2 - 4 chambres - patio, hammam et terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -55,35 +54,8 @@ highlight: Un riad de séjour plus expérientiel, pensé pour de vraies vacances
 review: |
   Le bien a un bon niveau de désirabilité saisonnière grâce à son patio, son espace bien-être et sa capacité d'accueil.
   Il reste néanmoins suffisamment lisible pour un positionnement premium mesuré, sans narration excessive.
-blockquote: |
-  Un riad de séjour chaleureux et bien équipé, avec une vraie promesse d'expérience médina.
 locationDescription: |
   La médina renforce ici l'expérience de séjour par son tissu ancien, sa marche à pied et son intensité patrimoniale. C'est un cadre cohérent pour un riad de vacances.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Riad bien inscrit dans le tissu ancien, avec accès direct à l'ambiance médina.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Quatre chambres qui facilitent les séjours entre amis ou en famille élargie.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrée discrète qui donne immédiatement sur le patio central.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces de vie conviviaux autour du patio et de la terrasse.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine adaptée à des séjours autonomes ou semi-accompagnés.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Quatre salles d'eau qui sécurisent le confort d'occupation à huit.
 ---
 ## Visite guidee
 

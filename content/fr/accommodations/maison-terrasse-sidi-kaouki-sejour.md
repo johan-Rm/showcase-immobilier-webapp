@@ -1,7 +1,6 @@
 ---
 identifier: FLSMDV001
 name: Maison de ville avec terrasse à Sidi Kaouki
-description: 110 m2 - 2 chambres - terrasse et accès plage
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-ville
@@ -55,35 +54,8 @@ highlight: Une location de bord de mer simple et très lisible pour des séjours
 review: |
   Le bien fonctionne bien pour un séjour balnéaire de petite capacité, avec une terrasse qui devient rapidement l'espace principal de vie.
   Sidi Kaouki renforce le positionnement loisir et déconnexion de la fiche.
-blockquote: |
-  Une maison simple et agréable pour profiter du littoral sans sophistication inutile.
 locationDescription: |
   Sidi Kaouki attire pour son ambiance plus libre, son rapport à l'océan et sa lecture surf ou détente. Le secteur se prête bien à des séjours courts plus relâchés.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Maison de bord de mer avec un rapport immédiat aux usages extérieurs.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres faciles à partager pour un séjour à quatre.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrée simple, adaptée à un rythme de séjour court.
-  living:
-    isEnabled: true
-    texts:
-      - Pièce de vie tournée vers la terrasse et les retours de plage.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compacte mais suffisante pour des séjours autonomes.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau pour une occupation plus fluide.
 ---
 ## Visite guidee
 

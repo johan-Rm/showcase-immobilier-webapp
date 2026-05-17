@@ -1,7 +1,6 @@
 ---
 identifier: FBAVR003
 name: Riad familial en medina
-description: 230 m2 - 5 chambres - patio et terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -55,35 +54,8 @@ slug: riad-familial-en-medina-medina-bavr003
 highlight: Un riad de capacite intermediaire, simple a raconter
 review: |
   Une belle capacite d'accueil avec un format qui reste lisible et exploitable.
-blockquote: |
-  Un riad familial bien calibre entre charme et usage.
 locationDescription: |
   La medina seduit par son patrimoine, sa marche a pied et sa capacite d'immersion.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de medina avec une vraie presence patrimoniale.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cinq chambres pour une famille large ou une activite d'accueil.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree sobre, directement mise au service du patio.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces communs lisibles et faciles a projeter.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine pouvant soutenir un usage de maison ou d'accueil.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Quatre salles d'eau en phase avec la capacite du bien.
 ---
 ## Visite guidee
 

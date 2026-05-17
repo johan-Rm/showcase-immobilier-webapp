@@ -1,7 +1,6 @@
 ---
 identifier: FBAVLG001
 name: Location gerance de cafe sur la corniche
-description: 140 m2 - salle et terrasse - forte visibilite
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: location-gerance
@@ -49,35 +48,8 @@ slug: location-gerance-de-cafe-sur-la-corniche-corniche-bavlg001
 highlight: Une reprise d'activite lisible sur un axe de promenade
 review: |
   Une opportunite qui repose surtout sur l'emplacement et la lisibilite immediate de l'activite.
-blockquote: |
-  Une gerance de corniche avec terrasse et forte lecture commerciale.
 locationDescription: |
   La corniche soutient les activites de restauration legere et de pause grace a son flux de promenade.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Terrasse et facade directement exposes a un flux de bord de mer.
-  bedrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace nuit sur cette gerance commerciale.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree immediatement lisible depuis la promenade.
-  living:
-    isEnabled: true
-    texts:
-      - Salle principale adaptee a un usage cafe ou petite restauration.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Arriere zone de preparation a calibrer selon le concept.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Sanitaires a organiser selon l'exploitation.
 ---
 ## Visite guidee
 

@@ -1,7 +1,6 @@
 ---
 identifier: FLSA001
 name: Appartement jardin à la marina
-description: 94 m2 - 2 chambres - terrasse jardin
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
@@ -55,35 +54,8 @@ highlight: Une base confortable pour séjourner à pied entre port, plage et res
 review: |
   Un appartement bien calibré pour des séjours courts ou moyens, avec une terrasse jardin qui prolonge agréablement la pièce de vie.
   L'adresse convient à des voyageurs qui veulent rester proches des usages de loisirs et de promenade.
-blockquote: |
-  Une location saisonnière facile à vivre, avec extérieur privatif et vraie fluidité de séjour.
 locationDescription: |
   La marina donne accès à une promenade agréable, à des restaurants et à une ambiance plus ouverte. C'est un secteur apprécié pour des séjours sans logistique lourde.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Résidence agréable avec un rapport direct à l'extérieur et aux parcours piétons.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres simples à partager pour un séjour en famille ou entre amis.
-  entrance:
-    isEnabled: true
-    texts:
-      - Accès direct et pratique, compatible avec des arrivées courtes durée.
-  living:
-    isEnabled: true
-    texts:
-      - Séjour lumineux prolongé par une terrasse jardin appréciable en fin de journée.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine équipée pour des séjours autonomes et souples.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau utiles pour le confort d'occupation à quatre.
 ---
 ## Visite guidee
 

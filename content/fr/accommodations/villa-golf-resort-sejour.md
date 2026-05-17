@@ -1,7 +1,6 @@
 ---
 identifier: FLSVG001
 name: Villa golf resort pour séjours
-description: 210 m2 - 3 suites - piscine et jardin
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: villa-golf
@@ -55,35 +54,8 @@ highlight: Une villa de séjour calme et lumineuse dans un environnement plus pr
 review: |
   Le bien parle à une clientèle qui cherche un séjour plus confidentiel, avec piscine, jardin et un cadre plus maîtrisé.
   La promesse reste cohérente avec une location saisonnière familiale ou entre amis, sans verser dans un luxe trop démonstratif.
-blockquote: |
-  Une villa de séjour posée, lumineuse et très lisible dans son usage.
 locationDescription: |
   Le secteur du golf offre un cadre plus calme, plus aéré et plus résidentiel. Il convient bien à des séjours qui privilégient le repos, l'espace et l'intimité.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Jardin et piscine structurent immédiatement l'expérience du bien.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois suites qui rendent le séjour confortable à plusieurs.
-  entrance:
-    isEnabled: true
-    texts:
-      - Accès simple et lecture immédiate d'une villa de séjour.
-  living:
-    isEnabled: true
-    texts:
-      - Grande pièce de vie ouverte sur les extérieurs et la piscine.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine adaptée aux séjours autonomes ou avec service ponctuel.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Trois salles d'eau, cohérentes avec une occupation à six.
 ---
 ## Visite guidee
 

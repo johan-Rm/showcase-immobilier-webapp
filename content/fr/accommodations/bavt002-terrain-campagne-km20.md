@@ -3,8 +3,6 @@ identifier: BAVT002
 
 name: Terrain en campagne KM20
 
-description: Terrain titré de 10 000 m² situé à 20 km d’Essaouira, idéal projet touristique ou résidence
-
 category: terrain
 
 offer:
@@ -47,7 +45,6 @@ floorSize: 10000
 
 dateCreated: '2026-05-01T00:00:00+01:00'
 dateModified: '2026-05-01T00:00:00+01:00'
-
 ---
 
 Localisation : KM20, à proximité de l’Essaouira Lodge  

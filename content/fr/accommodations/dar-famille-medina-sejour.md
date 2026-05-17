@@ -1,7 +1,6 @@
 ---
 identifier: FLSD001
 name: Dar de famille en médina pour séjours
-description: 130 m2 - 3 chambres - patio et toit-terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: dar
@@ -55,35 +54,8 @@ highlight: Une médina plus douce à vivre en famille, avec de vrais espaces de 
 review: |
   La dar propose un format familial convaincant pour des séjours de plusieurs nuits, avec une ambiance intérieure chaleureuse et un extérieur utile.
   Le bien convient à un public qui cherche l'expérience médina sans basculer vers un produit trop hôtelier.
-blockquote: |
-  Une dar accueillante et lisible, pensée pour des séjours familiaux dans la médina.
 locationDescription: |
   En médina, le bien profite d'un cadre patrimonial fort et d'une vraie immersion urbaine. L'adresse reste adaptée à des visiteurs qui veulent tout faire à pied.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de médina calme, avec une vraie lecture résidentielle du quartier.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres cohérentes pour une occupation familiale confortable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrée discrète qui ouvre rapidement sur un patio central accueillant.
-  living:
-    isEnabled: true
-    texts:
-      - Salon chaleureux autour du patio, propice aux temps calmes après les visites.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine utile pour des séjours autonomes de quelques jours.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Trois salles d'eau qui fluidifient l'usage à plusieurs.
 ---
 ## Visite guidee
 

@@ -1,7 +1,6 @@
 ---
 identifier: FBAVMD001
 name: Maison d'hotes avec patio en medina
-description: 240 m2 - 5 suites - patio et terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maisons-dhotes
@@ -55,35 +54,8 @@ slug: maison-dhotes-avec-patio-en-medina-medina-bavmd001
 highlight: Un produit d'accueil deja bien lisible dans sa promesse
 review: |
   Une maison d'hotes bien calibree pour un projet d'exploitation de petite capacite.
-blockquote: |
-  Une maison d'hotes claire, patrimoniale et simple a positionner.
 locationDescription: |
   La medina reste le cadre naturel de ce type de bien d'accueil a Essaouira.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Facade de medina adaptee a une exploitation d'accueil discrète.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cinq suites qui structurent une capacite de petite maison d'hotes.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree sobre qui debouche sur un patio central.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces communs faciles a projeter pour l'accueil.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compatible avec une logique de service leger.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau en nombre coherent avec la capacite.
 ---
 ## Visite guidee
 

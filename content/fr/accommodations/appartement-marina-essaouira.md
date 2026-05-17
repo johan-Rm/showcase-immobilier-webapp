@@ -1,7 +1,6 @@
 ---
 identifier: FBAVA004
 name: Appartement marina avec terrasse
-description: 78 m2 - 1 chambre - terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
@@ -56,35 +55,8 @@ highlight: Un pied-a-terre lumineux en marina
 review: |
   Un bien compact et valorisant, avec une vraie qualite d'usage grace a la terrasse et au stationnement.
   La marina apporte un cadre rassurant et lisible pour une occupation personnelle ou une mise en location saisonniere.
-blockquote: |
-  Un appartement de marina simple a exploiter, avec terrasse, lumiere et acces fluide a pied.
 locationDescription: |
   La marina d'Essaouira propose un cadre ordonne, aeré et proche du front de mer. On y retrouve une ambiance plus contemporaine que dans la medina, avec des acces faciles, des commerces a proximite et une relation directe aux promenades du littoral.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Residence contemporaine en marina, a quelques pas des promenades, commerces et vues ouvertes vers le littoral.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Chambre confortable et bien proportionnee, adaptee a un sejour prolonge ou a un usage saisonnier.
-  entrance:
-    isEnabled: true
-    texts:
-      - Acces simple et rassurant, dans un environnement lisible et facile a pratiquer.
-  living:
-    isEnabled: true
-    texts:
-      - Piece de vie lumineuse ouverte sur la terrasse, avec une ambiance claire et detendue.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compacte et efficace, adaptee a un usage quotidien ou a un pied-a-terre.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salle d'eau contemporaine, facile d'entretien et coherente avec le positionnement du bien.
 ---
 
 ## Visite guidee

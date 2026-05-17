@@ -1,7 +1,6 @@
 ---
 identifier: FBAVA006
 name: Appartement avec vue sur les remparts
-description: 97 m2 - 2 chambres - adresse medina
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
@@ -55,35 +54,8 @@ slug: appartement-avec-vue-sur-les-remparts-medina-bava006
 highlight: Une lecture medina plus lumineuse et contemporaine
 review: |
   Un appartement de medina qui combine acces simple, lumiere et vue plus ouverte.
-blockquote: |
-  Un format compact et clair pour vivre la medina autrement.
 locationDescription: |
   La medina reste recherchee pour son identite, sa vie de quartier et sa pratique a pied.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de medina avec un rapport direct au patrimoine et aux remparts.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres bien proportionnees pour une residence simple.
-  entrance:
-    isEnabled: true
-    texts:
-      - Acces discret et circulation sans complexite.
-  living:
-    isEnabled: true
-    texts:
-      - Sejour lumineux avec une vue plus ouverte que la moyenne en medina.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compacte et cohérente avec l'echelle du bien.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau pour un confort de base bien calibre.
 ---
 ## Visite guidee
 

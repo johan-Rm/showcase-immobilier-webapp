@@ -83,9 +83,7 @@ export const usePageSeo = (
 ): UsePageSeoReturn => {
   const route = useRoute()
   const config = useRuntimeConfig()
-  // const localePath = useLocalePath()
   const switchLocalePath = useSwitchLocalePath()
-  // const isHomeRoute = computed(() => route.path === localePath('/'))
   const isIndexable = computed(() => config.public.isIndexable === true)
   const siteName = config.public.siteName
   const appConfig = useAppConfig()

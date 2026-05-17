@@ -1,7 +1,6 @@
 ---
 identifier: FBAVLG002
 name: Location gerance de maison d'hotes en medina
-description: 230 m2 - 5 suites - exploitation cle en main
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: location-gerance
@@ -54,35 +53,8 @@ slug: location-gerance-de-maison-dhotes-en-medina-medina-bavlg002
 highlight: Une opportunite d'exploitation plus qu'un simple actif immobilier
 review: |
   Une offre qui parle a un profil operateur avec une promesse claire de reprise ou d'exploitation.
-blockquote: |
-  Une base de gerance lisible pour un projet d'accueil a taille humaine.
 locationDescription: |
   La medina reste le secteur le plus naturel pour ce type d'activite d'accueil a Essaouira.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de medina favorable a une activite d'accueil.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cinq suites qui structurent clairement l'offre.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree sobre et bien adaptee a une exploitation.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces communs faciles a exploiter en maison d'hotes.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compatible avec une logique de service.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Cinq salles d'eau en phase avec la capacite.
 ---
 ## Visite guidee
 

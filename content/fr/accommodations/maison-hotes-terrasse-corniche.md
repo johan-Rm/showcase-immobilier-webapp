@@ -1,7 +1,6 @@
 ---
 identifier: FBAVMD002
 name: Maison d'hotes avec terrasse sur la corniche
-description: 210 m2 - 4 suites - terrasse ocean
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maisons-dhotes
@@ -55,35 +54,8 @@ slug: maison-dhotes-avec-terrasse-sur-la-corniche-corniche-bavmd002
 highlight: Une adresse d'accueil plus ouverte, portee par la mer et la terrasse
 review: |
   Un produit d'accueil qui repose sur une promesse ocean tres lisible et facile a valoriser.
-blockquote: |
-  Une maison d'hotes de littoral avec une vraie desirabilite de sejour.
 locationDescription: |
   La corniche offre une lecture directe du bord de mer et un positionnement d'accueil plus ouvert.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Facade et terrasse en prise directe avec l'ambiance littorale.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Quatre suites qui gardent une capacite simple a gerer.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree adaptee a une logique d'accueil saisonnier.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces communs portes par la terrasse et la vue ocean.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compatible avec une petite exploitation.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau en nombre coherent avec l'usage d'accueil.
 ---
 ## Visite guidee
 

@@ -1,7 +1,6 @@
 ---
 identifier: FLLDA002
 name: Appartement marina avec terrasse filante
-description: 102 m2 - 2 chambres - terrasse ouverte
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
@@ -55,35 +54,8 @@ highlight: Une location durable dans un cadre ouvert et agréable
 review: |
   Cet appartement répond bien à une demande de résidence secondaire longue ou d'installation souple à l'année, avec une terrasse qui améliore clairement le confort.
   Le secteur marina convient à des profils qui cherchent un cadre plus ouvert et plus résidentiel que la médina.
-blockquote: |
-  Un appartement de marina lisible, stable et agréable à habiter sur la durée.
 locationDescription: |
   La marina offre un cadre plus aéré, proche de la promenade et de plusieurs usages de loisirs. Pour une location au mois, le secteur est apprécié pour son équilibre entre confort et accessibilité.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Résidence bien intégrée dans un environnement plus ouvert que le centre historique.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres qui permettent une résidence confortable à deux ou en petite famille.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrée simple et circulation fluide vers la pièce principale.
-  living:
-    isEnabled: true
-    texts:
-      - Séjour agréable prolongé par une terrasse exploitable au quotidien.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine pratique pour un usage résidentiel au long cours.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau pour un confort d'usage plus stable.
 ---
 ## Visite guidee
 

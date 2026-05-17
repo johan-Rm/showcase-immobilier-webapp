@@ -1,7 +1,6 @@
 ---
 identifier: FBAVR007
 name: Riad avec terrasse sur les remparts
-description: 195 m2 - 4 chambres - terrasse ouverte
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -55,35 +54,8 @@ slug: riad-avec-terrasse-sur-les-remparts-medina-bavr007
 highlight: Une terrasse qui renforce fortement la desirabilite du bien
 review: |
   Le bien se distingue par sa terrasse et une composition simple a valoriser commercialement.
-blockquote: |
-  Un riad lumineux avec un vrai exterieur de vie en medina.
 locationDescription: |
   La medina donne ici toute sa force au produit, entre patrimoine, marche a pied et attractivite locative.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse bien inscrite dans le tissu ancien avec une terrasse tres valorisable.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Quatre chambres qui permettent un usage flexible.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree traditionnelle avec circulation naturelle vers le patio.
-  living:
-    isEnabled: true
-    texts:
-      - Volumes interieurs chaleureux prolonges par la terrasse.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine fonctionnelle pour un usage prive ou locatif.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau suffisantes pour une capacite intermediaire.
 ---
 ## Visite guidee
 

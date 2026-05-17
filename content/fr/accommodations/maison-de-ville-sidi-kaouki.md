@@ -1,7 +1,6 @@
 ---
 identifier: FBAVMDV001
 name: Maison de ville proche ocean
-description: 140 m2 - 3 chambres - terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-ville
@@ -55,35 +54,8 @@ highlight: Une vie douce a deux pas de la plage
 review: |
   Une maison souple dans son usage, bien adaptee a une vie en bord de mer avec une echelle domestique rassurante.
   La terrasse et la proximite de l'ocean donnent au bien un potentiel evident pour une residence secondaire ou une location de charme.
-blockquote: |
-  Une maison de ville a l'esprit ocean, avec terrasse ensoleillee et rythme de vie plus apaisé.
 locationDescription: |
   Sidi Kaouki se distingue par son ambiance plus libre, plus naturelle et plus balneaire que le centre d'Essaouira. Le secteur seduit les acquereurs qui cherchent une relation directe a la plage, au vent, aux grands espaces et a une vie quotidienne plus calme.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Maison de ville a l'esprit ocean, situee dans un environnement calme a quelques minutes de la plage.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres confortables, adaptees a une occupation familiale ou a des sejours repetes en bord de mer.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree simple et rassurante, facile a pratiquer au quotidien comme en residence secondaire.
-  living:
-    isEnabled: true
-    texts:
-      - Sejour chaleureux, prolonge par une ambiance douce et une relation agreable aux exterieurs.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine fonctionnelle dans l'esprit d'une maison facile a vivre toute l'annee.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau pratiques, coherentes avec un usage familial ou touristique de moyenne duree.
 ---
 ## Visite guidee
 

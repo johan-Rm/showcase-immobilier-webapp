@@ -1,7 +1,6 @@
 ---
 identifier: FBAVVG002
 name: Villa golf avec piscine privee
-description: 360 m2 - 4 chambres - piscine
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: villa-golf
@@ -56,35 +55,8 @@ highlight: Une villa premium en premiere ligne de golf
 review: |
   Une villa de standing avec un positionnement premium immediatement lisible grace au golf, a la piscine et au jardin.
   Le bien parle a une clientele qui cherche autant une adresse statutaire qu'une maison facile a vivre dans un cadre prive.
-blockquote: |
-  Une villa premium au contact du golf, avec piscine privee et jardin pour une vie plus exclusive.
 locationDescription: |
   Le secteur palmeraie et golf renvoie a un environnement plus residentiel, plus confidentiel et plus haut de gamme. On y recherche d'abord l'espace, la qualite du cadre et la sensation de retrait, tout en conservant une accessibilite acceptable vers Essaouira et ses services.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Villa de standing ouverte sur le golf, avec jardin soigne et piscine privee dans un cadre plus exclusif.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Quatre chambres confortables, concues pour accueillir famille et invites dans de bonnes conditions.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree elegante et rassurante, en phase avec un bien residentiel premium.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces de reception lumineux, prolonges vers les terrasses et les vues sur le jardin.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine familiale ou de reception, facile a inscrire dans un usage confortable toute l'annee.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau adaptees a un niveau de gamme eleve, avec une logique de confort prive.
 ---
 
 ## Visite guidee

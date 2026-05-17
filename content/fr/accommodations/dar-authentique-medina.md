@@ -1,7 +1,6 @@
 ---
 identifier: FBAVD001
 name: Dar authentique dans la medina
-description: 120 m2 - 3 chambres - patio
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: dar
@@ -55,35 +54,8 @@ highlight: Un charme authentique en pleine medina
 review: |
   Une dar de caractere qui combine le registre authentique de la medina avec des volumes familiaux faciles a valoriser.
   Le patio et la terrasse renforcent son potentiel pour un usage residentiel, un pied-a-terre de charme ou une location bien positionnee.
-blockquote: |
-  Une adresse authentique en medina, avec patio lumineux et terrasse, pour une experience de vie plus douce et plus inspiree.
 locationDescription: |
   Au coeur de la medina d'Essaouira, le quartier met en avant un tissu urbain historique, anime et tres recherche. Les ruelles, les echoppes, les restaurants et les places de vie donnent un fort caractere au secteur tout en maintenant un acces a pied aux services essentiels.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Facade discrete en medina, inscrite dans un environnement authentique et vivant a taille humaine.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres qui permettent une occupation familiale ou un usage d'accueil avec une lecture simple des espaces.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree dans l'esprit du bati ancien, avec une transition douce vers les espaces interieurs.
-  living:
-    isEnabled: true
-    texts:
-      - Volumes chaleureux articules autour du patio, favorables a une vie quotidienne plus calme.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine de maison de medina, fonctionnelle et facile a projeter dans une logique residentielle.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau pratiques, adaptees a un usage familial ou locatif bien organise.
 ---
 ## Visite guidee
 

@@ -1,7 +1,6 @@
 ---
 identifier: FBAVT001
 name: Terrain constructible route de Safi
-description: 980 m2 - viabilise - acces facile
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: terrain
@@ -50,35 +49,8 @@ highlight: Un terrain pret a accueillir votre projet
 review: |
   Une assiette fonciere simple a lire, avec des caracteristiques qui reduisent les frictions de lancement pour un projet residentiel.
   L'acces et la viabilisation constituent de bons marqueurs pour une operation de construction raisonnablement maitrisable.
-blockquote: |
-  Un terrain bien positionne pour lancer un projet neuf sans sur-complexite inutile.
 locationDescription: |
   La route de Safi constitue un secteur de developpement recherche pour sa lisibilite, ses acces routiers et ses possibilites de projection. L'environnement permet d'envisager des projets residentiels dans une logique plus ouverte, avec une connexion simple vers Essaouira et ses services.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Parcelle bien exposee, avec une lecture claire des acces et du potentiel de construction.
-  bedrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace nuit tant que le projet de construction n'est pas realise.
-  entrance:
-    isEnabled: true
-    texts:
-      - Acces terrain simple a projeter selon le futur plan masse et les besoins du projet.
-  living:
-    isEnabled: false
-    texts:
-      - Aucun espace de vie bati sur cette fiche fonciere.
-  kitchen:
-    isEnabled: false
-    texts:
-      - Aucun espace cuisine tant que le programme n'est pas developpe.
-  bathrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace sanitaire bati sur le terrain dans son etat actuel.
 ---
 ## Visite guidee
 

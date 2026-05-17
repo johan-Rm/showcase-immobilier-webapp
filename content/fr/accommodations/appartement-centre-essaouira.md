@@ -1,7 +1,6 @@
 ---
 identifier: FBAVA002
 name: Appartement centre ville, balcon
-description: 92 m2 - 2 chambres - balcon
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
@@ -75,35 +74,8 @@ highlight: Une adresse centrale facile a vivre
 review: |
   Un appartement bien distribue au coeur de la ville, facile a vivre au quotidien et simple a projeter.
   Son balcon, ses volumes equilibrés et sa proximite immediate des commodites en font une base solide pour une residence principale ou un investissement.
-blockquote: |
-  Un appartement central, lumineux et pratique, avec un balcon qui prolonge agreablement les espaces de vie.
 locationDescription: |
   Situe en centre-ville d'Essaouira, ce secteur permet un acces rapide aux commerces, aux services et aux axes principaux. L'environnement est vivant sans etre complique a pratiquer au quotidien, ce qui convient bien a une residence principale, a un pied-a-terre ou a un usage locatif annuel.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Residence bien situee en centre-ville, a proximite immediate des commerces, transports et services du quotidien.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres bien distribuees, adaptees a une vie familiale, a un pied-a-terre confortable ou a une mise en location.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree simple et fonctionnelle, avec une circulation fluide vers les espaces de vie.
-  living:
-    isEnabled: true
-    texts:
-      - Sejour lumineux prolonge par le balcon, facile a amenager pour un usage quotidien.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine pratique, pensee pour une utilisation reguliere sans complexite inutile.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau fonctionnelles, adaptees a un usage residentiel ou locatif.
 ---
 ## Visite guidee
 

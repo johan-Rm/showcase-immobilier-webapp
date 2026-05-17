@@ -1,7 +1,6 @@
 ---
 identifier: FBAVD002
 name: Dar renovee avec patio en medina
-description: 148 m2 - 3 chambres - patio et toit-terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: dar
@@ -55,35 +54,8 @@ slug: dar-renovee-avec-patio-en-medina-medina-bavd002
 highlight: Une dar renovee facile a vivre et simple a valoriser
 review: |
   Un bien de medina tres lisible, avec une renovation qui facilite la projection residentielle.
-blockquote: |
-  Une dar chaleureuse, compacte et bien calibree.
 locationDescription: |
   La medina renforce ici l'interet patrimonial et l'usage a pied du bien.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse discrete et rassurante au coeur de la medina.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres adaptees a une famille ou a un pied-a-terre confortable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree simple qui met rapidement le patio au centre du bien.
-  living:
-    isEnabled: true
-    texts:
-      - Volumes chaleureux, faciles a habiter ou a presenter.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine en phase avec un usage domestique quotidien.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Trois salles d'eau qui fluidifient l'usage.
 ---
 ## Visite guidee
 

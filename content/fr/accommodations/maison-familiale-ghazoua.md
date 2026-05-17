@@ -1,7 +1,6 @@
 ---
 identifier: FLLDMDC001
 name: Maison familiale avec jardin à Ghazoua
-description: 160 m2 - 3 chambres - jardin et stationnement
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
@@ -55,35 +54,8 @@ highlight: Une maison résidentielle claire pour s'installer hors de l'hypercent
 review: |
   Le bien répond à une demande de location familiale au mois avec plus d'espace, de jardin et de facilité d'accès que dans les secteurs plus denses.
   Ghazoua reste pertinent pour des locataires qui cherchent un rythme plus calme et un budget surface mieux équilibré.
-blockquote: |
-  Une maison simple, habitable et familiale, pensée pour durer.
 locationDescription: |
   Ghazoua offre un environnement plus résidentiel, avec davantage d'espace et de respiration. Le secteur convient à une vie quotidienne plus calme autour d'Essaouira.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Maison de plain-pied ou semi-plain-pied avec un rapport direct au jardin.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres adaptées à une vie familiale stable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Accès simple avec stationnement pratique au quotidien.
-  living:
-    isEnabled: true
-    texts:
-      - Séjour ouvert et lumineux, pensé pour une occupation principale.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine cohérente avec une vie résidentielle complète.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Trois salles d'eau qui fluidifient les usages d'une famille.
 ---
 ## Visite guidee
 

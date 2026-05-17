@@ -3,8 +3,6 @@ identifier: BAVLC001
 
 name: Superbe local commercial a Erraounak
 
-description: Local commercial de 27 m² entièrement rénové avec vitrine situé dans le quartier Erraounak à Essaouira
-
 category: local-commercial
 
 offer:
@@ -28,6 +26,14 @@ associatedMedia:
     caption: Façade du local commercial avec vitrine sur rue passante
     keywords: [gallery]
 
+qualities:
+  - name: Confort
+    value: 85
+  - name: Architecture
+    value: 40
+  - name: Intérieur
+    value: 80
+
 realEstateListing: bien-a-vendre
 
 isActive: true
@@ -39,7 +45,6 @@ slug: bavlc001-local-commercial-27m2-erraounak-essaouira
 
 dateCreated: '2026-05-01T00:00:00+01:00'
 dateModified: '2026-05-01T00:00:00+01:00'
-
 ---
 
 Superbe local commercial de 27 m² situé dans un secteur dynamique et très recherché.

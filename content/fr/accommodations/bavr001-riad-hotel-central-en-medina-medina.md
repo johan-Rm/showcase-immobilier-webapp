@@ -3,8 +3,6 @@ identifier: BAVR001
 
 name: Riad hôtel central en médina
 
-description: 238 m2 - 20 chambres - patio et terrasse
-
 category: riad
 
 offer:
@@ -85,34 +83,8 @@ slug: bavr001-riad-hotel-central-en-medina-medina
 highlight: Un riad hôtel exploitable immédiatement au cœur de la médina
 review: |
   Une opportunité rare avec une structure déjà adaptée à l’exploitation touristique.
-blockquote: |
-  Un riad authentique avec un fort potentiel hôtelier.
-
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Façade typique en ruelle de médina.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Vingt chambres adaptées à l’accueil touristique.
-  living:
-    isEnabled: true
-    texts:
-      - Patio central structurant les espaces de vie.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine fonctionnelle pour activité hôtelière.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d’eau réparties sur l’ensemble du riad.
-
 dateCreated: '2026-05-01T00:00:00+01:00'
 dateModified: '2026-05-01T00:00:00+01:00'
-
 ---
 
 ## Description

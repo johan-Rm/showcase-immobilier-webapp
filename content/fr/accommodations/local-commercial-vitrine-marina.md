@@ -1,7 +1,6 @@
 ---
 identifier: FBAVLC002
 name: Local commercial avec vitrine a la marina
-description: 78 m2 - vitrine - flux promenade
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: local-commercial
@@ -49,35 +48,8 @@ slug: local-commercial-avec-vitrine-a-la-marina-marina-bavlc002
 highlight: Un petit format commercial bien place dans un secteur de promenade
 review: |
   Un local simple a projeter pour une activite de service, de vente ou de petite restauration.
-blockquote: |
-  Un local de marina tres lisible, avec un bon potentiel de passage.
 locationDescription: |
   La marina favorise les activites qui vivent de promenade, de visibilite et d'un environnement plus ouvert.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Vitrine claire dans un secteur a forte lecture pietonne.
-  bedrooms:
-    isEnabled: false
-    texts:
-      - Aucun espace nuit sur cette fiche.
-  entrance:
-    isEnabled: true
-    texts:
-      - Acces immediat depuis les circulations de marina.
-  living:
-    isEnabled: true
-    texts:
-      - Plateau principal compact et adaptable.
-  kitchen:
-    isEnabled: false
-    texts:
-      - Aucun espace cuisine structurant mis en avant.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Sanitaires a organiser selon le besoin.
 ---
 ## Visite guidee
 

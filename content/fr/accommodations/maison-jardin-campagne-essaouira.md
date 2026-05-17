@@ -1,7 +1,6 @@
 ---
 identifier: FLLDMDC002
 name: Maison avec jardin en campagne d'Essaouira
-description: 145 m2 - 3 chambres - jardin arboré
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
@@ -55,35 +54,8 @@ highlight: Un cadre plus respirant pour une installation durable hors du centre
 review: |
   Cette maison répond bien à une recherche d'espace, de calme et de jardin sans partir sur un produit trop isolé ou trop spectaculaire.
   Le format reste lisible et cohérent pour une famille ou un couple en télétravail.
-blockquote: |
-  Une maison de campagne sobre et agréable, pensée pour une location durable.
 locationDescription: |
   La campagne d'Essaouira attire des profils qui veulent plus d'air, plus d'espace et une relation plus directe au paysage. Le bien reste compatible avec des allers-retours réguliers vers la ville.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Jardin arboré et terrasse qui structurent une vraie qualité de vie extérieure.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres cohérentes pour une résidence stable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Accès pratique avec une lecture simple des espaces.
-  living:
-    isEnabled: true
-    texts:
-      - Grand séjour lumineux ouvert sur les extérieurs.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine domestique adaptée à un usage quotidien.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau suffisantes pour une occupation familiale raisonnable.
 ---
 ## Visite guidee
 

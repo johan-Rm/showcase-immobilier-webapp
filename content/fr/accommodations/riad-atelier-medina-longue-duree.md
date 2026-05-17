@@ -1,7 +1,6 @@
 ---
 identifier: FLLDR001
 name: Riad atelier en médina pour longue durée
-description: 134 m2 - 2 chambres - patio et espace bureau
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -55,35 +54,8 @@ highlight: Un riad plus créatif et habitable, adapté à un rythme de vie insta
 review: |
   Le bien vise un profil résidentiel créatif ou télétravail, avec un format de riad moins cérémoniel et plus fonctionnel.
   L'espace bureau ou atelier donne un vrai angle d'usage sans complexifier la promesse principale.
-blockquote: |
-  Un riad de médina habitable et inspirant, pensé pour vivre et travailler sur la durée.
 locationDescription: |
   La médina convient à des profils qui cherchent une adresse de caractère et une immersion quotidienne forte. Le bien ajoute à cela un espace utile pour travailler ou créer.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de médina avec une ambiance résidentielle et créative.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Deux chambres confortables pour une installation stable à deux ou plus.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrée discrète vers un patio qui organise clairement les usages.
-  living:
-    isEnabled: true
-    texts:
-      - Séjour et espace bureau qui permettent une vie quotidienne plus souple.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine simple, adaptée à un usage régulier.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau pour une occupation durable plus confortable.
 ---
 ## Visite guidee
 

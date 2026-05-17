@@ -3,8 +3,6 @@ identifier: BAVLC002
 
 name: Local commercial avec fonds de commerce médina
 
-description: 57 m2 - local et fonds de commerce proche Bab Marrakech
-
 dateCreated: '2026-05-01T00:00:00+01:00'
 dateModified: '2026-05-01T00:00:00+01:00'
 
@@ -60,7 +58,6 @@ slug: bavlc002-local-commercial-avec-fonds-de-commerce-medina-medina
 
 review: |
   Local et fonds de commerce de 57 m² situé au cœur de la médina, proche de Bab Marrakech. Le bien est en bon état avec un rafraîchissement à prévoir.
-
 ---
 
 Surface : 57 m²

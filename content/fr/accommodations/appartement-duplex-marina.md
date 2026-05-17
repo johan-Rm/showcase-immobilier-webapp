@@ -1,7 +1,6 @@
 ---
 identifier: FBAVA003
 name: Appartement duplex a la marina
-description: 118 m2 - 3 chambres - terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
@@ -55,35 +54,8 @@ slug: appartement-duplex-a-la-marina-marina-bava003
 highlight: Un appartement de marina bien calibre pour une vie familiale souple
 review: |
   Un duplex lisible, avec une belle capacite d'usage et une terrasse qui prolonge agreablement le sejour.
-blockquote: |
-  Un appartement facile a habiter, avec une vraie logique familiale.
 locationDescription: |
   La marina offre un cadre plus ouvert, agreable a pied et bien adapte a une residence secondaire ou principale.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Residence de marina bien integree dans un environnement de promenade.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Trois chambres qui soutiennent une occupation familiale confortable.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree simple avec une circulation claire entre les niveaux.
-  living:
-    isEnabled: true
-    texts:
-      - Sejour lumineux ouvert sur la terrasse.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine adaptee a un usage quotidien ou saisonnier.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Deux salles d'eau suffisantes pour une occupation a plusieurs.
 ---
 ## Visite guidee
 

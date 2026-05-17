@@ -1,7 +1,6 @@
 ---
 identifier: FBAVR002
 name: Riad avec cour et jacuzzi en medina
-description: 245 m2 - 5 chambres - cour et toit-terrasse
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
@@ -56,35 +55,8 @@ slug: riad-avec-cour-et-jacuzzi-en-medina-medina-bavr002
 highlight: Un riad plus experiential sans perdre en credibilite immobiliere
 review: |
   Une adresse qui coche les marqueurs attendus d'un riad premium avec une lecture produit tres immediate.
-blockquote: |
-  Un riad de caractere, pense pour habiter ou recevoir avec plus de desirabilite.
 locationDescription: |
   La medina reste le coeur naturel des projets riad, entre attrait patrimonial et dynamique d'accueil.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Riad bien insere dans la medina avec une vraie promesse d'experience.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cinq chambres qui autorisent une capacite large.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree soignee qui renforce le statut du bien.
-  living:
-    isEnabled: true
-    texts:
-      - Espaces de vie organises autour de la cour et du patio.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine compatible avec une maison de charme ou une petite exploitation.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Cinq salles d'eau qui soutiennent une logique premium.
 ---
 ## Visite guidee
 

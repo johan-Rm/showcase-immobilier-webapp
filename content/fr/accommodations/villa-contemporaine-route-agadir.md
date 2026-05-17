@@ -1,7 +1,6 @@
 ---
 identifier: FBAVMDC002
 name: Villa contemporaine route d'Agadir
-description: 300 m2 - 4 chambres - piscine
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
@@ -55,35 +54,8 @@ highlight: Une villa contemporaine prete a seduire
 review: |
   Une villa recente qui assume un registre contemporain, avec de vrais marqueurs de confort et de lisibilite architecturale.
   La surface, les quatre chambres et les exterieurs donnent un produit bien arme pour une clientele familiale ou une residence secondaire de standing.
-blockquote: |
-  Une villa claire et contemporaine, pensee pour un usage confortable toute l'annee avec jardin et piscine.
 locationDescription: |
   La route d'Agadir offre un compromis interessant entre accessibilite, calme relatif et disponibilite de grandes parcelles. Le secteur attire pour ses villas recentes, ses vues plus ouvertes et sa connexion simple aux entrees de ville comme aux deplacements regionaux.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Villa recente dans un environnement degage, avec jardin, piscine et une lecture architecturale contemporaine.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Quatre chambres bien proportionnees, adaptees a une vie familiale ou a une residence secondaire de standing.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree sobre et qualitative, en coherence avec le positionnement haut de gamme du bien.
-  living:
-    isEnabled: true
-    texts:
-      - Grande piece de vie lumineuse, ouverte sur les exterieurs et pensee pour un usage convivial.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cuisine contemporaine a projeter dans une logique de confort quotidien et de reception.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salles d'eau en nombre et en niveau de confort adaptes a une villa familiale recente.
 ---
 ## Visite guidee
 

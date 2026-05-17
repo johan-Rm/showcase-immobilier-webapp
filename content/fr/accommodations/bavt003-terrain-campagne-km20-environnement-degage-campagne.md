@@ -26,15 +26,7 @@ tags:
   - investissement
   - bien-titre
 
-associatedMedia:
-  - image: bavt003-terrain-campagne-km20-vue-degagee-01
-    caption: Terrain en campagne avec vue degagee
-    keywords: [gallery]
-    representativeOfPage: true
-
-  - image: bavt003-terrain-campagne-km20-environnement-naturel-02
-    caption: Environnement naturel du terrain
-    keywords: [gallery]
+associatedMedia: []
 
 isActive: true
 

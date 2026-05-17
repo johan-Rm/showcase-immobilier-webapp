@@ -1,7 +1,6 @@
 ---
 identifier: FBAVCD002
 name: Chambre d'hotes avec terrasse sur la corniche
-description: 30 m2 - suite - terrasse et vue mer
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2023-01-04T11:24:43+01:00'
 category: chambre-dhotes
@@ -54,35 +53,8 @@ slug: chambre-dhotes-avec-terrasse-sur-la-corniche-corniche-bavcd002
 highlight: Un petit format d'accueil bien porte par l'ocean
 review: |
   Une petite capacite de bord de mer qui repose sur une promesse produit simple et desirables.
-blockquote: |
-  Une chambre d'hotes de corniche avec une vraie lecture littorale.
 locationDescription: |
   La corniche soutient bien les formats d'accueil legers grace a la mer, la promenade et la vue.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Adresse de bord de mer lisible et facile a valoriser.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Une suite simple et confortable pour un usage d'accueil.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entree directe et pratique pour une petite capacite.
-  living:
-    isEnabled: false
-    texts:
-      - Le format privilegie la chambre et la terrasse plutot qu'un salon.
-  kitchen:
-    isEnabled: false
-    texts:
-      - Aucun espace cuisine structurant mis en avant.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Salle d'eau privee en phase avec l'usage.
 ---
 ## Visite guidee
 
