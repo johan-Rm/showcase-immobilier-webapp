@@ -12,6 +12,7 @@ export const CONTENT_RESOURCES = [
   'person',
   'media-object',
   'accommodations',
+  'forms/accommodation',
 ] as const satisfies readonly ResourceKey[]
 
 export const isResourceKey = (value: string): value is ResourceKey =>

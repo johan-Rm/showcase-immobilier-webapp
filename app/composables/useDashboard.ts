@@ -135,6 +135,12 @@ const _useDashboard = (): UseDashboardReturn => {
           toggleCommandProperty()
         },
       },
+      ctrl_d: {
+        usingInput: false,
+        handler: () => {
+          navigateTo('/dashboard')
+        },
+      },
     })
   }
   watch(

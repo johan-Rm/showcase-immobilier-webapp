@@ -120,10 +120,10 @@
             {{ props.sections.visitGuide }}
           </HeadingH2> -->
           <div
-            v-if="props.property?.description"
+            v-if="props.property?.body"
             class="markdown-panel text-foreground/80 [&_a]:text-primary [&_blockquote]:border-primary/30 [&_blockquote]:bg-primary/5 [&_blockquote]:text-foreground/80 [&_code]:bg-foreground/10 [&_code]:text-foreground [&_h1]:text-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_p]:text-foreground/80 [&_pre]:bg-foreground/10 max-w-2xl space-y-4 text-sm leading-relaxed md:text-base [&_a]:underline-offset-4 [&_a]:transition hover:[&_a]:underline [&_blockquote]:rounded-lg [&_blockquote]:border-l-2 [&_blockquote]:px-4 [&_blockquote]:py-3 [&_code]:rounded-md [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[0.9em] [&_h1]:text-2xl [&_h1]:font-semibold [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:text-lg [&_h3]:font-semibold [&_ol>li]:ml-5 [&_ol>li]:list-decimal [&_pre]:overflow-x-auto [&_pre]:rounded-xl [&_pre]:p-4 [&_ul>li]:ml-5 [&_ul>li]:list-disc"
           >
-            <MDC :value="props.property.description" />
+            <MDC :value="props.property.body" />
           </div>
           <p v-else class="text-foreground/80 text-sm">—</p>
         </section>

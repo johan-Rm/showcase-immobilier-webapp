@@ -452,7 +452,7 @@ const mapAccommodationWithIndexes = (
   return {
     ...item,
     name: getString(record.name, getString(record.metaTitle, getString(record.slug))),
-    description: getString(record.body, getString(record.description)),
+    body: getString(record.body, getString(record.description)),
     identifier: getString(record.identifier, getString(record.slug)),
     category: mapCategory(record.category, indexes),
     offer: mapOffer(record.offer),

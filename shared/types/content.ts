@@ -10,3 +10,4 @@ export type ResourceKey =
   | 'person'
   | 'media-object'
   | 'accommodations'
+  | 'forms/accommodation'

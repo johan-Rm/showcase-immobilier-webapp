@@ -1,3 +1,4 @@
+import type { AccommodationForm } from '#shared/types/accommodationForm'
 import type { App } from '#shared/types/app'
 import type {
   AccommodationCategory,
@@ -12,6 +13,7 @@ import { defineStore } from 'pinia'
 
 type MetadataState = {
   app: App | null
+  accommodationForm: AccommodationForm | null
   realEstateListings: RealEstateListing[]
   accommodationCategories: AccommodationCategory[]
   categoryCodes: CategoryCode[]
@@ -25,6 +27,7 @@ type MetadataState = {
 export const useMetadataStore = defineStore('metadata', {
   state: (): MetadataState => ({
     app: null,
+    accommodationForm: null,
     realEstateListings: [],
     accommodationCategories: [],
     categoryCodes: [],
@@ -54,6 +57,10 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns Tableau d’annonces immobilières stockées.
      */
+    getAccommodationForm(state: MetadataState): AccommodationForm | null {
+      return state.accommodationForm
+    },
+
     getAccommodationRealEstateListings(state: MetadataState): RealEstateListing[] {
       return state.realEstateListings
     },
@@ -170,6 +177,10 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns `void`.
      */
+    setAccommodationForm(item: AccommodationForm | null): void {
+      this.accommodationForm = item && typeof item === 'object' ? item : null
+    },
+
     setAccommodationRealEstateListings(items: RealEstateListing[]): void {
       this.realEstateListings = Array.isArray(items) ? items : []
     },
@@ -258,6 +269,7 @@ export const useMetadataStore = defineStore('metadata', {
      */
     reset(): void {
       this.app = null
+      this.accommodationForm = null
       this.realEstateListings = []
       this.accommodationCategories = []
       this.categoryCodes = []

@@ -23,7 +23,10 @@ const YAML_FILE_BY_RESOURCE: Partial<Record<ResourceKey, string>> = {
   'accommodation-place': 'accommodation-place.yaml',
   person: 'person.yaml',
   'media-object': 'media-object.yaml',
+  'forms/accommodation': 'forms/accommodation.yaml',
 }
+
+const YAML_OBJECT_RESOURCES = new Set<ResourceKey>(['app', 'forms/accommodation'])
 
 const MARKDOWN_DIR_BY_RESOURCE: Partial<Record<ResourceKey, string>> = {
   'web-pages': 'web-pages',
@@ -156,7 +159,7 @@ const loadYamlResource = async <T>(resource: ResourceKey, locale: LocaleCode): P
   const raw = await readFile(filePath, 'utf8')
   const parsed = YAML.parse(raw)
 
-  if (resource === 'app') {
+  if (YAML_OBJECT_RESOURCES.has(resource)) {
     return extractYamlObject<T>(parsed, filePath)
   }
 

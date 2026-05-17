@@ -128,7 +128,7 @@ const toPropertyItem = (accommodation: Accommodation): PropertyItem => ({
   city: getAddressCity(accommodation),
   title: accommodation.name ?? 'Hébergement',
   price: formatPrice(getOfferPrice(accommodation), getOfferCurrency(accommodation)),
-  meta: accommodation.description ?? '',
+  meta: accommodation.body ?? '',
   tags: getTags(accommodation),
   image: getPrimaryImage(accommodation),
   href: getAccommodationHref(accommodation),

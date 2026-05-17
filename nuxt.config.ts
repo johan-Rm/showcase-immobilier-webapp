@@ -136,7 +136,12 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
     'nuxt-auth-utils',
+    'nuxt-tiptap-editor',
   ],
+
+  tiptap: {
+    prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
+  },
 
   mdc: {
     headings: {
@@ -215,5 +220,8 @@ export default defineNuxtConfig({
       },
     },
     plugins: [ViteYaml(), (await import('vite-svg-loader')).default()],
+    optimizeDeps: {
+      include: ['@tiptap/markdown', '@tiptap/extension-table', 'markdown-it'],
+    },
   },
 })
