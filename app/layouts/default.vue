@@ -20,6 +20,7 @@
       <slot />
     </UMain>
     <LazyUdrawerDesignSystem />
+    <CommandPropertyModal />
     <Transition name="fade-up" appear>
       <LazyNavigationMain />
     </Transition>
