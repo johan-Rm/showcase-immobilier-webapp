@@ -1,3 +1,10 @@
+/**
+ * Supprime le slash final d'un chemin de route pour permettre des comparaisons homogènes.
+ * Protège contre les variations d'URL trailing slash sans altérer la racine `/`.
+ */
+export const normalizeRoutePath = (value: string): string =>
+  value !== '/' ? value.replace(/\/+$/, '') : '/'
+
 const normalizeSiteUrl = (value: string): string => value.replace(/\/+$/, '')
 
 const normalizePath = (value: string): string => {

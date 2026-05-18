@@ -10,78 +10,54 @@
     <ConstructionModal />
 
     <!-- v-if: maintenu en DOM jusqu'à completion pour permettre la transition CSS avant démontage -->
-    <AppBootShell
-      v-if="shouldMountLandingShell"
-      :overlay-class="landingShellOverlayClass"
-      :logo-class="landingShellLogoClass"
-    />
+    <AppBootShell v-if="shouldMountLandingShell" />
   </UApp>
 </template>
 
 <script lang="ts" setup>
-import { joinURL } from 'ufo'
-
-const normalizePath = (value: string): string => (value !== '/' ? value.replace(/\/+$/, '') : '/')
+// 4. Composables, stores, routeur
 
 const logger = useLogger({ module: 'app' })
+// Locale active utilisée pour synchroniser lang HTML et forcer un re-init des données.
 const { localeSetting } = useLang()
-const runtimeConfig = useRuntimeConfig()
-const route = useRoute()
-const localePath = useLocalePath()
-const { isConstructionEnabled } = useConstructionModal()
+// Statut et données critiques de l'application (web pages, métadonnées).
+const { initCoreData } = useNuxtServerInit()
 
-const baseAssetUrl = runtimeConfig.app.baseURL || '/'
-const LANDING_SHELL_EXIT_DURATION_MS = 500
+// Résolus en setup (contexte Nuxt valide) : useRuntimeConfig() ne peut pas être appelé
+// dans le getter de useHead, qui est évalué par unhead hors contexte Vue côté SSR.
+const faviconSvgHref = assetUrl('favicon.svg')
+const faviconIcoHref = assetUrl('favicon.ico')
+const themesCssHref = assetUrl('themes.css')
 
+// 5. Etat local
+
+// Verrou de déduplication : évite les appels concurrents à initCoreData.
 let initPromise: Promise<boolean> | null = null
+// Garde contre les ré-initialisations non demandées lors de re-renders ou changements de locale.
 let hasInitializedOnce = false
-let landingShellCompletionTimer: ReturnType<typeof setTimeout> | null = null
 
-const { initCoreData, initCoreDataStatus, isInitCoreDataReady } = useNuxtServerInit()
-
-const isHeroImageReady = useState<boolean>('screen.real-estate-full-image.hero-ready', () => false)
-
+// Persiste l'état de fin de vie du shell pour éviter qu'il remonte après sa sortie.
+// Réinitialisé uniquement à chaque rechargement complet de la page.
 const hasLandingShellCompleted = useState<boolean>('app.boot-shell.completed', () => false)
 
-const isHomeRoute = computed<boolean>(() => {
-  return normalizePath(route.path) === normalizePath(localePath('/'))
-})
+// 8. Computed UI-ready
 
-const isDashboardRoute = computed<boolean>(() => {
-  const normalizedPath = normalizePath(route.path)
+// Contrôle le montage DOM du shell, indépendamment de sa visibilité CSS.
+// Le shell reste monté le temps que la transition de sortie s'exécute,
+// puis est retiré du DOM une fois hasLandingShellCompleted passé à true.
+const shouldMountLandingShell = computed<boolean>(() => !hasLandingShellCompleted.value)
 
-  return (
-    normalizedPath === '/dashboard' || normalizedPath === normalizePath(localePath('/dashboard'))
-  )
-})
+// 9. Actions et handlers
 
-const isLandingShellVisible = computed<boolean>(() => {
-  if (isDashboardRoute.value) return false
-  if (isConstructionEnabled.value) return false
-  if (hasLandingShellCompleted.value) return false
-  if (initCoreDataStatus.value === 'error') return false
-  if (!isInitCoreDataReady.value) return true
-  if (!isHomeRoute.value) return false
-
-  return !isHeroImageReady.value
-})
-
-const shouldMountLandingShell = computed<boolean>(() => {
-  if (isDashboardRoute.value) return false
-
-  return !hasLandingShellCompleted.value
-})
-
-const landingShellOverlayClass = computed<string>(() => {
-  return isLandingShellVisible.value
-    ? 'z-[100] opacity-100'
-    : 'z-[100] pointer-events-none opacity-0'
-})
-
-const landingShellLogoClass = computed<string>(() => {
-  return isLandingShellVisible.value ? 'opacity-100' : 'opacity-0'
-})
-
+/**
+ * Déclenche l'initialisation des données critiques de l'application.
+ *
+ * Protège contre les appels concurrents en mémorisant la promesse en cours.
+ * Un second appel pendant l'init en cours attend la résolution de la première.
+ *
+ * @param forceRefresh Si `true`, relance l'init même si elle a déjà été effectuée
+ *   (ex : changement de locale nécessitant un rechargement des données traduites).
+ */
 const runInit = async (forceRefresh = false): Promise<void> => {
   if (hasInitializedOnce && !forceRefresh) {
     return
@@ -105,6 +81,57 @@ const runInit = async (forceRefresh = false): Promise<void> => {
   }
 }
 
+// 10. Watch et watchEffect
+
+// Recharge les données critiques quand la locale change pour refléter la bonne langue.
+// forceRefresh: true permet de contourner la garde hasInitializedOnce.
+watch(
+  () => localeSetting.value,
+  async (nextLocale, previousLocale) => {
+    if (nextLocale === previousLocale) return
+
+    try {
+      await runInit(true)
+    } catch (error) {
+      logger.error('app:init-core-data-refresh-failed', {
+        message: error instanceof Error ? error.message : String(error),
+      })
+    }
+  },
+)
+
+// 11. Metadonnees ecran ou page
+
+useHead(() => ({
+  title: 'MLK - My Little Kasbah',
+  htmlAttrs: {
+    // Synchronise l'attribut lang du document HTML avec la locale active.
+    lang: localeSetting.value,
+  },
+  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+  link: [
+    {
+      key: 'app-favicon-svg',
+      rel: 'icon',
+      type: 'image/svg+xml',
+      href: faviconSvgHref,
+    },
+    {
+      key: 'app-favicon-ico',
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: faviconIcoHref,
+    },
+    {
+      key: 'app-themes-stylesheet',
+      rel: 'stylesheet',
+      href: themesCssHref,
+    },
+  ],
+}))
+
+// 12. Lifecycle
+
 onErrorCaptured((error, instance, info) => {
   const typedError = error as Error
 
@@ -119,33 +146,8 @@ onErrorCaptured((error, instance, info) => {
   return false
 })
 
-useHead(() => ({
-  title: 'MLK - My Little Kasbah',
-  htmlAttrs: {
-    lang: localeSetting.value,
-  },
-  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-  link: [
-    {
-      key: 'app-favicon-svg',
-      rel: 'icon',
-      type: 'image/svg+xml',
-      href: joinURL(baseAssetUrl, 'favicon.svg'),
-    },
-    {
-      key: 'app-favicon-ico',
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: joinURL(baseAssetUrl, 'favicon.ico'),
-    },
-    {
-      key: 'app-themes-stylesheet',
-      rel: 'stylesheet',
-      href: joinURL(baseAssetUrl, 'themes.css'),
-    },
-  ],
-}))
-
+// Déclenche l'init après que Nuxt ait terminé son hydratation côté client.
+// Garantit que les stores et composables sont prêts avant le premier appel API.
 onNuxtReady(() => {
   runInit().catch((error: unknown) => {
     logger.error('app:init-core-data-failed', {
@@ -153,52 +155,4 @@ onNuxtReady(() => {
     })
   })
 })
-
-watch(
-  isLandingShellVisible,
-  async (visible) => {
-    if (import.meta.server) return
-    if (landingShellCompletionTimer) {
-      clearTimeout(landingShellCompletionTimer)
-      landingShellCompletionTimer = null
-    }
-
-    if (visible || initCoreDataStatus.value === 'loading') return
-
-    await nextTick()
-
-    if (!isLandingShellVisible.value) {
-      landingShellCompletionTimer = setTimeout(() => {
-        if (!isLandingShellVisible.value) {
-          hasLandingShellCompleted.value = true
-        }
-
-        landingShellCompletionTimer = null
-      }, LANDING_SHELL_EXIT_DURATION_MS)
-    }
-  },
-  { immediate: true },
-)
-
-onUnmounted(() => {
-  if (landingShellCompletionTimer) {
-    clearTimeout(landingShellCompletionTimer)
-    landingShellCompletionTimer = null
-  }
-})
-
-watch(
-  () => localeSetting.value,
-  async (nextLocale, previousLocale) => {
-    if (nextLocale === previousLocale) return
-
-    try {
-      await runInit(true) // forceRefresh: re-init même si déjà initialisé
-    } catch (error) {
-      logger.error('app:init-core-data-refresh-failed', {
-        message: error instanceof Error ? error.message : String(error),
-      })
-    }
-  },
-)
 </script>

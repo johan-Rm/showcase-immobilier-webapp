@@ -18,6 +18,7 @@ type UseAppReturn = {
   appData: ComputedRef<App | null>
   loadApp: () => Promise<void>
   getApp: () => App | null
+  isLandingShellVisible: ComputedRef<boolean>
 }
 
 /**
@@ -27,6 +28,7 @@ type UseAppReturn = {
  * - relayer la locale courante utilisée par les loaders de contenu
  * - charger le document `app` via le pipeline metadata existant
  * - fournir un accès réactif unique à la configuration globale du site
+ * - calculer la visibilité du shell de démarrage (`AppBootShell`)
  *
  * @returns API réactive orientée `app` pour les pages et composables métier.
  *
@@ -42,6 +44,30 @@ export const useApp = (): UseAppReturn => {
   const locale = computed(() => localeSetting.value)
   const appData = computed<App | null>(() => store.getApp)
 
+  const { initCoreDataStatus } = useNuxtServerInit()
+
+  // Partagé avec FullImage.vue : signal que l'image hero est prête à être affichée.
+  const isHeroImageReady = useState<boolean>(
+    'screen.real-estate-full-image.hero-ready',
+    () => false,
+  )
+  // Partagé avec app.vue : persiste la fin de vie du shell pour la session courante.
+  const hasLandingShellCompleted = useState<boolean>('app.boot-shell.completed', () => false)
+
+  // Chaîne de gardes ordonnées : chaque early return représente un état où
+  // le shell n'a pas de raison d'être visible.
+  const isLandingShellVisible = computed<boolean>(() => {
+    // Le shell a déjà terminé son cycle de vie : ne plus l'afficher.
+    if (hasLandingShellCompleted.value) return false
+    // Init en attente ou en cours : le shell reste visible pour masquer un contenu incomplet.
+    const status = initCoreDataStatus.value
+    if (status === 'idle' || status === 'loading') return true
+
+    // État terminal (ready ou error) : le shell attend que l'image hero soit prête.
+    // En cas d'erreur, le contenu SSR/cache est déjà affiché — on laisse l'image décider.
+    return !isHeroImageReady.value
+  })
+
   /**
    * Retourne la donnée `app` actuellement disponible dans le store.
    *
@@ -54,5 +80,6 @@ export const useApp = (): UseAppReturn => {
     appData,
     loadApp,
     getApp,
+    isLandingShellVisible,
   }
 }

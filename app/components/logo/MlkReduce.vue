@@ -77,8 +77,6 @@ const localePath = useLocalePath()
 // 6. Data inputs
 
 // 7. Validation et helpers purs
-const normalizePath = (value: string): string => (value !== '/' ? value.replace(/\/+$/, '') : '/')
-
 const isPlainLeftClick = (event: MouseEvent): boolean =>
   event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
 
@@ -113,7 +111,7 @@ const needsContainer = computed(
 
 const isHomeLandingTarget = computed(() => {
   const target = splitTarget(props.to)
-  return target.path === normalizePath(localePath('/')) && target.hash === '#screen-landing'
+  return target.path === normalizeRoutePath(localePath('/')) && target.hash === '#screen-landing'
 })
 
 // 9. Actions et handlers
@@ -121,7 +119,7 @@ const splitTarget = (value: string): { path: string; hash: string } => {
   const [pathPart, hashPart] = value.split('#', 2)
 
   return {
-    path: normalizePath(pathPart && pathPart.length > 0 ? pathPart : '/'),
+    path: normalizeRoutePath(pathPart && pathPart.length > 0 ? pathPart : '/'),
     hash: hashPart ? `#${hashPart}` : '',
   }
 }
@@ -136,7 +134,7 @@ const handleClick = (event: MouseEvent): void => {
   if (!import.meta.client || !isPlainLeftClick(event)) return
   if (!isHomeLandingTarget.value) return
 
-  const isHomeRoute = normalizePath(route.path) === normalizePath(localePath('/'))
+  const isHomeRoute = normalizeRoutePath(route.path) === normalizeRoutePath(localePath('/'))
   if (!isHomeRoute) return
 
   event.preventDefault()
