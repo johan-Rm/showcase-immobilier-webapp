@@ -28,6 +28,7 @@ services:
       NUXT_CONTACT_BCC_EMAILS: ${CONTACT_BCC_EMAILS:-developer@graines-digitales.online}
       NUXT_CONTACT_REPLY_TO_EMAIL: ${CONTACT_REPLY_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
       NUXT_CONTACT_SUBMISSIONS_PATH: ${CONTACT_SUBMISSIONS_PATH:-.data/contact-submissions.csv}
+      NUXT_AUTHORIZED_CLIENT_EMAILS : ${AUTHORIZED_CLIENT_EMAILS:-}
     expose:
       - '3000'
     volumes:
