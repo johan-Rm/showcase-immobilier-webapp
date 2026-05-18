@@ -138,7 +138,7 @@ const _useDashboard = (): UseDashboardReturn => {
       ctrl_d: {
         usingInput: false,
         handler: () => {
-          navigateTo('/dashboard')
+          navigateTo(useLocalePath()('/dashboard'))
         },
       },
     })

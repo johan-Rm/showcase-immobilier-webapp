@@ -94,16 +94,16 @@
     <div class="flex min-w-0 flex-1 items-center gap-3">
       <LogoGd class="h-8 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
       <div>
-        <p
-          class="text-[0.6rem] leading-none font-semibold tracking-[0.28em] whitespace-nowrap text-white/40 uppercase"
+        <span
+          class="block text-[0.6rem] leading-none font-semibold tracking-[0.28em] whitespace-nowrap text-white/40 uppercase"
         >
           Dashboard
-        </p>
-        <p
-          class="mt-1 text-[0.45rem] leading-none font-medium tracking-wider whitespace-nowrap text-[#6B7A4A]/70 uppercase"
+        </span>
+        <span
+          class="mt-1 block font-[rationale] text-lg leading-none font-medium tracking-wider whitespace-nowrap text-[#6B7A4A]/70 uppercase"
         >
           Graines Digitales
-        </p>
+        </span>
       </div>
     </div>
     <UButton

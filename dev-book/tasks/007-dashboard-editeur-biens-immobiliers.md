@@ -3,7 +3,7 @@ status: In Progress
 source: brief dashboard editeur de biens
 ---
 
-# 006 Dashboard editeur de biens immobiliers
+# 007 Dashboard editeur de biens immobiliers
 
 ## Intention
 
@@ -388,3 +388,30 @@ etabli dans la sidebar (filtres) — pattern UX coherent sur toute l interface d
 - Future API : garder une frontiere service claire pour remplacer la lecture Markdown par API Platform.
 - YAGNI : ne pas installer media manager ou persistence locale sans validation explicite.
 - Tiptap : installe et integre — serialisation markdown validee, pas de conversion HTML intermediaire.
+
+### Reorganisation de l onglet Media et deplacement de `associatedMedia`
+
+**Decision validee** : l onglet `Media` du slideover doit devenir la galerie des images du bien
+(`frontmatter.image`), pas une bibliotheque projet globale ni un simple champ brut.
+
+Raison : un onglet Media globalisant tous les assets du projet serait deconnecte du contexte
+de la fiche en cours d edition. La galerie par bien est plus coherente avec le modele "j edite
+ce bien precisement".
+
+La bibliotheque media projet (tous les assets) reste hors perimetre de cette task — elle
+constituerait une section dediee a part dans le dashboard (non encore planifiee).
+
+**`associatedMedia` deplace dans l onglet `Contenu`** : ce champ est une relation de contenu
+(quels objets media sont associes semantiquement a ce bien), pas une action de gestion de
+fichiers. Sa place est dans le bloc frontmatter au meme titre que les autres champs.
+
+**Perimetre Media V1 cible :**
+
+- grille de vignettes des images du bien (`frontmatter.image`)
+- edition inline par image : `caption`, `keywords`, `representativeOfPage`
+- reordering (drag & drop ou fleches)
+- aucun upload, aucune suppression physique
+
+**Question ouverte** : la source des images (`frontmatter.image`) contient des chemins locaux
+(`/images/...`), des UUIDs Directus, ou un melange des deux — a clarifier avant l implementation
+des vignettes pour savoir comment resoudre les URLs d apercu.

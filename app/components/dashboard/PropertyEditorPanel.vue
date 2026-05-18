@@ -176,49 +176,10 @@
                   @update:model-value="emit('update-body', String($event))"
                 />
               </template>
-            </div>
-            <div class="mx-4 h-px bg-white/5" />
-          </div>
-        </template>
-
-        <template v-else>
-          <div v-for="block in mediaBlocks" :key="block.id">
-            <div class="flex items-stretch transition-colors hover:bg-white/5">
-              <button
-                type="button"
-                class="flex flex-1 items-center gap-3 px-4 py-3 text-left"
-                @click="emit('toggle-block', block.id)"
-              >
-                <UIcon
-                  :name="block.icon"
-                  class="shrink-0 text-base text-white/35"
-                  aria-hidden="true"
-                />
-                <span class="flex-1 text-sm font-medium text-white/65">{{ block.label }}</span>
-                <UIcon
-                  :name="
-                    expandedBlocks.has(block.id)
-                      ? 'i-lucide-chevron-down'
-                      : 'i-lucide-chevron-right'
-                  "
-                  class="shrink-0 text-xs text-white/25"
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-            <div v-if="expandedBlocks.has(block.id)" class="px-4 pt-1 pb-5">
-              <template v-if="block.id === 'images'">
-                <DashboardPropertyFieldEditor
-                  label="Images"
-                  path="frontmatter.image"
-                  :model-value="mediaImageValue"
-                  @update:model-value="emit('update-media-image', $event)"
-                />
-              </template>
               <template v-else-if="block.id === 'associated-media'">
                 <DashboardPropertyFieldEditor
-                  label="Medias associes"
-                  path="frontmatter.associatedMedia"
+                  :label="accommodationForm?.fields['associatedMedia'] ?? 'Médias associés'"
+                  path="associatedMedia"
                   :model-value="associatedMediaValue"
                   @update:model-value="emit('update-associated-media', $event)"
                 />
@@ -226,6 +187,14 @@
             </div>
             <div class="mx-4 h-px bg-white/5" />
           </div>
+        </template>
+
+        <template v-else>
+          <DashboardPropertyMediaGallery
+            :images="mediaImageValue"
+            :associated-media="associatedMediaValue"
+            @update:associated-media="emit('update-associated-media', $event)"
+          />
         </template>
       </template>
     </div>
@@ -424,18 +393,6 @@ const contentBlocks = computed<Block[]>(() => {
       label: form?.blocks['frontmatter'] ?? 'Caractéristiques',
       icon: 'i-lucide-file-code',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
-    },
-  ]
-})
-
-const mediaBlocks = computed<Block[]>(() => {
-  const form = accommodationForm.value
-  return [
-    {
-      id: 'images',
-      label: form?.blocks['images'] ?? 'Images',
-      icon: 'i-lucide-image',
-      actions: [],
     },
     {
       id: 'associated-media',

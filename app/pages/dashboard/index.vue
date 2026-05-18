@@ -38,6 +38,7 @@ import { useDashboardAccommodations } from '~/composables/dashboard/useDashboard
 
 // 4. Composables, stores, routeur
 const { loggedIn, clear, fetch, user } = useUserSession()
+const { loadAccommodationForm } = useMetadata()
 
 // 5. Etat local
 
@@ -52,6 +53,13 @@ const {
   error: accommodationsError,
   refresh: refreshAccommodations,
 } = await useDashboardAccommodations(loggedIn)
+
+// Données non-critiques : un échec ne doit pas bloquer l'accès au dashboard.
+try {
+  await loadAccommodationForm()
+} catch {
+  // silencieux : les labels du formulaire ont des fallbacks dans PropertyEditorPanel
+}
 
 // 7. Validation et helpers purs
 

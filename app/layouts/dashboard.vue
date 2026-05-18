@@ -5,3 +5,10 @@
     </UMain>
   </div>
 </template>
+
+<script setup lang="ts">
+// Le dashboard n'a pas d'image hero — on force isHeroImageReady à true
+// pour que AppBootShell puisse terminer son cycle de vie normalement.
+const isHeroImageReady = useState<boolean>('screen.real-estate-full-image.hero-ready', () => true)
+isHeroImageReady.value = true
+</script>

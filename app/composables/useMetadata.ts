@@ -94,7 +94,6 @@ export const useMetadata = (): UseMetadataReturn => {
   const loadAllMetadata = async (): Promise<void> => {
     await Promise.all([
       loadApp(),
-      loadAccommodationForm(),
       loadRealEstateListings(),
       loadAccommodationCategories(),
       loadCategoryCodes(),

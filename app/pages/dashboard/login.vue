@@ -13,7 +13,7 @@
             </p>
           </div>
 
-          <h1 class="text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 class="text-4xl leading-tight text-white uppercase sm:text-5xl lg:text-6xl">
             MLK - My Little Kasbah
           </h1>
         </div>
