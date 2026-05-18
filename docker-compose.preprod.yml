@@ -1,3 +1,5 @@
+name: mlk-webapp-preprod
+
 services:
   webapp-ssr:
     build:

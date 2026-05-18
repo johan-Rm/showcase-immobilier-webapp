@@ -1,3 +1,5 @@
+name: mlk-webapp-prod
+
 services:
   webapp-ssr:
     restart: unless-stopped
