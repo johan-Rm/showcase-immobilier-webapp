@@ -1,5 +1,11 @@
 <template>
-  <UModal v-model:open="isCommandPropertyOpen" :ui="{ overlay: 'bg-black/80' }">
+  <UModal
+    v-model:open="isCommandPropertyOpen"
+    :ui="{
+      overlay: 'bg-black/80',
+      content: '[background:rgb(var(--color-transition)/1)] ring-white/10',
+    }"
+  >
     <template #content>
       <div class="dark">
         <UCommandPalette
