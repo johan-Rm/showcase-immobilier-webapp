@@ -75,6 +75,8 @@ import type {
   DashboardFilterOption,
 } from '#shared/types/dashboardAccommodation'
 
+import { prefetchImage } from '~/composables/useImageWarmup'
+
 // 2. Types et constantes statiques
 type SelectOption = {
   label: string
@@ -102,6 +104,7 @@ const emit = defineEmits<{
 }>()
 
 // 4. Composables, stores, routeur
+const img = useImage()
 
 // 5. Etat local
 const selectedListing = ref(ALL_VALUE)
@@ -114,6 +117,16 @@ const isEditorOpen = ref(false)
 // 6. Data inputs
 
 // 7. Validation et helpers purs
+const getAdjacentIndexes = (index: number, total: number): number[] => {
+  if (total <= 1) return []
+  return [(index - 1 + total) % total, (index + 1) % total]
+}
+
+const getPrimaryImageUrl = (item: DashboardAccommodation | undefined): string => {
+  if (!item) return ''
+  return item.preview.media[0]?.imageUrl || item.preview.primaryImageUrl || ''
+}
+
 const toSelectOptions = (items: DashboardFilterOption[], fallback: string): SelectOption[] => [
   { label: fallback, value: ALL_VALUE },
   ...items.map((item) => ({ label: `${item.label} (${item.count})`, value: item.value })),
@@ -171,6 +184,21 @@ const currentImageUrl = computed<string>(() => {
 })
 
 // 9. Actions et handlers
+const preloadAdjacentProperties = (index: number): void => {
+  if (!import.meta.client) return
+
+  const items = filteredItems.value
+  const adjacent = getAdjacentIndexes(index, items.length)
+
+  adjacent.forEach((i) => {
+    const src = getPrimaryImageUrl(items[i])
+    if (!src) return
+
+    const optimizedUrl = img(src, { format: 'webp', quality: 80, fit: 'cover' })
+    void prefetchImage(optimizedUrl || src)
+  })
+}
+
 const clampActiveIndex = (): void => {
   if (activeIndex.value >= filteredItems.value.length) {
     activeIndex.value = Math.max(0, filteredItems.value.length - 1)
@@ -190,6 +218,8 @@ const goNext = (): void => {
 }
 
 // 10. Watch et watchEffect
+watch(activeIndex, preloadAdjacentProperties)
+
 watch([selectedListing, selectedCategory, identifierSearch], () => {
   activeIndex.value = 0
   activeMediaIndex.value = 0

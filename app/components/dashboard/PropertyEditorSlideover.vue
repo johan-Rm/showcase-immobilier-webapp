@@ -154,8 +154,21 @@ const titleDraftValue = computed<string>(() => {
     : (props.accommodation?.preview.title ?? 'Bien immobilier')
 })
 
+const router = useRouter()
+
 const propertyMenuItems = computed<BlockMenuItem[][]>(() => [
-  [{ label: 'Voir sur le site', icon: 'i-lucide-external-link', onSelect: () => {} }],
+  [
+    {
+      label: 'Voir sur le site',
+      icon: 'i-lucide-external-link',
+      // TODO: ouvrir dans un nouvel onglet quand la page publique sera stable
+      onSelect: () => {
+        if (!props.accommodation) return
+        const { listingSlug, categorySlug, slug } = props.accommodation.preview
+        router.push(`/properties/${listingSlug}/${categorySlug}/${slug}`)
+      },
+    },
+  ],
 ])
 
 const toggleBlock = (id: string): void => {

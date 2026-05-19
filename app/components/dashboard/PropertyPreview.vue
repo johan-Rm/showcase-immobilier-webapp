@@ -1,4 +1,14 @@
 <template>
+  <!-- Logo MLK en haut à gauche -->
+  <div
+    class="pointer-events-auto absolute top-6 left-5 z-10 sm:top-8 sm:left-8 lg:top-10 lg:left-10"
+  >
+    <LogoMlkSvg
+      class="h-8 w-auto text-white/90 sm:h-10 lg:h-16"
+      aria-label="MLK - My Little Kasbah"
+    />
+  </div>
+
   <!-- Zone centrée : infos du bien actif -->
   <div class="grid min-h-0 flex-1 place-items-center px-5 py-10 text-center sm:px-8">
     <div v-if="accommodation" class="w-full max-w-3xl">
@@ -126,6 +136,8 @@
 <script setup lang="ts">
 // 1. Imports
 import type { DashboardAccommodation } from '#shared/types/dashboardAccommodation'
+
+import LogoMlkSvg from '~/assets/logo/mlk_full.svg'
 
 // 2. Types et constantes statiques
 
