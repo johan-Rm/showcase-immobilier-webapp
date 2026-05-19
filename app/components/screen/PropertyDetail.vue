@@ -74,7 +74,7 @@
         <UCarousel
           v-else
           ref="galleryCarousel"
-          v-slot="{ item }"
+          v-slot="{ item, index }"
           :items="galleryImages"
           class="h-full min-h-screen w-full overflow-hidden"
           loop
@@ -103,6 +103,7 @@
               :src="item.url"
               :alt="item.caption || property?.name || accommodationTexts.propertyVisual"
               loading="eager"
+              :fetchpriority="getCarouselImagePriority(index)"
               v-bind="IMAGE_PRESETS.fullscreenCover"
             />
             <AppOverlay :percentage="50" />
@@ -196,6 +197,7 @@ import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch, watchE
 import { useApp } from '~/composables/useApp'
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
+import { prefetchImage } from '~/composables/useImageWarmup'
 import { useAccommodationStore } from '~/stores/accommodation'
 
 // 2. Types et constantes statiques
@@ -231,6 +233,7 @@ const store = useAccommodationStore()
 const { appData, locale } = useApp()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { screenStatus, setScreenMeta } = useScreenSystem()
+const img = useImage()
 
 const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')
 const detailPanel = useTemplateRef<DetailPanelExpose>('detailPanel')
@@ -244,6 +247,19 @@ const galleryAutoplayResumeTimer = ref<ReturnType<typeof setTimeout> | null>(nul
 const property = computed(() => store.getAccommodationBySlug(props.slug))
 
 // 7. Validation et helpers purs
+const getAdjacentGalleryIndexes = (index: number, total: number): number[] => {
+  if (total <= 1) return []
+  return [(index - 1 + total) % total, (index + 1) % total]
+}
+
+const getCarouselImagePriority = (index: number): 'high' | 'auto' | 'low' => {
+  const active = activeGalleryIndex.value
+  const total = galleryImages.value.length
+  if (index === active) return 'high'
+  if (getAdjacentGalleryIndexes(active, total).includes(index)) return 'auto'
+  return 'low'
+}
+
 const formatOffer = (offer?: Accommodation['offer']): string => {
   if (!offer) return '—'
   const parsedPrice =
@@ -529,6 +545,30 @@ const scheduleGalleryAutoplayResumeFromKey = (event: KeyboardEvent): void => {
   scheduleGalleryAutoplayResume()
 }
 
+const preloadAdjacentGalleryImages = (index: number): void => {
+  if (!import.meta.client) return
+
+  const images = galleryImages.value
+  const adjacent = getAdjacentGalleryIndexes(index, images.length)
+
+  adjacent.forEach((i) => {
+    const src = images[i]?.url
+    if (!src) return
+
+    const { src: optimizedUrl } = img.getSizes(src, {
+      sizes: IMAGE_PRESETS.fullscreenCover.sizes,
+      modifiers: {
+        width: IMAGE_PRESETS.fullscreenCover.width,
+        format: IMAGE_PRESETS.fullscreenCover.format,
+        quality: IMAGE_PRESETS.fullscreenCover.quality,
+        fit: IMAGE_PRESETS.fullscreenCover.fit,
+      },
+    })
+
+    void prefetchImage(optimizedUrl ?? src)
+  })
+}
+
 // 10. Watch et watchEffect
 watch(
   () => property.value?.slug,
@@ -538,6 +578,8 @@ watch(
     closeMobileAside()
   },
 )
+
+watch(activeGalleryIndex, preloadAdjacentGalleryImages)
 
 watch(isDetailScreenActive, (isActive) => {
   if (!isActive) {
