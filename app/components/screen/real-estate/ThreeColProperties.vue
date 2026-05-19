@@ -59,7 +59,7 @@ const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
 const { warmQuickActionTarget } = useQuickActionWarmup()
 
 // 5. Etat local
-let hasWarmedTargets = false
+const warmedTargets = new Set<string>()
 
 // 6. Data inputs
 
@@ -122,21 +122,23 @@ const panels = computed<TryptiquePanel[]>(() =>
 
 const sectionTitle = computed<string>(() => screenData.value?.headline ?? 'Nos biens immobiliers')
 
-// 9. Actions et handlers
-const warmThreeColTargets = (): void => {
-  if (hasWarmedTargets) return
-
-  const targets = [sectionLink.value, ...panels.value.map((panel) => localePath(panel.to))].filter(
+const warmupTargets = computed<string[]>(() =>
+  [sectionLink.value, ...panels.value.map((panel) => localePath(panel.to))].filter(
     (target, index, list) => {
       return target && target !== '/' && list.indexOf(target) === index
     },
-  )
+  ),
+)
+
+// 9. Actions et handlers
+const warmThreeColTargets = (): void => {
+  const targets = warmupTargets.value.filter((target) => !warmedTargets.has(target))
 
   if (targets.length === 0) return
 
-  hasWarmedTargets = true
-
   targets.forEach((to) => {
+    warmedTargets.add(to)
+
     warmQuickActionTarget({
       id: `${SCREEN_ID}:${to}`,
       to,
@@ -150,6 +152,7 @@ const warmThreeColTargets = (): void => {
 }
 
 // 10. Watch et watchEffect
+watch(warmupTargets, warmThreeColTargets, { immediate: true })
 
 // 11. Metadonnees ecran ou page
 
@@ -166,8 +169,6 @@ onMounted(() => {
       imageZone: 'background',
     },
   })
-
-  warmThreeColTargets()
 })
 </script>
 

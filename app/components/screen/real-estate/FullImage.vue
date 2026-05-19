@@ -133,7 +133,7 @@ const isHeroImageReady = useState<boolean>(HERO_IMAGE_READY_STATE_KEY, () => fal
 const isPortraitHeroViewport = ref(isPhoneDevice.value || isTabletPortrait.value)
 
 let portraitHeroMediaQuery: MediaQueryList | null = null
-let hasWarmedHeroNavigationTargets = false
+const warmedHeroNavigationTargets = new Set<string>()
 
 // 6. Data inputs
 const menuItems = computed<MenuItem[]>(() => props.data?.links ?? [])
@@ -206,6 +206,14 @@ const selectedHeroImageUrl = computed<string>(() => {
   return usePortraitHeroImage.value ? bgImagePortraitUrl.value : bgImageUrl.value
 })
 
+const heroNavigationTargets = computed<string[]>(() =>
+  menuItems.value
+    .map((item) => item.url)
+    .filter((url): url is string => typeof url === 'string' && url.trim().length > 0)
+    .map((url) => localePath(url))
+    .filter((to, index, list) => to !== '/' && list.indexOf(to) === index),
+)
+
 const heroImageAlt = computed<string>(() => {
   return usePortraitHeroImage.value
     ? bgImagePortraitAlt.value
@@ -228,19 +236,13 @@ const handleHeroImageLoad = markSelectedHeroImageReady
 const handleHeroImageError = markSelectedHeroImageReady
 
 const warmHeroNavigationTargets = (): void => {
-  if (hasWarmedHeroNavigationTargets) return
-
-  const targets = menuItemsWithAvailability.value
-    .filter((item) => !item.disabled)
-    .map((item) => item.url)
-    .filter((url): url is string => typeof url === 'string' && url.trim().length > 0)
-    .map((url) => localePath(url))
+  const targets = heroNavigationTargets.value.filter((to) => !warmedHeroNavigationTargets.has(to))
 
   if (targets.length === 0) return
 
-  hasWarmedHeroNavigationTargets = true
-
   targets.forEach((to) => {
+    warmedHeroNavigationTargets.add(to)
+
     warmQuickActionTarget({
       id: `full-image:${to}`,
       to,
@@ -261,6 +263,8 @@ watch(
   },
   { immediate: true },
 )
+
+watch(heroNavigationTargets, warmHeroNavigationTargets, { immediate: true })
 
 // 11. Metadonnees ecran ou page
 
@@ -290,8 +294,6 @@ onMounted(() => {
       backgroundImage: bgImageUrl.value,
     },
   })
-
-  warmHeroNavigationTargets()
 
   portraitHeroMediaQuery = window.matchMedia(PORTRAIT_HERO_MEDIA_QUERY)
   syncPortraitHeroViewport()
