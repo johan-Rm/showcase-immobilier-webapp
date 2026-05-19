@@ -41,6 +41,7 @@ const { loggedIn, clear, fetch, user } = useUserSession()
 const { loadAccommodationForm } = useMetadata()
 
 // 5. Etat local
+const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')
 
 // 6. Data inputs
 await fetch()
@@ -53,6 +54,10 @@ const {
   error: accommodationsError,
   refresh: refreshAccommodations,
 } = await useDashboardAccommodations(loggedIn)
+
+const firstItem = accommodationsData.value?.items[0]
+dashboardHeroImageUrl.value =
+  firstItem?.preview.media[0]?.imageUrl ?? firstItem?.preview.primaryImageUrl ?? ''
 
 // Données non-critiques : un échec ne doit pas bloquer l'accès au dashboard.
 try {

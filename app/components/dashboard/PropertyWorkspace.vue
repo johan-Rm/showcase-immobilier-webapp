@@ -10,6 +10,7 @@
             :key="currentImageUrl"
             :src="currentImageUrl"
             :alt="activeAccommodation?.preview.title ?? 'Bien immobilier'"
+            v-bind="IMAGE_PRESETS.heroFullScreen"
             class="h-full w-full object-cover object-center"
             loading="eager"
             fetchpriority="high"
@@ -17,7 +18,7 @@
           />
 
           <div v-else class="flex h-full w-full items-start justify-center bg-[#212121] pt-16">
-            <p class="text-xs font-light tracking-[0.4em] text-white/15 uppercase select-none">
+            <p class="text-xs font-light tracking-[0.4em] text-white/55 uppercase select-none">
               Image non disponible
             </p>
           </div>
@@ -75,6 +76,7 @@ import type {
   DashboardFilterOption,
 } from '#shared/types/dashboardAccommodation'
 
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { prefetchImage } from '~/composables/useImageWarmup'
 
 // 2. Types et constantes statiques
@@ -194,8 +196,17 @@ const preloadAdjacentProperties = (index: number): void => {
     const src = getPrimaryImageUrl(items[i])
     if (!src) return
 
-    const optimizedUrl = img(src, { format: 'webp', quality: 80, fit: 'cover' })
-    void prefetchImage(optimizedUrl || src)
+    const { src: optimizedUrl } = img.getSizes(src, {
+      sizes: IMAGE_PRESETS.heroFullScreen.sizes,
+      modifiers: {
+        width: IMAGE_PRESETS.heroFullScreen.width,
+        format: IMAGE_PRESETS.heroFullScreen.format,
+        quality: IMAGE_PRESETS.heroFullScreen.quality,
+        fit: IMAGE_PRESETS.heroFullScreen.fit,
+      },
+    })
+
+    void prefetchImage(optimizedUrl ?? src)
   })
 }
 
@@ -218,7 +229,7 @@ const goNext = (): void => {
 }
 
 // 10. Watch et watchEffect
-watch(activeIndex, preloadAdjacentProperties)
+watch(activeIndex, preloadAdjacentProperties, { immediate: true })
 
 watch([selectedListing, selectedCategory, identifierSearch], () => {
   activeIndex.value = 0
@@ -227,6 +238,7 @@ watch([selectedListing, selectedCategory, identifierSearch], () => {
 
 watch(filteredItems, () => {
   clampActiveIndex()
+  preloadAdjacentProperties(activeIndex.value)
 })
 
 watch(
