@@ -4,9 +4,6 @@ import type { ComputedRef, Ref } from 'vue'
 
 import { computed } from 'vue'
 
-import { useMetadata } from '~/composables/useMetadata'
-import { useMetadataStore } from '~/stores/metadata'
-
 /**
  * Contrat public du composable `useApp`.
  *
@@ -19,6 +16,7 @@ type UseAppReturn = {
   loadApp: () => Promise<void>
   getApp: () => App | null
   isLandingShellVisible: ComputedRef<boolean>
+  preloadDashboard: () => void
 }
 
 /**
@@ -69,6 +67,23 @@ export const useApp = (): UseAppReturn => {
   })
 
   /**
+   * Initialise le préchargement client-side de la première image visible du dashboard.
+   *
+   * À appeler une seule fois pendant le setup du composant racine.
+   * Sans effet si l'utilisateur n'est pas connecté ou si aucune image n'est disponible.
+   */
+  const preloadDashboard = (): void => {
+    const { loggedIn } = useUserSession()
+    const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')
+
+    useImageWarmup(dashboardHeroImageUrl, {
+      stateKey: 'dashboard-hero',
+      warmupEnabled: loggedIn,
+      preset: 'heroFullScreen',
+    })
+  }
+
+  /**
    * Retourne la donnée `app` actuellement disponible dans le store.
    *
    * @returns Configuration globale localisée ou `null` si elle n'est pas chargée.
@@ -81,5 +96,6 @@ export const useApp = (): UseAppReturn => {
     loadApp,
     getApp,
     isLandingShellVisible,
+    preloadDashboard,
   }
 }

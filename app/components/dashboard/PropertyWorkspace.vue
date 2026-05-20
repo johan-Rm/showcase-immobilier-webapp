@@ -77,7 +77,7 @@ import type {
 } from '#shared/types/dashboardAccommodation'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { prefetchImage } from '~/composables/useImageWarmup'
+import { prefetchWithPreset } from '~/composables/useImageWarmup'
 
 // 2. Types et constantes statiques
 type SelectOption = {
@@ -106,7 +106,6 @@ const emit = defineEmits<{
 }>()
 
 // 4. Composables, stores, routeur
-const img = useImage()
 
 // 5. Etat local
 const selectedListing = ref(ALL_VALUE)
@@ -193,20 +192,7 @@ const preloadAdjacentProperties = (index: number): void => {
   const adjacent = getAdjacentIndexes(index, items.length)
 
   adjacent.forEach((i) => {
-    const src = getPrimaryImageUrl(items[i])
-    if (!src) return
-
-    const { src: optimizedUrl } = img.getSizes(src, {
-      sizes: IMAGE_PRESETS.heroFullScreen.sizes,
-      modifiers: {
-        width: IMAGE_PRESETS.heroFullScreen.width,
-        format: IMAGE_PRESETS.heroFullScreen.format,
-        quality: IMAGE_PRESETS.heroFullScreen.quality,
-        fit: IMAGE_PRESETS.heroFullScreen.fit,
-      },
-    })
-
-    void prefetchImage(optimizedUrl ?? src)
+    prefetchWithPreset(getPrimaryImageUrl(items[i]), 'heroFullScreen')
   })
 }
 
