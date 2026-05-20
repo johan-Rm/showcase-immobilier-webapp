@@ -35,6 +35,13 @@
 // 3. Props et emits
 
 // 4. Composables, stores, routeur
+
+// Pages sans FullImage.vue n'ont pas de hero — on force isHeroImageReady à true
+// pour que AppBootShell puisse terminer son cycle de vie normalement.
+// FullImage.vue réinitialise ce state à false (watch immediate) quand il est présent.
+const isHeroImageReady = useState<boolean>('screen.real-estate-full-image.hero-ready', () => true)
+isHeroImageReady.value = true
+
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { screenStatus } = useScreenSystem()
 

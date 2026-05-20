@@ -21,7 +21,7 @@ const logger = useLogger({ module: 'app' })
 // Locale active utilisée pour synchroniser lang HTML et forcer un re-init des données.
 const { localeSetting } = useLang()
 // Statut et données critiques de l'application (web pages, métadonnées).
-const { initCoreData } = useNuxtServerInit()
+const { initCoreData, isInitCoreDataReady, loadBackgroundData } = useNuxtServerInit()
 
 // Résolus en setup (contexte Nuxt valide) : useRuntimeConfig() ne peut pas être appelé
 // dans le getter de useHead, qui est évalué par unhead hors contexte Vue côté SSR.
@@ -59,7 +59,7 @@ const shouldMountLandingShell = computed<boolean>(() => !hasLandingShellComplete
  *   (ex : changement de locale nécessitant un rechargement des données traduites).
  */
 const runInit = async (forceRefresh = false): Promise<void> => {
-  if (hasInitializedOnce && !forceRefresh) {
+  if ((hasInitializedOnce || isInitCoreDataReady.value) && !forceRefresh) {
     return
   }
 
@@ -146,13 +146,17 @@ onErrorCaptured((error, instance, info) => {
   return false
 })
 
-// Déclenche l'init après que Nuxt ait terminé son hydratation côté client.
-// Garantit que les stores et composables sont prêts avant le premier appel API.
-onNuxtReady(() => {
-  runInit().catch((error: unknown) => {
+// Déclenche l'init si le plugin n'a pas pu la compléter (ex : SSR raté, locale forcée).
+// Lance ensuite les données d'arrière-plan non critiques (accommodations).
+onNuxtReady(async () => {
+  try {
+    await runInit()
+  } catch (error: unknown) {
     logger.error('app:init-core-data-failed', {
       message: error instanceof Error ? error.message : String(error),
     })
-  })
+  }
+
+  void loadBackgroundData()
 })
 </script>

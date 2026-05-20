@@ -86,12 +86,6 @@ export const useNuxtServerInit = (): InitResult => {
       stopPending('init-core')
     }
 
-    if (import.meta.client) {
-      queueMicrotask(() => {
-        loadBackgroundData().catch(() => {})
-      })
-    }
-
     return true
   }
 
