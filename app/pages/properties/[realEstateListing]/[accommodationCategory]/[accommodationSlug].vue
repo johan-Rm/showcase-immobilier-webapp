@@ -113,15 +113,6 @@ const page = computed(() => {
 })
 
 // 7. Validation et helpers purs
-if (
-  !accommodation.value ||
-  accommodation.value.realEstateListing?.slug !== realEstateListingSlug.value ||
-  accommodation.value.category?.slug !== accommodationCategorySlug.value
-) {
-  // Le slug du bien seul ne suffit pas : les segments parents doivent aussi correspondre
-  // pour éviter le duplicate content entre catégories ou types de biens.
-  throw createError({ statusCode: 404, statusMessage: 'Accommodation not found' })
-}
 
 // 8. Computed UI-ready
 

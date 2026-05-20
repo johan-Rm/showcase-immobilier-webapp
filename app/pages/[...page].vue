@@ -85,11 +85,6 @@ const slug = computed(() => {
 const page = computed(() => getPageBySlug(slug.value))
 
 // 7. Validation et helpers purs
-if (!page.value) {
-  // Un slug valide syntaxiquement mais absent du contenu doit produire une vraie 404
-  // pour éviter une page indexable sans contenu éditorial.
-  throw createError({ statusCode: 404, statusMessage: 'Page not found' })
-}
 
 // 8. Computed UI-ready
 

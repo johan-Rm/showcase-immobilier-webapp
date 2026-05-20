@@ -1,3 +1,4 @@
+
 <template>
   <UPage ref="pageRef" :ui="screenUi.page">
     <!-- Titre réservé aux lecteurs d'écran et au SEO : le screen contact porte le titre visuel. -->
@@ -79,11 +80,6 @@ const { screenUi } = useScreenSystem({
 const page = computed(() => getPageBySlug(CONTACT_PAGE_SLUG))
 
 // 7. Validation et helpers purs
-if (!page.value) {
-  // Une page contact absente est bloquante : laisser le screen s'afficher sans contenu
-  // produirait une route indexable incohérente.
-  throw createError({ statusCode: 404, statusMessage: 'Contact Page not found' })
-}
 
 // 8. Computed UI-ready
 // H1 accessible dérivé du contenu pour préserver la hiérarchie sémantique de la route.
