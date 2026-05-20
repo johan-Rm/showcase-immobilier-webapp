@@ -22,6 +22,8 @@ const logger = useLogger({ module: 'app' })
 const { localeSetting } = useLang()
 // Statut et données critiques de l'application (web pages, métadonnées).
 const { initCoreData, isInitCoreDataReady, loadBackgroundData } = useNuxtServerInit()
+const { preloadDashboard } = useApp()
+preloadDashboard()
 
 // Résolus en setup (contexte Nuxt valide) : useRuntimeConfig() ne peut pas être appelé
 // dans le getter de useHead, qui est évalué par unhead hors contexte Vue côté SSR.
