@@ -4,7 +4,7 @@
       v-if="hasBackgroundImage && !usePortraitHeroImage"
       :src="bgImageUrl"
       :alt="heroImageAlt"
-      v-bind="IMAGE_PRESETS.heroFullScreen"
+      v-bind="IMAGE_PRESETS.fullscreenCover"
       loading="eager"
       :placeholder="false"
       fetchpriority="high"
@@ -63,7 +63,8 @@
       </nav>
 
       <div
-        class="pointer-events-none absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center text-white/70 md:bottom-6"
+        v-if="isPhoneDevice"
+        class="pointer-events-none absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center text-white/70"
         aria-hidden="true"
       >
         <UButton

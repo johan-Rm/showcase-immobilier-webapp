@@ -32,8 +32,8 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { CreativeWork } from '@schemas/interfaces'
 import type { GalleryItem } from '#shared/types/gallery'
+import type { CreativeWork } from '@schemas/interfaces'
 
 import { useAppNavigation } from '~/composables/useAppNavigation'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
@@ -59,8 +59,6 @@ const { getMenuItemByIdentifier } = useAppNavigation()
 const { isPhoneDevice, isLandscape, isTabletPortrait } = useDeviceDetect()
 const localePath = useLocalePath()
 const { warmQuickActionTarget } = useQuickActionWarmup()
-const image = useImage()
-const { IMAGE_PRESETS } = useAppImage()
 const { galleryItems } = useGalleryItems(computed(() => props.data?.hasPart))
 
 // 5. Etat local
@@ -68,7 +66,6 @@ const galleryRef = ref<GalleryExpose | null>(null)
 const currentScreenId = useState<string | null>('screen.current', () => null)
 
 let hasWarmedSectionTarget = false
-const GALLERY_IMAGE_PRESET = IMAGE_PRESETS.galleryColumn
 
 // 6. Data inputs
 
@@ -110,24 +107,6 @@ const criticalGalleryItems = computed<GalleryItem[]>(() => {
   ].filter((item): item is GalleryItem => item !== undefined)
 })
 
-const criticalGalleryImageWarmupUrls = computed<string[]>(() => {
-  return criticalGalleryItems.value
-    .map((item) => {
-      const responsiveImage = image.getSizes(item.src, {
-        sizes: GALLERY_IMAGE_PRESET.sizes,
-        modifiers: {
-          width: GALLERY_IMAGE_PRESET.width,
-          format: GALLERY_IMAGE_PRESET.format,
-          quality: GALLERY_IMAGE_PRESET.quality,
-          fit: GALLERY_IMAGE_PRESET.fit,
-        },
-      })
-
-      return responsiveImage.src ?? ''
-    })
-    .filter((url, index, urls) => url.length > 0 && urls.indexOf(url) === index)
-})
-
 const rootGridClass = computed<string>(() => {
   const base = 'grid min-h-0'
 
@@ -150,11 +129,12 @@ const visualColumnClass = computed<string>(() => {
 })
 
 // 9. Actions et handlers
-useImageWarmup(criticalGalleryImageWarmupUrls, {
+useImageWarmup(() => criticalGalleryItems.value.map((item) => item.src), {
   stateKey: 'screen-essaouira-the-jewel:critical-gallery',
   warmupEnabled: shouldMountGallery,
   batchSize: 2,
   batchDelayMs: 0,
+  preset: 'galleryColumn',
 })
 
 const warmSectionTarget = (): void => {

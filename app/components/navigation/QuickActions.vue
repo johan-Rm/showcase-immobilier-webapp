@@ -47,9 +47,8 @@ import type { ComponentPublicInstance } from 'vue'
 
 import { useIntersectionObserver, useTimeoutFn } from '@vueuse/core'
 
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useConstructionModal } from '~/composables/useConstructionModal'
-import { prefetchImage } from '~/composables/useImageWarmup'
+import { prefetchWithPreset } from '~/composables/useImageWarmup'
 import { useQuickActionWarmup } from '~/composables/useQuickActionWarmup'
 
 // 2. Types et constantes statiques
@@ -106,8 +105,6 @@ const { isConstructionEnabled, open: openConstructionModal } = useConstructionMo
 
 const appConfig = useAppConfig()
 
-const image = useImage()
-
 const localePath = useLocalePath()
 
 const route = useRoute()
@@ -153,8 +150,6 @@ const { start: scheduleVisibleQuickActionsWarmup } = useTimeoutFn(
 
 // 5. Etat local
 const warmedQuickActionIds = new Set<string>()
-
-const warmedImageUrls = new Set<string>()
 
 const observedQuickActionElements = new WeakSet<HTMLElement>()
 
@@ -238,38 +233,7 @@ const navClass = computed(() => {
   return 'rounded-lg bg-black/20 p-2 backdrop-blur'
 })
 
-const mainMenuCenterImageWarmupUrl = computed<string>(() => {
-  const preset = IMAGE_PRESETS.galleryColumn
-  const src = appConfig.menu.mainMenuCenterImageUrl
-  const responsiveImage = image.getSizes(src, {
-    sizes: preset.sizes,
-    modifiers: {
-      width: preset.width,
-      format: preset.format,
-      quality: preset.quality,
-      fit: preset.fit,
-    },
-  })
-
-  return (
-    responsiveImage.src ??
-    image(src, {
-      width: preset.width,
-      format: preset.format,
-      quality: preset.quality,
-      fit: preset.fit,
-    })
-  )
-})
-
 // 9. Actions et handlers
-const warmImage = (src: string): void => {
-  if (warmedImageUrls.has(src)) return
-
-  warmedImageUrls.add(src)
-  void prefetchImage(src)
-}
-
 const openMainMenu = () => {
   toggleSidePanel('mainMenu')
 }
@@ -326,7 +290,7 @@ const warmQuickActionEntry = (item: QuickActionItem) => {
   warmQuickActionTarget(item)
 
   if (item.id === 'menu') {
-    warmImage(mainMenuCenterImageWarmupUrl.value)
+    prefetchWithPreset(appConfig.menu.mainMenuCenterImageUrl, 'galleryColumn')
   }
 }
 

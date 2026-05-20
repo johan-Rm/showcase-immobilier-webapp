@@ -2,6 +2,7 @@ import type { MaybeRefOrGetter } from 'vue'
 
 import { computed, onBeforeUnmount, toValue, watch } from 'vue'
 
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useLogger } from '~/composables/useLogger'
 
 type UseImageWarmupOptions = {
@@ -10,6 +11,17 @@ type UseImageWarmupOptions = {
   startWhen?: 'runtime' | 'passive'
   batchSize?: number
   batchDelayMs?: number
+  preset?: keyof typeof IMAGE_PRESETS
+}
+
+type ImgFn = (src: string, modifiers: Record<string, unknown>) => string
+
+// Cache module-level : populé depuis le setup (useImageWarmup ou registerImgFn).
+// Permet à prefetchWithPreset de fonctionner dans les event handlers et callbacks async.
+let _imgFn: ImgFn | null = null
+
+export const registerImgFn = (img: ImgFn): void => {
+  if (!_imgFn) _imgFn = img
 }
 
 const IMAGE_EXTENSION_REGEX = /\.(avif|webp|png|jpe?g|gif|svg)(?:[?#].*)?$/i
@@ -68,10 +80,26 @@ export const getImageUrl = (value: unknown): string => {
   return ''
 }
 
+/**
+ * Prefetch impératif d'une URL brute via un preset nommé, avec ajustement DPR.
+ * Utilise le cache module-level populé par registerImgFn() depuis le setup.
+ */
+export const prefetchWithPreset = (rawUrl: string, preset: keyof typeof IMAGE_PRESETS): void => {
+  if (!import.meta.client || !rawUrl || !_imgFn) return
+  const { width, format, quality, fit } = IMAGE_PRESETS[preset]
+  const dpr = Math.min(Math.ceil(window.devicePixelRatio || 1), 2)
+  void prefetchImage(_imgFn(rawUrl, { width: width * dpr, format, quality, fit }))
+}
+
 export const useImageWarmup = (
-  urls: MaybeRefOrGetter<string[]>,
+  urls: MaybeRefOrGetter<string | string[]>,
   options?: UseImageWarmupOptions,
 ): void => {
+  // Appelé inconditionnellement pour respecter les règles des composables Vue.
+  // Utilisé uniquement si options.preset est fourni.
+  const img = useImage()
+  registerImgFn(img)
+
   if (!import.meta.client) return
 
   const stateKey = options?.stateKey ?? 'default'
@@ -96,6 +124,13 @@ export const useImageWarmup = (
       clearTimeout(batchTimer)
       batchTimer = null
     }
+  }
+
+  const applyPreset = (url: string): string => {
+    if (!options?.preset) return url
+    const { width, format, quality, fit } = IMAGE_PRESETS[options.preset]
+    const dpr = Math.min(Math.ceil(window.devicePixelRatio || 1), 2)
+    return img(url, { width: width * dpr, format, quality, fit })
   }
 
   const runBatches = async (queue: string[]): Promise<void> => {
@@ -140,7 +175,10 @@ export const useImageWarmup = (
   const schedule = (): void => {
     const enabled = toValue(options?.warmupEnabled ?? true)
     const ready = gateReady.value
-    const rawUrls = toValue(urls)
+
+    // Normalise string | string[] en string[] puis applique le preset si fourni.
+    const rawUrls = [toValue(urls)]
+      .flat()
       .map((url) => url.trim())
       .filter((url) => url.length > 0)
 
@@ -148,6 +186,7 @@ export const useImageWarmup = (
 
     const queue = Array.from(new Set(rawUrls))
       .filter(isLikelyImageUrl)
+      .map(applyPreset)
       .filter((url) => !loadedUrls.has(url) && !pendingUrls.has(url))
 
     if (queue.length === 0) return

@@ -31,9 +31,11 @@
             </template>
             <div
               v-else
-              class="bg-foreground absolute inset-0 -bottom-1/2 flex items-center justify-center"
+              class="absolute inset-0 -bottom-1/2 flex items-start justify-center bg-[#212121] pt-16"
             >
-              <span class="text-4xl tracking-wide text-orange-400">Aucune image disponible</span>
+              <p class="text-xs font-light tracking-[0.4em] text-white/55 uppercase select-none">
+                Image non disponible
+              </p>
             </div>
 
             <div :class="cardOverlayClass">

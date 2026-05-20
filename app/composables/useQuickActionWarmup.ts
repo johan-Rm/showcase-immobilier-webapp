@@ -1,7 +1,6 @@
 import type { Accommodation, CreativeWork, WebPage } from '@schemas/interfaces'
 
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { getImageUrl, prefetchImage } from '~/composables/useImageWarmup'
+import { prefetchWithPreset, registerImgFn } from '~/composables/useImageWarmup'
 
 type PropertyListItemLike = {
   image?: string
@@ -146,22 +145,12 @@ const getAccommodationListLandingImage = (
 const isAccommodationDetailPath = (segments: string[]): boolean => segments.length >= 3
 
 export const useQuickActionWarmup = () => {
+  registerImgFn(useImage())
   const localePath = useLocalePath()
   const { items: webPages } = useWebPage()
   const { itemsList, loadAccommodations } = useAccommodation()
   const accommodationStore = useAccommodationStore()
-  const image = useImage()
   const logger = useLogger({ module: 'quick-action-warmup' })
-
-  const warmedLandingImageUrls = useState<Record<string, true>>(
-    'prefetch.quick-actions.landing-images',
-    () => ({}),
-  )
-
-  const pendingLandingImageUrls = useState<Record<string, true>>(
-    'prefetch.quick-actions.pending-landing-images',
-    () => ({}),
-  )
 
   const getTargetPath = (item: QuickActionWarmupItem): string => {
     const to = item.to || '#'
@@ -227,29 +216,6 @@ export const useQuickActionWarmup = () => {
     return normalizedTargetPath.startsWith('/properties') || isAccommodationDetailPath(segments)
   }
 
-  const buildWarmupImageUrls = (src: string): string[] => {
-    const preset = IMAGE_PRESETS.fullscreenCover
-    const responsiveImage = image.getSizes(src, {
-      sizes: preset.sizes,
-      modifiers: {
-        width: preset.width,
-        format: preset.format,
-        quality: preset.quality,
-        fit: preset.fit,
-      },
-    })
-
-    return [
-      responsiveImage.src ??
-        image(src, {
-          width: preset.width,
-          format: preset.format,
-          quality: preset.quality,
-          fit: preset.fit,
-        }),
-    ]
-  }
-
   const warmQuickActionTarget = (item: QuickActionWarmupItem): void => {
     if (item.external || item.to.startsWith('#')) return
 
@@ -272,48 +238,13 @@ export const useQuickActionWarmup = () => {
         return
       }
 
-      const warmupUrls = buildWarmupImageUrls(sourceUrl)
-        .map((url) => getImageUrl({ url }))
-        .filter((url) => url.length > 0)
-        .filter((url, index, list) => list.indexOf(url) === index)
-        .filter((url) => !warmedLandingImageUrls.value[url])
-        .filter((url) => !pendingLandingImageUrls.value[url])
+      const presetName = 'fullscreenCover'
+      prefetchWithPreset(sourceUrl, presetName)
 
-      if (warmupUrls.length === 0) {
-        logger.info('Quick action landing images already warmed or pending', {
-          itemId: item.id,
-          targetPath,
-          sourceUrl,
-          imageKind: landingImage?.kind,
-        })
-        return
-      }
-
-      pendingLandingImageUrls.value = {
-        ...pendingLandingImageUrls.value,
-        ...Object.fromEntries(warmupUrls.map((url) => [url, true])),
-      }
-
-      try {
-        await Promise.all(warmupUrls.map((url) => prefetchImage(url)))
-
-        warmedLandingImageUrls.value = {
-          ...warmedLandingImageUrls.value,
-          ...Object.fromEntries(warmupUrls.map((url) => [url, true])),
-        }
-      } finally {
-        pendingLandingImageUrls.value = Object.fromEntries(
-          Object.entries(pendingLandingImageUrls.value).filter(
-            ([url]) => !warmupUrls.includes(url),
-          ),
-        )
-      }
-
-      logger.info('Quick action landing images prefetched', {
+      logger.info('Quick action landing image prefetched', {
         itemId: item.id,
         targetPath,
         sourceUrl,
-        warmupUrls,
         imageKind: landingImage?.kind,
       })
     }

@@ -197,7 +197,7 @@ import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch, watchE
 import { useApp } from '~/composables/useApp'
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
-import { prefetchImage } from '~/composables/useImageWarmup'
+import { prefetchWithPreset } from '~/composables/useImageWarmup'
 import { useAccommodationStore } from '~/stores/accommodation'
 
 // 2. Types et constantes statiques
@@ -233,8 +233,6 @@ const store = useAccommodationStore()
 const { appData, locale } = useApp()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { screenStatus, setScreenMeta } = useScreenSystem()
-const img = useImage()
-
 const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')
 const detailPanel = useTemplateRef<DetailPanelExpose>('detailPanel')
 
@@ -552,20 +550,7 @@ const preloadAdjacentGalleryImages = (index: number): void => {
   const adjacent = getAdjacentGalleryIndexes(index, images.length)
 
   adjacent.forEach((i) => {
-    const src = images[i]?.url
-    if (!src) return
-
-    const { src: optimizedUrl } = img.getSizes(src, {
-      sizes: IMAGE_PRESETS.fullscreenCover.sizes,
-      modifiers: {
-        width: IMAGE_PRESETS.fullscreenCover.width,
-        format: IMAGE_PRESETS.fullscreenCover.format,
-        quality: IMAGE_PRESETS.fullscreenCover.quality,
-        fit: IMAGE_PRESETS.fullscreenCover.fit,
-      },
-    })
-
-    void prefetchImage(optimizedUrl ?? src)
+    prefetchWithPreset(images[i]?.url ?? '', 'fullscreenCover')
   })
 }
 
