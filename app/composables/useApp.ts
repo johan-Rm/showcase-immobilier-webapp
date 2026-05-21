@@ -1,4 +1,5 @@
 import type { App } from '#shared/types/app'
+import type { DashboardAccommodationsResponse } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 import type { ComputedRef, Ref } from 'vue'
 
@@ -17,6 +18,7 @@ type UseAppReturn = {
   getApp: () => App | null
   isLandingShellVisible: ComputedRef<boolean>
   preloadDashboard: () => void
+  seedDashboardHeroImageUrl: () => Promise<void>
 }
 
 /**
@@ -43,6 +45,7 @@ export const useApp = (): UseAppReturn => {
   const appData = computed<App | null>(() => store.getApp)
 
   const { initCoreDataStatus } = useNuxtServerInit()
+  const { loggedIn } = useUserSession()
 
   // Partagé avec FullImage.vue : signal que l'image hero est prête à être affichée.
   const isHeroImageReady = useState<boolean>(
@@ -51,6 +54,8 @@ export const useApp = (): UseAppReturn => {
   )
   // Partagé avec app.vue : persiste la fin de vie du shell pour la session courante.
   const hasLandingShellCompleted = useState<boolean>('app.boot-shell.completed', () => false)
+  // Partagé avec dashboard/index.vue : URL de la première image hero du dashboard.
+  const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')
 
   // Chaîne de gardes ordonnées : chaque early return représente un état où
   // le shell n'a pas de raison d'être visible.
@@ -73,14 +78,35 @@ export const useApp = (): UseAppReturn => {
    * Sans effet si l'utilisateur n'est pas connecté ou si aucune image n'est disponible.
    */
   const preloadDashboard = (): void => {
-    const { loggedIn } = useUserSession()
-    const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')
-
     useImageWarmup(dashboardHeroImageUrl, {
       stateKey: 'dashboard-hero',
       warmupEnabled: loggedIn,
       preset: 'heroFullScreen',
     })
+  }
+
+  /**
+   * Récupère en arrière-plan l'URL de la première image du dashboard et la stocke
+   * dans l'état partagé, permettant au warmup de démarrer avant la navigation vers
+   * le dashboard.
+   *
+   * Sans effet si l'utilisateur n'est pas connecté ou si l'URL est déjà connue.
+   * Silencieux en cas d'erreur : l'image se chargera normalement à l'arrivée sur le dashboard.
+   */
+  const seedDashboardHeroImageUrl = async (): Promise<void> => {
+    if (!loggedIn.value || dashboardHeroImageUrl.value) return
+
+    try {
+      const data = await $fetch<DashboardAccommodationsResponse>('/api/dashboard/accommodations', {
+        query: { locale: localeSetting.value },
+      })
+      const firstItem = data?.items?.[0]
+      if (!firstItem) return
+      dashboardHeroImageUrl.value =
+        firstItem.preview.media[0]?.imageUrl || firstItem.preview.primaryImageUrl || ''
+    } catch {
+      // Silencieux : l'image se chargera normalement à l'arrivée sur le dashboard.
+    }
   }
 
   /**
@@ -97,5 +123,6 @@ export const useApp = (): UseAppReturn => {
     getApp,
     isLandingShellVisible,
     preloadDashboard,
+    seedDashboardHeroImageUrl,
   }
 }

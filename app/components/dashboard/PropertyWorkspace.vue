@@ -5,25 +5,24 @@
       <!-- Zone de contenu principale avec image en fond -->
       <div class="pointer-events-none relative flex flex-1 flex-col pt-12 lg:pt-0">
         <div class="absolute inset-0">
-          <AppImage
-            v-if="currentImageUrl"
-            :key="currentImageUrl"
-            :src="currentImageUrl"
-            :alt="activeAccommodation?.preview.title ?? 'Bien immobilier'"
-            v-bind="IMAGE_PRESETS.heroFullScreen"
-            class="h-full w-full object-cover object-center"
-            loading="eager"
-            fetchpriority="high"
-            :preload="true"
-          />
-
-          <div v-else class="flex h-full w-full items-start justify-center bg-[#212121] pt-16">
+          <template v-if="currentImageUrl">
+            <AppImage
+              :key="currentImageUrl"
+              :src="currentImageUrl"
+              :alt="activeAccommodation?.preview.title ?? 'Bien immobilier'"
+              v-bind="IMAGE_PRESETS.heroFullScreen"
+              class="h-full w-full object-cover object-center"
+              loading="eager"
+              fetchpriority="high"
+              :preload="true"
+            />
+            <AppOverlay :percentage="55" />
+          </template>
+          <div v-else class="flex h-full w-full items-end justify-center bg-[#212121] pb-10">
             <p class="text-xs font-light tracking-[0.4em] text-white/55 uppercase select-none">
               Image non disponible
             </p>
           </div>
-
-          <AppOverlay :percentage="55" />
         </div>
 
         <div class="relative z-10 flex min-h-0 flex-1 flex-col">
@@ -77,7 +76,7 @@ import type {
 } from '#shared/types/dashboardAccommodation'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { prefetchWithPreset } from '~/composables/useImageWarmup'
+import { prefetchWithPreset, useImageWarmup } from '~/composables/useImageWarmup'
 
 // 2. Types et constantes statiques
 type SelectOption = {
@@ -182,6 +181,17 @@ const currentImageUrl = computed<string>(() => {
     activeAccommodation.value?.preview.primaryImageUrl ||
     ''
   )
+})
+
+const filteredHeroImageUrls = computed<string[]>(() =>
+  filteredItems.value.map((item) => getPrimaryImageUrl(item)).filter(Boolean),
+)
+
+useImageWarmup(filteredHeroImageUrls, {
+  stateKey: 'dashboard-all-hero',
+  preset: 'heroFullScreen',
+  batchSize: 2,
+  batchDelayMs: 800,
 })
 
 // 9. Actions et handlers

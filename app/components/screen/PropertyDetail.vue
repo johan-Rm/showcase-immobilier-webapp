@@ -66,9 +66,11 @@
       <div class="relative h-full min-h-screen w-full overflow-hidden">
         <div
           v-if="galleryImages.length === 0"
-          class="bg-foreground flex h-full min-h-screen w-full items-center justify-center"
+          class="flex h-full min-h-screen w-full items-center justify-center bg-[#212121]"
         >
-          <LogoMlkFull size="5xl" color-class="text-white/90" :force-visible="true" />
+          <p class="text-xs font-light tracking-[0.4em] text-white/55 uppercase select-none">
+            image non disponible
+          </p>
         </div>
 
         <UCarousel
@@ -111,6 +113,7 @@
         </UCarousel>
 
         <span
+          v-if="galleryImages.length > 0"
           class="pointer-events-none fixed right-4 bottom-42 left-4 z-9998 inline-flex justify-center text-center text-xs tracking-wider text-white lg:absolute lg:right-auto lg:bottom-0 lg:left-0 lg:justify-start lg:text-left"
         >
           <span
@@ -197,7 +200,7 @@ import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch, watchE
 import { useApp } from '~/composables/useApp'
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 import { useDeviceDetect } from '~/composables/useDeviceDetect'
-import { prefetchWithPreset } from '~/composables/useImageWarmup'
+import { prefetchWithPreset, useImageWarmup } from '~/composables/useImageWarmup'
 import { useAccommodationStore } from '~/stores/accommodation'
 
 // 2. Types et constantes statiques
@@ -385,6 +388,17 @@ const currentGalleryCaption = computed(() => {
     property.value?.name ||
     ''
   )
+})
+
+const galleryImageUrls = computed<string[]>(() =>
+  galleryImages.value.map((item) => item.url).filter(Boolean),
+)
+
+useImageWarmup(galleryImageUrls, {
+  stateKey: 'property-detail-gallery',
+  preset: 'fullscreenCover',
+  batchSize: 2,
+  batchDelayMs: 800,
 })
 
 const placeLabel = computed(() => getPlaceLabel(property.value?.place))

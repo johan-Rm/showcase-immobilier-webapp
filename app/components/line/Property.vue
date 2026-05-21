@@ -29,12 +29,11 @@
                 :class="cinemaOverlayClass"
               />
             </template>
-            <div
-              v-else
-              class="absolute inset-0 -bottom-1/2 flex items-start justify-center bg-[#212121] pt-16"
-            >
-              <p class="text-xs font-light tracking-[0.4em] text-white/55 uppercase select-none">
-                Image non disponible
+            <div v-else class="absolute inset-0 bg-[#212121]">
+              <p
+                class="absolute inset-x-4 bottom-36 text-center text-xs font-light tracking-[0.4em] text-white/55 uppercase select-none sm:bottom-24 2xl:bottom-32"
+              >
+                image non disponible
               </p>
             </div>
 

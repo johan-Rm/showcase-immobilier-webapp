@@ -7,3 +7,11 @@
 @theme {
   --text-tiny: 0.525rem;
 }
+
+button:focus-visible,
+button:active {
+  background-color: transparent !important;
+  outline: none;
+}
+
+

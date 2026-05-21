@@ -80,54 +80,57 @@
     </div>
   </div>
 
-  <!-- Barre de contrôle centrale : ← Edit → -->
-  <div
+  <!-- Chevron gauche -->
+  <button
     v-if="accommodation"
-    class="pointer-events-auto absolute bottom-20 left-1/2 z-20 -translate-x-1/2 lg:bottom-10"
+    type="button"
+    class="group pointer-events-auto absolute top-1/2 left-1 z-20 flex -translate-y-1/2 items-center gap-2 bg-transparent px-2 py-3 text-white/45 transition-all duration-200 hover:-translate-x-2 hover:-translate-y-1/2 hover:text-white disabled:pointer-events-none disabled:opacity-25 lg:left-8 lg:gap-3 lg:px-4 lg:py-6"
+    :disabled="filteredCount <= 1"
+    aria-label="Bien précédent"
+    @click="emit('prev')"
   >
-    <div
-      class="flex items-center gap-1 rounded-xl p-1.5"
-      style="background-color: rgba(33, 33, 33, 0.82)"
-    >
-      <button
-        type="button"
-        class="flex items-center rounded-lg px-3 py-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white disabled:pointer-events-none disabled:opacity-25"
-        :disabled="filteredCount <= 1"
-        aria-label="Bien précédent"
-        @click="emit('prev')"
-      >
-        <span
-          aria-hidden="true"
-          class="block h-4 w-0.5 rounded-full bg-white/50 transition-colors duration-200 group-hover:bg-white lg:h-8"
-        />
-        <UIcon name="i-lucide-chevron-left" class="text-2xl leading-none" aria-hidden="true" />
-      </button>
+    <span
+      aria-hidden="true"
+      class="block h-12 w-0.5 rounded-full bg-white/50 transition-colors duration-200 group-hover:bg-white lg:h-25"
+    />
+    <UIcon
+      name="i-heroicons-chevron-left"
+      class="text-[1.5rem] transition-transform duration-200 group-hover:-translate-x-1 lg:text-[2.5rem]"
+      aria-hidden="true"
+    />
+  </button>
 
-      <button
-        type="button"
-        class="rounded-lg px-5 py-2 text-sm font-semibold text-white transition-opacity"
-        aria-label="Éditer le bien"
-        style="background-color: #6b7a4a"
-        @click="emit('edit')"
-      >
-        Modifier le bien
-      </button>
+  <!-- Chevron droit -->
+  <button
+    v-if="accommodation"
+    type="button"
+    class="group pointer-events-auto absolute top-1/2 right-1 z-20 flex -translate-y-1/2 items-center gap-2 bg-transparent px-2 py-3 text-white/45 transition-all duration-200 hover:translate-x-2 hover:-translate-y-1/2 hover:text-white disabled:pointer-events-none disabled:opacity-25 lg:right-8 lg:gap-3 lg:px-4 lg:py-6"
+    :disabled="filteredCount <= 1"
+    aria-label="Bien suivant"
+    @click="emit('next')"
+  >
+    <UIcon
+      name="i-heroicons-chevron-right"
+      class="text-[1.5rem] transition-transform duration-200 group-hover:translate-x-1 lg:text-[2.5rem]"
+      aria-hidden="true"
+    />
+    <span
+      aria-hidden="true"
+      class="block h-12 w-0.5 rounded-full bg-white/50 transition-colors duration-200 group-hover:bg-white lg:h-25"
+    />
+  </button>
 
-      <button
-        type="button"
-        class="flex items-center rounded-lg px-3 py-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white disabled:pointer-events-none disabled:opacity-25"
-        :disabled="filteredCount <= 1"
-        aria-label="Bien suivant"
-        @click="emit('next')"
-      >
-        <UIcon name="i-lucide-chevron-right" class="text-2xl leading-none" aria-hidden="true" />
-        <span
-          aria-hidden="true"
-          class="block h-4 w-0.5 rounded-full bg-white/50 transition-colors duration-200 group-hover:bg-white lg:h-8"
-        />
-      </button>
-    </div>
-  </div>
+  <!-- Bouton modifier (bas gauche) -->
+  <button
+    v-if="accommodation"
+    type="button"
+    class="pointer-events-auto absolute right-8 bottom-8 z-20 rounded-lg px-5 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-80"
+    style="background-color: rgba(33, 33, 33, 0.95)"
+    aria-label="Éditer le bien"
+    @click="emit('edit')"
+  >
+    Modifier le bien
+  </button>
 </template>
 
 <script setup lang="ts">

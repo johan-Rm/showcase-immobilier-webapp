@@ -22,7 +22,7 @@ const logger = useLogger({ module: 'app' })
 const { localeSetting } = useLang()
 // Statut et données critiques de l'application (web pages, métadonnées).
 const { initCoreData, isInitCoreDataReady, loadBackgroundData } = useNuxtServerInit()
-const { preloadDashboard } = useApp()
+const { preloadDashboard, seedDashboardHeroImageUrl } = useApp()
 preloadDashboard()
 
 // Résolus en setup (contexte Nuxt valide) : useRuntimeConfig() ne peut pas être appelé
@@ -160,5 +160,6 @@ onNuxtReady(async () => {
   }
 
   void loadBackgroundData()
+  void seedDashboardHeroImageUrl()
 })
 </script>
