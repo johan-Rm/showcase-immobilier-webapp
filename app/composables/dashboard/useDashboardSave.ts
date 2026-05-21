@@ -30,8 +30,7 @@ export const useDashboardSave = () => {
       return true
     } catch (err: unknown) {
       status.value = 'error'
-      const message =
-        err instanceof Error ? err.message : 'Erreur lors de la sauvegarde'
+      const message = err instanceof Error ? err.message : 'Erreur lors de la sauvegarde'
       errorMessage.value = message
       return false
     }

@@ -133,7 +133,12 @@ const drafts = ref<Record<DashboardLocale, DashboardDraft> | null>(null)
 const expandedBlocks = ref<Set<string>>(new Set(['body']))
 const isMobile = ref(false)
 
-const { status: saveStatus, errorMessage: saveErrorMessage, save, reset: resetSave } = useDashboardSave()
+const {
+  status: saveStatus,
+  errorMessage: saveErrorMessage,
+  save,
+  reset: resetSave,
+} = useDashboardSave()
 const { available: symfonyAvailable, check: checkSymfonyStatus } = useSymfonyStatus()
 
 const slideroverUi = computed(() =>

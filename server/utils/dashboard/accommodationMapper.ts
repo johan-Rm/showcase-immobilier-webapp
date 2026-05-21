@@ -1,10 +1,13 @@
+import type {
+  DashboardAccommodation,
+  DashboardEditableValue,
+} from '#shared/types/dashboardAccommodation'
+import type { CategoryCodeMap } from './symfonyCache'
+
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import YAML from 'yaml'
-
-import type { DashboardAccommodation, DashboardEditableValue } from '#shared/types/dashboardAccommodation'
-import type { CategoryCodeMap } from './symfonyCache'
 
 // ---------------------------------------------------------------------------
 // Types helpers
@@ -25,7 +28,9 @@ export type SymfonyAccommodationPayload = Record<string, unknown>
 // Value extractors
 // ---------------------------------------------------------------------------
 
-function isRecord(v: DashboardEditableValue | undefined): v is Record<string, DashboardEditableValue> {
+function isRecord(
+  v: DashboardEditableValue | undefined,
+): v is Record<string, DashboardEditableValue> {
   return typeof v === 'object' && v !== null && !Array.isArray(v)
 }
 
@@ -66,11 +71,7 @@ function resolveIri(
   return iri
 }
 
-function resolveIriArray(
-  codeMap: CategoryCodeMap,
-  inCodeSet: string,
-  codes: string[],
-): string[] {
+function resolveIriArray(codeMap: CategoryCodeMap, inCodeSet: string, codes: string[]): string[] {
   return codes
     .map((code) => resolveIri(codeMap, inCodeSet, code))
     .filter((iri): iri is string => iri !== null)
@@ -122,14 +123,22 @@ export async function mapToApiPlatform(
 
   // -- Offre ---------------------------------------------------------------
   const offer = isRecord(fm.offer) ? fm.offer : null
-  const offerPrice = offer ? (asNumber(offer.price) !== null ? String(asNumber(offer.price)) : asString(offer.price)) : null
+  const offerPrice = offer
+    ? asNumber(offer.price) !== null
+      ? String(asNumber(offer.price))
+      : asString(offer.price)
+    : null
   const offerPriceCurrency = offer ? asString(offer.priceCurrency) : null
   const offerPriceSpecification = offer ? asString(offer.priceSpecification) : null
   const offerAvailability = asString(fm.offerAvailability)
 
   // -- CategoryCode IRIs ---------------------------------------------------
   const category = resolveIri(codeMap, 'accommodation-type', asString(fm.category))
-  const realEstateListing = resolveIri(codeMap, 'real-estate-listing', asString(fm.realEstateListing))
+  const realEstateListing = resolveIri(
+    codeMap,
+    'real-estate-listing',
+    asString(fm.realEstateListing),
+  )
   const place = resolveIri(codeMap, 'accommodation-place', asString(fm.place))
 
   // amenityFeature : filtrer les entrées non-string (bug bavr001 avec "image: uuid")

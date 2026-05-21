@@ -90,7 +90,6 @@ const getStringArray = (value: unknown): string[] | undefined => {
   return items.length ? items : undefined
 }
 
-
 /**
  * Transforme un enregistrement brut en objet `CategoryCode` tolérant plusieurs formats.
  *
@@ -440,7 +439,6 @@ const mapAccommodationWithIndexes = (
   // Les loaders injectent parfois des structures partielles ; le record local
   // permet de lire ces variantes sans casser le contrat de sortie.
   const record = item as unknown as UnknownRecord
-  const place = mapPlace(record.place, indexes)
 
   return {
     ...item,

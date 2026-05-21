@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Import initial des 7 biens réels (non-fixture) dans la base Symfony.
  *
@@ -11,6 +12,7 @@
 
 import { readFileSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+
 import { config as loadDotenv } from 'dotenv'
 import YAML from 'yaml'
 
@@ -80,10 +82,9 @@ async function fetchCategoryCodeMap(token: string): Promise<CategoryCodeMap> {
 }
 
 async function fetchAccommodationUuidMap(token: string): Promise<AccommodationUuidMap> {
-  const res = await fetch(
-    `${API_URL}/api/projects/${PROJECT_ID}/accommodations?pagination=false`,
-    { headers: { Authorization: `Bearer ${token}`, Accept: 'application/ld+json' } },
-  )
+  const res = await fetch(`${API_URL}/api/projects/${PROJECT_ID}/accommodations?pagination=false`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/ld+json' },
+  })
   if (!res.ok) throw new Error(`Accommodations fetch failed: ${res.status}`)
   const json = (await res.json()) as HydraCollection<SymfonyAccommodation>
   const map: AccommodationUuidMap = {}
@@ -121,13 +122,19 @@ function asStringArray(v: unknown): string[] {
   return v.filter((x): x is string => typeof x === 'string')
 }
 
-function resolveIri(codeMap: CategoryCodeMap, inCodeSet: string, code: string | null): string | null {
+function resolveIri(
+  codeMap: CategoryCodeMap,
+  inCodeSet: string,
+  code: string | null,
+): string | null {
   if (!code) return null
   return codeMap[inCodeSet]?.[code] ?? null
 }
 
 function resolveIriArray(codeMap: CategoryCodeMap, inCodeSet: string, codes: string[]): string[] {
-  return codes.map((c) => resolveIri(codeMap, inCodeSet, c)).filter((iri): iri is string => iri !== null)
+  return codes
+    .map((c) => resolveIri(codeMap, inCodeSet, c))
+    .filter((iri): iri is string => iri !== null)
 }
 
 // ---------------------------------------------------------------------------
@@ -141,12 +148,15 @@ function buildPayload(
   body: string,
   codeMap: CategoryCodeMap,
 ): Record<string, unknown> {
-  const offer = fm.offer !== null && typeof fm.offer === 'object' && !Array.isArray(fm.offer)
-    ? (fm.offer as Record<string, unknown>)
-    : null
+  const offer =
+    fm.offer !== null && typeof fm.offer === 'object' && !Array.isArray(fm.offer)
+      ? (fm.offer as Record<string, unknown>)
+      : null
 
   const offerPrice = offer
-    ? (asNumber(offer.price) !== null ? String(asNumber(offer.price)) : asString(offer.price))
+    ? asNumber(offer.price) !== null
+      ? String(asNumber(offer.price))
+      : asString(offer.price)
     : null
 
   const floorSizeRaw = asNumber(fm.floorSize)
@@ -156,7 +166,11 @@ function buildPayload(
   const tagCodes = asStringArray(fm.tags)
 
   const category = resolveIri(codeMap, 'accommodation-type', asString(fm.category))
-  const realEstateListing = resolveIri(codeMap, 'real-estate-listing', asString(fm.realEstateListing))
+  const realEstateListing = resolveIri(
+    codeMap,
+    'real-estate-listing',
+    asString(fm.realEstateListing),
+  )
   const place = resolveIri(codeMap, 'accommodation-place', asString(fm.place))
   const amenityFeature = resolveIriArray(codeMap, 'amenity-feature', amenityFeatureCodes)
   const tags = resolveIriArray(codeMap, 'tag', tagCodes)
@@ -171,7 +185,16 @@ function buildPayload(
     tags,
   }
 
-  const numberFields = ['yearBuilt', 'areaSize', 'areaTerrace', 'numberOfRooms', 'numberOfBedrooms', 'numberOfBathroomsTotal', 'numberOfGarages', 'occupancy'] as const
+  const numberFields = [
+    'yearBuilt',
+    'areaSize',
+    'areaTerrace',
+    'numberOfRooms',
+    'numberOfBedrooms',
+    'numberOfBathroomsTotal',
+    'numberOfGarages',
+    'occupancy',
+  ] as const
   for (const field of numberFields) {
     const v = asNumber(fm[field])
     if (v !== null) payload[field] = v
@@ -180,13 +203,23 @@ function buildPayload(
   if (floorSizeRaw !== null) payload.floorSize = String(floorSizeRaw)
   if (landAreaRaw !== null) payload.landArea = String(landAreaRaw)
   if (offerPrice !== null) payload.offerPrice = offerPrice
-  if (offer && asString(offer.priceCurrency)) payload.offerPriceCurrency = asString(offer.priceCurrency)
-  if (offer && asString(offer.priceSpecification)) payload.offerPriceSpecification = asString(offer.priceSpecification)
+  if (offer && asString(offer.priceCurrency))
+    payload.offerPriceCurrency = asString(offer.priceCurrency)
+  if (offer && asString(offer.priceSpecification))
+    payload.offerPriceSpecification = asString(offer.priceSpecification)
   if (asString(fm.offerAvailability)) payload.offerAvailability = asString(fm.offerAvailability)
 
   // Champs translatables
   payload.slug = asString(fm.slug) ?? slug
-  const translatableStrings = ['name', 'label', 'highlight', 'review', 'locationDescription', 'metaTitle', 'metaDescription'] as const
+  const translatableStrings = [
+    'name',
+    'label',
+    'highlight',
+    'review',
+    'locationDescription',
+    'metaTitle',
+    'metaDescription',
+  ] as const
   for (const field of translatableStrings) {
     const v = asString(fm[field])
     if (v !== null) payload[field] = v
@@ -269,7 +302,10 @@ async function main() {
     console.log(`  [${method}] ${identifier} (${slug})`)
 
     if (isDryRun) {
-      console.log('    payload:', JSON.stringify(payload, null, 2).split('\n').slice(0, 6).join('\n') + '\n    ...')
+      console.log(
+        '    payload:',
+        JSON.stringify(payload, null, 2).split('\n').slice(0, 6).join('\n') + '\n    ...',
+      )
       continue
     }
 
@@ -284,7 +320,11 @@ async function main() {
         console.error(`    ✗ ${res.status}: ${text.slice(0, 200)}`)
         errors++
       } else {
-        existingUuid ? updated++ : created++
+        if (existingUuid) {
+          updated++
+        } else {
+          created++
+        }
         console.log(`    ✓`)
       }
     } catch (err) {
