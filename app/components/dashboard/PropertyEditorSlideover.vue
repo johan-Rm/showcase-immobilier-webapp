@@ -57,7 +57,24 @@
             </button>
           </div>
 
-          <!-- Message d'erreur -->
+          <!-- Statut API -->
+          <div class="mb-2 flex items-center gap-1.5">
+            <span
+              class="inline-block h-2 w-2 rounded-full"
+              :class="{
+                'bg-green-500': symfonyAvailable === true,
+                'bg-red-500': symfonyAvailable === false,
+                'animate-pulse bg-white/30': symfonyAvailable === null,
+              }"
+            />
+            <span class="text-xs text-white/40">
+              <template v-if="symfonyAvailable === null">Vérification API…</template>
+              <template v-else-if="symfonyAvailable">API disponible</template>
+              <template v-else>API indisponible</template>
+            </span>
+          </div>
+
+          <!-- Message d'erreur sauvegarde -->
           <p v-if="saveStatus === 'error'" class="mb-2 text-xs text-red-400">
             {{ saveErrorMessage ?? 'Erreur lors de la sauvegarde' }}
           </p>
@@ -65,7 +82,7 @@
           <!-- Bouton Enregistrer -->
           <UButton
             block
-            :disabled="saveStatus === 'saving' || !accommodation"
+            :disabled="saveStatus === 'saving' || !accommodation || symfonyAvailable === false"
             :loading="saveStatus === 'saving'"
             :color="saveStatus === 'error' ? 'error' : 'primary'"
             :variant="saveStatus === 'success' ? 'soft' : 'solid'"
@@ -90,6 +107,7 @@ import type {
 } from '#shared/types/dashboardAccommodation'
 
 import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
+import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
@@ -116,6 +134,7 @@ const expandedBlocks = ref<Set<string>>(new Set(['body']))
 const isMobile = ref(false)
 
 const { status: saveStatus, errorMessage: saveErrorMessage, save, reset: resetSave } = useDashboardSave()
+const { available: symfonyAvailable, check: checkSymfonyStatus } = useSymfonyStatus()
 
 const slideroverUi = computed(() =>
   isMobile.value
@@ -282,4 +301,10 @@ watch(
   },
   { immediate: true },
 )
+
+watch(isOpen, (open) => {
+  if (open && symfonyAvailable.value === null) {
+    checkSymfonyStatus()
+  }
+})
 </script>
