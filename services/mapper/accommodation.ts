@@ -90,13 +90,6 @@ const getStringArray = (value: unknown): string[] | undefined => {
   return items.length ? items : undefined
 }
 
-const getLocationDescription = (
-  place: Accommodation['place'],
-  indexes: AccommodationMetadataIndexes,
-): string => {
-  if (!place?.slug) return ''
-  return indexes.places.get(place.slug)?.description ?? ''
-}
 
 /**
  * Transforme un enregistrement brut en objet `CategoryCode` tolérant plusieurs formats.
@@ -462,7 +455,7 @@ const mapAccommodationWithIndexes = (
     associatedMedia: mapAssociatedMedia(record.associatedMedia, indexes),
     realEstateListing: mapListing(record.realEstateListing, indexes),
     isActive: typeof record.isActive === 'boolean' ? record.isActive : false,
-    locationDescription: getLocationDescription(place, indexes),
+
     tags: mapCategoryList(record.tags, indexes),
     realEstateAgent: mapRealEstateAgent(record.realEstateAgent, indexes),
     metaTitle: getString(record.metaTitle, getString(record.name, getString(record.slug))),

@@ -164,7 +164,6 @@ export async function mapToApiPlatform(
   const highlight = asString(fm.highlight)
   const body = accommodation.body || null
   const review = asString(fm.review)
-  const locationDescription = asString(fm.locationDescription)
   const metaTitle = asString(fm.metaTitle)
   const metaDescription = asString(fm.metaDescription)
 
@@ -202,7 +201,6 @@ export async function mapToApiPlatform(
     ...(highlight !== null && { highlight }),
     ...(body !== null && { body }),
     ...(review !== null && { review }),
-    ...(locationDescription !== null && { locationDescription }),
     ...(metaTitle !== null && { metaTitle }),
     ...(metaDescription !== null && { metaDescription }),
   }
