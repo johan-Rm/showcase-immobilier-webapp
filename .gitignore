@@ -44,6 +44,9 @@ nginx/certs/*
 # Nuxt 4 ref
 nuxt-4-reference
 
+# Git worktrees
+.worktrees/
+
 public/images/originals/
 lighthouse-*
 !scripts/lighthouse-*.sh
