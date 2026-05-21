@@ -9,16 +9,27 @@ export const useDashboardSave = () => {
 
   const status = ref<SaveStatus>('idle')
   const errorMessage = ref<string | null>(null)
+  const markdownUpdated = ref<boolean | null>(null)
 
   const save = async (accommodation: DashboardAccommodation): Promise<boolean> => {
     status.value = 'saving'
     errorMessage.value = null
+    markdownUpdated.value = null
 
     try {
-      await $fetch(`/api/dashboard/accommodations/${accommodation.identifier}`, {
-        method: 'PUT',
-        query: { locale: toValue(localeSetting) },
-        body: accommodation,
+      const locale = toValue(localeSetting)
+      const result = await $fetch<{ success: true; uuid: string; markdownUpdated: boolean }>(
+        `/api/dashboard/accommodations/${accommodation.identifier}`,
+        { method: 'PUT', query: { locale }, body: accommodation },
+      )
+
+      markdownUpdated.value = result.markdownUpdated
+
+      // Invalide le cache serveur (TTL 30s) sans bloquer l'UI
+      $fetch('/api/dashboard/accommodations', {
+        query: { locale, refresh: '1' },
+      }).catch(() => {
+        /* silencieux */
       })
 
       status.value = 'success'
@@ -39,7 +50,8 @@ export const useDashboardSave = () => {
   const reset = () => {
     status.value = 'idle'
     errorMessage.value = null
+    markdownUpdated.value = null
   }
 
-  return { status, errorMessage, save, reset }
+  return { status, errorMessage, markdownUpdated, save, reset }
 }

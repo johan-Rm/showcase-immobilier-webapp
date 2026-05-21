@@ -63,6 +63,7 @@
     <DashboardPropertyEditorSlideover
       v-model:open="isEditorOpen"
       :accommodation="activeAccommodation"
+      @saved="emit('refresh')"
     />
   </section>
 </template>
@@ -101,6 +102,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   refresh: []
+  saved: []
   logout: []
 }>()
 

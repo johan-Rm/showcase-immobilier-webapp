@@ -1,5 +1,5 @@
 ---
-status: A faire
+status: Terminé
 source: brief dashboard re-export markdown
 dependances: 008-dashboard-sauvegarde-biens-api-symfony.md
 ---

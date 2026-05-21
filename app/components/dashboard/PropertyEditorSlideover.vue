@@ -79,6 +79,14 @@
             {{ saveErrorMessage ?? 'Erreur lors de la sauvegarde' }}
           </p>
 
+          <!-- Avertissement markdown non mis à jour -->
+          <p
+            v-if="saveStatus === 'success' && saveMarkdownUpdated === false"
+            class="mb-2 text-xs text-amber-400"
+          >
+            Sauvegarde BDD réussie — fichier local non mis à jour
+          </p>
+
           <!-- Bouton Enregistrer -->
           <UButton
             block
@@ -125,6 +133,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update:open': [value: boolean]
+  saved: []
 }>()
 
 const activeSection = ref<EditorSection>('content')
@@ -136,6 +145,7 @@ const isMobile = ref(false)
 const {
   status: saveStatus,
   errorMessage: saveErrorMessage,
+  markdownUpdated: saveMarkdownUpdated,
   save,
   reset: resetSave,
 } = useDashboardSave()
@@ -292,7 +302,8 @@ const handleSave = async (): Promise<void> => {
     body: activeDraft.value.body,
   }
 
-  await save(payload)
+  const ok = await save(payload)
+  if (ok) emit('saved')
 }
 
 watch(
