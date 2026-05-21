@@ -29,6 +29,54 @@
           @update-associated-media="updateAssociatedMedia"
           @update-media-image="updateMediaImage"
         />
+
+        <!-- Barre de sauvegarde -->
+        <div class="shrink-0 border-t border-white/10 bg-[#1a1a1a] px-4 py-3">
+          <!-- Badges locale (stub traduction) -->
+          <div class="mb-3 flex items-center gap-2">
+            <span class="text-xs text-white/40">Traductions</span>
+            <button
+              v-for="loc in locales"
+              :key="loc"
+              class="rounded px-2 py-0.5 text-xs font-medium transition-colors"
+              :class="
+                loc === activeLocale
+                  ? 'bg-[#6B7A4A] text-white'
+                  : 'bg-white/10 text-white/50 hover:bg-white/20'
+              "
+              @click="activeLocale = loc"
+            >
+              {{ loc.toUpperCase() }}
+            </button>
+            <button
+              disabled
+              class="ml-auto cursor-not-allowed rounded px-2 py-0.5 text-xs text-white/30"
+              title="Traduction automatique — disponible prochainement"
+            >
+              Traduire
+            </button>
+          </div>
+
+          <!-- Message d'erreur -->
+          <p v-if="saveStatus === 'error'" class="mb-2 text-xs text-red-400">
+            {{ saveErrorMessage ?? 'Erreur lors de la sauvegarde' }}
+          </p>
+
+          <!-- Bouton Enregistrer -->
+          <UButton
+            block
+            :disabled="saveStatus === 'saving' || !accommodation"
+            :loading="saveStatus === 'saving'"
+            :color="saveStatus === 'error' ? 'error' : 'primary'"
+            :variant="saveStatus === 'success' ? 'soft' : 'solid'"
+            class="font-medium"
+            @click="handleSave"
+          >
+            <template v-if="saveStatus === 'success'">Enregistré ✓</template>
+            <template v-else-if="saveStatus === 'error'">Réessayer</template>
+            <template v-else>Enregistrer</template>
+          </UButton>
+        </div>
       </div>
     </template>
   </USlideover>
@@ -41,10 +89,14 @@ import type {
   DashboardEditableValue,
 } from '#shared/types/dashboardAccommodation'
 
+import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
+
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
+
+const locales: DashboardLocale[] = ['fr', 'en', 'es']
 
 defineOptions({ name: 'DashboardPropertyEditorSlideover' })
 
@@ -62,6 +114,8 @@ const activeLocale = ref<DashboardLocale>('fr')
 const drafts = ref<Record<DashboardLocale, DashboardDraft> | null>(null)
 const expandedBlocks = ref<Set<string>>(new Set(['body']))
 const isMobile = ref(false)
+
+const { status: saveStatus, errorMessage: saveErrorMessage, save, reset: resetSave } = useDashboardSave()
 
 const slideroverUi = computed(() =>
   isMobile.value
@@ -204,6 +258,19 @@ const updateMediaImage = (value: DashboardEditableValue): void => {
   drafts.value[activeLocale.value].frontmatter.image = cloneEditableValue(value)
 }
 
+const handleSave = async (): Promise<void> => {
+  if (!props.accommodation || !activeDraft.value) return
+
+  const payload: DashboardAccommodation = {
+    ...props.accommodation,
+    locale: activeLocale.value,
+    frontmatter: activeDraft.value.frontmatter,
+    body: activeDraft.value.body,
+  }
+
+  await save(payload)
+}
+
 watch(
   () => props.accommodation?.slug,
   () => {
@@ -211,6 +278,7 @@ watch(
     activeSection.value = 'content'
     activeLocale.value = 'fr'
     expandedBlocks.value = new Set(['body'])
+    resetSave()
   },
   { immediate: true },
 )
