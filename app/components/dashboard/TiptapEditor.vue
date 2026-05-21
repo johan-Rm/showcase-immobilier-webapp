@@ -48,11 +48,20 @@ const editor = useEditor({
   extensions: [TiptapStarterKit, Markdown, Table, TableRow, TableCell, TableHeader],
   content: toHtml(props.modelValue),
   onUpdate: ({ editor: e }) => {
-    emit('update:modelValue', e.storage.markdown.getMarkdown())
+    emit('update:modelValue', (e.storage.markdown as { getMarkdown: () => string }).getMarkdown())
   },
 })
 
-const toolbarGroups = computed(() => [
+type ToolbarItem = {
+  name: string
+  label: string
+  icon: string
+  isActive?: () => boolean
+  disabled?: () => boolean
+  action: () => boolean | undefined
+}
+
+const toolbarGroups = computed<ToolbarItem[][]>(() => [
   [
     {
       name: 'bold',

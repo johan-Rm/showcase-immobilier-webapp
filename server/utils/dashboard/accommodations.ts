@@ -201,7 +201,7 @@ export const loadDashboardAccommodations = async (
           identifier,
           slug,
           title: getString(item.name, slug),
-          description: getString(raw.description, getString(item.description)),
+          description: getString(item.highlight, getString(item.label)),
           price: getNumber(offer.price),
           priceCurrency: getString(offer.priceCurrency, 'EUR'),
           priceSpecification: getString(offer.priceSpecification),

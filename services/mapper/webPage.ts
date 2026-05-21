@@ -454,23 +454,23 @@ export const mapWebPages = (
 
 export const accommodationToWebPage = (item: Accommodation): WebPage => {
   const metaTitle = item.metaTitle || `${item.name} à Essaouira – MLK My Little Kasbah`
-  const metaDescription = item.metaDescription || item.description || ''
+  const metaDescription = item.metaDescription || item.highlight || ''
   const now = new Date().toISOString()
 
   return {
     slug: item.slug,
     headline: item.name,
-    alternativeHeadline: item.blockquote,
-    abstract: item.highlight || item.description,
-    text: item.description || '',
-    body: item.description || '',
+    alternativeHeadline: item.highlight,
+    abstract: item.highlight,
+    text: item.body || '',
+    body: item.body || '',
 
     metaTitle,
     metaDescription,
 
-    datePublished: item.datePublished || item.dateCreated || now,
+    datePublished: item.dateCreated || now,
     dateCreated: item.dateCreated || now,
-    dateModified: item.dateModified || item.datePublished || item.dateCreated || now,
+    dateModified: item.dateModified || item.dateCreated || now,
 
     inLanguage: 'fr',
 
