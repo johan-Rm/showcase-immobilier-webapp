@@ -157,6 +157,17 @@
                         :model-value="getFieldValue(field.key, field.default)"
                         @update:model-value="emit('update-field', field.key, $event)"
                       />
+                      <DashboardCategoryCodeSelect
+                        v-else-if="
+                          field.type === 'category-code' || field.type === 'category-code-multi'
+                        "
+                        :in-code-set="field.inCodeSet ?? ''"
+                        :model-value="getFieldValue(field.key, field.default)"
+                        :label="field.label"
+                        :placeholder="field.label"
+                        :multiple="field.type === 'category-code-multi'"
+                        @update:model-value="emit('update-field', field.key, $event)"
+                      />
                       <DashboardPropertyFieldEditor
                         v-else
                         :label="field.label"
@@ -226,7 +237,8 @@ type FieldConfig = {
   readonly?: boolean
   default?: DashboardEditableValue
   half?: boolean
-  type?: 'offer' | 'amenity' | 'qualities'
+  type?: 'offer' | 'amenity' | 'qualities' | 'category-code' | 'category-code-multi'
+  inCodeSet?: string
   separator?: boolean
 }
 type FrontmatterSection = {
@@ -285,11 +297,27 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
         {
           key: 'realEstateListing',
           label: f('realEstateListing', 'Type de listing'),
+          type: 'category-code' as const,
+          inCodeSet: 'real-estate-listing',
           default: null,
           half: true,
         },
-        { key: 'category', label: f('category', 'Catégorie'), default: null, half: true },
-        { key: 'place', label: f('place', 'Lieu'), default: null, half: true },
+        {
+          key: 'category',
+          label: f('category', 'Catégorie'),
+          type: 'category-code' as const,
+          inCodeSet: 'accommodation-type',
+          default: null,
+          half: true,
+        },
+        {
+          key: 'place',
+          label: f('place', 'Lieu'),
+          type: 'category-code' as const,
+          inCodeSet: 'accommodation-place',
+          default: null,
+          half: true,
+        },
         { key: 'offer', label: f('offer', 'Offre'), type: 'offer', half: true, default: {} },
       ],
     },
@@ -344,7 +372,15 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
         {
           key: 'amenityFeature',
           label: f('amenityFeature', 'Équipements'),
-          type: 'amenity',
+          type: 'category-code-multi' as const,
+          inCodeSet: 'amenity-feature',
+          default: [],
+        },
+        {
+          key: 'tags',
+          label: f('tags', 'Tags'),
+          type: 'category-code-multi' as const,
+          inCodeSet: 'tag',
           default: [],
         },
       ],
