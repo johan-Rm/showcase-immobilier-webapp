@@ -24,7 +24,7 @@ async function fetchToken(apiUrl: string, email: string, password: string): Prom
   const response = await $fetch<{ token: string }>(`${apiUrl}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: { username: email, password },
+    body: { email, password },
   })
 
   if (!response?.token) {

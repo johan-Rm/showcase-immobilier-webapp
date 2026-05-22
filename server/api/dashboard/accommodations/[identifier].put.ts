@@ -10,12 +10,17 @@ import {
 } from '../../../utils/dashboard/symfonyCache'
 
 const DEFAULT_LOCALE = 'fr'
+const MISSING_CATEGORY_CODE_MESSAGE = 'CategoryCode introuvable'
 
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
   if (!apiUrl) throw new Error('SYMFONY_API_URL manquant')
   if (!projectId) throw new Error('SYMFONY_PROJECT_ID manquant')
   return { apiUrl, projectId }
+}
+
+function isMissingCategoryCodeError(error: unknown): boolean {
+  return error instanceof Error && error.message.includes(MISSING_CATEGORY_CODE_MESSAGE)
 }
 
 export default defineEventHandler(
@@ -43,7 +48,18 @@ export default defineEventHandler(
       getAccommodationUuidMap(),
     ])
 
-    const payload = await mapToApiPlatform(accommodation, locale, codeMap)
+    let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
+    try {
+      payload = await mapToApiPlatform(accommodation, locale, codeMap)
+    } catch (error) {
+      if (!isMissingCategoryCodeError(error)) {
+        throw error
+      }
+
+      invalidateSymfonyCache()
+      const freshCodeMap = await getCategoryCodeMap(true)
+      payload = await mapToApiPlatform(accommodation, locale, freshCodeMap)
+    }
 
     const headers = {
       Authorization: `Bearer ${token}`,
