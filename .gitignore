@@ -51,3 +51,4 @@ public/images/originals/
 lighthouse-*
 !scripts/lighthouse-*.sh
 firefox.*
+scripts/bootstrap-data/.state

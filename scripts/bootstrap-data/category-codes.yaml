@@ -1,0 +1,106 @@
+accommodation-type:
+  - local-commercial
+  - maison-de-campagne
+  - riad
+  - terrain
+  - appartement
+  - chambre-dhotes
+  - dar
+  - maison-de-ville
+  - maisons-dhotes
+  - villa
+
+accommodation-place:
+  - campagne
+  - campagne-d-essaouira
+  - medina
+  - moulay-bouzerktoun
+  - nouvelle-ville
+  - sidi-kaouki
+  - centre-ville
+  - corniche
+  - ghazoua
+  - marina
+  - palmeraie
+  - route-d-agadir
+  - route-de-marrakech
+  - route-de-safi
+
+real-estate-listing:
+  - bien-a-vendre
+  - location-longue-duree
+  - location-saisonniere
+  - location-gerance
+
+amenity-feature:
+  - acces-route
+  - chateau-d-eau
+  - exploitation-commerciale
+  - gardien
+  - patio
+  - terrasse
+  - vue-degagee
+  - vue-sur-mer
+  - ascenseur
+  - balcon
+  - cheminee
+  - climatisation
+  - garage
+  - jardin
+  - parking
+  - petit-dejeuner
+  - piscine
+  - spa
+  - toit-terrasse
+  - viabilise
+  - vitrine
+  - wifi
+
+tag:
+  - bien-titre
+  - campagne
+  - commerce
+  - hotel
+  - investissement
+  - medina
+  - piscine
+  - terrain
+  - appartement
+  - arganier
+  - ascenseur
+  - atelier
+  - balcon
+  - boutique
+  - centre-ville
+  - chambre-dhotes
+  - cheminee
+  - contemporaine
+  - corniche
+  - dar
+  - duplex
+  - famille
+  - gerance
+  - ghazoua
+  - golf
+  - jardin
+  - longue-duree
+  - maison-de-ville
+  - maison-dhotes
+  - marina
+  - mezzanine
+  - ocean
+  - parking
+  - patio
+  - petit-dejeuner
+  - riad
+  - route-de-marrakech
+  - route-de-safi
+  - sejour-court
+  - sidi-kaouki
+  - spa
+  - terrasse
+  - toit-terrasse
+  - viabilise
+  - vitrine
+  - vue-degagee
+  - vue-ocean

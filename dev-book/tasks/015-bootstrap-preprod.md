@@ -1,5 +1,5 @@
 ---
-status: A planifier
+status: Terminé
 dependances: 008-dashboard-sauvegarde-biens-api-symfony.md
 ---
 
