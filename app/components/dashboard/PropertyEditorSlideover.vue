@@ -32,31 +32,6 @@
 
         <!-- Barre de sauvegarde -->
         <div class="shrink-0 border-t border-white/10 bg-[#1a1a1a] px-4 py-3">
-          <!-- Badges locale (stub traduction) -->
-          <div class="mb-3 flex items-center gap-2">
-            <span class="text-xs text-white/40">Traductions</span>
-            <button
-              v-for="loc in locales"
-              :key="loc"
-              class="rounded px-2 py-0.5 text-xs font-medium transition-colors"
-              :class="
-                loc === activeLocale
-                  ? 'bg-[#6B7A4A] text-white'
-                  : 'bg-white/10 text-white/50 hover:bg-white/20'
-              "
-              @click="activeLocale = loc"
-            >
-              {{ loc.toUpperCase() }}
-            </button>
-            <button
-              disabled
-              class="ml-auto cursor-not-allowed rounded px-2 py-0.5 text-xs text-white/30"
-              title="Traduction automatique — disponible prochainement"
-            >
-              Traduire
-            </button>
-          </div>
-
           <!-- Statut API -->
           <div class="mb-2 flex items-center gap-1.5">
             <span
@@ -121,8 +96,6 @@ type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
-
-const locales: DashboardLocale[] = ['fr', 'en', 'es']
 
 defineOptions({ name: 'DashboardPropertyEditorSlideover' })
 

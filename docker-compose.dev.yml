@@ -17,6 +17,8 @@ services:
       - ./schemas:/app/schemas
       - ./.data:/app/.data
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - '3000:3000'
     env_file:
