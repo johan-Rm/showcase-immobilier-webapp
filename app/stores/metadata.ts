@@ -295,6 +295,10 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns `void`.
      */
+    addMediaObject(item: MediaObject): void {
+      this.imageObjects = [...this.imageObjects, item]
+    },
+
     addCategoryCode(item: CategoryCode): void {
       switch (item.inCodeSet) {
         case 'amenity-feature':
