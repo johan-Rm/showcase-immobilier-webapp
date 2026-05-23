@@ -12,14 +12,6 @@
         <span class="shrink-0 text-[0.65rem] text-white/30 tabular-nums">
           {{ quality.value }}
         </span>
-        <button
-          type="button"
-          class="shrink-0 text-white/20 transition-colors hover:text-white/50"
-          :aria-label="`Supprimer ${quality.name}`"
-          @click="remove(index)"
-        >
-          <UIcon name="i-lucide-x" class="text-xs" aria-hidden="true" />
-        </button>
       </div>
       <USlider
         :model-value="quality.value"
@@ -34,14 +26,6 @@
         @update:model-value="updateValue(index, $event as number)"
       />
     </div>
-
-    <button
-      type="button"
-      class="mt-3 text-[0.65rem] text-white/25 transition-colors hover:text-white/50"
-      @click="add"
-    >
-      + Ajouter une qualité
-    </button>
   </div>
 </template>
 
@@ -82,13 +66,5 @@ const updateName = (index: number, name: string): void => {
 const updateValue = (index: number, value: number): void => {
   const next = qualities.value.map((q, i) => (i === index ? { ...q, value } : q))
   emitUpdate(next)
-}
-
-const remove = (index: number): void => {
-  emitUpdate(qualities.value.filter((_, i) => i !== index))
-}
-
-const add = (): void => {
-  emitUpdate([...qualities.value, { name: '', value: 50 }])
 }
 </script>

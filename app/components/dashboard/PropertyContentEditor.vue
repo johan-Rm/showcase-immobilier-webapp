@@ -189,44 +189,7 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
     {
       id: 'avis',
       label: s('avis', 'Notre avis'),
-      fields: [{ key: 'review', label: f('review', 'Avis agence'), default: null }],
-    },
-    {
-      id: 'details',
-      label: s('details', 'Détails'),
-      fields: [
-        { key: 'floorSize', label: f('floorSize', 'Surface habitable'), default: null, half: true },
-        { key: 'areaSize', label: f('areaSize', 'Surface totale'), default: null, half: true },
-        { key: 'landArea', label: f('landArea', 'Surface terrain'), default: null, half: true },
-        { key: 'areaTerrace', label: f('areaTerrace', 'Terrasse'), default: null, half: true },
-        {
-          key: 'numberOfBedrooms',
-          label: f('numberOfBedrooms', 'Chambres'),
-          default: null,
-          half: true,
-        },
-        { key: 'numberOfRooms', label: f('numberOfRooms', 'Pièces'), default: null, half: true },
-        {
-          key: 'numberOfBathroomsTotal',
-          label: f('numberOfBathroomsTotal', 'Salles de bain'),
-          default: null,
-          half: true,
-        },
-        {
-          key: 'numberOfGarages',
-          label: f('numberOfGarages', 'Garages'),
-          default: null,
-          half: true,
-        },
-        { key: 'occupancy', label: f('occupancy', 'Capacité'), default: null, half: true },
-        { key: 'level', label: f('level', 'Étage'), default: 0, half: true },
-        {
-          key: 'yearBuilt',
-          label: f('yearBuilt', 'Année de construction'),
-          default: null,
-          half: true,
-        },
-      ],
+      fields: [{ key: 'review', label: f('review', ''), default: null }],
     },
     {
       id: 'confort',
@@ -247,6 +210,43 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       label: s('qualites', 'Qualités'),
       fields: [
         { key: 'qualities', label: f('qualities', 'Qualités'), type: 'qualities', default: [] },
+      ],
+    },
+    {
+      id: 'details',
+      label: s('details', 'Détails'),
+      fields: [
+        { key: 'floorSize', label: f('floorSize', 'Surface habitable'), default: null, half: true },
+        { key: 'areaSize', label: f('areaSize', 'Surface totale'), default: 0, half: true },
+        { key: 'landArea', label: f('landArea', 'Surface terrain'), default: null, half: true },
+        { key: 'areaTerrace', label: f('areaTerrace', 'Terrasse'), default: 0, half: true },
+        {
+          key: 'numberOfBedrooms',
+          label: f('numberOfBedrooms', 'Chambres'),
+          default: 0,
+          half: true,
+        },
+        { key: 'numberOfRooms', label: f('numberOfRooms', 'Pièces'), default: 0, half: true },
+        {
+          key: 'numberOfBathroomsTotal',
+          label: f('numberOfBathroomsTotal', 'Salles de bain'),
+          default: 0,
+          half: true,
+        },
+        {
+          key: 'numberOfGarages',
+          label: f('numberOfGarages', 'Garages'),
+          default: 0,
+          half: true,
+        },
+        { key: 'occupancy', label: f('occupancy', 'Capacité'), default: 0, half: true },
+        { key: 'level', label: f('level', 'De plain-pied'), default: false, half: true },
+        {
+          key: 'yearBuilt',
+          label: f('yearBuilt', 'Année de construction'),
+          default: 0,
+          half: true,
+        },
       ],
     },
     {
