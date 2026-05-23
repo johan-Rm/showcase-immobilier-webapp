@@ -105,13 +105,6 @@
         </template>
       </template>
     </div>
-
-    <div class="flex shrink-0 items-center gap-2 border-t border-white/10 px-4 py-3">
-      <UIcon name="i-lucide-lock" class="shrink-0 text-xs text-white/20" aria-hidden="true" />
-      <p class="text-[0.68rem] text-white/25">
-        {{ accommodationForm?.ui['editionNote'] ?? 'Edition locale — sauvegarde non disponible' }}
-      </p>
-    </div>
   </div>
 </template>
 
@@ -128,9 +121,6 @@ type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
 
 defineOptions({ name: 'DashboardPropertyEditorPanel' })
-
-const metadataStore = useMetadataStore()
-const accommodationForm = computed(() => metadataStore.getAccommodationForm)
 
 defineProps<{
   activeSection: EditorSection

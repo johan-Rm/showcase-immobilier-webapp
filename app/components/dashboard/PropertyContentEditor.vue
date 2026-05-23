@@ -29,16 +29,6 @@
 
     <div v-if="expandedBlocks.has(block.id)" class="px-4 pt-1 pb-5">
       <template v-if="block.id === 'frontmatter'">
-        <div class="flex items-center gap-2.5 border-b border-white/5 py-2.5">
-          <span class="text-[0.65rem] font-semibold tracking-widest text-white/20">{{
-            accommodationForm?.fields['isActive'] ?? 'Actif'
-          }}</span>
-          <USwitch
-            :model-value="Boolean(getFieldValue('isActive', false))"
-            :ui="{ base: 'data-[state=checked]:bg-[#6B7A4A]' }"
-            @update:model-value="emit('update-field', 'isActive', $event)"
-          />
-        </div>
         <div v-for="section in frontmatterSections" :key="section.id">
           <div v-if="section.separator" class="mt-4 h-px bg-[#6B7A4A]/40" />
           <div v-if="!section.hideLabel" class="sticky top-0 z-10 -mx-4 bg-[#212121] px-4">

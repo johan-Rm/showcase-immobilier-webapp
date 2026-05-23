@@ -32,21 +32,33 @@
 
         <!-- Barre de sauvegarde -->
         <div class="shrink-0 border-t border-white/10 bg-[#1a1a1a] px-4 py-3">
-          <!-- Statut API -->
-          <div class="mb-2 flex items-center gap-1.5">
-            <span
-              class="inline-block h-2 w-2 rounded-full"
-              :class="{
-                'bg-green-500': symfonyAvailable === true,
-                'bg-red-500': symfonyAvailable === false,
-                'animate-pulse bg-white/30': symfonyAvailable === null,
-              }"
-            />
-            <span class="text-xs text-white/40">
-              <template v-if="symfonyAvailable === null">Vérification API…</template>
-              <template v-else-if="symfonyAvailable">API disponible</template>
-              <template v-else>API indisponible</template>
-            </span>
+          <!-- Statut API + isActive -->
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span
+                class="inline-block h-2 w-2 rounded-full"
+                :class="{
+                  'bg-green-500': symfonyAvailable === true,
+                  'bg-red-500': symfonyAvailable === false,
+                  'animate-pulse bg-white/30': symfonyAvailable === null,
+                }"
+              />
+              <span class="text-xs text-white/40">
+                <template v-if="symfonyAvailable === null">Vérification API…</template>
+                <template v-else-if="symfonyAvailable">API disponible</template>
+                <template v-else>API indisponible</template>
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-white/20">Actif</span>
+              <USwitch
+                :model-value="isActiveValue"
+                :ui="{
+                  base: 'data-[state=checked]:bg-[#6B7A4A] data-[state=unchecked]:bg-red-500/30',
+                }"
+                @update:model-value="updateField('isActive', $event)"
+              />
+            </div>
           </div>
 
           <!-- Message d'erreur sauvegarde -->
@@ -69,7 +81,10 @@
             :loading="saveStatus === 'saving'"
             :color="saveStatus === 'error' ? 'error' : 'primary'"
             :variant="saveStatus === 'success' ? 'soft' : 'solid'"
-            class="font-medium"
+            :class="[
+              'font-medium',
+              saveStatus !== 'error' ? 'bg-[#6B7A4A]! hover:bg-[#5c6940]!' : '',
+            ]"
             @click="handleSave"
           >
             <template v-if="saveStatus === 'success'">Enregistré ✓</template>
@@ -128,12 +143,12 @@ const slideroverUi = computed(() =>
   isMobile.value
     ? {
         content: 'max-h-[82dvh] bg-[#212121] text-white ring-0 shadow-none',
-        overlay: 'bg-black/95',
+        overlay: 'bg-black/55',
       }
     : {
         content:
           'max-w-[min(92vw,34rem)] bg-[#212121] text-white ring-0 sm:ring-0 shadow-none sm:shadow-none',
-        overlay: 'bg-black/95',
+        overlay: 'bg-black/55',
       },
 )
 
@@ -205,6 +220,10 @@ const associatedMediaValue = computed<DashboardEditableValue>(
 
 const mediaImageValue = computed<DashboardEditableValue>(
   () => activeDraft.value?.frontmatter.image ?? [],
+)
+
+const isActiveValue = computed<boolean>(() =>
+  Boolean(getNestedValue(activeDraft.value?.frontmatter ?? {}, 'isActive')),
 )
 
 const titleDraftValue = computed<string>(() => {
