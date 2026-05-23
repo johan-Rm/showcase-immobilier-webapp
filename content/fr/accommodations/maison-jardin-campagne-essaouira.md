@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - campagne
-  - jardin
-  - longue-duree
 realEstateAgent: 0a5aa847-7a17-4a3d-b04f-1e2d98b55bab
 metaTitle: Maison 3 chambres avec jardin en campagne d'Essaouira
 metaDescription: Location longue durée avec jardin arboré, terrasse et cadre calme proche d'Essaouira.

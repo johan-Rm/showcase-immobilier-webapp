@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - terrasse
-  - maison-de-ville
 realEstateAgent: ff36d255-d1b0-4710-948c-ecb028ac86f7
 metaTitle: Maison de ville 3 chambres avec terrasse en medina
 metaDescription: Maison de ville a vendre en medina avec terrasse et 3 chambres.

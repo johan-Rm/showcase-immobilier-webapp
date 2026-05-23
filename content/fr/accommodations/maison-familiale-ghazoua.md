@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - ghazoua
-  - jardin
-  - famille
 realEstateAgent: 0a5aa847-7a17-4a3d-b04f-1e2d98b55bab
 metaTitle: Maison familiale 3 chambres à Ghazoua
 metaDescription: Location longue durée à Ghazoua avec jardin, stationnement et vraie capacité familiale.

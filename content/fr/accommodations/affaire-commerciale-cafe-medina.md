@@ -38,10 +38,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - commerce
-  - medina
-  - terrasse
 realEstateAgent: 64ff27b9-6e7f-47de-bfd8-f8fa8398217f
 metaTitle: Affaire commerciale cafe en medina
 metaDescription: Affaire commerciale a vendre en medina avec salle et terrasse.

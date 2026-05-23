@@ -4,7 +4,7 @@
     :class="[
       isNumberValue || props.half ? 'col-span-1' : 'col-span-2',
       readonly
-        ? 'border-l-2 border-l-[#6B7A4A] pl-2'
+        ? 'border-l-2 border-l-transparent pl-2'
         : isActive
           ? 'group border-l-2 border-l-[#6B7A4A] pl-2 hover:bg-white/2.5'
           : 'group border-l-2 border-l-transparent pl-2 hover:bg-white/2.5',

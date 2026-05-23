@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - contemporaine
-  - piscine
-  - jardin
 realEstateAgent: 7eef434d-cfca-4332-99a8-b29fda03d121
 metaTitle: Villa contemporaine 300 m2 route d'Agadir
 metaDescription: Villa contemporaine avec piscine, 4 chambres, jardin et domotique.

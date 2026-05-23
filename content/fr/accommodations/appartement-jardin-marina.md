@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - marina
-  - terrasse
-  - sejour-court
 realEstateAgent: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
 metaTitle: Appartement jardin 2 chambres à la marina
 metaDescription: Location saisonnière à la marina avec terrasse jardin, deux chambres et confort simple.

@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - sidi-kaouki
-  - terrasse
-  - ocean
 realEstateAgent: ff36d255-d1b0-4710-948c-ecb028ac86f7
 metaTitle: Maison de séjour avec terrasse à Sidi Kaouki
 metaDescription: Location saisonnière proche plage à Sidi Kaouki avec terrasse, 2 chambres et ambiance détendue.

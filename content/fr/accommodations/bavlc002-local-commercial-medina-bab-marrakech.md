@@ -50,9 +50,6 @@ realEstateListing: bien-a-vendre
 
 isActive: true
 
-tags:
-  - medina
-  - commerce
 
 slug: bavlc002-local-commercial-avec-fonds-de-commerce-medina-medina
 

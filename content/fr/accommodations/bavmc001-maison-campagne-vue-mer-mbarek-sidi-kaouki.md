@@ -28,11 +28,6 @@ amenityFeature:
   - chateau-d-eau
   - acces-route
 
-tags:
-  - piscine
-  - investissement
-  - bien-titre
-
 associatedMedia: []
 
 isActive: true

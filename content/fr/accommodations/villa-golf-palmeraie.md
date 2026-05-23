@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - golf
-  - piscine
-  - jardin
 realEstateAgent: a94d9755-ed63-469a-8530-35f797ac19c6
 metaTitle: Villa golf 360 m2 avec piscine privee
 metaDescription: Villa de 360 m2 en palmeraie, 4 chambres, piscine et jardin.

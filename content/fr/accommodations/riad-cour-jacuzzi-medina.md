@@ -44,10 +44,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - spa
-  - riad
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
 metaTitle: Riad avec spa et toit-terrasse en medina
 metaDescription: Riad a vendre en medina avec 5 chambres, cour et espace bien-etre.

@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - golf
-  - piscine
-  - longue-duree
 realEstateAgent: a94d9755-ed63-469a-8530-35f797ac19c6
 metaTitle: Villa golf résidentielle 3 chambres à louer au mois
 metaDescription: Location longue durée dans le secteur Mogador avec jardin, piscine et 3 chambres.

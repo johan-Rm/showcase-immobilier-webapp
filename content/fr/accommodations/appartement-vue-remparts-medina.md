@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - vue-degagee
-  - appartement
 realEstateAgent: fa37320c-5f32-4b10-a32a-2be43bdcc308
 metaTitle: Appartement avec vue remparts a Essaouira
 metaDescription: Appartement a vendre en medina avec 2 chambres et vue degagee.

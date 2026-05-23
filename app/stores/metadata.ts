@@ -156,6 +156,34 @@ export const useMetadataStore = defineStore('metadata', {
           .map((item) => [item.identifier, item] as const),
       )
     },
+
+    getOptionsForCodeSet(
+      state: MetadataState,
+    ): (inCodeSet: string) => { label: string; value: string }[] {
+      return (inCodeSet: string) => {
+        switch (inCodeSet) {
+          case 'accommodation-type':
+            return state.accommodationCategories.map((c) => ({ label: c.name, value: c.slug }))
+          case 'accommodation-place':
+            return state.accommodationPlaces.map((c) => ({ label: c.name, value: c.slug }))
+          case 'real-estate-listing':
+            return state.realEstateListings
+              .filter((c) => c.isActive !== false)
+              .map((c) => ({ label: c.name, value: c.slug }))
+          case 'amenity-feature':
+            return state.amenityFeatures.map((c) => ({
+              label: c.name || c.codeValue,
+              value: c.codeValue,
+            }))
+          case 'tag':
+            return state.tags.map((c) => ({ label: c.name || c.codeValue, value: c.codeValue }))
+          default:
+            return state.categoryCodes
+              .filter((c) => c.inCodeSet === inCodeSet)
+              .map((c) => ({ label: c.name || c.codeValue, value: c.codeValue }))
+        }
+      }
+    },
   },
 
   actions: {
@@ -267,6 +295,19 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns `void`.
      */
+    addCategoryCode(item: CategoryCode): void {
+      switch (item.inCodeSet) {
+        case 'amenity-feature':
+          this.amenityFeatures = [...this.amenityFeatures, item]
+          break
+        case 'tag':
+          this.tags = [...this.tags, item]
+          break
+        default:
+          this.categoryCodes = [...this.categoryCodes, item]
+      }
+    },
+
     reset(): void {
       this.app = null
       this.accommodationForm = null

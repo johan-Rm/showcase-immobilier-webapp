@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - patio
-  - toit-terrasse
 realEstateAgent: ce4ec9d0-70cd-422a-b09e-9472afe84f57
 metaTitle: Dar authentique 120 m2 en medina
 metaDescription: Dar traditionnel en medina, 3 chambres, patio et toit-terrasse.

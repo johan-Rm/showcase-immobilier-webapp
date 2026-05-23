@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - centre-ville
-  - balcon
-  - longue-duree
 realEstateAgent: 89e24a12-a8fd-4eca-ab29-35b57e538413
 metaTitle: Appartement 2 chambres avec balcon au centre-ville
 metaDescription: Location longue durée d'un appartement lumineux avec balcon filant et vie à pied.

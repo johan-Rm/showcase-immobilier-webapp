@@ -26,10 +26,6 @@ associatedMedia:
 
 isActive: true
 
-tags:
-  - terrain
-  - campagne
-  - investissement
 
 slug: bavt002-terrain-campagne-km20
 

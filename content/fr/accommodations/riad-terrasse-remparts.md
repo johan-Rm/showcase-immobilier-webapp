@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - terrasse
-  - patio
 realEstateAgent: 0204e750-0078-4e28-98d6-5b8fb943b4f6
 metaTitle: Riad avec terrasse ouverte en medina
 metaDescription: Riad a vendre en medina avec 4 chambres et grande terrasse.

@@ -1,49 +1,163 @@
 <template>
   <div
-    class="border-b border-l-2 border-l-transparent border-white/5 px-1 py-1.5"
-    :class="multiple ? 'col-span-2' : 'col-span-1'"
+    class="border-b border-l-2 border-white/5 border-l-transparent px-1 py-1.5"
+    :class="[multiple ? 'relative col-span-2' : 'relative col-span-1']"
   >
-    <p class="mb-1 text-[0.65rem] font-semibold tracking-widest text-white/20">{{ label }}</p>
+    <p v-if="showLabel !== false" class="mb-1 text-[0.65rem] font-semibold tracking-widest text-white/20">{{ label }}</p>
 
-    <!-- Fallback texte libre si le chargement échoue -->
-    <template v-if="loadError && !hasOptions">
-      <input
-        type="text"
-        class="w-full bg-transparent text-sm text-white/65 caret-white outline-none"
-        :value="stringModel"
-        :placeholder="placeholder"
+    <!-- Single select : dropdown custom thème sombre -->
+    <template v-if="!multiple">
+      <button
+        type="button"
+        class="flex w-full items-center justify-between text-left text-sm transition-colors hover:text-white/90"
+        :class="singleModel ? 'text-white/75' : 'text-white/30'"
         :aria-label="label"
-        @input="onFallbackInput($event as InputEvent)"
-      />
+        @click="isOpen = !isOpen"
+      >
+        <span>{{ selectedLabel || placeholder }}</span>
+        <UIcon
+          :name="isOpen ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
+          class="shrink-0 text-xs text-white/30"
+          aria-hidden="true"
+        />
+      </button>
+      <div
+        v-if="isOpen"
+        class="absolute top-full right-0 left-0 z-20 space-y-0.5 py-1.5"
+        style="
+          background-color: #212121;
+          border-top: 1px solid rgba(107, 122, 74, 0.35);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <button
+          v-for="opt in options"
+          :key="opt.value"
+          type="button"
+          class="flex w-full items-center gap-2 px-2 py-1 text-left text-xs transition-colors"
+          :class="opt.value === singleModel ? 'text-white' : 'text-white/40 hover:text-white/65'"
+          @click="selectSingle(opt.value)"
+        >
+          <span
+            class="mt-px h-1.5 w-1.5 shrink-0 rounded-full"
+            :style="
+              opt.value === singleModel
+                ? 'background-color: #6B7A4A'
+                : 'background-color: rgba(255,255,255,0.15)'
+            "
+          />
+          {{ opt.label }}
+        </button>
+      </div>
     </template>
 
+    <!-- Multiple select : chips + bouton + dropdown -->
     <template v-else>
-      <UInputMenu
-        v-if="multiple"
-        :model-value="multiModel"
-        :items="options"
-        :placeholder="loading ? 'Chargement…' : placeholder"
-        :disabled="loading && !hasOptions"
-        :loading="creating"
-        multiple
-        create-item
-        :ui="inputMenuUi"
-        @update:model-value="onMultiUpdate"
-        @create="onCreateItem"
-      />
-      <UInputMenu
-        v-else
-        :model-value="singleModel"
-        :items="options"
-        :placeholder="loading ? 'Chargement…' : placeholder"
-        :disabled="loading && !hasOptions"
-        :loading="creating"
-        create-item
-        :ui="inputMenuUi"
-        @update:model-value="onSingleUpdate"
-        @create="onCreateItem"
-      />
-      <p v-if="createError" class="mt-1 text-[0.6rem] text-red-400">{{ createError }}</p>
+      <div ref="wrapperRef">
+        <div class="flex flex-wrap gap-1.5 pt-0.5">
+          <!-- Chips sélectionnés -->
+          <span
+            v-for="val in multiModel"
+            :key="val"
+            class="flex items-center gap-1 rounded px-2 py-0.5 text-[0.65rem]"
+            style="background-color: rgba(107, 122, 74, 0.18); color: #6b7a4a"
+          >
+            {{ labelFor(val) }}
+            <button
+              type="button"
+              class="opacity-50 transition-opacity hover:opacity-90"
+              :aria-label="`Retirer ${labelFor(val)}`"
+              @click="removeTag(val)"
+            >
+              <UIcon name="i-lucide-x" class="text-[0.55rem]" aria-hidden="true" />
+            </button>
+          </span>
+
+          <!-- Placeholder si vide -->
+          <span v-if="!multiModel.length" class="py-0.5 text-[0.65rem] text-white/20">
+            {{ placeholder || 'Aucun' }}
+          </span>
+
+          <!-- Bouton + -->
+          <button
+            type="button"
+            class="flex items-center justify-center rounded px-1.5 py-0.5 text-[0.7rem] transition-colors"
+            :class="isOpen ? 'text-white/60' : 'text-white/30 hover:text-white/55'"
+            style="background-color: rgba(255, 255, 255, 0.07)"
+            :aria-label="`Ajouter ${label}`"
+            @click="toggleDropdown"
+          >
+            <UIcon :name="isOpen ? 'i-lucide-x' : 'i-lucide-plus'" aria-hidden="true" />
+          </button>
+        </div>
+
+        <!-- Dropdown recherche + options -->
+        <div
+          v-if="isOpen"
+          class="absolute top-full right-0 left-0 z-20"
+          style="
+            background-color: #212121;
+            border-top: 1px solid rgba(107, 122, 74, 0.35);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+          "
+        >
+          <!-- Input recherche -->
+          <div class="px-3 pt-2 pb-1.5">
+            <input
+              ref="searchInputRef"
+              v-model="search"
+              type="text"
+              class="w-full bg-transparent text-xs text-white/70 caret-white outline-none placeholder:text-white/25"
+              placeholder="Rechercher…"
+              @keydown.escape="isOpen = false"
+              @keydown.enter.prevent="onEnterCreate"
+            />
+          </div>
+          <div class="mx-3 h-px" style="background-color: rgba(107, 122, 74, 0.2)" />
+
+          <!-- Liste options -->
+          <div class="max-h-44 overflow-y-auto py-1.5">
+            <button
+              v-for="opt in filteredOptions"
+              :key="opt.value"
+              type="button"
+              class="flex w-full items-center gap-2 px-3 py-1 text-left text-xs transition-colors"
+              :class="
+                multiModel.includes(opt.value) ? 'text-white' : 'text-white/40 hover:text-white/65'
+              "
+              @click="toggleOption(opt.value)"
+            >
+              <span
+                class="mt-px h-1.5 w-1.5 shrink-0 rounded-full"
+                :style="
+                  multiModel.includes(opt.value)
+                    ? 'background-color: #6B7A4A'
+                    : 'background-color: rgba(255,255,255,0.15)'
+                "
+              />
+              {{ opt.label }}
+            </button>
+
+            <!-- Option créer -->
+            <button
+              v-if="canCreate"
+              type="button"
+              class="flex w-full items-center gap-2 px-3 py-1 text-left text-xs text-white/30 transition-colors hover:text-white/60"
+              :disabled="creating"
+              @click="onEnterCreate"
+            >
+              <UIcon name="i-lucide-plus" class="shrink-0 text-[0.65rem]" aria-hidden="true" />
+              Créer "{{ search }}"
+            </button>
+
+            <p v-if="!filteredOptions.length && !canCreate" class="px-3 py-1 text-xs text-white/20">
+              Aucun résultat
+            </p>
+          </div>
+
+          <p v-if="createError" class="px-3 pb-2 text-[0.6rem] text-red-400">{{ createError }}</p>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -59,19 +173,27 @@ const props = defineProps<{
   label: string
   placeholder?: string
   multiple?: boolean
+  showLabel?: boolean
 }>()
 
 const emit = defineEmits<{
   'update:modelValue': [value: DashboardEditableValue]
 }>()
 
-const { loading, loadError, optionsFor, createCode } = useCategoryCodeOptions()
+const store = useMetadataStore()
 
 const creating = ref(false)
 const createError = ref<string | null>(null)
+const isOpen = ref(false)
+const search = ref('')
+const wrapperRef = ref<HTMLElement | null>(null)
+const searchInputRef = ref<HTMLInputElement | null>(null)
 
-const options = computed(() => optionsFor(props.inCodeSet))
-const hasOptions = computed(() => options.value.length > 0)
+onClickOutside(wrapperRef, () => {
+  isOpen.value = false
+})
+
+const options = computed(() => store.getOptionsForCodeSet(props.inCodeSet))
 
 const singleModel = computed<string | null>(() =>
   typeof props.modelValue === 'string' ? props.modelValue : null,
@@ -83,50 +205,71 @@ const multiModel = computed<string[]>(() =>
     : [],
 )
 
-const stringModel = computed<string>(() => {
-  if (props.multiple) return multiModel.value.join(', ')
-  return singleModel.value ?? ''
+const selectedLabel = computed<string>(
+  () => options.value.find((o) => o.value === singleModel.value)?.label ?? '',
+)
+
+const labelFor = (value: string): string =>
+  options.value.find((o) => o.value === value)?.label ?? value
+
+const filteredOptions = computed(() => {
+  const q = search.value.trim().toLowerCase()
+  if (!q) return options.value
+  return options.value.filter(
+    (o) => o.label.toLowerCase().includes(q) || o.value.toLowerCase().includes(q),
+  )
 })
 
-const inputMenuUi = {
-  base: 'bg-transparent text-sm text-white/65',
-  input: 'text-white/65',
+const canCreate = computed(() => {
+  const q = search.value.trim()
+  if (!q) return false
+  return !options.value.some((o) => o.value === q || o.label === q)
+})
+
+const selectSingle = (value: string): void => {
+  emit('update:modelValue', value === singleModel.value ? null : value)
+  isOpen.value = false
 }
 
-const onCreateItem = async (item: { label: string; value: string } | string): Promise<void> => {
-  const code = typeof item === 'string' ? item : (item.value ?? item.label)
-  if (!code || creating.value) return
+const toggleDropdown = async (): Promise<void> => {
+  isOpen.value = !isOpen.value
+  if (isOpen.value) {
+    search.value = ''
+    await nextTick()
+    searchInputRef.value?.focus()
+  }
+}
+
+const removeTag = (value: string): void => {
+  emit(
+    'update:modelValue',
+    multiModel.value.filter((v) => v !== value),
+  )
+}
+
+const toggleOption = (value: string): void => {
+  const current = multiModel.value
+  const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value]
+  emit('update:modelValue', next)
+}
+
+const onEnterCreate = async (): Promise<void> => {
+  const code = search.value.trim()
+  if (!code || !canCreate.value || creating.value) return
   creating.value = true
   createError.value = null
   try {
-    await createCode(props.inCodeSet, code)
+    await $fetch('/api/dashboard/category-codes', {
+      method: 'POST',
+      body: { code, inCodeSet: props.inCodeSet },
+    })
+    store.addCategoryCode({ codeValue: code, name: code, inCodeSet: props.inCodeSet })
+    toggleOption(code)
+    search.value = ''
   } catch (err) {
     createError.value = err instanceof Error ? err.message : 'Erreur lors de la création'
   } finally {
     creating.value = false
-  }
-}
-
-const onSingleUpdate = (value: string | null): void => {
-  emit('update:modelValue', value ?? null)
-}
-
-const onMultiUpdate = (values: string[]): void => {
-  emit('update:modelValue', values)
-}
-
-const onFallbackInput = (event: InputEvent): void => {
-  const value = (event.target as HTMLInputElement).value
-  if (props.multiple) {
-    emit(
-      'update:modelValue',
-      value
-        .split(',')
-        .map((v) => v.trim())
-        .filter(Boolean),
-    )
-  } else {
-    emit('update:modelValue', value || null)
   }
 }
 </script>

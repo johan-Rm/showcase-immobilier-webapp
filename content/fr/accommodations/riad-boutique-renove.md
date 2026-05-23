@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - riad
-  - spa
-  - boutique
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
 metaTitle: Riad boutique renove 260 m2 en medina
 metaDescription: Riad boutique renove avec 6 suites, spa et toit-terrasse.

@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - famille
-  - patio
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
 metaTitle: Riad familial 5 chambres en medina
 metaDescription: Riad a vendre en medina avec 5 chambres, patio et terrasse.

@@ -45,10 +45,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - atelier
-  - mezzanine
 realEstateAgent: fa37320c-5f32-4b10-a32a-2be43bdcc308
 metaTitle: Appartement atelier 64 m2 en medina
 metaDescription: Appartement atelier en medina, 1 chambre, mezzanine et belle lumiere.

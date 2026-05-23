@@ -22,9 +22,6 @@ landArea: 9080
 amenityFeature:
   - vue-degagee
 
-tags:
-  - investissement
-  - bien-titre
 
 associatedMedia: []
 

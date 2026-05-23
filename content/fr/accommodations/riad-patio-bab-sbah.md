@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - patio
-  - terrasse
 realEstateAgent: 0204e750-0078-4e28-98d6-5b8fb943b4f6
 metaTitle: Riad 4 chambres proche Bab Sbah
 metaDescription: Riad a vendre en medina avec patio, terrasse et 4 chambres.

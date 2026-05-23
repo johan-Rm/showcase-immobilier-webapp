@@ -68,10 +68,6 @@ areaSize: 238
 
 isActive: true
 
-tags:
-  - medina
-  - hotel
-  - investissement
 
 realEstateAgent: 0204e750-0078-4e28-98d6-5b8fb943b4f6
 

@@ -40,11 +40,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - investissement
-  - hotel
-  - maison-dhotes
 metaTitle: Riad hôtel 20 chambres à vendre médina Essaouira
 metaDescription: Riad hôtel en exploitation avec 20 chambres, situé au cœur de la médina d’Essaouira. Fort potentiel touristique et investissement stratégique.
 slug: riad-hotel-au-c-ur-de-la-medina-dessaouira-medina-bavr004

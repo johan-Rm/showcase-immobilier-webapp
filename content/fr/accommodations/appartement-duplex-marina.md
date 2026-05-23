@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - marina
-  - duplex
-  - terrasse
 realEstateAgent: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
 metaTitle: Appartement duplex 3 chambres a la marina
 metaDescription: Appartement duplex a vendre a la marina avec terrasse et 3 chambres.

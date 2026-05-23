@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - patio
-  - longue-duree
 realEstateAgent: ce4ec9d0-70cd-422a-b09e-9472afe84f57
 metaTitle: Dar rénovée 2 chambres en médina à louer au mois
 metaDescription: Location longue durée en médina avec patio compact, 2 chambres et toit-terrasse.

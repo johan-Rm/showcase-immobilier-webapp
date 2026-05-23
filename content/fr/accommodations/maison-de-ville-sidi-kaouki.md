@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - sidi-kaouki
-  - terrasse
-  - cheminee
 realEstateAgent: ff36d255-d1b0-4710-948c-ecb028ac86f7
 metaTitle: Maison de ville 140 m2 proche ocean
 metaDescription: Maison de ville a Sidi Kaouki, 3 chambres, terrasse et cour.

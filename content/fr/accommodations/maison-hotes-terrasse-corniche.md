@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - corniche
-  - maison-dhotes
-  - ocean
 realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
 metaTitle: Maison d'hotes avec terrasse ocean sur la corniche
 metaDescription: Maison d'hotes a vendre sur la corniche avec 4 suites et terrasse vue ocean.

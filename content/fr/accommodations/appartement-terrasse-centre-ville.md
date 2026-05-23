@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - centre-ville
-  - terrasse
-  - balcon
 realEstateAgent: 89e24a12-a8fd-4eca-ab29-35b57e538413
 metaTitle: Appartement 104 m2 avec terrasse au centre-ville
 metaDescription: Appartement a vendre au centre-ville avec 2 chambres et terrasse filante.

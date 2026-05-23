@@ -37,10 +37,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - commerce
-  - centre-ville
-  - vitrine
 realEstateAgent: 64ff27b9-6e7f-47de-bfd8-f8fa8398217f
 metaTitle: Local commercial d'angle au centre-ville
 metaDescription: Local commercial a vendre avec double vitrine au centre-ville.

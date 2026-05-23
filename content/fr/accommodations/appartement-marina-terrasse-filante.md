@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - marina
-  - terrasse
-  - longue-duree
 realEstateAgent: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
 metaTitle: Appartement longue durée avec terrasse à la marina
 metaDescription: Appartement de 102 m2 à louer au mois à la marina, deux chambres et terrasse filante.

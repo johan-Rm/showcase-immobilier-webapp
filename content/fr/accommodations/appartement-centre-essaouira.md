@@ -61,10 +61,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - centre-ville
-  - balcon
-  - ascenseur
 realEstateAgent: 89e24a12-a8fd-4eca-ab29-35b57e538413
 metaTitle: Appartement 92 m2 centre ville - Essaouira
 metaDescription: Appartement lumineux de 92 m2 au centre ville, 2 chambres, balcon

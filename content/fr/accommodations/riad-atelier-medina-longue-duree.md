@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - atelier
-  - longue-duree
 realEstateAgent: 0204e750-0078-4e28-98d6-5b8fb943b4f6
 metaTitle: Riad atelier 2 chambres en médina à louer au mois
 metaDescription: Location longue durée d'un riad avec patio, espace bureau et toit-terrasse en médina.

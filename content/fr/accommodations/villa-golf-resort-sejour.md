@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - golf
-  - piscine
-  - sejour-court
 realEstateAgent: a94d9755-ed63-469a-8530-35f797ac19c6
 metaTitle: Villa golf 3 suites avec piscine pour séjour
 metaDescription: Location saisonnière au golf avec piscine, jardin et 3 suites pour un séjour confortable.

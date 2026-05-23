@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - patio
-  - terrasse
 realEstateAgent: 0204e750-0078-4e28-98d6-5b8fb943b4f6
 metaTitle: Riad medina 220 m2 avec patio et terrasse
 metaDescription: Riad authentique en medina, 5 chambres, patio central et grande terrasse.

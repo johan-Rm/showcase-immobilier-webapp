@@ -37,10 +37,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - gerance
-  - corniche
-  - commerce
 realEstateAgent: 64ff27b9-6e7f-47de-bfd8-f8fa8398217f
 metaTitle: Location gerance cafe avec terrasse sur la corniche
 metaDescription: Opportunite de location gerance avec terrasse sur la corniche.

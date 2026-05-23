@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - patio
-  - dar
 realEstateAgent: ce4ec9d0-70cd-422a-b09e-9472afe84f57
 metaTitle: Dar renovee 3 chambres en medina
 metaDescription: Dar a vendre en medina avec patio, toit-terrasse et 3 chambres.

@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - patio
-  - famille
 realEstateAgent: ce4ec9d0-70cd-422a-b09e-9472afe84f57
 metaTitle: Dar familiale en médina avec patio et toit-terrasse
 metaDescription: Location saisonnière d'une dar de 3 chambres en médina, idéale pour des séjours en famille.

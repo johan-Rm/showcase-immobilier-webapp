@@ -38,10 +38,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - commerce
-  - centre-ville
-  - vitrine
 realEstateAgent: 64ff27b9-6e7f-47de-bfd8-f8fa8398217f
 metaTitle: Affaire commerciale boutique au centre-ville
 metaDescription: Affaire commerciale a vendre avec vitrine sur axe passant.

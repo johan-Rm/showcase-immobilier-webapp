@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - gerance
-  - medina
-  - accueil
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
 metaTitle: Location gerance maison d'hotes en medina
 metaDescription: Opportunite de location gerance d'une maison d'hotes en medina.

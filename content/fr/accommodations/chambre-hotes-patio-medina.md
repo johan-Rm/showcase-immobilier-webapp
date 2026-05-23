@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - chambre-dhotes
-  - medina
-  - patio
 realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
 metaTitle: Chambre d'hotes avec patio en medina
 metaDescription: Chambre d'hotes a vendre en medina avec patio partage et suite de 28 m2.

@@ -37,10 +37,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - commerce
-  - marina
-  - vitrine
 realEstateAgent: 64ff27b9-6e7f-47de-bfd8-f8fa8398217f
 metaTitle: Local commercial avec vitrine a la marina
 metaDescription: Local commercial a vendre a la marina avec forte visibilite pietonne.

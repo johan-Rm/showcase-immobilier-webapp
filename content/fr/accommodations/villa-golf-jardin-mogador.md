@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - golf
-  - jardin
-  - piscine
 realEstateAgent: a94d9755-ed63-469a-8530-35f797ac19c6
 metaTitle: Villa golf 320 m2 avec jardin a Mogador
 metaDescription: Villa a vendre avec 4 chambres, jardin et piscine dans le secteur golf.

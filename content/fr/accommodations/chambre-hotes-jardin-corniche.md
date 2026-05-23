@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - corniche
-  - ocean
-  - sejour-court
 realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
 metaTitle: Chambre d'hôtes avec jardin proche corniche
 metaDescription: Suite de charme à louer à la nuit sur la corniche avec jardin partagé et ambiance calme.

@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - marina
-  - terrasse
-  - parking
 realEstateAgent: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
 metaTitle: Appartement marina 78 m2 avec terrasse
 metaDescription: Appartement de 78 m2 a la marina, 1 chambre, terrasse et parking.

@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - vue-ocean
-  - petit-dejeuner
-  - terrasse
 realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
 metaTitle: Chambre d'hotes vue ocean a Essaouira
 metaDescription: Chambre d'hotes 28 m2, vue ocean, petit dejeuner inclus.

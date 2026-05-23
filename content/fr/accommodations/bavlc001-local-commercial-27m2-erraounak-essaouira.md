@@ -16,6 +16,9 @@ floorSize: 27
 
 numberOfBedrooms: 0
 
+amenityFeature:
+  - gardien
+
 associatedMedia:
   - image: bavlc001-local-commercial-erraounak-interieur-espace-01
     caption: Espace intérieur rénové avec finitions modernes
@@ -28,11 +31,11 @@ associatedMedia:
 
 qualities:
   - name: Confort
-    value: 85
+    value: 0
   - name: Architecture
-    value: 40
+    value: 0
   - name: Intérieur
-    value: 80
+    value: 0
 
 realEstateListing: bien-a-vendre
 

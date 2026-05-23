@@ -42,10 +42,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - spa
-  - patio
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
 metaTitle: Riad de séjour avec patio et spa en médina
 metaDescription: Location saisonnière d'un riad 4 chambres en médina avec patio, spa et terrasse.

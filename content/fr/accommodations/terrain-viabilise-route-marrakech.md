@@ -37,10 +37,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - terrain
-  - viabilise
-  - route-de-marrakech
 realEstateAgent: e2e3b81c-8023-4bb9-b5d5-66736e5fc71b
 metaTitle: Terrain viabilise 1240 m2 route de Marrakech
 metaDescription: Terrain plat et viabilise a vendre, acces lisible et projection simple.

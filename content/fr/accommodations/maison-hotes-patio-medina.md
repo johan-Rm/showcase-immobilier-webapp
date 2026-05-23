@@ -43,10 +43,6 @@ isActive: true
 additionalProperty:
   - name: dataSource
     value: fixture
-tags:
-  - medina
-  - maison-dhotes
-  - patio
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
 metaTitle: Maison d'hotes 5 suites en medina
 metaDescription: Maison d'hotes a vendre en medina avec patio, terrasse et 5 suites.
