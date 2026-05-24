@@ -1,5 +1,4 @@
 import { getSymfonyServiceToken } from '../../utils/dashboard/symfonyAuth'
-import { getCategoryCodeMap } from '../../utils/dashboard/symfonyCache'
 
 type SymfonyCategoryCode = { '@id': string; code: string; inCodeSet: string }
 
@@ -33,8 +32,6 @@ export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> =>
       body: { code: body.code, inCodeSet: body.inCodeSet },
     },
   )
-
-  await getCategoryCodeMap(true)
 
   return created
 })
