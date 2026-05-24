@@ -106,20 +106,7 @@ avant toute modification de page ou de layout.
 
 ## Commandes courantes
 
-```bash
-bun run dev               # développement local
-bun run build             # build production
-bun run type-check        # vue-tsc --noEmit
-bun run lint:check        # ESLint sans warnings
-bun run format:check      # Prettier check
-bun run quality:check     # lint + format + type-check
-
-# Scripts de vérification architecture
-bun run check:app:types             # placement des types
-bun run check:app:soc               # separation of concerns composants
-bun run check:app:script-setup-standard
-bun run check:app:no-business-logic # pas de logique métier dans les composants
-```
+Toutes les commandes passent par `make`. Consulter le `Makefile` pour la liste complète.
 
 ## Workflow de développement
 
