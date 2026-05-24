@@ -41,8 +41,8 @@ export default defineEventHandler(
 
     const headers = {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/ld+json',
-      Accept: 'application/ld+json',
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     }
 
     const existingUuid = uuidMap[identifier] ?? null
