@@ -1,4 +1,3 @@
-
 <template>
   <UPage ref="pageRef" :ui="screenUi.page">
     <!-- Titre réservé aux lecteurs d'écran et au SEO : le screen contact porte le titre visuel. -->

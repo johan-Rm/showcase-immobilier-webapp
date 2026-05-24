@@ -86,19 +86,20 @@ Script Bun one-shot a executer manuellement avant la mise en production.
 
 **CategoryCodes a creer par inCodeSet** (upsert par `inCodeSet + code`) :
 
-| inCodeSet              | codes                                                                  |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `accommodation-type`   | `local-commercial`, `maison-de-campagne`, `riad`, `terrain`            |
-| `real-estate-listing`  | `bien-a-vendre`                                                        |
-| `accommodation-place`  | `medina`, `nouvelle-ville`, `sidi-kaouki`, `campagne`, `campagne-d-essaouira`, `moulay-bouzerktoun` |
-| `amenity-feature`      | `vue-sur-mer`, `gardien`, `chateau-d-eau`, `acces-route`, `patio`, `terrasse`, `exploitation-commerciale`, `vue-degagee` |
-| `tag`                  | `medina`, `commerce`, `piscine`, `investissement`, `bien-titre`, `hotel`, `terrain`, `campagne` |
+| inCodeSet             | codes                                                                                                                    |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `accommodation-type`  | `local-commercial`, `maison-de-campagne`, `riad`, `terrain`                                                              |
+| `real-estate-listing` | `bien-a-vendre`                                                                                                          |
+| `accommodation-place` | `medina`, `nouvelle-ville`, `sidi-kaouki`, `campagne`, `campagne-d-essaouira`, `moulay-bouzerktoun`                      |
+| `amenity-feature`     | `vue-sur-mer`, `gardien`, `chateau-d-eau`, `acces-route`, `patio`, `terrasse`, `exploitation-commerciale`, `vue-degagee` |
+| `tag`                 | `medina`, `commerce`, `piscine`, `investissement`, `bien-titre`, `hotel`, `terrain`, `campagne`                          |
 
 **Attention** : `bavr001` contient des entrees `image:` parasites dans `amenityFeature`
 (bug de contenu). Le script doit filtrer toute entree qui n est pas une chaine simple
 (format `- codeValue` vs `- image: uuid`).
 
 **Ordre d execution** :
+
 1. Authentification → JWT service
 2. Upsert des CategoryCodes (tous les inCodeSet) → cache local `{ inCodeSet: { code: IRI } }`
 3. Upsert des 7 accommodations en boucle :
@@ -142,13 +143,13 @@ Cache module-level avec TTL configurable (defaut 300s, invalidation manuelle pos
 
 Les `inCodeSet` utilises dans le mapper :
 
-| Champ Accommodation     | inCodeSet              |
-| ----------------------- | ---------------------- |
-| `category`              | `accommodation-type`   |
-| `realEstateListing`     | `real-estate-listing`  |
-| `place`                 | `accommodation-place`  |
-| `amenityFeature[]`      | `amenity-feature`      |
-| `tags[]`                | `tag`                  |
+| Champ Accommodation | inCodeSet             |
+| ------------------- | --------------------- |
+| `category`          | `accommodation-type`  |
+| `realEstateListing` | `real-estate-listing` |
+| `place`             | `accommodation-place` |
+| `amenityFeature[]`  | `amenity-feature`     |
+| `tags[]`            | `tag`                 |
 
 ### Mapper (server/utils/dashboard/accommodationMapper.ts)
 
@@ -156,22 +157,22 @@ Les `inCodeSet` utilises dans le mapper :
 
 Transformations non triviales :
 
-| Champ frontmatter              | Champ Symfony               | Transformation                         |
-| ------------------------------ | --------------------------- | -------------------------------------- |
-| `offer.price` (number)         | `offerPrice` (string)       | `String(value)`                        |
-| `floorSize` (number)           | `floorSize` (string)        | `String(value)`                        |
-| `landArea` (number)            | `landArea` (string)         | `String(value)`                        |
-| `category` (code)              | `category` (IRI)            | lookup `accommodation-type`            |
-| `realEstateListing` (code)     | `realEstateListing` (IRI)   | lookup `real-estate-listing`           |
-| `place` (code)                 | `place` (IRI)               | lookup `accommodation-place`           |
-| `amenityFeature[]` (codes)     | `amenityFeature` (IRIs)     | lookup `amenity-feature`               |
-| `tags[]` (codes)               | `tags` (IRIs)               | lookup `tag`                           |
-| `realEstateAgent` (UUID)       | `realEstateAgentIdentifier` | direct ; autres champs via `person.yaml` |
-| `slug`, `name`, `body`, etc.   | translation `?locale=fr`    | envoyes dans le body, locale en query  |
-| `locationDescription`          | translation `?locale=fr`    | apres ajout du champ dans Symfony      |
-| `associatedMedia`, `image[]`   | —                           | **non envoyes** (hors perimetre)       |
-| `additionalProperty`           | —                           | **ignore**                             |
-| `dateCreated`, `dateModified`  | audit trail Symfony         | **non envoyes** (gere par Symfony)     |
+| Champ frontmatter             | Champ Symfony               | Transformation                           |
+| ----------------------------- | --------------------------- | ---------------------------------------- |
+| `offer.price` (number)        | `offerPrice` (string)       | `String(value)`                          |
+| `floorSize` (number)          | `floorSize` (string)        | `String(value)`                          |
+| `landArea` (number)           | `landArea` (string)         | `String(value)`                          |
+| `category` (code)             | `category` (IRI)            | lookup `accommodation-type`              |
+| `realEstateListing` (code)    | `realEstateListing` (IRI)   | lookup `real-estate-listing`             |
+| `place` (code)                | `place` (IRI)               | lookup `accommodation-place`             |
+| `amenityFeature[]` (codes)    | `amenityFeature` (IRIs)     | lookup `amenity-feature`                 |
+| `tags[]` (codes)              | `tags` (IRIs)               | lookup `tag`                             |
+| `realEstateAgent` (UUID)      | `realEstateAgentIdentifier` | direct ; autres champs via `person.yaml` |
+| `slug`, `name`, `body`, etc.  | translation `?locale=fr`    | envoyes dans le body, locale en query    |
+| `locationDescription`         | translation `?locale=fr`    | apres ajout du champ dans Symfony        |
+| `associatedMedia`, `image[]`  | —                           | **non envoyes** (hors perimetre)         |
+| `additionalProperty`          | —                           | **ignore**                               |
+| `dateCreated`, `dateModified` | audit trail Symfony         | **non envoyes** (gere par Symfony)       |
 
 La locale est transmise via le query param `?locale=fr` sur chaque appel Symfony
 (lu par `LocaleResolver` dans le backend).

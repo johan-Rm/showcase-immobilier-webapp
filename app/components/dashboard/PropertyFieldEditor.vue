@@ -180,9 +180,6 @@
 // 1. Imports
 import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 
-// 2. Types et constantes statiques
-type DashboardEditableObject = { [key: string]: DashboardEditableValue }
-
 defineOptions({
   name: 'DashboardPropertyFieldEditor',
 })
@@ -209,9 +206,6 @@ const inputRef = ref<HTMLInputElement | HTMLTextAreaElement | null>(null)
 // 6. Data inputs
 
 // 7. Validation et helpers purs
-const isObject = (value: DashboardEditableValue): value is DashboardEditableObject =>
-  typeof value === 'object' && value !== null && !Array.isArray(value)
-
 const isScalar = (value: DashboardEditableValue): boolean =>
   value === null ||
   typeof value === 'string' ||
@@ -246,7 +240,6 @@ const isStringLikeValue = computed<boolean>(
   () => typeof props.modelValue === 'string' || props.modelValue === null,
 )
 const isArrayValue = computed<boolean>(() => Array.isArray(props.modelValue))
-const isObjectValue = computed<boolean>(() => isObject(props.modelValue))
 
 const stringValue = computed<string>(() =>
   typeof props.modelValue === 'string' ? props.modelValue : '',

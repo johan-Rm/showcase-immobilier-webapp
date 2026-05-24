@@ -48,7 +48,7 @@ const editor = useEditor({
   extensions: [TiptapStarterKit, Markdown, Table, TableRow, TableCell, TableHeader],
   content: toHtml(props.modelValue),
   onUpdate: ({ editor: e }) => {
-    emit('update:modelValue', (e.storage.markdown as { getMarkdown: () => string }).getMarkdown())
+    emit('update:modelValue', e.getMarkdown())
   },
 })
 
@@ -159,7 +159,7 @@ watch(
   () => props.modelValue,
   (value) => {
     if (!editor.value) return
-    const current = editor.value.storage.markdown.getMarkdown()
+    const current = editor.value.getMarkdown()
     if (current !== value) {
       editor.value.commands.setContent(toHtml(value))
     }

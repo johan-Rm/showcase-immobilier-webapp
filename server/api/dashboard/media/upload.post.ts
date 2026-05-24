@@ -16,7 +16,8 @@ type SymfonyMediaResponse = {
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
   if (!apiUrl) throw createError({ statusCode: 500, statusMessage: 'SYMFONY_API_URL manquant' })
-  if (!projectId) throw createError({ statusCode: 500, statusMessage: 'SYMFONY_PROJECT_ID manquant' })
+  if (!projectId)
+    throw createError({ statusCode: 500, statusMessage: 'SYMFONY_PROJECT_ID manquant' })
   return { apiUrl, projectId }
 }
 

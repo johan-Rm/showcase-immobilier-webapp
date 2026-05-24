@@ -1,9 +1,5 @@
 <template>
-  <UModal
-    :open="open"
-    :ui="modalUi"
-    @update:open="emit('update:open', $event)"
-  >
+  <UModal :open="open" :ui="modalUi" @update:open="emit('update:open', $event)">
     <template #content>
       <div class="flex max-h-[85dvh] min-h-0 flex-col">
         <!-- Header -->
@@ -23,7 +19,11 @@
           <!-- Zone dépôt -->
           <div
             class="flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed p-8 text-center transition-colors"
-            :class="isDragging ? 'border-[#6B7A4A] bg-[#6B7A4A]/5' : 'border-white/15 hover:border-white/25'"
+            :class="
+              isDragging
+                ? 'border-[#6B7A4A] bg-[#6B7A4A]/5'
+                : 'border-white/15 hover:border-white/25'
+            "
             @dragover.prevent="isDragging = true"
             @dragleave.prevent="isDragging = false"
             @drop.prevent="onDrop"
@@ -78,7 +78,9 @@
               </div>
 
               <!-- Taille -->
-              <span class="shrink-0 text-[0.6rem] text-white/25">{{ formatSize(item.file.size) }}</span>
+              <span class="shrink-0 text-[0.6rem] text-white/25">{{
+                formatSize(item.file.size)
+              }}</span>
 
               <!-- Supprimer (si pending) -->
               <button
@@ -150,7 +152,9 @@ const modalUi = {
   overlay: 'bg-black/90',
 }
 
-const pendingCount = computed<number>(() => queue.value.filter((i) => i.status === 'pending').length)
+const pendingCount = computed<number>(
+  () => queue.value.filter((i) => i.status === 'pending').length,
+)
 const errorCount = computed<number>(() => queue.value.filter((i) => i.status === 'error').length)
 
 const statusIcon = (status: UploadStatus): string => {
@@ -176,7 +180,9 @@ const addFiles = (files: FileList | File[]): void => {
   const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']
   for (const file of Array.from(files)) {
     if (!allowed.includes(file.type)) continue
-    const alreadyQueued = queue.value.some((i) => i.file.name === file.name && i.file.size === file.size)
+    const alreadyQueued = queue.value.some(
+      (i) => i.file.name === file.name && i.file.size === file.size,
+    )
     if (alreadyQueued) continue
     queue.value.push({ file, status: 'pending' })
   }

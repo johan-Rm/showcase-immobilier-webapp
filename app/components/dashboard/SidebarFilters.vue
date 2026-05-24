@@ -48,7 +48,9 @@
           :key="opt.value"
           type="button"
           class="flex w-full items-center gap-2 px-2 py-1 text-left text-xs transition-colors"
-          :class="opt.value === selectedListing ? 'text-white' : 'text-white/40 hover:text-white/65'"
+          :class="
+            opt.value === selectedListing ? 'text-white' : 'text-white/40 hover:text-white/65'
+          "
           @click="selectListing(opt.value)"
         >
           <span

@@ -67,6 +67,7 @@ et stocke dans `.state`.
 ### Passage d etat entre scripts
 
 Chaque script :
+
 1. source `.env` pour les variables de connexion
 2. lit `scripts/bootstrap-data/.state` pour les IDs generes (ORG_ID, PROJECT_ID)
 3. ecrit dans `.state` apres creation reussie

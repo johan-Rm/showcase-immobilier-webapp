@@ -15,7 +15,7 @@
       <button
         type="button"
         class="flex shrink-0 items-center gap-1.5 rounded px-2.5 py-1.5 text-xs transition-colors"
-        style="background-color: rgba(107,122,74,0.15); color: #6B7A4A"
+        style="background-color: rgba(107, 122, 74, 0.15); color: #6b7a4a"
         @click="isUploadOpen = true"
       >
         <UIcon name="i-lucide-upload-cloud" class="text-xs" aria-hidden="true" />
@@ -26,14 +26,23 @@
     <!-- Compteurs -->
     <div class="shrink-0 border-b border-white/5 px-4 py-1.5">
       <p class="text-[0.6rem] text-white/25">
-        {{ allImages.length }} dans le projet
-        · {{ imageIdentifiers.length }} associée{{ imageIdentifiers.length !== 1 ? 's' : '' }}
-        <template v-if="search"> · {{ filteredImages.length }} résultat{{ filteredImages.length !== 1 ? 's' : '' }}</template>
+        {{ allImages.length }} dans le projet · {{ imageIdentifiers.length }} associée{{
+          imageIdentifiers.length !== 1 ? 's' : ''
+        }}
+        <template v-if="search">
+          · {{ filteredImages.length }} résultat{{
+            filteredImages.length !== 1 ? 's' : ''
+          }}</template
+        >
       </p>
     </div>
 
     <!-- Grille -->
-    <div ref="scrollContainerRef" class="relative min-h-0 flex-1 overflow-y-auto" @scroll="onScroll">
+    <div
+      ref="scrollContainerRef"
+      class="relative min-h-0 flex-1 overflow-y-auto"
+      @scroll="onScroll"
+    >
       <div v-if="!filteredImages.length" class="flex flex-col items-center py-12 text-center">
         <UIcon name="i-lucide-image-off" class="text-2xl text-white/15" aria-hidden="true" />
         <p class="mt-2 text-xs text-white/25">
@@ -51,8 +60,16 @@
             :key="item.identifier"
             type="button"
             class="group overflow-hidden rounded transition-all focus:outline-none"
-            :class="isAssociated(item.identifier) ? 'ring-1 ring-[#6B7A4A]' : 'ring-1 ring-white/5 hover:ring-white/20'"
-            :aria-label="isAssociated(item.identifier) ? `Retirer ${item.name || item.identifier}` : `Associer ${item.name || item.identifier}`"
+            :class="
+              isAssociated(item.identifier)
+                ? 'ring-1 ring-[#6B7A4A]'
+                : 'ring-1 ring-white/5 hover:ring-white/20'
+            "
+            :aria-label="
+              isAssociated(item.identifier)
+                ? `Retirer ${item.name || item.identifier}`
+                : `Associer ${item.name || item.identifier}`
+            "
             @click="toggleAssociation(item.identifier)"
           >
             <!-- Miniature carrée -->
@@ -69,13 +86,17 @@
               </div>
 
               <!-- Overlay hover -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
+              <div
+                class="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/55 opacity-0 transition-opacity group-hover:opacity-100"
+              >
                 <UIcon
                   :name="isAssociated(item.identifier) ? 'i-lucide-unlink' : 'i-lucide-plus-circle'"
                   class="text-lg text-white/85"
                   aria-hidden="true"
                 />
-                <span class="text-[0.55rem] text-white/70">{{ isAssociated(item.identifier) ? 'Retirer' : 'Associer' }}</span>
+                <span class="text-[0.55rem] text-white/70">{{
+                  isAssociated(item.identifier) ? 'Retirer' : 'Associer'
+                }}</span>
               </div>
 
               <!-- Badge principale -->
@@ -91,7 +112,7 @@
               <div
                 v-if="isAssociated(item.identifier) && item.reference"
                 class="absolute top-1 right-1 rounded px-1 py-0.5 font-mono text-[0.45rem] font-semibold tracking-wider text-white/80"
-                style="background-color: rgba(0,0,0,0.55)"
+                style="background-color: rgba(0, 0, 0, 0.55)"
               >
                 {{ item.reference }}
               </div>
@@ -100,9 +121,16 @@
             <!-- Barre descriptive — hauteur fixe 2 lignes -->
             <div
               class="h-10 overflow-hidden border-t px-1.5 py-2"
-              :class="isAssociated(item.identifier) ? 'border-[#6B7A4A]/30 bg-[#6B7A4A]/10' : 'border-white/5 bg-white/3'"
+              :class="
+                isAssociated(item.identifier)
+                  ? 'border-[#6B7A4A]/30 bg-[#6B7A4A]/10'
+                  : 'border-white/5 bg-white/3'
+              "
             >
-              <p class="line-clamp-2 text-[0.55rem] leading-snug" :class="isAssociated(item.identifier) ? 'text-white/70' : 'text-white/35'">
+              <p
+                class="line-clamp-2 text-[0.55rem] leading-snug"
+                :class="isAssociated(item.identifier) ? 'text-white/70' : 'text-white/35'"
+              >
                 {{ item.name }}
               </p>
             </div>
@@ -121,7 +149,7 @@
           v-if="showScrollTop"
           type="button"
           class="sticky bottom-4 left-full mr-4 flex h-7 w-7 -translate-x-full items-center justify-center rounded-full shadow-lg transition-colors"
-          style="background-color: rgba(107,122,74,0.85)"
+          style="background-color: rgba(107, 122, 74, 0.85)"
           aria-label="Retour en haut"
           @click="scrollToTop"
         >
@@ -132,15 +160,12 @@
   </div>
 
   <!-- Modal upload -->
-  <DashboardPropertyMediaPickerModal
-    v-model:open="isUploadOpen"
-    @uploaded="onUploaded"
-  />
+  <DashboardPropertyMediaPickerModal v-model:open="isUploadOpen" @uploaded="onUploaded" />
 </template>
 
 <script setup lang="ts">
-import type { MediaObject } from '@schemas/interfaces'
 import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
+import type { MediaObject } from '@schemas/interfaces'
 
 type AssocItem = {
   image: string
@@ -214,7 +239,7 @@ const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const deriveReference = (mainEntity: string, identifier: string): string => {
   if (mainEntity && mainEntity !== 'ImageObject') return mainEntity
   if (uuidRe.test(identifier)) return ''
-  return identifier.split('-')[0].toUpperCase()
+  return (identifier.split('-')[0] ?? '').toUpperCase()
 }
 
 const allImages = computed<ResolvedImage[]>(() =>
@@ -242,8 +267,7 @@ const filteredImages = computed<ResolvedImage[]>(() => {
 const getAssocMeta = (identifier: string): AssocItem | undefined =>
   parsedAssocMedia.value.find((a) => a.image === identifier)
 
-const isAssociated = (identifier: string): boolean =>
-  imageIdentifiers.value.includes(identifier)
+const isAssociated = (identifier: string): boolean => imageIdentifiers.value.includes(identifier)
 
 const emitImages = (identifiers: string[]): void => {
   emit('update:images', identifiers)

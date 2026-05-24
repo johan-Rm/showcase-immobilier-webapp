@@ -82,10 +82,10 @@ autre locale ne doit pas etre ecrase par une traduction automatique ultererieure
 Deux options a arbitrer en implementation :
 
 **Option A** : champ `isManuallyEdited` booleen par `AccommodationTranslation`
-  — simple mais peu granulaire (toute la traduction ou rien)
+— simple mais peu granulaire (toute la traduction ou rien)
 
 **Option B** : colonne JSON `manualFields: string[]` dans `AccommodationTranslation`
-  — granulaire par champ, plus complexe
+— granulaire par champ, plus complexe
 
 Recommandation : Option A pour V1, migrer vers B si le besoin emerge.
 
@@ -93,11 +93,11 @@ Recommandation : Option A pour V1, migrer vers B si le besoin emerge.
 
 A choisir avant l implementation :
 
-| Service   | Qualite FR→AR | Prix        | SDK PHP |
-| --------- | ------------- | ----------- | ------- |
-| DeepL     | Excellent     | Freemium    | Oui     |
-| Google    | Tres bon      | Pay-as-you  | Oui     |
-| LibreTranslate | Moyen    | Self-hosted | Oui     |
+| Service        | Qualite FR→AR | Prix        | SDK PHP |
+| -------------- | ------------- | ----------- | ------- |
+| DeepL          | Excellent     | Freemium    | Oui     |
+| Google         | Tres bon      | Pay-as-you  | Oui     |
+| LibreTranslate | Moyen         | Self-hosted | Oui     |
 
 Recommandation : DeepL pour la qualite sur le francais et les langues cibles.
 

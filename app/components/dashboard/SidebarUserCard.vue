@@ -43,7 +43,10 @@ const props = withDefaults(
     user?: WorkspaceUser
     size?: 'sm' | 'md'
   }>(),
-  { size: 'md' },
+  {
+    user: null,
+    size: 'md',
+  },
 )
 
 // 8. Computed UI-ready

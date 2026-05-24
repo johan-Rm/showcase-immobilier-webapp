@@ -83,13 +83,11 @@ const buildPropertyItem = (accommodation: Accommodation): PropertyItem | null =>
 // 8. Computed UI-ready
 const propertyItems = computed<PropertyItem[]>(() => {
   const seen = new Set<string>()
-  return items.value
-    .map(buildPropertyItem)
-    .filter((item): item is PropertyItem => {
-      if (!item || seen.has(item.id)) return false
-      seen.add(item.id)
-      return true
-    })
+  return items.value.map(buildPropertyItem).filter((item): item is PropertyItem => {
+    if (!item || seen.has(item.id)) return false
+    seen.add(item.id)
+    return true
+  })
 })
 
 const groups = computed<CommandPaletteGroup[]>(() => {

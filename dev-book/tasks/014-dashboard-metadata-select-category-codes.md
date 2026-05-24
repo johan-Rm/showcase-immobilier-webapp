@@ -51,13 +51,13 @@ depuis le select sans quitter l'éditeur.
   `category-code-multi` (multi) dans la map de rendu des sections
 - câbler les champs suivants :
 
-| Champ              | inCodeSet              | Type       |
-|--------------------|------------------------|------------|
-| `category`         | `accommodation-type`   | single     |
-| `realEstateListing`| `real-estate-listing`  | single     |
-| `place`            | `accommodation-place`  | single     |
-| `amenityFeature`   | `amenity-feature`      | multi      |
-| `tags`             | `tag`                  | multi      |
+| Champ               | inCodeSet             | Type   |
+| ------------------- | --------------------- | ------ |
+| `category`          | `accommodation-type`  | single |
+| `realEstateListing` | `real-estate-listing` | single |
+| `place`             | `accommodation-place` | single |
+| `amenityFeature`    | `amenity-feature`     | multi  |
+| `tags`              | `tag`                 | multi  |
 
 #### Gestion d'erreur
 

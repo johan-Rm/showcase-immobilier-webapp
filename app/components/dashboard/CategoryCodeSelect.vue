@@ -3,7 +3,12 @@
     class="border-b border-l-2 border-white/5 border-l-transparent px-1 py-1.5"
     :class="[multiple ? 'relative col-span-2' : 'relative col-span-1']"
   >
-    <p v-if="showLabel !== false" class="mb-1 text-[0.65rem] font-semibold tracking-widest text-white/20">{{ label }}</p>
+    <p
+      v-if="showLabel !== false"
+      class="mb-1 text-[0.65rem] font-semibold tracking-widest text-white/20"
+    >
+      {{ label }}
+    </p>
 
     <!-- Single select : dropdown custom thème sombre -->
     <template v-if="!multiple">

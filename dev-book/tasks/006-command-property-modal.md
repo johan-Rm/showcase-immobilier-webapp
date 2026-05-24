@@ -12,17 +12,18 @@
 
 ## Périmètre — fichiers touchés
 
-| Action   | Fichier |
-|----------|---------|
-| Modifier | `app/composables/useDashboard.ts` |
+| Action   | Fichier                                   |
+| -------- | ----------------------------------------- |
+| Modifier | `app/composables/useDashboard.ts`         |
 | Créer    | `app/components/CommandPropertyModal.vue` |
-| Modifier | `app/layouts/default.vue` |
+| Modifier | `app/layouts/default.vue`                 |
 
 ---
 
 ### Task 1 : Étendre `useDashboard` — état modal + raccourci `ctrl+s`
 
 **Files:**
+
 - Modify: `app/composables/useDashboard.ts`
 
 #### Contexte
@@ -118,17 +119,20 @@ git commit -m "feat(dashboard): ajouter isCommandPropertyOpen et raccourci ctrl+
 ### Task 2 : Créer `CommandPropertyModal.vue`
 
 **Files:**
+
 - Create: `app/components/CommandPropertyModal.vue`
 
 #### Contexte
 
 Le composant calque la structure de `CommandPaletteModal.vue` :
+
 - `UModal` pilotée par `isCommandPropertyOpen`
 - `UCommandPalette` avec un groupe d'items construits depuis `useAccommodation().items`
 - Recherche sur `identifier` et `name` (le `UCommandPalette` filtre nativement sur `label` + `description`)
 - Navigation vers `/properties/${listingSlug}/${categorySlug}/${slug}` au clic + fermeture
 
 **Données :** `useAccommodation()` expose `items: ComputedRef<Accommodation[]>`. Chaque `Accommodation` contient :
+
 - `identifier: string` — la référence (ex. `BAVR007`)
 - `name: string | null` — le nom du bien
 - `slug: string | null` — slug de l'hébergement
@@ -193,9 +197,7 @@ const buildPropertyItem = (accommodation: Accommodation): CommandPaletteItem | n
 
 // 8. Computed UI-ready
 const propertyItems = computed<CommandPaletteItem[]>(() =>
-  items.value
-    .map(buildPropertyItem)
-    .filter((item): item is CommandPaletteItem => item !== null),
+  items.value.map(buildPropertyItem).filter((item): item is CommandPaletteItem => item !== null),
 )
 
 const groups = computed<CommandPaletteGroup[]>(() => {
@@ -231,6 +233,7 @@ git commit -m "feat(dashboard): créer CommandPropertyModal avec recherche par r
 ### Task 3 : Monter `CommandPropertyModal` dans `app/layouts/default.vue`
 
 **Files:**
+
 - Modify: `app/layouts/default.vue`
 
 #### Contexte
@@ -300,10 +303,10 @@ git commit -m "feat(layout): monter CommandPropertyModal dans le layout default"
 
 ## Points de vigilance
 
-| Sujet | Note |
-|-------|------|
-| URL de navigation | `/properties/${listingSlug}/${categorySlug}/${slug}` — à valider sur les données réelles |
-| SSR-safety | `isCommandPropertyOpen` est un `useState` (SSR-safe). Le shortcut est dans `import.meta.client` — aucun risque d'hydratation |
-| Données vides | Si `items` est vide (store non chargé), `groups` renvoie `[]` et la palette affiche un état vide — comportement attendu |
-| `ctrl+s` et inputs | `usingInput: false` — le shortcut ne se déclenche pas quand le focus est dans un champ texte |
-| Localisation | `localePath` est utilisé sur l'URL de navigation — le préfixe de locale sera ajouté automatiquement |
+| Sujet              | Note                                                                                                                         |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| URL de navigation  | `/properties/${listingSlug}/${categorySlug}/${slug}` — à valider sur les données réelles                                     |
+| SSR-safety         | `isCommandPropertyOpen` est un `useState` (SSR-safe). Le shortcut est dans `import.meta.client` — aucun risque d'hydratation |
+| Données vides      | Si `items` est vide (store non chargé), `groups` renvoie `[]` et la palette affiche un état vide — comportement attendu      |
+| `ctrl+s` et inputs | `usingInput: false` — le shortcut ne se déclenche pas quand le focus est dans un champ texte                                 |
+| Localisation       | `localePath` est utilisé sur l'URL de navigation — le préfixe de locale sera ajouté automatiquement                          |

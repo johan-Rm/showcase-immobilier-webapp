@@ -71,16 +71,6 @@ const { screenUi } = useScreenSystem({
 // 5. Etat local
 
 // 6. Data inputs
-// Normalise le type de bien pour valider que l'URL correspond au bien résolu.
-const realEstateListingSlug = computed(() => {
-  const raw = route.params.realEstateListing
-  return Array.isArray(raw) ? (raw[0] ?? '') : String(raw ?? '')
-})
-// Normalise la catégorie pour éviter une comparaison sur le paramètre route brut.
-const accommodationCategorySlug = computed(() => {
-  const raw = route.params.accommodationCategory
-  return Array.isArray(raw) ? (raw[0] ?? '') : String(raw ?? '')
-})
 // Slug canonique du bien transmis au screen de détail et à la clé de chargement.
 const slug = computed(() => {
   const raw = route.params.accommodationSlug

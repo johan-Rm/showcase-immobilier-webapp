@@ -42,7 +42,9 @@
         <div class="min-w-0 flex-1">
           <!-- Ligne identifiant + contrôles -->
           <div class="mb-1.5 flex items-center gap-1">
-            <p class="min-w-0 flex-1 truncate text-[0.6rem] font-medium tracking-wide text-white/30">
+            <p
+              class="min-w-0 flex-1 truncate text-[0.6rem] font-medium tracking-wide text-white/30"
+            >
               {{ item.identifier }}
             </p>
             <!-- Ordre -->
@@ -78,8 +80,17 @@
           <!-- Alt text — important SEO + accessibilité -->
           <div class="mb-2">
             <div class="mb-0.5 flex items-center gap-1">
-              <UIcon name="i-lucide-accessibility" class="text-[0.55rem]" style="color:#6B7A4A" aria-hidden="true" />
-              <span class="text-[0.55rem] font-semibold tracking-widest uppercase" style="color:#6B7A4A">Texte alt</span>
+              <UIcon
+                name="i-lucide-accessibility"
+                class="text-[0.55rem]"
+                style="color: #6b7a4a"
+                aria-hidden="true"
+              />
+              <span
+                class="text-[0.55rem] font-semibold tracking-widest uppercase"
+                style="color: #6b7a4a"
+                >Texte alt</span
+              >
             </div>
             <input
               v-if="editingAlt === item.identifier"
@@ -98,7 +109,11 @@
               v-else
               type="button"
               class="w-full text-left text-xs transition-colors"
-              :class="getCaptionFor(item.identifier) ? 'text-white/55 hover:text-white/75' : 'italic text-white/20 hover:text-white/40'"
+              :class="
+                getCaptionFor(item.identifier)
+                  ? 'text-white/55 hover:text-white/75'
+                  : 'text-white/20 italic hover:text-white/40'
+              "
               :aria-label="`Modifier le texte alt de ${item.identifier}`"
               @click="startEditAlt(item.identifier)"
             >
@@ -126,16 +141,13 @@
     </button>
 
     <!-- Modal upload -->
-    <DashboardPropertyMediaPickerModal
-      v-model:open="isPickerOpen"
-      @uploaded="onUploaded"
-    />
+    <DashboardPropertyMediaPickerModal v-model:open="isPickerOpen" @uploaded="onUploaded" />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { MediaObject } from '@schemas/interfaces'
 import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
+import type { MediaObject } from '@schemas/interfaces'
 
 type AssocItem = {
   image: string
@@ -260,30 +272,39 @@ const removeIdentifier = (identifier: string): void => {
   emitAssocMedia(parsedAssocMedia.value.filter((a) => a.image !== identifier))
 }
 
+const swapItems = <T,>(items: T[], fromIndex: number, toIndex: number): T[] => {
+  const fromItem = items[fromIndex]
+  const toItem = items[toIndex]
+  if (fromItem === undefined || toItem === undefined) return items
+
+  const next = [...items]
+  next[fromIndex] = toItem
+  next[toIndex] = fromItem
+  return next
+}
+
 const moveUp = (index: number): void => {
   if (index <= 0) return
-  const ids = [...imageIdentifiers.value]
-  ;[ids[index - 1], ids[index]] = [ids[index], ids[index - 1]]
+  const ids = swapItems(imageIdentifiers.value, index - 1, index)
   emitIdentifiers(ids)
 
-  const assoc = [...parsedAssocMedia.value]
-  const iA = assoc.findIndex((a) => a.image === imageIdentifiers.value[index - 1])
-  const iB = assoc.findIndex((a) => a.image === imageIdentifiers.value[index])
-  if (iA !== -1 && iB !== -1) [assoc[iA], assoc[iB]] = [assoc[iB], assoc[iA]]
-  emitAssocMedia(assoc)
+  const iA = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index - 1])
+  const iB = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index])
+  emitAssocMedia(
+    iA !== -1 && iB !== -1 ? swapItems(parsedAssocMedia.value, iA, iB) : parsedAssocMedia.value,
+  )
 }
 
 const moveDown = (index: number): void => {
   if (index >= imageIdentifiers.value.length - 1) return
-  const ids = [...imageIdentifiers.value]
-  ;[ids[index], ids[index + 1]] = [ids[index + 1], ids[index]]
+  const ids = swapItems(imageIdentifiers.value, index, index + 1)
   emitIdentifiers(ids)
 
-  const assoc = [...parsedAssocMedia.value]
-  const iA = assoc.findIndex((a) => a.image === imageIdentifiers.value[index])
-  const iB = assoc.findIndex((a) => a.image === imageIdentifiers.value[index + 1])
-  if (iA !== -1 && iB !== -1) [assoc[iA], assoc[iB]] = [assoc[iB], assoc[iA]]
-  emitAssocMedia(assoc)
+  const iA = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index])
+  const iB = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index + 1])
+  emitAssocMedia(
+    iA !== -1 && iB !== -1 ? swapItems(parsedAssocMedia.value, iA, iB) : parsedAssocMedia.value,
+  )
 }
 
 const onUploaded = (mediaObjects: MediaObject[]): void => {
