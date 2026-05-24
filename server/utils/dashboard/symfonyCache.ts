@@ -58,8 +58,9 @@ async function fetchCategoryCodeMap(
   const map: CategoryCodeMap = {}
 
   for (const item of response['hydra:member'] ?? []) {
-    if (!map[item.inCodeSet]) map[item.inCodeSet] = {}
-    map[item.inCodeSet]![item.code] = item['@id']
+    const inCodeSetKey = item.inCodeSet.split('/').at(-1) ?? item.inCodeSet
+    if (!map[inCodeSetKey]) map[inCodeSetKey] = {}
+    map[inCodeSetKey]![item.code] = item['@id']
   }
 
   return map

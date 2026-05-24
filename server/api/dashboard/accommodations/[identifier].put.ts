@@ -90,13 +90,13 @@ export default defineEventHandler(
 
     if (existingUuid) {
       await callSymfony(
-        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}?locale=${locale}`,
+        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}`,
         'PUT',
       )
       uuid = existingUuid
     } else {
       const created = await callSymfony<{ '@id': string }>(
-        `${apiUrl}/api/projects/${projectId}/accommodations?locale=${locale}`,
+        `${apiUrl}/api/projects/${projectId}/accommodations`,
         'POST',
       )
       const newUuid = created['@id'].split('/').at(-1)
