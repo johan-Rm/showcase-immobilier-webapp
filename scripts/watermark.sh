@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SOURCE_DIR="/home/johan/www/graines-digitales/modern-web-apps/mlk-my-little-kasbah/public/images/originals"
-TARGET_DIR="/home/johan/www/graines-digitales/modern-web-apps/mlk-my-little-kasbah/public/images/accommodations"
+TARGET_DIR="/home/johan/www/graines-digitales/modern-web-apps/mlk-my-little-kasbah/public/images"
 
 WATERMARK_SRC="/home/johan/www/graines-digitales/modern-web-apps/mlk-my-little-kasbah/app/assets/logo/watermark4.png"
 TMP_WATERMARK="/tmp/mlk-watermark.png"

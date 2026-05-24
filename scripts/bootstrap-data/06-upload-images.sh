@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 STATE_FILE="$SCRIPT_DIR/.state"
-IMAGES_DIR="$ROOT_DIR/public/images/accommodations"
+IMAGES_DIR="$ROOT_DIR/public/images"
 BATCH_SIZE=20
 
 # shellcheck source=/dev/null

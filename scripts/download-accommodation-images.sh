@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OUTPUT_DIR="public/images/accommodations"
+OUTPUT_DIR="public/images"
 mkdir -p "$OUTPUT_DIR"
 
 download_image() {

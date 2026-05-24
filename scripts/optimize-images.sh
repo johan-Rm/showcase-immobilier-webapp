@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DIR="${1:-public/images/accommodations}"
+DIR="${1:-public/images}"
 BACKUP_DIR="${DIR}__backup"
 
 MAX_WIDTH=2560

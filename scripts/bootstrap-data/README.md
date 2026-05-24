@@ -12,7 +12,7 @@ Scripts d'initialisation d'un environnement Symfony MLK vierge.
 - `yq` installé (étape 04 uniquement) — https://github.com/mikefarah/yq
 - `bun` installé (étape 05 uniquement)
 - `.env` configuré à la racine du projet (voir section Variables ci-dessous)
-- Images téléchargées dans `public/images/accommodations/` (étape 06 uniquement)
+- Images téléchargées dans `public/images/` (étape 06 uniquement)
 
 ## Variables d'environnement requises
 
@@ -61,7 +61,7 @@ users, codes) seront détectées comme existantes et ignorées sans erreur.
 
 ## Images manquantes
 
-Si `public/images/accommodations/` est vide, télécharger les images en premier :
+Si `public/images/` est vide, télécharger les images en premier :
 
 ```bash
 bash scripts/download-accommodation-images.sh

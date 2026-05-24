@@ -21,7 +21,7 @@ utilisateurs existent deja. Ce bootstrap couvre les etapes amont.
 3. Ajout de 2 utilisateurs au projet (Johan owner/admin, Caroline admin/user)
 4. Seed des CategoryCodes depuis un fichier de reference YAML
 5. Import des 7 biens reels non-fixtures (reuse de `scripts/import-accommodations.ts`)
-6. Upload des images depuis `public/images/accommodations/` en batch de 20
+6. Upload des images depuis `public/images/` en batch de 20
 
 ## Hors perimetre
 
@@ -173,7 +173,7 @@ Pas de duplication de logique : tout le mapping frontmatter → payload reste da
 
 ### 06 — Upload images
 
-Lecture de `public/images/accommodations/`, upload par batch de 20 via :
+Lecture de `public/images/`, upload par batch de 20 via :
 
 ```
 POST {SYMFONY_API_URL}/api/projects/{PROJECT_ID}/media-objects/bulk
