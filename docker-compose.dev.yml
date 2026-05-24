@@ -16,6 +16,7 @@ services:
       - ./nuxt.config.ts:/app/nuxt.config.ts
       - ./schemas:/app/schemas
       - ./.data:/app/.data
+      - ./public:/app/public
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -55,6 +56,7 @@ services:
       - ./.data:/app/.data
       - ./content:/app/content:ro
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
+      - ./public/images:/app/.output/public/images
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider http://127.0.0.1:3000/ || exit 1']
       interval: 5s

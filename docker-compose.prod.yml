@@ -35,6 +35,7 @@ services:
       - '3000'
     volumes:
       - ${SCHEMAS_PATH:-../../schemas}:/app/schemas
+      - ./public/images:/app/.output/public/images
     networks:
       mlk_network_prod: {}
       edge_network:
