@@ -22,6 +22,7 @@ type UseMetadataReturn = {
   loadAccommodationPlaces: () => Promise<void>
   loadPeople: () => Promise<void>
   loadMediaObjects: () => Promise<void>
+  loadDashboardCategoryCodes: () => Promise<void>
 }
 
 export const useMetadata = (): UseMetadataReturn => {
@@ -91,6 +92,13 @@ export const useMetadata = (): UseMetadataReturn => {
     store.setMediaObjects(mediaObjectItems)
   }
 
+  const loadDashboardCategoryCodes = async (): Promise<void> => {
+    const items = await $fetch<Array<{ iri: string; code: string; inCodeSet: string }>>(
+      '/api/dashboard/category-codes',
+    )
+    store.setIrisMap(items)
+  }
+
   const loadAllMetadata = async (): Promise<void> => {
     await Promise.all([
       loadApp(),
@@ -113,5 +121,6 @@ export const useMetadata = (): UseMetadataReturn => {
     loadAccommodationPlaces,
     loadPeople,
     loadMediaObjects,
+    loadDashboardCategoryCodes,
   }
 }
