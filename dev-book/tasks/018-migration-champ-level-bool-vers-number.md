@@ -29,6 +29,7 @@ content/fr/accommodations/affaire-commerciale-boutique-centre.md → level: true
 ```
 
 Règle de migration :
+
 - `level: true` → `level: 1` (bien avec étage(s))
 - `level: false` → supprimer le champ ou `level: 0` (plain-pied)
 

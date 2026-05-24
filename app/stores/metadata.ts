@@ -188,8 +188,7 @@ export const useMetadataStore = defineStore('metadata', {
     },
 
     getIri(state: MetadataState): (inCodeSet: string, code: string) => string | null {
-      return (inCodeSet: string, code: string) =>
-        state.irisMap[inCodeSet]?.[code] ?? null
+      return (inCodeSet: string, code: string) => state.irisMap[inCodeSet]?.[code] ?? null
     },
   },
 

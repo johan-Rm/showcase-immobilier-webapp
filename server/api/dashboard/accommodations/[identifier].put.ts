@@ -5,8 +5,6 @@ import { exportToMarkdown } from '../../../utils/dashboard/markdownExporter'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { getAccommodationUuidMap } from '../../../utils/dashboard/symfonyCache'
 
-const DEFAULT_LOCALE = 'fr'
-
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
   if (!apiUrl) throw new Error('SYMFONY_API_URL manquant')
@@ -23,10 +21,6 @@ export default defineEventHandler(
       throw createError({ statusCode: 400, statusMessage: 'Missing accommodation identifier' })
     }
 
-    const query = getQuery(event)
-    const locale =
-      typeof query.locale === 'string' && query.locale.length > 0 ? query.locale : DEFAULT_LOCALE
-
     const accommodation = await readBody<DashboardAccommodationSavePayload>(event)
     if (!accommodation?.frontmatter) {
       throw createError({ statusCode: 400, statusMessage: 'Invalid accommodation payload' })
@@ -40,7 +34,7 @@ export default defineEventHandler(
 
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
-      payload = await mapToApiPlatform(accommodation, locale)
+      payload = await mapToApiPlatform(accommodation)
     } catch (error) {
       throw createError({ statusCode: 400, statusMessage: (error as Error).message })
     }
@@ -73,10 +67,7 @@ export default defineEventHandler(
     }
 
     if (existingUuid) {
-      await callSymfony(
-        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}`,
-        'PUT',
-      )
+      await callSymfony(`${apiUrl}/api/projects/${projectId}/accommodations/${identifier}`, 'PUT')
       uuid = existingUuid
     } else {
       const created = await callSymfony<{ '@id': string }>(

@@ -61,10 +61,7 @@ dashboardHeroImageUrl.value =
 
 // Données non-critiques : un échec ne doit pas bloquer l'accès au dashboard.
 try {
-  await Promise.all([
-    loadAccommodationForm(),
-    loadDashboardCategoryCodes(),
-  ])
+  await Promise.all([loadAccommodationForm(), loadDashboardCategoryCodes()])
 } catch {
   // silencieux : les labels du formulaire ont des fallbacks dans PropertyEditorPanel
 }

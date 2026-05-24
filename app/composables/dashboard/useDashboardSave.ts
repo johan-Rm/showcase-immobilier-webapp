@@ -6,6 +6,7 @@ import type {
 import type { LocaleCode } from '#shared/types/i18n'
 
 import { toValue } from 'vue'
+
 import { useMetadataStore } from '~/stores/metadata'
 
 export type SaveStatus = 'idle' | 'saving' | 'success' | 'error'
@@ -18,9 +19,7 @@ export const useDashboardSave = () => {
   const errorMessage = ref<string | null>(null)
   const markdownUpdated = ref<boolean | null>(null)
 
-  function resolveIris(
-    frontmatter: Record<string, unknown>,
-  ): DashboardAccommodationResolvedIris {
+  function resolveIris(frontmatter: Record<string, unknown>): DashboardAccommodationResolvedIris {
     const getIri = metadataStore.getIri
 
     const toStringArray = (v: unknown): string[] =>

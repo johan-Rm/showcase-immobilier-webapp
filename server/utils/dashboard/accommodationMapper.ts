@@ -98,7 +98,6 @@ async function loadPersons(): Promise<PersonEntry[]> {
 
 export async function mapToApiPlatform(
   accommodation: DashboardAccommodationSavePayload,
-  locale: string,
 ): Promise<SymfonyAccommodationPayload> {
   const fm = accommodation.frontmatter
   const translations = normalizeTranslations(accommodation.translations)
