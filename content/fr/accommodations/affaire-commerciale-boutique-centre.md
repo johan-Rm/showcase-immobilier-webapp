@@ -10,7 +10,7 @@ offer:
   priceSpecification: A la vente
 place: centre-ville
 floorSize: 86
-level: true
+level: 1
 numberOfRooms: 2
 landArea: 86
 numberOfGarages: 0

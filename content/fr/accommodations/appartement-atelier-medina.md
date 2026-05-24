@@ -11,7 +11,7 @@ offer:
 yearBuilt: 1998
 place: medina
 floorSize: 64
-level: true
+level: 1
 numberOfRooms: 2
 landArea: 0
 numberOfGarages: 0

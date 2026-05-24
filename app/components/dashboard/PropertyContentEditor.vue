@@ -240,7 +240,7 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
           half: true,
         },
         { key: 'occupancy', label: f('occupancy', 'Capacité'), default: 0, half: true },
-        { key: 'level', label: f('level', 'De plain-pied'), default: false, half: true },
+        { key: 'level', label: f('level', 'Niveau'), default: 0, half: true },
         {
           key: 'yearBuilt',
           label: f('yearBuilt', 'Année de construction'),

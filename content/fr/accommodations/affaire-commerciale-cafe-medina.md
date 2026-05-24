@@ -10,7 +10,7 @@ offer:
   priceSpecification: A la vente
 place: medina
 floorSize: 120
-level: true
+level: 1
 numberOfRooms: 3
 landArea: 120
 numberOfGarages: 0
