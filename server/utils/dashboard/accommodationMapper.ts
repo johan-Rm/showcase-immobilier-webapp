@@ -1,5 +1,3 @@
-import type { CategoryCodeMap } from './symfonyCache'
-
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
@@ -49,11 +47,6 @@ function asBoolean(v: DashboardEditableValue | undefined): boolean | null {
   return typeof v === 'boolean' ? v : null
 }
 
-function asStringArray(v: DashboardEditableValue | undefined): string[] {
-  if (!Array.isArray(v)) return []
-  return v.filter((item): item is string => typeof item === 'string')
-}
-
 function hasUsableTranslation(
   translation: DashboardAccommodationTranslationPayload,
 ): translation is DashboardAccommodationTranslationPayload {
@@ -85,32 +78,6 @@ function normalizeTranslations(
 }
 
 // ---------------------------------------------------------------------------
-// IRI resolution
-// ---------------------------------------------------------------------------
-
-function resolveIri(
-  codeMap: CategoryCodeMap,
-  inCodeSet: string,
-  code: string | null,
-): string | null {
-  if (!code) return null
-  const iri = codeMap[inCodeSet]?.[code] ?? null
-  if (!iri) {
-    throw new Error(
-      `CategoryCode introuvable : inCodeSet="${inCodeSet}" code="${code}". ` +
-        `Invalider le cache Symfony si le code vient d'être créé.`,
-    )
-  }
-  return iri
-}
-
-function resolveIriArray(codeMap: CategoryCodeMap, inCodeSet: string, codes: string[]): string[] {
-  return codes
-    .map((code) => resolveIri(codeMap, inCodeSet, code))
-    .filter((iri): iri is string => iri !== null)
-}
-
-// ---------------------------------------------------------------------------
 // person.yaml loader (lecture fichier, cache local)
 // ---------------------------------------------------------------------------
 
@@ -132,7 +99,6 @@ async function loadPersons(): Promise<PersonEntry[]> {
 export async function mapToApiPlatform(
   accommodation: DashboardAccommodationSavePayload,
   locale: string,
-  codeMap: CategoryCodeMap,
 ): Promise<SymfonyAccommodationPayload> {
   const fm = accommodation.frontmatter
   const translations = normalizeTranslations(accommodation.translations)
@@ -167,21 +133,17 @@ export async function mapToApiPlatform(
   const offerPriceSpecification = offer ? asString(offer.priceSpecification) : null
   const offerAvailability = asString(fm.offerAvailability)
 
-  // -- CategoryCode IRIs ---------------------------------------------------
-  const category = resolveIri(codeMap, 'accommodation-type', asString(fm.category))
-  const realEstateListing = resolveIri(
-    codeMap,
-    'real-estate-listing',
-    asString(fm.realEstateListing),
-  )
-  const place = resolveIri(codeMap, 'accommodation-place', asString(fm.place))
+  // -- CategoryCode IRIs (résolus côté client, transmis dans le payload) ----
+  const iris = accommodation.resolvedIris
+  if (!iris) {
+    throw new Error('resolvedIris manquant dans le payload')
+  }
 
-  // amenityFeature : filtrer les entrées non-string (bug bavr001 avec "image: uuid")
-  const amenityFeatureCodes = asStringArray(fm.amenityFeature)
-  const amenityFeature = resolveIriArray(codeMap, 'amenity-feature', amenityFeatureCodes)
-
-  const tagCodes = asStringArray(fm.tags)
-  const tags = resolveIriArray(codeMap, 'tag', tagCodes)
+  const category = iris.category
+  const realEstateListing = iris.realEstateListing
+  const place = iris.place
+  const amenityFeature = iris.amenityFeature
+  const tags = iris.tags
 
   // -- Agent immobilier (lookup person.yaml) -------------------------------
   const agentUuid = asString(fm.realEstateAgent)
