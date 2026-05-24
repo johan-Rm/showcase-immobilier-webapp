@@ -52,7 +52,7 @@ async function fetchCategoryCodeMap(
 ): Promise<CategoryCodeMap> {
   const response = await $fetch<HydraCollection<SymfonyCategoryCode>>(
     `${apiUrl}/api/projects/${projectId}/category-codes`,
-    { headers: authHeaders(token), query: { pagination: false } },
+    { headers: authHeaders(token), query: { pagination: false, locale: 'fr' } },
   )
 
   const map: CategoryCodeMap = {}
