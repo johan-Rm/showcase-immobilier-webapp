@@ -1,199 +1,90 @@
-# CLAUDE — Gouvernance IA locale
+# CLAUDE — Contexte projet : mlk-my-little-kasbah
 
-Ce fichier définit le cadre de travail global pour Claude Code.
+Fichier de gouvernance local. Complète le socle global `~/.agents/.claude/CLAUDE.md` sans le
+répéter. Les profils, principes et skills sont définis dans le global.
 
-Il adapte les règles du socle partagé `~/.agents` au fonctionnement de Claude, sans
-reprendre les fichiers runtime propres à Codex.
+## Projet
 
-## Hiérarchie normative
+Webapp immobilière éditoriale pour Essaouira et sa région. Interface calme, crédible,
+orientée exploration puis contact. SEO-first, SSR, mobile-first, Core Web Vitals prioritaires.
 
-En cas de conflit, appliquer l'ordre suivant :
+## Stack
 
-1. `CLAUDE.md` local du projet si il existe
-2. `AGENTS.md` local du projet si il existe
-3. ce fichier `~/.agents/CLAUDE.md`
-4. `docs/` et README locaux du périmètre concerné
-5. instructions ponctuelles de tâche
+- Framework : Nuxt 4, Vue 3, TypeScript strict
+- UI : Nuxt UI v4, Tailwind CSS
+- Contenu : Nuxt Content (Markdown + YAML)
+- État : Pinia
+- Internationalisation : @nuxtjs/i18n
+- Images : @nuxt/image
+- Runtime : Bun
+- Lint/format : ESLint (config flat), Prettier
 
-Les instructions système de Claude restent évidemment prioritaires sur ce fichier.
+## Architecture — lecture obligatoire avant d'agir
 
-## Ordre de lecture minimal
+`docs/2.architecture/` est la source de vérité. 13 standards à lire selon le périmètre :
 
-Avant d'agir, lire uniquement les sources utiles au périmètre, dans cet ordre :
+1. `1.application-architecture.md` — couches et responsabilités
+2. `2.data-flow.md` — chemin des données source → rendu
+3. `3.page-layout-screen-model.md` — modèle de composition des routes
+4. `4.ssr-safety.md` — garde-fous serveur/client
+5. `5.responsibility-boundaries.md` — frontières entre couches
+6. `6.script-setup-standard.md` — structure attendue des SFC
+7. `7.auto-imports-and-aliases.md` — imports automatiques et alias
+8. `8.composables-standard.md` — conventions composables
+9. `9.types-placement.md` — placement des types TypeScript
+10. `10.services-standard.md` — organisation de `services/`
+11. `11.stores-standard.md` — conventions Pinia
+12. `12.content-model.md` — organisation de `content/`
+13. `13.routing-and-middleware.md` — routes, middlewares, navigation
 
-1. fichier de gouvernance local du projet : `CLAUDE.md`, `AGENTS.md` ou équivalent
-2. documentation d'architecture pertinente : `docs/2.architecture/` en priorité
-3. README du périmètre concerné
-4. tasks ou documents fonctionnels directement liés à la demande
+## Frontières de responsabilité
 
-Ne pas charger toute la documentation sans nécessité. Si un fichier attendu est absent,
-poursuivre avec les sources disponibles et expliciter seulement les hypothèses qui
-influencent le résultat.
-
-## Mission de travail
-
-Produire des changements simples, lisibles, maintenables et vérifiables.
-
-Priorités constantes :
-
-1. clarté pour l'utilisateur final
-2. lisibilité du contenu et du code
-3. performance et sobriété
-4. sécurité et absence de secrets
-5. maintenabilité du delivery
-
-## Contraintes transverses
-
-- mobile-first pour les interfaces web
-- SSR-safe par défaut sur Nuxt, Vue et frameworks équivalents
-- SEO by design lorsque le contenu est public
-- accessibilité clavier, labels, alt et focus lorsque l'UI est touchée
-- pas de sur-ingénierie sans bénéfice utilisateur clair
-- pas de refactor hors périmètre explicite
-- pas de dépendance ajoutée sans justification
-- pas de secret en clair, pas de `.env` committé
-- pas de `console.log` en production
-- diff minimal et intentionnel
-
-## Principes d'ingénierie
-
-Appliquer explicitement :
-
-- Clean Code pour la lisibilité, le nommage et la cohérence
-- SOLID pour protéger responsabilités, contrats et couplage
-- KISS pour privilégier la solution robuste la plus simple
-- YAGNI pour éviter abstraction et complexité prématurées
-- Separation of Concerns entre UI, orchestration, métier, données et infrastructure
-- Design Patterns uniquement lorsqu'ils simplifient réellement le code
-
-## Profils de travail
-
-### `default`
-
-Profil généraliste de delivery.
-
-À utiliser pour :
-
-- demandes mixtes ou incomplètement cadrées
-- petites corrections locales
-- coordination, analyse transverse ou cadrage initial
-
-Responsabilités :
-
-- comprendre le besoin réel
-- limiter le scope
-- choisir le bon niveau de lecture
-- livrer une V1 exploitable et sobre
-
-### `nuxt`
-
-Profil frontend Nuxt, Vue et TypeScript strict.
-
-À utiliser pour :
-
-- pages, layouts, screens, composants, composables et stores
-- architecture UI
-- SSR, SEO, performance frontend et hydratation
-
-Règles :
-
-- `pages/` orchestre
-- `components/` affiche
-- la logique métier reste hors UI
-- les appels API passent par la bonne couche de service ou composable
-- préserver le typage explicite, sans `any` non justifié
-- utiliser les primitives framework adaptées
-
-Points de vigilance :
-
-- hydratation serveur/client
-- poids JS et images
-- accessibilité
-- indexabilité et structure sémantique
-
-### `review`
-
-Profil de relecture technique.
-
-À utiliser pour :
-
-- audit de diff, fichier, PR ou architecture
-- recherche de bugs, régressions et écarts de conventions
-
-Format attendu :
-
-1. findings ordonnés par sévérité
-2. questions ouvertes ou hypothèses
-3. résumé bref seulement en dernier
-
-Règles :
-
-- citer fichiers et lignes quand c'est possible
-- distinguer défaut avéré, risque plausible et préférence de style
-- si aucun finding n'est trouvé, le dire explicitement
-
-### `github`
-
-Profil contribution et workflow GitHub.
-
-À utiliser pour :
-
-- commits, branches, PR, checks CI, stratégie de merge
-- préparation d'une contribution facile à relire
-
-Règles :
-
-- aucun commit direct sur `main` ou `develop`
-- scope de contribution maîtrisé
-- vérifier lint, format, type-check et tests pertinents avant PR lorsque disponibles
-
-## Skills partagées
-
-Les skills communes sont disponibles via :
-
-```txt
-~/.claude/skills -> dossiers liés vers ~/.agents/skills
+```
+app/pages/        orchestre la route, le contexte, les meta
+app/components/   affichage et composition visuelle uniquement
+app/composables/  passerelle reactive UI / logique applicative
+app/stores/       état global partagé (Pinia)
+services/         logique métier pure — framework-agnostic
+server/           routes et traitements Nitro
+shared/           utilitaires et contrats partageables
+schemas/          contrats de types et artefacts de build
+content/          contenu Markdown + YAML (source éditoriale)
 ```
 
-Utiliser une skill quand la tâche correspond clairement à son périmètre. Ne pas forcer une
-skill si une réponse directe ou une petite correction locale suffit.
+## Modèle de navigation
 
-## Commandes partagées
+Les pages pilotent une navigation par **screens plein viewport** (`data-screen`, ancres,
+transitions x ou y). Ce n'est pas un routing classique — lire `3.page-layout-screen-model.md`
+avant toute modification de page ou de layout.
 
-Les commandes Claude partagées sont disponibles via :
+## Commandes courantes
 
-```txt
-~/.claude/commands -> ~/.agents/commands
+```bash
+bun run dev               # développement local
+bun run build             # build production
+bun run type-check        # vue-tsc --noEmit
+bun run lint:check        # ESLint sans warnings
+bun run format:check      # Prettier check
+bun run quality:check     # lint + format + type-check
+
+# Scripts de vérification architecture
+bun run check:app:types             # placement des types
+bun run check:app:soc               # separation of concerns composants
+bun run check:app:script-setup-standard
+bun run check:app:no-business-logic # pas de logique métier dans les composants
 ```
 
-Elles doivent rester génériques, non sensibles et utilisables sur plusieurs projets.
+## Workflow de développement
 
-## Fichiers à ne jamais partager
+1. spec dans `dev-book/` (si feature structurante)
+2. tâche dans `dev-book/tasks/`
+3. branche dédiée depuis `develop`
+4. PR vers `develop`
 
-Ne pas versionner, copier ni symlinker vers le socle partagé :
+## Points de vigilance spécifiques
 
-- `.credentials.json`
-- `auth.json`
-- `config.toml`
-- `.env`
-- `sessions/`
-- `projects/`
-- `file-history/`
-- `session-env/`
-- `cache/`
-- `telemetry/`
-- `shell-snapshots/`
-- `logs/`
-- `*.sqlite`
-- `*.jsonl`
-
-## Mode d'exécution
-
-- lire le contexte utile avant d'agir
-- faire le diff le plus local possible
-- préserver les changements utilisateur existants
-- ne jamais supprimer ou réinitialiser du travail sans demande explicite
-- mettre à jour la documentation impactée dans le même scope
-- exécuter les vérifications pertinentes lorsque c'est raisonnable
-- mentionner explicitement les risques sécurité, performance, accessibilité ou contrat
-  quand ils sont touchés
+- hydratation serveur/client — toujours vérifier SSR safety
+- `services/` ne doit jamais importer depuis Vue, Nuxt ou Pinia
+- Nuxt UI couvre la majorité des composants UI — vérifier avant d'écrire du HTML brut
+- les images passent par `@nuxt/image` — pas de `<img>` natif sans justification
+- i18n actif — tout texte visible passe par les clés de traduction
