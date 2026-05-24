@@ -52,10 +52,28 @@ app/pages/        orchestre la route et les meta
 app/components/   affichage uniquement
 app/composables/  logique reactive exposée à l'UI
 app/stores/       état global partagé
-services/         logique métier pure (framework-agnostic)
-server/           routes Nitro
+services/         logique métier pure (framework-agnostic, zéro import Vue/Nuxt/Pinia)
+server/           BFF Nitro entre le frontend et l'API Symfony (auth, dashboard, sitemap)
 shared/           utilitaires et contrats partageables
 ```
+
+## Détail services/ (framework-agnostic)
+
+- `services/api/` — appels vers l'API Symfony
+- `services/mapper/` — mapping API → types UI (accommodation, webPage)
+- `services/seo/` — données structurées Schema.org
+- `services/content/` — utilitaires MDC / Nuxt Content
+- `services/converter/schema/` — génération d'artefacts TypeScript depuis les schémas YAML
+- `services/infra/resolver/` — résolution de chemins
+- `services/utils/` — utilitaires CLI et système de fichiers
+
+## Détail server/ (BFF Nitro)
+
+- `server/api/dashboard/` — proxy vers l'API Symfony (biens, médias, catégories, statut)
+- `server/api/content/` — proxy Nuxt Content
+- `server/api/__sitemap__/` — sitemap dynamique
+- `server/routes/auth/` — OAuth Google (login backoffice)
+- `server/utils/dashboard/` — auth Symfony, cache, mapper, export Markdown
 
 ## Modèle de navigation
 
