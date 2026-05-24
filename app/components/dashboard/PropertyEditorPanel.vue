@@ -21,12 +21,18 @@
             v-for="locale in localeTabs"
             :key="locale"
             type="button"
-            class="rounded px-2 py-1 text-[0.65rem] font-bold uppercase transition-colors"
+            class="relative rounded px-2 py-1 text-[0.65rem] font-bold uppercase transition-colors"
             :class="activeLocale === locale ? 'text-white' : 'text-white/30 hover:text-white/60'"
             :style="activeLocale === locale ? 'background-color:#6B7A4A' : ''"
+            :aria-label="`Locale ${locale} - ${localeStatuses[locale]}`"
             @click="emit('update:activeLocale', locale)"
           >
             {{ locale }}
+            <span
+              class="absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full"
+              :class="localeStatusClass(localeStatuses[locale])"
+              aria-hidden="true"
+            />
           </button>
           <button
             v-if="showClose"
@@ -119,6 +125,7 @@ type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
+type LocaleStatus = 'source' | 'personalized' | 'incomplete' | 'saved' | 'error'
 
 defineOptions({ name: 'DashboardPropertyEditorPanel' })
 
@@ -129,6 +136,7 @@ defineProps<{
   accommodation?: DashboardAccommodation | null
   expandedBlocks: Set<string>
   titleValue: string
+  localeStatuses: Record<DashboardLocale, LocaleStatus>
   associatedMediaValue: DashboardEditableValue
   mediaImageValue: DashboardEditableValue
   propertyMenuItems: BlockMenuItem[][]
@@ -151,6 +159,14 @@ const sectionTabs: Array<{ value: EditorSection; label: string; icon: string }> 
   { value: 'content', label: 'Contenu', icon: 'i-lucide-file-text' },
   { value: 'media', label: 'Media', icon: 'i-lucide-images' },
 ]
+
+const localeStatusClass = (status: LocaleStatus): string => {
+  if (status === 'error') return 'bg-red-400'
+  if (status === 'personalized') return 'bg-amber-300'
+  if (status === 'incomplete') return 'bg-white/25'
+  if (status === 'source') return 'bg-[#6B7A4A]'
+  return 'bg-green-400'
+}
 
 const isEditingTitle = ref(false)
 const titleInputRef = ref<HTMLInputElement | null>(null)

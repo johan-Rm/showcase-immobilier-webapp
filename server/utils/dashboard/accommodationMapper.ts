@@ -1,13 +1,16 @@
-import type {
-  DashboardAccommodation,
-  DashboardEditableValue,
-} from '#shared/types/dashboardAccommodation'
 import type { CategoryCodeMap } from './symfonyCache'
 
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import YAML from 'yaml'
+
+import {
+  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS,
+  type DashboardAccommodationSavePayload,
+  type DashboardAccommodationTranslationPayload,
+  type DashboardEditableValue,
+} from '#shared/types/dashboardAccommodation'
 
 // ---------------------------------------------------------------------------
 // Types helpers
@@ -49,6 +52,36 @@ function asBoolean(v: DashboardEditableValue | undefined): boolean | null {
 function asStringArray(v: DashboardEditableValue | undefined): string[] {
   if (!Array.isArray(v)) return []
   return v.filter((item): item is string => typeof item === 'string')
+}
+
+function hasUsableTranslation(
+  translation: DashboardAccommodationTranslationPayload,
+): translation is DashboardAccommodationTranslationPayload {
+  return DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.some((field) =>
+    Object.prototype.hasOwnProperty.call(translation, field),
+  )
+}
+
+function normalizeTranslations(
+  translations: DashboardAccommodationSavePayload['translations'],
+): DashboardAccommodationTranslationPayload[] {
+  if (!Array.isArray(translations)) return []
+
+  return translations
+    .map((translation) => {
+      const normalized: DashboardAccommodationTranslationPayload = {
+        locale: translation.locale,
+      }
+
+      DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
+        if (!Object.prototype.hasOwnProperty.call(translation, field)) return
+        const value = translation[field]
+        normalized[field] = typeof value === 'string' ? value : null
+      })
+
+      return normalized
+    })
+    .filter(hasUsableTranslation)
 }
 
 // ---------------------------------------------------------------------------
@@ -97,11 +130,13 @@ async function loadPersons(): Promise<PersonEntry[]> {
 // ---------------------------------------------------------------------------
 
 export async function mapToApiPlatform(
-  accommodation: DashboardAccommodation,
+  accommodation: DashboardAccommodationSavePayload,
   locale: string,
   codeMap: CategoryCodeMap,
 ): Promise<SymfonyAccommodationPayload> {
   const fm = accommodation.frontmatter
+  const translations = normalizeTranslations(accommodation.translations)
+  const isMultilingualSave = translations.length > 0
 
   // -- Champs scalaires directs -------------------------------------------
   const identifier = asString(fm.identifier) ?? accommodation.identifier
@@ -175,6 +210,7 @@ export async function mapToApiPlatform(
   const review = asString(fm.review)
   const metaTitle = asString(fm.metaTitle)
   const metaDescription = asString(fm.metaDescription)
+  const locationDescription = asString(fm.locationDescription)
 
   // -- Payload final -------------------------------------------------------
   const payload: SymfonyAccommodationPayload = {
@@ -203,15 +239,20 @@ export async function mapToApiPlatform(
     ...(realEstateAgentName !== null && { realEstateAgentName }),
     ...(realEstateAgentPhone !== null && { realEstateAgentPhone }),
     ...(realEstateAgentEmail !== null && { realEstateAgentEmail }),
-    // Champs translatables
-    slug,
-    ...(name !== null && { name }),
-    ...(label !== null && { label }),
-    ...(highlight !== null && { highlight }),
-    ...(body !== null && { body }),
-    ...(review !== null && { review }),
-    ...(metaTitle !== null && { metaTitle }),
-    ...(metaDescription !== null && { metaDescription }),
+    ...(isMultilingualSave
+      ? { translations }
+      : {
+          // Champs translatables mono-locale.
+          slug,
+          ...(name !== null && { name }),
+          ...(label !== null && { label }),
+          ...(highlight !== null && { highlight }),
+          ...(body !== null && { body }),
+          ...(review !== null && { review }),
+          ...(metaTitle !== null && { metaTitle }),
+          ...(metaDescription !== null && { metaDescription }),
+          ...(locationDescription !== null && { locationDescription }),
+        }),
   }
 
   return payload

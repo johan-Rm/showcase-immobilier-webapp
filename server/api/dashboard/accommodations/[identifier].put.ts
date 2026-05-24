@@ -1,4 +1,4 @@
-import type { DashboardAccommodation } from '#shared/types/dashboardAccommodation'
+import type { DashboardAccommodationSavePayload } from '#shared/types/dashboardAccommodation'
 
 import { mapToApiPlatform } from '../../../utils/dashboard/accommodationMapper'
 import { exportToMarkdown } from '../../../utils/dashboard/markdownExporter'
@@ -36,7 +36,7 @@ export default defineEventHandler(
     const locale =
       typeof query.locale === 'string' && query.locale.length > 0 ? query.locale : DEFAULT_LOCALE
 
-    const accommodation = await readBody<DashboardAccommodation>(event)
+    const accommodation = await readBody<DashboardAccommodationSavePayload>(event)
     if (!accommodation?.frontmatter) {
       throw createError({ statusCode: 400, statusMessage: 'Invalid accommodation payload' })
     }
@@ -90,7 +90,7 @@ export default defineEventHandler(
 
     if (existingUuid) {
       await callSymfony(
-        `${apiUrl}/api/projects/${projectId}/accommodations/${existingUuid}?locale=${locale}`,
+        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}?locale=${locale}`,
         'PUT',
       )
       uuid = existingUuid

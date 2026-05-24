@@ -1,3 +1,24 @@
+import type { LocaleCode } from './i18n'
+
+export const DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS = [
+  'slug',
+  'name',
+  'label',
+  'highlight',
+  'body',
+  'review',
+  'metaTitle',
+  'metaDescription',
+  'locationDescription',
+] as const
+
+export type DashboardLocalizedAccommodationField =
+  (typeof DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS)[number]
+
+export type DashboardAccommodationTranslationPayload = {
+  locale: LocaleCode
+} & Partial<Record<DashboardLocalizedAccommodationField, string | null>>
+
 export type DashboardEditableValue =
   | string
   | number
@@ -48,6 +69,10 @@ export type DashboardAccommodation = {
   frontmatter: DashboardEditableRecord
   body: string
   preview: DashboardAccommodationPreview
+}
+
+export type DashboardAccommodationSavePayload = DashboardAccommodation & {
+  translations?: DashboardAccommodationTranslationPayload[]
 }
 
 export type DashboardFilterOption = {

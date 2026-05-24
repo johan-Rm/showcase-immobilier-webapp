@@ -1,4 +1,8 @@
-import type { DashboardAccommodation } from '#shared/types/dashboardAccommodation'
+import type {
+  DashboardAccommodation,
+  DashboardAccommodationSavePayload,
+} from '#shared/types/dashboardAccommodation'
+import type { LocaleCode } from '#shared/types/i18n'
 
 import { toValue } from 'vue'
 
@@ -11,13 +15,15 @@ export const useDashboardSave = () => {
   const errorMessage = ref<string | null>(null)
   const markdownUpdated = ref<boolean | null>(null)
 
-  const save = async (accommodation: DashboardAccommodation): Promise<boolean> => {
+  const savePayload = async (
+    accommodation: DashboardAccommodationSavePayload,
+    locale: LocaleCode,
+  ): Promise<boolean> => {
     status.value = 'saving'
     errorMessage.value = null
     markdownUpdated.value = null
 
     try {
-      const locale = toValue(localeSetting)
       const result = await $fetch<{ success: true; uuid: string; markdownUpdated: boolean }>(
         `/api/dashboard/accommodations/${accommodation.identifier}`,
         { method: 'PUT', query: { locale }, body: accommodation },
@@ -47,11 +53,22 @@ export const useDashboardSave = () => {
     }
   }
 
+  const save = async (accommodation: DashboardAccommodation): Promise<boolean> => {
+    return savePayload(accommodation, toValue(localeSetting))
+  }
+
+  const saveMultilingual = async (
+    accommodation: DashboardAccommodationSavePayload,
+    locale: LocaleCode,
+  ): Promise<boolean> => {
+    return savePayload(accommodation, locale)
+  }
+
   const reset = () => {
     status.value = 'idle'
     errorMessage.value = null
     markdownUpdated.value = null
   }
 
-  return { status, errorMessage, markdownUpdated, save, reset }
+  return { status, errorMessage, markdownUpdated, save, saveMultilingual, reset }
 }

@@ -16,6 +16,7 @@
           :accommodation="accommodation"
           :expanded-blocks="expandedBlocks"
           :title-value="titleDraftValue"
+          :locale-statuses="localeStatuses"
           :associated-media-value="associatedMediaValue"
           :media-image-value="mediaImageValue"
           :property-menu-items="propertyMenuItems"
@@ -98,19 +99,26 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  DashboardAccommodation,
-  DashboardEditableRecord,
-  DashboardEditableValue,
-} from '#shared/types/dashboardAccommodation'
+import type { LocaleCode } from '#shared/types/i18n'
 
 import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
 import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
+
+import {
+  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS,
+  type DashboardAccommodation,
+  type DashboardAccommodationSavePayload,
+  type DashboardAccommodationTranslationPayload,
+  type DashboardEditableRecord,
+  type DashboardEditableValue,
+  type DashboardLocalizedAccommodationField,
+} from '#shared/types/dashboardAccommodation'
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
+type LocaleStatus = 'source' | 'personalized' | 'incomplete' | 'saved' | 'error'
 
 defineOptions({ name: 'DashboardPropertyEditorSlideover' })
 
@@ -127,14 +135,22 @@ const emit = defineEmits<{
 const activeSection = ref<EditorSection>('content')
 const activeLocale = ref<DashboardLocale>('fr')
 const drafts = ref<Record<DashboardLocale, DashboardDraft> | null>(null)
+const dirtyLocalizedFields = ref<
+  Record<DashboardLocale, Set<DashboardLocalizedAccommodationField>>
+>({
+  fr: new Set(),
+  en: new Set(),
+  es: new Set(),
+})
 const expandedBlocks = ref<Set<string>>(new Set(['body']))
 const isMobile = ref(false)
+const localeLoadToken = ref(0)
 
 const {
   status: saveStatus,
   errorMessage: saveErrorMessage,
   markdownUpdated: saveMarkdownUpdated,
-  save,
+  saveMultilingual,
   reset: resetSave,
 } = useDashboardSave()
 const { available: symfonyAvailable, check: checkSymfonyStatus } = useSymfonyStatus()
@@ -168,16 +184,53 @@ const cloneEditableRecord = (value: DashboardEditableRecord): DashboardEditableR
 const cloneEditableValue = (value: DashboardEditableValue): DashboardEditableValue =>
   JSON.parse(JSON.stringify(value)) as DashboardEditableValue
 
+const localizedFieldSet = new Set<string>(DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS)
+const localeTabs: DashboardLocale[] = ['fr', 'en', 'es']
+
+const isDashboardLocale = (value: string | undefined): value is DashboardLocale =>
+  value === 'fr' || value === 'en' || value === 'es'
+
+const createDirtyState = (): Record<
+  DashboardLocale,
+  Set<DashboardLocalizedAccommodationField>
+> => ({
+  fr: new Set(),
+  en: new Set(),
+  es: new Set(),
+})
+
+const isLocalizedField = (path: string): path is DashboardLocalizedAccommodationField =>
+  localizedFieldSet.has(path)
+
+const createDraftFromAccommodation = (accommodation: DashboardAccommodation): DashboardDraft => ({
+  frontmatter: cloneEditableRecord(accommodation.frontmatter),
+  body: accommodation.body ?? '',
+})
+
+const createFallbackDraft = (accommodation?: DashboardAccommodation | null): DashboardDraft => {
+  const frontmatter = accommodation ? cloneEditableRecord(accommodation.frontmatter) : {}
+  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
+    frontmatter[field] = ''
+  })
+  return { frontmatter, body: '' }
+}
+
 const createDrafts = (
   accommodation?: DashboardAccommodation | null,
 ): Record<DashboardLocale, DashboardDraft> => {
-  const frontmatter = accommodation ? cloneEditableRecord(accommodation.frontmatter) : {}
-  const body = accommodation?.body ?? ''
-  return {
-    fr: { frontmatter, body },
-    en: { frontmatter: cloneEditableRecord(frontmatter), body },
-    es: { frontmatter: cloneEditableRecord(frontmatter), body },
+  const sourceLocale = isDashboardLocale(accommodation?.locale) ? accommodation.locale : 'fr'
+  const fallback = createFallbackDraft(accommodation)
+  const result: Record<DashboardLocale, DashboardDraft> = {
+    fr: { frontmatter: cloneEditableRecord(fallback.frontmatter), body: fallback.body },
+    en: { frontmatter: cloneEditableRecord(fallback.frontmatter), body: fallback.body },
+    es: { frontmatter: cloneEditableRecord(fallback.frontmatter), body: fallback.body },
   }
+
+  if (accommodation) {
+    result[sourceLocale] = createDraftFromAccommodation(accommodation)
+  }
+
+  return result
 }
 
 const setNestedValue = (
@@ -234,6 +287,38 @@ const titleDraftValue = computed<string>(() => {
     : (props.accommodation?.preview.title ?? 'Bien immobilier')
 })
 
+const hasDirtyLocalizedFields = (locale: DashboardLocale): boolean =>
+  dirtyLocalizedFields.value[locale].size > 0
+
+const isLocaleIncomplete = (locale: DashboardLocale): boolean => {
+  const draft = drafts.value?.[locale]
+  if (!draft) return true
+  const name = getNestedValue(draft.frontmatter, 'name')
+  return !(typeof name === 'string' && name.trim().length > 0) || draft.body.trim().length === 0
+}
+
+const localeStatuses = computed<Record<DashboardLocale, LocaleStatus>>(() => {
+  const statuses: Record<DashboardLocale, LocaleStatus> = {
+    fr: 'saved',
+    en: 'saved',
+    es: 'saved',
+  }
+
+  localeTabs.forEach((locale) => {
+    if (saveStatus.value === 'error' && hasDirtyLocalizedFields(locale)) {
+      statuses[locale] = 'error'
+    } else if (hasDirtyLocalizedFields(locale)) {
+      statuses[locale] = 'personalized'
+    } else if (locale === 'fr') {
+      statuses[locale] = 'source'
+    } else if (isLocaleIncomplete(locale)) {
+      statuses[locale] = 'incomplete'
+    }
+  })
+
+  return statuses
+})
+
 const router = useRouter()
 
 const propertyMenuItems = computed<BlockMenuItem[][]>(() => [
@@ -262,16 +347,31 @@ const toggleBlock = (id: string): void => {
 const updateField = (path: string, value: DashboardEditableValue): void => {
   if (!drafts.value) return
   const locale = activeLocale.value
-  drafts.value[locale].frontmatter = setNestedValue(
-    drafts.value[locale].frontmatter,
-    path,
-    cloneEditableValue(value),
-  )
+  const nextValue = cloneEditableValue(value)
+
+  if (isLocalizedField(path)) {
+    drafts.value[locale].frontmatter = setNestedValue(
+      drafts.value[locale].frontmatter,
+      path,
+      nextValue,
+    )
+    dirtyLocalizedFields.value[locale].add(path)
+    return
+  }
+
+  localeTabs.forEach((draftLocale) => {
+    drafts.value![draftLocale].frontmatter = setNestedValue(
+      drafts.value![draftLocale].frontmatter,
+      path,
+      nextValue,
+    )
+  })
 }
 
 const updateBody = (value: string): void => {
   if (!drafts.value) return
   drafts.value[activeLocale.value].body = value
+  dirtyLocalizedFields.value[activeLocale.value].add('body')
 }
 
 const updateAssociatedMedia = (value: DashboardEditableValue): void => {
@@ -284,28 +384,106 @@ const updateMediaImage = (value: DashboardEditableValue): void => {
   drafts.value[activeLocale.value].frontmatter.image = cloneEditableValue(value)
 }
 
+const toTranslationValue = (
+  draft: DashboardDraft,
+  field: DashboardLocalizedAccommodationField,
+): string | null => {
+  if (field === 'body') return draft.body
+  const value = getNestedValue(draft.frontmatter, field)
+  return typeof value === 'string' ? value : null
+}
+
+const buildTranslations = (): DashboardAccommodationTranslationPayload[] => {
+  if (!drafts.value) return []
+
+  return localeTabs
+    .map((locale): DashboardAccommodationTranslationPayload | null => {
+      const fields = dirtyLocalizedFields.value[locale]
+      if (fields.size === 0) return null
+
+      const translation: DashboardAccommodationTranslationPayload = { locale }
+      fields.forEach((field) => {
+        translation[field] = toTranslationValue(drafts.value![locale], field)
+      })
+      return translation
+    })
+    .filter((translation): translation is DashboardAccommodationTranslationPayload =>
+      Boolean(translation),
+    )
+}
+
+const resolveSaveLocale = (hasTranslations: boolean): LocaleCode => {
+  return hasTranslations ? 'fr' : activeLocale.value
+}
+
+const loadLocaleDrafts = async (accommodation?: DashboardAccommodation | null): Promise<void> => {
+  if (!accommodation) return
+
+  const token = localeLoadToken.value + 1
+  localeLoadToken.value = token
+  const sourceLocale = isDashboardLocale(accommodation.locale) ? accommodation.locale : 'fr'
+
+  const responses = await Promise.all(
+    localeTabs
+      .filter((locale) => locale !== sourceLocale)
+      .map(async (locale) => {
+        try {
+          const response = await $fetch<{ items: DashboardAccommodation[] }>(
+            '/api/dashboard/accommodations',
+            { query: { locale } },
+          )
+          return {
+            locale,
+            accommodation:
+              response.items.find((item) => item.identifier === accommodation.identifier) ?? null,
+          }
+        } catch {
+          return { locale, accommodation: null }
+        }
+      }),
+  )
+
+  if (localeLoadToken.value !== token || !drafts.value) return
+
+  responses.forEach(({ locale, accommodation: localizedAccommodation }) => {
+    if (dirtyLocalizedFields.value[locale].size > 0) return
+    drafts.value![locale] = localizedAccommodation
+      ? createDraftFromAccommodation(localizedAccommodation)
+      : createFallbackDraft(accommodation)
+  })
+}
+
 const handleSave = async (): Promise<void> => {
   if (!props.accommodation || !activeDraft.value) return
 
-  const payload: DashboardAccommodation = {
+  const translations = buildTranslations()
+  const payload: DashboardAccommodationSavePayload = {
     ...props.accommodation,
     locale: activeLocale.value,
     frontmatter: activeDraft.value.frontmatter,
     body: activeDraft.value.body,
+    ...(translations.length > 0 && { translations }),
   }
 
-  const ok = await save(payload)
-  if (ok) emit('saved')
+  const ok = await saveMultilingual(payload, resolveSaveLocale(translations.length > 0))
+  if (ok) {
+    dirtyLocalizedFields.value = createDirtyState()
+    emit('saved')
+  }
 }
 
 watch(
   () => props.accommodation?.slug,
-  () => {
+  async () => {
     drafts.value = createDrafts(props.accommodation)
+    dirtyLocalizedFields.value = createDirtyState()
     activeSection.value = 'content'
-    activeLocale.value = 'fr'
+    activeLocale.value = isDashboardLocale(props.accommodation?.locale)
+      ? props.accommodation.locale
+      : 'fr'
     expandedBlocks.value = new Set(['body'])
     resetSave()
+    await loadLocaleDrafts(props.accommodation)
   },
   { immediate: true },
 )
