@@ -3,24 +3,15 @@ import type { DashboardAccommodationSavePayload } from '#shared/types/dashboardA
 import { mapToApiPlatform } from '../../../utils/dashboard/accommodationMapper'
 import { exportToMarkdown } from '../../../utils/dashboard/markdownExporter'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
-import {
-  getCategoryCodeMap,
-  getAccommodationUuidMap,
-  invalidateSymfonyCache,
-} from '../../../utils/dashboard/symfonyCache'
+import { getAccommodationUuidMap } from '../../../utils/dashboard/symfonyCache'
 
 const DEFAULT_LOCALE = 'fr'
-const MISSING_CATEGORY_CODE_MESSAGE = 'CategoryCode introuvable'
 
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
   if (!apiUrl) throw new Error('SYMFONY_API_URL manquant')
   if (!projectId) throw new Error('SYMFONY_PROJECT_ID manquant')
   return { apiUrl, projectId }
-}
-
-function isMissingCategoryCodeError(error: unknown): boolean {
-  return error instanceof Error && error.message.includes(MISSING_CATEGORY_CODE_MESSAGE)
 }
 
 export default defineEventHandler(
@@ -42,23 +33,16 @@ export default defineEventHandler(
     }
 
     const { apiUrl, projectId } = getApiBase()
-    const [token, codeMap, uuidMap] = await Promise.all([
+    const [token, uuidMap] = await Promise.all([
       getSymfonyServiceToken(),
-      getCategoryCodeMap(),
       getAccommodationUuidMap(),
     ])
 
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
-      payload = await mapToApiPlatform(accommodation, locale, codeMap)
+      payload = await mapToApiPlatform(accommodation, locale)
     } catch (error) {
-      if (!isMissingCategoryCodeError(error)) {
-        throw error
-      }
-
-      invalidateSymfonyCache()
-      const freshCodeMap = await getCategoryCodeMap(true)
-      payload = await mapToApiPlatform(accommodation, locale, freshCodeMap)
+      throw createError({ statusCode: 400, statusMessage: (error as Error).message })
     }
 
     const headers = {
@@ -104,7 +88,6 @@ export default defineEventHandler(
         throw createError({ statusCode: 502, statusMessage: 'Symfony response missing @id' })
       }
       uuid = newUuid
-      invalidateSymfonyCache()
     }
 
     let markdownUpdated = false
