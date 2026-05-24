@@ -42,7 +42,7 @@ async function fetchAccommodationUuidMap(
 ): Promise<AccommodationUuidMap> {
   const response = await $fetch<HydraCollection<SymfonyAccommodation>>(
     `${apiUrl}/api/projects/${projectId}/accommodations`,
-    { headers: authHeaders(token), query: { pagination: false, locale: 'fr' } },
+    { headers: authHeaders(token), query: { pagination: false } },
   )
 
   const map: AccommodationUuidMap = {}
