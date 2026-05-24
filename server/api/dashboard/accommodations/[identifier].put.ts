@@ -71,16 +71,33 @@ export default defineEventHandler(
 
     let uuid: string
 
+    const callSymfony = async <T = unknown>(url: string, method: 'PUT' | 'POST'): Promise<T> => {
+      try {
+        return await $fetch<T>(url, { method, headers, body: payload })
+      } catch (err: unknown) {
+        const fetchErr = err as {
+          response?: { status?: number; _data?: unknown }
+          message?: string
+        }
+        const status = fetchErr.response?.status ?? 502
+        const detail =
+          typeof fetchErr.response?._data === 'object' && fetchErr.response._data !== null
+            ? JSON.stringify(fetchErr.response._data)
+            : (fetchErr.message ?? 'Symfony error')
+        throw createError({ statusCode: status, statusMessage: detail })
+      }
+    }
+
     if (existingUuid) {
-      await $fetch(
+      await callSymfony(
         `${apiUrl}/api/projects/${projectId}/accommodations/${existingUuid}?locale=${locale}`,
-        { method: 'PUT', headers, body: payload },
+        'PUT',
       )
       uuid = existingUuid
     } else {
-      const created = await $fetch<{ '@id': string }>(
+      const created = await callSymfony<{ '@id': string }>(
         `${apiUrl}/api/projects/${projectId}/accommodations?locale=${locale}`,
-        { method: 'POST', headers, body: payload },
+        'POST',
       )
       const newUuid = created['@id'].split('/').at(-1)
       if (!newUuid) {

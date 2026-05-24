@@ -52,7 +52,7 @@ async function fetchCategoryCodeMap(
 ): Promise<CategoryCodeMap> {
   const response = await $fetch<HydraCollection<SymfonyCategoryCode>>(
     `${apiUrl}/api/projects/${projectId}/category-codes`,
-    { headers: authHeaders(token) },
+    { headers: authHeaders(token), query: { pagination: false } },
   )
 
   const map: CategoryCodeMap = {}
@@ -72,7 +72,7 @@ async function fetchAccommodationUuidMap(
 ): Promise<AccommodationUuidMap> {
   const response = await $fetch<HydraCollection<SymfonyAccommodation>>(
     `${apiUrl}/api/projects/${projectId}/accommodations`,
-    { headers: authHeaders(token) },
+    { headers: authHeaders(token), query: { pagination: false } },
   )
 
   const map: AccommodationUuidMap = {}
