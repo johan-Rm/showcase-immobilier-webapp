@@ -71,8 +71,17 @@ export type DashboardAccommodation = {
   preview: DashboardAccommodationPreview
 }
 
+export type DashboardAccommodationResolvedIris = {
+  category: string | null
+  realEstateListing: string | null
+  place: string | null
+  amenityFeature: string[]
+  tags: string[]
+}
+
 export type DashboardAccommodationSavePayload = DashboardAccommodation & {
   translations?: DashboardAccommodationTranslationPayload[]
+  resolvedIris?: DashboardAccommodationResolvedIris
 }
 
 export type DashboardFilterOption = {
