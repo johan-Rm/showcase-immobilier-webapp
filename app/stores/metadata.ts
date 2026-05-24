@@ -22,6 +22,7 @@ type MetadataState = {
   tags: CategoryCode[]
   people: Person[]
   imageObjects: MediaObject[]
+  irisMap: Record<string, Record<string, string>>
 }
 
 export const useMetadataStore = defineStore('metadata', {
@@ -36,6 +37,7 @@ export const useMetadataStore = defineStore('metadata', {
     tags: [],
     people: [],
     imageObjects: [],
+    irisMap: {},
   }),
 
   getters: {
@@ -184,6 +186,11 @@ export const useMetadataStore = defineStore('metadata', {
         }
       }
     },
+
+    getIri(state: MetadataState): (inCodeSet: string, code: string) => string | null {
+      return (inCodeSet: string, code: string) =>
+        state.irisMap[inCodeSet]?.[code] ?? null
+    },
   },
 
   actions: {
@@ -312,6 +319,15 @@ export const useMetadataStore = defineStore('metadata', {
       }
     },
 
+    setIrisMap(items: Array<{ iri: string; code: string; inCodeSet: string }>): void {
+      const map: Record<string, Record<string, string>> = {}
+      for (const item of items) {
+        if (!map[item.inCodeSet]) map[item.inCodeSet] = {}
+        map[item.inCodeSet]![item.code] = item.iri
+      }
+      this.irisMap = map
+    },
+
     reset(): void {
       this.app = null
       this.accommodationForm = null
@@ -323,6 +339,7 @@ export const useMetadataStore = defineStore('metadata', {
       this.tags = []
       this.people = []
       this.imageObjects = []
+      this.irisMap = {}
     },
   },
 })
