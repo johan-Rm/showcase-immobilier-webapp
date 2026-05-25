@@ -56,8 +56,6 @@ review: |
   El numero de suites, el spa y la terraza refuerzan claramente su posicionamiento boutique en la medina.
 blockquote: |
   Un riad renovado con una verdadera firma de hospitalidad, pensado para una explotacion de alta gama o un uso privado notable.
-locationDescription: |
-  La medina de Essaouira sigue siendo uno de los sectores mas identitarios y buscados para riads con encanto. El tejido historico, la afluencia turistica y la vida de barrio crean un contexto favorable para proyectos hoteleros, para-hoteleros o residencias excepcionales.
 screens:
   exterior:
     isEnabled: true

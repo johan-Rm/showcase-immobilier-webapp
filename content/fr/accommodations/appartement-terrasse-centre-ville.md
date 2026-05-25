@@ -50,8 +50,6 @@ slug: appartement-avec-terrasse-au-centre-ville-centre-ville-bava005
 highlight: Une adresse centrale, simple et facile a projeter
 review: |
   Un appartement clair, bien distribue et coherent pour une residence principale ou un pied-a-terre.
-locationDescription: |
-  Le centre-ville favorise une vie a pied, proche des services, sans complexite d'usage.
 ---
 ## Visite guidee
 

@@ -55,8 +55,6 @@ review: |
   The patio and terrace strengthen its potential for residential use, a charming pied-a-terre or a well-positioned rental.
 blockquote: |
   An authentic medina address with a bright patio and terrace, for a softer and more inspiring way of living.
-locationDescription: |
-  In the heart of Essaouira's medina, this area highlights a historic, lively and highly sought-after urban fabric. The alleys, shops, restaurants and local squares give the neighborhood strong character while keeping essential services within walking distance.
 screens:
   exterior:
     isEnabled: true

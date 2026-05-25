@@ -56,8 +56,6 @@ review: |
   The format is simple, readable and easy to market to couples or passing travelers.
 blockquote: |
   An intimate address facing the ocean, designed for a few calm nights with terrace access and breakfast.
-locationDescription: |
-  The corniche area offers an immediate connection to the ocean and the seafront promenades. The atmosphere remains relaxed, with quick access to the beach, cafes and the main points of interest in Essaouira, making it well suited to tourist accommodation.
 screens:
   exterior:
     isEnabled: true

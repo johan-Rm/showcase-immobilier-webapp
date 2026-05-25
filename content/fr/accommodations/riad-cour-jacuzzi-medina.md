@@ -51,8 +51,6 @@ slug: riad-avec-cour-et-jacuzzi-en-medina-medina-bavr002
 highlight: Un riad plus experiential sans perdre en credibilite immobiliere
 review: |
   Une adresse qui coche les marqueurs attendus d'un riad premium avec une lecture produit tres immediate.
-locationDescription: |
-  La medina reste le coeur naturel des projets riad, entre attrait patrimonial et dynamique d'accueil.
 ---
 ## Visite guidee
 

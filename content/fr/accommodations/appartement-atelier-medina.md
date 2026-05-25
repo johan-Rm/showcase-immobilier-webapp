@@ -54,8 +54,6 @@ review: |
   Sa mezzanine, sa belle hauteur sous plafond et sa lumiere naturelle en font un bien de caractere, facile a projeter.
 highlight: Un bien rare au coeur de la medina
 label: Coup de cœur
-locationDescription: |
-  Construite à la fin du XVIIIe siècle, c'est le coeur historique de la ville et le principal centre d'activité avec le port. Entourée d'une muraille de style Vauban, la Medina est protégée par des fortifications où le style européen se mélange harmonieusement avec le style arabo-musulman. La Sqala de la Kasbah est un exemple accessible et ouvert au public de ces fortifications où les murs subissent encore les assauts de l'océan. A l'intérieur, le dédale des ruelles partage les quartiers et les différents souks. Assez organisé malgré tout, le souk propose tout type de produits. Les vêtements y côtoient les épices, les colliers, bracelets et autres articles succèdent aux olives et autres fruits et légumes. On y trouve de nombreux restaurants où le poisson frais pêché de la matinée est cuisiné au déjeuner ou au dîner. De nombreux autres plats typiques sont aussi proposés et il fait bon s'arrêter sur une terrasse, à l'ombre rafraîchissante des arbres. La Medina a été classée au Patrimoine mondial de l'UNESCO en 2001.
 ---
 ## Visite guidee
 

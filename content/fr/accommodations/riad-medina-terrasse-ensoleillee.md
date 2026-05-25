@@ -51,8 +51,6 @@ highlight: Un riad lumineux avec une vraie terrasse de vie
 review: |
   Un riad bien calibre pour qui cherche une grande capacite d'accueil avec une ambiance medina plus lumineuse et accessible.
   Le patio central et la terrasse ensoleillee donnent une lecture claire du bien et facilitent sa valorisation commerciale.
-locationDescription: |
-  En medina, l'environnement met en avant une vie de quartier animee, un patrimoine fort et une praticite a pied tres appreciable. Ce type d'adresse reste recherche pour sa dimension immersive, son cachet et son potentiel locatif lorsqu'il est bien presente.
 ---
 ## Visite guidee
 

@@ -45,8 +45,6 @@ highlight: Un terrain pret a accueillir votre projet
 review: |
   Une assiette fonciere simple a lire, avec des caracteristiques qui reduisent les frictions de lancement pour un projet residentiel.
   L'acces et la viabilisation constituent de bons marqueurs pour une operation de construction raisonnablement maitrisable.
-locationDescription: |
-  La route de Safi constitue un secteur de developpement recherche pour sa lisibilite, ses acces routiers et ses possibilites de projection. L'environnement permet d'envisager des projets residentiels dans une logique plus ouverte, avec une connexion simple vers Essaouira et ses services.
 ---
 ## Visite guidee
 

@@ -49,8 +49,6 @@ slug: location-gerance-de-maison-dhotes-en-medina-medina-bavlg002
 highlight: Une opportunite d'exploitation plus qu'un simple actif immobilier
 review: |
   Une offre qui parle a un profil operateur avec une promesse claire de reprise ou d'exploitation.
-locationDescription: |
-  La medina reste le secteur le plus naturel pour ce type d'activite d'accueil a Essaouira.
 ---
 ## Visite guidee
 

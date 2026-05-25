@@ -50,8 +50,6 @@ highlight: Un riad plus créatif et habitable, adapté à un rythme de vie insta
 review: |
   Le bien vise un profil résidentiel créatif ou télétravail, avec un format de riad moins cérémoniel et plus fonctionnel.
   L'espace bureau ou atelier donne un vrai angle d'usage sans complexifier la promesse principale.
-locationDescription: |
-  La médina convient à des profils qui cherchent une adresse de caractère et une immersion quotidienne forte. Le bien ajoute à cela un espace utile pour travailler ou créer.
 ---
 ## Visite guidee
 

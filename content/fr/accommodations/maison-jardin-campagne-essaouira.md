@@ -50,8 +50,6 @@ highlight: Un cadre plus respirant pour une installation durable hors du centre
 review: |
   Cette maison répond bien à une recherche d'espace, de calme et de jardin sans partir sur un produit trop isolé ou trop spectaculaire.
   Le format reste lisible et cohérent pour une famille ou un couple en télétravail.
-locationDescription: |
-  La campagne d'Essaouira attire des profils qui veulent plus d'air, plus d'espace et une relation plus directe au paysage. Le bien reste compatible avec des allers-retours réguliers vers la ville.
 ---
 ## Visite guidee
 

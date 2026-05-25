@@ -55,8 +55,6 @@ review: |
   The green setting and interior surface make it a credible option for a second home or a discreet hospitality project.
 blockquote: |
   A house surrounded by argan trees, designed to slow the pace and enjoy a more natural setting.
-locationDescription: |
-  The countryside around Essaouira is appreciated for its calm, its light and its more open plots, while remaining connected to the city through the main roads. The area suits buyers looking for more space, more garden and a more relaxed atmosphere than the town center.
 screens:
   exterior:
     isEnabled: true

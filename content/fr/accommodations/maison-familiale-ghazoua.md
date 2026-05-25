@@ -50,8 +50,6 @@ highlight: Une maison résidentielle claire pour s'installer hors de l'hypercent
 review: |
   Le bien répond à une demande de location familiale au mois avec plus d'espace, de jardin et de facilité d'accès que dans les secteurs plus denses.
   Ghazoua reste pertinent pour des locataires qui cherchent un rythme plus calme et un budget surface mieux équilibré.
-locationDescription: |
-  Ghazoua offre un environnement plus résidentiel, avec davantage d'espace et de respiration. Le secteur convient à une vie quotidienne plus calme autour d'Essaouira.
 ---
 ## Visite guidee
 

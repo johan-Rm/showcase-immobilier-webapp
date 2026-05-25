@@ -47,8 +47,6 @@ highlight: Un riad hôtel avec emplacement exceptionnel et potentiel immédiat e
 review: |
   Ce riad hôtel bénéficie d’un positionnement rare au cœur de la médina d’Essaouira, avec une exploitation déjà en place et une capacité d’accueil importante.
   Le bien présente un fort potentiel après rénovation, idéal pour un projet hôtelier ou une maison d’hôtes de charme.
-locationDescription: |
-  Situé au cœur de la médina d’Essaouira, classée au patrimoine mondial de l’UNESCO, le riad profite d’un environnement touristique dynamique, avec une forte fréquentation toute l’année.
 ---
 
 ## Visite guidée

@@ -56,8 +56,6 @@ review: |
   El entorno de la marina aporta un marco claro y tranquilizador para uso personal o alquiler vacacional.
 blockquote: |
   Un apartamento de marina facil de disfrutar, con terraza, luz y acceso comodo a pie.
-locationDescription: |
-  La marina de Essaouira ofrece un entorno ordenado, abierto y cercano al mar. La atmosfera es mas contemporanea que la de la medina, con accesos sencillos, comercios proximos y conexion directa con los paseos del litoral.
 screens:
   exterior:
     isEnabled: true

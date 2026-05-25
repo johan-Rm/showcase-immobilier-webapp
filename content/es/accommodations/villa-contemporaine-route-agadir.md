@@ -55,8 +55,6 @@ review: |
   La superficie, los cuatro dormitorios y los exteriores la convierten en un producto bien armado para una familia o una segunda residencia de nivel.
 blockquote: |
   Una villa clara y contemporanea, pensada para una vida comoda todo el ano con jardin y piscina.
-locationDescription: |
-  La ruta de Agadir ofrece un equilibrio interesante entre accesibilidad, relativa calma y disponibilidad de parcelas amplias. La zona atrae por sus villas recientes, sus vistas mas abiertas y su conexion sencilla con las entradas de la ciudad y los desplazamientos regionales.
 screens:
   exterior:
     isEnabled: true

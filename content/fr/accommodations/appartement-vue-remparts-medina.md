@@ -50,8 +50,6 @@ slug: appartement-avec-vue-sur-les-remparts-medina-bava006
 highlight: Une lecture medina plus lumineuse et contemporaine
 review: |
   Un appartement de medina qui combine acces simple, lumiere et vue plus ouverte.
-locationDescription: |
-  La medina reste recherchee pour son identite, sa vie de quartier et sa pratique a pied.
 ---
 ## Visite guidee
 

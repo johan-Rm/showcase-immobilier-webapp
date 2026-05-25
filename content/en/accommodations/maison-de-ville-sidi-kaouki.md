@@ -55,8 +55,6 @@ review: |
   The terrace and proximity to the ocean give the property clear potential as a second home or a charming rental.
 blockquote: |
   A townhouse with an ocean spirit, sunny terrace and a slower rhythm of life.
-locationDescription: |
-  Sidi Kaouki stands out for its freer, more natural and more beach-oriented atmosphere than central Essaouira. The area appeals to buyers looking for a direct relationship to the beach, the wind, wide-open spaces and a calmer daily life.
 screens:
   exterior:
     isEnabled: true

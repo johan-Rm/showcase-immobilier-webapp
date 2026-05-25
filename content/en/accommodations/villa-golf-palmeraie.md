@@ -56,8 +56,6 @@ review: |
   The property speaks to buyers looking for both a status address and an easy-to-live-in home in a private environment.
 blockquote: |
   A premium villa by the golf course, with private pool and garden for a more exclusive lifestyle.
-locationDescription: |
-  The palmeraie and golf area is associated with a more residential, more private and more upscale environment. Buyers primarily look here for space, setting quality and a sense of retreat, while still keeping acceptable access to Essaouira and its services.
 screens:
   exterior:
     isEnabled: true

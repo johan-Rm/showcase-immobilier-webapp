@@ -50,8 +50,6 @@ highlight: Une vie douce a deux pas de la plage
 review: |
   Une maison souple dans son usage, bien adaptee a une vie en bord de mer avec une echelle domestique rassurante.
   La terrasse et la proximite de l'ocean donnent au bien un potentiel evident pour une residence secondaire ou une location de charme.
-locationDescription: |
-  Sidi Kaouki se distingue par son ambiance plus libre, plus naturelle et plus balneaire que le centre d'Essaouira. Le secteur seduit les acquereurs qui cherchent une relation directe a la plage, au vent, aux grands espaces et a une vie quotidienne plus calme.
 ---
 ## Visite guidee
 

@@ -50,8 +50,6 @@ slug: maison-dhotes-avec-terrasse-sur-la-corniche-corniche-bavmd002
 highlight: Une adresse d'accueil plus ouverte, portee par la mer et la terrasse
 review: |
   Un produit d'accueil qui repose sur une promesse ocean tres lisible et facile a valoriser.
-locationDescription: |
-  La corniche offre une lecture directe du bord de mer et un positionnement d'accueil plus ouvert.
 ---
 ## Visite guidee
 

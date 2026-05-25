@@ -9,7 +9,6 @@ export const DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS = [
   'review',
   'metaTitle',
   'metaDescription',
-  'locationDescription',
 ] as const
 
 export type DashboardLocalizedAccommodationField =

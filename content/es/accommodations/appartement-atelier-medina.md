@@ -58,8 +58,6 @@ highlight: Un bien raro en el corazon de la medina
 blockquote: |
   Un apartamento con caracter en la medina, con altillo y un volumen singular,
   ideal como pied-a-terre inspirador o inversion de alquiler con personalidad.
-locationDescription: |
-  Construida a finales del siglo XVIII, la medina es el corazon historico de la ciudad y su principal centro de actividad junto al puerto. Rodeada por murallas de estilo Vauban, esta protegida por fortificaciones donde se mezclan armoniosamente influencias europeas y arabomusulmanas. La Sqala de la Kasbah es un ejemplo accesible al publico de estas fortificaciones, cuyos muros siguen enfrentandose al oceano. En el interior, un laberinto de callejuelas distribuye los barrios y los distintos zocos. A pesar de ello, el mercado esta bastante organizado y ofrece todo tipo de productos. La ropa convive con las especias, los collares, las pulseras, las aceitunas y las frutas y verduras. Tambien hay numerosos restaurantes donde se cocina pescado fresco de la manana para el almuerzo o la cena, ademas de otros platos tipicos. Es un lugar muy agradable para detenerse en una terraza a la sombra. La medina fue inscrita en el Patrimonio Mundial de la UNESCO en 2001.
 screens:
   exterior:
     isEnabled: true

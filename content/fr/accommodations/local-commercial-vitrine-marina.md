@@ -44,8 +44,6 @@ slug: local-commercial-avec-vitrine-a-la-marina-marina-bavlc002
 highlight: Un petit format commercial bien place dans un secteur de promenade
 review: |
   Un local simple a projeter pour une activite de service, de vente ou de petite restauration.
-locationDescription: |
-  La marina favorise les activites qui vivent de promenade, de visibilite et d'un environnement plus ouvert.
 ---
 ## Visite guidee
 

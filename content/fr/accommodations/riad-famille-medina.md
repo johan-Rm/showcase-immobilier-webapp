@@ -50,8 +50,6 @@ slug: riad-familial-en-medina-medina-bavr003
 highlight: Un riad de capacite intermediaire, simple a raconter
 review: |
   Une belle capacite d'accueil avec un format qui reste lisible et exploitable.
-locationDescription: |
-  La medina seduit par son patrimoine, sa marche a pied et sa capacite d'immersion.
 ---
 ## Visite guidee
 

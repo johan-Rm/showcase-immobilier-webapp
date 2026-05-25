@@ -51,8 +51,6 @@ highlight: Un pied-a-terre lumineux en marina
 review: |
   Un bien compact et valorisant, avec une vraie qualite d'usage grace a la terrasse et au stationnement.
   La marina apporte un cadre rassurant et lisible pour une occupation personnelle ou une mise en location saisonniere.
-locationDescription: |
-  La marina d'Essaouira propose un cadre ordonne, aeré et proche du front de mer. On y retrouve une ambiance plus contemporaine que dans la medina, avec des acces faciles, des commerces a proximite et une relation directe aux promenades du littoral.
 ---
 
 ## Visite guidee

@@ -49,8 +49,6 @@ slug: chambre-dhotes-avec-terrasse-sur-la-corniche-corniche-bavcd002
 highlight: Un petit format d'accueil bien porte par l'ocean
 review: |
   Une petite capacite de bord de mer qui repose sur une promesse produit simple et desirables.
-locationDescription: |
-  La corniche soutient bien les formats d'accueil legers grace a la mer, la promenade et la vue.
 ---
 ## Visite guidee
 

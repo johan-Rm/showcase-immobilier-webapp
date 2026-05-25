@@ -50,8 +50,6 @@ review: |
   Access and servicing are both positive markers for a reasonably manageable construction operation.
 blockquote: |
   A well-positioned plot to launch a new-build project without unnecessary complexity.
-locationDescription: |
-  The Safi road is a sought-after development corridor thanks to its clear layout, road access and projection potential. The environment makes it possible to consider residential projects in a more open setting, with an easy connection to Essaouira and its services.
 screens:
   exterior:
     isEnabled: true

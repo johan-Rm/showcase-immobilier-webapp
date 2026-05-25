@@ -44,8 +44,6 @@ slug: terrain-viabilise-route-de-marrakech-route-de-marrakech-bavt009
 highlight: Une base fonciere simple pour un projet neuf bien cadre
 review: |
   Une parcelle facile a lire pour un projet residentiel sobre ou une operation de petite taille.
-locationDescription: |
-  La route de Marrakech attire pour ses acces et son potentiel de developpement dans une logique plus ouverte.
 ---
 ## Visite guidee
 

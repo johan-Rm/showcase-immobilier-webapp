@@ -50,8 +50,6 @@ highlight: Une location de bord de mer simple et très lisible pour des séjours
 review: |
   Le bien fonctionne bien pour un séjour balnéaire de petite capacité, avec une terrasse qui devient rapidement l'espace principal de vie.
   Sidi Kaouki renforce le positionnement loisir et déconnexion de la fiche.
-locationDescription: |
-  Sidi Kaouki attire pour son ambiance plus libre, son rapport à l'océan et sa lecture surf ou détente. Le secteur se prête bien à des séjours courts plus relâchés.
 ---
 ## Visite guidee
 

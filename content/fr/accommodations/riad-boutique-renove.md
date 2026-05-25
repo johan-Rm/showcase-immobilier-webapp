@@ -51,8 +51,6 @@ highlight: Un riad de prestige pret a rayonner
 review: |
   Un actif premium qui coche les marqueurs attendus pour une exploitation hospitality haut de gamme ou une residence de prestige.
   Le nombre de suites, le spa et la terrasse renforcent clairement son positionnement boutique dans la medina.
-locationDescription: |
-  La medina d'Essaouira reste l'un des secteurs les plus identitaires et recherches pour les riads de charme. Le tissu historique, la frequentation touristique et la vie de quartier y creent un contexte favorable aux projets hoteliers, para-hoteliers ou aux residences d'exception.
 ---
 
 ## Visite guidee

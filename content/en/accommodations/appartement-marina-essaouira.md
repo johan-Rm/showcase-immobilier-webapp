@@ -56,8 +56,6 @@ review: |
   The marina setting provides a reassuring and legible environment for personal use or seasonal rental.
 blockquote: |
   A marina apartment that is easy to enjoy, with terrace, light and smooth walkable access.
-locationDescription: |
-  Essaouira's marina offers an orderly, airy setting close to the waterfront. The atmosphere is more contemporary than the medina, with easy access, nearby shops and a direct connection to seaside walks.
 screens:
   exterior:
     isEnabled: true

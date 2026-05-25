@@ -50,8 +50,6 @@ highlight: Une médina résidentielle plus calme, pensée pour une vraie install
 review: |
   Cette dar convient à une résidence durable pour un couple ou un foyer réduit qui cherche le charme de la médina avec une mise à niveau de confort.
   Le format reste maîtrisé, sans excès de surface ni complexité d'entretien.
-locationDescription: |
-  La médina offre un cadre de vie fort, avec un tissu ancien, des déplacements à pied et un quotidien plus immersif. Le bien vise des locataires qui veulent habiter le centre historique plutôt que seulement le visiter.
 ---
 ## Visite guidee
 

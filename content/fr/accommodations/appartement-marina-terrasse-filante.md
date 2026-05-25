@@ -50,8 +50,6 @@ highlight: Une location durable dans un cadre ouvert et agréable
 review: |
   Cet appartement répond bien à une demande de résidence secondaire longue ou d'installation souple à l'année, avec une terrasse qui améliore clairement le confort.
   Le secteur marina convient à des profils qui cherchent un cadre plus ouvert et plus résidentiel que la médina.
-locationDescription: |
-  La marina offre un cadre plus aéré, proche de la promenade et de plusieurs usages de loisirs. Pour une location au mois, le secteur est apprécié pour son équilibre entre confort et accessibilité.
 ---
 ## Visite guidee
 

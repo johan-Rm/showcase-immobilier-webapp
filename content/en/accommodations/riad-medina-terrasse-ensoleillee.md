@@ -56,8 +56,6 @@ review: |
   The central patio and sunny terrace make the property easy to read and easier to market.
 blockquote: |
   A bright family riad in the medina, with a central patio and a terrace designed to extend every stay.
-locationDescription: |
-  In the medina, the environment emphasizes neighborhood life, strong heritage and a very practical walkable lifestyle. This type of address remains sought after for its immersive quality, its character and its rental potential when well presented.
 screens:
   exterior:
     isEnabled: true

@@ -74,8 +74,6 @@ review: |
   Su balcon, sus volumenes equilibrados y la proximidad inmediata a los servicios lo convierten en una base solida para vivienda habitual o inversion.
 blockquote: |
   Un apartamento centrico, luminoso y practico, con un balcon que prolonga agradablemente la zona de estar.
-locationDescription: |
-  Situado en el centro de Essaouira, este sector ofrece acceso rapido a comercios, servicios y vias principales. El entorno es animado sin resultar complicado en el dia a dia, lo que encaja bien con una vivienda habitual, un pied-a-terre o un alquiler de larga duracion.
 screens:
   exterior:
     isEnabled: true

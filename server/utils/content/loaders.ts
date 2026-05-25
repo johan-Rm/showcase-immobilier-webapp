@@ -21,7 +21,6 @@ const YAML_FILE_BY_RESOURCE: Partial<Record<ResourceKey, string>> = {
   'accommodation-category': 'accommodation-category.yaml',
   'category-code': 'category-code.yaml',
   'accommodation-place': 'accommodation-place.yaml',
-  person: 'person.yaml',
   'media-object': 'media-object.yaml',
   'forms/accommodation': 'forms/accommodation.yaml',
 }
@@ -192,13 +191,23 @@ const loadWebPagesResource = async <T>(locale: LocaleCode): Promise<T> => {
   return pages as T
 }
 
+type AccommodationPlaceItem = { slug: string; name: string; description?: string }
+
 const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => {
   const contentRoot = resolveContentRoot()
   const directory = join(contentRoot, locale, 'accommodations')
   const includeFixtures = areAccommodationFixturesEnabled()
-  const files = (await readdir(directory))
-    .filter((file) => file.endsWith('.md'))
-    .sort((left, right) => left.localeCompare(right))
+  const placeFilePath = join(contentRoot, locale, 'accommodation-place.yaml')
+
+  const [dirFiles, placeRaw] = await Promise.all([
+    readdir(directory),
+    readFile(placeFilePath, 'utf8'),
+  ])
+
+  const placeItems = extractYamlItems<AccommodationPlaceItem>(YAML.parse(placeRaw), placeFilePath)
+  const placeBySlug = new Map(placeItems.map((item) => [item.slug, item]))
+
+  const files = dirFiles.filter((file) => file.endsWith('.md')).sort((left, right) => left.localeCompare(right))
 
   const accommodations = await Promise.all(
     files.map(async (fileName) => {
@@ -209,8 +218,14 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
         return null
       }
 
+      const placeSlug = typeof frontmatter.place === 'string' ? frontmatter.place : null
+      const place = placeSlug
+        ? (placeBySlug.get(placeSlug) ?? { slug: placeSlug, name: placeSlug })
+        : frontmatter.place
+
       return {
         ...frontmatter,
+        place,
         body,
       }
     }),

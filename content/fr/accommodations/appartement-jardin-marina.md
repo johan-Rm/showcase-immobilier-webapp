@@ -50,8 +50,6 @@ highlight: Une base confortable pour séjourner à pied entre port, plage et res
 review: |
   Un appartement bien calibré pour des séjours courts ou moyens, avec une terrasse jardin qui prolonge agréablement la pièce de vie.
   L'adresse convient à des voyageurs qui veulent rester proches des usages de loisirs et de promenade.
-locationDescription: |
-  La marina donne accès à une promenade agréable, à des restaurants et à une ambiance plus ouverte. C'est un secteur apprécié pour des séjours sans logistique lourde.
 ---
 ## Visite guidee
 

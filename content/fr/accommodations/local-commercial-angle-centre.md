@@ -44,8 +44,6 @@ slug: local-commercial-dangle-au-centre-ville-centre-ville-bavlc001
 highlight: Une adresse de flux avec une vraie visibilite de facade
 review: |
   Un local commercial qui coche les marqueurs attendus de visibilite et de lisibilite d'usage.
-locationDescription: |
-  Le centre-ville soutient bien les activites qui ont besoin d'etre vues rapidement.
 ---
 ## Visite guidee
 

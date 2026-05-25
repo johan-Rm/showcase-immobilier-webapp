@@ -49,8 +49,6 @@ slug: maison-de-ville-avec-terrasse-en-medina-medina-bavmdv002
 highlight: Une maison de ville simple, claire et bien placee
 review: |
   Un bien tres lisible pour une residence familiale ou un pied-a-terre de caractere.
-locationDescription: |
-  La medina conserve ici son attrait de vie de quartier et de parcours a pied.
 ---
 ## Visite guidee
 

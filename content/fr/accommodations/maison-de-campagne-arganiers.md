@@ -50,8 +50,6 @@ highlight: Un refuge paisible au milieu des arganiers
 review: |
   Une maison de campagne rassurante, avec un bon equilibre entre intimite, exterieurs et usage familial.
   Le cadre vegetal et la surface habitable en font une option credible pour une residence secondaire ou un projet d'accueil confidentiel.
-locationDescription: |
-  La campagne d'Essaouira attire pour son calme, sa lumiere et ses parcelles plus ouvertes, tout en restant connectee a la ville par les grands axes. Le secteur convient aux acquereurs qui recherchent davantage d'espace, de jardin et une ambiance plus decontractee que dans le centre.
 ---
 ## Visite guidee
 

@@ -44,8 +44,6 @@ slug: location-gerance-de-cafe-sur-la-corniche-corniche-bavlg001
 highlight: Une reprise d'activite lisible sur un axe de promenade
 review: |
   Une opportunite qui repose surtout sur l'emplacement et la lisibilite immediate de l'activite.
-locationDescription: |
-  La corniche soutient les activites de restauration legere et de pause grace a son flux de promenade.
 ---
 ## Visite guidee
 

@@ -50,8 +50,6 @@ slug: maison-dhotes-avec-patio-en-medina-medina-bavmd001
 highlight: Un produit d'accueil deja bien lisible dans sa promesse
 review: |
   Une maison d'hotes bien calibree pour un projet d'exploitation de petite capacite.
-locationDescription: |
-  La medina reste le cadre naturel de ce type de bien d'accueil a Essaouira.
 ---
 ## Visite guidee
 

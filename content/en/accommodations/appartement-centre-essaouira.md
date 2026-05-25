@@ -74,8 +74,6 @@ review: |
   Its balcony, balanced volumes and immediate access to amenities make it a solid option for a primary home or an investment.
 blockquote: |
   A bright and practical central apartment, with a balcony that pleasantly extends the living space.
-locationDescription: |
-  Located in central Essaouira, this area offers quick access to shops, services and the main roads. The setting is lively without being difficult to navigate day to day, which suits a primary residence, a pied-a-terre or a long-term rental.
 screens:
   exterior:
     isEnabled: true

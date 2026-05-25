@@ -50,8 +50,6 @@ review: |
   The format suits a boutique, showroom or service activity with regular customer reception.
 blockquote: |
   A commercial address on a busy axis, with a storefront and immediate visibility from the boulevard.
-locationDescription: |
-  The main boulevard concentrates a significant share of everyday flows, with regular traffic, clear urban reading and strong visibility. This type of location supports businesses that need to be seen easily and attract nearby customers.
 screens:
   exterior:
     isEnabled: true

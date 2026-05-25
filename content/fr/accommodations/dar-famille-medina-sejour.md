@@ -50,8 +50,6 @@ highlight: Une médina plus douce à vivre en famille, avec de vrais espaces de 
 review: |
   La dar propose un format familial convaincant pour des séjours de plusieurs nuits, avec une ambiance intérieure chaleureuse et un extérieur utile.
   Le bien convient à un public qui cherche l'expérience médina sans basculer vers un produit trop hôtelier.
-locationDescription: |
-  En médina, le bien profite d'un cadre patrimonial fort et d'une vraie immersion urbaine. L'adresse reste adaptée à des visiteurs qui veulent tout faire à pied.
 ---
 ## Visite guidee
 

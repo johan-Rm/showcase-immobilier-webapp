@@ -55,8 +55,6 @@ review: |
   El patio y la terraza refuerzan su potencial para uso residencial, pied-a-terre con encanto o alquiler bien posicionado.
 blockquote: |
   Una direccion autentica en la medina, con patio luminoso y terraza, para una forma de vida mas suave e inspiradora.
-locationDescription: |
-  En pleno corazon de la medina de Essaouira, este sector destaca por su tejido historico, animado y muy buscado. Las callejuelas, los comercios, los restaurantes y las plazas de barrio aportan mucho caracter mientras mantienen los servicios esenciales a distancia peatonal.
 screens:
   exterior:
     isEnabled: true

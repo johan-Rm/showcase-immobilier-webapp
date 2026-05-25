@@ -50,8 +50,6 @@ highlight: Un charme authentique en pleine medina
 review: |
   Une dar de caractere qui combine le registre authentique de la medina avec des volumes familiaux faciles a valoriser.
   Le patio et la terrasse renforcent son potentiel pour un usage residentiel, un pied-a-terre de charme ou une location bien positionnee.
-locationDescription: |
-  Au coeur de la medina d'Essaouira, le quartier met en avant un tissu urbain historique, anime et tres recherche. Les ruelles, les echoppes, les restaurants et les places de vie donnent un fort caractere au secteur tout en maintenant un acces a pied aux services essentiels.
 ---
 ## Visite guidee
 

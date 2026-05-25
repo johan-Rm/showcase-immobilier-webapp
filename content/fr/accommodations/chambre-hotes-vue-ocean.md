@@ -51,8 +51,6 @@ highlight: Une escapade face a l ocean
 review: |
   Une chambre d'hotes bien calibree pour des sejours courts, avec une promesse claire autour de la vue et de l'experience bord de mer.
   Le format est simple, lisible et facile a commercialiser sur une cible couple ou voyageurs de passage.
-locationDescription: |
-  Le secteur de la corniche offre une relation immediate a l'ocean et aux promenades en bord de mer. L'ambiance reste detendue, avec un acces rapide a la plage, aux cafes et aux principaux points d'interet d'Essaouira, ce qui convient bien a l'hebergement touristique.
 ---
 
 ## Visite guidee

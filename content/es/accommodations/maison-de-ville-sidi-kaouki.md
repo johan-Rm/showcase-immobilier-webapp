@@ -55,8 +55,6 @@ review: |
   La terraza y la proximidad al oceano le dan un potencial evidente como segunda residencia o alquiler con encanto.
 blockquote: |
   Una casa urbana con espiritu oceanico, terraza soleada y un ritmo de vida mas pausado.
-locationDescription: |
-  Sidi Kaouki destaca por su ambiente mas libre, mas natural y mas playero que el centro de Essaouira. La zona atrae a quienes buscan una relacion directa con la playa, el viento, los grandes espacios y una vida diaria mas tranquila.
 screens:
   exterior:
     isEnabled: true

@@ -50,8 +50,6 @@ highlight: Une villa résidentielle calme pour s'installer dans un cadre plus ou
 review: |
   La villa cible un usage résidentiel confortable, avec piscine et jardin comme agréments de vie plus que comme simple argument marketing.
   Le secteur du golf favorise un positionnement plus posé, cohérent avec une location au mois ou à la saison longue.
-locationDescription: |
-  Mogador offre un cadre résidentiel plus aéré, plus végétalisé et plus maîtrisé. C'est un bon choix pour une installation durable avec besoin d'espace et de tranquillité.
 ---
 ## Visite guidee
 

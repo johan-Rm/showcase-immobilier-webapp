@@ -49,8 +49,6 @@ slug: chambre-dhotes-avec-patio-en-medina-medina-bavcd001
 highlight: Un petit format d'accueil simple et bien positionne
 review: |
   Une chambre d'hotes facile a comprendre pour une petite capacite d'accueil ou un investissement de niche.
-locationDescription: |
-  La medina reste un cadre naturel pour les formats d'accueil de petite capacite a Essaouira.
 ---
 ## Visite guidee
 

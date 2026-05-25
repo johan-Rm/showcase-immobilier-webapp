@@ -70,8 +70,6 @@ highlight: Une adresse centrale facile a vivre
 review: |
   Un appartement bien distribue au coeur de la ville, facile a vivre au quotidien et simple a projeter.
   Son balcon, ses volumes equilibrés et sa proximite immediate des commodites en font une base solide pour une residence principale ou un investissement.
-locationDescription: |
-  Situe en centre-ville d'Essaouira, ce secteur permet un acces rapide aux commerces, aux services et aux axes principaux. L'environnement est vivant sans etre complique a pratiquer au quotidien, ce qui convient bien a une residence principale, a un pied-a-terre ou a un usage locatif annuel.
 ---
 ## Visite guidee
 

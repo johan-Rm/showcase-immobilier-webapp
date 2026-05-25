@@ -50,8 +50,6 @@ slug: villa-golf-avec-jardin-a-mogador-golf-mogador-bavvg001
 highlight: Une villa premium plus residentielle que demonstrative
 review: |
   Une villa de standing bien positionnee pour une clientele qui cherche un cadre plus calme et plus ouvert.
-locationDescription: |
-  Mogador donne un cadre residentiel plus ouvert, plus vegetalise et plus statutaire.
 ---
 ## Visite guidee
 

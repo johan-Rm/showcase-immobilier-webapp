@@ -50,8 +50,6 @@ review: |
   El acceso y la urbanizacion son buenos indicadores para una operacion de construccion razonablemente controlable.
 blockquote: |
   Un terreno bien situado para lanzar un proyecto nuevo sin complejidad innecesaria.
-locationDescription: |
-  La ruta de Safi constituye un corredor de desarrollo buscado por su claridad, sus accesos viarios y sus posibilidades de proyeccion. El entorno permite imaginar proyectos residenciales en una logica mas abierta, con conexion sencilla hacia Essaouira y sus servicios.
 screens:
   exterior:
     isEnabled: true

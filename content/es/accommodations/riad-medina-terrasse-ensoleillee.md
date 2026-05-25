@@ -56,8 +56,6 @@ review: |
   El patio central y la terraza soleada facilitan la lectura del bien y su valorizacion comercial.
 blockquote: |
   Un riad familiar y luminoso en la medina, con patio central y terraza pensada para prolongar las estancias.
-locationDescription: |
-  En la medina, el entorno pone en valor la vida de barrio, el patrimonio y una practicidad peatonal muy apreciable. Este tipo de direccion sigue siendo buscada por su dimension inmersiva, su caracter y su potencial de alquiler cuando esta bien presentada.
 screens:
   exterior:
     isEnabled: true

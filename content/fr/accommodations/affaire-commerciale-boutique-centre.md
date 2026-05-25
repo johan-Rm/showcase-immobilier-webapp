@@ -45,8 +45,6 @@ slug: affaire-commerciale-boutique-au-centre-centre-ville-bavac001
 highlight: Une base de commerce claire pour une activite visible
 review: |
   Une affaire simple a projeter, avec une forte dependance positive a la visibilite et au passage.
-locationDescription: |
-  Le centre-ville soutient les activites de proximite, de service et de vente avec besoin de visibilite.
 ---
 ## Visite guidee
 

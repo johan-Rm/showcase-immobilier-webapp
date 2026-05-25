@@ -1,8 +1,3 @@
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
-
-import YAML from 'yaml'
-
 import {
   DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS,
   type DashboardAccommodationSavePayload,
@@ -13,15 +8,6 @@ import {
 // ---------------------------------------------------------------------------
 // Types helpers
 // ---------------------------------------------------------------------------
-
-type PersonEntry = {
-  identifier: string
-  name?: string
-  phone?: string
-  email?: string
-}
-
-type PersonYaml = { items: PersonEntry[] }
 
 export type SymfonyAccommodationPayload = Record<string, unknown>
 
@@ -78,21 +64,6 @@ function normalizeTranslations(
 }
 
 // ---------------------------------------------------------------------------
-// person.yaml loader (lecture fichier, cache local)
-// ---------------------------------------------------------------------------
-
-let personCache: PersonEntry[] | null = null
-
-async function loadPersons(): Promise<PersonEntry[]> {
-  if (personCache) return personCache
-  const path = join(process.cwd(), 'content', 'fr', 'person.yaml')
-  const raw = await readFile(path, 'utf8')
-  const parsed = YAML.parse(raw) as PersonYaml
-  personCache = parsed.items ?? []
-  return personCache
-}
-
-// ---------------------------------------------------------------------------
 // Mapper principal
 // ---------------------------------------------------------------------------
 
@@ -144,24 +115,6 @@ export async function mapToApiPlatform(
   const amenityFeature = iris.amenityFeature
   const tags = iris.tags
 
-  // -- Agent immobilier (lookup person.yaml) -------------------------------
-  const agentUuid = asString(fm.realEstateAgent)
-  let realEstateAgentIdentifier: string | null = null
-  let realEstateAgentName: string | null = null
-  let realEstateAgentPhone: string | null = null
-  let realEstateAgentEmail: string | null = null
-
-  if (agentUuid) {
-    const persons = await loadPersons()
-    const agent = persons.find((p) => p.identifier === agentUuid) ?? null
-    if (agent) {
-      realEstateAgentIdentifier = agent.identifier
-      realEstateAgentName = agent.name ?? null
-      realEstateAgentPhone = agent.phone ?? null
-      realEstateAgentEmail = agent.email ?? null
-    }
-  }
-
   // -- Champs translatables (envoyés dans le body, locale via query param) -
   const slug = asString(fm.slug) ?? accommodation.slug
   const name = asString(fm.name)
@@ -171,7 +124,6 @@ export async function mapToApiPlatform(
   const review = asString(fm.review)
   const metaTitle = asString(fm.metaTitle)
   const metaDescription = asString(fm.metaDescription)
-  const locationDescription = asString(fm.locationDescription)
 
   // -- Payload final -------------------------------------------------------
   const payload: SymfonyAccommodationPayload = {
@@ -196,10 +148,6 @@ export async function mapToApiPlatform(
     ...(offerPriceCurrency !== null && { offerPriceCurrency }),
     ...(offerPriceSpecification !== null && { offerPriceSpecification }),
     ...(offerAvailability !== null && { offerAvailability }),
-    ...(realEstateAgentIdentifier !== null && { realEstateAgentIdentifier }),
-    ...(realEstateAgentName !== null && { realEstateAgentName }),
-    ...(realEstateAgentPhone !== null && { realEstateAgentPhone }),
-    ...(realEstateAgentEmail !== null && { realEstateAgentEmail }),
     ...(isMultilingualSave
       ? { translations }
       : {
@@ -212,7 +160,6 @@ export async function mapToApiPlatform(
           ...(review !== null && { review }),
           ...(metaTitle !== null && { metaTitle }),
           ...(metaDescription !== null && { metaDescription }),
-          ...(locationDescription !== null && { locationDescription }),
         }),
   }
 

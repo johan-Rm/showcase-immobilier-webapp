@@ -58,8 +58,6 @@ highlight: A rare property in the heart of the medina
 blockquote: |
   A character apartment in the medina, with a mezzanine and an unusual volume,
   ideal as an inspiring pied-a-terre or a distinctive rental investment.
-locationDescription: |
-  Built at the end of the 18th century, the medina is the historic heart of the city and its main hub of activity alongside the port. Surrounded by Vauban-style walls, it is protected by fortifications where European and Arab-Muslim influences blend harmoniously. The Sqala de la Kasbah is a public example of these ramparts, still facing the Atlantic. Inside, a maze of alleys divides the districts and souks. Despite the density, the market remains fairly organized and offers every kind of product. Clothing, spices, jewelry, olives, fruit and vegetables sit side by side. Many restaurants serve fish caught that same morning for lunch or dinner, along with other local specialties. It is also a pleasant place to pause on a shaded terrace. The medina was listed as a UNESCO World Heritage site in 2001.
 screens:
   exterior:
     isEnabled: true

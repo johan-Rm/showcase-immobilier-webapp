@@ -50,8 +50,6 @@ slug: riad-avec-patio-proche-bab-sbah-medina-bavr006
 highlight: Un riad de medina facile a valoriser et a habiter
 review: |
   Un riad bien proportionne qui tient une promesse claire de residence de charme ou de projet d'accueil discret.
-locationDescription: |
-  Le secteur Bab Sbah reste recherche pour son acces et sa lecture immediate de la medina.
 ---
 ## Visite guidee
 

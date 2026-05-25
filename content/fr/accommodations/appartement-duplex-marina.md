@@ -50,8 +50,6 @@ slug: appartement-duplex-a-la-marina-marina-bava003
 highlight: Un appartement de marina bien calibre pour une vie familiale souple
 review: |
   Un duplex lisible, avec une belle capacite d'usage et une terrasse qui prolonge agreablement le sejour.
-locationDescription: |
-  La marina offre un cadre plus ouvert, agreable a pied et bien adapte a une residence secondaire ou principale.
 ---
 ## Visite guidee
 

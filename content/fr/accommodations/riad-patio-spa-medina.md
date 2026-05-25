@@ -50,8 +50,6 @@ highlight: Un riad de séjour plus expérientiel, pensé pour de vraies vacances
 review: |
   Le bien a un bon niveau de désirabilité saisonnière grâce à son patio, son espace bien-être et sa capacité d'accueil.
   Il reste néanmoins suffisamment lisible pour un positionnement premium mesuré, sans narration excessive.
-locationDescription: |
-  La médina renforce ici l'expérience de séjour par son tissu ancien, sa marche à pied et son intensité patrimoniale. C'est un cadre cohérent pour un riad de vacances.
 ---
 ## Visite guidee
 

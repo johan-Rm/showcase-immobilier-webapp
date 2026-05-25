@@ -50,8 +50,6 @@ review: |
   El formato encaja con una tienda, un showroom o un servicio con recepcion frecuente de clientes.
 blockquote: |
   Una direccion comercial en un eje de paso, con escaparate y visibilidad inmediata desde el bulevar.
-locationDescription: |
-  El bulevar principal concentra una parte importante de los flujos cotidianos, con trafico regular, lectura urbana clara y fuerte visibilidad. Este tipo de ubicacion favorece a las actividades que necesitan verse facilmente y captar clientela de proximidad.
 screens:
   exterior:
     isEnabled: true

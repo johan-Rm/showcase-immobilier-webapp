@@ -50,8 +50,6 @@ slug: riad-avec-terrasse-sur-les-remparts-medina-bavr007
 highlight: Une terrasse qui renforce fortement la desirabilite du bien
 review: |
   Le bien se distingue par sa terrasse et une composition simple a valoriser commercialement.
-locationDescription: |
-  La medina donne ici toute sa force au produit, entre patrimoine, marche a pied et attractivite locative.
 ---
 ## Visite guidee
 

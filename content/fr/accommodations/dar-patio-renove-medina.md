@@ -50,8 +50,6 @@ slug: dar-renovee-avec-patio-en-medina-medina-bavd002
 highlight: Une dar renovee facile a vivre et simple a valoriser
 review: |
   Un bien de medina tres lisible, avec une renovation qui facilite la projection residentielle.
-locationDescription: |
-  La medina renforce ici l'interet patrimonial et l'usage a pied du bien.
 ---
 ## Visite guidee
 

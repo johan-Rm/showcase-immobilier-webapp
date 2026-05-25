@@ -50,8 +50,6 @@ highlight: Une villa contemporaine prete a seduire
 review: |
   Une villa recente qui assume un registre contemporain, avec de vrais marqueurs de confort et de lisibilite architecturale.
   La surface, les quatre chambres et les exterieurs donnent un produit bien arme pour une clientele familiale ou une residence secondaire de standing.
-locationDescription: |
-  La route d'Agadir offre un compromis interessant entre accessibilite, calme relatif et disponibilite de grandes parcelles. Le secteur attire pour ses villas recentes, ses vues plus ouvertes et sa connexion simple aux entrees de ville comme aux deplacements regionaux.
 ---
 ## Visite guidee
 

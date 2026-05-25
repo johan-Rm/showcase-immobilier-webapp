@@ -55,8 +55,6 @@ review: |
   The floor area, four bedrooms and outdoor spaces make it a well-armed product for a family buyer or an upscale second home.
 blockquote: |
   A clear and contemporary villa, designed for comfortable year-round living with garden and pool.
-locationDescription: |
-  The Agadir road offers an interesting balance between accessibility, relative calm and the availability of larger plots. The area attracts buyers looking for newer villas, more open views and an easy connection to the city entrances and regional travel routes.
 screens:
   exterior:
     isEnabled: true

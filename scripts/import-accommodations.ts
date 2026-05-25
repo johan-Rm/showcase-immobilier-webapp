@@ -216,7 +216,6 @@ function buildPayload(
     'label',
     'highlight',
     'review',
-    'locationDescription',
     'metaTitle',
     'metaDescription',
   ] as const

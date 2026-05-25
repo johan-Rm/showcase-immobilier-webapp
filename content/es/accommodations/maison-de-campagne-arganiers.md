@@ -55,8 +55,6 @@ review: |
   El entorno vegetal y la superficie interior la convierten en una opcion creible para segunda residencia o proyecto de acogida discreto.
 blockquote: |
   Una casa rodeada de arganes, pensada para bajar el ritmo y disfrutar de un entorno mas natural.
-locationDescription: |
-  El campo de Essaouira atrae por su calma, su luz y sus parcelas mas abiertas, manteniendo al mismo tiempo conexion con la ciudad a traves de los grandes ejes. La zona conviene a quienes buscan mas espacio, mas jardin y una atmosfera mas relajada que en el centro.
 screens:
   exterior:
     isEnabled: true

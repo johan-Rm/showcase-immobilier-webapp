@@ -50,8 +50,6 @@ highlight: Un format simple et soigné pour un séjour bord de mer sans lourdeur
 review: |
   Cette adresse conviendra à des voyageurs qui cherchent une base confortable, une ambiance calme et un accès rapide à la corniche.
   Le jardin partagé renforce la sensation de respiration sans complexifier l'exploitation du bien.
-locationDescription: |
-  La corniche permet de profiter de la mer, des promenades et d'une lecture plus ouverte du littoral. Le secteur fonctionne bien pour l'hébergement court.
 ---
 ## Visite guidee
 

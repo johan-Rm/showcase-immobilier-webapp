@@ -50,8 +50,6 @@ highlight: Une villa de séjour calme et lumineuse dans un environnement plus pr
 review: |
   Le bien parle à une clientèle qui cherche un séjour plus confidentiel, avec piscine, jardin et un cadre plus maîtrisé.
   La promesse reste cohérente avec une location saisonnière familiale ou entre amis, sans verser dans un luxe trop démonstratif.
-locationDescription: |
-  Le secteur du golf offre un cadre plus calme, plus aéré et plus résidentiel. Il convient bien à des séjours qui privilégient le repos, l'espace et l'intimité.
 ---
 ## Visite guidee
 

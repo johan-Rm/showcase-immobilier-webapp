@@ -56,8 +56,6 @@ review: |
   El formato es simple, legible y facil de comercializar para parejas o viajeros de paso.
 blockquote: |
   Una direccion intima frente al oceano, pensada para unas noches tranquilas con terraza y desayuno.
-locationDescription: |
-  La zona de la corniche ofrece una relacion inmediata con el oceano y los paseos junto al mar. El ambiente sigue siendo relajado, con acceso rapido a la playa, a los cafes y a los principales puntos de interes de Essaouira, lo que la hace adecuada para alojamiento turistico.
 screens:
   exterior:
     isEnabled: true

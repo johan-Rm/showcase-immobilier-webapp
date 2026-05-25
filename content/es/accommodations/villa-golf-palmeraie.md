@@ -56,8 +56,6 @@ review: |
   El bien habla a una clientela que busca tanto una direccion de prestigio como una casa facil de vivir en un entorno privado.
 blockquote: |
   Una villa premium junto al golf, con piscina privada y jardin para un estilo de vida mas exclusivo.
-locationDescription: |
-  El sector palmeraie y golf remite a un entorno mas residencial, mas confidencial y de gama mas alta. Aqui se busca sobre todo espacio, calidad del entorno y sensacion de retiro, manteniendo al mismo tiempo una accesibilidad razonable hacia Essaouira y sus servicios.
 screens:
   exterior:
     isEnabled: true

@@ -45,8 +45,6 @@ slug: affaire-commerciale-cafe-en-medina-medina-bavac002
 highlight: Un commerce de flux et de quartier avec une lecture immediate
 review: |
   Une affaire commerciale simple a comprendre pour un porteur de projet qui cherche une adresse lisible.
-locationDescription: |
-  La medina concentre des flux pietons et une forte attractivite pour les usages de restauration legere.
 ---
 ## Visite guidee
 

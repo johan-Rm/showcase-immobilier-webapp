@@ -50,8 +50,6 @@ highlight: Une location pratique et lumineuse pour vivre Essaouira au quotidien
 review: |
   Un appartement bien dimensionné pour un couple ou une petite famille qui cherche une adresse simple, centrale et facile à vivre toute l'année.
   Le balcon filant et la distribution claire renforcent le confort d'usage sans surpromesse.
-locationDescription: |
-  Le centre-ville permet une vie quotidienne fluide, avec commerces, services et déplacements à pied. C'est un bon compromis pour un usage résidentiel à l'année.
 ---
 ## Visite guidee
 

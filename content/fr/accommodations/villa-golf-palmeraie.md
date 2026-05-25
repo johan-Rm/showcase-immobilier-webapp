@@ -51,8 +51,6 @@ highlight: Une villa premium en premiere ligne de golf
 review: |
   Une villa de standing avec un positionnement premium immediatement lisible grace au golf, a la piscine et au jardin.
   Le bien parle a une clientele qui cherche autant une adresse statutaire qu'une maison facile a vivre dans un cadre prive.
-locationDescription: |
-  Le secteur palmeraie et golf renvoie a un environnement plus residentiel, plus confidentiel et plus haut de gamme. On y recherche d'abord l'espace, la qualite du cadre et la sensation de retrait, tout en conservant une accessibilite acceptable vers Essaouira et ses services.
 ---
 
 ## Visite guidee
