@@ -24,38 +24,20 @@ if [ -z "$TOKEN" ]; then
 fi
 echo "[01] Authentifié ✓"
 
-echo "[01] Création de l'organisation..."
-RESPONSE=$(curl -sf -X POST "$SYMFONY_API_URL/api/organizations" \
+echo "[01] Récupération de l'organisation..."
+BODY=$(curl -sf "$SYMFONY_API_URL/api/organizations" \
   -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -d '{"name":"MLK - My Little Kasbah"}' \
-  -w "\n%{http_code}" || true)
+  -H "Accept: application/json")
 
-HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-BODY=$(echo "$RESPONSE" | head -n -1)
-
-if [ "$HTTP_CODE" = "409" ]; then
-  echo "[01] Organisation déjà existante — récupération de l'ID..."
-  BODY=$(curl -sf "$SYMFONY_API_URL/api/organizations" \
-    -H "Authorization: Bearer $TOKEN" \
-    -H "Accept: application/json")
-  ORG_ID=$(echo "$BODY" | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
-elif [ "$HTTP_CODE" = "201" ]; then
-  ORG_ID=$(echo "$BODY" | grep -o '"id":"[^"]*"' | cut -d'"' -f4)
-else
-  echo "[01] ERREUR HTTP $HTTP_CODE : $BODY"
-  exit 1
-fi
+ORG_ID=$(echo "$BODY" | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
 
 if [ -z "$ORG_ID" ]; then
-  echo "[01] ERREUR : impossible d'extraire l'ORG_ID"
+  echo "[01] ERREUR : aucune organisation trouvée"
   exit 1
 fi
 
 # Persist state
 touch "$STATE_FILE"
-# Remove existing ORG_ID line if present
 grep -v "^ORG_ID=" "$STATE_FILE" > "$STATE_FILE.tmp" 2>/dev/null || true
 echo "ORG_ID=$ORG_ID" >> "$STATE_FILE.tmp"
 mv "$STATE_FILE.tmp" "$STATE_FILE"

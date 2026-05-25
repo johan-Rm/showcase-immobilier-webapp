@@ -6,7 +6,7 @@ export default defineAppConfig({
     alternateName: 'MLK - My Little Kasbah',
     location: 'Essaouira',
     image: '/images/mlk-logo.jpg',
-    email: 'contact@mlk-my-little-kasbah.immo',
+    email: ['contact@mlk-my-little-kasbah.immo'],
     phoneNumbers: ['+33 (0)7 67 235 008', '+212 (0)7 26 403 203'],
     description:
       'MLK – My Little Kasbah accompagne vos projets immobiliers à Essaouira investissement, achat, vente et gestion locative avec une expertise locale et internationale.',

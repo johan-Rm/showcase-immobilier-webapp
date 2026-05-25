@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 STATE_FILE="$SCRIPT_DIR/.state"
-YAML_FILE="$SCRIPT_DIR/category-codes.yaml"
+YAML_FILE="$ROOT_DIR/content/fr/category-code.yaml"
 
 # shellcheck source=/dev/null
 [ -f "$ROOT_DIR/.env" ] && source "$ROOT_DIR/.env"
@@ -36,33 +36,39 @@ created=0
 skipped=0
 errors=0
 
-IN_CODE_SETS=$(yq 'keys | .[]' "$YAML_FILE")
+COUNT=$(yq '.items | length' "$YAML_FILE")
 
-for in_code_set in $IN_CODE_SETS; do
-  CODES=$(yq ".$in_code_set | .[]" "$YAML_FILE")
-  for code in $CODES; do
-    PAYLOAD="{\"code\":\"$code\",\"inCodeSet\":\"$in_code_set\"}"
-    RESPONSE=$(curl -sf -X POST "$SYMFONY_API_URL/api/projects/$PROJECT_ID/category-codes" \
-      -H "Authorization: Bearer $TOKEN" \
-      -H "Content-Type: application/json" \
-      -H "Accept: application/json" \
-      -d "$PAYLOAD" \
-      -w "\n%{http_code}" || true)
+for i in $(seq 0 $((COUNT - 1))); do
+  code=$(yq ".items[$i].codeValue" "$YAML_FILE")
+  label=$(yq ".items[$i].name" "$YAML_FILE")
+  in_code_set=$(yq ".items[$i].inCodeSet" "$YAML_FILE")
 
-    HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-    BODY=$(echo "$RESPONSE" | head -n -1)
+  PAYLOAD=$(yq -o=json -n \
+    --arg code "$code" \
+    --arg label "$label" \
+    --arg inCodeSet "$in_code_set" \
+    '{"code": $code, "inCodeSet": $inCodeSet, "label": $label}')
 
-    if [ "$HTTP_CODE" = "201" ]; then
-      echo "  ✓ $in_code_set / $code"
-      created=$((created + 1))
-    elif [ "$HTTP_CODE" = "409" ] || [ "$HTTP_CODE" = "422" ]; then
-      echo "  ~ $in_code_set / $code (déjà existant)"
-      skipped=$((skipped + 1))
-    else
-      echo "  ✗ $in_code_set / $code — HTTP $HTTP_CODE : $BODY"
-      errors=$((errors + 1))
-    fi
-  done
+  RESPONSE=$(curl -sf -X POST "$SYMFONY_API_URL/api/projects/$PROJECT_ID/category-codes" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d "$PAYLOAD" \
+    -w "\n%{http_code}" || true)
+
+  HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+  BODY=$(echo "$RESPONSE" | head -n -1)
+
+  if [ "$HTTP_CODE" = "201" ]; then
+    echo "  ✓ $in_code_set / $code"
+    created=$((created + 1))
+  elif [ "$HTTP_CODE" = "409" ] || [ "$HTTP_CODE" = "422" ]; then
+    echo "  ~ $in_code_set / $code (déjà existant)"
+    skipped=$((skipped + 1))
+  else
+    echo "  ✗ $in_code_set / $code — HTTP $HTTP_CODE : $BODY"
+    errors=$((errors + 1))
+  fi
 done
 
 echo "[04] CategoryCodes — créés: $created, déjà existants: $skipped, erreurs: $errors"

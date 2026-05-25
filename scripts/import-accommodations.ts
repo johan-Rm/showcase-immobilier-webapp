@@ -44,9 +44,11 @@ type Frontmatter = Record<string, unknown>
 
 type SymfonyCategoryCode = { '@id': string; code: string; inCodeSet: string }
 type SymfonyAccommodation = { '@id': string; identifier: string }
+type SymfonyMediaObject = { '@id': string; originalFilename: string | null }
 type HydraCollection<T> = { 'hydra:member': T[] }
 type CategoryCodeMap = Record<string, Record<string, string>>
 type AccommodationUuidMap = Record<string, string>
+type MediaObjectMap = Record<string, string>
 
 // ---------------------------------------------------------------------------
 // Auth
@@ -77,6 +79,21 @@ async function fetchCategoryCodeMap(token: string): Promise<CategoryCodeMap> {
   for (const item of json['hydra:member'] ?? []) {
     if (!map[item.inCodeSet]) map[item.inCodeSet] = {}
     map[item.inCodeSet]![item.code] = item['@id']
+  }
+  return map
+}
+
+async function fetchMediaObjectMap(token: string): Promise<MediaObjectMap> {
+  const res = await fetch(`${API_URL}/api/projects/${PROJECT_ID}/media-objects?pagination=false`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/ld+json' },
+  })
+  if (!res.ok) throw new Error(`MediaObjects fetch failed: ${res.status}`)
+  const json = (await res.json()) as HydraCollection<SymfonyMediaObject>
+  const map: MediaObjectMap = {}
+  for (const item of json['hydra:member'] ?? []) {
+    if (!item.originalFilename) continue
+    const key = item.originalFilename.replace(/\.[^.]+$/, '')
+    map[key] = item['@id']
   }
   return map
 }
@@ -141,12 +158,52 @@ function resolveIriArray(codeMap: CategoryCodeMap, inCodeSet: string, codes: str
 // Mapper
 // ---------------------------------------------------------------------------
 
+function buildAssociatedMedia(
+  fm: Frontmatter,
+  mediaMap: MediaObjectMap,
+): Array<{ mediaObject: string; caption?: string; keywords: string[]; position: number }> {
+  const raw = fm.associatedMedia
+  if (!Array.isArray(raw)) return []
+
+  const result: Array<{ mediaObject: string; caption?: string; keywords: string[]; position: number }> = []
+  let position = 0
+
+  for (const item of raw) {
+    if (typeof item !== 'object' || item === null) continue
+    const entry = item as Record<string, unknown>
+    const imageKey = typeof entry.image === 'string' ? entry.image : null
+    if (!imageKey) continue
+
+    const iri = mediaMap[imageKey] ?? null
+    if (!iri) {
+      console.warn(`    [warn] image non trouvée dans les media objects : ${imageKey}`)
+      continue
+    }
+
+    const media: { mediaObject: string; caption?: string; keywords: string[]; position: number } = {
+      mediaObject: iri,
+      keywords: Array.isArray(entry.keywords)
+        ? entry.keywords.filter((k): k is string => typeof k === 'string')
+        : [],
+      position,
+    }
+    if (typeof entry.caption === 'string' && entry.caption.trim()) {
+      media.caption = entry.caption.trim()
+    }
+    result.push(media)
+    position++
+  }
+
+  return result
+}
+
 function buildPayload(
   identifier: string,
   slug: string,
   fm: Frontmatter,
   body: string,
   codeMap: CategoryCodeMap,
+  mediaMap: MediaObjectMap,
 ): Record<string, unknown> {
   const offer =
     fm.offer !== null && typeof fm.offer === 'object' && !Array.isArray(fm.offer)
@@ -175,6 +232,8 @@ function buildPayload(
   const amenityFeature = resolveIriArray(codeMap, 'amenity-feature', amenityFeatureCodes)
   const tags = resolveIriArray(codeMap, 'tag', tagCodes)
 
+  const associatedMedia = buildAssociatedMedia(fm, mediaMap)
+
   const payload: Record<string, unknown> = {
     identifier: asString(fm.identifier) ?? identifier,
     isActive: asBoolean(fm.isActive) ?? true,
@@ -183,6 +242,7 @@ function buildPayload(
     ...(place && { place }),
     amenityFeature,
     tags,
+    associatedMedia,
   }
 
   const numberFields = [
@@ -254,13 +314,15 @@ async function main() {
   let token = ''
   let codeMap: CategoryCodeMap = {}
   let uuidMap: AccommodationUuidMap = {}
+  let mediaMap: MediaObjectMap = {}
 
   if (!isDryRun) {
     token = await fetchToken()
     console.log('[import] Authentifié ✓')
-    ;[codeMap, uuidMap] = await Promise.all([
+    ;[codeMap, uuidMap, mediaMap] = await Promise.all([
       fetchCategoryCodeMap(token),
       fetchAccommodationUuidMap(token),
+      fetchMediaObjectMap(token),
     ])
     console.log('[import] Référentiels chargés ✓')
   }
@@ -290,7 +352,7 @@ async function main() {
     const { fm, body } = parseFrontmatter(content)
     const identifier = (asString(fm.identifier) ?? slug).toUpperCase()
 
-    const payload = buildPayload(identifier, slug, fm, body, codeMap)
+    const payload = buildPayload(identifier, slug, fm, body, codeMap, mediaMap)
 
     const existingUuid = uuidMap[identifier] ?? null
     const method = existingUuid ? 'PUT' : 'POST'

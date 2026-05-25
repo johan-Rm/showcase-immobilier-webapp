@@ -34,12 +34,12 @@ BOOTSTRAP_CAROLINE_PASSWORD=<password>
 Lancer les scripts depuis la racine du projet :
 
 ```bash
-bash scripts/bootstrap-data/01-create-org.sh
+bash scripts/bootstrap-data/01-get-org.sh
 bash scripts/bootstrap-data/02-create-project.sh
 bash scripts/bootstrap-data/03-create-users.sh
 bash scripts/bootstrap-data/04-seed-category-codes.sh
-bash scripts/bootstrap-data/05-import-accommodations.sh
-bash scripts/bootstrap-data/06-upload-images.sh
+bash scripts/bootstrap-data/05-upload-images.sh
+bash scripts/bootstrap-data/06-import-accommodations.sh
 ```
 
 ## Rejouer une étape isolée

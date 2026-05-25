@@ -15,12 +15,12 @@ STATE_FILE="$SCRIPT_DIR/.state"
 : "${PROJECT_ID:?PROJECT_ID manquant — lancez d'abord 02-create-project.sh}"
 
 if ! command -v bun &>/dev/null; then
-  echo "[05] ERREUR : bun non trouvé"
+  echo "[06] ERREUR : bun non trouvé"
   exit 1
 fi
 
-echo "[05] Import des biens réels..."
+echo "[06] Import des biens réels..."
 cd "$ROOT_DIR"
 SYMFONY_PROJECT_ID="$PROJECT_ID" bun scripts/import-accommodations.ts
 
-echo "[05] Import accommodations ✓"
+echo "[06] Import accommodations ✓"

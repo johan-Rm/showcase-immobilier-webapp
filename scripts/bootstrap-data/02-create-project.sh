@@ -12,6 +12,7 @@ STATE_FILE="$SCRIPT_DIR/.state"
 : "${SYMFONY_API_URL:?Variable SYMFONY_API_URL manquante}"
 : "${SYMFONY_SERVICE_EMAIL:?Variable SYMFONY_SERVICE_EMAIL manquante}"
 : "${SYMFONY_SERVICE_PASSWORD:?Variable SYMFONY_SERVICE_PASSWORD manquante}"
+: "${SITE_URL:?Variable SITE_URL manquante}"
 : "${ORG_ID:?ORG_ID manquant — lancez d'abord 01-create-org.sh}"
 
 echo "[02] Authentification..."
@@ -32,7 +33,9 @@ PAYLOAD=$(cat <<JSON
   "organization": "/api/organizations/$ORG_ID",
   "name": "MLK - Modern Site Web",
   "sourceLocale": "fr",
-  "enabledLocales": ["fr", "en"]
+  "enabledLocales": ["fr", "en", "es"],
+  "mediaPath": "mlk-my-little-kasbah/public/images",
+  "mediaBaseUrl": "$SITE_URL/images"
 }
 JSON
 )
