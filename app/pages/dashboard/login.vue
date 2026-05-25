@@ -18,21 +18,52 @@
           </h1>
         </div>
 
-        <div class="flex flex-col gap-4">
-          <a
-            :href="loginPath"
-            class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#6B7A4A] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#7d8f57]"
-          >
-            <UIcon name="i-simple-icons-google" class="text-base" aria-hidden="true" />
-            Se connecter avec Google
-          </a>
-
-          <div class="text-sm leading-6 text-white/50">
-            <p class="font-semibold text-white/80">Accès restreint</p>
-            <p class="mt-1">La connexion est limitée aux comptes Google</p>
-            <p>autorisés par MLK - My Little Kasbah.</p>
+        <form class="flex flex-col gap-4 text-left" @submit.prevent="onSubmit">
+          <div class="flex flex-col gap-1.5">
+            <label for="email" class="text-xs font-medium text-white/50">Email</label>
+            <UInput
+              id="email"
+              v-model="form.email"
+              type="email"
+              name="email"
+              placeholder="votre@email.com"
+              autocomplete="email"
+              :disabled="isLoading"
+              :ui="inputUi"
+            />
           </div>
-        </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="password" class="text-xs font-medium text-white/50">Mot de passe</label>
+            <UInput
+              id="password"
+              v-model="form.password"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              :disabled="isLoading"
+              :ui="inputUi"
+            />
+          </div>
+
+          <div
+            v-if="error"
+            class="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2.5 text-sm text-red-400"
+            role="alert"
+          >
+            {{ error }}
+          </div>
+
+          <UButton
+            type="submit"
+            block
+            :loading="isLoading"
+            :disabled="!form.email || !form.password"
+            class="mt-2 bg-[#6B7A4A] hover:bg-[#7d8f57] disabled:opacity-40"
+          >
+            Se connecter
+          </UButton>
+        </form>
       </section>
     </div>
   </div>
@@ -51,10 +82,43 @@ if (loggedIn.value) {
   await navigateTo('/dashboard')
 }
 
-// 8. Computed UI-ready
-const loginPath = computed<string>(() => {
-  return `/auth/google?state=${encodeURIComponent('/dashboard')}`
-})
+// 5. Etat local
+const isLoading = ref(false)
+const error = ref<string | null>(null)
+const form = reactive({ email: '', password: '' })
+
+const inputUi = {
+  base: 'bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:border-[#6B7A4A] focus:ring-0',
+}
+
+// 9. Handlers et actions
+const onSubmit = async () => {
+  error.value = null
+  isLoading.value = true
+
+  try {
+    await $fetch('/api/auth/login', {
+      method: 'POST',
+      body: { email: form.email, password: form.password },
+    })
+    await navigateTo('/dashboard')
+  } catch (err: unknown) {
+    const statusCode =
+      err && typeof err === 'object' && 'statusCode' in err
+        ? (err as { statusCode: number }).statusCode
+        : null
+
+    if (statusCode === 401) {
+      error.value = 'Identifiants invalides.'
+    } else if (statusCode === 403) {
+      error.value = 'Accès non autorisé à ce projet.'
+    } else {
+      error.value = 'Une erreur est survenue. Veuillez réessayer.'
+    }
+  } finally {
+    isLoading.value = false
+  }
+}
 
 // 11. Metadonnees ecran ou page
 definePageMeta({

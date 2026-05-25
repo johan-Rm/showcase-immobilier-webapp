@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(async (to) => {
+export default defineNuxtRouteMiddleware(async () => {
   const { loggedIn, fetch } = useUserSession()
 
   if (!loggedIn.value) {
@@ -7,7 +7,5 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   if (loggedIn.value) return
 
-  return navigateTo(`/auth/google?state=${encodeURIComponent(to.fullPath)}`, {
-    external: true,
-  })
+  return navigateTo('/dashboard/login')
 })
