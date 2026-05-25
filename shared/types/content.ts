@@ -7,7 +7,6 @@ export type ResourceKey =
   | 'accommodation-category'
   | 'category-code'
   | 'accommodation-place'
-  | 'person'
   | 'media-object'
   | 'accommodations'
   | 'forms/accommodation'

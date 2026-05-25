@@ -170,10 +170,8 @@ export default defineNuxtConfig({
       code: locale.code,
       language: locale.iso,
       name: locale.name,
-      file: resolve(__dirname, `content/${locale.code}/messages.ts`),
       dir: locale.dir,
     })),
-    langDir: 'content',
     strategy: 'prefix',
     detectBrowserLanguage: {
       useCookie: true,
