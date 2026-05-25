@@ -11,23 +11,43 @@ const makeError = (statusCode: number) =>
 
 describe('checkProjectMembership', () => {
   test("retourne true quand l'API confirme le membership", async () => {
-    const fetcher = mock(async () => ({ member: true, role: 'admin', user: { email: 'user@test.com' } }))
+    const fetcher = mock(async () => ({
+      member: true,
+      role: 'admin',
+      user: { email: 'user@test.com' },
+    }))
 
-    const result = await checkProjectMembership(API_URL, PROJECT_ID, TOKEN, 'user@test.com', fetcher)
+    const result = await checkProjectMembership(
+      API_URL,
+      PROJECT_ID,
+      TOKEN,
+      'user@test.com',
+      fetcher,
+    )
 
     expect(result).toBe(true)
   })
 
   test('retourne false sur 404 (email inconnu ou non membre)', async () => {
-    const fetcher = mock(async () => { throw makeError(404) })
+    const fetcher = mock(async () => {
+      throw makeError(404)
+    })
 
-    const result = await checkProjectMembership(API_URL, PROJECT_ID, TOKEN, 'unknown@test.com', fetcher)
+    const result = await checkProjectMembership(
+      API_URL,
+      PROJECT_ID,
+      TOKEN,
+      'unknown@test.com',
+      fetcher,
+    )
 
     expect(result).toBe(false)
   })
 
   test('propage sur 401 (token de service invalide)', async () => {
-    const fetcher = mock(async () => { throw makeError(401) })
+    const fetcher = mock(async () => {
+      throw makeError(401)
+    })
 
     await expect(
       checkProjectMembership(API_URL, PROJECT_ID, TOKEN, 'user@test.com', fetcher),
@@ -35,7 +55,9 @@ describe('checkProjectMembership', () => {
   })
 
   test('propage sur 500 (Symfony indisponible)', async () => {
-    const fetcher = mock(async () => { throw makeError(500) })
+    const fetcher = mock(async () => {
+      throw makeError(500)
+    })
 
     await expect(
       checkProjectMembership(API_URL, PROJECT_ID, TOKEN, 'user@test.com', fetcher),
@@ -69,7 +91,13 @@ describe('checkProjectMembership', () => {
   test('retourne false si member est false dans la reponse', async () => {
     const fetcher = mock(async () => ({ member: false }))
 
-    const result = await checkProjectMembership(API_URL, PROJECT_ID, TOKEN, 'user@test.com', fetcher)
+    const result = await checkProjectMembership(
+      API_URL,
+      PROJECT_ID,
+      TOKEN,
+      'user@test.com',
+      fetcher,
+    )
 
     expect(result).toBe(false)
   })

@@ -165,7 +165,12 @@ function buildAssociatedMedia(
   const raw = fm.associatedMedia
   if (!Array.isArray(raw)) return []
 
-  const result: Array<{ mediaObject: string; caption?: string; keywords: string[]; position: number }> = []
+  const result: Array<{
+    mediaObject: string
+    caption?: string
+    keywords: string[]
+    position: number
+  }> = []
   let position = 0
 
   for (const item of raw) {

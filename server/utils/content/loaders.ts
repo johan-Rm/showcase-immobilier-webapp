@@ -207,7 +207,9 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
   const placeItems = extractYamlItems<AccommodationPlaceItem>(YAML.parse(placeRaw), placeFilePath)
   const placeBySlug = new Map(placeItems.map((item) => [item.slug, item]))
 
-  const files = dirFiles.filter((file) => file.endsWith('.md')).sort((left, right) => left.localeCompare(right))
+  const files = dirFiles
+    .filter((file) => file.endsWith('.md'))
+    .sort((left, right) => left.localeCompare(right))
 
   const accommodations = await Promise.all(
     files.map(async (fileName) => {
