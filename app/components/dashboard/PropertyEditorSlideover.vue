@@ -16,7 +16,6 @@
           :accommodation="accommodation"
           :expanded-blocks="expandedBlocks"
           :title-value="titleDraftValue"
-          :locale-statuses="localeStatuses"
           :associated-media-value="associatedMediaValue"
           :media-image-value="mediaImageValue"
           :property-menu-items="propertyMenuItems"
@@ -118,8 +117,6 @@ type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
-type LocaleStatus = 'source' | 'personalized' | 'incomplete' | 'saved' | 'error'
-
 defineOptions({ name: 'DashboardPropertyEditorSlideover' })
 
 const props = defineProps<{
@@ -285,38 +282,6 @@ const titleDraftValue = computed<string>(() => {
   return typeof name === 'string' && name
     ? name
     : (props.accommodation?.preview.title ?? 'Bien immobilier')
-})
-
-const hasDirtyLocalizedFields = (locale: DashboardLocale): boolean =>
-  dirtyLocalizedFields.value[locale].size > 0
-
-const isLocaleIncomplete = (locale: DashboardLocale): boolean => {
-  const draft = drafts.value?.[locale]
-  if (!draft) return true
-  const name = getNestedValue(draft.frontmatter, 'name')
-  return !(typeof name === 'string' && name.trim().length > 0) || draft.body.trim().length === 0
-}
-
-const localeStatuses = computed<Record<DashboardLocale, LocaleStatus>>(() => {
-  const statuses: Record<DashboardLocale, LocaleStatus> = {
-    fr: 'saved',
-    en: 'saved',
-    es: 'saved',
-  }
-
-  localeTabs.forEach((locale) => {
-    if (saveStatus.value === 'error' && hasDirtyLocalizedFields(locale)) {
-      statuses[locale] = 'error'
-    } else if (hasDirtyLocalizedFields(locale)) {
-      statuses[locale] = 'personalized'
-    } else if (locale === 'fr') {
-      statuses[locale] = 'source'
-    } else if (isLocaleIncomplete(locale)) {
-      statuses[locale] = 'incomplete'
-    }
-  })
-
-  return statuses
 })
 
 const router = useRouter()
