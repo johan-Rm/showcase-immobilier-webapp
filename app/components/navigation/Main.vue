@@ -311,7 +311,7 @@ const organizationFullName = computed<string | undefined>(() => organization.val
 
 const organizationName = computed<string | undefined>(() => organization.value?.alternateName)
 
-const organizationEmail = computed<string | undefined>(() => organization.value?.email)
+const organizationEmail = computed<string | undefined>(() => organization.value?.email[0])
 
 const organizationPhoneNumbers = computed<string[] | undefined>(
   () => organization.value?.phoneNumbers,

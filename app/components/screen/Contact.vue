@@ -97,16 +97,16 @@ let contactResizeObserver: ResizeObserver | null = null
 // 7. Validation et helpers purs
 
 // 8. Computed UI-ready
-const contactEmail = computed(() => appConfig.organization.email)
+const contactEmails = computed(() => appConfig.organization.email)
 const contactPhoneEntries = computed(() =>
   getOrganizationPhoneEntries(appConfig.organization.phoneNumbers ?? []),
 )
 
 const contactLinks = computed<ContactInfoLink[]>(() => [
-  {
-    label: contactEmail.value,
-    to: `mailto:${contactEmail.value}`,
-  },
+  ...contactEmails.value.map((email) => ({
+    label: email,
+    to: `mailto:${email}`,
+  })),
   ...contactPhoneEntries.value.map((phoneEntry) => ({
     label: `${phoneEntry.label} ${phoneEntry.phone}`,
     to: phoneEntry.href,

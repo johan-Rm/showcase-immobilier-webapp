@@ -282,7 +282,7 @@ const orderedSummaryItems = computed(() => {
   return referenceItem ? [referenceItem, ...otherItems] : props.summaryItems
 })
 
-const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
+const organizationEmail = computed<string>(() => appConfig.organization.email[0] ?? '')
 
 const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
 

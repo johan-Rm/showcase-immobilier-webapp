@@ -377,7 +377,7 @@ const resolveMenuLinks = (menuName?: string): FooterLink[] => {
 
 // 8. Computed UI-ready
 const contactPageLink = computed(() => localePath('/contact'))
-const organizationEmail = computed<string>(() => appConfig.organization.email ?? '')
+const organizationEmail = computed<string>(() => appConfig.organization.email[0] ?? '')
 const organizationPhoneNumbers = computed<string[]>(() => appConfig.organization.phoneNumbers ?? [])
 
 const stayConnectedTitle = computed<string>(

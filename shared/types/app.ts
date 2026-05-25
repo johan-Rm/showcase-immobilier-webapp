@@ -19,7 +19,7 @@ export type AppOrganization = {
   alternateName: string
   location?: string
   image?: string
-  email: string
+  email: string[]
   phoneNumbers: string[]
 }
 
