@@ -1,12 +1,12 @@
 <template>
   <div class="flex items-center gap-3">
     <div :class="['relative shrink-0', sizeClass]">
-      <img
+      <AppImage
         v-if="user?.picture"
         :src="user.picture"
         :alt="userName"
         class="h-full w-full rounded-full object-cover"
-        referrerpolicy="no-referrer"
+        v-bind="IMAGE_PRESETS.thumbnailMobile"
       />
       <div
         v-else
@@ -29,6 +29,9 @@
 </template>
 
 <script setup lang="ts">
+// 1. Imports
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
+
 // 2. Types et constantes statiques
 type WorkspaceUser = {
   id?: string

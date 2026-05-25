@@ -10,12 +10,12 @@
         <!-- Vignette + radio principale -->
         <div class="flex shrink-0 flex-col items-center gap-1.5">
           <div class="relative h-14 w-18 overflow-hidden rounded bg-white/5">
-            <img
+            <AppImage
               v-if="item.url"
               :src="item.url"
               :alt="item.name"
               class="h-full w-full object-cover"
-              loading="lazy"
+              v-bind="IMAGE_PRESETS.thumbnail"
             />
             <div v-else class="flex h-full w-full items-center justify-center">
               <UIcon name="i-lucide-image" class="text-sm text-white/20" aria-hidden="true" />
@@ -148,6 +148,8 @@
 <script setup lang="ts">
 import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 import type { MediaObject } from '@schemas/interfaces'
+
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 type AssocItem = {
   image: string
