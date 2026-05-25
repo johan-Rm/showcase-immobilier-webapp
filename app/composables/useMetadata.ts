@@ -5,7 +5,6 @@ import type {
   AccommodationPlace,
   CategoryCode,
   MediaObject,
-  Person,
   RealEstateListing,
 } from '@schemas/interfaces'
 
@@ -20,7 +19,6 @@ type UseMetadataReturn = {
   loadAccommodationCategories: () => Promise<void>
   loadCategoryCodes: () => Promise<void>
   loadAccommodationPlaces: () => Promise<void>
-  loadPeople: () => Promise<void>
   loadMediaObjects: () => Promise<void>
   loadDashboardCategoryCodes: () => Promise<void>
 }
@@ -77,12 +75,6 @@ export const useMetadata = (): UseMetadataReturn => {
     store.setAccommodationPlaces(accommodationPlaceItems)
   }
 
-  const loadPeople = async (): Promise<void> => {
-    const peopleItems = await loadContentResource<Person[]>('person', localeSetting.value)
-
-    store.setPeople(peopleItems)
-  }
-
   const loadMediaObjects = async (): Promise<void> => {
     const mediaObjectItems = await loadContentResource<MediaObject[]>(
       'media-object',
@@ -106,7 +98,6 @@ export const useMetadata = (): UseMetadataReturn => {
       loadAccommodationCategories(),
       loadCategoryCodes(),
       loadAccommodationPlaces(),
-      loadPeople(),
       loadMediaObjects(),
     ])
   }
@@ -119,7 +110,6 @@ export const useMetadata = (): UseMetadataReturn => {
     loadAccommodationCategories,
     loadCategoryCodes,
     loadAccommodationPlaces,
-    loadPeople,
     loadMediaObjects,
     loadDashboardCategoryCodes,
   }

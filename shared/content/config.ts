@@ -9,7 +9,6 @@ export const CONTENT_RESOURCES = [
   'accommodation-category',
   'category-code',
   'accommodation-place',
-  'person',
   'media-object',
   'accommodations',
   'forms/accommodation',

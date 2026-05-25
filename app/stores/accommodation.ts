@@ -52,7 +52,6 @@ export const useAccommodationStore = defineStore('accommodation', {
         categoryCodes: metadataStore.getCategoryCodes,
         listings: metadataStore.getAccommodationRealEstateListings,
         places: metadataStore.getAccommodationPlaces,
-        people: metadataStore.getPeople,
         images: metadataStore.getImageObjects,
       })
     },

@@ -31,8 +31,6 @@ const SCHEMAS = [
   'MenuItem',
   'Offer',
   'Organization',
-  'Person',
-  'RealEstateAgent',
   'RealEstateListing',
   'MediaObject',
   'WebPage',

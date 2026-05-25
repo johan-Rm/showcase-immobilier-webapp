@@ -5,7 +5,6 @@ import type {
   AccommodationPlace,
   CategoryCode,
   MediaObject,
-  Person,
   RealEstateListing,
 } from '@schemas/interfaces'
 
@@ -14,7 +13,7 @@ import type {
  *
  * Objectif :
  * - accepter des entrées hétérogènes (slugs, objets partiels, champs optionnels)
- * - résoudre les références via des index en mémoire (catégories, lieux, médias, personnes)
+ * - résoudre les références via des index en mémoire (catégories, lieux, médias)
  * - produire un contrat `Accommodation` stable pour les stores et l'UI
  *
  * Le module ne réalise aucun accès I/O : il applique uniquement des transformations pures.
@@ -28,7 +27,6 @@ export type AccommodationMetadata = {
   categories?: AccommodationCategory[]
   places?: AccommodationPlace[]
   listings?: RealEstateListing[]
-  people?: Person[]
   images?: MediaObject[]
 }
 
@@ -40,7 +38,6 @@ type AccommodationMetadataIndexes = {
   categories: Map<string, AccommodationCategory>
   places: Map<string, AccommodationPlace>
   listings: Map<string, RealEstateListing>
-  people: Map<string, Person>
   images: Map<string, MediaObject>
 }
 
@@ -125,19 +122,6 @@ const toRealEstateListing = (value: UnknownRecord): RealEstateListing => ({
 })
 
 /**
- * Construit une entité `Person` en validant les champs attendus.
- *
- * @param value Source brute contenant éventuellement `identifier`, `name`, `phone`, `email`.
- * @returns Objet `Person` avec les champs conformes ou `undefined`.
- */
-const toPerson = (value: UnknownRecord): Person => ({
-  identifier: getString(value.identifier),
-  name: getString(value.name, getString(value.identifier)),
-  phone: getString(value.phone),
-  email: getString(value.email),
-})
-
-/**
  * Normalise le bloc `offer` pour garantir un contrat stable côté UI.
  *
  * La fonction force notamment :
@@ -188,7 +172,7 @@ const buildIndex = <T>(
 /**
  * Génère tous les index utiles à partir des métadonnées et facilite la résolution des relations.
  *
- * @param metadata Métadonnées contenant les listes référentielles (categories, personnes, etc.).
+ * @param metadata Métadonnées contenant les listes référentielles (catégories, lieux, médias, etc.).
  * @returns Objet contenant les Maps prêtes à être utilisées par les mappers.
  */
 const buildIndexes = (metadata: AccommodationMetadata): AccommodationMetadataIndexes => ({
@@ -198,7 +182,6 @@ const buildIndexes = (metadata: AccommodationMetadata): AccommodationMetadataInd
   categories: buildIndex(metadata.categories ?? [], (item) => item.slug),
   places: buildIndex(metadata.places ?? [], (item) => item.slug),
   listings: buildIndex(metadata.listings ?? [], (item) => item.slug),
-  people: buildIndex(metadata.people ?? [], (item) => item.identifier),
   images: buildIndex(metadata.images ?? [], (item) => item.identifier),
 })
 
@@ -309,25 +292,6 @@ const mapListing = (
     return isRecord(value) ? toRealEstateListing(value) : { slug: '', name: '', isActive: false }
   }
   return indexes.listings.get(value) ?? { slug: value, name: value, isActive: false }
-}
-
-/**
- * Résout le champ `realEstateAgent` et normalise les données de contact.
- *
- * @param value Chaîne ou objet représentant un agent.
- * @param indexes Index des personnes disponibles.
- * @returns `Person` ou chaîne initiale si aucun objet n’est trouvé.
- */
-const mapRealEstateAgent = (
-  value: unknown,
-  indexes: AccommodationMetadataIndexes,
-): Accommodation['realEstateAgent'] => {
-  if (typeof value !== 'string') {
-    return isRecord(value) ? toPerson(value) : { identifier: '', name: '', phone: '', email: '' }
-  }
-
-  const lookup = indexes.people.get(value)
-  return lookup ?? { identifier: value, name: value, phone: '', email: '' }
 }
 
 /**
@@ -455,7 +419,6 @@ const mapAccommodationWithIndexes = (
     isActive: typeof record.isActive === 'boolean' ? record.isActive : false,
 
     tags: mapCategoryList(record.tags, indexes),
-    realEstateAgent: mapRealEstateAgent(record.realEstateAgent, indexes),
     metaTitle: getString(record.metaTitle, getString(record.name, getString(record.slug))),
     metaDescription: getString(record.metaDescription, getString(record.description)),
     slug: getString(record.slug, getString(record.identifier)),
@@ -464,7 +427,7 @@ const mapAccommodationWithIndexes = (
 
 /**
  * Enrichit un bien avec les collections référentielles (catégories, listings,
- * personnes, images) afin de transformer les slugs en objets complets et
+ * images) afin de transformer les slugs en objets complets et
  * d’unifier les champs métier utilisés dans l’UI.
  *
  * @param item Bien brut provenant d’un CMS ou d’un loader.

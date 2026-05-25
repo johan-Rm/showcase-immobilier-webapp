@@ -5,7 +5,6 @@ import type {
   AccommodationPlace,
   CategoryCode,
   MediaObject,
-  Person,
   RealEstateListing,
 } from '@schemas/interfaces'
 
@@ -20,7 +19,6 @@ type MetadataState = {
   accommodationPlaces: AccommodationPlace[]
   amenityFeatures: CategoryCode[]
   tags: CategoryCode[]
-  people: Person[]
   imageObjects: MediaObject[]
   irisMap: Record<string, Record<string, string>>
 }
@@ -35,7 +33,6 @@ export const useMetadataStore = defineStore('metadata', {
     accommodationPlaces: [],
     amenityFeatures: [],
     tags: [],
-    people: [],
     imageObjects: [],
     irisMap: {},
   }),
@@ -120,17 +117,6 @@ export const useMetadataStore = defineStore('metadata', {
      */
     getTags(state: MetadataState): CategoryCode[] {
       return state.tags
-    },
-
-    /**
-     * Retourne la liste des personnes (agents, contacts) chargées.
-     *
-     * @param state État contenant `people`.
-     *
-     * @returns Tableau de `Person` disponibles.
-     */
-    getPeople(state: MetadataState): Person[] {
-      return state.people
     },
 
     /**
@@ -275,17 +261,6 @@ export const useMetadataStore = defineStore('metadata', {
     },
 
     /**
-     * Charge la liste des personnes du metadata (agents, contacts).
-     *
-     * @param items Personnes à mémoriser.
-     *
-     * @returns `void`.
-     */
-    setPeople(items: Person[]): void {
-      this.people = Array.isArray(items) ? items : []
-    },
-
-    /**
      * Actualise les objets médias référencés.
      *
      * @param items Médias à conserver (images, vidéos).
@@ -336,7 +311,6 @@ export const useMetadataStore = defineStore('metadata', {
       this.accommodationPlaces = []
       this.amenityFeatures = []
       this.tags = []
-      this.people = []
       this.imageObjects = []
       this.irisMap = {}
     },
