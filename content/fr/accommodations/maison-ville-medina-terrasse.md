@@ -21,11 +21,11 @@ amenityFeature:
   - wifi
   - climatisation
 image:
-  - media-maison-terrasse-sidi-kaouki-sejour-01
+  - media-maison-terrasse-sidi-kaouki-sejour
   - media-maison-terrasse-sidi-kaouki-sejour-02
   - media-maison-terrasse-sidi-kaouki-sejour-03
 associatedMedia:
-  - image: media-maison-terrasse-sidi-kaouki-sejour-01
+  - image: media-maison-terrasse-sidi-kaouki-sejour
     caption: Maison Sidi Kaouki - vue mer
     keywords: [gallery]
   - image: media-maison-terrasse-sidi-kaouki-sejour-02
