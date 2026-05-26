@@ -1378,10 +1378,10 @@ items:
     url: /images/maison-jardin-campagne-essaouira-03.jpg
     source: unsplash
     mainEntity: ImageObject
-  - identifier: media-maison-terrasse-sidi-kaouki-sejour-01
+  - identifier: media-maison-terrasse-sidi-kaouki-sejour
     name: Maison Sidi Kaouki - vue mer
     caption: Vue mer et environnement côtier
-    url: /images/maison-terrasse-sidi-kaouki-sejour-01.jpg
+    url: /images/maison-terrasse-sidi-kaouki-sejour.jpg
     source: unsplash
     mainEntity: ImageObject
   - identifier: media-maison-terrasse-sidi-kaouki-sejour-02

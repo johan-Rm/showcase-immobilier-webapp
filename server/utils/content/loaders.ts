@@ -16,16 +16,23 @@ const FIXTURE_DATA_SOURCE_PROPERTY = 'dataSource'
 const FIXTURE_DATA_SOURCE_VALUE = 'fixture'
 
 const YAML_FILE_BY_RESOURCE: Partial<Record<ResourceKey, string>> = {
-  app: 'app.yaml',
-  'real-estate-listing': 'real-estate-listing.yaml',
-  'accommodation-category': 'accommodation-category.yaml',
-  'category-code': 'category-code.yaml',
-  'accommodation-place': 'accommodation-place.yaml',
-  'media-object': 'media-object.yaml',
-  'forms/accommodation': 'forms/accommodation.yaml',
+  app: 'ui/app.yaml',
+  'real-estate-listing': 'metadata/real-estate-listing.yaml',
+  'accommodation-category': 'metadata/accommodation-category.yaml',
+  'category-code': 'metadata/category-code.yaml',
+  'accommodation-place': 'metadata/accommodation-place.yaml',
+  'media-object': 'metadata/media-object.yaml',
+  'forms/accommodation': 'ui/forms/accommodation.yaml',
+  dashboard: 'ui/dashboard.yaml',
+  'ui/accommodation': 'ui/accommodation.yaml',
 }
 
-const YAML_OBJECT_RESOURCES = new Set<ResourceKey>(['app', 'forms/accommodation'])
+const YAML_OBJECT_RESOURCES = new Set<ResourceKey>([
+  'app',
+  'forms/accommodation',
+  'dashboard',
+  'ui/accommodation',
+])
 
 const MARKDOWN_DIR_BY_RESOURCE: Partial<Record<ResourceKey, string>> = {
   'web-pages': 'web-pages',
@@ -197,7 +204,7 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
   const contentRoot = resolveContentRoot()
   const directory = join(contentRoot, locale, 'accommodations')
   const includeFixtures = areAccommodationFixturesEnabled()
-  const placeFilePath = join(contentRoot, locale, 'accommodation-place.yaml')
+  const placeFilePath = join(contentRoot, locale, 'metadata/accommodation-place.yaml')
 
   const [dirFiles, placeRaw] = await Promise.all([
     readdir(directory),
