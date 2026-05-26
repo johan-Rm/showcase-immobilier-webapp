@@ -86,10 +86,10 @@ export async function mapToApiPlatform(
   const numberOfGarages = asNumber(fm.numberOfGarages)
   const occupancy = asNumber(fm.occupancy)
 
-  // floorSize et landArea : number dans Markdown, string dans Symfony
+  // landArea reste textuel dans Symfony pour accepter les surfaces composées.
   const floorSizeRaw = asNumber(fm.floorSize)
   const landAreaRaw = asNumber(fm.landArea)
-  const floorSize = floorSizeRaw !== null ? String(floorSizeRaw) : null
+  const floorSize = floorSizeRaw
   const landArea = landAreaRaw !== null ? String(landAreaRaw) : null
 
   // -- Offre ---------------------------------------------------------------

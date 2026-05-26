@@ -37,9 +37,6 @@ nginx/certs/*
 # /content/*
 # !/content/README.md
 
-# Schemas
-/schemas/interfaces/
-/schemas/dtos/
 
 # Nuxt 4 ref
 nuxt-4-reference

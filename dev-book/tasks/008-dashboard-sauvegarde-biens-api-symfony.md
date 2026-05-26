@@ -160,7 +160,7 @@ Transformations non triviales :
 | Champ frontmatter             | Champ Symfony               | Transformation                           |
 | ----------------------------- | --------------------------- | ---------------------------------------- |
 | `offer.price` (number)        | `offerPrice` (string)       | `String(value)`                          |
-| `floorSize` (number)          | `floorSize` (string)        | `String(value)`                          |
+| `floorSize` (number)          | `floorSize` (number)        | valeur directe                           |
 | `landArea` (number)           | `landArea` (string)         | `String(value)`                          |
 | `category` (code)             | `category` (IRI)            | lookup `accommodation-type`              |
 | `realEstateListing` (code)    | `realEstateListing` (IRI)   | lookup `real-estate-listing`             |

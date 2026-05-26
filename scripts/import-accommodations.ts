@@ -265,7 +265,7 @@ function buildPayload(
     if (v !== null) payload[field] = v
   }
 
-  if (floorSizeRaw !== null) payload.floorSize = String(floorSizeRaw)
+  if (floorSizeRaw !== null) payload.floorSize = floorSizeRaw
   if (landAreaRaw !== null) payload.landArea = String(landAreaRaw)
   if (offerPrice !== null) payload.offerPrice = offerPrice
   if (offer && asString(offer.priceCurrency))
