@@ -1,5 +1,6 @@
 import type { AccommodationForm } from '#shared/types/accommodationForm'
-import type { App } from '#shared/types/app'
+import type { App, AppAccommodation } from '#shared/types/app'
+import type { DashboardContent } from '#shared/types/dashboard'
 import type {
   AccommodationCategory,
   AccommodationPlace,
@@ -13,6 +14,8 @@ import { defineStore } from 'pinia'
 type MetadataState = {
   app: App | null
   accommodationForm: AccommodationForm | null
+  dashboardContent: DashboardContent | null
+  accommodationUi: AppAccommodation | null
   realEstateListings: RealEstateListing[]
   accommodationCategories: AccommodationCategory[]
   categoryCodes: CategoryCode[]
@@ -27,6 +30,8 @@ export const useMetadataStore = defineStore('metadata', {
   state: (): MetadataState => ({
     app: null,
     accommodationForm: null,
+    dashboardContent: null,
+    accommodationUi: null,
     realEstateListings: [],
     accommodationCategories: [],
     categoryCodes: [],
@@ -58,6 +63,14 @@ export const useMetadataStore = defineStore('metadata', {
      */
     getAccommodationForm(state: MetadataState): AccommodationForm | null {
       return state.accommodationForm
+    },
+
+    getDashboardContent(state: MetadataState): DashboardContent | null {
+      return state.dashboardContent
+    },
+
+    getAccommodationUi(state: MetadataState): AppAccommodation | null {
+      return state.accommodationUi
     },
 
     getAccommodationRealEstateListings(state: MetadataState): RealEstateListing[] {
@@ -201,6 +214,14 @@ export const useMetadataStore = defineStore('metadata', {
       this.accommodationForm = item && typeof item === 'object' ? item : null
     },
 
+    setDashboardContent(item: DashboardContent | null): void {
+      this.dashboardContent = item && typeof item === 'object' ? item : null
+    },
+
+    setAccommodationUi(item: AppAccommodation | null): void {
+      this.accommodationUi = item && typeof item === 'object' ? item : null
+    },
+
     setAccommodationRealEstateListings(items: RealEstateListing[]): void {
       this.realEstateListings = Array.isArray(items) ? items : []
     },
@@ -305,6 +326,8 @@ export const useMetadataStore = defineStore('metadata', {
     reset(): void {
       this.app = null
       this.accommodationForm = null
+      this.dashboardContent = null
+      this.accommodationUi = null
       this.realEstateListings = []
       this.accommodationCategories = []
       this.categoryCodes = []

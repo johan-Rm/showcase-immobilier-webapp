@@ -38,7 +38,7 @@ import { useDashboardAccommodations } from '~/composables/dashboard/useDashboard
 
 // 4. Composables, stores, routeur
 const { loggedIn, clear, fetch, user } = useUserSession()
-const { loadAccommodationForm, loadDashboardCategoryCodes } = useMetadata()
+const { loadAccommodationForm, loadDashboardContent, loadDashboardCategoryCodes } = useMetadata()
 
 // 5. Etat local
 const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')
@@ -61,7 +61,7 @@ dashboardHeroImageUrl.value =
 
 // Données non-critiques : un échec ne doit pas bloquer l'accès au dashboard.
 try {
-  await Promise.all([loadAccommodationForm(), loadDashboardCategoryCodes()])
+  await Promise.all([loadAccommodationForm(), loadDashboardContent(), loadDashboardCategoryCodes()])
 } catch {
   // silencieux : les labels du formulaire ont des fallbacks dans PropertyEditorPanel
 }

@@ -116,7 +116,6 @@ export type AppAccommodation = {
 }
 
 export type App = {
-  accommodation?: AppAccommodation
   components?: AppComponents
   footer?: AppFooter
   navigation: AppNavigation

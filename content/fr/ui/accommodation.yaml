@@ -1,0 +1,23 @@
+labels:
+  bathrooms: Salles de bain
+  bedrooms: Chambres
+  garages: Garages
+  level: Niveau
+  price: Prix
+  propertyReference: Référence
+  propertyStatus: Nature du bien
+  propertyType: Type de bien
+  rooms: Pièces
+  surface: Surface
+  surfaceHabitable: Surface habitable
+  surfaceTerrain: Surface terrain
+sections:
+  details: Détails
+  detailsSummary: Détails résumé
+  location: Emplacement
+  review: Notre avis
+  visitGuide: Description
+  wellness: Éléments de confort
+texts:
+  noImageAvailable: Aucune image disponible
+  propertyVisual: Visuel du bien

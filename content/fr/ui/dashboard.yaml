@@ -1,0 +1,26 @@
+sidebar:
+editor:
+  panel:
+    close: Fermer l'éditeur
+    editTitle: Modifier le nom du bien
+    editionNote: Edition locale — sauvegarde non disponible
+    propertyActions: Actions sur le bien
+    content:
+      reset: Réinitialiser
+      blockActions: Actions
+      addQuality: Ajouter une qualité
+      sections:
+        classement: Classement
+        avis: Notre avis
+        details: Détails
+        confort: Éléments de confort
+        qualites: Qualités
+        seo: SEO
+        meta: Meta
+      blocks:
+        body: Description
+        frontmatter: Caractéristiques
+        associatedMedia: Médias associés
+    media:
+      blocks:
+        images: Images

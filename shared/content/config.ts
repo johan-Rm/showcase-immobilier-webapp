@@ -12,6 +12,8 @@ export const CONTENT_RESOURCES = [
   'media-object',
   'accommodations',
   'forms/accommodation',
+  'dashboard',
+  'ui/accommodation',
 ] as const satisfies readonly ResourceKey[]
 
 export const isResourceKey = (value: string): value is ResourceKey =>

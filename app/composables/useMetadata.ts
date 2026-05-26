@@ -1,5 +1,6 @@
 import type { AccommodationForm } from '#shared/types/accommodationForm'
-import type { App } from '#shared/types/app'
+import type { App, AppAccommodation } from '#shared/types/app'
+import type { DashboardContent } from '#shared/types/dashboard'
 import type {
   AccommodationCategory,
   AccommodationPlace,
@@ -14,6 +15,8 @@ import { loadContentResource } from '~/utils/loadContentResource'
 type UseMetadataReturn = {
   loadApp: () => Promise<void>
   loadAccommodationForm: () => Promise<void>
+  loadDashboardContent: () => Promise<void>
+  loadAccommodationUi: () => Promise<void>
   loadAllMetadata: () => Promise<void>
   loadRealEstateListings: () => Promise<void>
   loadAccommodationCategories: () => Promise<void>
@@ -38,6 +41,16 @@ export const useMetadata = (): UseMetadataReturn => {
       localeSetting.value,
     )
     store.setAccommodationForm(formData)
+  }
+
+  const loadDashboardContent = async (): Promise<void> => {
+    const data = await loadContentResource<DashboardContent>('dashboard', localeSetting.value)
+    store.setDashboardContent(data)
+  }
+
+  const loadAccommodationUi = async (): Promise<void> => {
+    const data = await loadContentResource<AppAccommodation>('ui/accommodation', localeSetting.value)
+    store.setAccommodationUi(data)
   }
 
   const loadRealEstateListings = async (): Promise<void> => {
@@ -94,6 +107,7 @@ export const useMetadata = (): UseMetadataReturn => {
   const loadAllMetadata = async (): Promise<void> => {
     await Promise.all([
       loadApp(),
+      loadAccommodationUi(),
       loadRealEstateListings(),
       loadAccommodationCategories(),
       loadCategoryCodes(),
@@ -105,6 +119,8 @@ export const useMetadata = (): UseMetadataReturn => {
   return {
     loadApp,
     loadAccommodationForm,
+    loadDashboardContent,
+    loadAccommodationUi,
     loadAllMetadata,
     loadRealEstateListings,
     loadAccommodationCategories,

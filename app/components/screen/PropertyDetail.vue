@@ -233,7 +233,7 @@ const props = defineProps<{ slug: string }>()
 
 // 4. Composables, stores, routeur
 const store = useAccommodationStore()
-const { appData, locale } = useApp()
+const { appData, accommodationUi, locale } = useApp()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { screenStatus, setScreenMeta } = useScreenSystem()
 const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')
@@ -407,26 +407,26 @@ const listingLabel = computed(() => getEntityLabel(property.value?.realEstateLis
 const categoryLabel = computed(() => getEntityLabel(property.value?.category))
 
 const accommodationLabels = computed(() => ({
-  bathrooms: appData.value?.accommodation?.labels.bathrooms ?? 'Bathrooms',
-  bedrooms: appData.value?.accommodation?.labels.bedrooms ?? 'Bedrooms',
-  garages: appData.value?.accommodation?.labels.garages ?? 'Garages',
-  price: appData.value?.accommodation?.labels.price ?? 'Price',
-  propertyReference: appData.value?.accommodation?.labels.propertyReference ?? 'Reference',
-  propertyStatus: appData.value?.accommodation?.labels.propertyStatus ?? 'Property status',
-  propertyType: appData.value?.accommodation?.labels.propertyType ?? 'Property type',
-  rooms: appData.value?.accommodation?.labels.rooms ?? 'Rooms',
-  surface: appData.value?.accommodation?.labels.surface ?? 'Surface',
-  surfaceHabitable: appData.value?.accommodation?.labels.surfaceHabitable ?? 'Living area',
-  surfaceTerrain: appData.value?.accommodation?.labels.surfaceTerrain ?? 'Land area',
+  bathrooms: accommodationUi.value?.labels.bathrooms ?? 'Bathrooms',
+  bedrooms: accommodationUi.value?.labels.bedrooms ?? 'Bedrooms',
+  garages: accommodationUi.value?.labels.garages ?? 'Garages',
+  price: accommodationUi.value?.labels.price ?? 'Price',
+  propertyReference: accommodationUi.value?.labels.propertyReference ?? 'Reference',
+  propertyStatus: accommodationUi.value?.labels.propertyStatus ?? 'Property status',
+  propertyType: accommodationUi.value?.labels.propertyType ?? 'Property type',
+  rooms: accommodationUi.value?.labels.rooms ?? 'Rooms',
+  surface: accommodationUi.value?.labels.surface ?? 'Surface',
+  surfaceHabitable: accommodationUi.value?.labels.surfaceHabitable ?? 'Living area',
+  surfaceTerrain: accommodationUi.value?.labels.surfaceTerrain ?? 'Land area',
 }))
 
 const accommodationSections = computed(() => ({
-  details: appData.value?.accommodation?.sections.details ?? 'Details',
-  detailsSummary: appData.value?.accommodation?.sections.detailsSummary ?? 'Summary details',
-  location: appData.value?.accommodation?.sections.location ?? 'Location',
-  review: appData.value?.accommodation?.sections.review ?? 'Our view',
-  visitGuide: appData.value?.accommodation?.sections.visitGuide ?? 'Guided tour / Description',
-  wellness: appData.value?.accommodation?.sections.wellness ?? 'Comfort features',
+  details: accommodationUi.value?.sections.details ?? 'Details',
+  detailsSummary: accommodationUi.value?.sections.detailsSummary ?? 'Summary details',
+  location: accommodationUi.value?.sections.location ?? 'Location',
+  review: accommodationUi.value?.sections.review ?? 'Our view',
+  visitGuide: accommodationUi.value?.sections.visitGuide ?? 'Guided tour / Description',
+  wellness: accommodationUi.value?.sections.wellness ?? 'Comfort features',
 }))
 const detailSectionLabels = computed(() => ({
   visitGuide: accommodationSections.value.visitGuide,
@@ -436,8 +436,8 @@ const detailSectionLabels = computed(() => ({
 }))
 
 const accommodationTexts = computed(() => ({
-  noImageAvailable: appData.value?.accommodation?.texts.noImageAvailable ?? 'No image available',
-  propertyVisual: appData.value?.accommodation?.texts.propertyVisual ?? 'Property visual',
+  noImageAvailable: accommodationUi.value?.texts.noImageAvailable ?? 'No image available',
+  propertyVisual: accommodationUi.value?.texts.propertyVisual ?? 'Property visual',
 }))
 
 const summaryItems = computed(() => [

@@ -1,4 +1,4 @@
-import type { App } from '#shared/types/app'
+import type { App, AppAccommodation } from '#shared/types/app'
 import type { DashboardAccommodationsResponse } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 import type { ComputedRef, Ref } from 'vue'
@@ -14,6 +14,7 @@ import { computed } from 'vue'
 type UseAppReturn = {
   locale: Ref<LocaleCode>
   appData: ComputedRef<App | null>
+  accommodationUi: ComputedRef<AppAccommodation | null>
   loadApp: () => Promise<void>
   getApp: () => App | null
   isLandingShellVisible: ComputedRef<boolean>
@@ -43,6 +44,7 @@ export const useApp = (): UseAppReturn => {
   const store = useMetadataStore()
   const locale = computed(() => localeSetting.value)
   const appData = computed<App | null>(() => store.getApp)
+  const accommodationUi = computed<AppAccommodation | null>(() => store.getAccommodationUi)
 
   const { initCoreDataStatus } = useNuxtServerInit()
   const { loggedIn } = useUserSession()
@@ -119,6 +121,7 @@ export const useApp = (): UseAppReturn => {
   return {
     locale,
     appData,
+    accommodationUi,
     loadApp,
     getApp,
     isLandingShellVisible,

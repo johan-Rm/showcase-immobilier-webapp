@@ -46,11 +46,6 @@
                 :model-value="getFieldValue(field.key, field.default)"
                 @update:model-value="emit('update-field', field.key, $event)"
               />
-              <DashboardAmenitySelector
-                v-else-if="field.type === 'amenity'"
-                :model-value="getFieldValue(field.key, field.default)"
-                @update:model-value="emit('update-field', field.key, $event)"
-              />
               <DashboardQualitiesEditor
                 v-else-if="field.type === 'qualities'"
                 :model-value="getFieldValue(field.key, field.default)"
@@ -118,7 +113,7 @@ type FieldConfig = {
   readonly?: boolean
   default?: DashboardEditableValue
   half?: boolean
-  type?: 'offer' | 'amenity' | 'qualities' | 'category-code' | 'category-code-multi'
+  type?: 'offer' | 'qualities' | 'category-code' | 'category-code-multi'
   inCodeSet?: string
   separator?: boolean
   showLabel?: boolean
@@ -148,10 +143,12 @@ const emit = defineEmits<{
 
 const metadataStore = useMetadataStore()
 const accommodationForm = computed(() => metadataStore.getAccommodationForm)
+const dashboardContent = computed(() => metadataStore.getDashboardContent)
 
 const frontmatterSections = computed<FrontmatterSection[]>(() => {
   const form = accommodationForm.value
-  const s = (k: string, fb: string) => form?.sections[k] ?? fb
+  const panel = dashboardContent.value?.editor.panel.content
+  const s = (k: string, fb: string) => panel?.sections[k] ?? fb
   const f = (k: string, fb: string) => form?.fields[k] ?? fb
   return [
     {
@@ -217,9 +214,9 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       label: s('details', 'Détails'),
       fields: [
         { key: 'floorSize', label: f('floorSize', 'Surface habitable'), default: null, half: true },
-        { key: 'areaSize', label: f('areaSize', 'Surface totale'), default: 0, half: true },
+        { key: 'areaSize', label: f('areaSize', 'Surface totale'), default: '', half: true },
         { key: 'landArea', label: f('landArea', 'Surface terrain'), default: null, half: true },
-        { key: 'areaTerrace', label: f('areaTerrace', 'Terrasse'), default: 0, half: true },
+        { key: 'areaTerrace', label: f('areaTerrace', 'Terrasse'), default: '', half: true },
         {
           key: 'numberOfBedrooms',
           label: f('numberOfBedrooms', 'Chambres'),
@@ -272,24 +269,24 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
 })
 
 const contentBlocks = computed<Block[]>(() => {
-  const form = accommodationForm.value
-  const resetLabel = form?.ui['reset'] ?? 'Réinitialiser'
+  const panel = dashboardContent.value?.editor.panel.content
+  const resetLabel = panel?.reset ?? 'Réinitialiser'
   return [
     {
       id: 'body',
-      label: form?.blocks['body'] ?? 'Description',
+      label: panel?.blocks['body'] ?? 'Description',
       icon: 'i-lucide-file-text',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
     },
     {
       id: 'frontmatter',
-      label: form?.blocks['frontmatter'] ?? 'Caractéristiques',
+      label: panel?.blocks['frontmatter'] ?? 'Caractéristiques',
       icon: 'i-lucide-file-code',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
     },
     {
       id: 'associated-media',
-      label: form?.blocks['associatedMedia'] ?? 'Médias associés',
+      label: panel?.blocks['associatedMedia'] ?? 'Médias associés',
       icon: 'i-lucide-files',
       actions: [],
     },

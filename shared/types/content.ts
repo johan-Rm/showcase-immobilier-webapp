@@ -10,3 +10,5 @@ export type ResourceKey =
   | 'media-object'
   | 'accommodations'
   | 'forms/accommodation'
+  | 'dashboard'
+  | 'ui/accommodation'
