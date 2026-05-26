@@ -1,19 +1,16 @@
 ---
-id: 14
+identifier: 14
 slug: 'essaouira-le-joyau-authentique'
 inLanguage: 'fr'
 metaTitle: 'Essaouira, le joyau authentique de la côte atlantique'
 metaDescription: "Découvrez Essaouira, perle de la côte atlantique marocaine : art de vivre, patrimoine, nature et opportunités d’investissement et de location saisonnière."
 headline: 'Essaouira, le joyau authentique'
 alternativeHeadline: 'Une perle intemporelle entre océan, culture et douceur de vivre'
-image:
+associatedMedia:
   - 'd50b499d-0525-4ef8-b1fe-34945794e768'
 highlight: 'Un art de vivre préservé, entre tradition marocaine et horizons atlantiques'
-articleSection: 'essaouira'
-keywords:
-  - 'essaouira'
-  - 'investissement'
-  - 'gestion-locative'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'

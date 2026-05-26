@@ -20,10 +20,6 @@ amenityFeature:
   - patio
   - spa
   - toit-terrasse
-image:
-  - media-riad-patio-spa-medina-01
-  - media-riad-patio-spa-medina-02
-  - media-riad-patio-spa-medina-03
 associatedMedia:
   - image: media-riad-patio-spa-medina-01
     caption: Riad spa médina - patio

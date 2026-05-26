@@ -17,7 +17,6 @@
           :expanded-blocks="expandedBlocks"
           :title-value="titleDraftValue"
           :associated-media-value="associatedMediaValue"
-          :media-image-value="mediaImageValue"
           :property-menu-items="propertyMenuItems"
           show-close
           @update:active-section="activeSection = $event"
@@ -27,7 +26,6 @@
           @update-field="updateField"
           @update-body="updateBody"
           @update-associated-media="updateAssociatedMedia"
-          @update-media-image="updateMediaImage"
         />
 
         <!-- Barre de sauvegarde -->
@@ -268,10 +266,6 @@ const associatedMediaValue = computed<DashboardEditableValue>(
   () => activeDraft.value?.frontmatter.associatedMedia ?? [],
 )
 
-const mediaImageValue = computed<DashboardEditableValue>(
-  () => activeDraft.value?.frontmatter.image ?? [],
-)
-
 const isActiveValue = computed<boolean>(() =>
   Boolean(getNestedValue(activeDraft.value?.frontmatter ?? {}, 'isActive')),
 )
@@ -342,11 +336,6 @@ const updateBody = (value: string): void => {
 const updateAssociatedMedia = (value: DashboardEditableValue): void => {
   if (!drafts.value) return
   drafts.value[activeLocale.value].frontmatter.associatedMedia = cloneEditableValue(value)
-}
-
-const updateMediaImage = (value: DashboardEditableValue): void => {
-  if (!drafts.value) return
-  drafts.value[activeLocale.value].frontmatter.image = cloneEditableValue(value)
 }
 
 const toTranslationValue = (

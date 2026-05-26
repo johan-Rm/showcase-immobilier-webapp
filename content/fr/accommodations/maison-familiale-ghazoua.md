@@ -20,10 +20,6 @@ amenityFeature:
   - jardin
   - parking
   - climatisation
-image:
-  - media-maison-familiale-ghazoua-02
-  - media-maison-de-ville-sidi-kaouki-03
-  - media-villa-contemporaine-route-agadir-01
 associatedMedia:
   - image: media-maison-familiale-ghazoua-02
     caption: Maison familiale Ghazoua - espace de vie

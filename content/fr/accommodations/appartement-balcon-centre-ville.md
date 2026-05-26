@@ -20,10 +20,6 @@ amenityFeature:
   - balcon
   - climatisation
   - wifi
-image:
-  - media-appartement-balcon-centre-ville-01
-  - media-appartement-balcon-centre-ville-02
-  - media-appartement-balcon-centre-ville-03
 associatedMedia:
   - image: media-appartement-balcon-centre-ville-01
     caption: Appartement centre-ville - séjour lumineux

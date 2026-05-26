@@ -21,10 +21,6 @@ amenityFeature:
   - piscine
   - jardin
   - garage
-image:
-  - media-villa-golf-jardin-mogador-01
-  - media-villa-golf-jardin-mogador-02
-  - media-villa-golf-jardin-mogador-03
 associatedMedia:
   - image: media-villa-golf-jardin-mogador-01
     caption: Villa golf Mogador - jardin

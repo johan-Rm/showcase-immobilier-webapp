@@ -1,7 +1,8 @@
 ---
-identifier: BAVA003
+identifier: FBAVA004
 name: Marina apartment with terrace
-description: 78 sqm - 1 bedroom - terrace
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
 offer:
   price: 145000
@@ -17,87 +18,54 @@ numberOfBedrooms: 1
 numberOfBathroomsTotal: 1
 occupancy: 2
 amenityFeature:
-  - terrasse
-  - ascenseur
+  - terrace
+  - lift
   - parking
-image:
-  - 0404ee56-ee75-468e-819f-0fd607d0a523
-  - 8dac214d-8cc7-44f5-9bd5-4dc63048814d
-  - 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-  - 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
 associatedMedia:
-  - image: 0404ee56-ee75-468e-819f-0fd607d0a523
-    caption: Marina apartment with terrace
+  - image: media-appartement-marina-essaouira-02
+    caption: Marina Essaouira apartment - bright interior
     keywords: [gallery]
-  - image: 8dac214d-8cc7-44f5-9bd5-4dc63048814d
-    caption: Bright apartment with terrace
+  - image: media-appartement-marina-essaouira-03
+    caption: Marina Essaouira apartment - living room
     keywords: [gallery]
-  - image: 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-    caption: Soft coastal horizon
-    keywords: [gallery]
-  - image: 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
-    caption: Aerial oceanfront view
+  - image: media-appartement-marina-terrasse-filante-01
+    caption: Marina Essaouira apartment - terrace
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 78
 areaTerrace: 12
 isActive: true
-tags:
-  - marina
-  - terrasse
-  - parking
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
 metaTitle: 78 sqm marina apartment with terrace
-metaDescription: 78 sqm apartment in the marina, with 1 bedroom, terrace and parking.
-slug: appartement-marina-essaouira
-highlight: A bright pied-a-terre in the marina
+metaDescription: 78 sqm apartment at the marina, 1 bedroom, terrace and parking.
+slug: appartement-marina-avec-terrasse-marina-bava004
+highlight: A bright pied-à-terre at the marina
+inLanguage: 'en'
 review: |
-  A compact and attractive property, with genuine ease of use thanks to the terrace and parking.
-  The marina setting provides a reassuring and legible environment for personal use or seasonal rental.
-blockquote: |
-  A marina apartment that is easy to enjoy, with terrace, light and smooth walkable access.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Contemporary marina residence, just a short walk from promenades, shops and open coastal views.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Comfortable and well-proportioned bedroom, suited to longer stays or seasonal use.
-  entrance:
-    isEnabled: true
-    texts:
-      - Simple and reassuring access in a clear and easy-to-use environment.
-  living:
-    isEnabled: true
-    texts:
-      - Bright living room opening onto the terrace, with a light and relaxed atmosphere.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Compact and efficient kitchen, suited to everyday use or a pied-a-terre.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Contemporary bathroom, easy to maintain and consistent with the property's positioning.
+  A compact and rewarding property, with genuine practical value thanks to the terrace and parking.
+  The marina offers a reassuring and legible setting for personal occupation or seasonal rental.
 ---
+
 ## Guided tour
 
-A marina apartment built around light, terrace living and everyday ease.
+A marina apartment that prioritises light, the terrace and ease of living.
 
-### A clear pied-a-terre in a reassuring setting
+### A legible pied-à-terre in a reassuring environment
 
-The living area opens naturally toward the outside, making the property feel larger than its floor area alone suggests. The terrace becomes a genuine extension of use here: breakfast outside, a relaxed end of day or simply more comfort in everyday life.
+The living room opens naturally towards the outside, giving the property a more expansive feel than its area alone would suggest. The terrace becomes a true extension of use: breakfast outdoors, end of day in the fresh air or simple everyday comfort.
 
-The plan stays compact and efficient. One well-sized bedroom, one low-maintenance bathroom and parking all reinforce usability in a district valued for its convenience.
+The plan remains compact and efficient. A well-proportioned bedroom, a bathroom that is easy to maintain and parking that enhances practical value in a sector sought after for its ease of flow.
 
-The marina speaks to buyers who want an orderly environment, an easy address to navigate and immediate access to the waterfront promenades. That makes this a relevant listing for personal use as well as seasonal rental.
+The marina appeals to buyers who want an orderly setting, an easy address to use and immediate access to walks and the coastline. This makes it a relevant listing for personal use as well as a seasonal rental strategy.
 
-## Overview
+## Description
 
-- Interior area: 78 sqm
-- Outdoor space: 12 sqm terrace
-- Layout: 1 bedroom, 1 bathroom
+- Announced interior area: 78 sqm
+- Exterior: 12 sqm terrace
+- Configuration: 1 bedroom, 1 shower room
 - Practical assets: lift, parking, walkable access to shops
-- Potential use: pied-a-terre, seasonal rental, second home
+- Possible use: pied-à-terre, seasonal rental, secondary residence

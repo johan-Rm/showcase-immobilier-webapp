@@ -1,7 +1,8 @@
 ---
-identifier: BAVA001
+identifier: FBAVA001
 name: Studio apartment in the medina
-description: 64 sqm - 1 bedroom - studio layout
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
 offer:
   price: 125000
@@ -10,6 +11,7 @@ offer:
 yearBuilt: 1998
 place: medina
 floorSize: 64
+level: 1
 numberOfRooms: 2
 landArea: 0
 numberOfGarages: 0
@@ -21,85 +23,51 @@ amenityFeature:
   - Natural light
   - Mezzanine
   - Close to shops
-image:
-  - 34a22ae5-6e23-4a10-aeab-96d27177b192
-  - 6f968161-16e7-4470-bb12-444cf6a0d0ca
-  - d6c6c658-183d-4349-ae2d-d72a61e4d29e
-  - 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
 associatedMedia:
-  - image: 34a22ae5-6e23-4a10-aeab-96d27177b192
-    caption: Studio apartment in the medina
+  - image: media-appartement-atelier-medina-01
+    caption: Studio apartment in the medina - bright living room
     keywords: [gallery]
-  - image: 6f968161-16e7-4470-bb12-444cf6a0d0ca
-    caption: Interior atmosphere in the medina
+  - image: media-appartement-atelier-medina-02
+    caption: Studio apartment in the medina - natural interior
     keywords: [gallery]
-  - image: d6c6c658-183d-4349-ae2d-d72a61e4d29e
-    caption: Bright living area
-    keywords: [gallery]
-  - image: 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
-    caption: Calm and welcoming sleeping area
+  - image: media-appartement-atelier-medina-03
+    caption: Studio apartment in the medina - bedroom
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 64
 areaTerrace: null
 isActive: true
-tags:
-  - medina
-  - atelier
-  - mezzanine
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: fa37320c-5f32-4b10-a32a-2be43bdcc308
-metaTitle: 64 sqm studio apartment in the medina
-metaDescription: Studio apartment in the medina, 1 bedroom, mezzanine and abundant natural light.
-slug: appartement-atelier-medina
+metaTitle: Studio apartment 64 sqm in the medina
+metaDescription: Studio apartment in the medina, 1 bedroom, mezzanine and beautiful natural light.
+slug: appartement-atelier-en-medina-medina-bava001
 review: |
-  A rare studio apartment in the medina, designed for residential, creative or rental use.
-  Its mezzanine, generous ceiling height and natural light give it real character and make projection easy.
-highlight: A rare property in the heart of the medina
-blockquote: |
-  A character apartment in the medina, with a mezzanine and an unusual volume,
-  ideal as an inspiring pied-a-terre or a distinctive rental investment.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Discrete facade in the medina, within immediate reach of lively streets and daily amenities.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Comfortable bedroom with storage, suitable for a pied-a-terre or a primary residence.
-  entrance:
-    isEnabled: true
-    texts:
-      - Simple and functional entrance, in keeping with the authentic character of the old medina buildings.
-  living:
-    isEnabled: true
-    texts:
-      - Bright living area with generous ceiling height and flexible layout potential.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Compact and practical kitchen, suited to everyday use or a rental setup.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Simple and efficient shower room, easy to maintain on a daily basis.
+  A rare studio apartment in the medina, conceived for residential, creative or rental use.
+  Its mezzanine, high ceilings and natural light make it a property with character, easy to envision.
+highlight: A rare property at the heart of the medina
+label: Editor's pick
+inLanguage: 'en'
 ---
 ## Guided tour
 
-An apartment-studio that feels different from the usual medina stock.
+An apartment-studio that steps outside the standard medina framework.
 
-### An unusual volume for living, creating or hosting
+### An atypical volume for living, creating or entertaining
 
-From the entrance, the property stands out through its generous ceiling height, which immediately creates a stronger sense of space. The mezzanine adds real flexibility: sleeping area, reading corner, office or small studio depending on the project.
+From the entrance, the property stands out for its high ceilings, which immediately create a sense of space. The mezzanine adds genuine depth of use: sleeping area, reading nook, office or small studio depending on the project.
 
-The main room benefits from pleasant natural light for a property in the historic core. The overall feel stays simple, yet distinctive enough to appeal to buyers looking for something less conventional.
+The main room benefits from pleasant natural light for this type of address in the historic heart. The whole retains a simple spirit, but singular enough to speak to buyers who want something other than a conventional apartment.
 
-The layout is easy to understand and easy to furnish. It can suit a characterful pied-a-terre, a part-time residence or a rental product with a stronger identity than average.
+The layout remains easy to understand and furnish. One can imagine a characterful pied-à-terre, a part-time residence or a rental property with a stronger identity than average.
 
-## Overview
+## Description
 
-- Interior area: 64 sqm
-- Layout: 1 bedroom, 1 bathroom, mezzanine
-- Atmosphere: open volume, natural light, studio feel
-- Potential use: residence, pied-a-terre, charming rental, light creative use
-- Watchpoint: a character property better suited to a targeted project than to standard family use
+- Announced interior area: 64 sqm
+- Configuration: 1 bedroom, 1 shower room, mezzanine
+- Atmosphere: open volume, natural light, studio spirit
+- Possible use: residence, pied-à-terre, boutique rental, light creative activity
+- Note: a property with character, more appealing for a targeted project than for a conventional family setup

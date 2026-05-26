@@ -1,7 +1,8 @@
 ---
-identifier: BAVA003
+identifier: FBAVA004
 name: Apartamento en la marina con terraza
-description: 78 m2 - 1 dormitorio - terraza
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
 offer:
   price: 145000
@@ -17,87 +18,54 @@ numberOfBedrooms: 1
 numberOfBathroomsTotal: 1
 occupancy: 2
 amenityFeature:
-  - terrasse
-  - ascenseur
-  - parking
-image:
-  - 0404ee56-ee75-468e-819f-0fd607d0a523
-  - 8dac214d-8cc7-44f5-9bd5-4dc63048814d
-  - 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-  - 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
+  - terraza
+  - ascensor
+  - aparcamiento
 associatedMedia:
-  - image: 0404ee56-ee75-468e-819f-0fd607d0a523
-    caption: Apartamento en la marina con terraza
+  - image: media-appartement-marina-essaouira-02
+    caption: Apartamento marina Essaouira - interior luminoso
     keywords: [gallery]
-  - image: 8dac214d-8cc7-44f5-9bd5-4dc63048814d
-    caption: Apartamento luminoso con terraza
+  - image: media-appartement-marina-essaouira-03
+    caption: Apartamento marina Essaouira - sala de estar
     keywords: [gallery]
-  - image: 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-    caption: Horizonte costero en luz suave
-    keywords: [gallery]
-  - image: 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
-    caption: Vista aerea de la costa oceanica
+  - image: media-appartement-marina-terrasse-filante-01
+    caption: Apartamento marina Essaouira - terraza
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 78
 areaTerrace: 12
 isActive: true
-tags:
-  - marina
-  - terrasse
-  - parking
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 2d4f73a6-cdaa-4afe-aa5d-f9e8d5a94ef0
-metaTitle: Apartamento de 78 m2 en la marina con terraza
-metaDescription: Apartamento de 78 m2 en la marina, con 1 dormitorio, terraza y aparcamiento.
-slug: appartement-marina-essaouira
-highlight: Un pied-a-terre luminoso en la marina
+metaTitle: Apartamento marina 78 m2 con terraza
+metaDescription: Apartamento de 78 m2 en la marina, 1 dormitorio, terraza y aparcamiento.
+slug: appartement-marina-avec-terrasse-marina-bava004
+highlight: Un pied-à-terre luminoso en la marina
+inLanguage: 'es'
 review: |
-  Un bien compacto y atractivo, con una verdadera calidad de uso gracias a la terraza y al aparcamiento.
-  El entorno de la marina aporta un marco claro y tranquilizador para uso personal o alquiler vacacional.
-blockquote: |
-  Un apartamento de marina facil de disfrutar, con terraza, luz y acceso comodo a pie.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Residencia contemporanea en la marina, a pocos pasos de paseos, comercios y vistas abiertas al litoral.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Dormitorio comodo y bien proporcionado, adaptado a estancias largas o uso estacional.
-  entrance:
-    isEnabled: true
-    texts:
-      - Acceso sencillo y tranquilizador en un entorno claro y facil de usar.
-  living:
-    isEnabled: true
-    texts:
-      - Espacio de vida luminoso abierto a la terraza, con una atmosfera clara y relajada.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina compacta y eficaz, adaptada al uso diario o a un pied-a-terre.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bano contemporaneo, facil de mantener y coherente con el posicionamiento del bien.
+  Un bien compacto y valorizado, con una verdadera calidad de uso gracias a la terraza y al aparcamiento.
+  La marina ofrece un entorno tranquilizador y legible para uso personal o alquiler vacacional.
 ---
+
 ## Visita guiada
 
-Un apartamento en la marina que apuesta por la luz, la terraza y la facilidad de uso.
+Un apartamento de marina que prioriza la luz, la terraza y la facilidad de vida.
 
-### Un pied-a-terre claro en un entorno tranquilizador
+### Un pied-à-terre legible en un entorno tranquilizador
 
-La zona de estar se abre de forma natural hacia el exterior, lo que hace que la vivienda parezca mas amplia de lo que su superficie deja intuir. La terraza se convierte aqui en una verdadera prolongacion del uso diario.
+La sala de estar se abre naturalmente hacia el exterior, lo que da al bien una sensación más amplia que su superficie sola. La terraza se convierte aquí en una verdadera extensión de uso: desayuno al aire libre, fin del día fuera o simple comodidad cotidiana.
 
-La planta sigue siendo compacta y eficaz. Un dormitorio bien dimensionado, un bano facil de mantener y aparcamiento refuerzan el valor de uso en un sector apreciado por su comodidad.
+El plano sigue siendo compacto y eficiente. Un dormitorio bien proporcionado, un cuarto de baño fácil de mantener y un aparcamiento que refuerza el valor de uso en un sector buscado por su fluidez.
 
-La marina atrae a una clientela que busca un entorno ordenado, una direccion facil de recorrer y acceso inmediato al paseo maritimo. Por eso esta ficha funciona bien tanto para uso personal como para alquiler estacional.
+La marina atrae a compradores que quieren un entorno ordenado, una dirección fácil de usar y un acceso inmediato a los paseos y al litoral. Esto lo convierte en un anuncio pertinente tanto para uso personal como para una estrategia de alquiler vacacional.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 78 m2
+- Superficie interior anunciada: 78 m2
 - Exterior: terraza de 12 m2
-- Distribucion: 1 dormitorio, 1 bano
-- Ventajas practicas: ascensor, parking, acceso a pie a comercios
-- Uso posible: pied-a-terre, alquiler estacional, segunda residencia
+- Configuración: 1 dormitorio, 1 cuarto de baño
+- Ventajas prácticas: ascensor, aparcamiento, acceso a pie a los comercios
+- Uso posible: pied-à-terre, alquiler vacacional, residencia secundaria

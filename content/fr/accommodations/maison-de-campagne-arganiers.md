@@ -20,10 +20,6 @@ occupancy: 6
 amenityFeature:
   - jardin
   - terrasse
-image:
-  - media-maison-de-campagne-arganiers-02
-  - media-maison-de-campagne-arganiers-03
-  - media-maison-jardin-campagne-essaouira-01
 associatedMedia:
   - image: media-maison-de-campagne-arganiers-02
     caption: Maison de campagne avec arganiers - paysage

@@ -1,12 +1,13 @@
 ---
-identifier: BAVMDC001
-name: Country house among argan trees
-description: 180 sqm - 3 bedrooms - garden
+identifier: FBAVMDC001
+name: Country house surrounded by argan trees
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
 offer:
   price: 410000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: For sale
 yearBuilt: 2015
 place: campagne-d-essaouira
 floorSize: 180
@@ -17,86 +18,52 @@ numberOfBedrooms: 3
 numberOfBathroomsTotal: 3
 occupancy: 6
 amenityFeature:
-  - jardin
-  - terrasse
-image:
-  - 1e26585b-ad8b-465b-be8c-abd837a1ea71
-  - 6a5f1b5d-2f0a-4e33-9d64-8f6bb0d7f4ce
-  - 2215545a-8591-4b75-a746-b8987c6c0438
-  - 1e47f3c3-91cb-4294-86ad-0c8d11ad0587
+  - garden
+  - terrace
 associatedMedia:
-  - image: 1e26585b-ad8b-465b-be8c-abd837a1ea71
-    caption: Country house among argan trees
+  - image: media-maison-de-campagne-arganiers-02
+    caption: Country house with argan trees - landscape
     keywords: [gallery]
-  - image: 6a5f1b5d-2f0a-4e33-9d64-8f6bb0d7f4ce
-    caption: Countryside atmosphere among argan trees
+  - image: media-maison-de-campagne-arganiers-03
+    caption: Country house with argan trees - natural surroundings
     keywords: [gallery]
-  - image: 2215545a-8591-4b75-a746-b8987c6c0438
-    caption: Goat in an argan tree
-    keywords: [gallery]
-  - image: 1e47f3c3-91cb-4294-86ad-0c8d11ad0587
-    caption: Mountain range on the horizon
+  - image: media-maison-jardin-campagne-essaouira-01
+    caption: Essaouira country house - garden
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 180
 areaTerrace: 25
 isActive: true
-tags:
-  - campagne
-  - jardin
-  - arganier
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 0a5aa847-7a17-4a3d-b04f-1e2d98b55bab
-metaTitle: 180 sqm country house with garden
-metaDescription: Country house surrounded by argan trees, with 3 bedrooms, garden and terrace.
-slug: maison-de-campagne-arganiers
+inLanguage: 'en'
+metaTitle: Country house 180 m2 with garden
+metaDescription: Country house surrounded by argan trees, 3 bedrooms, garden and terrace.
+slug: maison-de-campagne-au-milieu-des-arganiers-campagne-d-essaouira-bavmdc001
 highlight: A peaceful retreat among the argan trees
 review: |
-  A reassuring country house with a good balance between privacy, outdoor areas and family use.
-  The green setting and interior surface make it a credible option for a second home or a discreet hospitality project.
-blockquote: |
-  A house surrounded by argan trees, designed to slow the pace and enjoy a more natural setting.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - House opening onto a planted environment, with garden and a real sense of landscape around the property.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Three bedrooms allowing for a simple family setup or a comfortable second-home use.
-  entrance:
-    isEnabled: true
-    texts:
-      - Soft and welcoming entrance, in line with the countryside spirit of the property.
-  living:
-    isEnabled: true
-    texts:
-      - Friendly living area oriented toward the outdoors and natural light.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Family kitchen that is easy to project for long stays or year-round use.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bathrooms suited to regular use, with a simple and robust comfort logic.
+  A reassuring country house with a good balance between privacy, outdoor spaces and family use.
+  The natural setting and the living area make it a credible option for a secondary residence or a discreet hospitality project.
 ---
 ## Guided tour
 
-A country house for slowing down without feeling fully isolated.
+A country house to slow down without cutting yourself off completely.
 
-### A natural setting that defines the experience immediately
+### A natural setting that sets the tone immediately
 
-The argan trees create a very specific atmosphere, more organic, calmer and more breathable than urban areas. The property is first told through this sense of space, light and retreat.
+The presence of the argan trees creates a very particular atmosphere — more organic, more calm and more open than in urban areas. The property tells its story first through that sensation of space, light and retreat.
 
-The house offers a comfortable family scale with three bedrooms and outdoor areas that fully contribute to daily use. Garden, terrace and open views support the idea of a credible second home, but also a primary residence for someone seeking a softer lifestyle.
+The house offers a comfortable family scale with three bedrooms and outdoor spaces that are fully part of daily life. Garden, terrace and open views open the way to a credible secondary residence, but also to a primary residence for those seeking a quieter way of living.
 
-Its appeal lies in this balance between nature and clarity. This is not a hyper-spectacular asset; it is a coherent, soothing property that is easy to position for buyers who care about quality of life.
+The positioning remains interesting because it combines nature and legibility. This is not a highly spectacular product; it is a coherent, soothing property that is easy to valorise for a clientele that prioritises quality of life.
 
-## Overview
+## Description
 
-- Interior area: 180 sqm
+- Advertised interior area: 180 m2
 - Layout: 3 bedrooms, 3 bathrooms
-- Outdoor spaces: garden and 25 sqm terrace
+- Outdoor: garden and terrace of 25 m2
 - Atmosphere: countryside, greenery, natural light
-- Potential use: second home, family house, discreet hosting project
+- Possible use: secondary residence, family home, discreet hospitality

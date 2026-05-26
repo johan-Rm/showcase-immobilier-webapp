@@ -32,7 +32,7 @@ export interface WebPage {
   /**
    * ex-primaryImage / secondaryImage / icon
    */
-  image: MediaObject[]
+  associatedMedia?: MediaObject[]
   /**
    * ex-slug
    */

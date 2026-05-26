@@ -21,10 +21,6 @@ amenityFeature:
   - terrasse
   - ascenseur
   - parking
-image:
-  - media-appartement-marina-essaouira-02
-  - media-appartement-marina-essaouira-03
-  - media-appartement-marina-terrasse-filante-01
 associatedMedia:
   - image: media-appartement-marina-essaouira-02
     caption: Appartement marina Essaouira - intérieur clair

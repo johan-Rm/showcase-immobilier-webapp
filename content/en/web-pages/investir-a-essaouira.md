@@ -2,11 +2,13 @@
 id: 13
 slug: 'investir'
 inLanguage: 'en'
-metaTitle: 'Investir à Essaouira – Immobilier, prix et rentabilité'
-metaDescription: 'Pourquoi investir à Essaouira ? Prix de l’immobilier, rentabilité locative et conseils pour un investissement durable dans la Perle de l’Atlantique.'
-headline: 'Investir à Essaouira'
-alternativeHeadline: 'Le charme et la rentabilité d’un investissement durable'
-highlight: 'Un marché immobilier accessible, stable et à fort potentiel locatif'
+metaTitle: 'Investing in Essaouira – Real estate, prices and returns'
+metaDescription: 'Why invest in Essaouira? Property prices, rental yields and advice for a lasting investment in the Pearl of the Atlantic.'
+headline: 'Investing in Essaouira'
+alternativeHeadline: 'The charm and returns of a lasting investment'
+image:
+  - '1d096029-86c8-4a30-b9cd-fbf906afcbf0'
+highlight: 'An accessible, stable real estate market with strong rental potential'
 articleSection: 'investissement'
 keywords:
   - 'essaouira'
@@ -17,66 +19,56 @@ dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'
 ---
 
-## Investir à Essaouira – Le charme et la rentabilité
+## Investing in Essaouira – Charm and returns
 
-Essaouira, surnommée la **Perle de l’Atlantique**, séduit par son authenticité, son cadre de vie paisible et ses opportunités d’investissement immobilier.
+Essaouira, nicknamed the **Pearl of the Atlantic**, captivates with its authenticity, its peaceful way of life and its property investment opportunities.
 
-Ville à taille humaine, classée au patrimoine mondial de l’UNESCO, elle attire de plus en plus d’investisseurs à la recherche d’un **placement rentable, sécurisé et durable**, loin des excès des grandes métropoles touristiques.
+A city on a human scale, listed as a UNESCO World Heritage Site, it is attracting a growing number of investors in search of a **profitable, secure and lasting investment**, far from the excesses of major tourist metropolises.
 
----
+## Key advantages of Essaouira
 
-## Les atouts majeurs d’Essaouira
+Essaouira offers many advantages for a considered property project:
 
-Essaouira présente de nombreux avantages pour un projet immobilier réfléchi :
+- **Exceptional quality of life**: mild climate all year round, rich culture, local gastronomy and renowned hospitality
+- **An accessible real estate market**: attractive prices compared to Marrakech or Agadir
+- **Strong tourism potential**: a cultural and sporting city (kitesurfing, festivals) committed to responsible tourism
+- **Reassuring stability and security** for residents and foreign investors alike
 
-- **Une qualité de vie exceptionnelle** : climat doux toute l’année, culture riche, gastronomie locale et hospitalité reconnue
-- **Un marché immobilier encore accessible** : des prix attractifs comparés à Marrakech ou Agadir
-- **Un fort potentiel touristique** : ville culturelle, sportive (kitesurf, festivals) et engagée dans un tourisme responsable
-- **Une stabilité et une sécurité rassurantes** pour les résidents comme pour les investisseurs étrangers
+## Real estate prices in Essaouira (2025 – estimates)
 
----
+Below is a summary of **average price ranges** observed from public sources and the local market:
 
-## Les prix de l’immobilier à Essaouira (2025 – estimations)
+| Property type / Area                        | Average price (MAD/m²) | Average price (€/m²) |
+| ------------------------------------------- | ---------------------- | -------------------- |
+| Apartment (city centre)                     | ≈ 25,000 MAD           | ≈ €2,300             |
+| Traditional house (medina)                  | ≈ 20,000 MAD           | ≈ €1,850             |
+| Coastal villa                               | ≈ 13,000 – 16,000 MAD  | ≈ €1,200 – €1,500    |
+| Peripheral neighbourhoods (Larbab, outskirts) | ≈ 6,000 MAD          | ≈ €570               |
 
-Voici une synthèse des **fourchettes de prix moyens** observées selon les sources publiques et le marché local :
+These price levels position Essaouira as a **strategic alternative** for value-seeking investors.
 
-| Type de bien / Zone                         | Prix moyen (MAD/m²)   | Prix moyen (€/m²) |
-| ------------------------------------------- | --------------------- | ----------------- |
-| Appartement (centre-ville)                  | ≈ 25 000 MAD          | ≈ 2 300 €         |
-| Maison traditionnelle (médina)              | ≈ 20 000 MAD          | ≈ 1 850 €         |
-| Villa littorale                             | ≈ 13 000 – 16 000 MAD | ≈ 1 200 – 1 500 € |
-| Quartiers périphériques (Larbab, alentours) | ≈ 6 000 MAD           | ≈ 570 €           |
+## Returns and investment outlook
 
-Ces niveaux de prix positionnent Essaouira comme une **alternative stratégique** pour les investisseurs à la recherche de valeur.
+The real estate market in Essaouira is experiencing **gradual and controlled growth**.
+Prices remain affordable while rental demand, both seasonal and annual, continues to increase.
 
----
+The **average gross yield** for tourist rentals generally sits between **6 and 8%**, with higher potential for well-located, renovated and properly managed properties.
 
-## Rentabilité et perspectives d’investissement
+Ecological projects, guesthouses and character properties are particularly sought after, in line with Morocco's vision of sustainable and upmarket tourism.
 
-Le marché immobilier d’Essaouira connaît une **croissance progressive et maîtrisée**.  
-Les prix restent abordables tandis que la demande locative, saisonnière comme annuelle, continue d’augmenter.
+## Advice for a sound investment
 
-La **rentabilité brute moyenne** pour les locations touristiques se situe généralement entre **6 et 8 %**, avec un potentiel supérieur pour les biens bien situés, rénovés et correctement gérés.
+To secure and optimise your investment in Essaouira:
 
-Les projets écologiques, maisons d’hôtes et biens de caractère sont particulièrement recherchés, en cohérence avec la vision marocaine d’un tourisme durable et haut de gamme.
-
----
-
-## Conseils pour bien investir
-
-Pour sécuriser et optimiser votre investissement à Essaouira :
-
-- **Choisir le bon emplacement** : médina, bord de mer ou campagne selon vos objectifs
-- **Anticiper la gestion locative** : déléguer à des agences locales fiables et expérimentées
-- **Miser sur la rénovation** : un bien rénové augmente fortement sa valeur et sa rentabilité
-- **Adopter une vision long terme** : 3 à 5 ans minimum pour maximiser la valorisation
-- **Se faire accompagner** : notaires, architectes, experts locaux et gestionnaires de biens
-
----
+- **Choose the right location**: medina, seafront or countryside depending on your objectives
+- **Plan for rental management**: delegate to reliable and experienced local agencies
+- **Invest in renovation**: a renovated property significantly increases in value and return
+- **Take a long-term view**: 3 to 5 years minimum to maximise appreciation
+- **Get expert support**: notaries, architects, local specialists and property managers
 
 ## Conclusion
 
-Essaouira incarne un **équilibre rare entre charme, sécurité et potentiel économique**.  
-Investir ici, c’est faire le choix d’un lieu de vie authentique tout en bénéficiant d’une **rentabilité réelle et durable**.
+Essaouira embodies a **rare balance between charm, security and economic potential**.
+Investing here means choosing an authentic place to live while enjoying a **real and lasting return**.
 
-**MLK – My Little Kasbah** accompagne chaque investisseur dans la concrétisation de son projet immobilier, avec exigence, transparence et expertise locale.
+**MLK – My Little Kasbah** supports every investor in bringing their property project to life, with rigour, transparency and local expertise.

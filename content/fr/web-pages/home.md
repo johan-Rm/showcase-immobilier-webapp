@@ -1,20 +1,16 @@
 ---
-id: 9
+identifier: 9
 slug: 'home'
 inLanguage: 'fr'
 metaTitle: 'MLK – My Little Kasbah | Immobilier à Essaouira'
 metaDescription: 'Découvrez MLK – My Little Kasbah, votre partenaire immobilier à Essaouira pour l’achat, la vente, la gestion locative et l’investissement.'
-image:
+associatedMedia:
   - '97c1195a-8de4-4896-b8e6-973109e7449a'
 headline: 'MLK – My Little Kasbah'
 alternativeHeadline: 'Votre partenaire immobilier à Essaouira'
 highlight: 'Achat, vente, gestion locative et investissement avec une expertise locale et internationale'
-articleSection: 'agence-immobiliere'
-keywords:
-  - 'essaouira'
-  - 'immobilier'
-  - 'investissement'
-  - 'gestion-locative'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'

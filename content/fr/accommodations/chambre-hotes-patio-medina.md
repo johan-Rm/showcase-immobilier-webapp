@@ -20,10 +20,6 @@ amenityFeature:
   - patio
   - wifi
   - petit-dejeuner
-image:
-  - media-chambre-hotes-patio-medina-01
-  - media-chambre-hotes-patio-medina-02
-  - media-chambre-hotes-patio-medina-03
 associatedMedia:
   - image: media-chambre-hotes-patio-medina-01
     caption: Chambre d’hôtes médina - patio

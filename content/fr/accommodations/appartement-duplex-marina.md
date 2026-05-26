@@ -21,10 +21,6 @@ amenityFeature:
   - terrasse
   - climatisation
   - wifi
-image:
-  - media-appartement-duplex-marina-01
-  - media-appartement-duplex-marina-02
-  - media-appartement-duplex-marina-03
 associatedMedia:
   - image: media-appartement-duplex-marina-01
     caption: Appartement duplex marina - extérieur

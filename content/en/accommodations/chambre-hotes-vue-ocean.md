@@ -1,12 +1,13 @@
 ---
-identifier: LSCD001
-name: Guest room with ocean view
-description: 28 sqm - 1 bedroom - terrace access
+identifier: FLSCD002
+name: Ocean view guesthouse
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: chambre-dhotes
 offer:
   price: 90
   priceCurrency: EUR
-  priceSpecification: A la semaine
+  priceSpecification: Per week
 yearBuilt: 2010
 place: corniche
 floorSize: 28
@@ -17,87 +18,54 @@ numberOfBedrooms: 1
 numberOfBathroomsTotal: 1
 occupancy: 2
 amenityFeature:
-  - vue-ocean
-  - petit-dejeuner
+  - ocean-view
+  - breakfast
   - wifi
-image:
-  - 3bb3a0ed-1fb8-451a-a09d-3583d7fc5ebe
-  - 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
-  - 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-  - d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
 associatedMedia:
-  - image: 3bb3a0ed-1fb8-451a-a09d-3583d7fc5ebe
-    caption: Guest room with ocean view
+  - image: media-chambre-hotes-vue-ocean-01
+    caption: Guesthouse - ocean view
     keywords: [gallery]
-  - image: 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
-    caption: Cocoon-style mineral bedroom
+  - image: media-chambre-hotes-vue-ocean-02
+    caption: Guesthouse - sea terrace
     keywords: [gallery]
-  - image: 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-    caption: Soft coastal horizon
-    keywords: [gallery]
-  - image: d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
-    caption: Essaouira beach
+  - image: media-chambre-hotes-vue-ocean-03
+    caption: Guesthouse - interior
     keywords: [gallery]
 realEstateListing: location-saisonniere
 areaSize: 28
 areaTerrace: null
 isActive: true
-tags:
-  - vue-ocean
-  - petit-dejeuner
-  - terrasse
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
-metaTitle: Guest room with ocean view in Essaouira
-metaDescription: 28 sqm guest room with ocean view and breakfast included.
-slug: chambre-hotes-vue-ocean
-highlight: A seaside escape facing the ocean
+inLanguage: 'en'
+metaTitle: Ocean view guesthouse in Essaouira
+metaDescription: 28 m2 guesthouse, ocean view, breakfast included.
+slug: chambre-dhotes-vue-ocean-corniche-lscd002
+highlight: A getaway facing the ocean
 review: |
-  A well-calibrated guest room for short stays, with a clear promise built around the view and the seaside experience.
-  The format is simple, readable and easy to market to couples or passing travelers.
-blockquote: |
-  An intimate address facing the ocean, designed for a few calm nights with terrace access and breakfast.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Guesthouse close to the corniche, in a setting oriented toward the sea and coastal walks.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Intimate and bright bedroom, designed for a short stay for two with a genuine sense of calm.
-  entrance:
-    isEnabled: true
-    texts:
-      - Simple and fluid welcome, suited to a direct and frictionless guest experience.
-  living:
-    isEnabled: false
-    texts:
-      - Shared living area not detailed in this listing.
-  kitchen:
-    isEnabled: false
-    texts:
-      - Kitchen is not part of the core guest-room experience in this listing.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Practical and pleasant bathroom, suited to short stays.
+  A well-calibrated guesthouse for short stays, with a clear promise built around the view and the seaside experience.
+  The format is simple, easy to read and straightforward to market to couples or passing travellers.
 ---
+
 ## Guided tour
 
-A guest room designed for a few days facing the ocean.
+A guesthouse designed for a few days facing the ocean.
 
 ### A simple, clear and very seaside experience
 
-The property is built around an immediately readable promise: waking up to coastal light, enjoying a terrace and experiencing Essaouira in a more relaxed register. The surface remains compact by design, but well calibrated for a stay for two.
+The property leads first with a readable emotional promise: waking up with the coastal light, enjoying a terrace and experiencing Essaouira in a more relaxed register. The floor area is deliberately compact, but well calibrated for a stay as a couple.
 
-The setup focuses on ease of use. Guests come here to sleep comfortably, enjoy breakfast, walk along the seafront and return to a calm room without unnecessary overstatement.
+The layout aims for ease of use. You come here to sleep comfortably, have breakfast, go for a walk along the sea and return to a quiet room — no unnecessary over-promise.
 
-This listing works well for hospitality because it tells a precise experience. The ocean view, terrace access and intimate format are enough to create a clear narrative.
+This listing works well in a tourist accommodation logic because it tells a precise story. The ocean view, access to the terrace and the intimate format are enough to establish a clear intention.
 
-## Overview
+## Description
 
-- Area: 28 sqm
+- Advertised area: 28 m2
 - Layout: 1 bedroom, 1 bathroom
 - Experience: ocean view, terrace access, breakfast included
-- Natural audience: couples, short-stay travelers, passing visitors
-- Rhythm of use: simple, light stay centered on the seafront
+- Natural audience: couples, passing travellers, short stays
+- Pace of use: simple, light stay, centred on the seaside

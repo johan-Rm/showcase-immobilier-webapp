@@ -186,12 +186,10 @@ type ResolvedImage = {
 defineOptions({ name: 'DashboardPropertyMediaGallery' })
 
 const props = defineProps<{
-  images: DashboardEditableValue
   associatedMedia: DashboardEditableValue
 }>()
 
 const emit = defineEmits<{
-  'update:images': [value: DashboardEditableValue]
   'update:associatedMedia': [value: DashboardEditableValue]
 }>()
 
@@ -228,13 +226,9 @@ const parsedAssocMedia = computed<AssocItem[]>(() => {
   })
 })
 
-const imageIdentifiers = computed<string[]>(() => {
-  if (Array.isArray(props.images) && props.images.length > 0) {
-    return props.images.filter((v): v is string => typeof v === 'string')
-  }
-  // Fallback: `image` absent mais `associatedMedia` contient des entrées
-  return parsedAssocMedia.value.map((a) => a.image).filter(Boolean)
-})
+const imageIdentifiers = computed<string[]>(() =>
+  parsedAssocMedia.value.map((a) => a.image).filter(Boolean),
+)
 
 const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
@@ -249,7 +243,7 @@ const allImages = computed<ResolvedImage[]>(() =>
     .map((img) => ({
       identifier: img.identifier,
       url: img.url,
-      name: img.name,
+      name: img.caption || img.name || img.identifier,
       reference: deriveReference(img.mainEntity, img.identifier),
     }))
     .sort((a, b) => a.name.localeCompare(b.name)),
@@ -271,17 +265,12 @@ const getAssocMeta = (identifier: string): AssocItem | undefined =>
 
 const isAssociated = (identifier: string): boolean => imageIdentifiers.value.includes(identifier)
 
-const emitImages = (identifiers: string[]): void => {
-  emit('update:images', identifiers)
-}
-
 const emitAssocMedia = (items: AssocItem[]): void => {
   emit('update:associatedMedia', items)
 }
 
 const associate = (identifier: string): void => {
   if (imageIdentifiers.value.includes(identifier)) return
-  emitImages([...imageIdentifiers.value, identifier])
   emitAssocMedia([
     ...parsedAssocMedia.value,
     { image: identifier, caption: '', keywords: [], representativeOfPage: false },
@@ -289,7 +278,6 @@ const associate = (identifier: string): void => {
 }
 
 const dissociate = (identifier: string): void => {
-  emitImages(imageIdentifiers.value.filter((id) => id !== identifier))
   emitAssocMedia(parsedAssocMedia.value.filter((a) => a.image !== identifier))
 }
 

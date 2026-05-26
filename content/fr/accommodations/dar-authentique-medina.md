@@ -20,10 +20,6 @@ occupancy: 6
 amenityFeature:
   - patio
   - toit-terrasse
-image:
-  - media-dar-authentique-medina-01
-  - media-dar-authentique-medina-02
-  - media-dar-authentique-medina-03
 associatedMedia:
   - image: media-dar-authentique-medina-01
     caption: Dar authentique en médina - patio

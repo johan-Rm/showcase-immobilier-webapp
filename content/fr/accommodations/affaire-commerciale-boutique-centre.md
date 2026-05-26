@@ -16,10 +16,6 @@ landArea: 86
 numberOfGarages: 0
 amenityFeature:
   - vitrine
-image:
-  - media-affaire-commerciale-boutique-centre-02
-  - media-affaire-commerciale-boutique-centre-03
-  - media-affaire-commerciale-cafe-medina-01
 associatedMedia:
   - image: media-affaire-commerciale-boutique-centre-02
     caption: Boutique au centre - façade commerciale

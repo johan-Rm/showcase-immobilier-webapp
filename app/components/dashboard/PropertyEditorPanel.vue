@@ -88,19 +88,15 @@
           :active-draft="activeDraft"
           :expanded-blocks="expandedBlocks"
           :associated-media-value="associatedMediaValue"
-          :media-image-value="mediaImageValue"
           @toggle-block="emit('toggle-block', $event)"
           @update-field="(path, value) => emit('update-field', path, value)"
           @update-body="emit('update-body', $event)"
           @update-associated-media="emit('update-associated-media', $event)"
-          @update-media-image="emit('update-media-image', $event)"
         />
 
         <template v-else>
           <DashboardPropertyMediaGallery
-            :images="mediaImageValue"
             :associated-media="associatedMediaValue"
-            @update:images="emit('update-media-image', $event)"
             @update:associated-media="emit('update-associated-media', $event)"
           />
         </template>
@@ -130,7 +126,6 @@ defineProps<{
   expandedBlocks: Set<string>
   titleValue: string
   associatedMediaValue: DashboardEditableValue
-  mediaImageValue: DashboardEditableValue
   propertyMenuItems: BlockMenuItem[][]
   showClose?: boolean
 }>()
@@ -143,7 +138,6 @@ const emit = defineEmits<{
   'update-field': [path: string, value: DashboardEditableValue]
   'update-body': [value: string]
   'update-associated-media': [value: DashboardEditableValue]
-  'update-media-image': [value: DashboardEditableValue]
 }>()
 
 const localeTabs: DashboardLocale[] = ['fr', 'en', 'es']

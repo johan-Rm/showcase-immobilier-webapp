@@ -1,12 +1,13 @@
 ---
-identifier: BAVR002
+identifier: FBAVR005
 name: Medina riad with sunny terrace
-description: 220 sqm - 5 bedrooms - patio
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
 offer:
   price: 1450000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: For sale
 yearBuilt: 1890
 place: medina
 floorSize: 220
@@ -18,86 +19,52 @@ numberOfBathroomsTotal: 4
 occupancy: 10
 amenityFeature:
   - patio
-  - toit-terrasse
-  - climatisation
-image:
-  - d678ed13-9110-47e0-9c89-40db91a77d80
-  - d8a3dc62-5ef8-4c82-8cd0-4f3ada9d5e64
-  - 12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312
-  - b4c9e2c7-1c4c-5c2b-ac2b-2b3c4d5e6f7a
+  - rooftop-terrace
+  - air-conditioning
 associatedMedia:
-  - image: d678ed13-9110-47e0-9c89-40db91a77d80
-    caption: Medina riad with sunny terrace
+  - image: media-riad-medina-terrasse-ensoleillee-01
+    caption: Riad sunny terrace - exterior
     keywords: [gallery]
-  - image: d8a3dc62-5ef8-4c82-8cd0-4f3ada9d5e64
-    caption: Bright riad with natural materials
+  - image: media-riad-medina-terrasse-ensoleillee-02
+    caption: Riad sunny terrace - rooftop
     keywords: [gallery]
-  - image: 12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312
-    caption: Medina alley
-    keywords: [gallery]
-  - image: b4c9e2c7-1c4c-5c2b-ac2b-2b3c4d5e6f7a
-    caption: Bab Sbah gate
+  - image: media-riad-medina-terrasse-ensoleillee-03
+    caption: Riad sunny terrace - atmosphere
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 220
 areaTerrace: 35
 isActive: true
-tags:
-  - medina
-  - patio
-  - terrasse
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 0204e750-0078-4e28-98d6-5b8fb943b4f6
-metaTitle: 220 sqm medina riad with patio and terrace
-metaDescription: Authentic medina riad with 5 bedrooms, central patio and large terrace.
-slug: riad-medina-terrasse-ensoleillee
-highlight: A bright riad with a true living terrace
+metaTitle: Medina riad 220 m2 with patio and terrace
+metaDescription: Authentic riad in the medina, 5 bedrooms, central patio and large terrace.
+slug: riad-medina-avec-terrasse-ensoleillee-medina-bavr005
+highlight: A bright riad with a genuine living terrace
+inLanguage: 'en'
 review: |
-  A well-balanced riad for anyone looking for a larger hosting capacity with a brighter and more approachable medina atmosphere.
-  The central patio and sunny terrace make the property easy to read and easier to market.
-blockquote: |
-  A bright family riad in the medina, with a central patio and a terrace designed to extend every stay.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Riad well rooted in the medina, with an address that privileges the charm of the historic urban fabric.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Five bedrooms allowing for broad family use or a flexible hospitality activity.
-  entrance:
-    isEnabled: true
-    texts:
-      - Traditional riad entrance with a natural progression toward the central patio.
-  living:
-    isEnabled: true
-    texts:
-      - Warm interior volumes organized around the patio and extended by the terrace.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Functional kitchen, compatible with family life or semi-rental use.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bathrooms suited to a medium-capacity medina property.
+  A well-calibrated riad for those seeking large guest capacity with a brighter and more accessible medina atmosphere.
+  The central patio and sunny terrace give a clear reading of the property and facilitate its commercial value.
 ---
 ## Guided tour
 
-A bright riad centered on hosting, conviviality and terrace living.
+A bright riad that bets on hospitality, conviviality and the terrace.
 
-### A large medina house that is easy to inhabit or welcome guests in
+### A large medina house easy to live in or to host guests
 
-The central patio naturally organizes circulation and brings the breathing space expected in this type of property. Volumes follow one another with fluidity and the light gives the riad a softer, more open and very pleasant presence.
+The central patio naturally organises the circulation and provides the breathing room expected in this type of property. The volumes flow smoothly and the light gives the riad a softer, more open presence that is very pleasant to describe.
 
-With five bedrooms, the property allows several scenarios. One can imagine a large family house, a pied-a-terre able to host many guests, or a mid-scale hospitality project that remains lighter than a fully hotel-driven riad.
+With five bedrooms, the property allows for several scenarios. One can imagine a large family home, a pied-à-terre capable of hosting guests, or a mid-sized accommodation activity — more flexible than a purely hotel-like riad.
 
-The sunny terrace plays an important role in the property's desirability. It completes the medina experience with an open-air space that extends stays and strengthens perceived value.
+The sunny terrace plays an important role in the desirability of the property. It completes the medina experience with an outdoor space that extends stays and reinforces the perceived value of the whole.
 
-## Overview
+## Description
 
-- Interior area: 220 sqm
+- Stated interior area: 220 m2
 - Layout: 5 bedrooms, 4 bathrooms
-- Outdoor spaces: central patio, 35 sqm terrace
-- Atmosphere: warm riad, bright, more family-oriented than ceremonial
-- Potential use: charming residence, hosting house, quality rental
+- Outdoor spaces: central patio, 35 m2 terrace
+- Atmosphere: warm, bright riad, more family-oriented than ceremonial
+- Possible use: charming residence, guesthouse, quality rental

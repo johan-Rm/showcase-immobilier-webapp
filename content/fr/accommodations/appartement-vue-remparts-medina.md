@@ -21,10 +21,6 @@ amenityFeature:
   - balcon
   - wifi
   - climatisation
-image:
-  - media-appartement-vue-remparts-medina-01
-  - media-appartement-vue-remparts-medina-02
-  - media-appartement-vue-remparts-medina-03
 associatedMedia:
   - image: media-appartement-vue-remparts-medina-01
     caption: Appartement médina - ruelle historique

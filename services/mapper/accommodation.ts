@@ -188,13 +188,7 @@ const buildIndexes = (metadata: AccommodationMetadata): AccommodationMetadataInd
 const normalizeMediaObject = (value: MediaObject): MediaObject => {
   const record = value as unknown as UnknownRecord
   const url = getString(record.url, getString(record.contentUrl))
-  const sourceUrl = getString(record.sourceUrl, url)
-
-  return {
-    ...value,
-    url,
-    sourceUrl,
-  }
+  return { ...value, url }
 }
 
 /**
@@ -312,11 +306,8 @@ const mapMediaObject = (
     const url = isDirectImageUrl(value) ? value : ''
     return {
       identifier: value,
-      name: value,
       caption: '',
       url,
-      source: 'content',
-      sourceUrl: url,
       mainEntity: 'ImageObject',
     }
   }
@@ -333,11 +324,9 @@ const mapMediaObject = (
   const url = isDirectImageUrl(rawUrl) ? rawUrl : ''
   const name = getString(value.name, identifier)
   const caption = getString(value.caption, name)
-  const source = getString(value.source, 'content')
-  const sourceUrl = getString(value.sourceUrl, url)
   const mainEntity = getString(value.mainEntity, 'ImageObject')
 
-  if (!identifier && !url && !name && !caption && !source && !sourceUrl && !mainEntity) {
+  if (!identifier && !url && !caption && !mainEntity) {
     return undefined
   }
 
@@ -346,8 +335,6 @@ const mapMediaObject = (
     url,
     name,
     caption,
-    source,
-    sourceUrl,
     mainEntity,
   }
 }

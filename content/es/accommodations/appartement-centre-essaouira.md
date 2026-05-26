@@ -1,7 +1,8 @@
 ---
-identifier: BAVA002
-name: Apartamento en el centro con balcon
-description: 92 m2 - 2 dormitorios - balcon
+identifier: FBAVA002
+name: Apartamento en el centro de la ciudad, balcón
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
 offer:
   price: 185000
@@ -17,105 +18,71 @@ numberOfBedrooms: 2
 numberOfBathroomsTotal: 2
 occupancy: 4
 amenityFeature:
-  - Barbecue ou plancha
-  - Cave à vin
-  - Climatisation
-  - Congélateur
-  - Douche extérieure
-  - Enceinte portable
-  - Fer à repasser
-  - Four
-  - Frigo américain
-  - Home cinéma
-  - Lave-linge
-  - Lave-vaisselle
-  - Machine à café
-  - Micro-onde
-  - Mobilier extérieur
-  - Piscine
-  - Réfrigerateur
-  - Robot ménager
-  - Séche-linge
-  - Télévision
+  - Barbacoa o plancha
+  - Bodega de vinos
+  - Aire acondicionado
+  - Congelador
+  - Ducha exterior
+  - Altavoz portátil
+  - Plancha de ropa
+  - Horno
+  - Frigorífico americano
+  - Home cinema
+  - Lavadora
+  - Lavavajillas
+  - Cafetera
+  - Microondas
+  - Mobiliario exterior
+  - Piscina
+  - Refrigerador
+  - Robot de cocina
+  - Secadora
+  - Televisión
   - WiFi
-image:
-  - 81656f9e-4b86-40de-b75d-f76b3906c3d1
-  - 86915e38-65a2-4acd-9e16-fac4d6101231
-  - 8dac214d-8cc7-44f5-9bd5-4dc63048814d
-  - 23b4fd00-a708-46c2-9723-e441ed30fb43
 associatedMedia:
-  - image: 81656f9e-4b86-40de-b75d-f76b3906c3d1
-    caption: Apartamento en el centro con balcon
+  - image: media-appartement-centre-essaouira-01
+    caption: Apartamento centro Essaouira - sala de estar
     keywords: [gallery]
-  - image: 86915e38-65a2-4acd-9e16-fac4d6101231
-    caption: Interior moderno con balcon
+  - image: media-appartement-centre-essaouira-02
+    caption: Apartamento centro Essaouira - interior luminoso
     keywords: [gallery]
-  - image: 8dac214d-8cc7-44f5-9bd5-4dc63048814d
-    caption: Apartamento luminoso con terraza
-    keywords: [gallery]
-  - image: 23b4fd00-a708-46c2-9723-e441ed30fb43
-    caption: Espacio de vida contemporaneo y elegante
+  - image: media-appartement-centre-essaouira-03
+    caption: Apartamento centro Essaouira - espacio equipado
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 92
 areaTerrace: null
 isActive: true
-tags:
-  - centre-ville
-  - balcon
-  - ascenseur
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 89e24a12-a8fd-4eca-ab29-35b57e538413
-metaTitle: Apartamento de 92 m2 en el centro - Essaouira
-metaDescription: Luminoso apartamento de 92 m2 en el centro, con 2 dormitorios, balcon y ascensor.
-slug: appartement-centre-essaouira
-highlight: Una direccion centrica facil de vivir
+metaTitle: Apartamento 92 m2 en el centro de la ciudad - Essaouira
+metaDescription: Apartamento luminoso de 92 m2 en el centro de la ciudad, 2 dormitorios, balcón y ascensor.
+slug: appartement-centre-ville-balcon-centre-ville-bava002
+highlight: Una dirección céntrica fácil de habitar
+inLanguage: 'es'
 review: |
-  Un apartamento bien distribuido en pleno centro, facil de vivir a diario y sencillo de proyectar.
-  Su balcon, sus volumenes equilibrados y la proximidad inmediata a los servicios lo convierten en una base solida para vivienda habitual o inversion.
-blockquote: |
-  Un apartamento centrico, luminoso y practico, con un balcon que prolonga agradablemente la zona de estar.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Residencia bien situada en el centro, a pocos pasos de comercios, transporte y servicios cotidianos.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Dos dormitorios bien distribuidos, adecuados para una vida familiar, un pied-a-terre comodo o un alquiler.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrada sencilla y funcional, con una circulacion fluida hacia las zonas de vida.
-  living:
-    isEnabled: true
-    texts:
-      - Salon luminoso prolongado por el balcon, facil de amueblar para el uso diario.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina practica, pensada para un uso regular sin complejidad innecesaria.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Dos banos funcionales, adaptados al uso residencial o al alquiler.
+  Un apartamento bien distribuido en el corazón de la ciudad, fácil de habitar en el día a día y sencillo de proyectar.
+  Su balcón, sus volúmenes equilibrados y su proximidad inmediata a los servicios lo convierten en una base sólida para una residencia principal o una inversión.
 ---
 ## Visita guiada
 
-Un apartamento centrico pensado para una vida simple y practica.
+Un apartamento central pensado para una vida sencilla, práctica e inmediata.
 
-### Una base comoda en pleno centro
+### Una base cómoda en el corazón de la ciudad
 
-La fuerza del bien esta en su equilibrio. Los volumenes se entienden bien, la circulacion es fluida y el balcon prolonga agradablemente la zona de estar sin complicar el uso diario.
+La fortaleza del bien reside en su equilibrio. Los volúmenes son legibles, la circulación fluye bien y el balcón prolonga agradablemente la sala de estar sin complicar el uso cotidiano.
 
-Con dos dormitorios y dos banos, el apartamento encaja facilmente en varios escenarios: residencia principal, pied-a-terre familiar o inversion para alquiler anual. Su localizacion centrica refuerza todavia mas esa versatilidad.
+Con sus dos dormitorios y sus dos cuartos de baño, el apartamento cubre fácilmente varios escenarios: residencia principal, pied-à-terre familiar o inversión en alquiler anual. La dirección en el centro de la ciudad refuerza aún más esta versatilidad.
 
-El conjunto resulta tranquilizador para un comprador que prioriza la comodidad: comercios, servicios y rutinas cotidianas quedan cerca, mientras el interior sigue siendo luminoso y confortable.
+El posicionamiento es tranquilizador para un comprador que quiere priorizar la practicidad: comercios, servicios y ritmos cotidianos permanecen accesibles rápidamente, sin renunciar a un interior cómodo y luminoso.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 92 m2
-- Distribucion: 2 dormitorios, 2 banos, balcon
-- Ambiente: apartamento urbano luminoso, facil de amueblar
-- Uso posible: residencia principal, pied-a-terre, alquiler anual
-- Nivel de confort: distribucion funcional y lectura inmediata de los espacios
+- Superficie interior anunciada: 92 m2
+- Configuración: 2 dormitorios, 2 cuartos de baño, balcón
+- Ambiente: apartamento urbano luminoso, fácil de amueblar
+- Uso posible: residencia principal, pied-à-terre, alquiler anual
+- Nivel de confort: distribución funcional y legibilidad espacial inmediata

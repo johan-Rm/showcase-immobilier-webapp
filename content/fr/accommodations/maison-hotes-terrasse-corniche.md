@@ -21,10 +21,6 @@ amenityFeature:
   - vue-ocean
   - toit-terrasse
   - wifi
-image:
-  - d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
-  - 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-  - c7a810f2-e8a2-4a0b-9c2d-9486c9e2d312
 associatedMedia:
   - image: d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
     caption: Maison d'hotes avec terrasse sur la corniche

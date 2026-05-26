@@ -20,10 +20,6 @@ amenityFeature:
   - terrasse
   - wifi
   - vue-ocean
-image:
-  - media-maison-terrasse-sidi-kaouki-sejour-03
-  - media-maison-de-ville-sidi-kaouki-01
-  - media-maison-de-ville-sidi-kaouki-02
 associatedMedia:
   - image: media-maison-terrasse-sidi-kaouki-sejour-03
     caption: Maison terrasse Sidi Kaouki - vue extérieure

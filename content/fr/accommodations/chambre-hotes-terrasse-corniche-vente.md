@@ -20,10 +20,6 @@ amenityFeature:
   - vue-ocean
   - wifi
   - petit-dejeuner
-image:
-  - media-chambre-hotes-terrasse-corniche-vente-01
-  - media-chambre-hotes-terrasse-corniche-vente-02
-  - media-chambre-hotes-terrasse-corniche-vente-03
 associatedMedia:
   - image: media-chambre-hotes-terrasse-corniche-vente-01
     caption: Chambre d’hôtes corniche - terrasse

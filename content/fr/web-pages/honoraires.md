@@ -1,19 +1,16 @@
 ---
-id: 'c7b2e6f2-8d6a-4a9b-9e2d-3f5c1a7b4e21'
+identifier: 'c7b2e6f2-8d6a-4a9b-9e2d-3f5c1a7b4e21'
 slug: 'honoraires'
 inLanguage: 'fr'
 metaTitle: 'Honoraires agence immobilière à Essaouira – MLK My Little Kasbah'
 metaDescription: "Consultez les honoraires de l’agence immobilière MLK My Little Kasbah à Essaouira : un modèle transparent et équilibré."
 headline: 'Honoraires'
 alternativeHeadline: 'Des honoraires transparents et équilibrés'
-image:
+associatedMedia:
   - '982a1350-a60d-4866-be9e-08235612e881'
 highlight: 'Des honoraires clairs et équilibrés entre vendeur et acquéreur'
-articleSection: 'agence-immobiliere'
-keywords:
-  - 'essaouira'
-  - 'immobilier'
-  - 'honoraires'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2026-04-29T12:00:00+01:00'

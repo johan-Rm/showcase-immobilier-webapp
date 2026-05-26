@@ -1,23 +1,16 @@
 ---
-id: '7f6c2b9d-3e4a-4d9f-9c18-5a0b7e6d2f41'
+identifier: '7f6c2b9d-3e4a-4d9f-9c18-5a0b7e6d2f41'
 slug: 'contact'
 inLanguage: 'fr'
 metaTitle: 'Contact agence immobilière à Essaouira – MLK My Little Kasbah'
 metaDescription: "Contactez MLK My Little Kasbah, agence immobilière à Essaouira, pour un projet d’achat, de vente, de location ou d’investissement immobilier au Maroc."
 headline: 'Contactez MLK My Little Kasbah'
 alternativeHeadline: 'Échangeons sur votre projet immobilier à Essaouira'
-image:
+associatedMedia:
   - '758b9a53-fca5-4e1d-8bbf-6eaa33d97bc8'
 highlight: 'Un premier échange simple pour comprendre votre projet immobilier'
-articleSection: 'agence-immobiliere'
-keywords:
-  - 'essaouira'
-  - 'contact'
-  - 'immobilier'
-  - 'agence immobilière'
-  - 'achat immobilier'
-  - 'vente immobilière'
-  - 'location immobilière'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2026-04-29T12:00:00+01:00'

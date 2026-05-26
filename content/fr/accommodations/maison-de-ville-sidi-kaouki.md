@@ -20,10 +20,6 @@ occupancy: 6
 amenityFeature:
   - terrasse
   - cheminee
-image:
-  - media-maison-de-ville-sidi-kaouki-01
-  - media-maison-de-ville-sidi-kaouki-02
-  - media-maison-de-ville-sidi-kaouki-03
 associatedMedia:
   - image: media-maison-de-ville-sidi-kaouki-01
     caption: Maison de ville à Sidi Kaouki - vue mer

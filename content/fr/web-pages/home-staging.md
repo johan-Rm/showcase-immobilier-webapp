@@ -1,19 +1,16 @@
 ---
-id: 15
+identifier: 15
 slug: 'home-staging'
 inLanguage: 'fr'
 metaTitle: 'Home staging à Essaouira – Valorisez votre bien pour la location saisonnière'
 metaDescription: "Optimisez la rentabilité de votre bien à Essaouira grâce au home staging : décoration, aménagement et mise en valeur pour attirer plus de voyageurs."
 headline: 'Home staging à Essaouira'
 alternativeHeadline: 'Valorisez votre bien et augmentez sa rentabilité'
-image:
+associatedMedia:
   - '982a1350-a60d-4866-be9e-08235612e881'
 highlight: 'Une mise en valeur stratégique pour séduire les voyageurs et maximiser vos revenus'
-articleSection: 'agence-immobiliere'
-keywords:
-  - 'essaouira'
-  - 'gestion-locative'
-  - 'immobilier'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'

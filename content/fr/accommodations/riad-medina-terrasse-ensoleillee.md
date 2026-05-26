@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - climatisation
-image:
-  - media-riad-medina-terrasse-ensoleillee-01
-  - media-riad-medina-terrasse-ensoleillee-02
-  - media-riad-medina-terrasse-ensoleillee-03
 associatedMedia:
   - image: media-riad-medina-terrasse-ensoleillee-01
     caption: Riad terrasse ensoleillée - extérieur

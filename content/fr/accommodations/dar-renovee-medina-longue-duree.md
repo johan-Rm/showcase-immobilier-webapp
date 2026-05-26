@@ -20,10 +20,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - wifi
-image:
-  - media-dar-renovee-medina-longue-duree-01
-  - media-dar-renovee-medina-longue-duree-02
-  - media-dar-renovee-medina-longue-duree-03
 associatedMedia:
   - image: media-dar-renovee-medina-longue-duree-01
     caption: Dar rénovée longue durée - patio

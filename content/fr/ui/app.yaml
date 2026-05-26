@@ -86,9 +86,6 @@ navigation:
     name: Investir
     url: /investir
     label: Plus d'infos
-  things-to-do:
-    name: Que faire à Essaouira
-    url: /que-faire-a-essaouira
   land:
     name: Terrain
     url: /biens/terrain

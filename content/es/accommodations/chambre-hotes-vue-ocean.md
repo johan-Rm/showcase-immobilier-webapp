@@ -1,12 +1,13 @@
 ---
-identifier: LSCD001
-name: Habitacion de huespedes con vista al oceano
-description: 28 m2 - 1 dormitorio - acceso a terraza
+identifier: FLSCD002
+name: Casa de huéspedes con vista al océano
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: chambre-dhotes
 offer:
   price: 90
   priceCurrency: EUR
-  priceSpecification: A la semaine
+  priceSpecification: Por semana
 yearBuilt: 2010
 place: corniche
 floorSize: 28
@@ -17,87 +18,54 @@ numberOfBedrooms: 1
 numberOfBathroomsTotal: 1
 occupancy: 2
 amenityFeature:
-  - vue-ocean
-  - petit-dejeuner
+  - vista-océano
+  - desayuno
   - wifi
-image:
-  - 3bb3a0ed-1fb8-451a-a09d-3583d7fc5ebe
-  - 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
-  - 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-  - d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
 associatedMedia:
-  - image: 3bb3a0ed-1fb8-451a-a09d-3583d7fc5ebe
-    caption: Habitacion de huespedes con vista al oceano
+  - image: media-chambre-hotes-vue-ocean-01
+    caption: Casa de huéspedes - vista al océano
     keywords: [gallery]
-  - image: 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
-    caption: Dormitorio estilo cocoon mineral
+  - image: media-chambre-hotes-vue-ocean-02
+    caption: Casa de huéspedes - terraza frente al mar
     keywords: [gallery]
-  - image: 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
-    caption: Horizonte costero en luz suave
-    keywords: [gallery]
-  - image: d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
-    caption: Playa de Essaouira
+  - image: media-chambre-hotes-vue-ocean-03
+    caption: Casa de huéspedes - interior
     keywords: [gallery]
 realEstateListing: location-saisonniere
 areaSize: 28
 areaTerrace: null
 isActive: true
-tags:
-  - vue-ocean
-  - petit-dejeuner
-  - terrasse
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: ac191e74-476f-4461-a7b2-18e0da7d925d
-metaTitle: Habitacion de huespedes con vista al oceano en Essaouira
-metaDescription: Habitacion de huespedes de 28 m2 con vista al oceano y desayuno incluido.
-slug: chambre-hotes-vue-ocean
-highlight: Una escapada frente al oceano
+inLanguage: 'es'
+metaTitle: Casa de huéspedes con vista al océano en Essaouira
+metaDescription: Casa de huéspedes de 28 m2, vista al océano, desayuno incluido.
+slug: chambre-dhotes-vue-ocean-corniche-lscd002
+highlight: Una escapada frente al océano
 review: |
-  Una habitacion de huespedes bien calibrada para estancias cortas, con una promesa clara basada en la vista y la experiencia junto al mar.
-  El formato es simple, legible y facil de comercializar para parejas o viajeros de paso.
-blockquote: |
-  Una direccion intima frente al oceano, pensada para unas noches tranquilas con terraza y desayuno.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Casa de huespedes cercana a la corniche, en un entorno orientado al mar y a los paseos costeros.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Habitacion intima y luminosa, pensada para una estancia corta en pareja con una verdadera sensacion de calma.
-  entrance:
-    isEnabled: true
-    texts:
-      - Recepcion sencilla y fluida, adaptada a una experiencia turistica directa y sin fricciones.
-  living:
-    isEnabled: false
-    texts:
-      - Espacio comun no detallado en esta ficha.
-  kitchen:
-    isEnabled: false
-    texts:
-      - La cocina no forma parte de la experiencia principal de esta habitacion de huespedes.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bano practico y agradable, adaptado a estancias cortas.
+  Una casa de huéspedes bien calibrada para estancias cortas, con una promesa clara en torno a las vistas y la experiencia junto al mar.
+  El formato es sencillo, fácil de leer y fácil de comercializar para parejas o viajeros de paso.
 ---
+
 ## Visita guiada
 
-Una habitacion de huespedes pensada para unos dias frente al oceano.
+Una casa de huéspedes pensada para unos días frente al océano.
 
-### Una experiencia simple, clara y muy ligada al mar
+### Una experiencia sencilla, clara y muy junto al mar
 
-La propiedad se apoya en una promesa emocional muy legible: despertar con la luz de la costa, disfrutar de una terraza y vivir Essaouira en un registro mas relajado. La superficie es compacta, pero bien calibrada para una estancia en pareja.
+El alojamiento apuesta ante todo por una promesa emocional legible: despertar con la luz del litoral, disfrutar de una terraza y vivir Essaouira en un registro más relajado. La superficie es deliberadamente compacta, pero bien calibrada para una estancia en pareja.
 
-La propuesta busca la facilidad de uso. Aqui se viene a dormir bien, desayunar, pasear junto al mar y volver a una habitacion tranquila, sin sobrepromesas innecesarias.
+La distribución busca la facilidad de uso. Se viene aquí a dormir cómodamente, desayunar, salir a pasear junto al mar y regresar a una habitación tranquila, sin promesas innecesarias.
 
-Esta ficha funciona bien en una logica hospitality porque cuenta una experiencia precisa. La vista al oceano, el acceso a la terraza y el formato intimo bastan para construir un relato claro.
+Esta ficha funciona bien en una lógica de alojamiento turístico porque cuenta una historia precisa. La vista al océano, el acceso a la terraza y el formato íntimo son suficientes para establecer una intención clara.
 
-## Descriptivo
+## Descripción
 
-- Superficie: 28 m2
-- Distribucion: 1 dormitorio, 1 bano
-- Experiencia: vista al oceano, acceso a terraza, desayuno incluido
-- Publico natural: parejas, viajeros de paso, estancias cortas
-- Ritmo de uso: estancia simple y ligera centrada en el frente maritimo
+- Superficie anunciada: 28 m2
+- Configuración: 1 habitación, 1 cuarto de baño
+- Experiencia: vista al océano, acceso a terraza, desayuno incluido
+- Público natural: parejas, viajeros de paso, estancias cortas
+- Ritmo de uso: estancia sencilla y ligera, centrada en el mar

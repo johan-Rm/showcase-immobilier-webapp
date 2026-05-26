@@ -84,9 +84,7 @@
 
       <template v-else-if="block.id === 'associated-media'">
         <DashboardPropertyAssociatedMediaEditor
-          :media-image-value="mediaImageValue"
           :associated-media="associatedMediaValue"
-          @update:media-image-value="emit('update-media-image', $event)"
           @update:associated-media="emit('update-associated-media', $event)"
         />
       </template>
@@ -130,7 +128,6 @@ const props = defineProps<{
   activeDraft: DashboardDraft
   expandedBlocks: Set<string>
   associatedMediaValue: DashboardEditableValue
-  mediaImageValue: DashboardEditableValue
 }>()
 
 const emit = defineEmits<{
@@ -138,7 +135,6 @@ const emit = defineEmits<{
   'update-field': [path: string, value: DashboardEditableValue]
   'update-body': [value: string]
   'update-associated-media': [value: DashboardEditableValue]
-  'update-media-image': [value: DashboardEditableValue]
 }>()
 
 const metadataStore = useMetadataStore()

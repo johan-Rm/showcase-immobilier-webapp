@@ -20,10 +20,6 @@ amenityFeature:
   - piscine
   - jardin
   - climatisation
-image:
-  - media-villa-golf-residentielle-mogador-01
-  - media-villa-golf-residentielle-mogador-02
-  - media-villa-golf-residentielle-mogador-03
 associatedMedia:
   - image: media-villa-golf-residentielle-mogador-01
     caption: Villa résidentielle Mogador - extérieur

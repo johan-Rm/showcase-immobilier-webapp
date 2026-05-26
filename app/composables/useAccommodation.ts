@@ -133,7 +133,7 @@ const toPropertyItem = (accommodation: Accommodation): PropertyItem => ({
   image: getPrimaryImage(accommodation),
   href: getAccommodationHref(accommodation),
   numberOfBedrooms: accommodation.numberOfBedrooms,
-  floorSize: accommodation.floorSize || undefined,
+  floorSize: accommodation.floorSize != null ? String(accommodation.floorSize) : undefined,
   identifier: accommodation.identifier,
   place: accommodation.place?.name,
 })

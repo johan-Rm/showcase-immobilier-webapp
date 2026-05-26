@@ -80,7 +80,7 @@ const page = computed<WebPage | null>(() => getPageBySlug(props.webPageSlug))
 
 // 8. Computed UI-ready
 const bgImageUrl = computed<string>(() => {
-  const image = page.value?.image
+  const image = page.value?.associatedMedia
 
   if (typeof image === 'string') return image
 

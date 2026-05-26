@@ -1,19 +1,16 @@
 ---
-id: 122
+identifier: 122
 slug: 'gestion-locative'
 inLanguage: 'fr'
 metaTitle: 'Gestion locative saisonnière à Essaouira – MLK My Little Kasbah'
 metaDescription: "Confiez la gestion locative saisonnière de votre bien à Essaouira à MLK My Little Kasbah : accueil voyageurs, entretien, réservations et services sur mesure."
 headline: 'Gestion locative saisonnière'
 alternativeHeadline: 'Valorisez votre bien à Essaouira en toute sérénité'
-image:
+associatedMedia:
   - '1f085909-0a44-4726-a201-5cf186c61dee'
 highlight: 'Une gestion locale, humaine et transparente pour propriétaires exigeants'
-articleSection: 'agence-immobiliere'
-keywords:
-  - 'essaouira'
-  - 'gestion-locative'
-  - 'investissement'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'

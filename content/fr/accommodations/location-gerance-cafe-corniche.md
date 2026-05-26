@@ -15,10 +15,6 @@ landArea: 140
 numberOfGarages: 0
 amenityFeature:
   - vitrine
-image:
-  - media-location-gerance-cafe-corniche-01
-  - media-location-gerance-cafe-corniche-02
-  - media-location-gerance-cafe-corniche-03
 associatedMedia:
   - image: media-location-gerance-cafe-corniche-01
     caption: Café corniche - terrasse

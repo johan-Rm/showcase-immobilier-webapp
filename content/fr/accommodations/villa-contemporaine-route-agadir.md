@@ -20,10 +20,6 @@ occupancy: 8
 amenityFeature:
   - piscine
   - jardin
-image:
-  - media-villa-contemporaine-route-agadir-02
-  - media-villa-contemporaine-route-agadir-03
-  - media-villa-golf-resort-sejour
 associatedMedia:
   - image: media-villa-contemporaine-route-agadir-02
     caption: Villa contemporaine route Agadir - architecture moderne

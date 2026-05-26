@@ -20,10 +20,6 @@ amenityFeature:
   - piscine
   - jardin
   - climatisation
-image:
-  - media-villa-golf-resort-sejour-01
-  - media-villa-golf-resort-sejour-02
-  - media-villa-golf-resort-sejour-03
 associatedMedia:
   - image: media-villa-golf-resort-sejour-01
     caption: Villa resort - piscine

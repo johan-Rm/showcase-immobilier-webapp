@@ -200,11 +200,8 @@ const resolveCategoryCode = (
  */
 const createFallbackMediaObject = (identifier: string): MediaObject => ({
   identifier,
-  name: identifier,
   caption: '',
   url: identifier,
-  source: 'content',
-  sourceUrl: identifier,
   mainEntity: 'ImageObject',
 })
 
@@ -218,20 +215,21 @@ const createFallbackMediaObject = (identifier: string): MediaObject => ({
  *
  * @param images Champ image brut du DTO.
  * @param mediaObjects Référentiel média.
- * @returns Liste d’objets média prête à exposer dans `WebPage.image`.
+ * @returns Liste d’objets média prête à exposer dans `WebPage.associatedMedia`.
  */
-const mapImages = (images: WebPageDto['image'], mediaObjects: MediaObject[]): WebPage['image'] => {
+const mapImages = (images: WebPageDto['associatedMedia'], mediaObjects: MediaObject[]): WebPage['associatedMedia'] => {
   if (!Array.isArray(images)) {
     return []
   }
 
   const resolvedImages = images
     .map((image) => {
-      const imageIdentifier = getImageIdentifier(image)
+      const ref = image as unknown as WebPageImageReference
+      const imageIdentifier = getImageIdentifier(ref)
       return (
         resolveMediaObject(imageIdentifier, mediaObjects) ??
-        (isMediaObject(image)
-          ? image
+        (isMediaObject(ref)
+          ? ref
           : isNonEmptyString(imageIdentifier)
             ? createFallbackMediaObject(imageIdentifier)
             : undefined)
@@ -413,7 +411,7 @@ const mapWebPage = (
     dateModified: getString(getWebPageField(page, 'dateModified')),
     articleSection: mapCategory(getWebPageField(page, 'articleSection'), categoryCodes),
     keywords: mapCategoryList(getWebPageField(page, 'keywords'), categoryCodes),
-    image: mapImages(getWebPageField(page, 'image') as WebPageDto['image'], mediaObjects),
+    associatedMedia: mapImages(getWebPageField(page, 'associatedMedia') as WebPageDto['associatedMedia'], mediaObjects),
     inLanguage: getWebPageField(page, 'inLanguage') as WebPage['inLanguage'],
     metaTitle,
     metaDescription: getString(getWebPageField(page, 'metaDescription')),
@@ -483,7 +481,7 @@ export const accommodationToWebPage = (item: Accommodation): WebPage => {
 
     keywords: item.tags,
 
-    image: item.associatedMedia.map((media) => media.image),
+    associatedMedia: item.associatedMedia.map((media) => media.image),
 
     hasPart: [],
   }

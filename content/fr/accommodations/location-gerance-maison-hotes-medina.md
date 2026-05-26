@@ -20,10 +20,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - wifi
-image:
-  - media-location-gerance-maison-hotes-medina-01
-  - media-location-gerance-maison-hotes-medina-02
-  - media-location-gerance-maison-hotes-medina-03
 associatedMedia:
   - image: media-location-gerance-maison-hotes-medina-01
     caption: Maison d’hôtes médina - patio

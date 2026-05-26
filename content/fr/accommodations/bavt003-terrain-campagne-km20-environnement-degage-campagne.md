@@ -12,7 +12,7 @@ realEstateListing: bien-a-vendre
 category: terrain
 place: campagne
 
-offers:
+offer:
   price: 2289000
   priceCurrency: MAD
 

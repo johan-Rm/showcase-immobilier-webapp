@@ -20,10 +20,6 @@ amenityFeature:
   - petit-dejeuner
   - wifi
   - vue-ocean
-image:
-  - media-chambre-hotes-jardin-corniche-01
-  - media-chambre-hotes-jardin-corniche-02
-  - media-chambre-hotes-jardin-corniche-03
 associatedMedia:
   - image: media-chambre-hotes-jardin-corniche-01
     caption: Chambre d’hôtes corniche - bord de mer

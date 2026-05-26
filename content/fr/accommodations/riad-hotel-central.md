@@ -18,10 +18,6 @@ amenityFeature:
   - terrasse
   - exploitation-commerciale
   - fort-potentiel
-image:
-  - media-riad-hotel-central-01
-  - media-riad-hotel-central-02
-  - media-riad-hotel-central-03
 associatedMedia:
   - image: media-riad-hotel-central-01
     caption: Riad hôtel central - patio

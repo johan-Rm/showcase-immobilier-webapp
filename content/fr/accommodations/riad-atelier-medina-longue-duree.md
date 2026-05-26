@@ -20,10 +20,6 @@ amenityFeature:
   - patio
   - wifi
   - toit-terrasse
-image:
-  - media-riad-atelier-medina-longue-duree-01
-  - media-riad-atelier-medina-longue-duree-02
-  - media-riad-atelier-medina-longue-duree-03
 associatedMedia:
   - image: media-riad-atelier-medina-longue-duree-01
     caption: Riad atelier médina - patio

@@ -1,7 +1,8 @@
 ---
-identifier: BAVA001
-name: Apartamento taller en la medina
-description: 64 m2 - 1 dormitorio - estilo taller
+identifier: FBAVA001
+name: Apartamento estudio en la medina
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: appartement
 offer:
   price: 125000
@@ -10,6 +11,7 @@ offer:
 yearBuilt: 1998
 place: medina
 floorSize: 64
+level: 1
 numberOfRooms: 2
 landArea: 0
 numberOfGarages: 0
@@ -17,89 +19,55 @@ numberOfBedrooms: 1
 numberOfBathroomsTotal: 1
 occupancy: 2
 amenityFeature:
-  - Buena altura bajo techo
+  - Techos altos
   - Luz natural
-  - Altillo
-  - Cerca de los comercios
-image:
-  - 34a22ae5-6e23-4a10-aeab-96d27177b192
-  - 6f968161-16e7-4470-bb12-444cf6a0d0ca
-  - d6c6c658-183d-4349-ae2d-d72a61e4d29e
-  - 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
+  - Mezzanine
+  - Proximidad a comercios
 associatedMedia:
-  - image: 34a22ae5-6e23-4a10-aeab-96d27177b192
-    caption: Apartamento taller en la medina
+  - image: media-appartement-atelier-medina-01
+    caption: Apartamento estudio en la medina - salón luminoso
     keywords: [gallery]
-  - image: 6f968161-16e7-4470-bb12-444cf6a0d0ca
-    caption: Ambiente interior en la medina
+  - image: media-appartement-atelier-medina-02
+    caption: Apartamento estudio en la medina - interior natural
     keywords: [gallery]
-  - image: d6c6c658-183d-4349-ae2d-d72a61e4d29e
-    caption: Espacio de vida luminoso
-    keywords: [gallery]
-  - image: 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
-    caption: Zona de descanso sobria y acogedora
+  - image: media-appartement-atelier-medina-03
+    caption: Apartamento estudio en la medina - dormitorio
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 64
 areaTerrace: null
 isActive: true
-tags:
-  - medina
-  - atelier
-  - mezzanine
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: fa37320c-5f32-4b10-a32a-2be43bdcc308
-metaTitle: Apartamento taller de 64 m2 en la medina
-metaDescription: Apartamento taller en la medina, 1 dormitorio, altillo y mucha luz natural.
-slug: appartement-atelier-medina
+metaTitle: Apartamento estudio 64 m2 en la medina
+metaDescription: Apartamento estudio en la medina, 1 dormitorio, mezzanine y hermosa luz natural.
+slug: appartement-atelier-en-medina-medina-bava001
 review: |
-  Un apartamento taller poco comun en la medina, pensado para uso residencial, creativo o de alquiler.
-  Su altillo, su buena altura de techo y su luz natural le dan caracter y facilitan la proyeccion del espacio.
-highlight: Un bien raro en el corazon de la medina
-blockquote: |
-  Un apartamento con caracter en la medina, con altillo y un volumen singular,
-  ideal como pied-a-terre inspirador o inversion de alquiler con personalidad.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Fachada discreta en la medina, a pocos pasos de las calles animadas y de los servicios cotidianos.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Dormitorio comodo con almacenaje, adecuado como pied-a-terre o residencia principal.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrada sencilla y funcional, en linea con el caracter autentico de las construcciones antiguas de la medina.
-  living:
-    isEnabled: true
-    texts:
-      - Espacio de vida luminoso con buena altura de techo y posibilidades flexibles de distribucion.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina compacta y funcional, adaptada al uso diario o al alquiler.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bano simple y practico, facil de mantener a diario.
+  Un apartamento estudio poco habitual en la medina, concebido para uso residencial, creativo o de alquiler.
+  Su mezzanine, sus techos altos y su luz natural lo convierten en un bien con carácter, fácil de proyectar.
+highlight: Un bien poco común en el corazón de la medina
+label: Favorito del editor
+inLanguage: 'es'
 ---
 ## Visita guiada
 
-Un apartamento-taller que se sale del formato habitual de la medina.
+Un apartamento estudio que sale del marco estándar de la medina.
 
-### Un volumen singular para vivir, crear o recibir
+### Un volumen atípico para vivir, crear o recibir
 
-Desde la entrada, la propiedad destaca por su buena altura bajo techo, que aporta de inmediato una sensacion mas amplia del espacio. La entreplanta suma una verdadera flexibilidad de uso: zona de descanso, rincon de lectura, despacho o pequeno taller segun el proyecto.
+Desde la entrada, el bien se distingue por sus techos altos que dan de inmediato una sensación de espacio. El mezzanine añade una verdadera profundidad de uso: rincón nocturno, espacio de lectura, despacho o pequeño estudio según el proyecto.
 
-La estancia principal disfruta de una luz natural agradable para una direccion en el casco historico. El conjunto sigue siendo sobrio, pero suficientemente singular como para atraer a quien busca algo menos convencional.
+La pieza principal disfruta de una agradable luz natural para este tipo de dirección en el corazón histórico. El conjunto conserva un espíritu sencillo, pero lo suficientemente singular como para atraer a compradores que buscan algo más que un apartamento convencional.
 
-La distribucion es facil de entender y de amueblar. Puede funcionar como pied-a-terre con personalidad, residencia parcial o producto de alquiler con una identidad mas marcada.
+La distribución sigue siendo fácil de entender y amueblar. Se puede imaginar un pied-à-terre con carácter, una residencia a tiempo parcial o un producto de alquiler con una identidad más fuerte que la media.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 64 m2
-- Distribucion: 1 dormitorio, 1 bano, entreplanta
-- Ambiente: volumen abierto, luz natural, espiritu taller
-- Uso posible: residencia, pied-a-terre, alquiler con encanto, actividad creativa ligera
-- Punto de atencion: propiedad con caracter, mas adaptada a un proyecto especifico que a un uso familiar clasico
+- Superficie interior anunciada: 64 m2
+- Configuración: 1 dormitorio, 1 cuarto de baño, mezzanine
+- Ambiente: volumen abierto, luz natural, espíritu estudio
+- Uso posible: residencia, pied-à-terre, alquiler con encanto, actividad creativa ligera
+- A tener en cuenta: bien con carácter, más atractivo para un proyecto específico que para una lógica familiar clásica

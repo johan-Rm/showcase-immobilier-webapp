@@ -21,10 +21,6 @@ amenityFeature:
   - balcon
   - climatisation
   - wifi
-image:
-  - media-appartement-terrasse-centre-ville-01
-  - media-appartement-terrasse-centre-ville-02
-  - media-appartement-terrasse-centre-ville-03
 associatedMedia:
   - image: media-appartement-terrasse-centre-ville-01
     caption: Appartement terrasse centre-ville - séjour

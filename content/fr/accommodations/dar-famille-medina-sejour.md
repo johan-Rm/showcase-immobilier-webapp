@@ -20,10 +20,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - wifi
-image:
-  - media-dar-famille-medina-sejour-01
-  - media-dar-famille-medina-sejour-02
-  - media-dar-famille-medina-sejour-03
 associatedMedia:
   - image: media-dar-famille-medina-sejour-01
     caption: Dar familiale médina - patio

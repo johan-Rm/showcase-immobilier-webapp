@@ -1,12 +1,13 @@
 ---
-identifier: BAVMDC002
+identifier: FBAVMDC002
 name: Contemporary villa on the Agadir road
-description: 300 sqm - 4 bedrooms - pool
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
 offer:
   price: 980000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: For sale
 yearBuilt: 2021
 place: route-d-agadir
 floorSize: 300
@@ -17,86 +18,52 @@ numberOfBedrooms: 4
 numberOfBathroomsTotal: 4
 occupancy: 8
 amenityFeature:
-  - piscine
-  - jardin
-image:
-  - 5d9ee282-cb73-4ba5-938f-dfd095101b17
-  - 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
-  - 2c2575bc-0de4-47d3-b347-aa49ba655230
-  - 528cfa2f-ccf9-4b66-a010-187fadb25491
+  - pool
+  - garden
 associatedMedia:
-  - image: 5d9ee282-cb73-4ba5-938f-dfd095101b17
-    caption: Contemporary villa on the Agadir road
+  - image: media-villa-contemporaine-route-agadir-02
+    caption: Contemporary villa Agadir road - modern architecture
     keywords: [gallery]
-  - image: 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
-    caption: Contemporary villa with terrace
+  - image: media-villa-contemporaine-route-agadir-03
+    caption: Contemporary villa Agadir road - living space
     keywords: [gallery]
-  - image: 2c2575bc-0de4-47d3-b347-aa49ba655230
-    caption: Sunny contemporary villa
-    keywords: [gallery]
-  - image: 528cfa2f-ccf9-4b66-a010-187fadb25491
-    caption: Modern home with geometric volumes
+  - image: media-villa-golf-resort-sejour
+    caption: Upscale villa - calm surroundings
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 300
 areaTerrace: 45
 isActive: true
-tags:
-  - contemporaine
-  - piscine
-  - jardin
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 7eef434d-cfca-4332-99a8-b29fda03d121
-metaTitle: 300 sqm contemporary villa on the Agadir road
+metaTitle: Contemporary villa 300 m2 on the Agadir road
 metaDescription: Contemporary villa with pool, 4 bedrooms, garden and home automation.
-slug: villa-contemporaine-route-agadir
+slug: villa-contemporaine-route-dagadir-route-d-agadir-bavmdc002
 highlight: A contemporary villa ready to impress
+inLanguage: 'en'
 review: |
-  A recent villa that fully embraces a contemporary register, with real markers of comfort and architectural clarity.
-  The floor area, four bedrooms and outdoor spaces make it a well-armed product for a family buyer or an upscale second home.
-blockquote: |
-  A clear and contemporary villa, designed for comfortable year-round living with garden and pool.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Recent villa in an open environment, with garden, pool and a contemporary architectural reading.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Four well-proportioned bedrooms suited to family life or an upscale second home.
-  entrance:
-    isEnabled: true
-    texts:
-      - Clean and high-quality entrance consistent with the property's premium positioning.
-  living:
-    isEnabled: true
-    texts:
-      - Large bright living room opening onto the outdoors and designed for convivial use.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Contemporary kitchen to project within a logic of daily comfort and entertaining.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bathrooms in number and comfort level suited to a recent family villa.
+  A recent villa that embraces a contemporary register, with genuine markers of comfort and architectural clarity.
+  The area, the four bedrooms and the outdoor spaces make it a well-equipped product for a family clientele or a high-end second home.
 ---
 ## Guided tour
 
 A recent villa with a clear contemporary language.
 
-### Clean volumes, open spaces and easy projection
+### Clean, open volumes that are easy to project into
 
-The property relies on sober and current architecture, with large openings and a direct relationship to the outdoor areas. The pool, garden and geometric lines immediately create a more upscale feel without becoming overly demonstrative.
+The property bets on a sober and current architecture, with large openings and a direct relationship to the outdoors. The pool, the garden and the geometric lines immediately give it a higher-end status, without tipping into excessive display.
 
-The large living room is the heart of the house. It supports family life, entertaining and a natural flow between indoors and outdoors. The four bedrooms complete a program that is very easy to understand for buyers seeking space without unnecessary complexity.
+The large living room is the heart of the house. It allows for convivial, family or reception use, with a natural flow between interior and exterior. The four bedrooms complete a very readable programme for a clientele that wants space without over-complexity.
 
-Route d'Agadir provides strong accessibility, which makes the property credible both as a year-round residence and as a well-connected second home. It reassures through modernity and ease of projection.
+The Agadir road provides good accessibility, making the property credible for both year-round use and a well-connected second home. This is a property that reassures through its modernity and ease of projection.
 
-## Overview
+## Description
 
-- Interior area: 300 sqm
+- Stated interior area: 300 m2
 - Layout: 4 bedrooms, 4 bathrooms
-- Outdoor spaces: garden, pool, 45 sqm terrace
-- Character: recent contemporary villa
-- Potential use: family residence, second home, private entertaining
+- Outdoor spaces: garden, pool, 45 m2 terrace
+- Type: recent contemporary villa
+- Possible use: family residence, second home, private entertaining

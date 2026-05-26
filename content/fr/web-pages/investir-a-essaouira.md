@@ -1,19 +1,16 @@
 ---
-id: 13
+identifier: 13
 slug: 'investir'
 inLanguage: 'fr'
 metaTitle: 'Investir à Essaouira – Immobilier, prix et rentabilité'
 metaDescription: 'Pourquoi investir à Essaouira ? Prix de l’immobilier, rentabilité locative et conseils pour un investissement durable dans la Perle de l’Atlantique.'
 headline: 'Investir à Essaouira'
 alternativeHeadline: 'Le charme et la rentabilité d’un investissement durable'
-image:
+associatedMedia:
   - '1d096029-86c8-4a30-b9cd-fbf906afcbf0'
 highlight: 'Un marché immobilier accessible, stable et à fort potentiel locatif'
-articleSection: 'investissement'
-keywords:
-  - 'essaouira'
-  - 'immobilier'
-  - 'investissement'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'

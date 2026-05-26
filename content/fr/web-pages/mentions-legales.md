@@ -1,19 +1,16 @@
 ---
-id: 16
+identifier: 16
 slug: 'mentions-legales'
 inLanguage: 'fr'
 metaTitle: 'Mentions légales – MLK My Little Kasbah'
 metaDescription: 'Mentions légales du site MLK My Little Kasbah – informations légales, hébergement, données personnelles et responsabilité.'
 headline: 'Mentions légales'
 alternativeHeadline: 'Informations légales et conditions d’utilisation du site'
-image:
+associatedMedia:
   - '982a1350-a60d-4866-be9e-08235612e881'
 highlight: 'Transparence et conformité au service des utilisateurs'
-articleSection: 'mentions-legales'
-keywords:
-  - 'mentions-legales'
-  - 'essaouira'
-  - 'immobilier'
+articleSection: ''
+keywords: []
 datePublished: '2026-05-02T00:00:00+01:00'
 dateCreated: '2026-05-02T00:00:00+01:00'
 dateModified: '2026-05-02T00:00:00+01:00'

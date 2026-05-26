@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - spa
   - toit-terrasse
-image:
-  - media-riad-boutique-renove-01
-  - media-riad-boutique-renove-02
-  - media-riad-boutique-renove-03
 associatedMedia:
   - image: media-riad-boutique-renove-01
     caption: Riad boutique rénové - patio lumineux

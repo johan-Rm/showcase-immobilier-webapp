@@ -1,97 +1,64 @@
 ---
-identifier: BAVT001
-name: Terreno urbanizable en la ruta de Safi
-description: 980 m2 - urbanizado - acceso facil
+identifier: FBAVT001
+name: Terreno edificable en la carretera de Safi
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: terrain
 offer:
   price: 195000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: En venta
 place: route-de-safi
 floorSize: 980
 numberOfRooms: 0
 landArea: 980
 numberOfGarages: 0
 amenityFeature:
-  - viabilise
-image:
-  - 258104c1-8bef-4f7d-a6c6-a53d88a1e02a
-  - 2845e9f9-5e8f-4f58-a92b-15cc1516726a
-  - 1e47f3c3-91cb-4294-86ad-0c8d11ad0587
-  - 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
+  - urbanizado
 associatedMedia:
-  - image: 258104c1-8bef-4f7d-a6c6-a53d88a1e02a
-    caption: Terreno urbanizable en la ruta de Safi
+  - image: media-terrain-constructible-route-safi-01
+    caption: Terreno edificable carretera Safi - vistas abiertas
     keywords: [gallery]
-  - image: 2845e9f9-5e8f-4f58-a92b-15cc1516726a
-    caption: Paisaje boscoso entre niebla
+  - image: media-terrain-constructible-route-safi-02
+    caption: Terreno edificable carretera Safi - entorno natural
     keywords: [gallery]
-  - image: 1e47f3c3-91cb-4294-86ad-0c8d11ad0587
-    caption: Cadena montanosa en el horizonte
-    keywords: [gallery]
-  - image: 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
-    caption: Vista aerea de la costa oceanica
+  - image: media-terrain-constructible-route-safi-03
+    caption: Terreno edificable carretera Safi - paisaje abierto
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 980
 areaTerrace: null
 isActive: true
-tags:
-  - terrain
-  - viabilise
-  - route-de-safi
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: e2e3b81c-8023-4bb9-b5d5-66736e5fc71b
-metaTitle: Terreno urbanizable de 980 m2 en la ruta de Safi
-metaDescription: Terreno llano y urbanizado de 980 m2, con acceso facil.
-slug: terrain-constructible-route-safi
-highlight: Un terreno listo para acoger tu proyecto
+metaTitle: Terreno edificable 980 m2 en la carretera de Safi
+metaDescription: Terreno plano y urbanizado de 980 m2, acceso sencillo.
+slug: terrain-constructible-route-de-safi-route-de-safi-bavt001
+highlight: Un terreno listo para acoger su proyecto
+inLanguage: 'es'
 review: |
-  Una parcela facil de leer, con caracteristicas que reducen la friccion de arranque para un proyecto residencial.
-  El acceso y la urbanizacion son buenos indicadores para una operacion de construccion razonablemente controlable.
-blockquote: |
-  Un terreno bien situado para lanzar un proyecto nuevo sin complejidad innecesaria.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Parcela bien orientada, con lectura clara de accesos y del potencial de construccion.
-  bedrooms:
-    isEnabled: false
-    texts:
-      - No existe zona de noche hasta que se materialice el proyecto de construccion.
-  entrance:
-    isEnabled: true
-    texts:
-      - Acceso al terreno sencillo de proyectar segun el futuro plan y el programa previsto.
-  living:
-    isEnabled: false
-    texts:
-      - No existe espacio de vida construido en esta ficha de suelo.
-  kitchen:
-    isEnabled: false
-    texts:
-      - No existe cocina mientras el programa no se desarrolle.
-  bathrooms:
-    isEnabled: false
-    texts:
-      - No hay espacio sanitario construido en el estado actual del terreno.
+  Un activo de suelo simple y legible, con características que reducen las fricciones de lanzamiento para un proyecto residencial.
+  El acceso y la urbanización constituyen buenos marcadores para una operación de construcción razonablemente manejable.
 ---
 ## Visita guiada
 
-Un terreno que invita a hablar de proyecto mas que de construccion existente.
+Un terreno que permite hablar de proyecto más que de edificación existente.
 
-### Una base de suelo clara y facil de proyectar
+### Una base de suelo sencilla de leer y fácil de proyectar
 
-La parcela destaca por caracteristicas tranquilizadoras: terreno llano, urbanizado y con acceso sencillo. Para un comprador, eso reduce de inmediato parte de la carga mental asociada al arranque de una obra nueva.
+La parcela se distingue por sus características tranquilizadoras: terreno plano, urbanización y acceso claro. Para un comprador, esto reduce inmediatamente la carga mental asociada al lanzamiento de un proyecto de obra nueva.
 
-La Route de Safi se presta bien a una proyeccion residencial, con un entorno abierto, desplazamientos faciles y un potencial de desarrollo ya entendido por el mercado local. Aqui no solo se compra suelo, sino tambien una posibilidad futura.
+El sector de la carretera de Safi se presta bien a una proyección residencial, con una lógica de apertura, desplazamientos sencillos y un potencial de desarrollo ya bien comprendido por el mercado local. Aquí se trata de una propiedad que invita a tener una visión, no solo a realizar una visita.
 
-La ficha debe asumir por tanto un tono mas orientado a la oportunidad: lo que se adquiere es una parcela lista para recibir una casa, un pequeno programa residencial o un proyecto patrimonial a largo plazo.
+La ficha debe asumir un discurso más orientado a la oportunidad: lo que se compra es una base de suelo lista para recibir una casa, un programa residencial ligero o un proyecto patrimonial a construir en el tiempo.
 
-## Descriptivo
+## Descripción
 
-- Superficie: 980 m2
-- Estado: parcela llana y urbanizada
+- Superficie declarada: 980 m2
+- Estado: terreno plano, urbanizado
 - Acceso: sencillo desde la carretera principal
-- Uso posible: proyecto residencial, casa unifamiliar, pequena operacion patrimonial
-- Naturaleza de la oferta: ficha de suelo con fuerte capacidad de proyeccion
+- Uso posible: proyecto residencial, casa individual, pequeña operación patrimonial
+- Naturaleza de la oferta: activo de suelo con gran capacidad de proyección

@@ -23,10 +23,6 @@ amenityFeature:
   - Lumiere naturelle
   - Mezzanine
   - Proximite des commerces
-image:
-  - media-appartement-atelier-medina-01
-  - media-appartement-atelier-medina-02
-  - media-appartement-atelier-medina-03
 associatedMedia:
   - image: media-appartement-atelier-medina-01
     caption: Appartement atelier en médina - salon lumineux

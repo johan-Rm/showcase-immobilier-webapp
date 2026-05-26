@@ -25,7 +25,7 @@ export type JsonLdBreadcrumbItem = {
 }
 
 const getPageImageUrl = (page: WebPage | null): string | undefined => {
-  const pageImage = page?.image?.[0]
+  const pageImage = page?.associatedMedia?.[0]
   return typeof pageImage?.url === 'string' ? pageImage.url : undefined
 }
 

@@ -8,8 +8,6 @@ type SymfonyMediaResponse = {
   url?: string
   contentUrl?: string
   caption?: string
-  source?: string
-  sourceUrl?: string
   mainEntity?: string
 }
 
@@ -26,6 +24,7 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
 
   const form = await readFormData(event)
   const file = form.get('file') as File | null
+  const caption = (form.get('caption') as string | null) ?? ''
 
   if (!file || file.size === 0) {
     throw createError({ statusCode: 400, statusMessage: 'Fichier manquant ou vide' })
@@ -41,6 +40,7 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
 
   const symfonyForm = new FormData()
   symfonyForm.append('file', file, file.name)
+  if (caption) symfonyForm.append('caption', caption)
 
   const raw = await $fetch<SymfonyMediaResponse>(`${apiUrl}/api/media-objects`, {
     method: 'POST',
@@ -52,9 +52,7 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
     identifier: raw.identifier,
     name: raw.name,
     url: raw.url ?? raw.contentUrl ?? '',
-    caption: raw.caption ?? '',
-    source: raw.source ?? '',
-    sourceUrl: raw.sourceUrl ?? raw.url ?? raw.contentUrl ?? '',
+    caption: raw.caption ?? caption,
     mainEntity: raw.mainEntity ?? '',
   }
 })

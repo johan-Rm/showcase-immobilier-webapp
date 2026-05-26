@@ -1,12 +1,13 @@
 ---
-identifier: BAVD001
-name: Dar autentico en la medina
-description: 120 m2 - 3 dormitorios - patio
+identifier: FBAVD001
+name: Dar auténtica en la medina
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: dar
 offer:
   price: 265000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: En venta
 yearBuilt: 1950
 place: medina
 floorSize: 120
@@ -18,85 +19,51 @@ numberOfBathroomsTotal: 2
 occupancy: 6
 amenityFeature:
   - patio
-  - toit-terrasse
-image:
-  - ee80cadf-3304-48ff-a446-0d73b7c57590
-  - 6f968161-16e7-4470-bb12-444cf6a0d0ca
-  - 12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312
-  - 0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01
+  - terraza-azotea
 associatedMedia:
-  - image: ee80cadf-3304-48ff-a446-0d73b7c57590
-    caption: Dar autentico en la medina
+  - image: media-dar-authentique-medina-01
+    caption: Dar auténtica en la medina - patio
     keywords: [gallery]
-  - image: 6f968161-16e7-4470-bb12-444cf6a0d0ca
-    caption: Interior artesanal en la medina
+  - image: media-dar-authentique-medina-02
+    caption: Dar auténtica en la medina - interior tradicional
     keywords: [gallery]
-  - image: 12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312
-    caption: Callejuela de la medina
-    keywords: [gallery]
-  - image: 0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01
-    caption: Galeria de la medina
+  - image: media-dar-authentique-medina-03
+    caption: Dar auténtica en la medina - ambiente marroquí
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 120
 areaTerrace: 18
 isActive: true
-tags:
-  - medina
-  - patio
-  - toit-terrasse
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: ce4ec9d0-70cd-422a-b09e-9472afe84f57
-metaTitle: Dar autentico de 120 m2 en la medina
-metaDescription: Dar tradicional en la medina, con 3 dormitorios, patio y azotea.
-slug: dar-authentique-medina
-highlight: Un encanto autentico en plena medina
+inLanguage: 'es'
+metaTitle: Dar auténtica de 120 m2 en la medina
+metaDescription: Dar tradicional en la medina, 3 habitaciones, patio y terraza azotea.
+slug: dar-authentique-dans-la-medina-medina-bavd001
+highlight: Un encanto auténtico en plena medina
 review: |
-  Un dar con caracter que combina el registro autentico de la medina con volumenes familiares faciles de valorizar.
-  El patio y la terraza refuerzan su potencial para uso residencial, pied-a-terre con encanto o alquiler bien posicionado.
-blockquote: |
-  Una direccion autentica en la medina, con patio luminoso y terraza, para una forma de vida mas suave e inspiradora.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Fachada discreta en la medina, integrada en un entorno autentico y animado a escala humana.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Tres dormitorios que permiten un uso familiar o una acogida con una lectura clara de los espacios.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrada en el espiritu de la construccion antigua, con una transicion suave hacia los espacios interiores.
-  living:
-    isEnabled: true
-    texts:
-      - Volumenes calidos organizados alrededor del patio, favorables a una vida diaria mas tranquila.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina de casa de medina, funcional y facil de proyectar en una logica residencial.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Banos practicos, adecuados para un uso familiar o de alquiler bien organizado.
+  Una dar con carácter que combina el registro auténtico de la medina con volúmenes familiares fáciles de valorizar.
+  El patio y la terraza refuerzan su potencial para uso residencial, una base con encanto o un alquiler bien posicionado.
 ---
 ## Visita guiada
 
-Una dar de medina que conserva el encanto de la arquitectura tradicional y sigue siendo facil de vivir.
+Una dar de medina que conserva el encanto de la construcción antigua mientras sigue siendo cómoda para vivir.
 
-### Patio, terraza y verdadera sensacion de casa
+### Patio, terraza y espíritu de casa propia
 
-El corazon de la propiedad se organiza alrededor del patio, que estructura la circulacion y aporta esa respiracion tan buscada en las casas de medina. La luz se reparte con mas suavidad, los espacios se leen mejor y la vida diaria gana en comodidad.
+El corazón del inmueble se organiza alrededor del patio, que estructura la circulación y aporta esa sensación de espacio tan buscada en las casas de medina. La luz se difunde con más suavidad, los volúmenes se leen mejor y la vida cotidiana gana en confort.
 
-Con tres dormitorios, la dar ofrece una escala domestica real. Puede funcionar para una familia, como pied-a-terre con encanto o como alquiler de corta estancia bien posicionado.
+Con tres habitaciones, la dar ofrece una verdadera escala doméstica. Puede acoger a una familia, servir como base con encanto o sustentar una pequeña explotación de alquiler a corto plazo si el proyecto está bien planteado.
 
-La terraza aporta una segunda capa de calidad de vida. Es un espacio para descansar o comer al aire libre y refuerza tanto la deseabilidad como el relato del bien.
+La terraza añade un segundo nivel de calidad de vida. Es un espacio de descanso, comidas o relajación que refuerza la deseabilidad del inmueble y su capacidad de transmitir una experiencia de medina más completa.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 120 m2
-- Distribucion: 3 dormitorios, 2 banos
-- Exteriores: patio central, azotea de 18 m2
-- Caracter: autentica, calida, vinculada a la arquitectura tradicional
-- Uso posible: residencia, pied-a-terre, alquiler con encanto
+- Superficie interior anunciada: 120 m2
+- Configuración: 3 habitaciones, 2 cuartos de baño
+- Exterior: patio central, terraza azotea de 18 m2
+- Carácter: auténtico, cálido, inspirado en la construcción tradicional
+- Uso posible: residencia, base ocasional, alquiler con encanto

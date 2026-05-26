@@ -39,10 +39,6 @@ amenityFeature:
   - Séche-linge
   - Télévision
   - WiFi
-image:
-  - media-appartement-centre-essaouira-01
-  - media-appartement-centre-essaouira-02
-  - media-appartement-centre-essaouira-03
 associatedMedia:
   - image: media-appartement-centre-essaouira-01
     caption: Appartement centre Essaouira - pièce de vie

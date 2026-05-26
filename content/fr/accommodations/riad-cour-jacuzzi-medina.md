@@ -22,10 +22,6 @@ amenityFeature:
   - spa
   - toit-terrasse
   - ambiance
-image:
-  - media-riad-cour-jacuzzi-medina-02
-  - media-riad-patio-bab-sbah-01
-  - media-riad-terrasse-remparts-02
 associatedMedia:
   - image: media-riad-cour-jacuzzi-medina-02
     caption: Riad avec cour et jacuzzi - espace détente

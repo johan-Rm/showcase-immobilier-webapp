@@ -15,10 +15,6 @@ landArea: 980
 numberOfGarages: 0
 amenityFeature:
   - viabilise
-image:
-  - media-terrain-constructible-route-safi-01
-  - media-terrain-constructible-route-safi-02
-  - media-terrain-constructible-route-safi-03
 associatedMedia:
   - image: media-terrain-constructible-route-safi-01
     caption: Terrain constructible route Safi - vue dégagée

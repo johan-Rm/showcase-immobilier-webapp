@@ -1,12 +1,13 @@
 ---
-identifier: BAVMDC002
-name: Villa contemporanea en la ruta de Agadir
-description: 300 m2 - 4 dormitorios - piscina
+identifier: FBAVMDC002
+name: Villa contemporánea en la carretera de Agadir
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-campagne
 offer:
   price: 980000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: En venta
 yearBuilt: 2021
 place: route-d-agadir
 floorSize: 300
@@ -17,86 +18,52 @@ numberOfBedrooms: 4
 numberOfBathroomsTotal: 4
 occupancy: 8
 amenityFeature:
-  - piscine
+  - piscina
   - jardin
-image:
-  - 5d9ee282-cb73-4ba5-938f-dfd095101b17
-  - 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
-  - 2c2575bc-0de4-47d3-b347-aa49ba655230
-  - 528cfa2f-ccf9-4b66-a010-187fadb25491
 associatedMedia:
-  - image: 5d9ee282-cb73-4ba5-938f-dfd095101b17
-    caption: Villa contemporanea en la ruta de Agadir
+  - image: media-villa-contemporaine-route-agadir-02
+    caption: Villa contemporánea carretera Agadir - arquitectura moderna
     keywords: [gallery]
-  - image: 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
-    caption: Villa contemporanea con terraza
+  - image: media-villa-contemporaine-route-agadir-03
+    caption: Villa contemporánea carretera Agadir - espacio de vida
     keywords: [gallery]
-  - image: 2c2575bc-0de4-47d3-b347-aa49ba655230
-    caption: Villa contemporanea soleada
-    keywords: [gallery]
-  - image: 528cfa2f-ccf9-4b66-a010-187fadb25491
-    caption: Habitat moderno con volumenes geometricos
+  - image: media-villa-golf-resort-sejour
+    caption: Villa de standing - entorno tranquilo
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 300
 areaTerrace: 45
 isActive: true
-tags:
-  - contemporaine
-  - piscine
-  - jardin
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 7eef434d-cfca-4332-99a8-b29fda03d121
-metaTitle: Villa contemporanea de 300 m2 en la ruta de Agadir
-metaDescription: Villa contemporanea con piscina, 4 dormitorios, jardin y domotica.
-slug: villa-contemporaine-route-agadir
-highlight: Una villa contemporanea lista para seducir
+metaTitle: Villa contemporánea 300 m2 en la carretera de Agadir
+metaDescription: Villa contemporánea con piscina, 4 habitaciones, jardín y domótica.
+slug: villa-contemporaine-route-dagadir-route-d-agadir-bavmdc002
+highlight: Una villa contemporánea lista para seducir
+inLanguage: 'es'
 review: |
-  Una villa reciente que asume un registro contemporaneo, con verdaderos marcadores de confort y claridad arquitectonica.
-  La superficie, los cuatro dormitorios y los exteriores la convierten en un producto bien armado para una familia o una segunda residencia de nivel.
-blockquote: |
-  Una villa clara y contemporanea, pensada para una vida comoda todo el ano con jardin y piscina.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Villa reciente en un entorno despejado, con jardin, piscina y una lectura arquitectonica contemporanea.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cuatro dormitorios bien proporcionados, adecuados para vida familiar o segunda residencia de nivel.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrada sobria y cualitativa, coherente con el posicionamiento premium del bien.
-  living:
-    isEnabled: true
-    texts:
-      - Gran espacio de vida luminoso, abierto al exterior y pensado para un uso convivencial.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina contemporanea facil de proyectar en una logica de confort diario y recepcion.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Banos en numero y nivel de confort adaptados a una villa familiar reciente.
+  Una villa reciente que asume un registro contemporáneo, con verdaderos marcadores de confort y claridad arquitectónica.
+  La superficie, las cuatro habitaciones y los exteriores conforman un producto bien armado para una clientela familiar o una segunda residencia de standing.
 ---
 ## Visita guiada
 
-Una villa reciente con un lenguaje contemporaneo muy claro.
+Una villa reciente que asume un lenguaje contemporáneo claro.
 
-### Volumenes limpios, espacios abiertos y proyeccion facil
+### Volúmenes limpios, abiertos y fáciles de proyectar
 
-La propiedad se apoya en una arquitectura sobria y actual, con grandes aperturas y una relacion directa con los exteriores. La piscina, el jardin y las lineas geometricas crean enseguida una sensacion de gama superior sin resultar excesiva.
+La propiedad apuesta por una arquitectura sobria y actual, con grandes aberturas y una relación directa con los exteriores. La piscina, el jardín y las líneas geométricas otorgan de inmediato un estatus más alto de gama, sin caer en una demostración excesiva.
 
-El gran salon es el corazon de la casa. Permite vida familiar, recepcion y una circulacion natural entre interior y exterior. Los cuatro dormitorios completan un programa muy facil de entender para quien busca espacio sin complejidad innecesaria.
+La gran sala de estar constituye el centro de la casa. Permite un uso convivial, familiar o de recepción, con una circulación natural entre interior y exterior. Las cuatro habitaciones completan un programa muy legible para una clientela que quiere espacio sin sobrecomplejidad.
 
-La route d'Agadir aporta buena accesibilidad, lo que hace creible la propiedad tanto como residencia anual como segunda residencia bien conectada. Convence por su modernidad y por lo facil que resulta proyectarse en ella.
+La carretera de Agadir aporta una buena accesibilidad, lo que hace que la propiedad sea creíble tanto para un uso anual como para una segunda residencia bien conectada. Es una propiedad que tranquiliza por su modernidad y facilidad de proyección.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 300 m2
-- Distribucion: 4 dormitorios, 4 banos
-- Exteriores: jardin, piscina, terraza de 45 m2
-- Caracter: villa contemporanea reciente
-- Uso posible: residencia familiar, segunda residencia, recepcion privada
+- Superficie interior declarada: 300 m2
+- Configuración: 4 habitaciones, 4 cuartos de baño
+- Exteriores: jardín, piscina, terraza de 45 m2
+- Tipo: villa contemporánea reciente
+- Uso posible: residencia familiar, segunda residencia, recepción privada

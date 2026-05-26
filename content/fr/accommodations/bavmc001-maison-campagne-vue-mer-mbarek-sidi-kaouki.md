@@ -12,7 +12,7 @@ realEstateListing: bien-a-vendre
 category: maison-de-campagne
 place: sidi-kaouki
 
-offers:
+offer:
   price: 4171750
   priceCurrency: MAD
 

@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - wifi
-image:
-  - 982a1350-a60d-4866-be9e-08235612e881
-  - d8a3dc62-5ef8-4c82-8cd0-4f3ada9d5e64
-  - 0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01
 associatedMedia:
   - image: 982a1350-a60d-4866-be9e-08235612e881
     caption: Maison d'hotes avec patio en medina

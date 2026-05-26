@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - climatisation
-image:
-  - media-riad-terrasse-remparts-02
-  - media-riad-terrasse-remparts-03
-  - media-riad-patio-bab-sbah-01
 associatedMedia:
   - image: media-riad-terrasse-remparts-02
     caption: Riad terrasse remparts - vue dégagée

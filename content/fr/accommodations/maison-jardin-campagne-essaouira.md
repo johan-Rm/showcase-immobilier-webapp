@@ -20,10 +20,6 @@ amenityFeature:
   - jardin
   - terrasse
   - wifi
-image:
-  - media-maison-jardin-campagne-essaouira-01
-  - media-maison-jardin-campagne-essaouira-02
-  - media-maison-jardin-campagne-essaouira-03
 associatedMedia:
   - image: media-maison-jardin-campagne-essaouira-01
     caption: Maison campagne Essaouira - jardin

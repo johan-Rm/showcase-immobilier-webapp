@@ -21,10 +21,6 @@ amenityFeature:
   - vue-ocean
   - petit-dejeuner
   - wifi
-image:
-  - media-chambre-hotes-vue-ocean-01
-  - media-chambre-hotes-vue-ocean-02
-  - media-chambre-hotes-vue-ocean-03
 associatedMedia:
   - image: media-chambre-hotes-vue-ocean-01
     caption: Chambre d’hôtes - vue océan

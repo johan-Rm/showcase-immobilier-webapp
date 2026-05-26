@@ -168,12 +168,10 @@ type ResolvedItem = {
 defineOptions({ name: 'DashboardPropertyAssociatedMediaEditor' })
 
 const props = defineProps<{
-  mediaImageValue: DashboardEditableValue
   associatedMedia: DashboardEditableValue
 }>()
 
 const emit = defineEmits<{
-  'update:mediaImageValue': [value: DashboardEditableValue]
   'update:associatedMedia': [value: DashboardEditableValue]
 }>()
 
@@ -200,13 +198,9 @@ const parsedAssocMedia = computed<AssocItem[]>(() => {
   })
 })
 
-const imageIdentifiers = computed<string[]>(() => {
-  if (Array.isArray(props.mediaImageValue) && props.mediaImageValue.length > 0) {
-    return props.mediaImageValue.filter((v): v is string => typeof v === 'string')
-  }
-  // Fallback: `image` absent mais `associatedMedia` contient des entrées
-  return parsedAssocMedia.value.map((a) => a.image).filter(Boolean)
-})
+const imageIdentifiers = computed<string[]>(() =>
+  parsedAssocMedia.value.map((a) => a.image).filter(Boolean),
+)
 
 const resolvedItems = computed<ResolvedItem[]>(() => {
   const byIdentifier = metadataStore.getImageObjectsByIdentifier
@@ -216,7 +210,7 @@ const resolvedItems = computed<ResolvedItem[]>(() => {
     return {
       identifier,
       url: mediaObj?.url ?? '',
-      name: mediaObj?.name ?? identifier,
+      name: mediaObj?.caption ?? mediaObj?.name ?? identifier,
       representativeOfPage: assoc?.representativeOfPage ?? false,
     }
   })
@@ -250,27 +244,19 @@ const updateCaption = (identifier: string, caption: string): void => {
   emitAssocMedia(updated)
 }
 
-const emitIdentifiers = (identifiers: string[]): void => {
-  emit('update:mediaImageValue', identifiers)
-}
-
 const emitAssocMedia = (items: AssocItem[]): void => {
   emit('update:associatedMedia', items)
 }
 
 const addIdentifier = (identifier: string): void => {
   if (imageIdentifiers.value.includes(identifier)) return
-  const newIdentifiers = [...imageIdentifiers.value, identifier]
-  const newAssoc: AssocItem[] = [
+  emitAssocMedia([
     ...parsedAssocMedia.value,
     { image: identifier, caption: '', keywords: [], representativeOfPage: false },
-  ]
-  emitIdentifiers(newIdentifiers)
-  emitAssocMedia(newAssoc)
+  ])
 }
 
 const removeIdentifier = (identifier: string): void => {
-  emitIdentifiers(imageIdentifiers.value.filter((id) => id !== identifier))
   emitAssocMedia(parsedAssocMedia.value.filter((a) => a.image !== identifier))
 }
 
@@ -287,26 +273,12 @@ const swapItems = <T,>(items: T[], fromIndex: number, toIndex: number): T[] => {
 
 const moveUp = (index: number): void => {
   if (index <= 0) return
-  const ids = swapItems(imageIdentifiers.value, index - 1, index)
-  emitIdentifiers(ids)
-
-  const iA = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index - 1])
-  const iB = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index])
-  emitAssocMedia(
-    iA !== -1 && iB !== -1 ? swapItems(parsedAssocMedia.value, iA, iB) : parsedAssocMedia.value,
-  )
+  emitAssocMedia(swapItems(parsedAssocMedia.value, index - 1, index))
 }
 
 const moveDown = (index: number): void => {
   if (index >= imageIdentifiers.value.length - 1) return
-  const ids = swapItems(imageIdentifiers.value, index, index + 1)
-  emitIdentifiers(ids)
-
-  const iA = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index])
-  const iB = parsedAssocMedia.value.findIndex((a) => a.image === imageIdentifiers.value[index + 1])
-  emitAssocMedia(
-    iA !== -1 && iB !== -1 ? swapItems(parsedAssocMedia.value, iA, iB) : parsedAssocMedia.value,
-  )
+  emitAssocMedia(swapItems(parsedAssocMedia.value, index, index + 1))
 }
 
 const onUploaded = (mediaObjects: MediaObject[]): void => {

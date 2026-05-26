@@ -20,10 +20,6 @@ amenityFeature:
   - terrasse
   - wifi
   - climatisation
-image:
-  - media-appartement-marina-terrasse-filante-01
-  - media-appartement-marina-terrasse-filante-02
-  - media-appartement-marina-terrasse-filante-03
 associatedMedia:
   - image: media-appartement-marina-terrasse-filante-01
     caption: Appartement marina - terrasse filante

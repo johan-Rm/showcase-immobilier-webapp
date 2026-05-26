@@ -15,10 +15,6 @@ landArea: 92
 numberOfGarages: 0
 amenityFeature:
   - vitrine
-image:
-  - media-local-commercial-angle-centre-01
-  - media-local-commercial-angle-centre-02
-  - media-local-commercial-angle-centre-03
 associatedMedia:
   - image: media-local-commercial-angle-centre-01
     caption: Local commercial en angle - façade

@@ -1,12 +1,13 @@
 ---
-identifier: BAVVG001
-name: Villa junto al golf con piscina privada
-description: 360 m2 - 4 dormitorios - piscina
+identifier: FBAVVG002
+name: Villa de golf con piscina privada
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: villa-golf
 offer:
   price: 2100000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: En venta
 yearBuilt: 2018
 place: palmeraie
 floorSize: 360
@@ -17,87 +18,54 @@ numberOfBedrooms: 4
 numberOfBathroomsTotal: 4
 occupancy: 8
 amenityFeature:
-  - piscine
+  - piscina
   - jardin
-  - garage
-image:
-  - 1b5e2afd-dbec-42c5-8a8c-c50a7a2f33b3
-  - e0724ee4-5354-4e65-a593-6b387dc2e3d0
-  - 7a8439ff-3760-4ef8-9425-9abd0ad2d64f
-  - 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
+  - garaje
 associatedMedia:
-  - image: 1b5e2afd-dbec-42c5-8a8c-c50a7a2f33b3
-    caption: Villa junto al golf con piscina privada
+  - image: media-villa-golf-palmeraie-01
+    caption: Villa de golf con piscina privada
     keywords: [gallery]
-  - image: e0724ee4-5354-4e65-a593-6b387dc2e3d0
-    caption: Golf en Essaouira
+  - image: media-villa-golf-palmeraie-02
+    caption: Villa de golf - exterior luminoso
     keywords: [gallery]
-  - image: 7a8439ff-3760-4ef8-9425-9abd0ad2d64f
-    caption: Villa con jardin
-    keywords: [gallery]
-  - image: 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
-    caption: Villa contemporanea con terraza
+  - image: media-villa-golf-palmeraie-03
+    caption: Villa de golf - arquitectura contemporánea
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 360
 areaTerrace: 60
 isActive: true
-tags:
-  - golf
-  - piscine
-  - jardin
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: a94d9755-ed63-469a-8530-35f797ac19c6
-metaTitle: Villa de 360 m2 junto al golf con piscina privada
-metaDescription: Villa de 360 m2 en la palmeraie, con 4 dormitorios, piscina y jardin.
-slug: villa-golf-palmeraie
-highlight: Una villa premium en primera linea de golf
+metaTitle: Villa de golf 360 m2 con piscina privada
+metaDescription: Villa de 360 m2 en la palmeraie, 4 habitaciones, piscina y jardín.
+slug: villa-golf-avec-piscine-privee-palmeraie-bavvg002
+highlight: Una villa premium en primera línea de golf
+inLanguage: 'es'
 review: |
-  Una villa de gama alta con un posicionamiento premium inmediatamente legible gracias al golf, la piscina y el jardin.
-  El bien habla a una clientela que busca tanto una direccion de prestigio como una casa facil de vivir en un entorno privado.
-blockquote: |
-  Una villa premium junto al golf, con piscina privada y jardin para un estilo de vida mas exclusivo.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Villa de nivel alto abierta al golf, con jardin cuidado y piscina privada en un entorno mas exclusivo.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Cuatro dormitorios confortables, pensados para acoger a familia e invitados en buenas condiciones.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrada elegante y tranquilizadora, en linea con una propiedad residencial premium.
-  living:
-    isEnabled: true
-    texts:
-      - Espacios de recepcion luminosos, prolongados hacia las terrazas y las vistas al jardin.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina familiar o de recepcion, facil de integrar en una vida comoda durante todo el ano.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Banos adaptados a un nivel de gama elevado, con foco en el confort privado.
+  Una villa de standing con un posicionamiento premium inmediatamente legible gracias al golf, la piscina y el jardín.
+  La propiedad habla a una clientela que busca tanto una dirección de estatus como una casa cómoda en un entorno privado.
 ---
+
 ## Visita guiada
 
-Una villa de alta gama cuyo posicionamiento premium se percibe desde el primer momento.
+Una villa de standing cuyo posicionamiento premium se percibe desde los primeros instantes.
 
 ### Un entorno residencial exclusivo abierto al golf
 
-La relacion con el golf estructura toda la deseabilidad de la propiedad. Aporta vista, respiracion y un estatus particular que situa la villa en un registro mas exclusivo que el de una casa familiar estandar.
+La relación con el golf estructura todo el atractivo de la propiedad. Aporta una vista, una respiración y un estatus muy particular que sitúa la villa en un registro más exclusivo que el de una casa familiar clásica.
 
-Los volumenes interiores priorizan el confort y la recepcion. Grandes ventanales, continuidad hacia las terrazas, jardin cuidado y piscina privada componen un conjunto coherente para una clientela que busca espacio, intimidad y una direccion con presencia.
+Los volúmenes interiores priorizan el confort y la recepción. Grandes cristaleras, continuidad con las terrazas, jardín cuidado y piscina privada componen un conjunto coherente para una clientela en busca de espacio, intimidad y una dirección que marque.
 
-Con cuatro dormitorios, garaje y 360 m2 interiores, la ficha puede sostener un relato patrimonial, lifestyle o de segunda residencia de gama alta. Es un bien que gana cuando se cuenta con calma, dejando hablar la calidad del entorno.
+Con cuatro habitaciones, garaje y una superficie de 360 m2, la ficha puede sostener un discurso patrimonial, lifestyle o de segunda residencia de alta gama. Es un producto que debe presentarse con calma, dejando hablar la calidad del entorno y la fuerza de la dirección.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 360 m2
-- Distribucion: 4 dormitorios, 4 banos
-- Exteriores: jardin, piscina privada, terraza de 60 m2
-- Anexo: garaje
-- Caracter: villa premium en entorno de golf
+- Superficie interior declarada: 360 m2
+- Configuración: 4 habitaciones, 4 cuartos de baño
+- Exteriores: jardín, piscina privada, terraza de 60 m2
+- Anexos: garaje
+- Tipo: villa premium en entorno de golf

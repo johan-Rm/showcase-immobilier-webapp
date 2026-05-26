@@ -21,10 +21,6 @@ amenityFeature:
   - piscine
   - jardin
   - garage
-image:
-  - media-villa-golf-palmeraie-01
-  - media-villa-golf-palmeraie-02
-  - media-villa-golf-palmeraie-03
 associatedMedia:
   - image: media-villa-golf-palmeraie-01
     caption: Villa golf avec piscine privée

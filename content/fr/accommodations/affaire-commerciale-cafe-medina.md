@@ -16,10 +16,6 @@ landArea: 120
 numberOfGarages: 0
 amenityFeature:
   - vitrine
-image:
-  - media-affaire-commerciale-cafe-medina-01
-  - media-affaire-commerciale-cafe-medina-02
-  - media-affaire-commerciale-cafe-medina-03
 associatedMedia:
   - image: media-affaire-commerciale-cafe-medina-01
     caption: Café en médina - terrasse

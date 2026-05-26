@@ -15,10 +15,6 @@ landArea: 1240
 numberOfGarages: 0
 amenityFeature:
   - viabilise
-image:
-  - media-terrain-viabilise-route-marrakech-01
-  - media-terrain-viabilise-route-marrakech-02
-  - media-terrain-viabilise-route-marrakech-03
 associatedMedia:
   - image: media-terrain-viabilise-route-marrakech-01
     caption: Terrain route Marrakech - vue dégagée

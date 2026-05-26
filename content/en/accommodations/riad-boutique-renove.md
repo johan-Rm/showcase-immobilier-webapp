@@ -1,12 +1,13 @@
 ---
-identifier: BAVR001
+identifier: FBAVR001
 name: Renovated boutique riad
-description: 260 sqm - 6 bedrooms - spa
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: riad
 offer:
   price: 1750000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: For sale
 yearBuilt: 1920
 place: medina
 floorSize: 260
@@ -19,85 +20,52 @@ occupancy: 12
 amenityFeature:
   - patio
   - spa
-  - toit-terrasse
-image:
-  - 982a1350-a60d-4866-be9e-08235612e881
-  - d8a3dc62-5ef8-4c82-8cd0-4f3ada9d5e64
-  - 309c794f-abfd-4269-ab0f-bb0c413ea3a1
-  - 0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01
+  - rooftop-terrace
 associatedMedia:
-  - image: 982a1350-a60d-4866-be9e-08235612e881
-    caption: Renovated boutique riad
+  - image: media-riad-boutique-renove-01
+    caption: Renovated boutique riad - luminous patio
     keywords: [gallery]
-  - image: d8a3dc62-5ef8-4c82-8cd0-4f3ada9d5e64
-    caption: Bright riad with natural materials
+  - image: media-riad-boutique-renove-02
+    caption: Renovated boutique riad - terrace
     keywords: [gallery]
-  - image: 309c794f-abfd-4269-ab0f-bb0c413ea3a1
-    caption: Spa area
-    keywords: [gallery]
-  - image: 0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01
-    caption: Medina gallery
+  - image: media-riad-boutique-renove-03
+    caption: Renovated boutique riad - medina entrance
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 260
 areaTerrace: 40
 isActive: true
-tags:
-  - riad
-  - spa
-  - boutique
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: 7920a3af-14f4-4c3c-9f25-3ac37ab5cc3f
-metaTitle: Renovated 260 sqm boutique riad in the medina
+metaTitle: Renovated boutique riad 260 m2 in the medina
 metaDescription: Renovated boutique riad with 6 suites, spa and rooftop terrace.
-slug: riad-boutique-renove
+slug: riad-boutique-renove-medina-bavr001
 highlight: A prestige riad ready to shine
+inLanguage: 'en'
 review: |
-  A premium asset that matches the expected markers for a high-end hospitality operation or a prestige residence.
+  A premium asset that ticks the expected markers for upscale hospitality use or a prestige residence.
   The number of suites, the spa and the terrace clearly reinforce its boutique positioning in the medina.
-blockquote: |
-  A renovated riad with a true hospitality signature, designed for a high-end operation or a remarkable private use.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Preserved riad facade within the old urban fabric, with a discreet and high-quality presence in the medina.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Six suites allowing for a well-structured hospitality operation or a large private residence.
-  entrance:
-    isEnabled: true
-    texts:
-      - Carefully designed entrance that sets a more premium experience from arrival.
-  living:
-    isEnabled: true
-    texts:
-      - Elegant shared spaces organized around a hospitality and comfort logic.
-  kitchen:
-    isEnabled: true
-    texts:
-      - House or service kitchen to size according to the desired level of operation.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Bathrooms in sufficient number to support boutique use or a large hosting capacity.
 ---
+
 ## Guided tour
 
 A boutique riad already aligned with the codes of a premium address.
 
 ### A hospitality asset that tells a complete experience
 
-With six suites, a spa and carefully designed shared spaces, the property clearly positions itself in the upper-end hospitality segment. The commercial reading is immediate: this is not only a large riad, but a product already structured around guest experience.
+With its six suites, spa and carefully considered common areas, the property positions itself clearly in the upscale hospitality segment. The commercial reading is immediate: this is not simply a large riad, but a product already structured around a guest experience.
 
-The renovation makes a smoother operation easier to imagine while preserving medina character. The patio, materials and reception areas all contribute to a stronger sense of place and pricing legitimacy.
+The renovation allows for a more serene operation while preserving the character of the medina. The patio, the materials and the reception areas contribute to the feeling of a more distinctive, more memorable and more defensible address in terms of price.
 
-The rooftop terrace completes the ensemble with an outdoor area that can be highly valued for breakfasts, end-of-day moments or more lifestyle-oriented staging. The property can appeal both to a hospitality investor and to a buyer seeking an exceptional private residence with hosting capacity.
+The rooftop terrace completes the ensemble with an outdoor space that is highly valuable for breakfasts, late afternoons or a more lifestyle-oriented setting. The property speaks as much to a hospitality investor as to a buyer seeking an exceptional residence with guest capacity.
 
-## Overview
+## Description
 
-- Interior area: 260 sqm
+- Stated interior area: 260 m2
 - Layout: 6 bedrooms, 6 bathrooms
-- Amenities and outdoor spaces: patio, spa, 40 sqm rooftop terrace
-- Character: renovated boutique riad, upper-end, ready to perform
-- Potential use: premium guesthouse, boutique hotel, large private residence
+- Outdoor spaces and services: patio, spa, 40 m2 rooftop terrace
+- Type: renovated boutique riad, upscale, ready to operate
+- Possible use: premium guesthouse, boutique hotel, large private residence

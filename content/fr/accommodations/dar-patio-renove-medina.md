@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - wifi
-image:
-  - media-dar-patio-renove-medina-01
-  - media-dar-patio-renove-medina-02
-  - media-dar-patio-renove-medina-03
 associatedMedia:
   - image: media-dar-patio-renove-medina-01
     caption: Dar rénovée médina - patio

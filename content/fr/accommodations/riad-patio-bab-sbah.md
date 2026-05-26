@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - climatisation
-image:
-  - media-riad-patio-bab-sbah-01
-  - media-riad-patio-bab-sbah-02
-  - media-riad-patio-bab-sbah-03
 associatedMedia:
   - image: media-riad-patio-bab-sbah-01
     caption: Riad Bab Sbah - patio

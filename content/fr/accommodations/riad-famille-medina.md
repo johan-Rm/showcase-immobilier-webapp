@@ -21,10 +21,6 @@ amenityFeature:
   - patio
   - toit-terrasse
   - spa
-image:
-  - media-riad-famille-medina-02
-  - media-riad-patio-bab-sbah-02
-  - media-riad-terrasse-remparts-03
 associatedMedia:
   - image: media-riad-famille-medina-02
     caption: Riad familial médina - intérieur

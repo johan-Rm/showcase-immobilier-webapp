@@ -1,19 +1,16 @@
 ---
-id: 15
+identifier: 15
 slug: 'l-agence'
 inLanguage: 'fr'
 metaTitle: 'MLK – My Little Kasbah, agence immobilière à Essaouira'
 metaDescription: 'MLK – My Little Kasbah accompagne vos projets immobiliers à Essaouira investissement, achat, vente et gestion locative avec une expertise locale et internationale.'
 headline: 'MLK – My Little Kasbah'
 alternativeHeadline: 'MLK – My Little Kasbah'
-image:
+associatedMedia:
   - 'a22572bd-f8ad-4408-9d79-54af0bfbea08'
 highlight: 'Une expertise locale, une vision internationale et un accompagnement de confiance'
-articleSection: 'agence-immobiliere'
-keywords:
-  - 'essaouira'
-  - 'investissement'
-  - 'gestion-locative'
+articleSection: ''
+keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
 dateCreated: '2022-10-11T01:57:05+02:00'
 dateModified: '2023-02-16T11:40:34+01:00'

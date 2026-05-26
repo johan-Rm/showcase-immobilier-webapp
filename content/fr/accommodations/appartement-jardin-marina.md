@@ -20,10 +20,6 @@ amenityFeature:
   - terrasse
   - wifi
   - climatisation
-image:
-  - media-appartement-jardin-marina-01
-  - media-appartement-jardin-marina-02
-  - media-appartement-jardin-marina-03
 associatedMedia:
   - image: media-appartement-jardin-marina-01
     caption: Appartement jardin marina - terrasse

@@ -15,10 +15,6 @@ landArea: 78
 numberOfGarages: 0
 amenityFeature:
   - vitrine
-image:
-  - media-local-commercial-angle-centre-03
-  - media-affaire-commerciale-boutique-centre-02
-  - media-affaire-commerciale-boutique-centre-03
 associatedMedia:
   - image: media-local-commercial-angle-centre-03
     caption: Local commercial - emplacement stratégique

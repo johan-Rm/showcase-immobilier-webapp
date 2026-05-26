@@ -1,12 +1,13 @@
 ---
-identifier: BAVMDV001
-name: Casa urbana cerca del oceano
-description: 140 m2 - 3 dormitorios - terraza
+identifier: FBAVMDV001
+name: Casa de ciudad cerca del océano
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
 category: maison-de-ville
 offer:
   price: 320000
   priceCurrency: EUR
-  priceSpecification: A la vente
+  priceSpecification: En venta
 yearBuilt: 2009
 place: sidi-kaouki
 floorSize: 140
@@ -17,86 +18,52 @@ numberOfBedrooms: 3
 numberOfBathroomsTotal: 2
 occupancy: 6
 amenityFeature:
-  - terrasse
-  - cheminee
-image:
-  - 0c687ae5-6e30-477b-9d9a-8e5ef84ad0f6
-  - 5353ac49-6559-4635-a4aa-27afb527388f
-  - d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
-  - 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
+  - terraza
+  - chimenea
 associatedMedia:
-  - image: 0c687ae5-6e30-477b-9d9a-8e5ef84ad0f6
-    caption: Casa urbana cerca del oceano
+  - image: media-maison-de-ville-sidi-kaouki-01
+    caption: Casa de ciudad en Sidi Kaouki - vista al mar
     keywords: [gallery]
-  - image: 5353ac49-6559-4635-a4aa-27afb527388f
-    caption: Casa urbana cerca del oceano
+  - image: media-maison-de-ville-sidi-kaouki-02
+    caption: Casa de ciudad en Sidi Kaouki - interior
     keywords: [gallery]
-  - image: d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
-    caption: Playa de Essaouira
-    keywords: [gallery]
-  - image: 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
-    caption: Vista aerea de la costa oceanica
+  - image: media-maison-de-ville-sidi-kaouki-03
+    caption: Casa de ciudad en Sidi Kaouki - ambiente costero
     keywords: [gallery]
 realEstateListing: bien-a-vendre
 areaSize: 140
 areaTerrace: 20
 isActive: true
-tags:
-  - sidi-kaouki
-  - terrasse
-  - cheminee
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
 realEstateAgent: ff36d255-d1b0-4710-948c-ecb028ac86f7
-metaTitle: Casa urbana de 140 m2 cerca del oceano
-metaDescription: Casa urbana en Sidi Kaouki, con 3 dormitorios, terraza y patio.
-slug: maison-de-ville-sidi-kaouki
-highlight: Una vida suave a dos pasos de la playa
+inLanguage: 'es'
+metaTitle: Casa de ciudad 140 m2 cerca del océano
+metaDescription: Casa de ciudad en Sidi Kaouki, 3 habitaciones, terraza y patio.
+slug: maison-de-ville-proche-ocean-sidi-kaouki-bavmdv001
+highlight: Una vida tranquila a pocos pasos de la playa
 review: |
-  Una casa flexible en su uso, bien adaptada a una vida junto al mar con una escala domestica tranquilizadora.
-  La terraza y la proximidad al oceano le dan un potencial evidente como segunda residencia o alquiler con encanto.
-blockquote: |
-  Una casa urbana con espiritu oceanico, terraza soleada y un ritmo de vida mas pausado.
-screens:
-  exterior:
-    isEnabled: true
-    texts:
-      - Casa urbana con espiritu oceanico en un entorno tranquilo a pocos minutos de la playa.
-  bedrooms:
-    isEnabled: true
-    texts:
-      - Tres dormitorios confortables, adecuados para uso familiar o estancias repetidas junto al mar.
-  entrance:
-    isEnabled: true
-    texts:
-      - Entrada sencilla y tranquilizadora, facil de usar tanto a diario como en segunda residencia.
-  living:
-    isEnabled: true
-    texts:
-      - Salon calido prolongado por una atmosfera suave y una relacion agradable con los exteriores.
-  kitchen:
-    isEnabled: true
-    texts:
-      - Cocina funcional en el espiritu de una casa facil de vivir durante todo el ano.
-  bathrooms:
-    isEnabled: true
-    texts:
-      - Banos practicos, coherentes con un uso familiar o turistico de media estancia.
+  Una casa versátil en su uso, bien adaptada a la vida junto al mar con una escala doméstica acogedora.
+  La terraza y la proximidad al océano dan al inmueble un potencial evidente para una residencia secundaria o un alquiler con encanto.
 ---
 ## Visita guiada
 
-Una casa junto al mar centrada en la suavidad y la simplicidad.
+Una casa junto al mar que prioriza la suavidad y la sencillez.
 
-### Un ritmo de vida mas libre a pocos minutos de la playa
+### Un ritmo de vida más libre a pocos minutos de la playa
 
-La casa refleja bien el espiritu de Sidi Kaouki: mas abierta, mas relajada y mas conectada con el exterior. La terraza ocupa un lugar importante en el uso diario, ya sea para un cafe por la manana, al volver de la playa o al terminar el dia con calma.
+La casa encaja en el espíritu de Sidi Kaouki: más abierta, más relajada y más orientada hacia el exterior. La terraza ocupa un lugar importante en el uso cotidiano, ya sea para un café por la mañana, al volver de la playa o para terminar el día con calma.
 
-Los espacios interiores siguen siendo calidos y faciles de apropiarse. Tres dormitorios permiten imaginar un uso familiar o estancias repetidas con amigos sin convertir la propiedad en algo pesado de gestionar.
+Los volúmenes interiores permanecen cálidos y fáciles de hacer propios. Tres habitaciones permiten una ocupación familiar o estancias repetidas con amigos, sin que el inmueble resulte demasiado pesado de gestionar.
 
-La cercania del oceano da al bien una verdadera sensacion de destino. Esta ficha funciona especialmente bien para una segunda residencia o una casa de vacaciones con un posicionamiento mas autentico que el de un producto de estacion clasica.
+La proximidad al océano da al inmueble una verdadera vocación de destino. Es una ficha que funciona bien para un proyecto de residencia secundaria o como casa de vacaciones con un posicionamiento más auténtico que una estación balnearia clásica.
 
-## Descriptivo
+## Descripción
 
-- Superficie interior: 140 m2
-- Distribucion: 3 dormitorios, 2 banos
+- Superficie interior anunciada: 140 m2
+- Configuración: 3 habitaciones, 2 cuartos de baño
 - Exterior: terraza de 20 m2
-- Ambiente: casa de playa, calida, facil de vivir
-- Uso posible: segunda residencia, alquiler vacacional, casa familiar
+- Ambiente: casa de playa, cálida, fácil de vivir
+- Uso posible: residencia secundaria, alquiler vacacional, casa familiar
