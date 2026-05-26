@@ -1,0 +1,36 @@
+items:
+  - slug: appartement
+    name: Appartement
+    text: "Notre agence vous propose une sélection d’appartements à vendre à Essaouira. Appartements neufs ou de caractère, adaptés à tous les projets."
+  - slug: riad
+    name: Riad
+    text: "Notre agence vous propose une sélection de riads à vendre à Essaouira. Découvrez des biens de charme dans la médina, rénovés ou à rénover, avec accompagnement complet dans vos démarches d’achat."
+  - slug: maisons-dhotes
+    name: "Maison d'hôtes"
+    text: "Maisons d’hôtes à vendre à Essaouira avec potentiel de rentabilité."
+  - slug: villa-golf
+    name: Villa golf
+    text: "Le marché des villas sur le golf de Mogador est spécifique, avec peu de biens disponibles. Certaines villas offrent des vues mer exceptionnelles et un cadre haut de gamme."
+  - slug: maison-de-campagne
+    name: Maison de campagne
+    text: "Sélection de maisons de campagne à vendre à Essaouira et sa région. Accompagnement dans toutes les étapes de votre projet immobilier."
+  - slug: maison-de-ville
+    name: Maison de ville
+    text: ""
+  - slug: terrain
+    name: Terrain
+    text: "Les terrains à Essaouira peuvent être situés en zone urbaine ou rurale. Des règles spécifiques s’appliquent selon la localisation et le type de projet."
+  - slug: affaires-commerciales
+    name: Affaire commerciale
+    text: "Fonds de commerce à vendre à Essaouira : restaurants, hôtels et maisons d’hôtes."
+  - slug: location-gerance
+    name: Location gérance
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  - slug: local-commercial
+    name: Local commercial
+    text: "Vente Locaux de commerce Essaouira : sélection de fonds de commerce à vendre à Essaouira et sa région. Nos spécialistes vous accompagnent pour trouver l’affaire adaptée à votre projet."
+  - slug: dar
+    name: Dar
+    text: "Sélection de dars à vendre à Essaouira."
+  - slug: chambre-dhotes
+    name: "Chambre d'hôtes"

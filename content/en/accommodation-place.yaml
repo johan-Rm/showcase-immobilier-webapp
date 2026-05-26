@@ -1,0 +1,78 @@
+items:
+  - slug: medina
+    name: Médina
+    description: "Construite à la fin du XVIIIe siècle, la Médina est le cœur historique d’Essaouira, animée par ses souks, ses remparts et son port. Classée au patrimoine mondial de l’UNESCO, elle séduit par son authenticité et son architecture unique."
+  - slug: centre-ville
+    name: Centre-ville
+  - slug: marina
+    name: Marina
+  - slug: nouvelle-ville
+    name: Nouvelle-ville
+    description: "Quartier moderne d’Essaouira regroupant commerces, services et habitations récentes, idéal pour un quotidien pratique à proximité du centre."
+  - slug: corniche
+    name: Corniche
+  - slug: golf-mogador
+    name: Mogador
+    description: "Situé à proximité de Diabat, le golf de Mogador est un domaine réputé offrant un cadre sécurisé avec villas haut de gamme, entre océan et nature."
+  - slug: palmeraie
+    name: Palmeraie
+  - slug: campagne
+    name: Campagne
+    description: "Environnement calme autour d’Essaouira, idéal pour profiter d’espaces naturels, de tranquillité et de propriétés avec terrain."
+  - slug: campagne-d-essaouira
+    name: Campagne d'Essaouira
+  - slug: diabet
+    name: Diabet
+    description: "Situé à l’ouest d’Essaouira, Diabat est un village emblématique connu pour ses dunes, son ambiance bohème et sa proximité immédiate avec la plage. Très prisé pour les résidences secondaires et les maisons de charme, le secteur bénéficie également de la présence du golf de Mogador à proximité. Diabat séduit par son atmosphère paisible, son authenticité et son cadre naturel unique entre océan et désert."
+  - slug: ghazoua
+    name: Ghazoua
+    description: "Située à quelques minutes d’Essaouira, Ghazoua est une zone résidentielle en plein développement, très recherchée pour ses villas avec jardin et piscine. Le secteur offre un bon compromis entre calme, accessibilité et proximité des commodités. On y trouve de nombreuses propriétés modernes ainsi que des maisons d’hôtes, dans un environnement paisible à seulement quelques minutes du centre-ville et des plages."
+  - slug: boulevard-principal
+    name: Boulevard principal
+  - slug: douar-larab
+    name: Douar Laarab
+    description: "Douar situé dans l’arrière-pays d’Essaouira, offrant un cadre authentique et rural, apprécié pour son calme et ses espaces naturels."
+  - slug: sidi-kaouki
+    name: Sidi Kaouki
+    description: "À une trentaine de minutes au sud d’Essaouira, Sidi Kaouki est une destination réputée pour ses plages sauvages et son cadre naturel préservé. Très apprécié des amateurs de surf et de tranquillité, le secteur attire une clientèle en quête d’évasion et d’authenticité. L’immobilier y est orienté vers des maisons de charme, des villas et des projets touristiques dans un environnement encore préservé."
+  - slug: ida-ougourd
+    name: Ida Ougourd
+    description: "Zone rurale située à proximité d’Essaouira, appréciée pour son authenticité, son calme et ses paysages naturels."
+  - slug: hrarta
+    name: Hrarta
+    description: "Secteur en développement autour d’Essaouira, offrant un cadre paisible entre ville et campagne, adapté aux projets immobiliers."
+  - slug: bouzama
+    name: Bouzama
+    description: "Village situé aux alentours d’Essaouira, offrant un environnement calme et authentique, propice à la vie en pleine nature."
+  - slug: aeroport
+    name: "Route de l'aéroport"
+    description: "Zone reliant Essaouira à son aéroport, appréciée pour son accessibilité et son potentiel de développement."
+  - slug: had-draa
+    name: Had Draa
+    description: "Localité rurale proche d’Essaouira, connue pour son ambiance traditionnelle et ses marchés locaux."
+  - slug: ounagha
+    name: Ounagha
+    description: "Commune située à proximité d’Essaouira, combinant accessibilité, authenticité et cadre naturel agréable."
+  - slug: moulay-bouzerktoun
+    name: Moulay Bouzerktoun
+    description: "Spot réputé pour le kitesurf et le windsurf, attirant les amateurs de sports nautiques et de nature."
+  - slug: laraich
+    name: Laraiche
+    description: "Zone rurale aux environs d’Essaouira, offrant un cadre calme et authentique, idéal pour des projets résidentiels."
+  - slug: chicht
+    name: Chicht
+    description: "Village situé dans la région d’Essaouira, proposant un environnement paisible et typique de la campagne marocaine."
+  - slug: route-de-marrakech
+    name: Route de Marrakech
+    description: "Axe majeur reliant Essaouira à Marrakech, offrant un bon compromis entre accessibilité et opportunités immobilières."
+  - slug: route-d-agadir
+    name: Route d'Agadir
+  - slug: route-de-safi
+    name: Route de Safi
+    description: "Secteur desservi par la route de Safi, apprécié pour son accessibilité et ses possibilités de développement immobilier."
+  - slug: zone-rurale
+    name: Zone rurale
+    description: "Secteurs situés en dehors du centre urbain, offrant calme, espace et cadre naturel autour d’Essaouira."
+  - slug: zone-urbaine
+    name: Zone urbaine
+    description: "Zones situées au cœur ou à proximité immédiate d’Essaouira, offrant un accès direct aux commerces, services et infrastructures."
