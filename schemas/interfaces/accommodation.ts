@@ -59,19 +59,19 @@ export interface Accommodation {
   /**
    * Surface habitable (ex: "120 m²") — optionnel
    */
-  floorSize?: number
+  floorSize?: string
   /**
    * Surface totale en m² (numérique, pour les calculs et filtres)
    */
-  areaSize?: number
+  areaSize?: string
   /**
    * Surface de la terrasse en m² — optionnel
    */
-  areaTerrace?: number
+  areaTerrace?: string
   /**
    * Surface du terrain (ex: "500 m²") — optionnel
    */
-  landArea?: number
+  landArea?: string
   /**
    * Indique le nombre d'étages (ex: 0 pour une maison de plain-pied, 1 pour un appartement au 1er étage) — optionnel
    */

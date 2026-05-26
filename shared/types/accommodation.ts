@@ -8,7 +8,7 @@ export type PropertyItem = {
   image: string
   href: string
   numberOfBedrooms?: number
-  floorSize?: number
+  floorSize?: string
   identifier?: string
   place?: string
 }

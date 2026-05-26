@@ -51,8 +51,8 @@ export type DashboardAccommodationPreview = {
   listingSlug: string
   listingLabel: string
   isActive: boolean
-  floorSize: number | null
-  landArea: number | null
+  floorSize: string | null
+  landArea: string | null
   numberOfRooms: number | null
   numberOfBedrooms: number | null
   numberOfBathroomsTotal: number | null

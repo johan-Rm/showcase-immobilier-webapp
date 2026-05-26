@@ -25,7 +25,7 @@ export interface AccommodationDto {
   offer?: AccommodationDtoOffer
   yearBuilt?: number
   place?: uuid
-  floorSize?: number
+  floorSize?: string
   numberOfRooms?: number
   landArea?: string
   numberOfGarages?: number
@@ -37,8 +37,8 @@ export interface AccommodationDto {
   qualities?: PropertyValue[]
   associatedMedia?: AccommodationDtoAssociatedMedia[]
   realEstateListing?: uuid
-  areaSize?: number
-  areaTerrace?: number
+  areaSize?: string
+  areaTerrace?: string
   isActive?: boolean
   tags?: uuid[]
   metaTitle?: string

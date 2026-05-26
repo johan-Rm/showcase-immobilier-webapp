@@ -123,7 +123,7 @@ type CardTitlePropertyProps = {
   title?: string
   city?: string
   placeDescription?: string | null
-  floorSize?: number
+  floorSize?: string
   numberOfBedrooms?: number
   price?: string
   href?: string
