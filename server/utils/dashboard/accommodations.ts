@@ -7,13 +7,7 @@ import type {
   DashboardEditableValue,
   DashboardFilterOption,
 } from '#shared/types/dashboardAccommodation'
-import type {
-  Accommodation,
-  AccommodationCategory,
-  AccommodationPlace,
-  MediaObject,
-  RealEstateListing,
-} from '@schemas/interfaces'
+import type { Accommodation, CategoryCode, MediaObject } from '@schemas/interfaces'
 
 import { basename } from 'node:path'
 
@@ -160,13 +154,15 @@ export const loadDashboardAccommodations = async (
     if (hit && Date.now() < hit.expiresAt) return hit.data
   }
 
-  const [rawAccommodations, categories, places, listings, images] = await Promise.all([
+  const [rawAccommodations, allCodes, images] = await Promise.all([
     loadContentFromFiles<Accommodation[]>('accommodations', locale),
-    loadContentFromFiles<AccommodationCategory[]>('accommodation-category', locale),
-    loadContentFromFiles<AccommodationPlace[]>('accommodation-place', locale),
-    loadContentFromFiles<RealEstateListing[]>('real-estate-listing', locale),
+    loadContentFromFiles<CategoryCode[]>('category-code', locale),
     loadContentFromFiles<MediaObject[]>('media-object', locale),
   ])
+
+  const categories = allCodes.filter((c) => c.inCodeSet === 'accommodation-category')
+  const places = allCodes.filter((c) => c.inCodeSet === 'accommodation-place')
+  const listings = allCodes.filter((c) => c.inCodeSet === 'real-estate-listing')
 
   const mapped = mapAccommodations(rawAccommodations, {
     categories,

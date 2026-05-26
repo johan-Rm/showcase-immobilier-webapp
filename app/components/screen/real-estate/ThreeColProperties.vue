@@ -87,7 +87,7 @@ const imageObjectByIdentifier = computed<Map<string, MediaObject>>(
 )
 
 const resolvedMenuItems = computed<MenuItem[]>(() => {
-  return screenData.value?.links ?? []
+  return (screenData.value?.links as MenuItem[] | undefined) ?? []
 })
 
 const panels = computed<TryptiquePanel[]>(() =>
@@ -120,7 +120,7 @@ const panels = computed<TryptiquePanel[]>(() =>
     .filter((panel): panel is TryptiquePanel => panel !== null),
 )
 
-const sectionTitle = computed<string>(() => screenData.value?.headline ?? 'Nos biens immobiliers')
+const sectionTitle = computed<string>(() => (screenData.value?.headline as string | undefined) ?? 'Nos biens immobiliers')
 
 const warmupTargets = computed<string[]>(() =>
   [sectionLink.value, ...panels.value.map((panel) => localePath(panel.to))].filter(

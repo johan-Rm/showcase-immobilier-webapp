@@ -1,6 +1,3 @@
-export interface RealEstateListing {
-  isActive: boolean
-  slug: string
-  name: string
-  text?: string
-}
+import type { CategoryCode } from './categoryCode'
+
+export type RealEstateListing = CategoryCode

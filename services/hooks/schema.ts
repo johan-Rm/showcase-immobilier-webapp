@@ -27,8 +27,6 @@ const SCHEMAS = [
   'AccommodationPlace',
   'Article',
   'CategoryCode',
-  'CreativeWork',
-  'MenuItem',
   'Offer',
   'Organization',
   'RealEstateListing',

@@ -166,7 +166,7 @@
           </div>
         </section>
 
-        <section v-if="props.property?.place?.description" class="space-y-3 px-4">
+        <section v-if="props.property?.place?.text" class="space-y-3 px-4">
           <HeadingH2
             hide-line
             color-class="text-foreground"
@@ -178,7 +178,7 @@
             {{ props.placeLabel }}
           </p>
           <p class="text-foreground/80 text-sm whitespace-pre-line">
-            {{ props.property.place.description }}
+            {{ props.property.place.text }}
           </p>
         </section>
 

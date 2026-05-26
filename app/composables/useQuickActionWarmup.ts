@@ -111,7 +111,7 @@ const getPageLandingImage = (page: WebPage | null): RouteLandingImageDescriptor 
   if (!page) return null
 
   const firstScreen = Array.isArray(page.hasPart) ? page.hasPart[0] : undefined
-  const src = getCreativeWorkPrimaryImage(firstScreen) ?? getCreativeWorkPrimaryImage(page)
+  const src = getCreativeWorkPrimaryImage(firstScreen) ?? getCreativeWorkPrimaryImage(page as unknown as CreativeWork)
 
   return src ? { kind: 'page-hero', src } : null
 }

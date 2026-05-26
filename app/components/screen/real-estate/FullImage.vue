@@ -137,7 +137,7 @@ let portraitHeroMediaQuery: MediaQueryList | null = null
 const warmedHeroNavigationTargets = new Set<string>()
 
 // 6. Data inputs
-const menuItems = computed<MenuItem[]>(() => props.data?.links ?? [])
+const menuItems = computed<MenuItem[]>(() => (props.data?.links as MenuItem[] | undefined) ?? [])
 const hasLandingScreenData = computed<boolean>(() => props.data !== undefined)
 
 // 7. Validation et helpers purs
@@ -161,21 +161,22 @@ const menuItemsWithAvailability = computed<MenuItemWithAvailability[]>(() =>
 )
 
 const backgroundImage = computed<MediaObject | null>(() => {
-  const image = props.data?.image
+  const image = props.data?.image as MediaObject | string | MediaObject[] | undefined
   return image && typeof image === 'object' && !Array.isArray(image) ? image : null
 })
 
-const srOnlyTitle = computed<string | undefined>(() => props.data?.headline)
+const srOnlyTitle = computed<string | undefined>(() => props.data?.headline as string | undefined)
 
 const logoAriaLabel = computed<string | undefined>(
   () => metadataStore.getApp?.components?.logo?.ariaLabel,
 )
 
 const portraitBackgroundImage = computed<MediaObject | null>(() => {
-  const portraitPart = (props.data?.hasPart ?? []).find(
-    (part) => part.additionalType === MOBILE_PORTRAIT_BACKGROUND_TYPE,
+  const parts = (props.data?.hasPart as CreativeWork[] | undefined) ?? []
+  const portraitPart = parts.find(
+    (part) => (part.additionalType as string | undefined) === MOBILE_PORTRAIT_BACKGROUND_TYPE,
   )
-  const image = portraitPart?.image
+  const image = portraitPart?.image as MediaObject | string | MediaObject[] | undefined
 
   return image && typeof image === 'object' && !Array.isArray(image) ? image : null
 })

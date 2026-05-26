@@ -1,6 +1,6 @@
-import type { CreativeWork } from './creativeWork'
-
 import type { MediaObject } from './mediaObject'
+
+export type CreativeWork = Record<string, unknown>
 
 export type PropertyValue = Record<string, unknown>
 

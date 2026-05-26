@@ -162,27 +162,17 @@ export const useMetadataStore = defineStore('metadata', {
       state: MetadataState,
     ): (inCodeSet: string) => { label: string; value: string }[] {
       return (inCodeSet: string) => {
-        switch (inCodeSet) {
-          case 'accommodation-type':
-            return state.accommodationCategories.map((c) => ({ label: c.name, value: c.slug }))
-          case 'accommodation-place':
-            return state.accommodationPlaces.map((c) => ({ label: c.name, value: c.slug }))
-          case 'real-estate-listing':
-            return state.realEstateListings
-              .filter((c) => c.isActive !== false)
-              .map((c) => ({ label: c.name, value: c.slug }))
-          case 'amenity-feature':
-            return state.amenityFeatures.map((c) => ({
-              label: c.name || c.codeValue,
-              value: c.codeValue,
-            }))
-          case 'tag':
-            return state.tags.map((c) => ({ label: c.name || c.codeValue, value: c.codeValue }))
-          default:
-            return state.categoryCodes
-              .filter((c) => c.inCodeSet === inCodeSet)
-              .map((c) => ({ label: c.name || c.codeValue, value: c.codeValue }))
-        }
+        const all = [
+          ...state.accommodationCategories,
+          ...state.accommodationPlaces,
+          ...state.realEstateListings,
+          ...state.amenityFeatures,
+          ...state.tags,
+          ...state.categoryCodes,
+        ]
+        return all
+          .filter((c) => c.inCodeSet === inCodeSet)
+          .map((c) => ({ label: c.name, value: c.slug ?? c.codeValue ?? '' }))
       }
     },
 
@@ -222,63 +212,15 @@ export const useMetadataStore = defineStore('metadata', {
       this.accommodationUi = item && typeof item === 'object' ? item : null
     },
 
-    setAccommodationRealEstateListings(items: RealEstateListing[]): void {
-      this.realEstateListings = Array.isArray(items) ? items : []
-    },
-
-    /**
-     * Remplace la liste des catégories d’hébergements.
-     *
-     * @param items Liste de catégories à stocker.
-     *
-     * @returns `void`.
-     */
-    setAccommodationCategories(items: AccommodationCategory[]): void {
-      this.accommodationCategories = Array.isArray(items) ? items : []
-    },
-
-    /**
-     * Stocke les codes de catégories fournis ou vide si invalides.
-     *
-     * @param items Codes à enregistrer.
-     *
-     * @returns `void`.
-     */
     setCategoryCodes(items: CategoryCode[]): void {
-      this.categoryCodes = Array.isArray(items) ? items : []
-    },
-
-    /**
-     * Met à jour la collection de lieux référencés.
-     *
-     * @param items Lieux à conserver dans l’état.
-     *
-     * @returns `void`.
-     */
-    setAccommodationPlaces(items: AccommodationPlace[]): void {
-      this.accommodationPlaces = Array.isArray(items) ? items : []
-    },
-
-    /**
-     * Charge les `amenityFeature` du backend.
-     *
-     * @param items Services à exposer dans le store.
-     *
-     * @returns `void`.
-     */
-    setAmenityFeatures(items: CategoryCode[]): void {
-      this.amenityFeatures = Array.isArray(items) ? items : []
-    },
-
-    /**
-     * Met à jour les tags métier utilisés en front.
-     *
-     * @param items Tags à stocker.
-     *
-     * @returns `void`.
-     */
-    setTags(items: CategoryCode[]): void {
-      this.tags = Array.isArray(items) ? items : []
+      if (!Array.isArray(items)) return
+      const SLUG_SETS = new Set(['accommodation-category', 'accommodation-place', 'real-estate-listing', 'amenity-feature', 'tag'])
+      this.accommodationCategories = items.filter((c) => c.inCodeSet === 'accommodation-category')
+      this.accommodationPlaces = items.filter((c) => c.inCodeSet === 'accommodation-place')
+      this.realEstateListings = items.filter((c) => c.inCodeSet === 'real-estate-listing')
+      this.amenityFeatures = items.filter((c) => c.inCodeSet === 'amenity-feature')
+      this.tags = items.filter((c) => c.inCodeSet === 'tag')
+      this.categoryCodes = items.filter((c) => !SLUG_SETS.has(c.inCodeSet ?? ''))
     },
 
     /**

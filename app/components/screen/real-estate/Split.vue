@@ -209,7 +209,7 @@ const organizationLocation = computed<string | undefined>(() => appConfig.organi
 // Le fond visuel est déjà enrichi côté mapper. Ce computed ne conserve que
 // les images réellement affichables afin d’éviter un état visuel incohérent.
 const backgroundImage = computed<MediaObject | undefined>(() => {
-  const image = props.data?.image
+  const image = props.data?.image as MediaObject | string | MediaObject[] | undefined
   if (!image || typeof image === 'string' || Array.isArray(image)) return undefined
   if (!image.url?.trim()) return undefined
   return image
@@ -231,14 +231,14 @@ const bgImageAlt = computed<string>(() => {
 
 // Les métadonnées éditoriales sont lues directement depuis le bloc courant pour
 // conserver un screen autonome et piloté intégralement par le contenu.
-const badgeSecondary = computed<string>(() => props.data?.additionalType ?? '')
-const heading = computed<string>(() => props.data?.headline ?? '')
-const headingAccent = computed<string>(() => props.data?.alternativeHeadline ?? '')
+const badgeSecondary = computed<string>(() => (props.data?.additionalType as string | undefined) ?? '')
+const heading = computed<string>(() => (props.data?.headline as string | undefined) ?? '')
+const headingAccent = computed<string>(() => (props.data?.alternativeHeadline as string | undefined) ?? '')
 
 // La transformation en paragraphes est isolée ici afin de ne rendre que du
 // contenu prêt à afficher, sans logique de parsing dans le template.
 const introParagraphs = computed<string[]>(() => {
-  const paragraphs = getParagraphsFromText(props.data?.text)
+  const paragraphs = getParagraphsFromText(props.data?.text as string | undefined)
   if (paragraphs.length > 0) {
     return paragraphs
   }
@@ -249,7 +249,7 @@ const introParagraphs = computed<string[]>(() => {
 // Les liens d’action sont déjà résolus dans le mapper `webPage`.
 // Le composant n’effectue plus de lookup de navigation.
 const resolvedMenuItems = computed<MenuItem[]>(() => {
-  return props.data?.links ?? []
+  return (props.data?.links as MenuItem[] | undefined) ?? []
 })
 
 // 9. Actions et handlers

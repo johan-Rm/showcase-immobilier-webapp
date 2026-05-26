@@ -118,7 +118,6 @@ const toAccommodationPlace = (value: UnknownRecord): AccommodationPlace => ({
 const toRealEstateListing = (value: UnknownRecord): RealEstateListing => ({
   slug: getString(value.slug, getString(value.name)),
   name: getString(value.name, getString(value.slug)),
-  isActive: typeof value.isActive === 'boolean' ? value.isActive : false,
 })
 
 /**
@@ -283,9 +282,9 @@ const mapListing = (
   indexes: AccommodationMetadataIndexes,
 ): Accommodation['realEstateListing'] => {
   if (typeof value !== 'string') {
-    return isRecord(value) ? toRealEstateListing(value) : { slug: '', name: '', isActive: false }
+    return isRecord(value) ? toRealEstateListing(value) : { slug: '', name: '' }
   }
-  return indexes.listings.get(value) ?? { slug: value, name: value, isActive: false }
+  return indexes.listings.get(value) ?? { slug: value, name: value }
 }
 
 /**
@@ -333,7 +332,6 @@ const mapMediaObject = (
   return {
     identifier,
     url,
-    name,
     caption,
     mainEntity,
   }

@@ -18,7 +18,7 @@ export interface AccommodationDtoOffer {
 
 export interface AccommodationDto {
   label?: string
-  identifier?: string
+  id?: uuid
   name?: string
   body?: string
   category?: uuid

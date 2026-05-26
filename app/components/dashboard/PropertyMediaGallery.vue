@@ -243,7 +243,7 @@ const allImages = computed<ResolvedImage[]>(() =>
     .map((img) => ({
       identifier: img.identifier,
       url: img.url,
-      name: img.caption || img.name || img.identifier,
+      name: img.caption || img.identifier,
       reference: deriveReference(img.mainEntity, img.identifier),
     }))
     .sort((a, b) => a.name.localeCompare(b.name)),

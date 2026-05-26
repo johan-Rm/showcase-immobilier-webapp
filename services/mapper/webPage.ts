@@ -289,7 +289,7 @@ const enrichCreativeWorkImage = (
   part: CreativeWorkDTO,
   mediaObjects: MediaObject[],
 ): CreativeWorkDTO => {
-  const imageIdentifier = getImageIdentifier(part.image)
+  const imageIdentifier = getImageIdentifier(part.image as CreativeWork['image'])
   const resolvedImage = resolveMediaObject(imageIdentifier, mediaObjects)
 
   return {
@@ -311,8 +311,12 @@ const resolveCreativeWorkLinks = (part: CreativeWorkDTO, navigation: AppNavigati
   }
 
   return part.links
-    .map((identifier): MenuItem | undefined => navigation[identifier])
-    .filter((item): item is MenuItem => typeof item !== 'undefined')
+    .map((identifier): MenuItem | undefined => {
+      const item = navigation[identifier]
+      if (!item) return undefined
+      return { ...item, identifier }
+    })
+    .filter((item): item is MenuItem => item !== undefined)
 }
 
 /**
@@ -327,7 +331,7 @@ const resolveComponentUrl = (
   navigation: AppNavigation,
 ): CreativeWork['url'] => {
   if (!isNonEmptyString(value)) {
-    return value
+    return value as string | undefined
   }
 
   return navigation[value]?.url ?? value

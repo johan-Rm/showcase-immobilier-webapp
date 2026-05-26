@@ -181,7 +181,7 @@ const getPlaceDescription = (place?: string, city?: string): string | null => {
     (item) => normalize(item.slug) === np || normalize(item.name) === nc,
   )
 
-  return found?.description ?? null
+  return found?.text ?? null
 }
 
 // 8. Computed UI-ready

@@ -170,3 +170,177 @@ items:
   - codeValue: wifi
     name: Wifi
     inCodeSet: amenity-feature
+
+  # --- accommodation-category ---
+  - slug: appartement
+    name: Appartement
+    text: "Notre agence vous propose une sélection d'appartements à vendre à Essaouira. Appartements neufs ou de caractère, adaptés à tous les projets."
+    inCodeSet: accommodation-category
+  - slug: riad
+    name: Riad
+    text: "Notre agence vous propose une sélection de riads à vendre à Essaouira. Découvrez des biens de charme dans la médina, rénovés ou à rénover, avec accompagnement complet dans vos démarches d'achat."
+    inCodeSet: accommodation-category
+  - slug: maisons-dhotes
+    name: "Maison d'hôtes"
+    text: "Maisons d'hôtes à vendre à Essaouira avec potentiel de rentabilité."
+    inCodeSet: accommodation-category
+  - slug: villa-golf
+    name: Villa golf
+    text: "Le marché des villas sur le golf de Mogador est spécifique, avec peu de biens disponibles. Certaines villas offrent des vues mer exceptionnelles et un cadre haut de gamme."
+    inCodeSet: accommodation-category
+  - slug: maison-de-campagne
+    name: Maison de campagne
+    text: "Sélection de maisons de campagne à vendre à Essaouira et sa région. Accompagnement dans toutes les étapes de votre projet immobilier."
+    inCodeSet: accommodation-category
+  - slug: maison-de-ville
+    name: Maison de ville
+    text: ""
+    inCodeSet: accommodation-category
+  - slug: terrain
+    name: Terrain
+    text: "Les terrains à Essaouira peuvent être situés en zone urbaine ou rurale. Des règles spécifiques s'appliquent selon la localisation et le type de projet."
+    inCodeSet: accommodation-category
+  - slug: affaires-commerciales
+    name: Affaire commerciale
+    text: "Fonds de commerce à vendre à Essaouira : restaurants, hôtels et maisons d'hôtes."
+    inCodeSet: accommodation-category
+  - slug: location-gerance
+    name: Location gérance
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    inCodeSet: accommodation-category
+  - slug: local-commercial
+    name: Local commercial
+    text: "Vente Locaux de commerce Essaouira : sélection de fonds de commerce à vendre à Essaouira et sa région. Nos spécialistes vous accompagnent pour trouver l'affaire adaptée à votre projet."
+    inCodeSet: accommodation-category
+  - slug: dar
+    name: Dar
+    text: "Sélection de dars à vendre à Essaouira."
+    inCodeSet: accommodation-category
+  - slug: chambre-dhotes
+    name: "Chambre d'hôtes"
+    inCodeSet: accommodation-category
+
+  # --- accommodation-place ---
+  - slug: medina
+    name: Médina
+    text: "Construite à la fin du XVIIIe siècle, la Médina est le cœur historique d'Essaouira, animée par ses souks, ses remparts et son port. Classée au patrimoine mondial de l'UNESCO, elle séduit par son authenticité et son architecture unique."
+    inCodeSet: accommodation-place
+  - slug: centre-ville
+    name: Centre-ville
+    inCodeSet: accommodation-place
+  - slug: marina
+    name: Marina
+    inCodeSet: accommodation-place
+  - slug: nouvelle-ville
+    name: Nouvelle-ville
+    text: "Quartier moderne d'Essaouira regroupant commerces, services et habitations récentes, idéal pour un quotidien pratique à proximité du centre."
+    inCodeSet: accommodation-place
+  - slug: corniche
+    name: Corniche
+    inCodeSet: accommodation-place
+  - slug: golf-mogador
+    name: Mogador
+    text: "Situé à proximité de Diabat, le golf de Mogador est un domaine réputé offrant un cadre sécurisé avec villas haut de gamme, entre océan et nature."
+    inCodeSet: accommodation-place
+  - slug: palmeraie
+    name: Palmeraie
+    inCodeSet: accommodation-place
+  - slug: campagne
+    name: Campagne
+    text: "Environnement calme autour d'Essaouira, idéal pour profiter d'espaces naturels, de tranquillité et de propriétés avec terrain."
+    inCodeSet: accommodation-place
+  - slug: campagne-d-essaouira
+    name: Campagne d'Essaouira
+    inCodeSet: accommodation-place
+  - slug: diabet
+    name: Diabet
+    text: "Situé à l'ouest d'Essaouira, Diabat est un village emblématique connu pour ses dunes, son ambiance bohème et sa proximité immédiate avec la plage. Très prisé pour les résidences secondaires et les maisons de charme, le secteur bénéficie également de la présence du golf de Mogador à proximité. Diabat séduit par son atmosphère paisible, son authenticité et son cadre naturel unique entre océan et désert."
+    inCodeSet: accommodation-place
+  - slug: ghazoua
+    name: Ghazoua
+    text: "Située à quelques minutes d'Essaouira, Ghazoua est une zone résidentielle en plein développement, très recherchée pour ses villas avec jardin et piscine. Le secteur offre un bon compromis entre calme, accessibilité et proximité des commodités. On y trouve de nombreuses propriétés modernes ainsi que des maisons d'hôtes, dans un environnement paisible à seulement quelques minutes du centre-ville et des plages."
+    inCodeSet: accommodation-place
+  - slug: boulevard-principal
+    name: Boulevard principal
+    inCodeSet: accommodation-place
+  - slug: douar-larab
+    name: Douar Laarab
+    text: "Douar situé dans l'arrière-pays d'Essaouira, offrant un cadre authentique et rural, apprécié pour son calme et ses espaces naturels."
+    inCodeSet: accommodation-place
+  - slug: sidi-kaouki
+    name: Sidi Kaouki
+    text: "À une trentaine de minutes au sud d'Essaouira, Sidi Kaouki est une destination réputée pour ses plages sauvages et son cadre naturel préservé. Très apprécié des amateurs de surf et de tranquillité, le secteur attire une clientèle en quête d'évasion et d'authenticité. L'immobilier y est orienté vers des maisons de charme, des villas et des projets touristiques dans un environnement encore préservé."
+    inCodeSet: accommodation-place
+  - slug: ida-ougourd
+    name: Ida Ougourd
+    text: "Zone rurale située à proximité d'Essaouira, appréciée pour son authenticité, son calme et ses paysages naturels."
+    inCodeSet: accommodation-place
+  - slug: hrarta
+    name: Hrarta
+    text: "Secteur en développement autour d'Essaouira, offrant un cadre paisible entre ville et campagne, adapté aux projets immobiliers."
+    inCodeSet: accommodation-place
+  - slug: bouzama
+    name: Bouzama
+    text: "Village situé aux alentours d'Essaouira, offrant un environnement calme et authentique, propice à la vie en pleine nature."
+    inCodeSet: accommodation-place
+  - slug: aeroport
+    name: "Route de l'aéroport"
+    text: "Zone reliant Essaouira à son aéroport, appréciée pour son accessibilité et son potentiel de développement."
+    inCodeSet: accommodation-place
+  - slug: had-draa
+    name: Had Draa
+    text: "Localité rurale proche d'Essaouira, connue pour son ambiance traditionnelle et ses marchés locaux."
+    inCodeSet: accommodation-place
+  - slug: ounagha
+    name: Ounagha
+    text: "Commune située à proximité d'Essaouira, combinant accessibilité, authenticité et cadre naturel agréable."
+    inCodeSet: accommodation-place
+  - slug: moulay-bouzerktoun
+    name: Moulay Bouzerktoun
+    text: "Spot réputé pour le kitesurf et le windsurf, attirant les amateurs de sports nautiques et de nature."
+    inCodeSet: accommodation-place
+  - slug: laraich
+    name: Laraiche
+    text: "Zone rurale aux environs d'Essaouira, offrant un cadre calme et authentique, idéal pour des projets résidentiels."
+    inCodeSet: accommodation-place
+  - slug: chicht
+    name: Chicht
+    text: "Village situé dans la région d'Essaouira, proposant un environnement paisible et typique de la campagne marocaine."
+    inCodeSet: accommodation-place
+  - slug: route-de-marrakech
+    name: Route de Marrakech
+    text: "Axe majeur reliant Essaouira à Marrakech, offrant un bon compromis entre accessibilité et opportunités immobilières."
+    inCodeSet: accommodation-place
+  - slug: route-d-agadir
+    name: Route d'Agadir
+    inCodeSet: accommodation-place
+  - slug: route-de-safi
+    name: Route de Safi
+    text: "Secteur desservi par la route de Safi, apprécié pour son accessibilité et ses possibilités de développement immobilier."
+    inCodeSet: accommodation-place
+  - slug: zone-rurale
+    name: Zone rurale
+    text: "Secteurs situés en dehors du centre urbain, offrant calme, espace et cadre naturel autour d'Essaouira."
+    inCodeSet: accommodation-place
+  - slug: zone-urbaine
+    name: Zone urbaine
+    text: "Zones situées au cœur ou à proximité immédiate d'Essaouira, offrant un accès direct aux commerces, services et infrastructures."
+    inCodeSet: accommodation-place
+
+  # --- real-estate-listing ---
+  - slug: bien-a-vendre
+    name: Biens a vendre
+    text: "Découvrez notre sélection de maisons, riads et villas à vendre à Essaouira. Que vous recherchiez une résidence principale, secondaire ou un investissement locatif, nos biens sont sélectionnés pour leur emplacement et leur potentiel."
+    inCodeSet: real-estate-listing
+  - slug: location-saisonniere
+    name: Locations saisonniere
+    text: "Profitez d'une expérience unique grâce à nos locations saisonnières à Essaouira. Des biens confortables et authentiques, idéalement situés pour découvrir la médina et le littoral."
+    inCodeSet: real-estate-listing
+  - slug: location-longue-duree
+    name: Locations longue durée
+    text: "Nous proposons également des biens en location longue durée, adaptés à une installation durable dans la région, avec des options variées selon vos besoins."
+    inCodeSet: real-estate-listing
+  - slug: professionnels
+    name: Professionnels
+    text: "Explorez nos opportunités pour les professionnels : locaux commerciaux, maisons d'hôtes, projets touristiques ou investissements à fort potentiel."
+    inCodeSet: real-estate-listing

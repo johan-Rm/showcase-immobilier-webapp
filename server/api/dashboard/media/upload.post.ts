@@ -50,7 +50,6 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
 
   return {
     identifier: raw.identifier,
-    name: raw.name,
     url: raw.url ?? raw.contentUrl ?? '',
     caption: raw.caption ?? caption,
     mainEntity: raw.mainEntity ?? '',

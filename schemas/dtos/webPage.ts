@@ -1,7 +1,7 @@
 export type uuid = Record<string, unknown>
 
 export interface WebPageDto {
-  identifier?: number | string
+  id?: number
   slug?: string
   inLanguage?: string
   metaTitle?: string

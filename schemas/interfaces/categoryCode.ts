@@ -1,5 +1,7 @@
 export interface CategoryCode {
-  codeValue: string
+  codeValue?: string
+  slug?: string
   name: string
+  text?: string
   inCodeSet?: string
 }

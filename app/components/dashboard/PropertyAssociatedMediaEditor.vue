@@ -210,7 +210,7 @@ const resolvedItems = computed<ResolvedItem[]>(() => {
     return {
       identifier,
       url: mediaObj?.url ?? '',
-      name: mediaObj?.caption ?? mediaObj?.name ?? identifier,
+      name: mediaObj?.caption ?? identifier,
       representativeOfPage: assoc?.representativeOfPage ?? false,
     }
   })

@@ -17,10 +17,7 @@ const FIXTURE_DATA_SOURCE_VALUE = 'fixture'
 
 const YAML_FILE_BY_RESOURCE: Partial<Record<ResourceKey, string>> = {
   app: 'ui/app.yaml',
-  'real-estate-listing': 'metadata/real-estate-listing.yaml',
-  'accommodation-category': 'metadata/accommodation-category.yaml',
   'category-code': 'metadata/category-code.yaml',
-  'accommodation-place': 'metadata/accommodation-place.yaml',
   'media-object': 'metadata/media-object.yaml',
   'forms/accommodation': 'ui/forms/accommodation.yaml',
   dashboard: 'ui/dashboard.yaml',
@@ -198,21 +195,30 @@ const loadWebPagesResource = async <T>(locale: LocaleCode): Promise<T> => {
   return pages as T
 }
 
-type AccommodationPlaceItem = { slug: string; name: string; description?: string }
+type AccommodationPlaceItem = { slug?: string; name: string }
 
 const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => {
   const contentRoot = resolveContentRoot()
   const directory = join(contentRoot, locale, 'accommodations')
   const includeFixtures = areAccommodationFixturesEnabled()
-  const placeFilePath = join(contentRoot, locale, 'metadata/accommodation-place.yaml')
+  const categoryCodePath = join(contentRoot, locale, 'metadata/category-code.yaml')
 
-  const [dirFiles, placeRaw] = await Promise.all([
+  const [dirFiles, categoryCodeRaw] = await Promise.all([
     readdir(directory),
-    readFile(placeFilePath, 'utf8'),
+    readFile(categoryCodePath, 'utf8'),
   ])
 
-  const placeItems = extractYamlItems<AccommodationPlaceItem>(YAML.parse(placeRaw), placeFilePath)
-  const placeBySlug = new Map(placeItems.map((item) => [item.slug, item]))
+  const allCodes = extractYamlItems<AccommodationPlaceItem & { inCodeSet?: string }>(
+    YAML.parse(categoryCodeRaw),
+    categoryCodePath,
+  )
+  const placeBySlug = new Map(
+    allCodes
+      .filter((item): item is AccommodationPlaceItem & { inCodeSet: string; slug: string } =>
+        item.inCodeSet === 'accommodation-place' && typeof item.slug === 'string',
+      )
+      .map((item) => [item.slug, item]),
+  )
 
   const files = dirFiles
     .filter((file) => file.endsWith('.md'))

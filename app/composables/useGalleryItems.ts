@@ -18,11 +18,11 @@ export const useGalleryItems = (
   const galleryItems = computed<GalleryItem[]>(() =>
     (hasPart.value ?? [])
       .map((part, index) => {
-        const src = extractImageSrc(part.image)
+        const src = extractImageSrc(part.image as MediaObject | MediaObject[] | string | undefined)
         if (!src) return null
 
         const imageMeta = metadataStore.imageObjects.find((item) => item.url === src)
-        const title = imageMeta?.name ?? `Visuel ${index + 1}`
+        const title = imageMeta?.caption || `Visuel ${index + 1}`
 
         return {
           id: `img-${index + 1}`,

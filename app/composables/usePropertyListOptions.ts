@@ -41,9 +41,9 @@ export const usePropertyListOptions = (
     return [
       { slug: 'all', name: 'Tout', count: sourcePropertyItems.value.length },
       ...categoryItems.map((category) => ({
-        slug: category.slug,
+        slug: category.slug ?? '',
         name: category.name,
-        count: categoryCountBySlug.value.get(category.slug) ?? 0,
+        count: categoryCountBySlug.value.get(category.slug ?? '') ?? 0,
       })),
     ].map((category) => ({
       ...category,
@@ -53,7 +53,7 @@ export const usePropertyListOptions = (
 
   const realEstateListingOptions = computed<RealEstateListingSelectOption[]>(() =>
     metadataStore.getAccommodationRealEstateListings
-      .filter((listing) => listing.slug && listing.name && listing.isActive !== false)
+      .filter((listing) => listing.slug && listing.name)
       .map((listing) => {
         const slug = String(listing.slug)
         const count = accommodationStore.getAccommodationsByRealEstateListing(slug).length

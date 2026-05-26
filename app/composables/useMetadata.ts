@@ -1,13 +1,7 @@
 import type { AccommodationForm } from '#shared/types/accommodationForm'
 import type { App, AppAccommodation } from '#shared/types/app'
 import type { DashboardContent } from '#shared/types/dashboard'
-import type {
-  AccommodationCategory,
-  AccommodationPlace,
-  CategoryCode,
-  MediaObject,
-  RealEstateListing,
-} from '@schemas/interfaces'
+import type { CategoryCode, MediaObject } from '@schemas/interfaces'
 
 import { useMetadataStore } from '~/stores/metadata'
 import { loadContentResource } from '~/utils/loadContentResource'
@@ -18,10 +12,7 @@ type UseMetadataReturn = {
   loadDashboardContent: () => Promise<void>
   loadAccommodationUi: () => Promise<void>
   loadAllMetadata: () => Promise<void>
-  loadRealEstateListings: () => Promise<void>
-  loadAccommodationCategories: () => Promise<void>
   loadCategoryCodes: () => Promise<void>
-  loadAccommodationPlaces: () => Promise<void>
   loadMediaObjects: () => Promise<void>
   loadDashboardCategoryCodes: () => Promise<void>
 }
@@ -53,39 +44,9 @@ export const useMetadata = (): UseMetadataReturn => {
     store.setAccommodationUi(data)
   }
 
-  const loadRealEstateListings = async (): Promise<void> => {
-    const realEstateListingItems = await loadContentResource<RealEstateListing[]>(
-      'real-estate-listing',
-      localeSetting.value,
-    )
-    store.setAccommodationRealEstateListings(realEstateListingItems)
-  }
-
-  const loadAccommodationCategories = async (): Promise<void> => {
-    const accommodationCategoryItems = await loadContentResource<AccommodationCategory[]>(
-      'accommodation-category',
-      localeSetting.value,
-    )
-
-    store.setAccommodationCategories(accommodationCategoryItems)
-  }
-
   const loadCategoryCodes = async (): Promise<void> => {
-    const categoryCodeItems = await loadContentResource<CategoryCode[]>(
-      'category-code',
-      localeSetting.value,
-    )
-
-    store.setCategoryCodes(categoryCodeItems)
-  }
-
-  const loadAccommodationPlaces = async (): Promise<void> => {
-    const accommodationPlaceItems = await loadContentResource<AccommodationPlace[]>(
-      'accommodation-place',
-      localeSetting.value,
-    )
-
-    store.setAccommodationPlaces(accommodationPlaceItems)
+    const items = await loadContentResource<CategoryCode[]>('category-code', localeSetting.value)
+    store.setCategoryCodes(items)
   }
 
   const loadMediaObjects = async (): Promise<void> => {
@@ -93,7 +54,6 @@ export const useMetadata = (): UseMetadataReturn => {
       'media-object',
       localeSetting.value,
     )
-
     store.setMediaObjects(mediaObjectItems)
   }
 
@@ -105,15 +65,7 @@ export const useMetadata = (): UseMetadataReturn => {
   }
 
   const loadAllMetadata = async (): Promise<void> => {
-    await Promise.all([
-      loadApp(),
-      loadAccommodationUi(),
-      loadRealEstateListings(),
-      loadAccommodationCategories(),
-      loadCategoryCodes(),
-      loadAccommodationPlaces(),
-      loadMediaObjects(),
-    ])
+    await Promise.all([loadApp(), loadAccommodationUi(), loadCategoryCodes(), loadMediaObjects()])
   }
 
   return {
@@ -122,10 +74,7 @@ export const useMetadata = (): UseMetadataReturn => {
     loadDashboardContent,
     loadAccommodationUi,
     loadAllMetadata,
-    loadRealEstateListings,
-    loadAccommodationCategories,
     loadCategoryCodes,
-    loadAccommodationPlaces,
     loadMediaObjects,
     loadDashboardCategoryCodes,
   }
