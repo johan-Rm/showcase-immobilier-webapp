@@ -25,6 +25,7 @@ const SCHEMAS = [
   'AccommodationCategory',
   'AccommodationMedia',
   'AccommodationPlace',
+  'AmenityFeature',
   'Article',
   'CategoryCode',
   'Offer',
