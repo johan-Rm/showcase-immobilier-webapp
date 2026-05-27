@@ -1,3 +1,5 @@
-import type { CategoryCode } from './categoryCode'
-
-export type AccommodationCategory = CategoryCode
+export interface AccommodationCategory {
+  slug: string
+  name: string
+  text?: string
+}

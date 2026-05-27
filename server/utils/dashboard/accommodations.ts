@@ -160,9 +160,15 @@ export const loadDashboardAccommodations = async (
     loadContentFromFiles<MediaObject[]>('media-object', locale),
   ])
 
-  const categories = allCodes.filter((c) => c.inCodeSet === 'accommodation-category')
-  const places = allCodes.filter((c) => c.inCodeSet === 'accommodation-place')
-  const listings = allCodes.filter((c) => c.inCodeSet === 'real-estate-listing')
+  const categories = allCodes
+    .filter((c) => c.inCodeSet === 'accommodation-category')
+    .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
+  const places = allCodes
+    .filter((c) => c.inCodeSet === 'accommodation-place')
+    .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
+  const listings = allCodes
+    .filter((c) => c.inCodeSet === 'real-estate-listing')
+    .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
 
   const mapped = mapAccommodations(rawAccommodations, {
     categories,

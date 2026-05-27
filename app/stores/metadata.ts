@@ -162,17 +162,17 @@ export const useMetadataStore = defineStore('metadata', {
       state: MetadataState,
     ): (inCodeSet: string) => { label: string; value: string }[] {
       return (inCodeSet: string) => {
-        const all = [
-          ...state.accommodationCategories,
-          ...state.accommodationPlaces,
-          ...state.realEstateListings,
-          ...state.amenityFeatures,
-          ...state.tags,
-          ...state.categoryCodes,
-        ]
-        return all
+        const slugged: Record<string, Array<{ name: string; slug: string }>> = {
+          'accommodation-category': state.accommodationCategories,
+          'accommodation-place': state.accommodationPlaces,
+          'real-estate-listing': state.realEstateListings,
+        }
+        if (inCodeSet in slugged) {
+          return (slugged[inCodeSet] ?? []).map((c) => ({ label: c.name, value: c.slug }))
+        }
+        return [...state.amenityFeatures, ...state.tags, ...state.categoryCodes]
           .filter((c) => c.inCodeSet === inCodeSet)
-          .map((c) => ({ label: c.name, value: c.slug ?? c.codeValue ?? '' }))
+          .map((c) => ({ label: c.name, value: c.codeValue }))
       }
     },
 
@@ -214,10 +214,22 @@ export const useMetadataStore = defineStore('metadata', {
 
     setCategoryCodes(items: CategoryCode[]): void {
       if (!Array.isArray(items)) return
-      const SLUG_SETS = new Set(['accommodation-category', 'accommodation-place', 'real-estate-listing', 'amenity-feature', 'tag'])
-      this.accommodationCategories = items.filter((c) => c.inCodeSet === 'accommodation-category')
-      this.accommodationPlaces = items.filter((c) => c.inCodeSet === 'accommodation-place')
-      this.realEstateListings = items.filter((c) => c.inCodeSet === 'real-estate-listing')
+      const SLUG_SETS = new Set([
+        'accommodation-category',
+        'accommodation-place',
+        'real-estate-listing',
+        'amenity-feature',
+        'tag',
+      ])
+      this.accommodationCategories = items
+        .filter((c) => c.inCodeSet === 'accommodation-category')
+        .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
+      this.accommodationPlaces = items
+        .filter((c) => c.inCodeSet === 'accommodation-place')
+        .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
+      this.realEstateListings = items
+        .filter((c) => c.inCodeSet === 'real-estate-listing')
+        .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
       this.amenityFeatures = items.filter((c) => c.inCodeSet === 'amenity-feature')
       this.tags = items.filter((c) => c.inCodeSet === 'tag')
       this.categoryCodes = items.filter((c) => !SLUG_SETS.has(c.inCodeSet ?? ''))

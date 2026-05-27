@@ -105,8 +105,8 @@ const toCategoryCode = (value: UnknownRecord): CategoryCode => ({
  * @returns Instance minimale de `AccommodationPlace` réutilisable dans les index.
  */
 const toAccommodationPlace = (value: UnknownRecord): AccommodationPlace => ({
-  slug: getString(value.slug, getString(value.name)),
-  name: getString(value.name, getString(value.slug)),
+  slug: getString(value.codeValue, getString(value.slug, getString(value.name))),
+  name: getString(value.name, getString(value.codeValue, getString(value.slug))),
 })
 
 /**
@@ -116,8 +116,8 @@ const toAccommodationPlace = (value: UnknownRecord): AccommodationPlace => ({
  * @returns Objet `RealEstateListing` contenant les champs clés.
  */
 const toRealEstateListing = (value: UnknownRecord): RealEstateListing => ({
-  slug: getString(value.slug, getString(value.name)),
-  name: getString(value.name, getString(value.slug)),
+  slug: getString(value.codeValue, getString(value.slug, getString(value.name))),
+  name: getString(value.name, getString(value.codeValue, getString(value.slug))),
 })
 
 /**
@@ -175,9 +175,7 @@ const buildIndex = <T>(
  * @returns Objet contenant les Maps prêtes à être utilisées par les mappers.
  */
 const buildIndexes = (metadata: AccommodationMetadata): AccommodationMetadataIndexes => ({
-  categoryCodes: buildIndex(metadata.categoryCodes ?? [], (item) =>
-    typeof item.codeValue === 'string' ? item.codeValue : undefined,
-  ),
+  categoryCodes: buildIndex(metadata.categoryCodes ?? [], (item) => item.codeValue),
   categories: buildIndex(metadata.categories ?? [], (item) => item.slug),
   places: buildIndex(metadata.places ?? [], (item) => item.slug),
   listings: buildIndex(metadata.listings ?? [], (item) => item.slug),
@@ -207,8 +205,8 @@ const mapCategory = (
     }
 
     return {
-      slug: getString(value.slug, getString(value.codeValue)),
-      name: getString(value.name, getString(value.slug, getString(value.codeValue))),
+      slug: getString(value.codeValue, getString(value.slug)),
+      name: getString(value.name, getString(value.codeValue, getString(value.slug))),
     }
   }
 
