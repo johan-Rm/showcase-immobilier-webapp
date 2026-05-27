@@ -1,7 +1,9 @@
 ---
-status: Terminé
+status: Déprécié
 dependances: 008-dashboard-sauvegarde-biens-api-symfony.md
 ---
+
+> **Déprécié** — Le bootstrap est désormais géré côté back. Les scripts `scripts/bootstrap-data/` ont été supprimés.
 
 # 015 — Bootstrap pré-prod
 
