@@ -231,9 +231,13 @@ const bgImageAlt = computed<string>(() => {
 
 // Les métadonnées éditoriales sont lues directement depuis le bloc courant pour
 // conserver un screen autonome et piloté intégralement par le contenu.
-const badgeSecondary = computed<string>(() => (props.data?.additionalType as string | undefined) ?? '')
+const badgeSecondary = computed<string>(
+  () => (props.data?.additionalType as string | undefined) ?? '',
+)
 const heading = computed<string>(() => (props.data?.headline as string | undefined) ?? '')
-const headingAccent = computed<string>(() => (props.data?.alternativeHeadline as string | undefined) ?? '')
+const headingAccent = computed<string>(
+  () => (props.data?.alternativeHeadline as string | undefined) ?? '',
+)
 
 // La transformation en paragraphes est isolée ici afin de ne rendre que du
 // contenu prêt à afficher, sans logique de parsing dans le template.

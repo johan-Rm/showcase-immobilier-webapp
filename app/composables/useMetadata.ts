@@ -40,7 +40,10 @@ export const useMetadata = (): UseMetadataReturn => {
   }
 
   const loadAccommodationUi = async (): Promise<void> => {
-    const data = await loadContentResource<AppAccommodation>('ui/accommodation', localeSetting.value)
+    const data = await loadContentResource<AppAccommodation>(
+      'ui/accommodation',
+      localeSetting.value,
+    )
     store.setAccommodationUi(data)
   }
 

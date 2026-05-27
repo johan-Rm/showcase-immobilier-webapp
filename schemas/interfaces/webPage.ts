@@ -1,8 +1,20 @@
 import type { CategoryCode } from './categoryCode'
 
 import type { MediaObject } from './mediaObject'
+import type { MenuItem } from './menuItem'
 
-export type CreativeWork = Record<string, unknown>
+export type CreativeWork = {
+  [key: string]: unknown
+  headline?: string
+  alternativeHeadline?: string
+  text?: string
+  name?: string
+  additionalType?: string
+  url?: string
+  image?: MediaObject | string | MediaObject[]
+  links?: MenuItem[]
+  hasPart?: CreativeWork[]
+}
 
 export type PropertyValue = Record<string, unknown>
 

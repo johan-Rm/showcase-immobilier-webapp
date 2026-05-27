@@ -214,8 +214,9 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
   )
   const placeBySlug = new Map(
     allCodes
-      .filter((item): item is AccommodationPlaceItem & { inCodeSet: string; slug: string } =>
-        item.inCodeSet === 'accommodation-place' && typeof item.slug === 'string',
+      .filter(
+        (item): item is AccommodationPlaceItem & { inCodeSet: string; slug: string } =>
+          item.inCodeSet === 'accommodation-place' && typeof item.slug === 'string',
       )
       .map((item) => [item.slug, item]),
   )

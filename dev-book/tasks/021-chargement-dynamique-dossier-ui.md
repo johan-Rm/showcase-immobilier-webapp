@@ -20,6 +20,7 @@ le contenu est organisé en trois catégories :
 - `ui/` — YAML de configuration UI (labels, sections, textes), candidat au chargement automatique
 
 Le dossier `ui/` contient actuellement :
+
 - `ui/app.yaml` → composants shell, footer, navigation
 - `ui/accommodation.yaml` → labels, sections, textes liés aux fiches
 - `ui/dashboard.yaml` → labels de l'éditeur dashboard
@@ -58,6 +59,7 @@ L'accès côté app se fait via un composable `useUiContent(key)` qui retourne l
 ### 1. Modifier `server/utils/content/loaders.ts`
 
 Ajouter une fonction `loadUiDirectory` qui :
+
 - résout le chemin `content/{locale}/ui/`
 - scanne récursivement tous les fichiers `.yaml`
 - charge chacun avec `YAML.parse`
@@ -77,6 +79,7 @@ Remplacer les slots `app`, `accommodationUi`, `dashboardContent`, `accommodation
 slot unique `uiContent: Record<string, unknown>` avec getter `getUiContent` et action `setUiContent`.
 
 Maintenir les getters nommés comme wrappers typés si nécessaire pour limiter l'impact sur les consommateurs :
+
 ```ts
 getAppUi: (state) => state.uiContent['app'] as App | null
 getAccommodationUi: (state) => state.uiContent['accommodation'] as AppAccommodation | null
@@ -103,6 +106,7 @@ Les consommateurs existants continuent de fonctionner via les getters nommés du
 `useUiContent('accommodation')`. Aucun changement de comportement attendu.
 
 Fichiers concernés :
+
 - `app/composables/useApp.ts`
 - `app/composables/useMetadata.ts`
 - `app/components/screen/PropertyDetail.vue`

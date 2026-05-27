@@ -217,7 +217,10 @@ const createFallbackMediaObject = (identifier: string): MediaObject => ({
  * @param mediaObjects Référentiel média.
  * @returns Liste d’objets média prête à exposer dans `WebPage.associatedMedia`.
  */
-const mapImages = (images: WebPageDto['associatedMedia'], mediaObjects: MediaObject[]): WebPage['associatedMedia'] => {
+const mapImages = (
+  images: WebPageDto['associatedMedia'],
+  mediaObjects: MediaObject[],
+): WebPage['associatedMedia'] => {
   if (!Array.isArray(images)) {
     return []
   }
@@ -415,7 +418,10 @@ const mapWebPage = (
     dateModified: getString(getWebPageField(page, 'dateModified')),
     articleSection: mapCategory(getWebPageField(page, 'articleSection'), categoryCodes),
     keywords: mapCategoryList(getWebPageField(page, 'keywords'), categoryCodes),
-    associatedMedia: mapImages(getWebPageField(page, 'associatedMedia') as WebPageDto['associatedMedia'], mediaObjects),
+    associatedMedia: mapImages(
+      getWebPageField(page, 'associatedMedia') as WebPageDto['associatedMedia'],
+      mediaObjects,
+    ),
     inLanguage: getWebPageField(page, 'inLanguage') as WebPage['inLanguage'],
     metaTitle,
     metaDescription: getString(getWebPageField(page, 'metaDescription')),

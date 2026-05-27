@@ -233,7 +233,7 @@ const props = defineProps<{ slug: string }>()
 
 // 4. Composables, stores, routeur
 const store = useAccommodationStore()
-const { appData, accommodationUi, locale } = useApp()
+const { accommodationUi, locale } = useApp()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { screenStatus, setScreenMeta } = useScreenSystem()
 const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')

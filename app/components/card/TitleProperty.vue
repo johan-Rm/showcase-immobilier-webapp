@@ -137,6 +137,7 @@ const props = withDefaults(defineProps<CardTitlePropertyProps>(), {
   title: '',
   city: '',
   placeDescription: null,
+  floorSize: undefined,
   numberOfBedrooms: 1,
   price: '',
   href: '/',
