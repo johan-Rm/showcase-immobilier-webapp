@@ -20,6 +20,8 @@ help:
 	@printf "  dev-shell-webapp-localhost  Ouvrir un shell dans le container dev\n"
 	@printf "  dev-shell-webapp-ssr        Ouvrir un shell dans le container SSR\n"
 	@printf "  dev-shell-nginx                  Ouvrir un shell dans le container Nginx\n"
+	@printf "  content-sync      Synchroniser le contenu depuis l'API Symfony (pull)\n"
+	@printf "  content-sync-dry  Simuler la sync sans écrire sur le disque\n"
 	@printf "  generate-schemas  Générer les interfaces TS depuis les schémas YAML\n"
 	@printf "  conventions-check Verifier les conventions de code (CI)\n"
 	@printf "  quality-check     Lancer lint + format + type-check\n"
