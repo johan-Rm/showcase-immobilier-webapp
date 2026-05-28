@@ -1,5 +1,5 @@
 export interface AmenityFeature {
-  codeValue: string
+  slug: string
   name: string
   text?: string
 }
