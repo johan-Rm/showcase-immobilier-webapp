@@ -11,7 +11,7 @@
  *   bun scripts/content-sync.ts --locale=fr
  */
 
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 
 import { config as loadDotenv } from 'dotenv'
@@ -288,6 +288,18 @@ async function safeWriteFile(filePath: string, content: string) {
   await writeFile(filePath, content, 'utf8')
 }
 
+async function purgeMarkdownDir(dir: string) {
+  let files: string[]
+  try {
+    files = await readdir(dir)
+  } catch {
+    return // dossier absent, rien à purger
+  }
+  const mdFiles = files.filter((f) => f.endsWith('.md'))
+  await Promise.all(mdFiles.map((f) => rm(join(dir, f))))
+  if (mdFiles.length > 0) console.log(`  purge ${mdFiles.length} fichiers dans ${dir}`)
+}
+
 // ---------------------------------------------------------------------------
 // Sync par locale
 // ---------------------------------------------------------------------------
@@ -329,7 +341,14 @@ async function syncLocale(locale: string, token: string) {
     console.log(`  ✓ media-object.yaml (${mediaYaml.length})`)
   }
 
-  // Accommodations
+  // Accommodations — purge avant réécriture pour refléter exactement l'état API
+  const accommodationsDir = join(CONTENT_DIR, locale, 'accommodations')
+  if (isDryRun) {
+    console.log(`  [dry-run] purge ${accommodationsDir}/*.md`)
+  } else {
+    await purgeMarkdownDir(accommodationsDir)
+  }
+
   let ok = 0
   let errors = 0
   for (const item of accommodations) {
