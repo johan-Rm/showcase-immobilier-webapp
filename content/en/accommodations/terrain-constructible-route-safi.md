@@ -1,0 +1,63 @@
+---
+identifier: FBAVT001
+name: Terrain constructible route de Safi
+dateCreated: '2022-10-11T01:57:04+02:00'
+dateModified: '2023-01-04T11:24:43+01:00'
+category: terrain
+offer:
+  price: 195000
+  priceCurrency: EUR
+  priceSpecification: A la vente
+place: route-de-safi
+floorSize: 980
+numberOfRooms: 0
+landArea: 980
+numberOfGarages: 0
+amenityFeature:
+  - viabilise
+associatedMedia:
+  - image: media-terrain-constructible-route-safi-01
+    caption: Terrain constructible route Safi - vue dégagée
+    keywords: [gallery]
+  - image: media-terrain-constructible-route-safi-02
+    caption: Terrain constructible route Safi - environnement naturel
+    keywords: [gallery]
+  - image: media-terrain-constructible-route-safi-03
+    caption: Terrain constructible route Safi - paysage ouvert
+    keywords: [gallery]
+realEstateListing: bien-a-vendre
+areaSize: 980
+areaTerrace: null
+isActive: true
+
+additionalProperty:
+  - name: dataSource
+    value: fixture
+realEstateAgent: e2e3b81c-8023-4bb9-b5d5-66736e5fc71b
+metaTitle: Terrain constructible 980 m2 route de Safi
+metaDescription: Terrain plat et viabilise de 980 m2, acces facile.
+slug: terrain-constructible-route-de-safi-route-de-safi-bavt001
+highlight: Un terrain pret a accueillir votre projet
+review: |
+  Une assiette fonciere simple a lire, avec des caracteristiques qui reduisent les frictions de lancement pour un projet residentiel.
+  L'acces et la viabilisation constituent de bons marqueurs pour une operation de construction raisonnablement maitrisable.
+---
+## Visite guidee
+
+Un terrain qui permet de parler projet plus que bati existant.
+
+### Une base fonciere simple a lire et facile a projeter
+
+La parcelle se distingue par des caracteristiques rassurantes : terrain plat, viabilisation et acces lisible. Pour un acquereur, cela reduit immediatement la charge mentale liee au lancement d'un projet neuf.
+
+Le secteur route de Safi se prete bien a une projection residentielle, avec une logique d'ouverture, des deplacements faciles et un potentiel de developpement deja bien compris par le marche local. On est ici sur un bien qui appelle une vision, pas seulement une visite.
+
+La fiche doit donc assumer un discours plus oriente opportunite : ce que l'on achete, c'est une assiette fonciere prete a recevoir une maison, un programme residentiel leger ou un projet patrimonial a construire dans le temps.
+
+## Descriptif
+
+- Surface annoncee : 980 m2
+- Etat : terrain plat, viabilise
+- Acces : simple depuis la route principale
+- Usage possible : projet residentiel, maison individuelle, petite operation patrimoniale
+- Nature de l'offre : fiche fonciere a forte capacite de projection

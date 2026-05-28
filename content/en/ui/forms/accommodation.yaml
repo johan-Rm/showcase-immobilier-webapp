@@ -1,0 +1,28 @@
+fields:
+  realEstateListing: Type de listing
+  category: Catégorie
+  place: Lieu
+  offer: Offre
+  review: Avis agence
+  highlight: Accroche
+  label: Badge
+  floorSize: Surface habitable
+  areaSize: Surface totale
+  landArea: Surface terrain
+  areaTerrace: Terrasse
+  numberOfBedrooms: Chambres
+  numberOfRooms: Pièces
+  numberOfBathroomsTotal: Salles de bain
+  numberOfGarages: Garages
+  occupancy: Capacité
+  level: De plain-pied
+  yearBuilt: Année de construction
+  amenityFeature: Équipements
+  qualities: Qualités
+  metaTitle: Méta Title
+  metaDescription: Méta Description
+  slug: Slug
+  dateCreated: Créé le
+  dateModified: Modifié le
+  name: Nom du bien
+  isActive: Actif

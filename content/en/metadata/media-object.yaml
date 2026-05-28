@@ -1,0 +1,1252 @@
+items:
+  - identifier: 94a22ae5-6z13-4a10-aeab-96d27177b192
+    caption: Essaouira - MLK - My Little Kasbah
+    url: /images/essaouira-en-drone.jpg
+    mainEntity: ImageObject
+  - identifier: 34a22ae5-6z13-4a10-aeab-96d27177b192
+    caption: Essaouira - MLK - My Little Kasbah
+    url: /images/essaouira-port.png
+    mainEntity: ImageObject
+  - identifier: 34a22ae5-6e23-4a10-aeab-96d27177b192
+    caption: Appartement atelier en médina
+    url: /images/appartement-atelier-en-medina.jpg
+    mainEntity: ImageObject
+  - identifier: 81656f9e-4b86-40de-b75d-f76b3906c3d1
+    caption: Appartement avec balcon en centre-ville
+    url: /images/appartement-avec-balcon-en-centre-ville.jpeg
+    mainEntity: ImageObject
+  - identifier: 0404ee56-ee75-468e-819f-0fd607d0a523
+    caption: Appartement marina avec terrasse
+    url: /images/appartement-marina-avec-terrasse.jpeg
+    mainEntity: ImageObject
+  - identifier: 3bb3a0ed-1fb8-451a-a09d-3583d7fc5ebe
+    caption: Chambre d'hôtes avec vue océan
+    url: /images/chambre-dhotes-avec-vue-ocean.jpeg
+    mainEntity: ImageObject
+  - identifier: ee80cadf-3304-48ff-a446-0d73b7c57590
+    caption: Dar authentique au coeur de la médina
+    url: /images/dar-authentique-au-coeur-de-la-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: b791f7e6-ed84-44b8-b5c4-c65e2d164eca
+    caption: Local commercial sur boulevard central
+    url: /images/local-commercial-sur-boulevard-central.jpg
+    mainEntity: ImageObject
+  - identifier: 1e26585b-ad8b-465b-be8c-abd837a1ea71
+    caption: Maison de campagne au coeur des arganiers
+    url: /images/maison-de-campagne-au-coeur-des-arganiers.jpg
+    mainEntity: ImageObject
+  - identifier: 6a5f1b5d-2f0a-4e33-9d64-8f6bb0d7f4ce
+    caption: Ambiance campagne en arganiers
+    url: /images/ambiance-campagne-arganiers.jpeg
+    mainEntity: ImageObject
+  - identifier: 0c687ae5-6e30-477b-9d9a-8e5ef84ad0f6
+    caption: Maison de ville proche de l'océan
+    url: /images/maison-de-ville-proche-de-locean.jpeg
+    mainEntity: ImageObject
+  - identifier: 982a1350-a60d-4866-be9e-08235612e881
+    caption: Riad boutique rénové
+    url: /images/riad-boutique-renove.jpeg
+    mainEntity: ImageObject
+  - identifier: d678ed13-9110-47e0-9c89-40db91a77d80
+    caption: Riad médina avec terrasse ensoleillée
+    url: /images/riad-medina-avec-terrasse-ensoleillee.jpeg
+    mainEntity: ImageObject
+  - identifier: 258104c1-8bef-4f7d-a6c6-a53d88a1e02a
+    caption: Terrain constructible route de Safi
+    url: /images/terrain-constructible-route-de-safi.jpeg
+    mainEntity: ImageObject
+  - identifier: 5d9ee282-cb73-4ba5-938f-dfd095101b17
+    caption: Villa contemporaine route d'Agadir
+    url: /images/villa-contemporaine-route-dagadir.jpeg
+    mainEntity: ImageObject
+  - identifier: 1b5e2afd-dbec-42c5-8a8c-c50a7a2f33b3
+    caption: Villa golf avec piscine privée
+    url: /images/villa-golf-avec-piscine-privee.jpeg
+    mainEntity: ImageObject
+  - identifier: 8fa7643a-d2e7-4af9-b93d-f09b973aecbf
+    alternateName: Rallye des Gazelles
+    caption: Plage d'Essaouira - Rallye des Gazelles
+    url: /images/plage-dessaouira-rallye-des-gazelles.jpg
+    mainEntity: ImageObject
+  - identifier: e4563c91-d067-4710-90b6-90c59e928c70
+    alternateName: Golf à Marrakech
+    caption: Maroc - Golf à Marrakech
+    url: /images/maroc-golf-a-marrakech.jpeg
+    mainEntity: ImageObject
+  - identifier: cc543cfe-10c3-4c18-91cc-280b21e14e5e
+    alternateName: Hotel à Tafedna
+    caption: Maroc - Hotel à Tafedna
+    url: /images/maroc-hotel-a-tafedna.jpg
+    mainEntity: ImageObject
+  - identifier: 7e8390c7-500e-49d7-8bc0-569ac76afd90
+    alternateName: Kite Surf à Dakhla
+    caption: Maroc - Kite Surf à Dakhla
+    url: /images/maroc-kite-surf-a-dakhla.jpeg
+    mainEntity: ImageObject
+  - identifier: ff6a78b4-46ac-4d9e-9006-52d772c07f01
+    caption: Activité piscine en contre-jour
+    url: /images/activite-piscine-en-contre-jour.jpeg
+    mainEntity: ImageObject
+  - identifier: 2b55c3e8-2e97-42bd-ad6f-b777c858d19b
+    alternateName: Quad
+    caption: Maroc - Quad
+    url: /images/maroc-quad.jpeg
+    mainEntity: ImageObject
+  - identifier: 7a8439ff-3760-4ef8-9425-9abd0ad2d64f
+    alternateName: Villa avec jardin
+    caption: Essaouira - Villa avec jardin
+    url: /images/essaouira-villa-avec-jardin.jpg
+    mainEntity: ImageObject
+  - identifier: 309c794f-abfd-4269-ab0f-bb0c413ea3a1
+    alternateName: Spa
+    caption: Essaouira - Spa
+    url: /images/essaouira-spa.jpg
+    mainEntity: ImageObject
+  - identifier: 4c12c3df-b436-4ad9-820c-f085ec654b47
+    alternateName: Trek dromadaires
+    caption: Maroc - Trek dromadaires dans le désert
+    url: /images/maroc-trek-dromadaires-dans-le-desert.jpg
+    mainEntity: ImageObject
+  - identifier: 1d096029-86c8-4a30-b9cd-fbf906afcbf0
+    alternateName: Les Remparts
+    caption: Médina d'Essaouira - Remparts - Vertical
+    url: /images/medina-dessaouira-remparts-vertical.jpg
+    mainEntity: ImageObject
+  - identifier: a22572bd-f8ad-4408-9d79-54af0bfbea08
+    alternateName: Les canons
+    caption: Skala de La Kasbah - Les remparts - Vertical
+    url: /images/skala-de-la-kasbah-les-remparts-vertical.jpg
+    mainEntity: ImageObject
+  - identifier: 9a3ed15a-19b6-4dfb-a0a6-02a64b36782e
+    caption: Mouette au-dessus des remparts au coucher du soleil
+    url: /images/mouette-au-dessus-des-remparts-au-coucher-du-soleil.jpg
+    mainEntity: ImageObject
+  - identifier: 1f085909-0a44-4726-a201-5cf186c61dee
+    alternateName: Skala du port
+    caption: Skala du port D'Essaouira - Mouette au coucher de soleil
+    url: /images/skala-du-port-dessaouira-mouette-au-coucher-de-soleil.jpg
+    mainEntity: ImageObject
+  - identifier: d50b499d-0525-4ef8-b1fe-34945794e768
+    alternateName: Tissus Traditionnels
+    caption: Artisanat Maroc - Tissus Traditionnels
+    url: /images/artisanat-maroc-tissus-traditionnels.jpg
+    mainEntity: ImageObject
+  - identifier: 311562a4-0517-4389-8c44-a426405ba528
+    alternateName: Trek dans le désert
+    caption: Maroc - Trek dans le désert
+    url: /images/maroc-trek-dans-le-desert.jpg
+    mainEntity: ImageObject
+  - identifier: be01e3fb-fd94-4a6c-b41b-48ceefbf9813
+    alternateName: Camp dans le désert
+    caption: M'Hamid El Ghizlane - Camp dans le désert
+    url: /images/mhamid-el-ghizlane-camp-dans-le-desert.jpg
+    mainEntity: ImageObject
+  - identifier: b9c983bd-7746-4c1a-b07f-f8feabcc4e09
+    alternateName: Quad
+    caption: Maroc désert du Sahara - Quad
+    url: /images/maroc-desert-du-sahara-quad.jpg
+    mainEntity: ImageObject
+  - identifier: 37b1d2a7-6eed-4cf6-ac7e-21ed47c957b3
+    alternateName: Quad sur dunes en bord de plage
+    caption: Maroc - Quad sur dunes en bord de plage
+    url: /images/maroc-quad-sur-dunes-en-bord-de-plage.jpg
+    mainEntity: ImageObject
+  - identifier: 97d8bcf8-567f-4ac6-9778-c1a2f7985180
+    alternateName: Plage du port
+    caption: Médina d'Essaouira - Plage du port
+    url: /images/medina-dessaouira-plage-du-port.jpg
+    mainEntity: ImageObject
+  - identifier: eff77c4e-504d-462a-9e2a-c6b65877ce74
+    alternateName: Les canons
+    caption: Skala de La Kasbah - Les remparts
+    url: /images/skala-de-la-kasbah-les-remparts.jpg
+    mainEntity: ImageObject
+  - identifier: 17190f2f-f4e1-49a7-a342-b4466e8d888a
+    alternateName: Port d'Essaouira
+    caption: Port d'Essaouira - Barques de pêche
+    url: /images/port-dessaouira-barques-de-peche.jpg
+    mainEntity: ImageObject
+  - identifier: 56098e93-895b-450d-9890-65b23faec0aa
+    alternateName: Médina
+    caption: Médina d'Essaouira - Coté port
+    url: /images/medina-dessaouira-cote-port.jpg
+    mainEntity: ImageObject
+  - identifier: de2c7b61-c269-4599-8569-720d9b7437a4
+    alternateName: Médina d'Essaouira
+    caption: Ambiance de la médina d'Essaouira
+    url: /images/ambiance-de-la-medina-dessaouira.jpg
+    mainEntity: ImageObject
+  - identifier: 9fe3a09f-047e-4ba7-b321-fff55dd8f739
+    alternateName: Vie locale
+    caption: Médina d'Essaouira - Vie locale
+    url: /images/medina-dessaouira-vie-locale.jpg
+    mainEntity: ImageObject
+  - identifier: 786a2afb-e971-4c85-886f-c34923699995
+    alternateName: Médina
+    caption: Médina d'Essaouira - Rue des tapis
+    url: /images/medina-dessaouira-rue-des-tapis.jpg
+    mainEntity: ImageObject
+  - identifier: b8f26c8a-3d43-40bc-b40c-130ee33754ea
+    caption: Groynes et vagues sur la côte
+    url: /images/groynes-et-vagues-sur-la-cote.jpg
+    mainEntity: ImageObject
+  - identifier: 39680ca2-e6bb-4e70-b2ee-04c22e600636
+    alternateName: Plage d'Essaouira
+    caption: Essaouira - Cours de Kite au sunset
+    url: /images/essaouira-cours-de-kite-au-sunset.jpg
+    mainEntity: ImageObject
+  - identifier: 8b74a92b-016a-4329-8ed2-a986acde2975
+    alternateName: Kite surf
+    caption: Maroc - Kite surf
+    url: /images/maroc-kite-surf.jpg
+    mainEntity: ImageObject
+  - identifier: 2215545a-8591-4b75-a746-b8987c6c0438
+    alternateName: Chevre dans arganier
+    caption: Essaouira - Chevre dans arganier
+    url: /images/essaouira-chevre-dans-arganier.jpg
+    mainEntity: ImageObject
+  - identifier: ec268d54-f11e-4123-bd25-7822a1ab90b6
+    alternateName: Port d'Essaouira
+    caption: Port d'Essaouira - Barques de peche - Full
+    url: /images/port-dessaouira-barques-de-peche-full.jpg
+    mainEntity: ImageObject
+  - identifier: b25a3e59-1ad9-49f3-ae0a-36f5fae72131
+    alternateName: La plage
+    caption: Taghazout - La plage
+    url: /images/taghazout-la-plage.jpg
+    mainEntity: ImageObject
+  - identifier: eec41e8d-39b9-41f5-af2d-9c589aae2574
+    alternateName: Quad
+    caption: Désert d'agafay - Quad
+    url: /images/desert-dagafay-quad.jpg
+    mainEntity: ImageObject
+  - identifier: 4cc633df-5fa4-4564-bc12-5bf9fb61f46d
+    alternateName: Plage d'Essaouira
+    caption: Plage d'Essaouira - Dromadaires au coucher de soleil
+    url: /images/plage-dessaouira-dromadaires-au-coucher-de-soleil.jpg
+    mainEntity: ImageObject
+  - identifier: c772961d-23f8-4145-8eb5-8e49598256a5
+    alternateName: Tajines
+    caption: Artisanat Maroc - Tajines
+    url: /images/artisanat-maroc-tajines.jpg
+    mainEntity: ImageObject
+  - identifier: 6e6d7ed0-bb6d-4c6e-a82e-27044e8cf1b2
+    alternateName: Dromadaires dans le désert
+    caption: Maroc - Dromadaires dans le désert
+    url: /images/maroc-dromadaires-dans-le-desert.jpg
+    mainEntity: ImageObject
+  - identifier: e0724ee4-5354-4e65-a593-6b387dc2e3d0
+    alternateName: Golf
+    caption: Essaouira - Golf
+    url: /images/essaouira-golf.jpg
+    mainEntity: ImageObject
+  - identifier: e9cf2468-9d62-4746-b9ae-bd5cf2c4418d
+    caption: Portrait lifestyle en lumière naturelle
+    url: /images/portrait-lifestyle-en-lumiere-naturelle.jpeg
+    mainEntity: ImageObject
+  - identifier: 2845e9f9-5e8f-4f58-a92b-15cc1516726a
+    caption: Paysage forestier dans la brume
+    url: /images/paysage-forestier-dans-la-brume.jpg
+    mainEntity: ImageObject
+  - identifier: 09bb3a35-c71a-41e9-9c12-3da02470cc21
+    caption: Forêt dense en perspective
+    url: /images/foret-dense-en-perspective.jpg
+    mainEntity: ImageObject
+  - identifier: 46961eb0-7b49-4c0b-9ef9-94dac9f4037c
+    caption: Architecture en arche contemporaine
+    url: /images/architecture-en-arche-contemporaine.jpg
+    mainEntity: ImageObject
+  - identifier: 36b76de6-fcb0-440f-8815-249173c0b7d8
+    caption: Tour urbaine et lignes verticales
+    url: /images/tour-urbaine-et-lignes-verticales.jpg
+    mainEntity: ImageObject
+  - identifier: 86a5984c-fa4d-40d6-bcc8-2206c0046964
+    caption: Pavillon contemporain en structure légère
+    url: /images/pavillon-contemporain-en-structure-legere.jpg
+    mainEntity: ImageObject
+  - identifier: 528cfa2f-ccf9-4b66-a010-187fadb25491
+    caption: Habitat moderne et volumes géométriques
+    url: /images/habitat-moderne-et-volumes-geometriques.jpg
+    mainEntity: ImageObject
+  - identifier: 4569ec18-ab3a-4fa2-aef7-2a718398c87e
+    caption: Architecture monolithique minimaliste
+    url: /images/architecture-monolithique-minimaliste.jpg
+    mainEntity: ImageObject
+  - identifier: 2d8ee014-dd11-4bef-b1f7-53b83f3ae07b
+    caption: Nef architecturale et perspective
+    url: /images/nef-architecturale-et-perspective.jpg
+    mainEntity: ImageObject
+  - identifier: b919f933-b513-461b-84bd-d2ffd0a54ed4
+    caption: Sommet montagneux au lever du jour
+    url: /images/sommet-montagneux-au-lever-du-jour.jpg
+    mainEntity: ImageObject
+  - identifier: 6bc31283-478c-40ef-bf9d-1016bd7d9c1e
+    caption: Côte océanique vue aérienne
+    url: /images/cote-oceanique-vue-aerienne.jpg
+    mainEntity: ImageObject
+  - identifier: 7eba1356-0e12-4959-acd8-3d394d331872
+    caption: Architecture brutaliste en lumière rasante
+    url: /images/architecture-brutaliste-en-lumiere-rasante.jpg
+    mainEntity: ImageObject
+  - identifier: 8b64c31f-7ad7-4304-9b45-fcaeb9556220
+    caption: Intérieur lumineux au design épuré
+    url: /images/interieur-lumineux-au-design-epure.jpg
+    mainEntity: ImageObject
+  - identifier: 1e47f3c3-91cb-4294-86ad-0c8d11ad0587
+    caption: Chaîne de montagnes à l'horizon
+    url: /images/chaine-de-montagnes-a-lhorizon.jpg
+    mainEntity: ImageObject
+  - identifier: 164b0820-d8c9-474d-a0e8-a718572fbf83
+    caption: Portrait lifestyle en lumière naturelle
+    url: /images/portrait-lifestyle-en-lumiere-naturelle.jpg
+    mainEntity: ImageObject
+  - identifier: fafbbb63-9a68-4c62-aa94-24a971fb8882
+    alternateName: Skala de La Kasbah
+    caption: Skala de La Kasbah - Les boutiques
+    url: /images/skala-de-la-kasbah-les-boutiques.jpg
+    mainEntity: ImageObject
+  - identifier: 6d0c8657-0058-470f-9737-fd996ffb9600
+    alternateName: Skala du port
+    caption: Skala du port - Bateaux
+    url: /images/skala-du-port-bateaux.jpg
+    mainEntity: ImageObject
+  - identifier: 43e7f82d-3708-4923-9cdc-e6d8e11d1923
+    caption: Cuisine moderne ouverte
+    url: /images/cuisine-moderne-ouverte.jpg
+    mainEntity: ImageObject
+  - identifier: f5319a6a-b972-4e24-b547-8962d8a00b56
+    caption: Salon chaleureux avec grandes ouvertures
+    url: /images/salon-chaleureux-avec-grandes-ouvertures.jpg
+    mainEntity: ImageObject
+  - identifier: 6f4bd4a0-17bd-4cf4-a854-6f2f7e76015a
+    caption: Intérieur haut de gamme et finitions
+    url: /images/interieur-haut-de-gamme-et-finitions.jpg
+    mainEntity: ImageObject
+  - identifier: 3ef88c92-3d75-4f5f-97ec-39974ccf58b2
+    caption: Horizon côtier en lumière douce
+    url: /images/horizon-cotier-en-lumiere-douce.jpg
+    mainEntity: ImageObject
+  - identifier: d8a3dc62-5ef8-4c82-8cd0-4f3ada9d5e64
+    caption: Riad lumineux aux matières naturelles
+    url: /images/riad-lumineux-aux-matieres-naturelles.jpg
+    mainEntity: ImageObject
+  - identifier: 8c520687-407b-411d-ab2c-8345994989bd
+    alternateName: Galerie La Kasbah
+    caption: Médina d'Essaouira - Galerie La Kasbah
+    url: /images/medina-dessaouira-galerie-la-kasbah.jpg
+    mainEntity: ImageObject
+  - identifier: d2d6cde7-82b1-4923-9d35-33ce9426628b
+    alternateName: Porte de Bab Sbah
+    caption: Essaouira - Porte de Bab Sbah
+    url: /images/essaouira-porte-de-bab-sbah.jpg
+    mainEntity: ImageObject
+  - identifier: 3d56ef2c-a3e6-4048-8d16-6ffc5324fd75
+    caption: Façade architecturale aux lignes nettes
+    url: /images/facade-architecturale-aux-lignes-nettes.jpg
+    mainEntity: ImageObject
+  - identifier: 9dd6754d-5030-44eb-82bd-af03b75e881c
+    caption: Kasbah d'Aït Ben Haddou au coucher du soleil
+    url: /images/kasbah-dait-ben-haddou-au-coucher-du-soleil.jpg
+    mainEntity: ImageObject
+  - identifier: 32fc85a6-c4a3-4dc8-b82e-3c81329bcd3c
+    caption: Villa contemporaine avec terrasse
+    url: /images/villa-contemporaine-avec-terrasse.jpg
+    mainEntity: ImageObject
+  - identifier: ef756dc6-234f-4d6b-922a-ae7b898aa61f
+    caption: Loft lumineux au style minimaliste
+    url: /images/loft-lumineux-au-style-minimaliste.jpg
+    mainEntity: ImageObject
+  - identifier: cd96390a-f73d-4692-b1f9-976c525faf79
+    caption: Atrium architectural en lumière zénithale
+    url: /images/atrium-architectural-en-lumiere-zenithale.jpg
+    mainEntity: ImageObject
+  - identifier: 97c1195a-8de4-4896-b8e6-973109e7449a
+    caption: Photographie d'Essaouira avec signature visuelle MLK pour la navigation
+    url: /images/mlk-logo.jpg
+    mainEntity: ImageObject
+  - identifier: a13c8b7e-9f74-46cc-b84c-6c8f12d3f001
+    caption: Golf en bord d'océan
+    url: https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf
+    mainEntity: ImageObject
+  - identifier: c24d9c8f-a085-4fdd-8d95-7d9a23e4a112
+    caption: Balade en quad
+    url: https://images.unsplash.com/photo-1544986581-efac024faf62
+    mainEntity: ImageObject
+  - identifier: d35e0da1-b196-40ee-9ea6-8eab34f5b223
+    caption: Sports nautiques à Essaouira
+    url: https://images.unsplash.com/photo-1507525428034-b723cf961d3e
+    mainEntity: ImageObject
+  - identifier: e46f1eb2-c2a7-41ff-afb7-9fbc45a6c334
+    caption: Visites et médina
+    url: https://images.unsplash.com/photo-1548013146-72479768bada
+    mainEntity: ImageObject
+  - identifier: f5702fc3-d3b8-4300-b0c8-afcd56b7d445
+    caption: Bien-être et spa
+    url: https://images.unsplash.com/photo-1544161515-4ab6ce6db874
+    mainEntity: ImageObject
+  - identifier: 06813ad4-e4c9-4411-c1d9-b0de67c8e556
+    caption: Moments partagés autour des jeux
+    url: https://images.unsplash.com/photo-1511512578047-dfb367046420
+    mainEntity: ImageObject
+  - identifier: 3f7102ae-f88a-492a-8eef-5dcd88cdf722
+    caption: Photographie d'Essaouira avec signature visuelle MLK pour la section contact
+    url: /images/essaouira-contact-hero.jpg
+    mainEntity: ImageObject
+  - identifier: 758b9a53-fca5-4e1d-8bbf-6eaa33d97bc8
+    caption: Port d'Essaouira - Mouette
+    url: /images/contact-essaouira-port-mouette.jpeg
+    mainEntity: ImageObject
+  - identifier: aa9d1f72-389a-4f69-99df-2bdaf7c5e7a1
+    caption: Visite virtuelle de la médina d'Essaouira
+    url: https://www.youtube.com/watch?v=DhQZ0gVU7Zk
+    mainEntity: VideoObject
+  - identifier: 5c3b8a1d-1ea0-4c3c-b644-f0f3d7431d8a
+    caption: Tour d'un riad rénové au coeur de la ville
+    url: https://www.youtube.com/watch?v=8w1Y0PZqiLQ
+    mainEntity: VideoObject
+  - identifier: b7c1ee7f-7f03-4679-936c-1f4a3dd007f2
+    caption: Promenade filmée le long de la corniche d'Agadir
+    url: https://www.youtube.com/watch?v=8QXDtfoZfE8
+    mainEntity: VideoObject
+  - identifier: 2e4b1fb5-9b6a-4d81-9e9b-fdaf2e4c9f90
+    caption: Reportage sur les villages d'oasis marocains
+    url: https://www.youtube.com/watch?v=Vz3oSOntJ4M
+    mainEntity: VideoObject
+  - identifier: 88a12726-b9e6-4bf3-9582-9a7ee5b63a1d
+    caption: Interview architecturale sur les villas modernes au Maroc
+    url: https://www.youtube.com/watch?v=PTd7K4z2hX0
+    mainEntity: VideoObject
+  - identifier: 0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01
+    alternateName: Galerie La Kasbah
+    caption: Médina d'Essaouira - Galerie La Kasbah
+    url: /images/medina-dessaouira-galerie-la-kasbah.jpg
+    mainEntity: ImageObject
+  - identifier: 8b9acd0e-1f20-43ce-a4db-912808c32493
+    alternateName: Les boutiques
+    caption: Skala de La Kasbah - Les boutiques
+    url: /images/skala-de-la-kasbah-les-boutiques.jpg
+    mainEntity: ImageObject
+  - identifier: c5dae3d8-2d5d-6d3c-bd3c-3c4d5e6f7a8b
+    alternateName: Bateaux
+    caption: Skala du port - Bateaux
+    url: /images/skala-du-port-bateaux.jpg
+    mainEntity: ImageObject
+  - identifier: b4c9e2c7-1c4c-5c2b-ac2b-2b3c4d5e6f7a
+    alternateName: Porte de Bab Sbah
+    caption: Essaouira - Porte de Bab Sbah
+    url: /images/essaouira-porte-de-bab-sbah.jpg
+    mainEntity: ImageObject
+  - identifier: c7a810f2-e8a2-4a0b-9c2d-9486c9e2d312
+    alternateName: Bateaux bleus port
+    caption: Quelques bateaux bleus dans le port d'Essaouira, Skala du port avec une jolie skyline
+    url: /images/port-dessaouira-bateaux-bleus-et-skyline.jpg
+    mainEntity: ImageObject
+  - identifier: 309c8cd5-f8e2-4a0b-9c2d-9486c9e2d312
+    alternateName: Ruelle de la médina
+    caption: Ruelle typique d'Essaouira avec sa porte bleue et ses murs blancs
+    url: /images/essaouira-ruelle-porte-bleue-artisanat.jpg
+    mainEntity: ImageObject
+  - identifier: 12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312
+    alternateName: Ruelle de la médina
+    caption: Ruelle de la médina
+    url: /images/essaouira-ruelle-de-la-medina.jpg
+    mainEntity: ImageObject
+  - identifier: d5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312
+    alternateName: Plage d'Essaouira
+    caption: Essaouira - Plage
+    url: /images/essaouira-plage.jpg
+    mainEntity: ImageObject
+
+  - identifier: 6f968161-16e7-4470-bb12-444cf6a0d0ca
+    caption: Interieur artisanal en medina
+    url: /images/interieur-artisanal-medina.jpeg
+    mainEntity: ImageObject
+
+  - identifier: d6c6c658-183d-4349-ae2d-d72a61e4d29e
+    caption: Salon convivial aux tons naturels
+    url: /images/salon-convivial-tons-naturels.jpeg
+    mainEntity: ImageObject
+
+  - identifier: 76f426ef-80ab-461a-93e5-8ea8b41f9e3c
+    caption: Chambre cocooning style mineral
+    url: /images/chambre-cocooning-style-mineral.jpeg
+    mainEntity: ImageObject
+
+  - identifier: 8dac214d-8cc7-44f5-9bd5-4dc63048814d
+    caption: Appartement lumineux avec terrasse
+    url: /images/appartement-lumineux-avec-terrasse.jpeg
+    mainEntity: ImageObject
+
+  - identifier: 86915e38-65a2-4acd-9e16-fac4d6101231
+    caption: Interieur moderne avec balcon
+    url: /images/interieur-moderne-avec-balcon.jpeg
+    mainEntity: ImageObject
+
+  - identifier: 23b4fd00-a708-46c2-9723-e441ed30fb43
+    caption: Espace de vie contemporain elegant
+    url: /images/espace-vie-contemporain-elegant.jpeg
+    mainEntity: ImageObject
+
+  - identifier: 5353ac49-6559-4635-a4aa-27afb527388f
+    caption: Maison de ville proche de l ocean
+    url: /images/maison-de-ville-proche-ocean.jpeg
+    mainEntity: ImageObject
+
+  - identifier: 2c2575bc-0de4-47d3-b347-aa49ba655230
+    caption: Villa contemporaine ensoleillee
+    url: /images/villa-contemporaine-ensoleillee.jpeg
+    mainEntity: ImageObject
+
+  - identifier: f2082d6d-86c2-485c-baf4-1307b715c5c8
+    caption: Essaouira par drone
+    url: /images/essaouira_par_drone.jpeg
+    mainEntity: ImageObject
+
+  - identifier: f1baa9eb-4866-5c93-b55f-dc8553c8a52c
+    caption: Affaire commerciale cafe en medina
+    url: /images/affaire-commerciale-cafe-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: 9fc801b2-9072-59c0-aa8e-7b8b177993dc
+    caption: Appartement avec terrasse au centre-ville
+    url: /images/appartement-terrasse-centre-ville.jpeg
+    mainEntity: ImageObject
+  - identifier: b6cf0feb-7c78-51e8-a121-fbd03a351a31
+    caption: Chambre d'hotes avec patio en medina
+    url: /images/chambre-hotes-patio-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: ca9d3a6f-4008-503a-8948-6d6a8d101b34
+    caption: Chambre d'hotes avec terrasse sur la corniche
+    url: /images/chambre-hotes-terrasse-corniche-vente.jpeg
+    mainEntity: ImageObject
+  - identifier: e1706a4f-2d75-542e-b0fc-77969ccce8cd
+    caption: Dar renovee avec patio en medina
+    url: /images/dar-patio-renove-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: ad63f6da-34fd-58c5-9b7c-0b4b065092a5
+    caption: Dar renovee en medina pour longue duree
+    url: /images/dar-renovee-medina-longue-duree-alt.jpeg
+    mainEntity: ImageObject
+  - identifier: a3fd0d74-0534-5e3a-92bf-6a273d11ad1f
+    caption: Local commercial avec vitrine a la marina
+    url: /images/local-commercial-vitrine-marina.jpeg
+    mainEntity: ImageObject
+  - identifier: b3545537-2a41-5ce2-aa95-433867fe36a9
+    caption: Location gerance de cafe sur la corniche
+    url: /images/location-gerance-cafe-corniche.jpeg
+    mainEntity: ImageObject
+  - identifier: 6b592c40-2e12-5021-80eb-618658efe9a7
+    caption: Location gerance de maison d'hotes en medina
+    url: /images/location-gerance-maison-hotes-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: 946d5d76-644b-5c4a-b6e0-f333ce9f3958
+    caption: Maison d'hotes avec patio en medina
+    url: /images/maison-hotes-patio-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: bb51d544-ef14-5944-8beb-123fd2a403ab
+    caption: Maison d'hotes avec terrasse sur la corniche
+    url: /images/maison-hotes-terrasse-corniche.jpeg
+    mainEntity: ImageObject
+  - identifier: 823dea97-a22c-56ce-ab42-465d8f6526d0
+    caption: Maison avec jardin en campagne d'Essaouira
+    url: /images/maison-jardin-campagne-essaouira.jpeg
+    mainEntity: ImageObject
+  - identifier: 509919c4-1150-5bc4-8e70-c551b29bddd6
+    caption: Maison de ville avec terrasse en medina
+    url: /images/maison-ville-medina-terrasse.jpeg
+    mainEntity: ImageObject
+  - identifier: d9f071c5-b72d-5e86-a40b-8d19eea9020c
+    caption: Riad atelier en medina pour longue duree
+    url: /images/riad-atelier-medina-longue-duree.jpeg
+    mainEntity: ImageObject
+  - identifier: 5416a110-2e62-51c1-bffc-716d07602604
+    caption: Riad avec cour et jacuzzi en medina
+    url: /images/riad-cour-jacuzzi-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: 0c4ef781-f857-548f-b2c2-60bba6bb3ce4
+    caption: Riad familial en medina
+    url: /images/riad-famille-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: 4189b2bb-dbc7-58d4-804b-cf918f7f9bdd
+    caption: Riad hotel au coeur de la medina d'Essaouira
+    url: /images/riad-hotel-central.jpeg
+    mainEntity: ImageObject
+  - identifier: 8d8b1522-c419-559c-b9f6-4549ebff566e
+    caption: Riad avec patio proche Bab Sbah
+    url: /images/riad-patio-bab-sbah.jpeg
+    mainEntity: ImageObject
+  - identifier: c6e87a76-9d2c-5791-bf28-262f7ec499da
+    caption: Riad avec patio et spa en medina
+    url: /images/riad-patio-spa-medina.jpeg
+    mainEntity: ImageObject
+  - identifier: d57003cb-150a-5930-a4e4-6fb779e17ca6
+    caption: Riad avec terrasse sur les remparts
+    url: /images/riad-terrasse-remparts.jpeg
+    mainEntity: ImageObject
+  - identifier: d38b4306-c28d-55ee-b928-c02a409a3681
+    caption: Villa golf avec piscine privee
+    url: /images/villa-golf-palmeraie.jpeg
+    mainEntity: ImageObject
+  - identifier: 4d380e35-cc68-5a03-acdb-9a53627625c4
+    caption: Villa golf residentielle a Mogador
+    url: /images/villa-golf-residentielle-mogador.jpeg
+    mainEntity: ImageObject
+  - identifier: d430033d-d73a-52a0-a51e-fa8f2658f589
+    caption: Villa golf resort pour sejours
+    url: /images/villa-golf-resort-sejour.jpeg
+    mainEntity: ImageObject
+  - identifier: media-riad-boutique-renove-01
+    caption: Patio lumineux d’un riad rénové en médina
+    url: /images/riad-boutique-renove-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-boutique-renove-02
+    caption: Terrasse de riad avec atmosphère naturelle
+    url: /images/riad-boutique-renove-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-boutique-renove-03
+    caption: Ambiance architecturale de riad en médina
+    url: /images/riad-boutique-renove-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-palmeraie-01
+    caption: Villa contemporaine avec piscine et jardin
+    url: /images/villa-golf-palmeraie-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-palmeraie-02
+    caption: Extérieur de villa lumineuse avec terrasse
+    url: /images/villa-golf-palmeraie-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-palmeraie-03
+    caption: Architecture résidentielle contemporaine avec jardin
+    url: /images/villa-golf-palmeraie-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-atelier-medina-01
+    caption: Espace de vie lumineux avec ambiance chaleureuse
+    url: /images/appartement-atelier-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-atelier-medina-02
+    caption: Intérieur sobre avec matières naturelles
+    url: /images/appartement-atelier-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-atelier-medina-03
+    caption: Chambre simple et lumineuse
+    url: /images/appartement-atelier-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-affaire-commerciale-boutique-centre-01
+    caption: Façade de boutique en centre-ville
+    url: /images/affaire-commerciale-boutique-centre-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-affaire-commerciale-boutique-centre-02
+    caption: Architecture commerciale en zone urbaine
+    url: /images/affaire-commerciale-boutique-centre-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-affaire-commerciale-boutique-centre-03
+    caption: Espace commercial moderne
+    url: /images/affaire-commerciale-boutique-centre-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-affaire-commerciale-cafe-medina-01
+    caption: Terrasse de café en médina
+    url: /images/affaire-commerciale-cafe-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-affaire-commerciale-cafe-medina-02
+    caption: Intérieur chaleureux de café
+    url: /images/affaire-commerciale-cafe-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-affaire-commerciale-cafe-medina-03
+    caption: Ambiance restauration
+    url: /images/affaire-commerciale-cafe-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-balcon-centre-ville-01
+    caption: Séjour lumineux en centre-ville
+    url: /images/appartement-balcon-centre-ville-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-balcon-centre-ville-02
+    caption: Intérieur moderne et lumineux
+    url: /images/appartement-balcon-centre-ville-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-balcon-centre-ville-03
+    caption: Balcon en centre-ville
+    url: /images/appartement-balcon-centre-ville-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-duplex-marina-01
+    caption: Appartement duplex avec extérieur
+    url: /images/appartement-duplex-marina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-duplex-marina-02
+    caption: Volumes ouverts et lumineux
+    url: /images/appartement-duplex-marina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-duplex-marina-03
+    caption: Pièce de vie contemporaine
+    url: /images/appartement-duplex-marina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-jardin-marina-01
+    caption: Terrasse avec accès jardin
+    url: /images/appartement-jardin-marina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-jardin-marina-02
+    caption: Extérieur végétalisé
+    url: /images/appartement-jardin-marina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-jardin-marina-03
+    caption: Espace extérieur confortable
+    url: /images/appartement-jardin-marina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-marina-essaouira-01
+    caption: Vue littorale proche de la marina
+    url: /images/appartement-marina-essaouira-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-marina-essaouira-02
+    caption: Intérieur lumineux proche du port
+    url: /images/appartement-marina-essaouira-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-marina-essaouira-03
+    caption: Pièce de vie avec lumière naturelle
+    url: /images/appartement-marina-essaouira-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-marina-terrasse-filante-01
+    caption: Terrasse longue avec vue dégagée
+    url: /images/appartement-marina-terrasse-filante-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-marina-terrasse-filante-02
+    caption: Balcon lumineux en façade
+    url: /images/appartement-marina-terrasse-filante-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-marina-terrasse-filante-03
+    caption: Intérieur contemporain ouvert
+    url: /images/appartement-marina-terrasse-filante-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-terrasse-centre-ville-01
+    caption: Séjour lumineux en centre-ville
+    url: /images/appartement-terrasse-centre-ville-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-terrasse-centre-ville-02
+    caption: Intérieur moderne et confortable
+    url: /images/appartement-terrasse-centre-ville-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-terrasse-centre-ville-03
+    caption: Terrasse urbaine en centre-ville
+    url: /images/appartement-terrasse-centre-ville-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-vue-remparts-medina-01
+    caption: Ruelle historique en médina
+    url: /images/appartement-vue-remparts-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-vue-remparts-medina-02
+    caption: Architecture traditionnelle marocaine
+    url: /images/appartement-vue-remparts-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-vue-remparts-medina-03
+    caption: Porte ancienne et ambiance historique
+    url: /images/appartement-vue-remparts-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-jardin-corniche-01
+    caption: Environnement côtier et jardin
+    url: /images/chambre-hotes-jardin-corniche-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-jardin-corniche-02
+    caption: Chambre lumineuse avec ouverture extérieure
+    url: /images/chambre-hotes-jardin-corniche-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-jardin-corniche-03
+    caption: Jardin extérieur avec végétation
+    url: /images/chambre-hotes-jardin-corniche-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-patio-medina-01
+    caption: Patio intérieur en médina
+    url: /images/chambre-hotes-patio-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-patio-medina-02
+    caption: Chambre lumineuse avec style marocain
+    url: /images/chambre-hotes-patio-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-patio-medina-03
+    caption: Ambiance traditionnelle marocaine
+    url: /images/chambre-hotes-patio-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-terrasse-corniche-vente-01
+    caption: Terrasse avec vue sur la mer
+    url: /images/chambre-hotes-terrasse-corniche-vente-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-terrasse-corniche-vente-02
+    caption: Intérieur lumineux proche de l’océan
+    url: /images/chambre-hotes-terrasse-corniche-vente-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-terrasse-corniche-vente-03
+    caption: Ambiance bord de mer
+    url: /images/chambre-hotes-terrasse-corniche-vente-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-vue-ocean-01
+    caption: Vue sur l’océan Atlantique
+    url: /images/chambre-hotes-vue-ocean-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-vue-ocean-02
+    caption: Terrasse avec vue mer
+    url: /images/chambre-hotes-vue-ocean-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-chambre-hotes-vue-ocean-03
+    caption: Chambre lumineuse avec ouverture extérieure
+    url: /images/chambre-hotes-vue-ocean-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-famille-medina-sejour-01
+    caption: Patio intérieur familial
+    url: /images/dar-famille-medina-sejour-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-famille-medina-sejour-02
+    caption: Intérieur traditionnel marocain
+    url: /images/dar-famille-medina-sejour-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-famille-medina-sejour-03
+    caption: Ambiance chaleureuse en médina
+    url: /images/dar-famille-medina-sejour-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-patio-renove-medina-01
+    caption: Patio rénové en médina
+    url: /images/dar-patio-renove-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-patio-renove-medina-02
+    caption: Salon lumineux aux matières naturelles
+    url: /images/dar-patio-renove-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-patio-renove-medina-03
+    caption: Ambiance traditionnelle en médina
+    url: /images/dar-patio-renove-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-renovee-medina-longue-duree-01
+    caption: Patio compact en médina
+    url: /images/dar-renovee-medina-longue-duree-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-renovee-medina-longue-duree-02
+    caption: Intérieur sobre et lumineux
+    url: /images/dar-renovee-medina-longue-duree-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-renovee-medina-longue-duree-03
+    caption: Ambiance de ruelle en médina
+    url: /images/dar-renovee-medina-longue-duree-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-local-commercial-vitrine-marina-01
+    caption: Vitrine commerciale en secteur passant
+    url: /images/local-commercial-vitrine-marina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-local-commercial-vitrine-marina-02
+    caption: Façade commerciale contemporaine
+    url: /images/local-commercial-vitrine-marina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-local-commercial-vitrine-marina-03
+    caption: Espace professionnel ouvert
+    url: /images/local-commercial-vitrine-marina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-location-gerance-cafe-corniche-01
+    caption: Terrasse de café en bord de mer
+    url: /images/location-gerance-cafe-corniche-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-location-gerance-cafe-corniche-02
+    caption: Salle de café prête à exploiter
+    url: /images/location-gerance-cafe-corniche-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-location-gerance-cafe-corniche-03
+    caption: Environnement côtier proche de la corniche
+    url: /images/location-gerance-cafe-corniche-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-location-gerance-maison-hotes-medina-01
+    caption: Patio de maison d’hôtes en médina
+    url: /images/location-gerance-maison-hotes-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-location-gerance-maison-hotes-medina-02
+    caption: Intérieur traditionnel pour activité d’accueil
+    url: /images/location-gerance-maison-hotes-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-location-gerance-maison-hotes-medina-03
+    caption: Ambiance boutique hôtel en médina
+    url: /images/location-gerance-maison-hotes-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-familiale-ghazoua-01
+    caption: Maison familiale avec jardin
+    url: /images/maison-familiale-ghazoua-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-familiale-ghazoua-02
+    caption: Intérieur lumineux et spacieux
+    url: /images/maison-familiale-ghazoua-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-familiale-ghazoua-03
+    caption: Pièce de vie conviviale
+    url: /images/maison-familiale-ghazoua-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-jardin-campagne-essaouira-01
+    caption: Maison avec jardin en campagne
+    url: /images/maison-jardin-campagne-essaouira-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-jardin-campagne-essaouira-02
+    caption: Environnement naturel et calme
+    url: /images/maison-jardin-campagne-essaouira-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-jardin-campagne-essaouira-03
+    caption: Extérieur avec espace dégagé
+    url: /images/maison-jardin-campagne-essaouira-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-terrasse-sidi-kaouki-sejour
+    caption: Vue mer et environnement côtier
+    url: /images/maison-terrasse-sidi-kaouki-sejour.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-terrasse-sidi-kaouki-sejour-02
+    caption: Maison proche de la plage
+    url: /images/maison-terrasse-sidi-kaouki-sejour-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-terrasse-sidi-kaouki-sejour-03
+    caption: Intérieur lumineux et ouvert
+    url: /images/maison-terrasse-sidi-kaouki-sejour-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-ville-medina-terrasse-01
+    caption: Patio en cœur de médina
+    url: /images/maison-ville-medina-terrasse-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-ville-medina-terrasse-02
+    caption: Intérieur traditionnel
+    url: /images/maison-ville-medina-terrasse-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-ville-medina-terrasse-03
+    caption: Terrasse en hauteur avec vue
+    url: /images/maison-ville-medina-terrasse-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-atelier-medina-longue-duree-01
+    caption: Patio adapté à un usage mixte
+    url: /images/riad-atelier-medina-longue-duree-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-atelier-medina-longue-duree-02
+    caption: Espace intérieur polyvalent
+    url: /images/riad-atelier-medina-longue-duree-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-atelier-medina-longue-duree-03
+    caption: Ambiance riad avec potentiel créatif
+    url: /images/riad-atelier-medina-longue-duree-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-centre-essaouira-01
+    caption: Pièce de vie lumineuse en centre-ville
+    url: /images/appartement-centre-essaouira-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-centre-essaouira-02
+    caption: Intérieur clair et confortable
+    url: /images/appartement-centre-essaouira-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-appartement-centre-essaouira-03
+    caption: Espace aménagé pour une vie quotidienne confortable
+    url: /images/appartement-centre-essaouira-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-authentique-medina-01
+    caption: Patio central lumineux d’une dar traditionnelle
+    url: /images/dar-authentique-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-authentique-medina-02
+    caption: Intérieur traditionnel avec matériaux authentiques
+    url: /images/dar-authentique-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-dar-authentique-medina-03
+    caption: Ambiance chaleureuse en médina
+    url: /images/dar-authentique-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-local-commercial-angle-centre-01
+    caption: Façade d’angle avec double vitrine
+    url: /images/local-commercial-angle-centre-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-local-commercial-angle-centre-02
+    caption: Plateau intérieur aménageable
+    url: /images/local-commercial-angle-centre-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-local-commercial-angle-centre-03
+    caption: Local en angle avec forte visibilité
+    url: /images/local-commercial-angle-centre-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-de-campagne-arganiers-01
+    caption: Maison de campagne avec arganiers - extérieur
+    url: /images/maison-de-campagne-arganiers-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-de-campagne-arganiers-02
+    caption: Maison de campagne avec arganiers - paysage
+    url: /images/maison-de-campagne-arganiers-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-de-campagne-arganiers-03
+    caption: Maison de campagne avec arganiers - environnement naturel
+    url: /images/maison-de-campagne-arganiers-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-de-ville-sidi-kaouki-01
+    caption: Maison de ville à Sidi Kaouki - vue mer
+    url: /images/maison-de-ville-sidi-kaouki-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-de-ville-sidi-kaouki-02
+    caption: Maison de ville à Sidi Kaouki - intérieur
+    url: /images/maison-de-ville-sidi-kaouki-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-maison-de-ville-sidi-kaouki-03
+    caption: Maison de ville à Sidi Kaouki - ambiance côtière
+    url: /images/maison-de-ville-sidi-kaouki-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-cour-jacuzzi-medina-01
+    caption: Patio du riad avec jacuzzi
+    url: /images/riad-cour-jacuzzi-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-cour-jacuzzi-medina-02
+    caption: Intérieur du riad
+    url: /images/riad-cour-jacuzzi-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-cour-jacuzzi-medina-03
+    caption: Ambiance générale du riad
+    url: /images/riad-cour-jacuzzi-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-famille-medina-01
+    caption: Patio du riad familial
+    url: /images/riad-famille-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-famille-medina-02
+    caption: Intérieur du riad familial
+    url: /images/riad-famille-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-famille-medina-03
+    caption: Ambiance générale du riad
+    url: /images/riad-famille-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-medina-terrasse-ensoleillee-01
+    caption: Riad avec terrasse ensoleillée en médina
+    url: /images/riad-medina-terrasse-ensoleillee-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-medina-terrasse-ensoleillee-02
+    caption: Rooftop lumineux avec vue dégagée
+    url: /images/riad-medina-terrasse-ensoleillee-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-medina-terrasse-ensoleillee-03
+    caption: Ambiance intérieure chaleureuse
+    url: /images/riad-medina-terrasse-ensoleillee-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-patio-bab-sbah-01
+    caption: Patio central lumineux
+    url: /images/riad-patio-bab-sbah-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-patio-bab-sbah-02
+    caption: Intérieur du riad
+    url: /images/riad-patio-bab-sbah-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-patio-bab-sbah-03
+    caption: Ambiance générale
+    url: /images/riad-patio-bab-sbah-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-patio-spa-medina-01
+    url: /images/riad-patio-spa-medina-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-patio-spa-medina-02
+    url: /images/riad-patio-spa-medina-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-patio-spa-medina-03
+    url: /images/riad-patio-spa-medina-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-terrasse-remparts-01
+    url: /images/riad-terrasse-remparts-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-terrasse-remparts-02
+    url: /images/riad-terrasse-remparts-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-terrasse-remparts-03
+    url: /images/riad-terrasse-remparts-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-terrain-viabilise-route-marrakech-01
+    url: /images/terrain-viabilise-route-marrakech-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-terrain-viabilise-route-marrakech-02
+    url: /images/terrain-viabilise-route-marrakech-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-terrain-viabilise-route-marrakech-03
+    url: /images/terrain-viabilise-route-marrakech-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-jardin-mogador-01
+    caption: Villa golf Mogador - jardin arboré
+    url: /images/villa-golf-jardin-mogador-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-jardin-mogador-02
+    caption: Villa golf Mogador - extérieur avec volumes contemporains
+    url: /images/villa-golf-jardin-mogador-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-jardin-mogador-03
+    caption: Villa golf Mogador - ambiance résidentielle premium
+    url: /images/villa-golf-jardin-mogador-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-residentielle-mogador-01
+    caption: Vue extérieure avec jardin et piscine
+    url: /images/villa-golf-residentielle-mogador-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-residentielle-mogador-02
+    caption: Pièce de vie lumineuse et ouverte
+    url: /images/villa-golf-residentielle-mogador-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-residentielle-mogador-03
+    caption: Architecture résidentielle avec volumes modernes
+    url: /images/villa-golf-residentielle-mogador-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-resort-sejour-01
+    caption: Villa golf resort - piscine et jardin
+    url: /images/villa-golf-resort-sejour-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-resort-sejour-02
+    caption: Villa golf resort - extérieur résidentiel
+    url: /images/villa-golf-resort-sejour-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-golf-resort-sejour-03
+    caption: Villa golf resort - ambiance séjour premium
+    url: /images/villa-golf-resort-sejour-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-hotel-central-01
+    caption: Patio d’un riad hôtel en médina
+    url: /images/riad-hotel-central-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-hotel-central-02
+    caption: Chambre d’un riad hôtel en médina
+    url: /images/riad-hotel-central-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-riad-hotel-central-03
+    caption: Terrasse d’un riad hôtel au cœur de la médina
+    url: /images/riad-hotel-central-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-contemporaine-route-agadir-01
+    caption: Villa contemporaine route Agadir - extérieur avec piscine
+    url: /images/villa-contemporaine-route-agadir-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-contemporaine-route-agadir-02
+    caption: Villa contemporaine route Agadir - intérieur lumineux
+    url: /images/villa-contemporaine-route-agadir-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-contemporaine-route-agadir-03
+    caption: Villa contemporaine route Agadir - architecture moderne
+    url: /images/villa-contemporaine-route-agadir-03.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-contemporaine-route-agadir-01
+    caption: Villa contemporaine avec piscine et jardin paysager
+    url: /images/villa-contemporaine-route-agadir-01.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-contemporaine-route-agadir-02
+    caption: Pièce de vie moderne avec grandes ouvertures
+    url: /images/villa-contemporaine-route-agadir-02.jpg
+    mainEntity: ImageObject
+  - identifier: media-villa-contemporaine-route-agadir-03
+    caption: Architecture contemporaine aux lignes épurées
+    url: /images/villa-contemporaine-route-agadir-03.jpg
+    mainEntity: ImageObject
+
+  - identifier: bavr001-riad-hotel-central-patio-arcades-pierre-zellige-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-arcades-pierre-zellige-01.jpeg
+    caption: Patio central avec arcades en pierre
+    keywords: [patio, riad, medina]
+
+  - identifier: bavr001-riad-hotel-central-patio-arcades-colonnes-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-arcades-colonnes-01.jpeg
+    caption: Patio lumineux avec arcades traditionnelles
+    keywords: [patio, architecture, lumiere]
+
+  - identifier: bavr001-riad-hotel-central-patio-galerie-bois-colonnes-zellige-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-galerie-bois-colonnes-zellige-01.jpeg
+    caption: Galerie en bois surplombant le patio central
+    keywords: [bois, galerie, riad]
+
+  - identifier: bavr001-riad-hotel-central-patio-zellige-vue-plongeante-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-zellige-vue-plongeante-01.jpeg
+    caption: Détail de mur en zellige avec végétation
+    keywords: [zellige, decoration, maroc]
+
+  - identifier: bavr001-riad-hotel-central-facade-ruelle-medina-portes-bleues-01
+    contentUrl: /images/bavr001-riad-hotel-central-facade-ruelle-medina-portes-bleues-01.jpeg
+    caption: Façade du riad en ruelle de médina à Essaouira
+    keywords: [facade, medina, essaouira]
+
+  - identifier: bavr001-riad-hotel-central-patio-arbre-zellige-vue-haute-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-arbre-zellige-vue-haute-01.jpeg
+    caption: Patio avec arbre central et murs en zellige
+    keywords: [patio, arbre, zellige]
+
+  - identifier: bavr001-riad-hotel-central-patio-colonnes-bois-coursive-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-colonnes-bois-coursive-01.jpeg
+    caption: Coursive en bois autour du patio central
+    keywords: [coursive, bois, riad]
+
+  - identifier: bavr001-riad-hotel-central-terrasse-mur-blanc-plantes-01
+    contentUrl: /images/bavr001-riad-hotel-central-terrasse-mur-blanc-plantes-01.jpeg
+    caption: Terrasse aménagée pour détente
+    keywords: [terrasse, rooftop, detente]
+
+  - identifier: bavr001-riad-hotel-central-patio-vue-verticale-arbre-arcades-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-vue-verticale-arbre-arcades-01.jpeg
+    caption: Vue verticale plongeante sur le patio
+    keywords: [patio, vue, architecture]
+
+  - identifier: bavr001-riad-hotel-central-patio-arbre-galeries-bois-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-arbre-galeries-bois-01.jpeg
+    caption: Balcons donnant sur un patio arboré
+    keywords: [balcon, patio, riad]
+
+  - identifier: bavr001-riad-hotel-central-patio-arbre-coursives-bois-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-arbre-coursives-bois-01.jpeg
+    caption: Patio avec arcades et arbre central
+    keywords: [patio, arcades, arbre]
+
+  - identifier: bavr001-riad-hotel-central-patio-arcades-pierre-bassin-01
+    contentUrl: /images/bavr001-riad-hotel-central-patio-arcades-pierre-bassin-01.jpeg
+    caption: Architecture verticale avec arcades du patio
+    keywords: [arcades, architecture, riad]
+  
+  - identifier: bavt001-terrain-moulay-bouzerktoun-vue-mer-01
+    contentUrl: /images/bavt001-terrain-moulay-bouzerktoun-vue-mer-01.jpeg
+    caption: Terrain constructible avec vue dégagée sur l’océan à Moulay Bouzerktoun
+    keywords: [terrain, vue mer, bouzerktoun, essaouira]
+
+  - identifier: bavlc001-local-commercial-erraounak-interieur-espace-01
+    contentUrl: /images/bavlc001-local-commercial-erraounak-interieur-espace-01.jpeg
+    caption: Espace intérieur rénové avec finitions modernes
+    keywords: [interieur, commerce, renove]
+
+  - identifier: bavlc001-local-commercial-erraounak-facade-vitrine-rue-02
+    contentUrl: /images/bavlc001-local-commercial-erraounak-facade-vitrine-rue-02.jpeg
+    caption: Façade du local commercial avec vitrine sur rue passante
+    keywords: [vitrine, commerce, rue]
+
+  - identifier: bavt002-terrain-campagne-km20-vue-degagee-01
+    contentUrl: /images/bavt002-terrain-campagne-km20-vue-degagee-01.jpeg
+    caption: Terrain situé en campagne d’Essaouira avec environnement calme et ouvert
+    keywords: [terrain, campagne, essaouira, calme]
+
+  - identifier: bavt002-terrain-campagne-km20-environnement-naturel-02
+    contentUrl: /images/bavt002-terrain-campagne-km20-environnement-naturel-02.jpeg
+    caption: Environnement naturel autour du terrain en campagne d’Essaouira
+    keywords: [nature, environnement, campagne, terrain]
+
+  - identifier: bavlc002-local-commercial-medina-espace-principal-arcades-01
+    contentUrl: /images/bavlc002-local-commercial-medina-espace-principal-arcades-01.jpeg
+    caption: Espace principal du local avec arcades en pierre
+    keywords: [commerce, medina, arcades]
+
+  - identifier: bavlc002-local-commercial-medina-salle-arcades-voutees-02
+    contentUrl: /images/bavlc002-local-commercial-medina-salle-arcades-voutees-02.jpeg
+    caption: Salle intérieure avec arcades voûtées en pierre
+    keywords: [arcades, interieur, medina]
+
+  - identifier: bavlc002-local-commercial-medina-espace-exposition-murs-blancs-03
+    contentUrl: /images/bavlc002-local-commercial-medina-espace-exposition-murs-blancs-03.jpeg
+    caption: Espace intérieur avec murs blancs et éléments décoratifs
+    keywords: [exposition, commerce, interieur]
+
+  - identifier: bavlc002-local-commercial-medina-entree-interieure-porte-bleue-04
+    contentUrl: /images/bavlc002-local-commercial-medina-entree-interieure-porte-bleue-04.jpeg
+    caption: Entrée intérieure du local avec porte bleue
+    keywords: [entree, porte, medina]
+
+  - identifier: bavlc002-local-commercial-medina-comptoir-espace-principal-05
+    contentUrl: /images/bavlc002-local-commercial-medina-comptoir-espace-principal-05.jpeg
+    caption: Espace principal du local avec comptoir
+    keywords: [comptoir, commerce, interieur]
+
+  - identifier: bavlc002-local-commercial-medina-galerie-arcades-pierre-06
+    contentUrl: /images/bavlc002-local-commercial-medina-galerie-arcades-pierre-06.jpeg
+    caption: Galerie intérieure avec arcades en pierre
+    keywords: [galerie, arcades, pierre]
+
+  - identifier: bavt003-terrain-campagne-km20-vue-degagee-01
+    contentUrl: /images/bavt003-terrain-campagne-km20-vue-degagee-01.jpeg
+    caption: Terrain en campagne avec vue degagee a 20 km d Essaouira
+    keywords: [terrain, campagne, essaouira, vue-degagee]
+
+  - identifier: bavt003-terrain-campagne-km20-environnement-naturel-02
+    contentUrl: /images/bavt003-terrain-campagne-km20-environnement-naturel-02.jpeg
+    caption: Environnement naturel autour du terrain en campagne d Essaouira
+    keywords: [terrain, nature, campagne, environnement]

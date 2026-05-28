@@ -1,0 +1,116 @@
+components:
+  logo:
+    ariaLabel: My Little Kasbah
+  navigationMain:
+    closeMenuAriaLabel: Fermer le menu
+    contactDetailsTitle: Coordonnées
+    mainMenuAriaLabel: Menu principal
+    stayConnectedTitle: Restez connecté
+  socialNetwork:
+    closeMenuAriaLabel: Fermer les réseaux sociaux
+    navAriaLabel: Réseaux sociaux
+    openMenuAriaLabel: Ouvrir les réseaux sociaux
+
+footer:
+  accommodationTypes:
+    label: Types de biens
+    menu: accommodationTypes
+  credits: '© 2026 MLK – My Little Kasbah'
+  meta:
+    label: Informations
+    menu: meta
+  services:
+    label: Services
+    menu: services
+  showColorModeToggle: false
+  socialLinks:
+    - aria-label: MLK sur Instagram
+      icon: i-simple-icons-instagram
+      order: 2
+      target: _blank
+      to: https://www.instagram.com/mlk-my-little-kasbah
+    - aria-label: Contacter MLK via WhatsApp
+      icon: i-simple-icons-whatsapp
+      order: 1
+      target: _blank
+      tone: whatsapp
+      to: https://wa.me/33767235008
+
+navigation:
+  agency:
+    name: L’agence
+    url: /l-agence
+  apartment:
+    name: Appartement
+    url: /biens/appartement
+  commercial-business:
+    name: Affaire commerciale
+    url: /biens/affaires-commerciales
+  commercial-property:
+    name: Local commercial
+    url: /biens/local-commercial
+  contact:
+    name: Contact
+    url: /contact
+    label: Nous contacter
+  country-house:
+    name: Maison de campagne
+    url: /biens/maison-de-campagne
+  dar:
+    name: Dar
+    url: /biens/dar
+  essaouira-the-jewel:
+    name: Essaouira le joyau authentique
+    url: /essaouira-le-joyau-authentique
+  fees:
+    name: Honoraires
+    url: /honoraires
+  for-sale:
+    description: Sélection de riads et maisons d’exception à acquérir, ancrées entre palmeraies et médinas.
+    imageIdentifier: 1f085909-0a44-4726-a201-5cf186c61dee
+    name: Biens à la Vente
+    url: /properties/bien-a-vendre
+  golf-villa:
+    name: Villa golf
+    url: /biens/villa-golf
+  guest-house:
+    name: Maison d'hôtes
+    url: /biens/maisons-dhotes
+  guest-room:
+    name: Chambre d'hôtes
+    url: /biens/chambre-dhotes
+  home-staging:
+    name: Home Staging
+    url: /home-staging
+  investing:
+    name: Investir
+    url: /investir
+    label: Plus d'infos
+  land:
+    name: Terrain
+    url: /biens/terrain
+  lease-management:
+    name: Location gérance
+    url: /biens/location-gerance
+  legal-notice:
+    name: Mentions légales
+    url: /mentions-legales
+  long-term-rental:
+    description: Offre dédiée aux hôteliers, marques et événements à la recherche d’écrins sensoriels.
+    imageIdentifier: 1d096029-86c8-4a30-b9cd-fbf906afcbf0
+    name: Locations longue durée
+    url: /properties/location-longue-duree
+  rental-management:
+    name: Gestion locative
+    url: /gestion-locative
+  riad:
+    name: Riad
+    url: /biens/riad
+  seasonal-rental:
+    description: Villas, patios et kasbahs disponibles en séjour, pensées pour des expériences lumineuses.
+    imageIdentifier: a22572bd-f8ad-4408-9d79-54af0bfbea08
+    name: Locations saisonnière
+    url: /properties/location-saisonniere
+  town-house:
+    name: Maison de ville
+    url: /biens/maison-de-ville

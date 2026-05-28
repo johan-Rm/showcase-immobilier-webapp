@@ -4,7 +4,7 @@ COMPOSE_FILE := docker-compose.dev.yml
 export DOCKER_UID := $(shell id -u)
 export DOCKER_GID := $(shell id -g)
 
-.PHONY: dev-env dev-webapp-localhost dev-webapp-ssr dev-nginx dev-build dev-build-no-cache dev-down dev-logs dev-shell-webapp-localhost dev-shell-webapp-ssr dev-shell-nginx dev-analyze dev-analyse quality-check type-check lint-check lint-fix format-check conventions-check
+.PHONY: dev-env dev-webapp-localhost dev-webapp-ssr dev-nginx dev-build dev-build-no-cache dev-down dev-logs dev-shell-webapp-localhost dev-shell-webapp-ssr dev-shell-nginx dev-analyze dev-analyse quality-check type-check lint-check lint-fix format-check conventions-check generate-schemas
 
 # Initialise les fichiers .env Docker si absents
 
@@ -66,6 +66,9 @@ format-check:
 
 type-check:
 	bun run type-check
+
+generate-schemas:
+	bun run scripts/run-schema-hook.mjs
 
 conventions-check:
 	bun run check:app:types
