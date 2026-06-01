@@ -23,6 +23,8 @@
     "format:fix": "prettier . --write",
     "quality:check": "bun run lint:check && bun run format:check && bun run type-check",
     "quality:fix": "bun run format:fix && bun run lint:fix",
+    "test": "vitest run",
+    "test:dashboard": "vitest run server/utils/dashboard/*.vitest.ts",
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
@@ -34,7 +36,9 @@
     "@nuxtjs/i18n": "^10.3.0",
     "@nuxtjs/mdc": "^0.22.0",
     "@nuxtjs/sitemap": "^8.0.15",
+    "@scalar/nuxt": "^0.6.41",
     "@tiptap/core": "3.23.4",
+    "@tiptap/extension-history": "3.23.4",
     "@tiptap/extension-table": "^3.23.4",
     "@tiptap/markdown": "^3.23.4",
     "@tiptap/pm": "3.23.4",
@@ -74,6 +78,7 @@
     "jiti": "^2.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "vitest": "^4.1.7",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.9"
   }

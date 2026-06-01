@@ -8,8 +8,14 @@ import { FALLBACK_LOCALE, AVAILABLES_LOCALES } from './shared/i18n/config'
 const appEnv = process.env.APP_ENV?.trim().toLowerCase() === 'prod' ? 'prod' : 'dev'
 const nodeEnv = process.env.NODE_ENV?.trim().toLowerCase()
 const isDevRuntime = nodeEnv !== 'production'
+const isNuxtBuild = process.argv.some((argument) => argument.includes('build'))
+const isScalarApiDocsEnabled =
+  process.env.SCALAR_API_DOCS_ENABLED === 'true' || (isDevRuntime && !isNuxtBuild)
 const nitroContentCacheMaxAge = isDevRuntime ? 0 : 300
 const siteUrl = process.env.SITE_URL?.trim() || 'http://localhost:3000'
+const symfonyApiUrl = process.env.SYMFONY_API_URL?.trim() ?? ''
+const symfonyApiDocsUrl =
+  process.env.SYMFONY_API_DOCS_URL?.trim() || 'http://localhost:18080/api/docs'
 
 const nitroContentCacheHeaders =
   nitroContentCacheMaxAge > 0
@@ -69,7 +75,8 @@ export default defineNuxtConfig({
       process.env.CONTACT_SUBMISSIONS_PATH ??
       join(process.cwd(), '.data', 'contact-submissions.csv'),
     symfony: {
-      apiUrl: process.env.SYMFONY_API_URL ?? '',
+      apiUrl: symfonyApiUrl,
+      apiDocsUrl: symfonyApiDocsUrl,
       projectId: process.env.SYMFONY_PROJECT_ID ?? '',
       serviceEmail: process.env.SYMFONY_SERVICE_EMAIL ?? '',
       servicePassword: process.env.SYMFONY_SERVICE_PASSWORD ?? '',
@@ -96,6 +103,21 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    ...(isScalarApiDocsEnabled
+      ? {
+          '/api-docs/**': {
+            ssr: false,
+            headers: {
+              'X-Robots-Tag': 'noindex, nofollow',
+            },
+          },
+        }
+      : {}),
+    '/api/openapi': {
+      headers: {
+        'X-Robots-Tag': 'noindex, nofollow',
+      },
+    },
     ...(nitroContentCacheMaxAge > 0
       ? {
           '/themes.json': {
@@ -135,7 +157,18 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     'nuxt-auth-utils',
     'nuxt-tiptap-editor',
+    ...(isScalarApiDocsEnabled ? ['@scalar/nuxt'] : []),
   ],
+
+  scalar: {
+    pathRouting: {
+      basePath: '/api-docs',
+    },
+    url: '/api/openapi',
+    metaData: {
+      title: 'MLK API Documentation',
+    },
+  },
 
   tiptap: {
     prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
