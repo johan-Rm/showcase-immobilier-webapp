@@ -78,31 +78,31 @@ Ajouter la target `content-sync` (et variante `content-sync-dry`) dans le Makefi
 Format cible identique aux fichiers existants dans `content/fr/accommodations/`.
 Mapping vérifié sur une vraie réponse API.
 
-| Champ API (GET response)                          | Frontmatter content                                          |
-|---------------------------------------------------|--------------------------------------------------------------|
-| `identifier`                                      | `identifier`                                                 |
-| `slug`                                            | `slug`                                                       |
-| `name`                                            | `name`                                                       |
-| `label`                                           | `label` (si non null)                                        |
-| `highlight`                                       | `highlight` (si non null)                                    |
-| `category` (string codeValue)                     | `category: "local-commercial"` — direct, pas d'objet         |
-| `realEstateListing` (string codeValue)            | `realEstateListing: "bien-a-vendre"` — direct                |
-| `place` (string codeValue)                        | `place: "nouvelle-ville"` — direct                           |
-| `amenityFeature[]` (string[] codeValues)          | `amenityFeature: ["alarme", ...]` — direct                   |
-| `tags[]` (string[] codeValues)                    | `tags: ["commerce", ...]` — direct                           |
-| `offer.price`, `.priceCurrency`, `.priceSpecification` | `offer: { price, priceCurrency, priceSpecification }`   |
-| `floorSize`, `landArea`, `areaSize`, `areaTerrace`| identiques (string ou null)                                  |
-| `yearBuilt`, `numberOfRooms`, `numberOfBedrooms`, etc. | identiques (integer ou null)                           |
-| `associatedMedia[].mediaObject` (UUID string) ⚠️  | `associatedMedia[].image: "filename-sans-extension"`         |
-| `associatedMedia[].caption`, `.keywords`          | identiques                                                   |
-| `associatedMedia[].position`                      | ordre de la liste (tri par `position` croissant)             |
-| `status` (`published`/`draft`/`archived`)         | `isActive: true` si `status === "published"`, sinon `false`  |
-| `createdAt`                                       | `dateCreated`                                                |
-| `updatedAt`                                       | `dateModified`                                               |
-| `body` (HTML depuis l'API)                        | corps après le frontmatter — écrire tel quel (HTML valide en MDC) |
-| `metaTitle`, `metaDescription`                    | identiques (si non null)                                     |
-| `review`                                          | `review` (si non null)                                       |
-| `locationDescription`                             | `locationDescription` (si non null)                          |
+| Champ API (GET response)                               | Frontmatter content                                               |
+| ------------------------------------------------------ | ----------------------------------------------------------------- |
+| `identifier`                                           | `identifier`                                                      |
+| `slug`                                                 | `slug`                                                            |
+| `name`                                                 | `name`                                                            |
+| `label`                                                | `label` (si non null)                                             |
+| `highlight`                                            | `highlight` (si non null)                                         |
+| `category` (string codeValue)                          | `category: "local-commercial"` — direct, pas d'objet              |
+| `realEstateListing` (string codeValue)                 | `realEstateListing: "bien-a-vendre"` — direct                     |
+| `place` (string codeValue)                             | `place: "nouvelle-ville"` — direct                                |
+| `amenityFeature[]` (string[] codeValues)               | `amenityFeature: ["alarme", ...]` — direct                        |
+| `tags[]` (string[] codeValues)                         | `tags: ["commerce", ...]` — direct                                |
+| `offer.price`, `.priceCurrency`, `.priceSpecification` | `offer: { price, priceCurrency, priceSpecification }`             |
+| `floorSize`, `landArea`, `areaSize`, `areaTerrace`     | identiques (string ou null)                                       |
+| `yearBuilt`, `numberOfRooms`, `numberOfBedrooms`, etc. | identiques (integer ou null)                                      |
+| `associatedMedia[].mediaObject` (UUID string) ⚠️       | `associatedMedia[].image: "filename-sans-extension"`              |
+| `associatedMedia[].caption`, `.keywords`               | identiques                                                        |
+| `associatedMedia[].position`                           | ordre de la liste (tri par `position` croissant)                  |
+| `status` (`published`/`draft`/`archived`)              | `isActive: true` si `status === "published"`, sinon `false`       |
+| `createdAt`                                            | `dateCreated`                                                     |
+| `updatedAt`                                            | `dateModified`                                                    |
+| `body` (HTML depuis l'API)                             | corps après le frontmatter — écrire tel quel (HTML valide en MDC) |
+| `metaTitle`, `metaDescription`                         | identiques (si non null)                                          |
+| `review`                                               | `review` (si non null)                                            |
+| `locationDescription`                                  | `locationDescription` (si non null)                               |
 
 **Locale** : appel avec `?locale={locale}`, les champs translatables (`slug`, `name`, etc.) sont
 déjà dans la bonne langue dans la réponse principale. Ne pas parser `translations[]`.
@@ -132,8 +132,8 @@ Schéma source : `CategoryCode.jsonld-read`.
 
 ```yaml
 items:
-  - codeValue: <codeValue>    # clé machine
-    name: <label>             # label traduit (champ "label" de l'API, pas "name")
+  - codeValue: <codeValue> # clé machine
+    name: <label> # label traduit (champ "label" de l'API, pas "name")
     inCodeSet: <inCodeSet>
 ```
 
@@ -145,10 +145,10 @@ Schéma source : `MediaObject.jsonld-read`.
 
 ```yaml
 items:
-  - identifier: <id>          # UUID Symfony (champ "id")
+  - identifier: <id> # UUID Symfony (champ "id")
     caption: <caption>
-    url: <contentUrl>         # URL publique du fichier
-    mainEntity: ImageObject   # valeur fixe ou champ "mainEntity" si présent
+    url: <contentUrl> # URL publique du fichier
+    mainEntity: ImageObject # valeur fixe ou champ "mainEntity" si présent
 ```
 
 ## Architecture du script

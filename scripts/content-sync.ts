@@ -156,7 +156,9 @@ function mapCategoryCodes(items: ApiCategoryCode[]): CategoryCodeYamlItem[] {
       name: item.label ?? item.codeValue,
       inCodeSet: item.inCodeSet,
     }))
-    .sort((a, b) => a.inCodeSet.localeCompare(b.inCodeSet) || a.codeValue.localeCompare(b.codeValue))
+    .sort(
+      (a, b) => a.inCodeSet.localeCompare(b.inCodeSet) || a.codeValue.localeCompare(b.codeValue),
+    )
 }
 
 type MediaObjectYamlItem = { identifier: string; caption: string; url: string; mainEntity: string }
@@ -172,9 +174,7 @@ function mapMediaObjects(items: ApiMediaObject[]): {
   for (const item of items) {
     if (!item.id || !item.contentUrl) continue
 
-    const filename = item.originalFilename
-      ? item.originalFilename.replace(/\.[^.]+$/, '')
-      : item.id
+    const filename = item.originalFilename ? item.originalFilename.replace(/\.[^.]+$/, '') : item.id
 
     uuidToFilename[item.id] = filename
     yamlItems.push({
