@@ -23,6 +23,25 @@ Cette task active les actions d ecriture sur cette galerie.
 - mise a jour de `associatedMedia` en BDD via Symfony
 - re-export Markdown du bien apres modification media (circuit task 009)
 
+## Etat actuel du contrat
+
+La route BFF d upload media relaie vers
+`POST /api/projects/{projectId}/media-objects/translations` en multipart. Le endpoint
+global `POST /api/media-objects` n est pas expose par le backend actuel.
+
+Payload multipart envoye a Symfony :
+
+```txt
+file: File
+translations: [{"locale":"fr","caption":"Patio lumineux de riad"}]
+```
+
+La reponse Symfony est normalisee cote Nuxt avec `id`, `identifier`, `contentUrl`,
+`originalFilename` et `@id` quand disponibles.
+
+L association des medias au bien n est pas encore incluse dans le mapper de sauvegarde
+Accommodation : `associatedMedia` et `image[]` restent exclus du payload du bien.
+
 ## Hors perimetre
 
 - suppression physique de fichiers media sur le serveur

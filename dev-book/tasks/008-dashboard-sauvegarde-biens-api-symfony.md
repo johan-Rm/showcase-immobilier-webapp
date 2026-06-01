@@ -65,6 +65,28 @@ lit toujours depuis les Markdown en V1 ; seule la sauvegarde passe par Symfony.
 
 ## Architecture
 
+### Etat actuel du circuit de sauvegarde
+
+La sauvegarde dashboard utilise la route BFF `PUT /api/dashboard/accommodations/[identifier]`
+avec `locale` en query string. Nitro garde le JWT Symfony cote serveur, mappe le payload
+dashboard, puis appelle Symfony sur les routes de traduction. La sauvegarde ne depend plus
+du listing `GET /projects/{projectId}/accommodations` avant ecriture :
+
+- mise a jour tentee en premier :
+  `PUT /api/projects/{projectId}/accommodations/{identifier}/translations?locale={locale}`
+- creation en fallback si l update retourne 404 :
+  `POST /api/projects/{projectId}/accommodations/translations?locale={locale}`
+
+Le payload Symfony separe les champs globaux du bien a la racine et les champs localises
+dans `translations[]`. La locale active est ajoutee au tableau de traductions meme si le
+dashboard ne fournit pas encore de tableau multi-langue complet.
+
+Les IRIs `CategoryCode` sont resolues cote dashboard a partir de `metadata.irisMap`, puis
+controlees par le mapper serveur via `resolvedIris`.
+
+Les medias (`associatedMedia`, `image[]`) et `additionalProperty` restent exclus du payload
+de sauvegarde d un bien.
+
 ### Variables d env (serveur uniquement — jamais exposees au client)
 
 ```env
@@ -118,12 +140,9 @@ Client (dashboard)
        └─ PUT /api/dashboard/accommodations/[identifier]   ← Nitro route
             ├─ requireUserSession(event)                   ← session Google obligatoire
             ├─ getSymfonyServiceToken()                    ← JWT cache memoire Nitro (TTL 800s)
-            ├─ getSymfonyCache()                           ← cache referentiels Nitro
-            │    ├─ GET /projects/{projectId}/category-codes  → { inCodeSet: { code: IRI } }
-            │    └─ GET /projects/{projectId}/accommodations  → { identifier: uuid }
-            ├─ mapToApiPlatform(payload, locale, cache)    ← mapper
-            ├─ si identifier absent du cache → POST ?locale={locale}
-            │  si identifier present        → PUT /{uuid}  ?locale={locale}
+            ├─ mapToApiPlatform(payload)                    ← mapper
+            ├─ tente PUT /{identifier}/translations?locale={locale}
+            ├─ si PUT retourne 404 → POST /translations?locale={locale}
             └─ retourne { success, data, error }
 ```
 
@@ -136,8 +155,6 @@ Le cache Nitro utilise un TTL de 800s pour eviter d appeler avec un token expire
 
 Cache module-level avec TTL configurable (defaut 300s, invalidation manuelle possible) :
 
-- `getCategoryCodeMap(token)` : `{ [inCodeSet]: { [code]: IRI } }`
-  - alimente depuis `GET /projects/{projectId}/category-codes`
 - `getAccommodationUuidMap(token)` : `{ [identifier]: uuid }`
   - alimente depuis `GET /projects/{projectId}/accommodations`
 
@@ -153,14 +170,14 @@ Les `inCodeSet` utilises dans le mapper :
 
 ### Mapper (server/utils/dashboard/accommodationMapper.ts)
 
-`mapToApiPlatform(accommodation, locale, cache)` → payload Symfony.
+`mapToApiPlatform(accommodation)` → payload Symfony.
 
 Transformations non triviales :
 
 | Champ frontmatter             | Champ Symfony               | Transformation                           |
 | ----------------------------- | --------------------------- | ---------------------------------------- |
 | `offer.price` (number)        | `offerPrice` (string)       | `String(value)`                          |
-| `floorSize` (number)          | `floorSize` (number)        | valeur directe                           |
+| `floorSize` (number)          | `floorSize` (string)        | `String(value)`                          |
 | `landArea` (number)           | `landArea` (string)         | `String(value)`                          |
 | `category` (code)             | `category` (IRI)            | lookup `accommodation-type`              |
 | `realEstateListing` (code)    | `realEstateListing` (IRI)   | lookup `real-estate-listing`             |
@@ -168,14 +185,15 @@ Transformations non triviales :
 | `amenityFeature[]` (codes)    | `amenityFeature` (IRIs)     | lookup `amenity-feature`                 |
 | `tags[]` (codes)              | `tags` (IRIs)               | lookup `tag`                             |
 | `realEstateAgent` (UUID)      | `realEstateAgentIdentifier` | direct ; autres champs via `person.yaml` |
-| `slug`, `name`, `body`, etc.  | translation `?locale=fr`    | envoyes dans le body, locale en query    |
-| `locationDescription`         | translation `?locale=fr`    | apres ajout du champ dans Symfony        |
+| `slug`, `name`, `body`, etc.  | `translations[]`            | objet par locale                         |
+| `locationDescription`         | `translations[]`            | champ localise                           |
 | `associatedMedia`, `image[]`  | —                           | **non envoyes** (hors perimetre)         |
 | `additionalProperty`          | —                           | **ignore**                               |
 | `dateCreated`, `dateModified` | audit trail Symfony         | **non envoyes** (gere par Symfony)       |
 
-La locale est transmise via le query param `?locale=fr` sur chaque appel Symfony
-(lu par `LocaleResolver` dans le backend).
+La locale active est transmise via le query param `?locale=fr` sur chaque appel Symfony
+(lu par `LocaleResolver` dans le backend), et les contenus localises sont portes par
+`translations[]`.
 
 ### Route Nitro (server/api/dashboard/accommodations/[identifier].put.ts)
 
@@ -187,7 +205,7 @@ La locale est transmise via le query param `?locale=fr` sur chaque appel Symfony
 ### Composable (app/composables/dashboard/useDashboardSave.ts)
 
 - `save(accommodation, locale)` → `{ saving, error, lastSavedAt }`
-- appelle `$fetch('PUT', /api/dashboard/accommodations/${identifier}, { body: payload })`
+- appelle `$fetch('PUT', /api/dashboard/accommodations/${identifier}, { query: { locale }, body: payload })`
 - expose les etats reactifs utilises par le bouton Save
 
 ### Composant bouton Save
@@ -289,6 +307,8 @@ Repo : `api/symfony-8-api-platform`
 ## Criteres d acceptation
 
 - un clic Save dans l editeur dashboard persiste le bien en base PostgreSQL via Symfony
+- la sauvegarde ne relance pas `GET /api/dashboard/accommodations` apres succes ; la
+  reponse `PUT` doit suffire au flux d edition
 - la route Nitro rejette les appels sans session Google valide (401)
 - le JWT de service Symfony n apparait jamais dans le code client ni dans les reponses HTTP
 - l UI indique clairement l etat de sauvegarde (saving / success / error)

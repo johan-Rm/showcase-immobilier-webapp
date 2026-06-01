@@ -42,6 +42,23 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
 - `server/plugins/` : extensions Nitro.
 - `server/utils/` : helpers serveur ; logique métier partagée dans `server/services/` si besoin.
 
+### Dashboard Symfony
+
+- `server/api/dashboard/` expose les routes BFF protegees par session dashboard.
+- `PUT /api/dashboard/accommodations/[identifier]` sauvegarde un bien par `identifier`
+  metier et relaie vers Symfony :
+  - `POST /api/projects/{projectId}/accommodations/translations`
+  - `PUT /api/projects/{projectId}/accommodations/{identifier}/translations`
+- Le payload Accommodation garde les champs globaux a la racine et les champs localises
+  dans `translations[]`.
+- `POST /api/dashboard/media/upload` relaie les uploads vers
+  `POST /api/projects/{projectId}/media-objects/translations` avec un multipart `file` et
+  `translations`.
+- `POST /api/dashboard/category-codes` relaie la creation de metadonnees vers
+  `POST /api/projects/{projectId}/category-codes/translations` avec `inCodeSet` et
+  `translations[]`.
+- Le JWT Symfony et `SYMFONY_*` restent strictement serveur.
+
 ---
 
 ### Ex. : Structure de template

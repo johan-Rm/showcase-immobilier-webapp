@@ -54,6 +54,9 @@ Variables d environnement importantes :
   `NUXT_OAUTH_GOOGLE_CLIENT_SECRET`, `NUXT_OAUTH_GOOGLE_REDIRECT_URL`,
   `AUTHORIZED_CLIENT_EMAILS` : configuration de l authentification Google pour
   le dashboard limite aux emails autorises
+- `SYMFONY_API_URL` : URL de base de l API Symfony
+- `SYMFONY_API_DOCS_URL` : endpoint OpenAPI Symfony consomme par Scalar
+- `SCALAR_API_DOCS_ENABLED` : force l interface Scalar hors serveur dev local si necessaire
 
 Pour le detail complet des variables, voir [`.env.example`](./.env.example).
 
@@ -64,9 +67,14 @@ Commandes de reference :
 ```bash
 bun run lint:check
 bun run format:check
+bun run test
+bun run test:dashboard
 bun run type-check
 bun run quality:check
 ```
+
+`bun run test:dashboard` cible les tests Vitest dashboard purs (`*.vitest.ts`) sans
+lancer les anciennes suites Bun ni de tests composants Nuxt.
 
 Corrections automatiques disponibles :
 
@@ -83,6 +91,16 @@ Demarrage local simple :
 ```bash
 bun run dev
 ```
+
+Documentation API locale :
+
+- `http://localhost:3000/api-docs` : interface Scalar
+- `http://localhost:3000/api/openapi` : proxy Nitro du document OpenAPI
+- source Symfony par defaut : `http://localhost:18080/api/docs`
+
+La route Scalar est `noindex` et rendue cote client uniquement, car l interface de
+documentation API n est pas une page SEO du site public. Elle est chargee par defaut
+uniquement sur le serveur dev local afin de ne pas alourdir le build SSR public.
 
 Autres commandes utiles :
 

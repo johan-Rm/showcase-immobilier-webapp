@@ -1,5 +1,5 @@
 ---
-status: À faire
+status: En cours
 dependances: 007-dashboard-editeur-biens-immobiliers.md, 008-dashboard-sauvegarde-biens-api-symfony.md, 012-dashboard-upload-medias.md, 014-dashboard-metadata-select-category-codes.md
 ---
 
@@ -19,9 +19,23 @@ de dette de test.
 ### Infrastructure
 
 - installer et configurer Vitest dans le projet Nuxt
+- ajouter un script `test` dans `package.json`
+- ajouter un script cible `test:dashboard`
 - configurer `@nuxt/test-utils` pour les tests composants
 - configurer `happy-dom` ou `jsdom` comme environnement de test
-- ajouter un script `test` dans `package.json`
+
+### Etat implemente
+
+- `vitest.config.ts` configure l environnement Node et les alias utiles aux tests purs.
+- `package.json` expose `bun run test` et `bun run test:dashboard`.
+- Les tests Vitest sont limites aux fichiers `*.vitest.ts` pour ne pas executer les suites
+  historiques ecrites avec `bun:test`.
+- `server/utils/dashboard/accommodationMapper.vitest.ts` couvre le payload Symfony
+  Accommodation : champs globaux racine, `translations[]`, fallback locale active et erreur
+  si les IRIs `CategoryCode` ne sont pas resolues.
+
+Les tests composants Nuxt restent a traiter separement avec `@nuxt/test-utils` et
+`happy-dom` ou `jsdom`.
 
 ### Ce qui sera testé (liste évolutive)
 
@@ -49,7 +63,8 @@ Les cibles sont précisées au fil des features validées. À titre indicatif :
 
 ## Critères de validation
 
-- `npm run test` passe en CI sans erreur
+- `bun run test` passe en CI sans erreur
+- `bun run test:dashboard` passe localement pour le perimetre dashboard pur
 - les composables métier critiques sont couverts
 - les endpoints Nitro principaux ont au moins un test nominal et un test d'erreur
 - aucun test ne fait de vraie requête réseau (mocks systématiques pour les appels Symfony)

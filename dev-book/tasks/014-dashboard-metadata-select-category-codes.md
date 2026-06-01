@@ -67,13 +67,30 @@ depuis le select sans quitter l'éditeur.
 
 ### Côté Symfony — prérequis backend
 
-- exposer `POST /api/projects/{projectId}/category-codes` acceptant :
+- exposer `POST /api/projects/{projectId}/category-codes/translations` acceptant :
   ```json
-  { "code": "local-commercial", "inCodeSet": "accommodation-type" }
+  {
+    "inCodeSet": "accommodation-type",
+    "translations": [{ "locale": "fr", "label": "Maison d'hotes" }]
+  }
   ```
-  Réponse : `{ "@id": "/api/category-codes/uuid", "code": "...", "inCodeSet": "..." }`
+  Réponse :
+  `{ "@id": "/api/category-codes/uuid", "codeValue": "maison-dhotes", "inCodeSet": "...", "translations": [...] }`
 - s'assurer que `GET /api/projects/{projectId}/category-codes` retourne bien tous les
   `inCodeSet` utilisés (voir brief `docs/superpowers/brief-backend-api-sauvegarde-dashboard.md`)
+
+### Etat actuel du contrat
+
+- `GET /api/dashboard/category-codes` normalise les reponses Symfony `member` et
+  `hydra:member`.
+- Le BFF accepte les reponses Symfony qui exposent `codeValue` ou `code`, puis renvoie au
+  front un tableau plat avec `iri`, `code` et `inCodeSet`.
+- `POST /api/dashboard/category-codes` relaie vers
+  `POST /api/projects/{projectId}/category-codes/translations`.
+- Le payload Symfony contient `inCodeSet` et `translations[]`. `codeValue` est derive par le
+  backend depuis le label.
+- Apres creation, `CategoryCodeSelect.vue` ajoute immediatement l IRI creee dans
+  `metadata.irisMap` pour permettre une sauvegarde du bien sans refresh manuel.
 
 ## Hors périmètre
 
@@ -94,4 +111,4 @@ depuis le select sans quitter l'éditeur.
 ## Dépendances
 
 - task 008 : route Nitro PUT + cache CategoryCode (terminée)
-- backend : `POST /api/projects/{projectId}/category-codes` (à livrer)
+- backend : `POST /api/projects/{projectId}/category-codes/translations`

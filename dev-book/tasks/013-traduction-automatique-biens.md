@@ -1,5 +1,5 @@
 ---
-status: A planifier
+status: En cours
 dependances: 008-dashboard-sauvegarde-biens-api-symfony.md
 source: contrat backend dashboard-accommodation-save du 2026-05-22
 ---
@@ -31,10 +31,17 @@ Documents de reference :
 - `docs/03-api-contracts/index.md`
 - `dev-book/tasks/012-dashboard-accommodation-save.md`
 
-Endpoint a appeler depuis Nitro :
+Endpoint BFF appele par le dashboard :
 
 ```txt
-PUT /api/projects/{projectId}/accommodations/{identifier}?locale={locale}
+PUT /api/dashboard/accommodations/{identifier}?locale={locale}
+```
+
+Routes Symfony appelees par Nitro :
+
+```txt
+POST /api/projects/{projectId}/accommodations/translations?locale={locale}
+PUT /api/projects/{projectId}/accommodations/{identifier}/translations?locale={locale}
 ```
 
 Contraintes contractuelles :
@@ -42,8 +49,8 @@ Contraintes contractuelles :
 - `identifier` est commun a toutes les locales.
 - `locale` indique la locale source ou la locale cible du contexte de sauvegarde.
 - les champs globaux de l `Accommodation` restent communs a toutes les locales.
-- les champs localises peuvent etre envoyes a la racine du payload en mono-locale.
-- les champs localises peuvent etre envoyes dans `translations` en multi-langue.
+- les champs localises sont envoyes dans `translations`, y compris pour une sauvegarde
+  mono-locale du dashboard.
 - une valeur non vide est consideree comme personnalisee et ne doit pas etre ecrasee par
   la traduction automatique.
 - une valeur absente, `null` ou vide peut etre completee automatiquement par l API.
@@ -52,23 +59,34 @@ Contraintes contractuelles :
 
 ## Payloads attendus
 
-### Sauvegarde mono-locale
+### Sauvegarde mono-locale dashboard
 
-Le dashboard conserve le comportement existant quand l utilisateur sauvegarde seulement
-la locale courante :
+Le dashboard envoie toujours la traduction de la locale courante dans `translations[]`.
+Les champs metier globaux restent a la racine.
 
 ```json
 {
-  "name": "Superbe local commercial a Erraounak",
-  "body": "<p>Local commercial renove.</p>",
-  "metaTitle": "Local commercial a vendre a Essaouira",
-  "metaDescription": "Local commercial renove a Erraounak."
+  "identifier": "BAVLC001",
+  "category": "/api/category-codes/accommodation-type-local-commercial",
+  "realEstateListing": "/api/category-codes/real-estate-listing-bien-a-vendre",
+  "offerPrice": "350000",
+  "translations": [
+    {
+      "locale": "fr",
+      "slug": "local-commercial-erraounak",
+      "name": "Superbe local commercial a Erraounak",
+      "body": "<p>Local commercial renove.</p>",
+      "metaTitle": "Local commercial a vendre a Essaouira",
+      "metaDescription": "Local commercial renove a Erraounak.",
+      "locationDescription": "Erraounak, Essaouira."
+    }
+  ]
 }
 ```
 
 ### Sauvegarde multi-langue
 
-Le dashboard envoie un tableau `translations` avec les locales concernees :
+Le dashboard peut envoyer plusieurs traductions connues :
 
 ```json
 {
@@ -76,12 +94,14 @@ Le dashboard envoie un tableau `translations` avec les locales concernees :
     {
       "locale": "fr",
       "name": "Superbe local commercial a Erraounak",
-      "body": "<p>Texte source.</p>"
+      "body": "<p>Texte source.</p>",
+      "locationDescription": "Erraounak, Essaouira."
     },
     {
       "locale": "en",
       "name": "Custom English title",
-      "body": ""
+      "body": "",
+      "locationDescription": ""
     },
     {
       "locale": "es",
@@ -96,7 +116,7 @@ Dans cet exemple :
 
 - `en.name` est preserve car il contient une valeur personnalisee non vide.
 - `en.body`, `es.name` et `es.body` peuvent etre completes automatiquement.
-- les champs absents ne sont pas envoyes si l utilisateur ne les a pas modifies.
+- les champs absents, `null` ou vides peuvent etre completes par le backend.
 
 ## Champs localises geres
 
@@ -163,14 +183,14 @@ Ils restent mappes une seule fois au niveau racine du payload API Platform.
 ```txt
 Dashboard slideover
   └─ edition FR / EN / ES
-       └─ useDashboardSave.saveMultilingual(identifier, payload, locale)
+      └─ useDashboardSave.save(accommodation, locale)
             └─ PUT /api/dashboard/accommodations/[identifier] (Nitro)
                  ├─ requireUserSession(event)
                  ├─ getSymfonyServiceToken()
-                 ├─ getSymfonyCache()
-                 ├─ map champs globaux + CategoryCode IRIs
+                 ├─ map champs globaux + CategoryCode IRIs deja resolus
                  ├─ preserve translations[] localisees
-                 └─ PUT /api/projects/{projectId}/accommodations/{identifier}?locale={locale}
+                 ├─ PUT /api/projects/{projectId}/accommodations/{identifier}/translations?locale={locale}
+                 └─ fallback POST /api/projects/{projectId}/accommodations/translations?locale={locale}
 
 API Symfony
   ├─ persiste les champs globaux communs
@@ -181,20 +201,20 @@ API Symfony
 
 ## Etapes
 
-- [ ] Auditer l etat actuel de `PropertyWorkspace`, du slideover d edition et de
+- [x] Auditer l etat actuel de `PropertyWorkspace`, du slideover d edition et de
       `useDashboardSave`.
 - [ ] Identifier la structure locale des donnees FR / EN / ES dans le dashboard.
-- [ ] Definir un type strict pour les champs localises sauvegardables.
-- [ ] Definir un type strict pour `translations[]`.
-- [ ] Adapter le mapper dashboard vers API Platform pour separer champs globaux et
+- [x] Definir un type strict pour les champs localises sauvegardables.
+- [x] Definir un type strict pour `translations[]`.
+- [x] Adapter le mapper dashboard vers API Platform pour separer champs globaux et
       champs localises.
-- [ ] Adapter la route Nitro `PUT /api/dashboard/accommodations/[identifier]` pour
+- [x] Adapter la route Nitro `PUT /api/dashboard/accommodations/[identifier]` pour
       accepter un payload multi-langue.
-- [ ] Adapter `useDashboardSave` avec une action explicite de sauvegarde multi-langue.
+- [x] Adapter `useDashboardSave` avec une action explicite de sauvegarde multi-langue.
 - [ ] Brancher l UI de tabs langue sur les statuts de champs incomplets/personnalises.
 - [ ] Recharger le bien apres sauvegarde pour recuperer les traductions completees par
       l API.
-- [ ] Ajouter ou adapter les tests utiles sur le mapper et la route Nitro.
+- [x] Ajouter ou adapter les tests utiles sur le mapper.
 - [ ] Valider `bun run quality:check`.
 
 ## Points de vigilance
