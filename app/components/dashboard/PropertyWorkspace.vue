@@ -63,7 +63,7 @@
     <DashboardPropertyEditorSlideover
       v-model:open="isEditorOpen"
       :accommodation="activeAccommodation"
-      @saved="emit('refresh')"
+      @saved="emit('saved')"
     />
   </section>
 </template>

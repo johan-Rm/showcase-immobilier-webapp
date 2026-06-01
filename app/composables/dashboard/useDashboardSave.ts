@@ -11,6 +11,13 @@ import { useMetadataStore } from '~/stores/metadata'
 
 export type SaveStatus = 'idle' | 'saving' | 'success' | 'error'
 
+type DashboardSaveResponse = {
+  success: true
+  uuid: string
+  markdownUpdated: boolean
+  data: unknown
+}
+
 export const useDashboardSave = () => {
   const { localeSetting } = useLang()
   const metadataStore = useMetadataStore()
@@ -18,6 +25,7 @@ export const useDashboardSave = () => {
   const status = ref<SaveStatus>('idle')
   const errorMessage = ref<string | null>(null)
   const markdownUpdated = ref<boolean | null>(null)
+  const lastSavedData = ref<unknown | null>(null)
 
   function resolveIris(frontmatter: Record<string, unknown>): DashboardAccommodationResolvedIris {
     const getIri = metadataStore.getIri
@@ -54,6 +62,7 @@ export const useDashboardSave = () => {
     status.value = 'saving'
     errorMessage.value = null
     markdownUpdated.value = null
+    lastSavedData.value = null
 
     try {
       const enriched: DashboardAccommodationSavePayload = {
@@ -61,19 +70,13 @@ export const useDashboardSave = () => {
         resolvedIris: resolveIris(accommodation.frontmatter as Record<string, unknown>),
       }
 
-      const result = await $fetch<{ success: true; uuid: string; markdownUpdated: boolean }>(
-        `/api/dashboard/accommodations/${accommodation.identifier}`,
+      const result = await $fetch<DashboardSaveResponse>(
+        `/api/dashboard/accommodations/${encodeURIComponent(accommodation.identifier)}`,
         { method: 'PUT', query: { locale }, body: enriched },
       )
 
       markdownUpdated.value = result.markdownUpdated
-
-      // Invalide le cache serveur (TTL 30s) sans bloquer l'UI
-      $fetch('/api/dashboard/accommodations', {
-        query: { locale, refresh: '1' },
-      }).catch(() => {
-        /* silencieux */
-      })
+      lastSavedData.value = result.data
 
       status.value = 'success'
 
@@ -105,7 +108,8 @@ export const useDashboardSave = () => {
     status.value = 'idle'
     errorMessage.value = null
     markdownUpdated.value = null
+    lastSavedData.value = null
   }
 
-  return { status, errorMessage, markdownUpdated, save, saveMultilingual, reset }
+  return { status, errorMessage, markdownUpdated, lastSavedData, save, saveMultilingual, reset }
 }

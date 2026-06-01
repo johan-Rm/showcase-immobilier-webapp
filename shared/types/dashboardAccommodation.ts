@@ -9,6 +9,7 @@ export const DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS = [
   'review',
   'metaTitle',
   'metaDescription',
+  'locationDescription',
 ] as const
 
 export type DashboardLocalizedAccommodationField =
@@ -81,6 +82,10 @@ export type DashboardAccommodationResolvedIris = {
 export type DashboardAccommodationSavePayload = DashboardAccommodation & {
   translations?: DashboardAccommodationTranslationPayload[]
   resolvedIris?: DashboardAccommodationResolvedIris
+}
+
+export type DashboardAccommodationTranslationsResponse = {
+  translations: DashboardAccommodationTranslationPayload[]
 }
 
 export type DashboardFilterOption = {

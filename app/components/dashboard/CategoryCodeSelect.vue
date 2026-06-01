@@ -186,6 +186,7 @@ const emit = defineEmits<{
 }>()
 
 const store = useMetadataStore()
+const { locale } = useI18n()
 
 const creating = ref(false)
 const createError = ref<string | null>(null)
@@ -231,6 +232,20 @@ const canCreate = computed(() => {
   return !options.value.some((o) => o.value === q || o.label === q)
 })
 
+const getCreateLocale = (): 'fr' | 'en' | 'es' => {
+  if (locale.value === 'en' || locale.value === 'es') return locale.value
+  return 'fr'
+}
+
+const getCreatedLabel = (
+  created: { label?: string; translations?: Array<{ locale?: string; label?: string | null }> },
+  fallback: string,
+): string =>
+  created.label ??
+  created.translations?.find((translation) => translation.locale === getCreateLocale())?.label ??
+  created.translations?.find((translation) => translation.label)?.label ??
+  fallback
+
 const selectSingle = (value: string): void => {
   emit('update:modelValue', value === singleModel.value ? null : value)
   isOpen.value = false
@@ -264,12 +279,29 @@ const onEnterCreate = async (): Promise<void> => {
   creating.value = true
   createError.value = null
   try {
-    await $fetch('/api/dashboard/category-codes', {
+    const created = await $fetch<{
+      '@id': string
+      code?: string
+      codeValue?: string
+      inCodeSet: string
+      label?: string
+      translations?: Array<{ locale?: string; label?: string | null }>
+    }>('/api/dashboard/category-codes', {
       method: 'POST',
-      body: { code, inCodeSet: props.inCodeSet },
+      body: {
+        inCodeSet: props.inCodeSet,
+        translations: [{ locale: getCreateLocale(), label: code }],
+      },
     })
-    store.addCategoryCode({ codeValue: code, name: code, inCodeSet: props.inCodeSet })
-    toggleOption(code)
+    const createdCode = created.codeValue ?? created.code ?? code
+    const createdLabel = getCreatedLabel(created, code)
+    store.addCategoryCode({
+      codeValue: createdCode,
+      name: createdLabel,
+      inCodeSet: props.inCodeSet,
+    })
+    store.addIri({ iri: created['@id'], code: createdCode, inCodeSet: created.inCodeSet })
+    toggleOption(createdCode)
     search.value = ''
   } catch (err) {
     createError.value = err instanceof Error ? err.message : 'Erreur lors de la création'

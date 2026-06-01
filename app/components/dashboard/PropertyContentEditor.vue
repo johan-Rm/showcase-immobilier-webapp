@@ -248,6 +248,11 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       fields: [
         { key: 'metaTitle', label: f('metaTitle', 'Méta Title'), default: null },
         { key: 'metaDescription', label: f('metaDescription', 'Méta Description'), default: null },
+        {
+          key: 'locationDescription',
+          label: f('locationDescription', 'Description du lieu'),
+          default: null,
+        },
       ],
     },
     {

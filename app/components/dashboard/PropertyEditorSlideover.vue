@@ -96,20 +96,21 @@
 </template>
 
 <script setup lang="ts">
+import type {
+  DashboardAccommodation,
+  DashboardAccommodationSavePayload,
+  DashboardAccommodationTranslationPayload,
+  DashboardAccommodationTranslationsResponse,
+  DashboardEditableRecord,
+  DashboardEditableValue,
+  DashboardLocalizedAccommodationField,
+} from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 
 import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
 import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
 
-import {
-  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS,
-  type DashboardAccommodation,
-  type DashboardAccommodationSavePayload,
-  type DashboardAccommodationTranslationPayload,
-  type DashboardEditableRecord,
-  type DashboardEditableValue,
-  type DashboardLocalizedAccommodationField,
-} from '#shared/types/dashboardAccommodation'
+import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
@@ -201,6 +202,22 @@ const createDraftFromAccommodation = (accommodation: DashboardAccommodation): Da
   frontmatter: cloneEditableRecord(accommodation.frontmatter),
   body: accommodation.body ?? '',
 })
+
+const createDraftFromTranslation = (
+  accommodation: DashboardAccommodation,
+  translation: DashboardAccommodationTranslationPayload,
+): DashboardDraft => {
+  let frontmatter = cloneEditableRecord(accommodation.frontmatter)
+  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
+    if (field === 'body' || !Object.hasOwn(translation, field)) return
+    frontmatter = setNestedValue(frontmatter, field, translation[field] ?? null)
+  })
+
+  return {
+    frontmatter,
+    body: translation.body ?? '',
+  }
+}
 
 const createFallbackDraft = (accommodation?: DashboardAccommodation | null): DashboardDraft => {
   const frontmatter = accommodation ? cloneEditableRecord(accommodation.frontmatter) : {}
@@ -366,8 +383,29 @@ const buildTranslations = (): DashboardAccommodationTranslationPayload[] => {
     )
 }
 
-const resolveSaveLocale = (hasTranslations: boolean): LocaleCode => {
-  return hasTranslations ? 'fr' : activeLocale.value
+const buildActiveLocaleTranslation = (): DashboardAccommodationTranslationPayload | null => {
+  if (!activeDraft.value) return null
+
+  const translation: DashboardAccommodationTranslationPayload = { locale: activeLocale.value }
+  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
+    translation[field] = toTranslationValue(activeDraft.value!, field)
+  })
+  return translation
+}
+
+const ensureTranslations = (
+  translations: DashboardAccommodationTranslationPayload[],
+): DashboardAccommodationTranslationPayload[] => {
+  if (translations.length > 0) return translations
+
+  const activeTranslation = buildActiveLocaleTranslation()
+  return activeTranslation ? [activeTranslation] : []
+}
+
+const resolveSaveLocale = (
+  translations: DashboardAccommodationTranslationPayload[],
+): LocaleCode => {
+  return translations.length > 1 ? 'fr' : (translations[0]?.locale ?? activeLocale.value)
 }
 
 const loadLocaleDrafts = async (accommodation?: DashboardAccommodation | null): Promise<void> => {
@@ -375,42 +413,31 @@ const loadLocaleDrafts = async (accommodation?: DashboardAccommodation | null): 
 
   const token = localeLoadToken.value + 1
   localeLoadToken.value = token
-  const sourceLocale = isDashboardLocale(accommodation.locale) ? accommodation.locale : 'fr'
 
-  const responses = await Promise.all(
-    localeTabs
-      .filter((locale) => locale !== sourceLocale)
-      .map(async (locale) => {
-        try {
-          const response = await $fetch<{ items: DashboardAccommodation[] }>(
-            '/api/dashboard/accommodations',
-            { query: { locale } },
-          )
-          return {
-            locale,
-            accommodation:
-              response.items.find((item) => item.identifier === accommodation.identifier) ?? null,
-          }
-        } catch {
-          return { locale, accommodation: null }
-        }
-      }),
-  )
+  let translations: DashboardAccommodationTranslationPayload[] = []
+  try {
+    const response = await $fetch<DashboardAccommodationTranslationsResponse>(
+      `/api/dashboard/accommodations/${encodeURIComponent(accommodation.identifier)}/translations`,
+    )
+    translations = response.translations
+  } catch {
+    translations = []
+  }
 
   if (localeLoadToken.value !== token || !drafts.value) return
 
-  responses.forEach(({ locale, accommodation: localizedAccommodation }) => {
+  translations.forEach((translation) => {
+    const locale = translation.locale
+    if (!isDashboardLocale(locale)) return
     if (dirtyLocalizedFields.value[locale].size > 0) return
-    drafts.value![locale] = localizedAccommodation
-      ? createDraftFromAccommodation(localizedAccommodation)
-      : createFallbackDraft(accommodation)
+    drafts.value![locale] = createDraftFromTranslation(accommodation, translation)
   })
 }
 
 const handleSave = async (): Promise<void> => {
   if (!props.accommodation || !activeDraft.value) return
 
-  const translations = buildTranslations()
+  const translations = ensureTranslations(buildTranslations())
   const payload: DashboardAccommodationSavePayload = {
     ...props.accommodation,
     locale: activeLocale.value,
@@ -419,7 +446,7 @@ const handleSave = async (): Promise<void> => {
     ...(translations.length > 0 && { translations }),
   }
 
-  const ok = await saveMultilingual(payload, resolveSaveLocale(translations.length > 0))
+  const ok = await saveMultilingual(payload, resolveSaveLocale(translations))
   if (ok) {
     dirtyLocalizedFields.value = createDirtyState()
     emit('saved')
@@ -437,14 +464,19 @@ watch(
       : 'fr'
     expandedBlocks.value = new Set(['body'])
     resetSave()
-    await loadLocaleDrafts(props.accommodation)
+    if (isOpen.value) {
+      await loadLocaleDrafts(props.accommodation)
+    }
   },
   { immediate: true },
 )
 
-watch(isOpen, (open) => {
+watch(isOpen, async (open) => {
   if (open && symfonyAvailable.value === null) {
     checkSymfonyStatus()
+  }
+  if (open) {
+    await loadLocaleDrafts(props.accommodation)
   }
 })
 </script>

@@ -171,6 +171,20 @@ const statusColor = (status: UploadStatus): string => {
   return 'text-white/30'
 }
 
+const { locale } = useI18n()
+
+const getUploadLocale = (): 'fr' | 'en' | 'es' => {
+  if (locale.value === 'en' || locale.value === 'es') return locale.value
+  return 'fr'
+}
+
+const createCaptionFromFilename = (filename: string): string =>
+  filename
+    .replace(/\.[^.]+$/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
 const formatSize = (bytes: number): string => {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} Ko`
   return `${(bytes / (1024 * 1024)).toFixed(1)} Mo`
@@ -211,6 +225,15 @@ const handleUpload = async (): Promise<void> => {
     try {
       const form = new FormData()
       form.append('file', item.file, item.file.name)
+      form.append(
+        'translations',
+        JSON.stringify([
+          {
+            locale: getUploadLocale(),
+            caption: createCaptionFromFilename(item.file.name),
+          },
+        ]),
+      )
 
       const result = await $fetch<MediaObject>('/api/dashboard/media/upload', {
         method: 'POST',

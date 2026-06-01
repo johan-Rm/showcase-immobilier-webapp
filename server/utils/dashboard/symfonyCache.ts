@@ -27,12 +27,17 @@ function authHeaders(token: string) {
 }
 
 type HydraCollection<T> = {
-  'hydra:member': T[]
+  'hydra:member'?: T[]
+  member?: T[]
 }
 
 type SymfonyAccommodation = {
   '@id': string
   identifier: string
+}
+
+function getCollectionMembers<T>(response: HydraCollection<T>): T[] {
+  return response['hydra:member'] ?? response.member ?? []
 }
 
 async function fetchAccommodationUuidMap(
@@ -47,7 +52,7 @@ async function fetchAccommodationUuidMap(
 
   const map: AccommodationUuidMap = {}
 
-  for (const item of response['hydra:member'] ?? []) {
+  for (const item of getCollectionMembers(response)) {
     const uuid = item['@id'].split('/').at(-1)
     if (uuid) map[item.identifier] = uuid
   }

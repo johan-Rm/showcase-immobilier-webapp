@@ -5,6 +5,7 @@
       :data="accommodationsData"
       :user="user"
       @refresh="refreshAccommodations"
+      @saved="handleAccommodationSaved"
       @logout="logout"
     />
 
@@ -74,6 +75,11 @@ try {
 const logout = async (): Promise<void> => {
   await clear()
   await navigateTo('/dashboard/login')
+}
+
+const handleAccommodationSaved = (): void => {
+  // La réponse PUT est la source de vérité côté sauvegarde.
+  // Aucun refresh collection n'est déclenché ici pour éviter un GET post-save.
 }
 
 // 10. Watch et watchEffect

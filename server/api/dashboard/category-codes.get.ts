@@ -1,12 +1,16 @@
 import { getSymfonyServiceToken } from '../../utils/dashboard/symfonyAuth'
 
-type SymfonyCategoryCode = { '@id': string; code: string; inCodeSet: string }
-type HydraCollection<T> = { 'hydra:member': T[] }
+type SymfonyCategoryCode = { '@id': string; code?: string; codeValue?: string; inCodeSet: string }
+type HydraCollection<T> = { 'hydra:member'?: T[]; member?: T[] }
 
 export type DashboardCategoryCodeIri = {
   iri: string
   code: string
   inCodeSet: string
+}
+
+function getCollectionMembers<T>(response: HydraCollection<T>): T[] {
+  return response['hydra:member'] ?? response.member ?? []
 }
 
 function getApiBase(): { apiUrl: string; projectId: string } {
@@ -33,9 +37,9 @@ export default defineEventHandler(async (event): Promise<DashboardCategoryCodeIr
     },
   )
 
-  return (response['hydra:member'] ?? []).map((item) => ({
-    iri: item['@id'],
-    code: item.code,
-    inCodeSet: item.inCodeSet,
-  }))
+  return getCollectionMembers(response).flatMap((item) => {
+    const code = item.codeValue ?? item.code
+    if (!code) return []
+    return [{ iri: item['@id'], code, inCodeSet: item.inCodeSet }]
+  })
 })

@@ -277,6 +277,16 @@ export const useMetadataStore = defineStore('metadata', {
       this.irisMap = map
     },
 
+    addIri(item: { iri: string; code: string; inCodeSet: string }): void {
+      this.irisMap = {
+        ...this.irisMap,
+        [item.inCodeSet]: {
+          ...(this.irisMap[item.inCodeSet] ?? {}),
+          [item.code]: item.iri,
+        },
+      }
+    },
+
     reset(): void {
       this.app = null
       this.accommodationForm = null
