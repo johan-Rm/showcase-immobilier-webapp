@@ -1,14 +1,14 @@
 ---
 identifier: 9
 slug: 'home'
-inLanguage: 'fr'
-metaTitle: 'MLK – My Little Kasbah | Immobilier à Essaouira'
-metaDescription: 'Découvrez MLK – My Little Kasbah, votre partenaire immobilier à Essaouira pour l’achat, la vente, la gestion locative et l’investissement.'
+inLanguage: 'en'
+metaTitle: 'MLK – My Little Kasbah | Real Estate in Essaouira'
+metaDescription: 'Discover MLK – My Little Kasbah, your real estate partner in Essaouira for buying, selling, rental management and investment.'
 associatedMedia:
   - '97c1195a-8de4-4896-b8e6-973109e7449a'
 headline: 'MLK – My Little Kasbah'
-alternativeHeadline: 'Votre partenaire immobilier à Essaouira'
-highlight: 'Achat, vente, gestion locative et investissement avec une expertise locale et internationale'
+alternativeHeadline: 'Your real estate partner in Essaouira'
+highlight: 'Buying, selling, rental management and investment with local and international expertise'
 articleSection: ''
 keywords: []
 datePublished: '2022-10-11T00:00:00+02:00'
@@ -19,7 +19,7 @@ dateModified: '2023-02-16T11:40:34+01:00'
 ::screen-landing
 ---
 identifier: 'screen-real-estate-full-image'
-headline: 'MLK - My Little Kasbah - Agence Immobilière à Essaouira'
+headline: 'MLK - My Little Kasbah - Real Estate Agency in Essaouira'
 image: '94a22ae5-6z13-4a10-aeab-96d27177b192'
 hasPart:
   - additionalType: 'mobile-portrait-background'
@@ -35,13 +35,13 @@ links:
 ::screen-landing
 ---
 identifier: 'screen-real-estate-split'
-additionalType: 'Agence immobilière en ligne'
-headline: 'Votre partenaire immobilier'
-alternativeHeadline: 'à Essaouira'
+additionalType: 'Online real estate agency'
+headline: 'Your real estate partner'
+alternativeHeadline: 'in Essaouira'
 text: |
-  Bienvenue chez MLK – My Little Kasbah, une agence immobilière en ligne dédiée à l’investissement immobilier à Essaouira et dans sa région.
+  Welcome to MLK – My Little Kasbah, an online real estate agency dedicated to property investment in Essaouira and the surrounding region.
 
-  Portée par une équipe franco-marocaine passionnée par l’immobilier et profondément attachée à la ville, MLK accompagne ses clients dans tous leurs projets d’achat, de vente et de gestion locative, avec rigueur, transparence et proximité.
+  Driven by a Franco-Moroccan team passionate about real estate and deeply attached to the city, MLK supports its clients through all their buying, selling and rental management projects, with rigour, transparency and proximity.
 image: '6d0c8657-0058-470f-9737-fd996ffb9600'
 links:
   - for-sale
@@ -53,7 +53,7 @@ links:
 ::screen-landing
 ---
 identifier: 'screen-real-estate-three-col-properties'
-headline: 'Nos biens immobiliers'
+headline: 'Our properties'
 links:
   - for-sale
   - seasonal-rental
@@ -64,73 +64,73 @@ links:
 ::screen-panel
 ---
 identifier: 'screen-why-choose-mlk'
-headline: 'Pourquoi choisir MLK ?'
-alternativeHeadline: 'L’immobilier à Essaouira, entre exigence locale et vision internationale.'
+headline: 'Why choose MLK?'
+alternativeHeadline: 'Real estate in Essaouira, between local expertise and international vision.'
 image: '164b0820-d8c9-474d-a0e8-a718572fbf83'
 hasPart:
-  - headline: 'Ancrage +'
-    alternativeHeadline: 'Ouverture'
-    text: 'Une connaissance fine du marché local, alliée à une expertise internationale.'
+  - headline: 'Local +'
+    alternativeHeadline: 'Openness'
+    text: 'A thorough knowledge of the local market, combined with international expertise.'
   - headline: 'Digital +'
-    alternativeHeadline: 'Liberté'
-    text: 'Une plateforme digitale pour explorer, visiter et gérer à distance.'
-  - headline: 'Exigence +'
-    alternativeHeadline: 'Sélection'
-    text: 'Une sélection rigoureuse de biens : riads, villas, appartements, terrains, propriétés de charme.'
-  - headline: 'Présence +'
-    alternativeHeadline: 'Sérénité'
-    text: 'Un accompagnement complet, de la recherche à la signature, y compris la gestion locative.'
+    alternativeHeadline: 'Freedom'
+    text: 'A digital platform to explore, visit and manage remotely.'
+  - headline: 'Excellence +'
+    alternativeHeadline: 'Selection'
+    text: 'A rigorous selection of properties: riads, villas, apartments, land and charming estates.'
+  - headline: 'Presence +'
+    alternativeHeadline: 'Peace of mind'
+    text: 'Full support, from search to signing, including rental management.'
 ---
 ::
 
 ::screen-panel
 ---
 identifier: 'screen-essaouira-the-jewel'
-name: 'Un art de vivre marocain préservé'
-headline: 'Essaouira, joyau authentique'
-alternativeHeadline: 'Essaouira est une ville qui séduit par son charme intemporel'
+name: 'A preserved Moroccan art of living'
+headline: 'Essaouira, authentic jewel'
+alternativeHeadline: 'Essaouira is a city that captivates with its timeless charm'
 text: |
-  Nichée sur la côte atlantique du Maroc, Essaouira séduit par son charme intemporel, ses ruelles blanches et bleues, son port vivant et ses plages infinies.
+  Nestled on the Atlantic coast of Morocco, Essaouira captivates with its timeless charm, its white and blue alleys, its lively port and its endless beaches.
 
-  Entre authenticité, douceur de vivre et potentiel d’investissement, la ville attire autant les voyageurs que les acquéreurs en quête d’un lieu rare.
+  Between authenticity, gentle living and investment potential, the city attracts both travellers and buyers in search of a rare place.
 hasPart:
-  - headline: 'Essaouira ruelle'
+  - headline: 'Essaouira alley'
     image: '12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312'
   - headline: 'Essaouira golf'
     image: 'e0724ee4-5354-4e65-a593-6b387dc2e3d0'
-  - headline: 'Plage Essaouira'
+  - headline: 'Essaouira beach'
     image: '4cc633df-5fa4-4564-bc12-5bf9fb61f46d'
-  - headline: 'Port Essaouira'
+  - headline: 'Essaouira port'
     image: 'ec268d54-f11e-4123-bd25-7822a1ab90b6'
-  - headline: 'Medina Essaouira'
+  - headline: 'Essaouira medina'
     image: 'de2c7b61-c269-4599-8569-720d9b7437a4'
-  - headline: 'Skala du port'
+  - headline: 'Port skala'
     image: '1f085909-0a44-4726-a201-5cf186c61dee'
-  - headline: 'Remparts vertical'
+  - headline: 'Ramparts vertical'
     image: 'a22572bd-f8ad-4408-9d79-54af0bfbea08'
-  - headline: 'Medina remparts'
+  - headline: 'Medina ramparts'
     image: '1d096029-86c8-4a30-b9cd-fbf906afcbf0'
-  - headline: 'Barques de peche'
+  - headline: 'Fishing boats'
     image: '17190f2f-f4e1-49a7-a342-b4466e8d888a'
-  - headline: 'Plage du port'
+  - headline: 'Port beach'
     image: '97d8bcf8-567f-4ac6-9778-c1a2f7985180'
-  - headline: 'Cote port'
+  - headline: 'Port coast'
     image: '56098e93-895b-450d-9890-65b23faec0aa'
-  - headline: 'Kite au sunset'
+  - headline: 'Kite at sunset'
     image: '39680ca2-e6bb-4e70-b2ee-04c22e600636'
-  - headline: 'Remparts'
+  - headline: 'Ramparts'
     image: 'eff77c4e-504d-462a-9e2a-c6b65877ce74'
-  - headline: 'Galerie la Kasbah'
+  - headline: 'La Kasbah gallery'
     image: '0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01'
-  - headline: 'Boutiques'
+  - headline: 'Shops'
     image: '8b9acd0e-1f20-43ce-a4db-912808c32493'
-  - headline: 'Skala bateaux'
+  - headline: 'Skala boats'
     image: 'c5dae3d8-2d5d-6d3c-bd3c-3c4d5e6f7a8b'
   - headline: 'Bab Sbah'
     image: 'b4c9e2c7-1c4c-5c2b-ac2b-2b3c4d5e6f7a'
-  - headline: 'Porte bleue'
+  - headline: 'Blue door'
     image: '309c8cd5-f8e2-4a0b-9c2d-9486c9e2d312'
-  - headline: 'Essaouira plage'
+  - headline: 'Essaouira beach'
     image: 'd5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312'
 ---
 ::
@@ -138,13 +138,13 @@ hasPart:
 ::screen-panel
 ---
 identifier: 'screen-invest'
-name: 'Investissement immobilier'
-headline: 'Essaouira incarne un équilibre parfait entre charme, sécurité et potentiel économique.'
-alternativeHeadline: 'Investir à Essaouira'
+name: 'Real estate investment'
+headline: 'Essaouira embodies a perfect balance between charm, security and economic potential.'
+alternativeHeadline: 'Invest in Essaouira'
 text: |
-  Investir ici, c’est choisir un lieu de vie authentique tout en profitant d’une rentabilité réelle et durable.
+  Investing here means choosing an authentic place to live while enjoying real and lasting returns.
 
-  MLK My Little Kasbah accompagne chaque investisseur dans la concrétisation de son projet, avec passion et expertise.
+  MLK My Little Kasbah guides every investor through their project, with passion and expertise.
 image: 'd2d6cde7-82b1-4923-9d35-33ce9426628b'
 links:
   - contact
@@ -155,92 +155,92 @@ links:
 ::screen-panel
 ---
 identifier: 'screen-panel-scroll-dual-synced'
-headline: 'Que faire à Essaouira ?'
+headline: 'What to do in Essaouira?'
 url: 'things-to-do'
 hasPart:
-  - additionalType: 'Découverte'
-    headline: 'Médina & culture'
+  - additionalType: 'Discovery'
+    headline: 'Medina & culture'
     image: '309c8cd5-f8e2-4a0b-9c2d-9486c9e2d312'
     text: |
-      Classée au patrimoine mondial de l’UNESCO, la médina d’Essaouira invite à flâner entre artisanat, galeries, épices et savoir-faire ancestral.
+      Listed as a UNESCO World Heritage Site, the medina of Essaouira invites you to wander through crafts, galleries, spices and ancestral know-how.
 
-      Un lieu vivant et inspirant, où chaque ruelle raconte une histoire.
+      A living and inspiring place, where every alley tells a story.
 
   - additionalType: 'Nature'
-    headline: 'Plages & balades'
+    headline: 'Beaches & walks'
     image: 'd5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312'
     text: |
-      De longues plages sauvages bordent Essaouira, idéales pour marcher, se détendre ou simplement profiter de l’air marin.
+      Long wild beaches border Essaouira, ideal for walking, relaxing or simply enjoying the sea air.
 
-      Entre dunes, lumière unique et couchers de soleil, chaque balade devient un moment hors du temps.
+      Between dunes, unique light and sunsets, every walk becomes a timeless moment.
 
-  - additionalType: 'Art de vivre'
-    headline: 'Restaurants & art de vivre'
+  - additionalType: 'Art of living'
+    headline: 'Restaurants & lifestyle'
     image: 'd678ed13-9110-47e0-9c89-40db91a77d80'
     text: |
-      Restaurants en bord de mer, terrasses ensoleillées, marchés locaux et adresses confidentielles rythment le quotidien.
+      Seaside restaurants, sunny terraces, local markets and hidden gems punctuate daily life.
 
-      À Essaouira, on prend le temps de savourer, de partager et de profiter.
+      In Essaouira, you take time to savour, share and enjoy.
 
-  - additionalType: 'Activités'
-    headline: 'Golf en bord d’océan'
+  - additionalType: 'Activities'
+    headline: 'Golf by the ocean'
     image: 'e0724ee4-5354-4e65-a593-6b387dc2e3d0'
     text: |
-      À quelques minutes d’Essaouira, un golf signé Gary Player s’étend face à l’océan, entre dunes naturelles et brise marine.
+      A few minutes from Essaouira, a Gary Player-designed golf course stretches out facing the ocean, between natural dunes and sea breeze.
 
-      Ce parcours 18 trous séduit autant les passionnés que les amateurs, dans un cadre unique jouable toute l’année.
+      This 18-hole course attracts both enthusiasts and beginners, in a unique setting playable year-round.
 
-  - additionalType: 'Activités'
-    headline: 'Sports de glisse'
+  - additionalType: 'Activities'
+    headline: 'Water sports'
     image: '39680ca2-e6bb-4e70-b2ee-04c22e600636'
     text: |
-      Essaouira est un spot incontournable pour les amateurs de glisse. Kite-surf, windsurf, surf ou paddle : ici, le vent et les vagues accompagnent votre quotidien toute l’année.
+      Essaouira is a must-visit spot for water sports lovers. Kite-surfing, windsurfing, surfing or paddle: here, wind and waves are part of daily life all year round.
 
-      Des écoles locales proposent cours et équipements adaptés à tous les niveaux.
+      Local schools offer lessons and equipment suited to all levels.
 
-  - additionalType: 'Activités'
-    headline: 'Balade en quad'
+  - additionalType: 'Activities'
+    headline: 'Quad biking'
     image: '37b1d2a7-6eed-4cf6-ac7e-21ed47c957b3'
     text: |
-      Explorez les plages sauvages, dunes et sentiers forestiers en quad, pour une expérience entre liberté, nature et sensations.
+      Explore wild beaches, dunes and forest trails by quad, for an experience blending freedom, nature and thrills.
 
-      De 1 à 3 heures, découvrez une autre facette d’Essaouira, plus brute et préservée.
+      From 1 to 3 hours, discover another side of Essaouira, wilder and more unspoilt.
 
-  - additionalType: 'Bien-être'
+  - additionalType: 'Wellness'
     headline: 'Hammam & spa'
     image: '309c794f-abfd-4269-ab0f-bb0c413ea3a1'
     text: |
-      Offrez-vous une parenthèse de bien-être avec un hammam traditionnel, entre vapeur, gommage et soins naturels à base d’argan.
+      Treat yourself to a wellness break with a traditional hammam, featuring steam, scrubbing and natural argan-based treatments.
 
-      Un moment de détente profond, ancré dans l’art de vivre marocain.
+      A moment of deep relaxation, rooted in the Moroccan art of living.
 
-  - additionalType: 'Découverte'
-    headline: 'Nature & environs'
+  - additionalType: 'Discovery'
+    headline: 'Nature & surroundings'
     image: '6a5f1b5d-2f0a-4e33-9d64-8f6bb0d7f4ce'
     text: |
-      Aux alentours d’Essaouira, explorez forêts d’arganiers, villages authentiques et paysages côtiers préservés.
+      Around Essaouira, explore argan forests, authentic villages and preserved coastal landscapes.
 
-      Une immersion naturelle entre terre et océan.
+      A natural immersion between land and ocean.
 
-  - additionalType: 'Découverte'
-    headline: 'Événements'
+  - additionalType: 'Discovery'
+    headline: 'Events'
     image: '8fa7643a-d2e7-4af9-b93d-f09b973aecbf'
     text: |
-      Essaouira vit toute l’année au rythme d’événements emblématiques, entre festivals, compétitions sportives et rendez-vous culturels.
+      Essaouira comes alive all year round with iconic events — festivals, sports competitions and cultural gatherings.
 
-      Une énergie unique qui anime la ville et révèle toute sa richesse.
+      A unique energy that animates the city and reveals all its richness.
 ---
 ::
 
 ::screen-panel
 ---
 identifier: 'screen-blockquote'
-headline: 'Votre partenaire à Essaouira'
+headline: 'Your partner in Essaouira'
 url: 'agency'
 hasPart:
-  - headline: 'Chez MLK – My Little Kasbah, nous valorisons les biens de caractère.'
-  - headline: 'Nous accompagnons chaque projet avec exigence, clarté et discrétion.'
-  - headline: 'Tout en promouvant l’art de vivre à Essaouira.'
+  - headline: 'At MLK – My Little Kasbah, we celebrate character properties.'
+  - headline: 'We accompany every project with rigour, clarity and discretion.'
+  - headline: 'While promoting the art of living in Essaouira.'
 ---
 ::
 

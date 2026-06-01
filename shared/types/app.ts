@@ -75,10 +75,15 @@ export type AppSocialNetworkComponent = {
   closeMenuAriaLabel: string
 }
 
+export type AppLangSwitcherComponent = {
+  navAriaLabel: string
+}
+
 export type AppComponents = {
   logo?: AppLogoComponent
   navigationMain?: AppNavigationMainComponent
   socialNetwork?: AppSocialNetworkComponent
+  langSwitcher?: AppLangSwitcherComponent
 }
 
 export type AppAccommodationLabels = {

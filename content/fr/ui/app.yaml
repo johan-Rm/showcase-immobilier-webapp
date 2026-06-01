@@ -1,4 +1,6 @@
 components:
+  langSwitcher:
+    navAriaLabel: Changer de langue
   logo:
     ariaLabel: My Little Kasbah
   navigationMain:

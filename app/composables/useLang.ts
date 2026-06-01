@@ -85,16 +85,15 @@ const _useLang = (): UseLangReturn => {
     }
   })
 
-  // Sync route -> store pour refléter les changements de navigation.
-  watch(
-    () => route.params?.locale,
-    (routeLocale) => {
-      const code = routeLocale as string | undefined
-      if (isLocaleCode(code) && code !== localeSetting.value) {
-        localeSetting.value = code
-      }
-    },
-  )
+  // Sync i18n locale -> store quand @nuxtjs/i18n met à jour la locale via la route.
+  // route.params.locale est toujours undefined avec strategy:'prefix' — on écoute
+  // directement le signal que le module met à jour lors des navigations.
+  watch(locale, (newLocale) => {
+    const code = newLocale.toString()
+    if (isLocaleCode(code) && code !== localeSetting.value) {
+      localeSetting.value = code
+    }
+  })
 
   /**
    * Génère une URL localisée pour une route donnée

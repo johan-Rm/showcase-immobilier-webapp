@@ -178,6 +178,8 @@
                   </li>
                 </ul>
               </nav>
+
+              <NavigationLangSwitcher variant="contrast" class="mt-8 2xl:mt-14" />
             </div>
           </div>
         </div>
