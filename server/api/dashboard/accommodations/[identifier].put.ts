@@ -3,7 +3,7 @@ import type { DashboardAccommodationSavePayload } from '#shared/types/dashboardA
 import { mapToApiPlatform } from '../../../utils/dashboard/accommodationMapper'
 import { exportToMarkdown } from '../../../utils/dashboard/markdownExporter'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
-import { getAccommodationUuidMap } from '../../../utils/dashboard/symfonyCache'
+import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
 
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
@@ -12,8 +12,48 @@ function getApiBase(): { apiUrl: string; projectId: string } {
   return { apiUrl, projectId }
 }
 
+type SymfonyAccommodationResponse = {
+  '@id'?: string
+  id?: string
+  identifier?: string
+}
+
+type SymfonyFetchError = {
+  response?: { status?: number; statusCode?: number; _data?: unknown }
+  status?: number
+  statusCode?: number
+  message?: string
+}
+
+const getSymfonyErrorStatus = (error: unknown): number =>
+  (error as SymfonyFetchError).response?.status ??
+  (error as SymfonyFetchError).response?.statusCode ??
+  (error as SymfonyFetchError).status ??
+  (error as SymfonyFetchError).statusCode ??
+  502
+
+const getSymfonyErrorMessage = (error: unknown): string => {
+  const fetchErr = error as SymfonyFetchError
+  const data = fetchErr.response?._data
+  if (typeof data === 'object' && data !== null) return JSON.stringify(data)
+  return fetchErr.message ?? 'Symfony error'
+}
+
+const resolveSymfonyIdentifier = (
+  response: SymfonyAccommodationResponse,
+  fallbackIdentifier: string,
+): string =>
+  response.id ?? response.identifier ?? response['@id']?.split('/').at(-1) ?? fallbackIdentifier
+
 export default defineEventHandler(
-  async (event): Promise<{ success: true; uuid: string; markdownUpdated: boolean }> => {
+  async (
+    event,
+  ): Promise<{
+    success: true
+    uuid: string
+    markdownUpdated: boolean
+    data: SymfonyAccommodationResponse
+  }> => {
     await requireUserSession(event)
 
     const identifier = getRouterParam(event, 'identifier')
@@ -27,10 +67,9 @@ export default defineEventHandler(
     }
 
     const { apiUrl, projectId } = getApiBase()
-    const [token, uuidMap] = await Promise.all([
-      getSymfonyServiceToken(),
-      getAccommodationUuidMap(),
-    ])
+    const query = getQuery(event)
+    const locale = typeof query.locale === 'string' && query.locale.length > 0 ? query.locale : 'fr'
+    const token = await getSymfonyServiceToken()
 
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
@@ -45,40 +84,49 @@ export default defineEventHandler(
       Accept: 'application/json',
     }
 
-    const existingUuid = uuidMap[identifier] ?? null
-
     let uuid: string
+    let savedData: SymfonyAccommodationResponse
 
-    const callSymfony = async <T = unknown>(url: string, method: 'PUT' | 'POST'): Promise<T> => {
-      try {
-        return await $fetch<T>(url, { method, headers, body: payload })
-      } catch (err: unknown) {
-        const fetchErr = err as {
-          response?: { status?: number; _data?: unknown }
-          message?: string
-        }
-        const status = fetchErr.response?.status ?? 502
-        const detail =
-          typeof fetchErr.response?._data === 'object' && fetchErr.response._data !== null
-            ? JSON.stringify(fetchErr.response._data)
-            : (fetchErr.message ?? 'Symfony error')
-        throw createError({ statusCode: status, statusMessage: detail })
-      }
-    }
+    const callSymfony = async (
+      url: string,
+      method: 'PUT' | 'POST',
+    ): Promise<SymfonyAccommodationResponse> =>
+      await $fetch<SymfonyAccommodationResponse>(url, {
+        method,
+        headers,
+        query: { locale },
+        body: payload,
+      })
 
-    if (existingUuid) {
-      await callSymfony(`${apiUrl}/api/projects/${projectId}/accommodations/${identifier}`, 'PUT')
-      uuid = existingUuid
-    } else {
-      const created = await callSymfony<{ '@id': string }>(
-        `${apiUrl}/api/projects/${projectId}/accommodations`,
-        'POST',
+    try {
+      const updated = await callSymfony(
+        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}/translations`,
+        'PUT',
       )
-      const newUuid = created['@id'].split('/').at(-1)
-      if (!newUuid) {
-        throw createError({ statusCode: 502, statusMessage: 'Symfony response missing @id' })
+      savedData = updated
+      uuid = resolveSymfonyIdentifier(updated, identifier)
+    } catch (updateError: unknown) {
+      if (getSymfonyErrorStatus(updateError) !== 404) {
+        throw createError({
+          statusCode: getSymfonyErrorStatus(updateError),
+          statusMessage: getSymfonyErrorMessage(updateError),
+        })
       }
-      uuid = newUuid
+
+      try {
+        const created = await callSymfony(
+          `${apiUrl}/api/projects/${projectId}/accommodations/translations`,
+          'POST',
+        )
+        savedData = created
+        uuid = resolveSymfonyIdentifier(created, identifier)
+        invalidateSymfonyCache()
+      } catch (createErrorResponse: unknown) {
+        throw createError({
+          statusCode: getSymfonyErrorStatus(createErrorResponse),
+          statusMessage: getSymfonyErrorMessage(createErrorResponse),
+        })
+      }
     }
 
     let markdownUpdated = false
@@ -89,6 +137,6 @@ export default defineEventHandler(
       console.error('[markdown-export] Échec write fichier :', err)
     }
 
-    return { success: true, uuid, markdownUpdated }
+    return { success: true, uuid, markdownUpdated, data: savedData }
   },
 )

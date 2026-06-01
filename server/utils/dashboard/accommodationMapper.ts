@@ -1,3 +1,4 @@
+import { isLocaleCode } from '#shared/i18n/config'
 import {
   DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS,
   type DashboardAccommodationSavePayload,
@@ -36,9 +37,7 @@ function asBoolean(v: DashboardEditableValue | undefined): boolean | null {
 function hasUsableTranslation(
   translation: DashboardAccommodationTranslationPayload,
 ): translation is DashboardAccommodationTranslationPayload {
-  return DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.some((field) =>
-    Object.prototype.hasOwnProperty.call(translation, field),
-  )
+  return DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.some((field) => Object.hasOwn(translation, field))
 }
 
 function normalizeTranslations(
@@ -53,7 +52,7 @@ function normalizeTranslations(
       }
 
       DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
-        if (!Object.prototype.hasOwnProperty.call(translation, field)) return
+        if (!Object.hasOwn(translation, field)) return
         const value = translation[field]
         normalized[field] = typeof value === 'string' ? value : null
       })
@@ -61,6 +60,27 @@ function normalizeTranslations(
       return normalized
     })
     .filter(hasUsableTranslation)
+}
+
+function createCurrentLocaleTranslation(
+  accommodation: DashboardAccommodationSavePayload,
+): DashboardAccommodationTranslationPayload {
+  const fm = accommodation.frontmatter
+  const locale = isLocaleCode(accommodation.locale) ? accommodation.locale : 'fr'
+  const translation: DashboardAccommodationTranslationPayload = {
+    locale,
+    slug: asString(fm.slug) ?? accommodation.slug,
+    name: asString(fm.name),
+    label: asString(fm.label),
+    highlight: asString(fm.highlight),
+    body: accommodation.body || null,
+    review: asString(fm.review),
+    metaTitle: asString(fm.metaTitle),
+    metaDescription: asString(fm.metaDescription),
+    locationDescription: asString(fm.locationDescription),
+  }
+
+  return translation
 }
 
 // ---------------------------------------------------------------------------
@@ -71,11 +91,14 @@ export async function mapToApiPlatform(
   accommodation: DashboardAccommodationSavePayload,
 ): Promise<SymfonyAccommodationPayload> {
   const fm = accommodation.frontmatter
-  const translations = normalizeTranslations(accommodation.translations)
-  const isMultilingualSave = translations.length > 0
+  const normalizedTranslations = normalizeTranslations(accommodation.translations)
+  const translations =
+    normalizedTranslations.length > 0
+      ? normalizedTranslations
+      : [createCurrentLocaleTranslation(accommodation)]
 
   // -- Champs scalaires directs -------------------------------------------
-  const identifier = asString(fm.identifier) ?? accommodation.identifier
+  const identifier = accommodation.identifier
   const isActive = asBoolean(fm.isActive) ?? true
   const yearBuilt = asNumber(fm.yearBuilt)
   const areaSize = asString(fm.areaSize)
@@ -112,16 +135,6 @@ export async function mapToApiPlatform(
   const amenityFeature = iris.amenityFeature
   const tags = iris.tags
 
-  // -- Champs translatables (envoyés dans le body, locale via query param) -
-  const slug = asString(fm.slug) ?? accommodation.slug
-  const name = asString(fm.name)
-  const label = asString(fm.label)
-  const highlight = asString(fm.highlight)
-  const body = accommodation.body || null
-  const review = asString(fm.review)
-  const metaTitle = asString(fm.metaTitle)
-  const metaDescription = asString(fm.metaDescription)
-
   // -- Payload final -------------------------------------------------------
   const payload: SymfonyAccommodationPayload = {
     identifier,
@@ -145,19 +158,7 @@ export async function mapToApiPlatform(
     ...(offerPriceCurrency !== null && { offerPriceCurrency }),
     ...(offerPriceSpecification !== null && { offerPriceSpecification }),
     ...(offerAvailability !== null && { offerAvailability }),
-    ...(isMultilingualSave
-      ? { translations }
-      : {
-          // Champs translatables mono-locale.
-          slug,
-          ...(name !== null && { name }),
-          ...(label !== null && { label }),
-          ...(highlight !== null && { highlight }),
-          ...(body !== null && { body }),
-          ...(review !== null && { review }),
-          ...(metaTitle !== null && { metaTitle }),
-          ...(metaDescription !== null && { metaDescription }),
-        }),
+    translations,
   }
 
   return payload
