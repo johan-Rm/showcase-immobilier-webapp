@@ -45,7 +45,7 @@ nuxt-4-reference
 # Git worktrees
 .worktrees/
 
-public/images/originals/
+public/images/
 lighthouse-*
 !scripts/lighthouse-*.sh
 firefox.*
