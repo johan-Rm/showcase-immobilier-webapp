@@ -26,12 +26,42 @@ function asString(v: DashboardEditableValue | undefined): string | null {
   return typeof v === 'string' && v.trim() !== '' ? v.trim() : null
 }
 
+function asPayloadString(v: DashboardEditableValue | undefined): string | null {
+  if (typeof v === 'number') return String(v)
+  return asString(v)
+}
+
 function asNumber(v: DashboardEditableValue | undefined): number | null {
   return typeof v === 'number' ? v : null
 }
 
 function asBoolean(v: DashboardEditableValue | undefined): boolean | null {
   return typeof v === 'boolean' ? v : null
+}
+
+function mapAssociatedMedia(
+  value: DashboardEditableValue | undefined,
+  mediaObjectIriBase: string,
+): Array<Record<string, unknown>> {
+  if (!Array.isArray(value)) return []
+
+  return value
+    .map((item, index) => {
+      if (!isRecord(item)) return null
+      const uuid = asString(item.image)
+      if (!uuid) return null
+
+      return {
+        mediaObject: `${mediaObjectIriBase}/${uuid}`,
+        position: index + 1,
+        caption: asString(item.caption),
+        keywords: Array.isArray(item.keywords)
+          ? item.keywords.filter((k): k is string => typeof k === 'string')
+          : [],
+        representativeOfPage: asBoolean(item.representativeOfPage),
+      }
+    })
+    .filter((item): item is Record<string, unknown> => item !== null)
 }
 
 function hasUsableTranslation(
@@ -77,7 +107,6 @@ function createCurrentLocaleTranslation(
     review: asString(fm.review),
     metaTitle: asString(fm.metaTitle),
     metaDescription: asString(fm.metaDescription),
-    locationDescription: asString(fm.locationDescription),
   }
 
   return translation
@@ -89,6 +118,7 @@ function createCurrentLocaleTranslation(
 
 export async function mapToApiPlatform(
   accommodation: DashboardAccommodationSavePayload,
+  context: { apiUrl: string; projectId: string },
 ): Promise<SymfonyAccommodationPayload> {
   const fm = accommodation.frontmatter
   const normalizedTranslations = normalizeTranslations(accommodation.translations)
@@ -101,16 +131,16 @@ export async function mapToApiPlatform(
   const identifier = accommodation.identifier
   const isActive = asBoolean(fm.isActive) ?? true
   const yearBuilt = asNumber(fm.yearBuilt)
-  const areaSize = asString(fm.areaSize)
-  const areaTerrace = asString(fm.areaTerrace)
+  const areaSize = asPayloadString(fm.areaSize)
+  const areaTerrace = asPayloadString(fm.areaTerrace)
   const numberOfRooms = asNumber(fm.numberOfRooms)
   const numberOfBedrooms = asNumber(fm.numberOfBedrooms)
   const numberOfBathroomsTotal = asNumber(fm.numberOfBathroomsTotal)
   const numberOfGarages = asNumber(fm.numberOfGarages)
   const occupancy = asNumber(fm.occupancy)
 
-  const floorSize = asString(fm.floorSize)
-  const landArea = asString(fm.landArea)
+  const floorSize = asPayloadString(fm.floorSize)
+  const landArea = asPayloadString(fm.landArea)
 
   // -- Offre ---------------------------------------------------------------
   const offer = isRecord(fm.offer) ? fm.offer : null
@@ -122,6 +152,14 @@ export async function mapToApiPlatform(
   const offerPriceCurrency = offer ? asString(offer.priceCurrency) : null
   const offerPriceSpecification = offer ? asString(offer.priceSpecification) : null
   const offerAvailability = asString(fm.offerAvailability)
+  const offerPayload =
+    offerPrice !== null || offerPriceCurrency !== null || offerPriceSpecification !== null
+      ? {
+          ...(offerPrice !== null && { price: offerPrice }),
+          ...(offerPriceCurrency !== null && { priceCurrency: offerPriceCurrency }),
+          ...(offerPriceSpecification !== null && { priceSpecification: offerPriceSpecification }),
+        }
+      : null
 
   // -- CategoryCode IRIs (résolus côté client, transmis dans le payload) ----
   const iris = accommodation.resolvedIris
@@ -135,6 +173,9 @@ export async function mapToApiPlatform(
   const amenityFeature = iris.amenityFeature
   const tags = iris.tags
 
+  const mediaObjectIriBase = `${context.apiUrl}/api/projects/${context.projectId}/media-objects`
+  const associatedMedia = mapAssociatedMedia(fm.associatedMedia, mediaObjectIriBase)
+
   // -- Payload final -------------------------------------------------------
   const payload: SymfonyAccommodationPayload = {
     identifier,
@@ -144,6 +185,7 @@ export async function mapToApiPlatform(
     ...(place && { place }),
     amenityFeature,
     tags,
+    associatedMedia,
     ...(yearBuilt !== null && { yearBuilt }),
     ...(areaSize !== null && { areaSize }),
     ...(areaTerrace !== null && { areaTerrace }),
@@ -154,9 +196,7 @@ export async function mapToApiPlatform(
     ...(numberOfBathroomsTotal !== null && { numberOfBathroomsTotal }),
     ...(numberOfGarages !== null && { numberOfGarages }),
     ...(occupancy !== null && { occupancy }),
-    ...(offerPrice !== null && { offerPrice }),
-    ...(offerPriceCurrency !== null && { offerPriceCurrency }),
-    ...(offerPriceSpecification !== null && { offerPriceSpecification }),
+    ...(offerPayload !== null && { offer: offerPayload }),
     ...(offerAvailability !== null && { offerAvailability }),
     translations,
   }

@@ -28,7 +28,6 @@ const createAccommodation = (
     review: 'Notre avis en francais.',
     metaTitle: 'Riad a vendre a Essaouira',
     metaDescription: 'Riad renove a vendre en medina.',
-    locationDescription: 'Au coeur de la medina.',
     isActive: true,
     category: 'riad',
     realEstateListing: 'bien-a-vendre',
@@ -76,6 +75,11 @@ const createAccommodation = (
   ...overrides,
 })
 
+const testContext = {
+  apiUrl: 'http://api.example.com',
+  projectId: 'project-1',
+}
+
 describe('mapToApiPlatform', () => {
   it('construit le payload Symfony avec champs globaux a la racine et translations[]', async () => {
     const payload = await mapToApiPlatform(
@@ -86,7 +90,6 @@ describe('mapToApiPlatform', () => {
             slug: 'riad-boutique-renove-medina-bavr001',
             name: 'Riad boutique renove en medina',
             body: '<p>Texte source FR.</p>',
-            locationDescription: 'Au coeur de la medina.',
           },
           {
             locale: 'en',
@@ -100,6 +103,7 @@ describe('mapToApiPlatform', () => {
           },
         ],
       }),
+      testContext,
     )
 
     expect(payload).toMatchObject({
@@ -110,9 +114,21 @@ describe('mapToApiPlatform', () => {
       place: resolvedIris.place,
       amenityFeature: resolvedIris.amenityFeature,
       tags: resolvedIris.tags,
-      offerPrice: '850000',
-      offerPriceCurrency: 'EUR',
-      offerPriceSpecification: 'Prix de vente',
+      associatedMedia: [
+        {
+          mediaObject:
+            'http://api.example.com/api/projects/project-1/media-objects/media-bavr001-01',
+          position: 1,
+          caption: null,
+          keywords: [],
+          representativeOfPage: null,
+        },
+      ],
+      offer: {
+        price: '850000',
+        priceCurrency: 'EUR',
+        priceSpecification: 'Prix de vente',
+      },
       floorSize: '220',
       numberOfRooms: 8,
       numberOfBedrooms: 5,
@@ -123,7 +139,6 @@ describe('mapToApiPlatform', () => {
           slug: 'riad-boutique-renove-medina-bavr001',
           name: 'Riad boutique renove en medina',
           body: '<p>Texte source FR.</p>',
-          locationDescription: 'Au coeur de la medina.',
         },
         {
           locale: 'en',
@@ -137,15 +152,39 @@ describe('mapToApiPlatform', () => {
         },
       ],
     })
-    expect(payload).not.toHaveProperty('associatedMedia')
     expect(payload).not.toHaveProperty('additionalProperty')
     expect(payload).not.toHaveProperty('slug')
     expect(payload).not.toHaveProperty('name')
     expect(payload).not.toHaveProperty('body')
   })
 
+  it('convertit les surfaces numeriques en chaines pour Symfony', async () => {
+    const payload = await mapToApiPlatform(
+      createAccommodation({
+        frontmatter: {
+          ...createAccommodation().frontmatter,
+          floorSize: 27,
+          landArea: 120,
+          areaSize: 140,
+          areaTerrace: 18,
+        },
+      }),
+      testContext,
+    )
+
+    expect(payload).toMatchObject({
+      floorSize: '27',
+      landArea: '120',
+      areaSize: '140',
+      areaTerrace: '18',
+    })
+  })
+
   it('cree une traduction active quand aucun champ localise dirty nest fourni', async () => {
-    const payload = await mapToApiPlatform(createAccommodation({ translations: undefined }))
+    const payload = await mapToApiPlatform(
+      createAccommodation({ translations: undefined }),
+      testContext,
+    )
 
     expect(payload.translations).toEqual([
       {
@@ -158,14 +197,13 @@ describe('mapToApiPlatform', () => {
         review: 'Notre avis en francais.',
         metaTitle: 'Riad a vendre a Essaouira',
         metaDescription: 'Riad renove a vendre en medina.',
-        locationDescription: 'Au coeur de la medina.',
       },
     ])
   })
 
   it('rejette un payload sans resolvedIris pour eviter des relations CategoryCode invalides', async () => {
     await expect(
-      mapToApiPlatform(createAccommodation({ resolvedIris: undefined })),
+      mapToApiPlatform(createAccommodation({ resolvedIris: undefined }), testContext),
     ).rejects.toThrow('resolvedIris manquant dans le payload')
   })
 })
