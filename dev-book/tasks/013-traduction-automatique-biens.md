@@ -40,8 +40,8 @@ PUT /api/dashboard/accommodations/{identifier}?locale={locale}
 Routes Symfony appelees par Nitro :
 
 ```txt
-POST /api/projects/{projectId}/accommodations/translations?locale={locale}
-PUT /api/projects/{projectId}/accommodations/{identifier}/translations?locale={locale}
+PUT /api/projects/{projectId}/accommodations/{identifier}/translations
+POST /api/projects/{projectId}/accommodations/translations
 ```
 
 Contraintes contractuelles :
@@ -69,7 +69,11 @@ Les champs metier globaux restent a la racine.
   "identifier": "BAVLC001",
   "category": "/api/category-codes/accommodation-type-local-commercial",
   "realEstateListing": "/api/category-codes/real-estate-listing-bien-a-vendre",
-  "offerPrice": "350000",
+  "offer": {
+    "price": "350000",
+    "priceCurrency": "MAD",
+    "priceSpecification": "A la vente"
+  },
   "translations": [
     {
       "locale": "fr",
@@ -189,8 +193,8 @@ Dashboard slideover
                  ├─ getSymfonyServiceToken()
                  ├─ map champs globaux + CategoryCode IRIs deja resolus
                  ├─ preserve translations[] localisees
-                 ├─ PUT /api/projects/{projectId}/accommodations/{identifier}/translations?locale={locale}
-                 └─ fallback POST /api/projects/{projectId}/accommodations/translations?locale={locale}
+                 ├─ PUT /api/projects/{projectId}/accommodations/{identifier}/translations
+                 └─ fallback POST /api/projects/{projectId}/accommodations/translations
 
 API Symfony
   ├─ persiste les champs globaux communs

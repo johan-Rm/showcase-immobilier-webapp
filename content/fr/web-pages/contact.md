@@ -7,7 +7,7 @@ metaDescription: "Contactez MLK My Little Kasbah, agence immobilière à Essaoui
 headline: 'Contactez MLK My Little Kasbah'
 alternativeHeadline: 'Échangeons sur votre projet immobilier à Essaouira'
 associatedMedia:
-  - '758b9a53-fca5-4e1d-8bbf-6eaa33d97bc8'
+  - '/images/contact-essaouira-port-mouette.jpeg'
 highlight: 'Un premier échange simple pour comprendre votre projet immobilier'
 articleSection: ''
 keywords: []

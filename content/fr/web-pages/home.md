@@ -5,7 +5,7 @@ inLanguage: 'fr'
 metaTitle: 'MLK – My Little Kasbah | Immobilier à Essaouira'
 metaDescription: 'Découvrez MLK – My Little Kasbah, votre partenaire immobilier à Essaouira pour l’achat, la vente, la gestion locative et l’investissement.'
 associatedMedia:
-  - '97c1195a-8de4-4896-b8e6-973109e7449a'
+  - '/images/mlk-logo.jpg'
 headline: 'MLK – My Little Kasbah'
 alternativeHeadline: 'Votre partenaire immobilier à Essaouira'
 highlight: 'Achat, vente, gestion locative et investissement avec une expertise locale et internationale'
@@ -20,10 +20,10 @@ dateModified: '2023-02-16T11:40:34+01:00'
 ---
 identifier: 'screen-real-estate-full-image'
 headline: 'MLK - My Little Kasbah - Agence Immobilière à Essaouira'
-image: '94a22ae5-6z13-4a10-aeab-96d27177b192'
+image: '/images/essaouira-en-drone.jpg'
 hasPart:
   - additionalType: 'mobile-portrait-background'
-    image: '1d096029-86c8-4a30-b9cd-fbf906afcbf0'
+    image: '/images/medina-dessaouira-remparts-vertical.jpg'
 links:
   - for-sale
   - seasonal-rental
@@ -42,7 +42,7 @@ text: |
   Bienvenue chez MLK – My Little Kasbah, une agence immobilière en ligne dédiée à l’investissement immobilier à Essaouira et dans sa région.
 
   Portée par une équipe franco-marocaine passionnée par l’immobilier et profondément attachée à la ville, MLK accompagne ses clients dans tous leurs projets d’achat, de vente et de gestion locative, avec rigueur, transparence et proximité.
-image: '6d0c8657-0058-470f-9737-fd996ffb9600'
+image: '/images/skala-du-port-bateaux.jpg'
 links:
   - for-sale
   - seasonal-rental
@@ -66,7 +66,7 @@ links:
 identifier: 'screen-why-choose-mlk'
 headline: 'Pourquoi choisir MLK ?'
 alternativeHeadline: 'L’immobilier à Essaouira, entre exigence locale et vision internationale.'
-image: '164b0820-d8c9-474d-a0e8-a718572fbf83'
+image: '/images/portrait-lifestyle-en-lumiere-naturelle.jpg'
 hasPart:
   - headline: 'Ancrage +'
     alternativeHeadline: 'Ouverture'
@@ -95,43 +95,43 @@ text: |
   Entre authenticité, douceur de vivre et potentiel d’investissement, la ville attire autant les voyageurs que les acquéreurs en quête d’un lieu rare.
 hasPart:
   - headline: 'Essaouira ruelle'
-    image: '12f9b8c3-e8a2-4a0b-9c2d-9486c9e2d312'
+    image: '/images/essaouira-ruelle-de-la-medina.jpg'
   - headline: 'Essaouira golf'
-    image: 'e0724ee4-5354-4e65-a593-6b387dc2e3d0'
+    image: '/images/essaouira-golf.jpg'
   - headline: 'Plage Essaouira'
-    image: '4cc633df-5fa4-4564-bc12-5bf9fb61f46d'
+    image: '/images/plage-dessaouira-dromadaires-au-coucher-de-soleil.jpg'
   - headline: 'Port Essaouira'
-    image: 'ec268d54-f11e-4123-bd25-7822a1ab90b6'
+    image: '/images/port-dessaouira-barques-de-peche-full.jpg'
   - headline: 'Medina Essaouira'
-    image: 'de2c7b61-c269-4599-8569-720d9b7437a4'
+    image: '/images/ambiance-de-la-medina-dessaouira.jpg'
   - headline: 'Skala du port'
-    image: '1f085909-0a44-4726-a201-5cf186c61dee'
+    image: '/images/skala-du-port-dessaouira-mouette-au-coucher-de-soleil.jpg'
   - headline: 'Remparts vertical'
-    image: 'a22572bd-f8ad-4408-9d79-54af0bfbea08'
+    image: '/images/skala-de-la-kasbah-les-remparts-vertical.jpg'
   - headline: 'Medina remparts'
-    image: '1d096029-86c8-4a30-b9cd-fbf906afcbf0'
+    image: '/images/medina-dessaouira-remparts-vertical.jpg'
   - headline: 'Barques de peche'
-    image: '17190f2f-f4e1-49a7-a342-b4466e8d888a'
+    image: '/images/port-dessaouira-barques-de-peche.jpg'
   - headline: 'Plage du port'
-    image: '97d8bcf8-567f-4ac6-9778-c1a2f7985180'
+    image: '/images/medina-dessaouira-plage-du-port.jpg'
   - headline: 'Cote port'
-    image: '56098e93-895b-450d-9890-65b23faec0aa'
+    image: '/images/medina-dessaouira-cote-port.jpg'
   - headline: 'Kite au sunset'
-    image: '39680ca2-e6bb-4e70-b2ee-04c22e600636'
+    image: '/images/essaouira-cours-de-kite-au-sunset.jpg'
   - headline: 'Remparts'
-    image: 'eff77c4e-504d-462a-9e2a-c6b65877ce74'
+    image: '/images/skala-de-la-kasbah-les-remparts.jpg'
   - headline: 'Galerie la Kasbah'
-    image: '0f50e82c-4735-43a1-9bb3-5b8a6a6e0c01'
+    image: '/images/medina-dessaouira-galerie-la-kasbah.jpg'
   - headline: 'Boutiques'
-    image: '8b9acd0e-1f20-43ce-a4db-912808c32493'
+    image: '/images/skala-de-la-kasbah-les-boutiques.jpg'
   - headline: 'Skala bateaux'
-    image: 'c5dae3d8-2d5d-6d3c-bd3c-3c4d5e6f7a8b'
+    image: '/images/skala-du-port-bateaux.jpg'
   - headline: 'Bab Sbah'
-    image: 'b4c9e2c7-1c4c-5c2b-ac2b-2b3c4d5e6f7a'
+    image: '/images/essaouira-porte-de-bab-sbah.jpg'
   - headline: 'Porte bleue'
-    image: '309c8cd5-f8e2-4a0b-9c2d-9486c9e2d312'
+    image: '/images/essaouira-ruelle-porte-bleue-artisanat.jpg'
   - headline: 'Essaouira plage'
-    image: 'd5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312'
+    image: '/images/essaouira-plage.jpg'
 ---
 ::
 
@@ -145,7 +145,7 @@ text: |
   Investir ici, c’est choisir un lieu de vie authentique tout en profitant d’une rentabilité réelle et durable.
 
   MLK My Little Kasbah accompagne chaque investisseur dans la concrétisation de son projet, avec passion et expertise.
-image: 'd2d6cde7-82b1-4923-9d35-33ce9426628b'
+image: '/images/essaouira-porte-de-bab-sbah.jpg'
 links:
   - contact
   - investing
@@ -160,7 +160,7 @@ url: 'things-to-do'
 hasPart:
   - additionalType: 'Découverte'
     headline: 'Médina & culture'
-    image: '309c8cd5-f8e2-4a0b-9c2d-9486c9e2d312'
+    image: '/images/essaouira-ruelle-porte-bleue-artisanat.jpg'
     text: |
       Classée au patrimoine mondial de l’UNESCO, la médina d’Essaouira invite à flâner entre artisanat, galeries, épices et savoir-faire ancestral.
 
@@ -168,7 +168,7 @@ hasPart:
 
   - additionalType: 'Nature'
     headline: 'Plages & balades'
-    image: 'd5e8f4a1-f8e2-4a0b-9c2d-9486c9e2d312'
+    image: '/images/essaouira-plage.jpg'
     text: |
       De longues plages sauvages bordent Essaouira, idéales pour marcher, se détendre ou simplement profiter de l’air marin.
 
@@ -176,7 +176,7 @@ hasPart:
 
   - additionalType: 'Art de vivre'
     headline: 'Restaurants & art de vivre'
-    image: 'd678ed13-9110-47e0-9c89-40db91a77d80'
+    image: '/images/riad-medina-avec-terrasse-ensoleillee.jpeg'
     text: |
       Restaurants en bord de mer, terrasses ensoleillées, marchés locaux et adresses confidentielles rythment le quotidien.
 
@@ -184,7 +184,7 @@ hasPart:
 
   - additionalType: 'Activités'
     headline: 'Golf en bord d’océan'
-    image: 'e0724ee4-5354-4e65-a593-6b387dc2e3d0'
+    image: '/images/essaouira-golf.jpg'
     text: |
       À quelques minutes d’Essaouira, un golf signé Gary Player s’étend face à l’océan, entre dunes naturelles et brise marine.
 
@@ -192,7 +192,7 @@ hasPart:
 
   - additionalType: 'Activités'
     headline: 'Sports de glisse'
-    image: '39680ca2-e6bb-4e70-b2ee-04c22e600636'
+    image: '/images/essaouira-cours-de-kite-au-sunset.jpg'
     text: |
       Essaouira est un spot incontournable pour les amateurs de glisse. Kite-surf, windsurf, surf ou paddle : ici, le vent et les vagues accompagnent votre quotidien toute l’année.
 
@@ -200,7 +200,7 @@ hasPart:
 
   - additionalType: 'Activités'
     headline: 'Balade en quad'
-    image: '37b1d2a7-6eed-4cf6-ac7e-21ed47c957b3'
+    image: '/images/maroc-quad-sur-dunes-en-bord-de-plage.jpg'
     text: |
       Explorez les plages sauvages, dunes et sentiers forestiers en quad, pour une expérience entre liberté, nature et sensations.
 
@@ -208,7 +208,7 @@ hasPart:
 
   - additionalType: 'Bien-être'
     headline: 'Hammam & spa'
-    image: '309c794f-abfd-4269-ab0f-bb0c413ea3a1'
+    image: '/images/essaouira-spa.jpg'
     text: |
       Offrez-vous une parenthèse de bien-être avec un hammam traditionnel, entre vapeur, gommage et soins naturels à base d’argan.
 
@@ -216,7 +216,7 @@ hasPart:
 
   - additionalType: 'Découverte'
     headline: 'Nature & environs'
-    image: '6a5f1b5d-2f0a-4e33-9d64-8f6bb0d7f4ce'
+    image: '/images/ambiance-campagne-arganiers.jpeg'
     text: |
       Aux alentours d’Essaouira, explorez forêts d’arganiers, villages authentiques et paysages côtiers préservés.
 
@@ -224,7 +224,7 @@ hasPart:
 
   - additionalType: 'Découverte'
     headline: 'Événements'
-    image: '8fa7643a-d2e7-4af9-b93d-f09b973aecbf'
+    image: '/images/plage-dessaouira-rallye-des-gazelles.jpg'
     text: |
       Essaouira vit toute l’année au rythme d’événements emblématiques, entre festivals, compétitions sportives et rendez-vous culturels.
 
@@ -247,6 +247,6 @@ hasPart:
 ::screen-panel
 ---
 identifier: 'screen-footer'
-image: '97c1195a-8de4-4896-b8e6-973109e7449a'
+image: '/images/mlk-logo.jpg'
 ---
 ::

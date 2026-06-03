@@ -7,7 +7,7 @@ metaDescription: 'MLK – My Little Kasbah accompagne vos projets immobiliers à
 headline: 'MLK – My Little Kasbah'
 alternativeHeadline: 'MLK – My Little Kasbah'
 associatedMedia:
-  - 'a22572bd-f8ad-4408-9d79-54af0bfbea08'
+  - '/images/skala-de-la-kasbah-les-remparts-vertical.jpg'
 highlight: 'Une expertise locale, une vision internationale et un accompagnement de confiance'
 articleSection: ''
 keywords: []

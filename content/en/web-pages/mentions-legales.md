@@ -7,7 +7,7 @@ metaDescription: 'Mentions légales du site MLK My Little Kasbah – information
 headline: 'Mentions légales'
 alternativeHeadline: 'Informations légales et conditions d’utilisation du site'
 associatedMedia:
-  - '982a1350-a60d-4866-be9e-08235612e881'
+  - '/images/riad-boutique-renove.jpeg'
 highlight: 'Transparence et conformité au service des utilisateurs'
 articleSection: ''
 keywords: []

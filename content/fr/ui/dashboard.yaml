@@ -19,6 +19,7 @@ editor:
         meta: Meta
       blocks:
         body: Description
+        place: Lieu
         frontmatter: Caractéristiques
         associatedMedia: Médias associés
     media:

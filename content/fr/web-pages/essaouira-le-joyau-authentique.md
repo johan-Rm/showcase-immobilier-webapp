@@ -7,7 +7,7 @@ metaDescription: "Découvrez Essaouira, perle de la côte atlantique marocaine :
 headline: 'Essaouira, le joyau authentique'
 alternativeHeadline: 'Une perle intemporelle entre océan, culture et douceur de vivre'
 associatedMedia:
-  - 'd50b499d-0525-4ef8-b1fe-34945794e768'
+  - '/images/artisanat-maroc-tissus-traditionnels.jpg'
 highlight: 'Un art de vivre préservé, entre tradition marocaine et horizons atlantiques'
 articleSection: ''
 keywords: []

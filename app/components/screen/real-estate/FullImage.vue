@@ -162,6 +162,8 @@ const menuItemsWithAvailability = computed<MenuItemWithAvailability[]>(() =>
 
 const backgroundImage = computed<MediaObject | null>(() => {
   const image = props.data?.image as MediaObject | string | MediaObject[] | undefined
+  if (typeof image === 'string' && image.trim().length > 0)
+    return { identifier: image, url: image, caption: '', mainEntity: 'ImageObject' }
   return image && typeof image === 'object' && !Array.isArray(image) ? image : null
 })
 
@@ -177,7 +179,8 @@ const portraitBackgroundImage = computed<MediaObject | null>(() => {
     (part) => (part.additionalType as string | undefined) === MOBILE_PORTRAIT_BACKGROUND_TYPE,
   )
   const image = portraitPart?.image as MediaObject | string | MediaObject[] | undefined
-
+  if (typeof image === 'string' && image.trim().length > 0)
+    return { identifier: image, url: image, caption: '', mainEntity: 'ImageObject' }
   return image && typeof image === 'object' && !Array.isArray(image) ? image : null
 })
 

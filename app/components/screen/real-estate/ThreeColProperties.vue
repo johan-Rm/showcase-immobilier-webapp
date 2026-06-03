@@ -98,7 +98,7 @@ const panels = computed<TryptiquePanel[]>(() =>
       if (!imageIdentifier) return null
 
       const image = imageObjectByIdentifier.value.get(imageIdentifier)
-      const imageUrl = image?.url?.trim() ?? ''
+      const imageUrl = image?.url?.trim() || imageIdentifier
       if (!imageUrl) return null
 
       const title = menuItem.name ?? ''

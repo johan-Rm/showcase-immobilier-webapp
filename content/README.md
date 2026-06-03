@@ -56,11 +56,10 @@ identifier =
 
 ### 3.2. Slugs des accommodations
 
-- Le champ `slug` des fiches `content/{lang}/accommodations/*.md` est dérivé mécaniquement de `name`, `place` et `identifier`.
-- Si `name` est renseigné : `slug = slugify(name + " " + place + " " + identifier)`.
-- Si `name` est absent : `slug = slugify(category + " " + place + " " + identifier)`.
-- `identifier` reste obligatoire en suffixe afin de garantir l unicité.
-- La règle est volontairement mécanique : elle ne cherche pas à supprimer les répétitions éventuelles entre `name` et `place`.
+- Le champ `slug` des fiches `content/{lang}/accommodations/*.md` est dérivé mécaniquement de `identifier`, `name` et `place`.
+- Si `name` est renseigné : `slug = slugify(identifier + " " + name + " " + place)`.
+- Si `name` est absent : `slug = slugify(identifier + " " + category + " " + place)`.
+- `identifier` est placé en préfixe pour garantir l'unicité et former une référence canonique lisible.
 
 Règles de `slugify` :
 
@@ -74,17 +73,17 @@ Règles de `slugify` :
 
 Exemples :
 
-- `Appartement avec balcon au centre-ville` + `centre-ville` + `LLDA001` -> `appartement-avec-balcon-au-centre-ville-centre-ville-llda001`
-- `Villa golf résidentielle à Mogador` + `golf-mogador` + `LLDVG001` -> `villa-golf-residentielle-a-mogador-golf-mogador-lldvg001`
-- sans `name` : `villa-golf` + `golf-mogador` + `LSVG001` -> `villa-golf-golf-mogador-lsvg001`
+- `LLDA001` + `Appartement avec balcon au centre-ville` + `centre-ville` -> `llda001-appartement-avec-balcon-au-centre-ville-centre-ville`
+- `LLDVG001` + `Villa golf résidentielle à Mogador` + `golf-mogador` -> `lldvg001-villa-golf-residentielle-a-mogador-golf-mogador`
+- sans `name` : `LSVG001` + `villa-golf` + `golf-mogador` -> `lsvg001-villa-golf-golf-mogador`
 
 Pseudo-formule :
 
 ```text
 if name:
-  slug = slugify(name + " " + place + " " + identifier)
+  slug = slugify(identifier + " " + name + " " + place)
 else:
-  slug = slugify(category + " " + place + " " + identifier)
+  slug = slugify(identifier + " " + category + " " + place)
 ```
 
 ## 4. Performance

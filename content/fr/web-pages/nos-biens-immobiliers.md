@@ -5,7 +5,7 @@ inLanguage: 'fr'
 metaTitle: 'Biens immobiliers à Essaouira – MLK My Little Kasbah'
 metaDescription: 'Découvrez les biens immobiliers proposés par MLK My Little Kasbah à Essaouira : biens à vendre, locations saisonnières, locations longue durée et opportunités professionnelles.'
 associatedMedia:
-  - '97c1195a-8de4-4896-b8e6-973109e7449a'
+  - '/images/mlk-logo.jpg'
 headline: 'Nos biens immobiliers'
 alternativeHeadline: 'Acheter, louer ou investir à Essaouira'
 highlight: 'Une sélection de biens immobiliers à Essaouira et dans sa région'

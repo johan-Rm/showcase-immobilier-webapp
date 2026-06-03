@@ -7,7 +7,7 @@ metaDescription: "Confiez la gestion locative saisonnière de votre bien à Essa
 headline: 'Gestion locative saisonnière'
 alternativeHeadline: 'Valorisez votre bien à Essaouira en toute sérénité'
 associatedMedia:
-  - '1f085909-0a44-4726-a201-5cf186c61dee'
+  - '/images/skala-du-port-dessaouira-mouette-au-coucher-de-soleil.jpg'
 highlight: 'Une gestion locale, humaine et transparente pour propriétaires exigeants'
 articleSection: ''
 keywords: []

@@ -7,7 +7,7 @@ metaDescription: "Consultez les honoraires de l’agence immobilière MLK My Lit
 headline: 'Honoraires'
 alternativeHeadline: 'Des honoraires transparents et équilibrés'
 associatedMedia:
-  - '982a1350-a60d-4866-be9e-08235612e881'
+  - '/images/riad-boutique-renove.jpeg'
 highlight: 'Des honoraires clairs et équilibrés entre vendeur et acquéreur'
 articleSection: ''
 keywords: []

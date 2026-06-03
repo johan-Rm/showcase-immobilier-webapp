@@ -7,7 +7,7 @@ metaDescription: 'Pourquoi investir à Essaouira ? Prix de l’immobilier, renta
 headline: 'Investir à Essaouira'
 alternativeHeadline: 'Le charme et la rentabilité d’un investissement durable'
 associatedMedia:
-  - '1d096029-86c8-4a30-b9cd-fbf906afcbf0'
+  - '/images/medina-dessaouira-remparts-vertical.jpg'
 highlight: 'Un marché immobilier accessible, stable et à fort potentiel locatif'
 articleSection: ''
 keywords: []

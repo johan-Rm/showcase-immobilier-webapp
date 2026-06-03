@@ -69,7 +69,7 @@ navigation:
     url: /honoraires
   for-sale:
     description: Sélection de riads et maisons d’exception à acquérir, ancrées entre palmeraies et médinas.
-    imageIdentifier: 1f085909-0a44-4726-a201-5cf186c61dee
+    imageIdentifier: /images/skala-du-port-dessaouira-mouette-au-coucher-de-soleil.jpg
     name: Biens à la Vente
     url: /properties/bien-a-vendre
   golf-villa:
@@ -99,7 +99,7 @@ navigation:
     url: /mentions-legales
   long-term-rental:
     description: Offre dédiée aux hôteliers, marques et événements à la recherche d’écrins sensoriels.
-    imageIdentifier: 1d096029-86c8-4a30-b9cd-fbf906afcbf0
+    imageIdentifier: /images/medina-dessaouira-remparts-vertical.jpg
     name: Locations longue durée
     url: /properties/location-longue-duree
   rental-management:
@@ -110,7 +110,7 @@ navigation:
     url: /biens/riad
   seasonal-rental:
     description: Villas, patios et kasbahs disponibles en séjour, pensées pour des expériences lumineuses.
-    imageIdentifier: a22572bd-f8ad-4408-9d79-54af0bfbea08
+    imageIdentifier: /images/skala-de-la-kasbah-les-remparts-vertical.jpg
     name: Locations saisonnière
     url: /properties/location-saisonniere
   town-house:

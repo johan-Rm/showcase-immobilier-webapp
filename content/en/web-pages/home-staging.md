@@ -7,7 +7,7 @@ metaDescription: "Optimisez la rentabilité de votre bien à Essaouira grâce au
 headline: 'Home staging à Essaouira'
 alternativeHeadline: 'Valorisez votre bien et augmentez sa rentabilité'
 associatedMedia:
-  - '982a1350-a60d-4866-be9e-08235612e881'
+  - '/images/riad-boutique-renove.jpeg'
 highlight: 'Une mise en valeur stratégique pour séduire les voyageurs et maximiser vos revenus'
 articleSection: ''
 keywords: []
