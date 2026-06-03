@@ -67,15 +67,15 @@ lit toujours depuis les Markdown en V1 ; seule la sauvegarde passe par Symfony.
 
 ### Etat actuel du circuit de sauvegarde
 
-La sauvegarde dashboard utilise la route BFF `PUT /api/dashboard/accommodations/[identifier]`
-avec `locale` en query string. Nitro garde le JWT Symfony cote serveur, mappe le payload
-dashboard, puis appelle Symfony sur les routes de traduction. La sauvegarde ne depend plus
-du listing `GET /projects/{projectId}/accommodations` avant ecriture :
+La sauvegarde dashboard utilise la route BFF `PUT /api/dashboard/accommodations/[identifier]`.
+Nitro garde le JWT Symfony cote serveur, mappe le payload dashboard, puis relaie le payload
+complet vers la route Symfony de traduction. La sauvegarde ne depend plus du listing
+`GET /projects/{projectId}/accommodations` avant ecriture :
 
-- mise a jour tentee en premier :
-  `PUT /api/projects/{projectId}/accommodations/{identifier}/translations?locale={locale}`
+- mise a jour des champs globaux et localises :
+  `PUT /api/projects/{projectId}/accommodations/{identifier}/translations`
 - creation en fallback si l update retourne 404 :
-  `POST /api/projects/{projectId}/accommodations/translations?locale={locale}`
+  `POST /api/projects/{projectId}/accommodations/translations`
 
 Le payload Symfony separe les champs globaux du bien a la racine et les champs localises
 dans `translations[]`. La locale active est ajoutee au tableau de traductions meme si le
@@ -141,8 +141,8 @@ Client (dashboard)
             ├─ requireUserSession(event)                   ← session Google obligatoire
             ├─ getSymfonyServiceToken()                    ← JWT cache memoire Nitro (TTL 800s)
             ├─ mapToApiPlatform(payload)                    ← mapper
-            ├─ tente PUT /{identifier}/translations?locale={locale}
-            ├─ si PUT retourne 404 → POST /translations?locale={locale}
+            ├─ PUT /{identifier}/translations               ← payload complet
+            ├─ si PUT retourne 404 → POST /translations
             └─ retourne { success, data, error }
 ```
 
@@ -153,10 +153,7 @@ Le cache Nitro utilise un TTL de 800s pour eviter d appeler avec un token expire
 
 ### Cache referentiels Nitro (server/utils/dashboard/symfonyCache.ts)
 
-Cache module-level avec TTL configurable (defaut 300s, invalidation manuelle possible) :
-
-- `getAccommodationUuidMap(token)` : `{ [identifier]: uuid }`
-  - alimente depuis `GET /projects/{projectId}/accommodations`
+Le flux de sauvegarde courant ne depend plus d un cache `Accommodation` avant ecriture.
 
 Les `inCodeSet` utilises dans le mapper :
 
@@ -176,7 +173,7 @@ Transformations non triviales :
 
 | Champ frontmatter             | Champ Symfony               | Transformation                           |
 | ----------------------------- | --------------------------- | ---------------------------------------- |
-| `offer.price` (number)        | `offerPrice` (string)       | `String(value)`                          |
+| `offer.price` (number)        | `offer.price` (string)      | `String(value)`                          |
 | `floorSize` (number)          | `floorSize` (string)        | `String(value)`                          |
 | `landArea` (number)           | `landArea` (string)         | `String(value)`                          |
 | `category` (code)             | `category` (IRI)            | lookup `accommodation-type`              |
