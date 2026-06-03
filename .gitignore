@@ -33,9 +33,10 @@ nginx/certs/*
 # Bun
 .bun-cache
 
-# Content
-# /content/*
-# !/content/README.md
+# Content généré par make content-sync (non versionné — pull depuis Symfony)
+content/*/accommodations/
+content/*/metadata/category-code.yaml
+content/*/metadata/media-object.yaml
 
 
 # Nuxt 4 ref
