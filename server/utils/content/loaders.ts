@@ -195,7 +195,7 @@ const loadWebPagesResource = async <T>(locale: LocaleCode): Promise<T> => {
   return pages as T
 }
 
-type AccommodationPlaceItem = { slug?: string; name: string }
+type AccommodationPlaceItem = { codeValue?: string; slug?: string; name: string }
 
 const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => {
   const contentRoot = resolveContentRoot()
@@ -216,9 +216,10 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
     allCodes
       .filter(
         (item): item is AccommodationPlaceItem & { inCodeSet: string; slug: string } =>
-          item.inCodeSet === 'accommodation-place' && typeof item.slug === 'string',
+          item.inCodeSet === 'accommodation-place' &&
+          (typeof item.slug === 'string' || typeof item.codeValue === 'string'),
       )
-      .map((item) => [item.slug, item]),
+      .map((item) => [item.slug ?? item.codeValue, { ...item, slug: item.slug ?? item.codeValue }]),
   )
 
   const files = dirFiles
@@ -243,6 +244,7 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
         ...frontmatter,
         place,
         body,
+        _fileName: fileName,
       }
     }),
   )

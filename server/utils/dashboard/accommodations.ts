@@ -183,6 +183,7 @@ export const loadDashboardAccommodations = async (
       const rawRecord = { ...raw }
       const body = getString(rawRecord.body)
       delete rawRecord.body
+      delete rawRecord._fileName
 
       const offer = getOfferRecord(item.offer)
       const place = getSlugLabel(item.place)
@@ -191,10 +192,11 @@ export const loadDashboardAccommodations = async (
       const media = normalizeAssociatedMedia(item)
       const slug = getString(item.slug, getString(raw.slug))
       const identifier = getString(item.identifier, slug)
+      const sourceFileName = getString(raw._fileName)
 
       return {
         locale,
-        fileName: `${basename(slug || identifier || `accommodation-${index + 1}`)}.md`,
+        fileName: sourceFileName || `${basename(slug || identifier || `accommodation-${index + 1}`)}.md`,
         slug,
         identifier,
         frontmatter: toEditableRecord(rawRecord),

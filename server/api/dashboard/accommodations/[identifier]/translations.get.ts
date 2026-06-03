@@ -1,15 +1,7 @@
-import type {
-  DashboardAccommodationTranslationPayload,
-  DashboardAccommodationTranslationsResponse,
-  DashboardLocalizedAccommodationField,
-} from '#shared/types/dashboardAccommodation'
+import type { DashboardAccommodationTranslationsResponse } from '#shared/types/dashboardAccommodation'
 
 import { getSymfonyServiceToken } from '../../../../utils/dashboard/symfonyAuth'
-
-import { isLocaleCode } from '#shared/i18n/config'
-import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
-
-type UnknownRecord = Record<string, unknown>
+import { extractTranslations } from '../../../../utils/dashboard/translationNormalizer'
 
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
@@ -17,44 +9,6 @@ function getApiBase(): { apiUrl: string; projectId: string } {
   if (!projectId)
     throw createError({ statusCode: 500, statusMessage: 'SYMFONY_PROJECT_ID manquant' })
   return { apiUrl, projectId }
-}
-
-const isRecord = (value: unknown): value is UnknownRecord =>
-  typeof value === 'object' && value !== null && !Array.isArray(value)
-
-const getTranslationRecords = (response: unknown): UnknownRecord[] => {
-  if (Array.isArray(response)) return response.filter(isRecord)
-  if (!isRecord(response)) return []
-
-  const translations = response.translations
-  if (Array.isArray(translations)) return translations.filter(isRecord)
-
-  const hydraMembers = response['hydra:member']
-  if (Array.isArray(hydraMembers)) return hydraMembers.filter(isRecord)
-
-  const members = response.member
-  if (Array.isArray(members)) return members.filter(isRecord)
-
-  return []
-}
-
-const normalizeTranslation = (
-  item: UnknownRecord,
-): DashboardAccommodationTranslationPayload | null => {
-  const locale = item.locale
-  if (typeof locale !== 'string' || !isLocaleCode(locale)) return null
-
-  const translation: DashboardAccommodationTranslationPayload = { locale }
-
-  DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach(
-    (field: DashboardLocalizedAccommodationField) => {
-      if (!Object.hasOwn(item, field)) return
-      const value = item[field]
-      translation[field] = typeof value === 'string' ? value : null
-    },
-  )
-
-  return translation
 }
 
 export default defineEventHandler(
@@ -80,12 +34,6 @@ export default defineEventHandler(
       },
     )
 
-    return {
-      translations: getTranslationRecords(response)
-        .map(normalizeTranslation)
-        .filter((translation): translation is DashboardAccommodationTranslationPayload =>
-          Boolean(translation),
-        ),
-    }
+    return { translations: extractTranslations(response) }
   },
 )

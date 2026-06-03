@@ -1,7 +1,17 @@
-import type { DashboardAccommodationSavePayload } from '#shared/types/dashboardAccommodation'
+import type {
+  DashboardAccommodation,
+  DashboardAccommodationSavePayload,
+  DashboardAccommodationTranslationPayload,
+} from '#shared/types/dashboardAccommodation'
 
 import { mapToApiPlatform } from '../../../utils/dashboard/accommodationMapper'
-import { exportToMarkdown } from '../../../utils/dashboard/markdownExporter'
+import { loadDashboardAccommodations } from '../../../utils/dashboard/accommodations'
+import {
+  deleteOrphanFile,
+  exportToMarkdown,
+  propagateGlobalFields,
+} from '../../../utils/dashboard/markdownExporter'
+import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
 
@@ -16,6 +26,7 @@ type SymfonyAccommodationResponse = {
   '@id'?: string
   id?: string
   identifier?: string
+  [key: string]: unknown
 }
 
 type SymfonyFetchError = {
@@ -45,6 +56,55 @@ const resolveSymfonyIdentifier = (
 ): string =>
   response.id ?? response.identifier ?? response['@id']?.split('/').at(-1) ?? fallbackIdentifier
 
+const getString = (value: unknown): string | null =>
+  typeof value === 'string' ? value : null
+
+const applyString = (
+  fm: Record<string, unknown>,
+  key: string,
+  value: unknown,
+): void => {
+  const str = getString(value)
+  if (str) fm[key] = str
+}
+
+const mergeFromSymfonyResponse = (
+  accommodation: DashboardAccommodationSavePayload,
+  symfony: SymfonyAccommodationResponse,
+): DashboardAccommodationSavePayload => {
+  const fm: Record<string, unknown> = { ...accommodation.frontmatter }
+
+  applyString(fm, 'identifier', symfony.identifier)
+  applyString(fm, 'slug', symfony.slug)
+  applyString(fm, 'name', symfony.name)
+  applyString(fm, 'label', symfony.label)
+  applyString(fm, 'category', symfony.category)
+  applyString(fm, 'realEstateListing', symfony.realEstateListing)
+  applyString(fm, 'place', symfony.place)
+  applyString(fm, 'floorSize', symfony.floorSize)
+  applyString(fm, 'dateCreated', symfony.createdAt)
+  applyString(fm, 'dateModified', symfony.updatedAt)
+
+  if (typeof symfony.numberOfBedrooms === 'number') fm.numberOfBedrooms = symfony.numberOfBedrooms
+  if (Array.isArray(symfony.amenityFeature)) fm.amenityFeature = symfony.amenityFeature
+  if (Array.isArray(symfony.tags)) fm.tags = symfony.tags
+  if (typeof symfony.status === 'string') fm.isActive = symfony.status === 'published'
+  if (symfony.offer && typeof symfony.offer === 'object' && !Array.isArray(symfony.offer)) {
+    fm.offer = symfony.offer
+  }
+
+  const body = getString(symfony.body) ?? accommodation.body
+
+  return { ...accommodation, frontmatter: fm as DashboardAccommodationSavePayload['frontmatter'], body }
+}
+
+const isSaveDebugEnabled = (): boolean => process.env.DASHBOARD_SAVE_DEBUG === '1'
+
+const debugSave = (label: string, data: unknown): void => {
+  if (!isSaveDebugEnabled()) return
+  console.warn(`[dashboard-save] ${label}`, JSON.stringify(data, null, 2))
+}
+
 export default defineEventHandler(
   async (
     event,
@@ -53,6 +113,8 @@ export default defineEventHandler(
     uuid: string
     markdownUpdated: boolean
     data: SymfonyAccommodationResponse
+    freshAccommodation: DashboardAccommodation | null
+    freshTranslations: DashboardAccommodationTranslationPayload[]
   }> => {
     await requireUserSession(event)
 
@@ -67,16 +129,16 @@ export default defineEventHandler(
     }
 
     const { apiUrl, projectId } = getApiBase()
-    const query = getQuery(event)
-    const locale = typeof query.locale === 'string' && query.locale.length > 0 ? query.locale : 'fr'
     const token = await getSymfonyServiceToken()
 
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
-      payload = await mapToApiPlatform(accommodation)
+      payload = await mapToApiPlatform(accommodation, { apiUrl, projectId })
     } catch (error) {
       throw createError({ statusCode: 400, statusMessage: (error as Error).message })
     }
+
+    debugSave('payload', payload)
 
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -90,18 +152,23 @@ export default defineEventHandler(
     const callSymfony = async (
       url: string,
       method: 'PUT' | 'POST',
-    ): Promise<SymfonyAccommodationResponse> =>
-      await $fetch<SymfonyAccommodationResponse>(url, {
+      label: string,
+    ): Promise<SymfonyAccommodationResponse> => {
+      debugSave('request', { label, method, url, body: payload })
+      const response = await $fetch<SymfonyAccommodationResponse>(url, {
         method,
         headers,
-        query: { locale },
         body: payload,
       })
+      debugSave('response', { label, response })
+      return response
+    }
 
     try {
       const updated = await callSymfony(
         `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}/translations`,
         'PUT',
+        'translations',
       )
       savedData = updated
       uuid = resolveSymfonyIdentifier(updated, identifier)
@@ -117,6 +184,7 @@ export default defineEventHandler(
         const created = await callSymfony(
           `${apiUrl}/api/projects/${projectId}/accommodations/translations`,
           'POST',
+          'create',
         )
         savedData = created
         uuid = resolveSymfonyIdentifier(created, identifier)
@@ -129,14 +197,40 @@ export default defineEventHandler(
       }
     }
 
+    const merged = mergeFromSymfonyResponse(accommodation, savedData)
+
     let markdownUpdated = false
+    let newFilePath: string | null = null
     try {
-      const result = await exportToMarkdown(accommodation)
+      const result = await exportToMarkdown(merged)
       markdownUpdated = result.updated
+      if (result.updated) newFilePath = result.filePath
     } catch (err) {
       console.error('[markdown-export] Échec write fichier :', err)
     }
 
-    return { success: true, uuid, markdownUpdated, data: savedData }
+    if (markdownUpdated && newFilePath && accommodation.fileName) {
+      await deleteOrphanFile(accommodation.fileName, newFilePath, merged.locale)
+      await propagateGlobalFields(
+        merged.frontmatter,
+        identifier,
+        merged.locale,
+        ['fr', 'en', 'es'],
+      )
+    }
+
+    let freshAccommodation: DashboardAccommodation | null = null
+    if (markdownUpdated) {
+      try {
+        const fresh = await loadDashboardAccommodations(accommodation.locale, { force: true })
+        freshAccommodation = fresh.items.find((item) => item.identifier === identifier) ?? null
+      } catch {
+        // Non-bloquant : le client peut se rafraîchir manuellement
+      }
+    }
+
+    const freshTranslations = extractTranslations(savedData)
+
+    return { success: true, uuid, markdownUpdated, data: savedData, freshAccommodation, freshTranslations }
   },
 )

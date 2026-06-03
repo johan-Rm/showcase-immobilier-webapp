@@ -2,6 +2,7 @@ import type {
   DashboardAccommodation,
   DashboardAccommodationResolvedIris,
   DashboardAccommodationSavePayload,
+  DashboardAccommodationTranslationPayload,
 } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 
@@ -16,6 +17,8 @@ type DashboardSaveResponse = {
   uuid: string
   markdownUpdated: boolean
   data: unknown
+  freshAccommodation: DashboardAccommodation | null
+  freshTranslations: DashboardAccommodationTranslationPayload[]
 }
 
 export const useDashboardSave = () => {
@@ -26,6 +29,8 @@ export const useDashboardSave = () => {
   const errorMessage = ref<string | null>(null)
   const markdownUpdated = ref<boolean | null>(null)
   const lastSavedData = ref<unknown | null>(null)
+  const freshAccommodation = ref<DashboardAccommodation | null>(null)
+  const freshTranslations = ref<DashboardAccommodationTranslationPayload[]>([])
 
   function resolveIris(frontmatter: Record<string, unknown>): DashboardAccommodationResolvedIris {
     const getIri = metadataStore.getIri
@@ -77,6 +82,8 @@ export const useDashboardSave = () => {
 
       markdownUpdated.value = result.markdownUpdated
       lastSavedData.value = result.data
+      freshAccommodation.value = result.freshAccommodation ?? null
+      freshTranslations.value = result.freshTranslations ?? []
 
       status.value = 'success'
 
@@ -87,6 +94,8 @@ export const useDashboardSave = () => {
       return true
     } catch (err: unknown) {
       status.value = 'error'
+      freshAccommodation.value = null
+      freshTranslations.value = []
       const message = err instanceof Error ? err.message : 'Erreur lors de la sauvegarde'
       errorMessage.value = message
       return false
@@ -109,7 +118,9 @@ export const useDashboardSave = () => {
     errorMessage.value = null
     markdownUpdated.value = null
     lastSavedData.value = null
+    freshAccommodation.value = null
+    freshTranslations.value = []
   }
 
-  return { status, errorMessage, markdownUpdated, lastSavedData, save, saveMultilingual, reset }
+  return { status, errorMessage, markdownUpdated, lastSavedData, freshAccommodation, freshTranslations, save, saveMultilingual, reset }
 }

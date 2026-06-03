@@ -77,9 +77,8 @@ const logout = async (): Promise<void> => {
   await navigateTo('/dashboard/login')
 }
 
-const handleAccommodationSaved = (): void => {
-  // La réponse PUT est la source de vérité côté sauvegarde.
-  // Aucun refresh collection n'est déclenché ici pour éviter un GET post-save.
+const handleAccommodationSaved = async (): Promise<void> => {
+  await refreshAccommodations()
 }
 
 // 10. Watch et watchEffect

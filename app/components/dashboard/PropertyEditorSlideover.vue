@@ -18,6 +18,11 @@
           :title-value="titleDraftValue"
           :associated-media-value="associatedMediaValue"
           :property-menu-items="propertyMenuItems"
+          :place-name="placeName"
+          :place-text="placeText"
+          :place-text-status="placeTextStatus"
+          :place-text-error-message="placeTextErrorMessage"
+          :is-place-text-dirty="isPlaceTextDirty"
           show-close
           @update:active-section="activeSection = $event"
           @update:active-locale="activeLocale = $event"
@@ -26,6 +31,7 @@
           @update-field="updateField"
           @update-body="updateBody"
           @update-associated-media="updateAssociatedMedia"
+          @update-place-text="updatePlaceText"
         />
 
         <!-- Barre de sauvegarde -->
@@ -107,6 +113,7 @@ import type {
 } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 
+import { useDashboardPlaceText } from '~/composables/dashboard/useDashboardPlaceText'
 import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
 import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
 
@@ -141,14 +148,27 @@ const dirtyLocalizedFields = ref<
 const expandedBlocks = ref<Set<string>>(new Set(['body']))
 const isMobile = ref(false)
 const localeLoadToken = ref(0)
+const skipNextLocaleLoad = ref(false)
 
 const {
   status: saveStatus,
   errorMessage: saveErrorMessage,
   markdownUpdated: saveMarkdownUpdated,
+  freshAccommodation: savedFreshAccommodation,
+  freshTranslations: savedFreshTranslations,
   saveMultilingual,
   reset: resetSave,
 } = useDashboardSave()
+const {
+  placeName,
+  placeText,
+  status: placeTextStatus,
+  errorMessage: placeTextErrorMessage,
+  isDirty: isPlaceTextDirty,
+  loadPlaceText,
+  updatePlaceText,
+  savePlaceText,
+} = useDashboardPlaceText()
 const { available: symfonyAvailable, check: checkSymfonyStatus } = useSymfonyStatus()
 
 const slideroverUi = computed(() =>
@@ -198,8 +218,35 @@ const createDirtyState = (): Record<
 const isLocalizedField = (path: string): path is DashboardLocalizedAccommodationField =>
   localizedFieldSet.has(path)
 
+const normalizeRelationCode = (
+  value: DashboardEditableValue | undefined,
+  fallback: string,
+): DashboardEditableValue => {
+  if (typeof value === 'string' && value.trim()) return value
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const record = value as DashboardEditableRecord
+    if (typeof record.slug === 'string' && record.slug.trim()) return record.slug
+    if (typeof record.codeValue === 'string' && record.codeValue.trim()) return record.codeValue
+  }
+  return fallback || null
+}
+
+const withPreviewFallbacks = (accommodation: DashboardAccommodation): DashboardEditableRecord => {
+  const frontmatter = cloneEditableRecord(accommodation.frontmatter)
+  frontmatter.realEstateListing = normalizeRelationCode(
+    frontmatter.realEstateListing,
+    accommodation.preview.listingSlug,
+  )
+  frontmatter.category = normalizeRelationCode(
+    frontmatter.category,
+    accommodation.preview.categorySlug,
+  )
+  frontmatter.place = normalizeRelationCode(frontmatter.place, accommodation.preview.placeSlug)
+  return frontmatter
+}
+
 const createDraftFromAccommodation = (accommodation: DashboardAccommodation): DashboardDraft => ({
-  frontmatter: cloneEditableRecord(accommodation.frontmatter),
+  frontmatter: withPreviewFallbacks(accommodation),
   body: accommodation.body ?? '',
 })
 
@@ -207,7 +254,7 @@ const createDraftFromTranslation = (
   accommodation: DashboardAccommodation,
   translation: DashboardAccommodationTranslationPayload,
 ): DashboardDraft => {
-  let frontmatter = cloneEditableRecord(accommodation.frontmatter)
+  let frontmatter = withPreviewFallbacks(accommodation)
   DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
     if (field === 'body' || !Object.hasOwn(translation, field)) return
     frontmatter = setNestedValue(frontmatter, field, translation[field] ?? null)
@@ -220,7 +267,7 @@ const createDraftFromTranslation = (
 }
 
 const createFallbackDraft = (accommodation?: DashboardAccommodation | null): DashboardDraft => {
-  const frontmatter = accommodation ? cloneEditableRecord(accommodation.frontmatter) : {}
+  const frontmatter = accommodation ? withPreviewFallbacks(accommodation) : {}
   DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
     frontmatter[field] = ''
   })
@@ -287,6 +334,11 @@ const isActiveValue = computed<boolean>(() =>
   Boolean(getNestedValue(activeDraft.value?.frontmatter ?? {}, 'isActive')),
 )
 
+const activePlaceCode = computed<string | null>(() => {
+  const value = getNestedValue(activeDraft.value?.frontmatter ?? {}, 'place')
+  return typeof value === 'string' && value.trim() ? value : null
+})
+
 const titleDraftValue = computed<string>(() => {
   if (!activeDraft.value) return props.accommodation?.preview.title ?? 'Bien immobilier'
   const name = getNestedValue(activeDraft.value.frontmatter, 'name')
@@ -352,7 +404,16 @@ const updateBody = (value: string): void => {
 
 const updateAssociatedMedia = (value: DashboardEditableValue): void => {
   if (!drafts.value) return
-  drafts.value[activeLocale.value].frontmatter.associatedMedia = cloneEditableValue(value)
+  const cloned = cloneEditableValue(value)
+  localeTabs.forEach((locale) => {
+    if (drafts.value![locale]) {
+      drafts.value![locale].frontmatter.associatedMedia = cloned
+    }
+  })
+}
+
+const saveActivePlaceText = async (): Promise<boolean> => {
+  return savePlaceText(activePlaceCode.value, activeLocale.value)
 }
 
 const toTranslationValue = (
@@ -437,6 +498,9 @@ const loadLocaleDrafts = async (accommodation?: DashboardAccommodation | null): 
 const handleSave = async (): Promise<void> => {
   if (!props.accommodation || !activeDraft.value) return
 
+  const placeSaved = await saveActivePlaceText()
+  if (!placeSaved) return
+
   const translations = ensureTranslations(buildTranslations())
   const payload: DashboardAccommodationSavePayload = {
     ...props.accommodation,
@@ -449,6 +513,16 @@ const handleSave = async (): Promise<void> => {
   const ok = await saveMultilingual(payload, resolveSaveLocale(translations))
   if (ok) {
     dirtyLocalizedFields.value = createDirtyState()
+    const fresh = savedFreshAccommodation.value
+    if (fresh) {
+      drafts.value = createDrafts(fresh)
+      savedFreshTranslations.value.forEach((translation) => {
+        const locale = translation.locale
+        if (!isDashboardLocale(locale)) return
+        drafts.value![locale] = createDraftFromTranslation(fresh, translation)
+      })
+      skipNextLocaleLoad.value = true
+    }
     emit('saved')
   }
 }
@@ -464,6 +538,10 @@ watch(
       : 'fr'
     expandedBlocks.value = new Set(['body'])
     resetSave()
+    if (skipNextLocaleLoad.value) {
+      skipNextLocaleLoad.value = false
+      return
+    }
     if (isOpen.value) {
       await loadLocaleDrafts(props.accommodation)
     }
@@ -479,4 +557,12 @@ watch(isOpen, async (open) => {
     await loadLocaleDrafts(props.accommodation)
   }
 })
+
+watch(
+  [activePlaceCode, activeLocale],
+  async ([placeCode, locale]) => {
+    await loadPlaceText(placeCode, locale)
+  },
+  { immediate: true },
+)
 </script>
