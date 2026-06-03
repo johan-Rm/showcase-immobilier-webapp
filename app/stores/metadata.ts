@@ -26,6 +26,36 @@ type MetadataState = {
   irisMap: Record<string, Record<string, string>>
 }
 
+type DashboardCategoryCodeItem = {
+  code: string
+  inCodeSet: string
+  label?: string
+}
+
+const CATEGORY_CODE_SETS = new Set(['accommodation-category', 'accommodation-type'])
+
+const upsertCategoryCode = <TItem extends { codeValue?: string; inCodeSet?: string }>(
+  items: TItem[],
+  item: TItem,
+): TItem[] => {
+  const index = items.findIndex(
+    (current) => current.codeValue === item.codeValue && current.inCodeSet === item.inCodeSet,
+  )
+  if (index < 0) return [...items, item]
+
+  return items.map((current, currentIndex) => (currentIndex === index ? item : current))
+}
+
+const upsertSlugOption = <TItem extends { slug?: string }>(
+  items: TItem[],
+  item: TItem,
+): TItem[] => {
+  const index = items.findIndex((current) => current.slug === item.slug)
+  if (index < 0) return [...items, item]
+
+  return items.map((current, currentIndex) => (currentIndex === index ? item : current))
+}
+
 export const useMetadataStore = defineStore('metadata', {
   state: (): MetadataState => ({
     app: null,
@@ -164,6 +194,7 @@ export const useMetadataStore = defineStore('metadata', {
       return (inCodeSet: string) => {
         const slugged: Record<string, Array<{ name: string; slug: string }>> = {
           'accommodation-category': state.accommodationCategories,
+          'accommodation-type': state.accommodationCategories,
           'accommodation-place': state.accommodationPlaces,
           'real-estate-listing': state.realEstateListings,
         }
@@ -216,13 +247,14 @@ export const useMetadataStore = defineStore('metadata', {
       if (!Array.isArray(items)) return
       const SLUG_SETS = new Set([
         'accommodation-category',
+        'accommodation-type',
         'accommodation-place',
         'real-estate-listing',
         'amenity-feature',
         'tag',
       ])
       this.accommodationCategories = items
-        .filter((c) => c.inCodeSet === 'accommodation-category')
+        .filter((c) => CATEGORY_CODE_SETS.has(c.inCodeSet ?? ''))
         .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
       this.accommodationPlaces = items
         .filter((c) => c.inCodeSet === 'accommodation-place')
@@ -257,14 +289,83 @@ export const useMetadataStore = defineStore('metadata', {
 
     addCategoryCode(item: CategoryCode): void {
       switch (item.inCodeSet) {
+        case 'accommodation-category':
+        case 'accommodation-type':
+          this.accommodationCategories = upsertSlugOption(this.accommodationCategories, {
+            slug: item.codeValue,
+            name: item.name,
+            text: item.text,
+          })
+          break
+        case 'accommodation-place':
+          this.accommodationPlaces = upsertSlugOption(this.accommodationPlaces, {
+            slug: item.codeValue,
+            name: item.name,
+            text: item.text,
+          })
+          break
+        case 'real-estate-listing':
+          this.realEstateListings = upsertSlugOption(this.realEstateListings, {
+            slug: item.codeValue,
+            name: item.name,
+            text: item.text,
+          })
+          break
         case 'amenity-feature':
-          this.amenityFeatures = [...this.amenityFeatures, item]
+          this.amenityFeatures = upsertCategoryCode(this.amenityFeatures, item)
           break
         case 'tag':
-          this.tags = [...this.tags, item]
+          this.tags = upsertCategoryCode(this.tags, item)
           break
         default:
-          this.categoryCodes = [...this.categoryCodes, item]
+          this.categoryCodes = upsertCategoryCode(this.categoryCodes, item)
+      }
+    },
+
+    upsertDashboardCategoryCodes(items: DashboardCategoryCodeItem[]): void {
+      for (const item of items) {
+        const name = item.label ?? item.code
+        switch (item.inCodeSet) {
+          case 'accommodation-category':
+          case 'accommodation-type':
+            this.accommodationCategories = upsertSlugOption(this.accommodationCategories, {
+              slug: item.code,
+              name,
+            })
+            break
+          case 'accommodation-place':
+            this.accommodationPlaces = upsertSlugOption(this.accommodationPlaces, {
+              slug: item.code,
+              name,
+            })
+            break
+          case 'real-estate-listing':
+            this.realEstateListings = upsertSlugOption(this.realEstateListings, {
+              slug: item.code,
+              name,
+            })
+            break
+          case 'amenity-feature':
+            this.amenityFeatures = upsertCategoryCode(this.amenityFeatures, {
+              codeValue: item.code,
+              name,
+              inCodeSet: item.inCodeSet,
+            })
+            break
+          case 'tag':
+            this.tags = upsertCategoryCode(this.tags, {
+              codeValue: item.code,
+              name,
+              inCodeSet: item.inCodeSet,
+            })
+            break
+          default:
+            this.categoryCodes = upsertCategoryCode(this.categoryCodes, {
+              codeValue: item.code,
+              name,
+              inCodeSet: item.inCodeSet,
+            })
+        }
       }
     },
 
@@ -285,6 +386,12 @@ export const useMetadataStore = defineStore('metadata', {
           [item.code]: item.iri,
         },
       }
+    },
+
+    updateAccommodationPlaceText(code: string, text: string): void {
+      this.accommodationPlaces = this.accommodationPlaces.map((item) =>
+        item.slug === code ? { ...item, text } : item,
+      )
     },
 
     reset(): void {

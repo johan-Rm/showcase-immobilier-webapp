@@ -68,6 +68,7 @@
                 :model-value="getFieldValue(field.key, field.default)"
                 :readonly="field.readonly"
                 :half="field.half"
+                :zero-as-empty="field.zeroAsEmpty"
                 @update:model-value="emit('update-field', field.key, $event)"
               />
             </template>
@@ -79,6 +80,17 @@
         <DashboardTiptapEditor
           :model-value="activeDraft.body"
           @update:model-value="emit('update-body', String($event))"
+        />
+      </template>
+
+      <template v-else-if="block.id === 'place'">
+        <DashboardPropertyPlaceEditor
+          :place-name="placeName"
+          :place-text="placeText"
+          :status="placeTextStatus"
+          :error-message="placeTextErrorMessage"
+          :is-dirty="isPlaceTextDirty"
+          @update-place-text="emit('update-place-text', $event)"
         />
       </template>
 
@@ -111,6 +123,7 @@ type FieldConfig = {
   readonly?: boolean
   default?: DashboardEditableValue
   half?: boolean
+  zeroAsEmpty?: boolean
   type?: 'offer' | 'qualities' | 'category-code' | 'category-code-multi'
   inCodeSet?: string
   separator?: boolean
@@ -128,6 +141,11 @@ const props = defineProps<{
   activeDraft: DashboardDraft
   expandedBlocks: Set<string>
   associatedMediaValue: DashboardEditableValue
+  placeName: string
+  placeText: string
+  placeTextStatus: 'idle' | 'loading' | 'saving' | 'success' | 'error'
+  placeTextErrorMessage: string | null
+  isPlaceTextDirty: boolean
 }>()
 
 const emit = defineEmits<{
@@ -135,6 +153,7 @@ const emit = defineEmits<{
   'update-field': [path: string, value: DashboardEditableValue]
   'update-body': [value: string]
   'update-associated-media': [value: DashboardEditableValue]
+  'update-place-text': [value: string]
 }>()
 
 const metadataStore = useMetadataStore()
@@ -209,36 +228,82 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       id: 'details',
       label: s('details', 'Détails'),
       fields: [
-        { key: 'floorSize', label: f('floorSize', 'Surface habitable'), default: null, half: true },
-        { key: 'areaSize', label: f('areaSize', 'Surface totale'), default: '', half: true },
-        { key: 'landArea', label: f('landArea', 'Surface terrain'), default: null, half: true },
-        { key: 'areaTerrace', label: f('areaTerrace', 'Terrasse'), default: '', half: true },
+        {
+          key: 'floorSize',
+          label: f('floorSize', 'Surface habitable'),
+          default: null,
+          half: true,
+          zeroAsEmpty: true,
+        },
+        {
+          key: 'areaSize',
+          label: f('areaSize', 'Surface totale'),
+          default: '',
+          half: true,
+          zeroAsEmpty: true,
+        },
+        {
+          key: 'landArea',
+          label: f('landArea', 'Surface terrain'),
+          default: null,
+          half: true,
+          zeroAsEmpty: true,
+        },
+        {
+          key: 'areaTerrace',
+          label: f('areaTerrace', 'Terrasse'),
+          default: '',
+          half: true,
+          zeroAsEmpty: true,
+        },
         {
           key: 'numberOfBedrooms',
           label: f('numberOfBedrooms', 'Chambres'),
           default: 0,
           half: true,
+          zeroAsEmpty: true,
         },
-        { key: 'numberOfRooms', label: f('numberOfRooms', 'Pièces'), default: 0, half: true },
+        {
+          key: 'numberOfRooms',
+          label: f('numberOfRooms', 'Pièces'),
+          default: 0,
+          half: true,
+          zeroAsEmpty: true,
+        },
         {
           key: 'numberOfBathroomsTotal',
           label: f('numberOfBathroomsTotal', 'Salles de bain'),
           default: 0,
           half: true,
+          zeroAsEmpty: true,
         },
         {
           key: 'numberOfGarages',
           label: f('numberOfGarages', 'Garages'),
           default: 0,
           half: true,
+          zeroAsEmpty: true,
         },
-        { key: 'occupancy', label: f('occupancy', 'Capacité'), default: 0, half: true },
-        { key: 'level', label: f('level', 'Niveau'), default: 0, half: true },
+        {
+          key: 'occupancy',
+          label: f('occupancy', 'Capacité'),
+          default: 0,
+          half: true,
+          zeroAsEmpty: true,
+        },
+        {
+          key: 'level',
+          label: f('level', 'Niveau'),
+          default: 0,
+          half: true,
+          zeroAsEmpty: true,
+        },
         {
           key: 'yearBuilt',
           label: f('yearBuilt', 'Année de construction'),
           default: 0,
           half: true,
+          zeroAsEmpty: true,
         },
       ],
     },
@@ -248,11 +313,6 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       fields: [
         { key: 'metaTitle', label: f('metaTitle', 'Méta Title'), default: null },
         { key: 'metaDescription', label: f('metaDescription', 'Méta Description'), default: null },
-        {
-          key: 'locationDescription',
-          label: f('locationDescription', 'Description du lieu'),
-          default: null,
-        },
       ],
     },
     {
@@ -284,6 +344,12 @@ const contentBlocks = computed<Block[]>(() => {
       label: panel?.blocks['frontmatter'] ?? 'Caractéristiques',
       icon: 'i-lucide-file-code',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
+    },
+    {
+      id: 'place',
+      label: panel?.blocks['place'] ?? 'Lieu',
+      icon: 'i-lucide-map-pin',
+      actions: [],
     },
     {
       id: 'associated-media',

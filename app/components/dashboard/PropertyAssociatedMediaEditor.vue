@@ -5,10 +5,10 @@
       <div
         v-for="(item, index) in resolvedItems"
         :key="item.identifier"
-        class="flex gap-3 border-b border-white/5 py-2.5 last:border-0"
+        class="flex min-h-14 gap-3 border-b border-white/5 py-2.5 last:border-0"
       >
-        <!-- Vignette + radio principale -->
-        <div class="flex shrink-0 flex-col items-center gap-1.5">
+        <!-- Vignette -->
+        <div class="shrink-0">
           <div class="relative h-14 w-18 overflow-hidden rounded bg-white/5">
             <AppImage
               v-if="item.url"
@@ -21,33 +21,48 @@
               <UIcon name="i-lucide-image" class="text-sm text-white/20" aria-hidden="true" />
             </div>
           </div>
-          <label class="flex cursor-pointer items-center gap-1">
-            <input
-              type="radio"
-              :checked="item.representativeOfPage"
-              class="h-3 w-3 cursor-pointer accent-[#6B7A4A]"
-              :aria-label="`Définir ${item.identifier} comme image principale`"
-              @change="setRepresentative(item.identifier)"
-            />
-            <span
-              class="text-[0.55rem] transition-colors"
-              :class="item.representativeOfPage ? 'font-semibold text-white/70' : 'text-white/30'"
-            >
-              Principale
-            </span>
-          </label>
         </div>
 
-        <!-- Infos + actions -->
+        <!-- Texte alt -->
         <div class="min-w-0 flex-1">
-          <!-- Ligne identifiant + contrôles -->
-          <div class="mb-1.5 flex items-center gap-1">
-            <p
-              class="min-w-0 flex-1 truncate text-[0.6rem] font-medium tracking-wide text-white/30"
-            >
-              {{ item.identifier }}
-            </p>
-            <!-- Ordre -->
+          <span
+            class="text-[0.55rem] font-semibold tracking-widest uppercase"
+            style="color: #6b7a4a"
+            >Texte alt</span
+          >
+          <input
+            v-if="editingAlt === item.identifier"
+            ref="altInputRef"
+            type="text"
+            :value="getCaptionFor(item.identifier)"
+            placeholder="Description de l'image pour les lecteurs d'écran et le SEO"
+            class="mt-0.5 w-full border-b border-white/20 bg-transparent pb-0.5 text-xs text-white/90 caret-white outline-none placeholder:text-white/20"
+            :aria-label="`Texte alternatif pour ${item.identifier}`"
+            @input="updateCaption(item.identifier, ($event.target as HTMLInputElement).value)"
+            @blur="editingAlt = null"
+            @keydown.enter="editingAlt = null"
+            @keydown.escape="editingAlt = null"
+          />
+          <button
+            v-else
+            type="button"
+            class="mt-0.5 w-full text-left text-xs transition-colors"
+            :class="
+              getCaptionFor(item.identifier)
+                ? 'text-white/55 hover:text-white/75'
+                : 'text-white/20 italic hover:text-white/40'
+            "
+            :aria-label="`Modifier le texte alt de ${item.identifier}`"
+            @click="startEditAlt(item.identifier)"
+          >
+            {{ getCaptionFor(item.identifier) || 'Ajouter un texte alt…' }}
+          </button>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex shrink-0 flex-col items-end justify-between">
+          <!-- Ligne ordre + supprimer -->
+          <div class="flex items-center gap-0.5">
             <button
               type="button"
               :disabled="index === 0"
@@ -66,60 +81,32 @@
             >
               <UIcon name="i-lucide-chevron-down" class="text-xs" aria-hidden="true" />
             </button>
-            <!-- Supprimer -->
             <button
               type="button"
-              class="ml-0.5 rounded p-0.5 text-white/20 transition-colors hover:text-red-400"
+              class="rounded p-0.5 text-white/20 transition-colors hover:text-red-400"
               aria-label="Retirer cette image"
               @click="removeIdentifier(item.identifier)"
             >
               <UIcon name="i-lucide-x" class="text-xs" aria-hidden="true" />
             </button>
           </div>
-
-          <!-- Alt text — important SEO + accessibilité -->
-          <div class="mb-2">
-            <div class="mb-0.5 flex items-center gap-1">
-              <UIcon
-                name="i-lucide-accessibility"
-                class="text-[0.55rem]"
-                style="color: #6b7a4a"
-                aria-hidden="true"
-              />
-              <span
-                class="text-[0.55rem] font-semibold tracking-widest uppercase"
-                style="color: #6b7a4a"
-                >Texte alt</span
-              >
-            </div>
-            <input
-              v-if="editingAlt === item.identifier"
-              ref="altInputRef"
-              type="text"
-              :value="getCaptionFor(item.identifier)"
-              placeholder="Description de l'image pour les lecteurs d'écran et le SEO"
-              class="w-full border-b border-white/20 bg-transparent pb-0.5 text-xs text-white/90 caret-white outline-none placeholder:text-white/20"
-              :aria-label="`Texte alternatif pour ${item.identifier}`"
-              @input="updateCaption(item.identifier, ($event.target as HTMLInputElement).value)"
-              @blur="editingAlt = null"
-              @keydown.enter="editingAlt = null"
-              @keydown.escape="editingAlt = null"
+          <!-- Principale -->
+          <button
+            type="button"
+            :aria-label="`Définir ${item.identifier} comme image principale`"
+            :aria-pressed="item.representativeOfPage"
+            class="flex items-center gap-1 rounded p-0.5 transition-colors"
+            :class="item.representativeOfPage ? 'text-[#6B7A4A]' : 'text-white/20 hover:text-white/50'"
+            @click="setRepresentative(item.identifier)"
+          >
+            <UIcon
+              name="i-lucide-star"
+              class="text-sm"
+              :class="item.representativeOfPage ? 'fill-[#6B7A4A]' : ''"
+              aria-hidden="true"
             />
-            <button
-              v-else
-              type="button"
-              class="w-full text-left text-xs transition-colors"
-              :class="
-                getCaptionFor(item.identifier)
-                  ? 'text-white/55 hover:text-white/75'
-                  : 'text-white/20 italic hover:text-white/40'
-              "
-              :aria-label="`Modifier le texte alt de ${item.identifier}`"
-              @click="startEditAlt(item.identifier)"
-            >
-              {{ getCaptionFor(item.identifier) || 'Ajouter un texte alt…' }}
-            </button>
-          </div>
+            <span class="text-[0.55rem] font-semibold">Principale</span>
+          </button>
         </div>
       </div>
     </div>

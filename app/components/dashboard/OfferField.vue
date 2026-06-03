@@ -96,9 +96,15 @@ const offerObj = computed<DashboardEditableRecord>(() => {
   return {}
 })
 
+const toNumber = (value: DashboardEditableValue | undefined): number | null => {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null
+  if (typeof value !== 'string') return null
+  const parsed = Number(value.trim())
+  return Number.isFinite(parsed) ? parsed : null
+}
+
 const price = computed<number | null>(() => {
-  const v = offerObj.value.price
-  return typeof v === 'number' ? v : null
+  return toNumber(offerObj.value.price)
 })
 
 const priceCurrency = computed<string>(() => {

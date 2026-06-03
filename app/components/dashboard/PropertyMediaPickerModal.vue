@@ -105,6 +105,7 @@
             block
             :disabled="!pendingCount || isUploading"
             :loading="isUploading"
+            class="bg-[#6B7A4A]! text-white! hover:bg-[#5a6840]! disabled:opacity-40!"
             @click="handleUpload"
           >
             <template v-if="isUploading">Téléversement…</template>

@@ -62,7 +62,7 @@
             class="group overflow-hidden rounded transition-all focus:outline-none"
             :class="
               isAssociated(item.identifier)
-                ? 'ring-1 ring-[#6B7A4A]'
+                ? 'ring-2 ring-[#6B7A4A]'
                 : 'ring-1 ring-white/5 hover:ring-white/20'
             "
             :aria-label="
@@ -87,7 +87,8 @@
 
               <!-- Overlay hover -->
               <div
-                class="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/55 opacity-0 transition-opacity group-hover:opacity-100"
+                class="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/55 transition-opacity group-hover:opacity-100"
+                :class="isAssociated(item.identifier) ? 'opacity-60' : 'opacity-0'"
               >
                 <UIcon
                   :name="isAssociated(item.identifier) ? 'i-lucide-unlink' : 'i-lucide-plus-circle'"
@@ -116,23 +117,19 @@
               >
                 {{ item.reference }}
               </div>
-            </div>
 
-            <!-- Barre descriptive — hauteur fixe 2 lignes -->
-            <div
-              class="h-10 overflow-hidden border-t px-1.5 py-2"
-              :class="
-                isAssociated(item.identifier)
-                  ? 'border-[#6B7A4A]/30 bg-[#6B7A4A]/10'
-                  : 'border-white/5 bg-white/3'
-              "
-            >
-              <p
-                class="line-clamp-2 text-[0.55rem] leading-snug"
-                :class="isAssociated(item.identifier) ? 'text-white/70' : 'text-white/35'"
+              <!-- Caption en bas de l'image -->
+              <div
+                class="absolute inset-x-0 bottom-0 px-1.5 py-1.5"
+                :class="isAssociated(item.identifier) ? 'bg-[#6B7A4A]/80' : 'bg-black/60'"
               >
-                {{ item.name }}
-              </p>
+                <p
+                  class="line-clamp-2 text-[0.55rem] leading-snug"
+                  :class="isAssociated(item.identifier) ? 'text-white/90' : 'text-white/60'"
+                >
+                  {{ item.name }}
+                </p>
+              </div>
             </div>
           </button>
         </div>

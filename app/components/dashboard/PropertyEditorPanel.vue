@@ -88,10 +88,16 @@
           :active-draft="activeDraft"
           :expanded-blocks="expandedBlocks"
           :associated-media-value="associatedMediaValue"
+          :place-name="placeName"
+          :place-text="placeText"
+          :place-text-status="placeTextStatus"
+          :place-text-error-message="placeTextErrorMessage"
+          :is-place-text-dirty="isPlaceTextDirty"
           @toggle-block="emit('toggle-block', $event)"
           @update-field="(path, value) => emit('update-field', path, value)"
           @update-body="emit('update-body', $event)"
           @update-associated-media="emit('update-associated-media', $event)"
+          @update-place-text="emit('update-place-text', $event)"
         />
 
         <template v-else>
@@ -127,6 +133,11 @@ defineProps<{
   titleValue: string
   associatedMediaValue: DashboardEditableValue
   propertyMenuItems: BlockMenuItem[][]
+  placeName: string
+  placeText: string
+  placeTextStatus: 'idle' | 'loading' | 'saving' | 'success' | 'error'
+  placeTextErrorMessage: string | null
+  isPlaceTextDirty: boolean
   showClose?: boolean
 }>()
 
@@ -138,6 +149,7 @@ const emit = defineEmits<{
   'update-field': [path: string, value: DashboardEditableValue]
   'update-body': [value: string]
   'update-associated-media': [value: DashboardEditableValue]
+  'update-place-text': [value: string]
 }>()
 
 const localeTabs: DashboardLocale[] = ['fr', 'en', 'es']

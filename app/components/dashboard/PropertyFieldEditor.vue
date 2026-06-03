@@ -51,11 +51,11 @@
         v-else
         type="button"
         class="w-full text-left text-sm transition-colors hover:text-white/80"
-        :class="modelValue !== null ? 'text-white/65' : 'text-white/25'"
+        :class="numberDisplayValue !== '—' ? 'text-white/65' : 'text-white/25'"
         :aria-label="`Modifier ${label}`"
         @click="activate"
       >
-        {{ modelValue ?? '—' }}
+        {{ numberDisplayValue }}
       </button>
     </template>
 
@@ -65,7 +65,7 @@
         {{ label }}
       </p>
       <p v-if="readonly" class="text-sm font-semibold" style="color: #6b7a4a">
-        {{ stringValue || '—' }}
+        {{ stringDisplayValue }}
       </p>
       <template v-else-if="isActive">
         <textarea
@@ -96,11 +96,11 @@
         v-else
         type="button"
         class="w-full text-left text-sm transition-colors hover:text-white/80"
-        :class="stringValue ? 'text-white/65' : 'text-white/25'"
+        :class="stringDisplayValue !== '—' ? 'text-white/65' : 'text-white/25'"
         :aria-label="`Modifier ${label}`"
         @click="activate"
       >
-        <span class="line-clamp-2">{{ stringValue || '—' }}</span>
+        <span class="line-clamp-2">{{ stringDisplayValue }}</span>
       </button>
     </template>
 
@@ -191,6 +191,7 @@ const props = defineProps<{
   modelValue: DashboardEditableValue
   readonly?: boolean
   half?: boolean
+  zeroAsEmpty?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -244,6 +245,19 @@ const isArrayValue = computed<boolean>(() => Array.isArray(props.modelValue))
 const stringValue = computed<string>(() =>
   typeof props.modelValue === 'string' ? props.modelValue : '',
 )
+
+const stringDisplayValue = computed<string>(() => {
+  const value = stringValue.value.trim()
+  if (!value) return '—'
+  if (props.zeroAsEmpty && value === '0') return '—'
+  return stringValue.value
+})
+
+const numberDisplayValue = computed<string>(() => {
+  if (props.modelValue === null) return '—'
+  if (props.zeroAsEmpty && props.modelValue === 0) return '—'
+  return String(props.modelValue)
+})
 
 const shouldUseTextarea = computed<boolean>(() => {
   return stringValue.value.includes('\n') || stringValue.value.length > 90
