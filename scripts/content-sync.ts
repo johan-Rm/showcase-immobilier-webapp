@@ -42,7 +42,7 @@ if (!API_URL || !PROJECT_ID || !SERVICE_EMAIL || !SERVICE_PASSWORD) {
 // Types API
 // ---------------------------------------------------------------------------
 
-type HydraCollection<TItem> = { 'hydra:member': TItem[] }
+type HydraCollection<TItem> = { 'hydra:member'?: TItem[]; member?: TItem[] }
 
 type ApiOffer = {
   price: string
@@ -56,6 +56,7 @@ type ApiAccommodationMedia = {
   position: number
   caption: string | null
   keywords: string[]
+  representativeOfPage?: boolean
 }
 
 type ApiAccommodation = {
@@ -69,7 +70,6 @@ type ApiAccommodation = {
   review: string | null
   metaTitle: string | null
   metaDescription: string | null
-  locationDescription: string | null
   category: string
   realEstateListing: string
   place: string
@@ -98,6 +98,7 @@ type ApiCategoryCode = {
   codeValue: string
   label: string
   inCodeSet: string
+  text?: string | null
 }
 
 type ApiMediaObject = {
@@ -135,7 +136,7 @@ async function fetchCollection<TItem>(url: string, token: string): Promise<TItem
   const res = await fetch(url, { headers: authHeaders(token) })
   if (!res.ok) throw new Error(`Fetch failed [${res.status}] ${url}`)
   const json = (await res.json()) as HydraCollection<TItem>
-  return json['hydra:member'] ?? []
+  return json['hydra:member'] ?? json['member'] ?? []
 }
 
 function projectUrl(path: string, locale: string) {
@@ -146,15 +147,23 @@ function projectUrl(path: string, locale: string) {
 // Mappers
 // ---------------------------------------------------------------------------
 
-type CategoryCodeYamlItem = { codeValue: string; name: string; inCodeSet: string }
+type CategoryCodeYamlItem = {
+  id: string
+  codeValue: string
+  name: string
+  inCodeSet: string
+  text?: string
+}
 
 function mapCategoryCodes(items: ApiCategoryCode[]): CategoryCodeYamlItem[] {
   return items
     .filter((item) => Boolean(item.codeValue && item.inCodeSet))
     .map((item) => ({
+      id: item.id,
       codeValue: item.codeValue,
       name: item.label ?? item.codeValue,
       inCodeSet: item.inCodeSet,
+      ...(item.text ? { text: item.text } : {}),
     }))
     .sort(
       (a, b) => a.inCodeSet.localeCompare(b.inCodeSet) || a.codeValue.localeCompare(b.codeValue),
@@ -174,13 +183,11 @@ function mapMediaObjects(items: ApiMediaObject[]): {
   for (const item of items) {
     if (!item.id || !item.contentUrl) continue
 
-    const filename = item.originalFilename ? item.originalFilename.replace(/\.[^.]+$/, '') : item.id
-
-    uuidToFilename[item.id] = filename
+    uuidToFilename[item.id] = item.id
     yamlItems.push({
       identifier: item.id,
       caption: item.caption ?? '',
-      url: item.contentUrl,
+      url: new URL(item.contentUrl).pathname,
       mainEntity: item.mainEntity ?? 'ImageObject',
     })
   }
@@ -247,6 +254,7 @@ function mapAccommodation(
       image: filename,
       ...(entry.caption && { caption: entry.caption }),
       ...(entry.keywords?.length && { keywords: entry.keywords }),
+      ...(entry.representativeOfPage && { representativeOfPage: true }),
     })
   }
   fm.associatedMedia = resolvedMedia
@@ -256,7 +264,6 @@ function mapAccommodation(
   if (item.label) fm.label = item.label
   if (item.highlight) fm.highlight = item.highlight
   if (item.review) fm.review = item.review
-  if (item.locationDescription) fm.locationDescription = item.locationDescription
   if (item.metaTitle) fm.metaTitle = item.metaTitle
   if (item.metaDescription) fm.metaDescription = item.metaDescription
 

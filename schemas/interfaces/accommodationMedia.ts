@@ -4,4 +4,5 @@ export interface AccommodationMedia {
   image: MediaObject
   caption: string
   keywords?: string[]
+  representativeOfPage?: boolean
 }
