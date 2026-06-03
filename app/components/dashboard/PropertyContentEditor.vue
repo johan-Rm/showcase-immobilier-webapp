@@ -1,108 +1,120 @@
 <template>
-  <div v-for="block in contentBlocks" :key="block.id" class="border-b border-white/6">
-    <div class="flex items-stretch transition-colors hover:bg-white/5">
-      <button
-        type="button"
-        class="flex flex-1 items-center gap-3 px-4 py-3 text-left"
-        @click="emit('toggle-block', block.id)"
+  <div class="flex min-h-full flex-col">
+    <div
+      v-for="block in contentBlocks"
+      :key="block.id"
+      class="flex min-h-14 flex-col border-b border-white/6"
+      :class="expandedBlocks.size === 0 || expandedBlocks.has(block.id) ? 'flex-1' : 'flex-none'"
+    >
+      <div
+        class="flex items-stretch transition-colors hover:bg-white/5"
+        :class="expandedBlocks.size === 0 ? 'flex-1' : 'shrink-0'"
       >
-        <UIcon :name="block.icon" class="shrink-0 text-base text-white/35" aria-hidden="true" />
-        <span class="flex-1 text-sm font-medium text-white/65">{{ block.label }}</span>
-        <UIcon
-          :name="expandedBlocks.has(block.id) ? 'i-lucide-chevron-down' : 'i-lucide-chevron-right'"
-          class="shrink-0 text-xs text-white/25"
-          aria-hidden="true"
-        />
-      </button>
-      <div class="flex items-center pr-3">
-        <UDropdownMenu :items="block.actions">
-          <button
-            type="button"
-            class="rounded p-1 text-white/20 transition-colors hover:text-white/60"
-            :aria-label="`Actions ${block.label}`"
-          >
-            <UIcon name="i-lucide-more-vertical" class="text-sm" aria-hidden="true" />
-          </button>
-        </UDropdownMenu>
-      </div>
-    </div>
-
-    <div v-if="expandedBlocks.has(block.id)" class="px-4 pt-1 pb-5">
-      <template v-if="block.id === 'frontmatter'">
-        <div v-for="section in frontmatterSections" :key="section.id">
-          <div v-if="section.separator" class="mt-4 h-px bg-[#6B7A4A]/40" />
-          <div v-if="!section.hideLabel" class="sticky top-0 z-10 -mx-4 bg-[#212121] px-4">
-            <p
-              class="pt-2.5 pb-1 text-[0.6rem] font-semibold tracking-[0.12em] uppercase"
-              style="color: #6b7a4a"
+        <button
+          type="button"
+          class="flex flex-1 items-center gap-3 px-4 py-3 text-left"
+          @click="emit('toggle-block', block.id)"
+        >
+          <UIcon :name="block.icon" class="shrink-0 text-base text-white/35" aria-hidden="true" />
+          <span class="flex-1 text-sm font-medium text-white/65">{{ block.label }}</span>
+          <UIcon
+            :name="
+              expandedBlocks.has(block.id) ? 'i-lucide-chevron-down' : 'i-lucide-chevron-right'
+            "
+            class="shrink-0 text-xs text-white/25"
+            aria-hidden="true"
+          />
+        </button>
+        <div class="flex items-center pr-3">
+          <UDropdownMenu :items="block.actions">
+            <button
+              type="button"
+              class="rounded p-1 text-white/20 transition-colors hover:text-white/60"
+              :aria-label="`Actions ${block.label}`"
             >
-              {{ section.label }}
-            </p>
-          </div>
-          <div class="grid grid-cols-2">
-            <template v-for="field in section.fields" :key="field.key">
-              <DashboardOfferField
-                v-if="field.type === 'offer'"
-                :model-value="getFieldValue(field.key, field.default)"
-                @update:model-value="emit('update-field', field.key, $event)"
-              />
-              <DashboardQualitiesEditor
-                v-else-if="field.type === 'qualities'"
-                :model-value="getFieldValue(field.key, field.default)"
-                @update:model-value="emit('update-field', field.key, $event)"
-              />
-              <DashboardCategoryCodeSelect
-                v-else-if="field.type === 'category-code' || field.type === 'category-code-multi'"
-                :in-code-set="field.inCodeSet ?? ''"
-                :model-value="getFieldValue(field.key, field.default)"
-                :label="field.label"
-                :placeholder="field.label"
-                :multiple="field.type === 'category-code-multi'"
-                :show-label="field.showLabel !== false"
-                @update:model-value="emit('update-field', field.key, $event)"
-              />
-              <DashboardPropertyFieldEditor
-                v-else
-                :label="field.label"
-                :path="field.key"
-                :model-value="getFieldValue(field.key, field.default)"
-                :readonly="field.readonly"
-                :half="field.half"
-                :zero-as-empty="field.zeroAsEmpty"
-                @update:model-value="emit('update-field', field.key, $event)"
-              />
-            </template>
-          </div>
+              <UIcon name="i-lucide-more-vertical" class="text-sm" aria-hidden="true" />
+            </button>
+          </UDropdownMenu>
         </div>
-      </template>
+      </div>
 
-      <template v-else-if="block.id === 'body'">
-        <DashboardTiptapEditor
-          :model-value="activeDraft.body"
-          @update:model-value="emit('update-body', String($event))"
-        />
-      </template>
+      <div v-if="expandedBlocks.has(block.id)" class="flex-1 px-4 pt-1 pb-5">
+        <template v-if="block.id === 'frontmatter'">
+          <div v-for="section in frontmatterSections" :key="section.id">
+            <div v-if="section.separator" class="mt-4 h-px bg-[#6B7A4A]/40" />
+            <div v-if="!section.hideLabel" class="sticky top-0 z-10 -mx-4 bg-[#212121] px-4">
+              <p
+                class="pt-2.5 pb-1 text-[0.6rem] font-semibold tracking-[0.12em] uppercase"
+                style="color: #6b7a4a"
+              >
+                {{ section.label }}
+              </p>
+            </div>
+            <div class="grid grid-cols-2">
+              <template v-for="field in section.fields" :key="field.key">
+                <DashboardOfferField
+                  v-if="field.type === 'offer'"
+                  :model-value="getFieldValue(field.key, field.default)"
+                  @update:model-value="emit('update-field', field.key, $event)"
+                />
+                <DashboardQualitiesEditor
+                  v-else-if="field.type === 'qualities'"
+                  :model-value="getFieldValue(field.key, field.default)"
+                  @update:model-value="emit('update-field', field.key, $event)"
+                />
+                <DashboardCategoryCodeSelect
+                  v-else-if="field.type === 'category-code' || field.type === 'category-code-multi'"
+                  :in-code-set="field.inCodeSet ?? ''"
+                  :model-value="getFieldValue(field.key, field.default)"
+                  :label="field.label"
+                  :placeholder="field.label"
+                  :multiple="field.type === 'category-code-multi'"
+                  :show-label="field.showLabel !== false"
+                  @update:model-value="emit('update-field', field.key, $event)"
+                />
+                <DashboardPropertyFieldEditor
+                  v-else
+                  :label="field.label"
+                  :path="field.key"
+                  :model-value="getFieldValue(field.key, field.default)"
+                  :readonly="field.readonly"
+                  :half="field.half"
+                  :zero-as-empty="field.zeroAsEmpty"
+                  @update:model-value="emit('update-field', field.key, $event)"
+                />
+              </template>
+            </div>
+          </div>
+        </template>
 
-      <template v-else-if="block.id === 'place'">
-        <DashboardPropertyPlaceEditor
-          :place-name="placeName"
-          :place-text="placeText"
-          :status="placeTextStatus"
-          :error-message="placeTextErrorMessage"
-          :is-dirty="isPlaceTextDirty"
-          @update-place-text="emit('update-place-text', $event)"
-        />
-      </template>
+        <template v-else-if="block.id === 'body'">
+          <DashboardTiptapEditor
+            :model-value="activeDraft.body"
+            @update:model-value="emit('update-body', String($event))"
+          />
+        </template>
 
-      <template v-else-if="block.id === 'associated-media'">
-        <DashboardPropertyAssociatedMediaEditor
-          :associated-media="associatedMediaValue"
-          @update:associated-media="emit('update-associated-media', $event)"
-        />
-      </template>
+        <template v-else-if="block.id === 'place'">
+          <DashboardPropertyPlaceEditor
+            :place-name="placeName"
+            :place-text="placeText"
+            :status="placeTextStatus"
+            :error-message="placeTextErrorMessage"
+            :is-dirty="isPlaceTextDirty"
+            @update-place-text="emit('update-place-text', $event)"
+          />
+        </template>
+
+        <template v-else-if="block.id === 'associated-media'">
+          <DashboardPropertyAssociatedMediaEditor
+            :associated-media="associatedMediaValue"
+            @update:associated-media="emit('update-associated-media', $event)"
+          />
+        </template>
+      </div>
+
+      <div class="mx-4 h-px bg-white/5" />
     </div>
-
-    <div class="mx-4 h-px bg-white/5" />
   </div>
 </template>
 
@@ -334,15 +346,15 @@ const contentBlocks = computed<Block[]>(() => {
   const resetLabel = panel?.reset ?? 'Réinitialiser'
   return [
     {
-      id: 'body',
-      label: panel?.blocks['body'] ?? 'Description',
-      icon: 'i-lucide-file-text',
-      actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
-    },
-    {
       id: 'frontmatter',
       label: panel?.blocks['frontmatter'] ?? 'Caractéristiques',
       icon: 'i-lucide-file-code',
+      actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
+    },
+    {
+      id: 'body',
+      label: panel?.blocks['body'] ?? 'Description',
+      icon: 'i-lucide-file-text',
       actions: [[{ label: resetLabel, icon: 'i-lucide-rotate-ccw', onSelect: () => {} }]],
     },
     {

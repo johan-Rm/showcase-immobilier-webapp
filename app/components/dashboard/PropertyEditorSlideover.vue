@@ -145,7 +145,7 @@ const dirtyLocalizedFields = ref<
   en: new Set(),
   es: new Set(),
 })
-const expandedBlocks = ref<Set<string>>(new Set(['body']))
+const expandedBlocks = ref<Set<string>>(new Set<string>())
 const isMobile = ref(false)
 const localeLoadToken = ref(0)
 const skipNextLocaleLoad = ref(false)
@@ -536,7 +536,7 @@ watch(
     activeLocale.value = isDashboardLocale(props.accommodation?.locale)
       ? props.accommodation.locale
       : 'fr'
-    expandedBlocks.value = new Set(['body'])
+    expandedBlocks.value = new Set<string>()
     resetSave()
     if (skipNextLocaleLoad.value) {
       skipNextLocaleLoad.value = false
@@ -550,12 +550,14 @@ watch(
 )
 
 watch(isOpen, async (open) => {
+  if (!open) {
+    expandedBlocks.value = new Set<string>()
+    return
+  }
   if (open && symfonyAvailable.value === null) {
     checkSymfonyStatus()
   }
-  if (open) {
-    await loadLocaleDrafts(props.accommodation)
-  }
+  await loadLocaleDrafts(props.accommodation)
 })
 
 watch(
