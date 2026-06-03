@@ -1,5 +1,7 @@
 <template>
   <div class="flex min-h-0 flex-1 flex-col">
+    <div class="h-0.5 w-full shrink-0 bg-[#6B7A4A]" />
+
     <UTabs
       :model-value="activeSection"
       :items="sectionTabs"
@@ -108,6 +110,66 @@
         </template>
       </template>
     </div>
+
+    <!-- Barre de sauvegarde modification -->
+    <div class="shrink-0 border-t border-white/10 bg-[#1a1a1a] px-4 py-3">
+      <!-- Statut API + isActive -->
+      <div class="mb-2 flex items-center justify-between">
+        <div class="flex items-center gap-1.5">
+          <span
+            class="inline-block h-2 w-2 rounded-full"
+            :class="{
+              'bg-green-500': symfonyAvailable === true,
+              'bg-red-500': symfonyAvailable === false,
+              'animate-pulse bg-white/30': symfonyAvailable === null,
+            }"
+          />
+          <span class="text-xs text-white/40">
+            <template v-if="symfonyAvailable === null">Vérification API…</template>
+            <template v-else-if="symfonyAvailable">API disponible</template>
+            <template v-else>API indisponible</template>
+          </span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-white/20">Actif</span>
+          <USwitch
+            :model-value="isActiveValue"
+            :ui="{
+              base: 'data-[state=checked]:bg-[#6B7A4A] data-[state=unchecked]:bg-red-500/30',
+            }"
+            @update:model-value="emit('update-field', 'isActive', $event)"
+          />
+        </div>
+      </div>
+
+      <!-- Message d'erreur sauvegarde modification -->
+      <p v-if="saveStatus === 'error'" class="mb-2 text-xs text-red-400">
+        {{ saveErrorMessage ?? 'Erreur lors de la sauvegarde' }}
+      </p>
+
+      <!-- Avertissement markdown non mis à jour -->
+      <p
+        v-if="saveStatus === 'success' && saveMarkdownUpdated === false"
+        class="mb-2 text-xs text-amber-400"
+      >
+        Sauvegarde BDD réussie — fichier local non mis à jour
+      </p>
+
+      <!-- Bouton Enregistrer modification -->
+      <UButton
+        block
+        :disabled="saveStatus === 'saving' || !accommodation || symfonyAvailable === false"
+        :loading="saveStatus === 'saving'"
+        :color="saveStatus === 'error' ? 'error' : 'primary'"
+        :variant="saveStatus === 'success' ? 'soft' : 'solid'"
+        :class="['font-medium', saveStatus !== 'error' ? 'bg-[#6B7A4A]! hover:bg-[#5c6940]!' : '']"
+        @click="emit('save')"
+      >
+        <template v-if="saveStatus === 'success'">Enregistré ✓</template>
+        <template v-else-if="saveStatus === 'error'">Réessayer</template>
+        <template v-else>Enregistrer</template>
+      </UButton>
+    </div>
   </div>
 </template>
 
@@ -120,6 +182,7 @@ import type {
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
+type SaveStatus = 'idle' | 'saving' | 'success' | 'error'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
 defineOptions({ name: 'DashboardPropertyEditorPanel' })
@@ -138,6 +201,11 @@ defineProps<{
   placeTextStatus: 'idle' | 'loading' | 'saving' | 'success' | 'error'
   placeTextErrorMessage: string | null
   isPlaceTextDirty: boolean
+  symfonyAvailable: boolean | null
+  isActiveValue: boolean
+  saveStatus: SaveStatus
+  saveErrorMessage: string | null
+  saveMarkdownUpdated: boolean | null
   showClose?: boolean
 }>()
 
@@ -150,6 +218,7 @@ const emit = defineEmits<{
   'update-body': [value: string]
   'update-associated-media': [value: DashboardEditableValue]
   'update-place-text': [value: string]
+  save: []
 }>()
 
 const localeTabs: DashboardLocale[] = ['fr', 'en', 'es']
