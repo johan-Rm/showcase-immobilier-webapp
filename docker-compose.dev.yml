@@ -15,8 +15,10 @@ services:
       - ./services:/app/services
       - ./nuxt.config.ts:/app/nuxt.config.ts
       - ./schemas:/app/schemas
+      - ./content:/app/content
       - ./.data:/app/.data
       - ./public:/app/public
+      - ./scripts:/app/scripts
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -54,7 +56,7 @@ services:
       WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
     volumes:
       - ./.data:/app/.data
-      - ./content:/app/content:ro
+      - ./content:/app/content
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
       - ./public/images:/app/.output/public/images
     healthcheck:

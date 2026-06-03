@@ -56,6 +56,8 @@ Variables d environnement importantes :
   le dashboard limite aux emails autorises
 - `SYMFONY_API_URL` : URL de base de l API Symfony
 - `SYMFONY_API_DOCS_URL` : endpoint OpenAPI Symfony consomme par Scalar
+- `DASHBOARD_SAVE_DEBUG` : active les logs serveur du payload de sauvegarde dashboard
+  vers Symfony quand la valeur vaut `1` (debug local uniquement)
 - `SCALAR_API_DOCS_ENABLED` : force l interface Scalar hors serveur dev local si necessaire
 
 Pour le detail complet des variables, voir [`.env.example`](./.env.example).
