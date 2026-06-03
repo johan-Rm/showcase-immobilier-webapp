@@ -1,12 +1,26 @@
 import { getSymfonyServiceToken } from '../../utils/dashboard/symfonyAuth'
 
-type SymfonyCategoryCode = { '@id': string; code?: string; codeValue?: string; inCodeSet: string }
+type SymfonyCategoryCodeTranslation = {
+  locale?: string
+  label?: string | null
+}
+
+type SymfonyCategoryCode = {
+  '@id': string
+  code?: string
+  codeValue?: string
+  inCodeSet: string
+  label?: string | null
+  name?: string | null
+  translations?: SymfonyCategoryCodeTranslation[]
+}
 type HydraCollection<T> = { 'hydra:member'?: T[]; member?: T[] }
 
 export type DashboardCategoryCodeIri = {
   iri: string
   code: string
   inCodeSet: string
+  label: string
 }
 
 function getCollectionMembers<T>(response: HydraCollection<T>): T[] {
@@ -19,6 +33,13 @@ function getApiBase(): { apiUrl: string; projectId: string } {
   if (!projectId) throw new Error('SYMFONY_PROJECT_ID manquant')
   return { apiUrl, projectId }
 }
+
+const resolveLabel = (item: SymfonyCategoryCode, code: string): string =>
+  item.label ??
+  item.name ??
+  item.translations?.find((translation) => translation.locale === 'fr')?.label ??
+  item.translations?.find((translation) => translation.label)?.label ??
+  code
 
 export default defineEventHandler(async (event): Promise<DashboardCategoryCodeIri[]> => {
   await requireUserSession(event)
@@ -40,6 +61,6 @@ export default defineEventHandler(async (event): Promise<DashboardCategoryCodeIr
   return getCollectionMembers(response).flatMap((item) => {
     const code = item.codeValue ?? item.code
     if (!code) return []
-    return [{ iri: item['@id'], code, inCodeSet: item.inCodeSet }]
+    return [{ iri: item['@id'], code, inCodeSet: item.inCodeSet, label: resolveLabel(item, code) }]
   })
 })

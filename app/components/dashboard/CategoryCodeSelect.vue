@@ -212,7 +212,7 @@ const multiModel = computed<string[]>(() =>
 )
 
 const selectedLabel = computed<string>(
-  () => options.value.find((o) => o.value === singleModel.value)?.label ?? '',
+  () => options.value.find((o) => o.value === singleModel.value)?.label ?? singleModel.value ?? '',
 )
 
 const labelFor = (value: string): string =>
