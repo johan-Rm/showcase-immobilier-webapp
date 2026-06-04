@@ -44,13 +44,25 @@ const emit = defineEmits<{
   'update:modelValue': [value: DashboardEditableValue]
 }>()
 
+const DEFAULT_QUALITIES: Quality[] = [
+  { name: 'Confort', value: 0 },
+  { name: 'Architecture', value: 0 },
+  { name: 'Intérieur', value: 0 },
+]
+
 const qualities = computed<Quality[]>(() => {
-  if (!Array.isArray(props.modelValue)) return []
-  return props.modelValue.flatMap((item) => {
-    if (item === null || typeof item !== 'object' || Array.isArray(item)) return []
-    const name = typeof item.name === 'string' ? item.name : ''
-    const value = typeof item.value === 'number' ? item.value : 0
-    return [{ name, value }]
+  const incoming = Array.isArray(props.modelValue)
+    ? props.modelValue.flatMap((item) => {
+        if (item === null || typeof item !== 'object' || Array.isArray(item)) return []
+        const name = typeof item.name === 'string' ? item.name : ''
+        const value = typeof item.value === 'number' ? item.value : 0
+        return [{ name, value }]
+      })
+    : []
+
+  return DEFAULT_QUALITIES.map(({ name }) => {
+    const found = incoming.find((q) => q.name === name)
+    return found ?? { name, value: 0 }
   })
 })
 

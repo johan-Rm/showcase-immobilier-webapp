@@ -32,7 +32,7 @@
           >
           <input
             v-if="editingAlt === item.identifier"
-            ref="altInputRef"
+            :ref="setAltInputRef"
             type="text"
             :value="getCaptionFor(item.identifier)"
             placeholder="Description de l'image pour les lecteurs d'écran et le SEO"
@@ -133,6 +133,8 @@
 </template>
 
 <script setup lang="ts">
+import type { ComponentPublicInstance } from 'vue'
+
 import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 import type { MediaObject } from '@schemas/interfaces'
 
@@ -166,6 +168,10 @@ const metadataStore = useMetadataStore()
 const isPickerOpen = ref(false)
 const editingAlt = ref<string | null>(null)
 const altInputRef = ref<HTMLInputElement | null>(null)
+
+const setAltInputRef = (el: Element | ComponentPublicInstance | null): void => {
+  altInputRef.value = el instanceof HTMLInputElement ? el : null
+}
 
 const parsedAssocMedia = computed<AssocItem[]>(() => {
   if (!Array.isArray(props.associatedMedia)) return []

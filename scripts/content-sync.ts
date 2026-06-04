@@ -134,8 +134,17 @@ function authHeaders(token: string) {
 
 async function fetchCollection<TItem>(url: string, token: string): Promise<TItem[]> {
   const res = await fetch(url, { headers: authHeaders(token) })
-  if (!res.ok) throw new Error(`Fetch failed [${res.status}] ${url}`)
-  const json = (await res.json()) as HydraCollection<TItem>
+  const raw = await res.text()
+  if (!res.ok) throw new Error(`Fetch failed [${res.status}] ${url}\n${raw.slice(0, 500)}`)
+  let json: HydraCollection<TItem>
+  try {
+    json = JSON.parse(raw) as HydraCollection<TItem>
+  } catch {
+    const contentType = res.headers.get('content-type') ?? 'inconnu'
+    throw new Error(
+      `Réponse non-JSON [${res.status}] ${url}\n  content-type: ${contentType}\n  corps (500 premiers car.): ${raw.slice(0, 500)}`,
+    )
+  }
   return json['hydra:member'] ?? json['member'] ?? []
 }
 

@@ -80,6 +80,7 @@
                   :readonly="field.readonly"
                   :half="field.half"
                   :zero-as-empty="field.zeroAsEmpty"
+                  :hint="field.hint"
                   @update:model-value="emit('update-field', field.key, $event)"
                 />
               </template>
@@ -140,6 +141,7 @@ type FieldConfig = {
   inCodeSet?: string
   separator?: boolean
   showLabel?: boolean
+  hint?: string
 }
 type FrontmatterSection = {
   id: string
@@ -323,8 +325,8 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       id: 'seo',
       label: s('seo', 'SEO'),
       fields: [
-        { key: 'metaTitle', label: f('metaTitle', 'Méta Title'), default: null },
-        { key: 'metaDescription', label: f('metaDescription', 'Méta Description'), default: null },
+        { key: 'metaTitle', label: f('metaTitle', 'Méta Title'), default: null, hint: 'Si vide ce champ sera automatiquement édité' },
+        { key: 'metaDescription', label: f('metaDescription', 'Méta Description'), default: null, hint: 'Si vide ce champ sera automatiquement édité' },
       ],
     },
     {

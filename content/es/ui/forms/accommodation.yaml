@@ -3,7 +3,7 @@ fields:
   category: Catégorie
   place: Lieu
   offer: Offre
-  review: Avis agence
+  review: ''
   highlight: Accroche
   label: Badge
   floorSize: Surface habitable

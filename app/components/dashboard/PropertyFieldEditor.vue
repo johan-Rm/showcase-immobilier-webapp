@@ -173,6 +173,8 @@
         />
       </div>
     </template>
+
+    <p v-if="hint" class="mt-0.5 italic opacity-35" style="color: #6b7a4a; font-size: 8px">{{ hint }}</p>
   </div>
 </template>
 
@@ -192,6 +194,7 @@ const props = defineProps<{
   readonly?: boolean
   half?: boolean
   zeroAsEmpty?: boolean
+  hint?: string
 }>()
 
 const emit = defineEmits<{

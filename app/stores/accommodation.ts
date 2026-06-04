@@ -53,7 +53,7 @@ export const useAccommodationStore = defineStore('accommodation', {
         listings: metadataStore.getAccommodationRealEstateListings,
         places: metadataStore.getAccommodationPlaces,
         images: metadataStore.getImageObjects,
-      })
+      }).filter((item) => item.isActive === true)
     },
     /**
      * Recherche un hébergement à partir de son slug.
