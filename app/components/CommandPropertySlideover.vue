@@ -10,9 +10,14 @@
         <!-- Liseré olive -->
         <div class="h-0.5 w-full shrink-0 bg-[#6B7A4A]" />
 
-        <!-- Header : titre + fermeture -->
-        <div class="flex shrink-0 items-center gap-3 px-5 pt-5 pb-4">
-          <p class="flex-1 text-[0.6rem] font-semibold tracking-[0.22em] text-white/40 uppercase">
+        <!-- Header : icône + titre + fermeture -->
+        <div class="flex shrink-0 items-center gap-2 px-5 pt-5 pb-4">
+          <UIcon
+            name="i-lucide-search"
+            class="shrink-0 text-sm text-[#6B7A4A]"
+            aria-hidden="true"
+          />
+          <p class="flex-1 text-[0.6rem] font-semibold tracking-[0.22em] text-[#6B7A4A] uppercase">
             Rechercher un bien
           </p>
           <UButton
@@ -30,11 +35,12 @@
         <div class="shrink-0 px-5 pb-3">
           <UInput
             v-model="query"
-            icon="i-lucide-search"
             placeholder="Rechercher par référence ou nom…"
             autofocus
             class="w-full"
-            :ui="{ base: 'bg-white/5 text-white placeholder:text-white/35' }"
+            :ui="{
+              base: 'bg-white/5 text-white placeholder:text-white/35 ring-1 ring-inset ring-[#6B7A4A] focus-visible:ring-2 focus-visible:ring-[#6B7A4A]',
+            }"
           />
         </div>
 
