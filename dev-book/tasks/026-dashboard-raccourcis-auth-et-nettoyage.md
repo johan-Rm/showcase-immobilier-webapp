@@ -235,6 +235,13 @@ Remplacer le contenu par un `USlideover` calqué sur les références ci-dessus.
           />
         </div>
 
+        <!-- Compteur (aligné à droite, comme le sidebar) -->
+        <div class="flex shrink-0 justify-end px-5 pb-2">
+          <span class="text-xs font-semibold text-white/60">
+            {{ filteredItems.length }} bien{{ filteredItems.length > 1 ? 's' : '' }}
+          </span>
+        </div>
+
         <div class="mx-5 h-px shrink-0 bg-white/5" />
 
         <!-- Liste scrollable (design identique au sidebar dashboard) -->
