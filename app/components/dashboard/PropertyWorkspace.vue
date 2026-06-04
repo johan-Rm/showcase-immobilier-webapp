@@ -31,7 +31,7 @@
             :filtered-count="filteredItems.length"
             @prev="goPrev"
             @next="goNext"
-            @edit="isEditorOpen = true"
+            @edit="openEditor"
           />
         </div>
       </div>
@@ -52,6 +52,7 @@
           @logout="emit('logout')"
           @prev="goPrev"
           @next="goNext"
+          @create="openCreator"
           @select="activeIndex = $event"
           @update:selected-listing="selectedListing = $event"
           @update:selected-category="selectedCategory = $event"
@@ -62,6 +63,7 @@
 
     <DashboardPropertyEditorSlideover
       v-model:open="isEditorOpen"
+      v-model:process="editorProcess"
       :accommodation="activeAccommodation"
       @saved="emit('saved')"
     />
@@ -83,6 +85,8 @@ type WorkspaceUser = {
   email?: string
   picture?: string
 } | null
+
+type EditorProcess = 'edit' | 'create'
 
 const ALL_VALUE = '__all__'
 
@@ -107,6 +111,7 @@ const identifierSearch = ref('')
 const activeIndex = ref(0)
 const activeMediaIndex = ref(0)
 const isEditorOpen = ref(false)
+const editorProcess = ref<EditorProcess>('edit')
 
 // 6. Data inputs
 
@@ -216,6 +221,16 @@ const goNext = (): void => {
   if (!filteredItems.value.length) return
   activeIndex.value =
     activeIndex.value >= filteredItems.value.length - 1 ? 0 : activeIndex.value + 1
+}
+
+const openCreator = (): void => {
+  editorProcess.value = 'create'
+  isEditorOpen.value = true
+}
+
+const openEditor = (): void => {
+  editorProcess.value = 'edit'
+  isEditorOpen.value = true
 }
 
 // 10. Watch et watchEffect

@@ -51,9 +51,6 @@
       </div>
 
       <div v-else class="p-4">
-        <p class="mb-3 text-[0.6rem] font-semibold tracking-widest text-white/25 uppercase">
-          Catalogue ({{ filteredImages.length }})
-        </p>
         <div class="grid grid-cols-2 gap-2">
           <button
             v-for="item in filteredImages"

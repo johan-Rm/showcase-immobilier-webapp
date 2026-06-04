@@ -1,5 +1,5 @@
 ---
-status: A planifier
+status: En cours
 dependances: 008-dashboard-sauvegarde-biens-api-symfony.md
   009-dashboard-reexport-markdown-apres-sauvegarde.md
 ---
@@ -136,6 +136,11 @@ Le panel doit fonctionner comme un onboarding, pas comme un formulaire backoffic
 cible n etant pas a l aise avec l informatique, chaque step doit guider une seule intention
 metier avec peu de champs visibles et des actions explicites.
 
+Le rendu doit donner l impression qu un assistant intelligent accompagne la creation du bien.
+L interface ne doit pas seulement afficher un formulaire decoupe en slides : elle doit parler a
+l utilisateur, le rassurer, expliquer ce qui est attendu et lui donner le sentiment que le
+systeme prend en charge la complexite technique.
+
 Le slideover dashboard doit contenir deux process séparés :
 
 - `edit` : modification d un bien existant via `DashboardPropertyEditorPanel`
@@ -155,6 +160,10 @@ fermeture globale du slideover.
   - navigation entre steps
   - zone de formulaire propre a chaque step
   - zone d actions propre au mode création
+- centrer horizontalement et verticalement le contenu principal de chaque step
+- afficher le stepper en haut de la zone de contenu, sans titre technique visible
+- ajouter un bouton d acces au resume depuis la topbar creator
+- utiliser un effet typing pour les messages ou phrases adressees directement au client
 - ne pas réutiliser la topbar, le switch actif, les messages ou le bouton save de
   `DashboardPropertyEditorPanel`
 - préparer des props/emits distincts pour la création, même si la logique métier n est pas encore
@@ -201,17 +210,36 @@ fermeture globale du slideover.
 - les steps optionnels peuvent etre ignores puis repris plus tard
 - le resume final n est accessible que si les steps obligatoires sont valides
 - les etats utiles sont : `locked`, `current`, `completed`, `skipped`, `invalid`
+- les transitions entre steps doivent etre directionnelles :
+  - avance : slide vers l avant
+  - retour : slide inverse
+
+### Rendu onboarding assistant
+
+- le contenu de chaque step doit etre centre horizontalement et verticalement dans la zone utile
+- la zone ne doit pas donner l impression d un formulaire administratif classique
+- chaque step doit commencer par une phrase d assistant courte, adressee directement au client
+- cette phrase utilise un effet typing pour renforcer l impression d accompagnement intelligent
+- les textes doivent eviter le vocabulaire technique visible comme `slug`, `payload`, `back` ou
+  `POST`
+- les champs visibles restent peu nombreux et contextualises par une intention claire
+- les actions principales doivent rester simples : `Continuer`, `Retour`, `Ignorer`, `Résumé`
+- le resume sert de point de controle humain et peut etre consulte depuis la topbar
+- l effet typing ne doit pas bloquer la navigation ni provoquer de decalage de layout important
 
 ### Topbar creator
 
-- aucune topbar technique avant le premier POST : l utilisateur commence par une experience
-  onboarding simple
+- la topbar creator est propre au process de creation
 - une fois le premier POST reussi, le backend retourne l `identifier`
-- a partir de ce moment, `DashboardPropertyCreatorPanel` affiche sa propre topbar
 - cette topbar affiche :
   - la ref generee par le back
   - le nom du bien si renseigne
   - un fallback lisible tant que le nom n est pas renseigne
+- avant que la ref soit connue, la topbar peut afficher un badge temporaire non technique, par
+  exemple `REF`
+- la topbar contient aussi :
+  - un bouton pour voir le resume
+  - un bouton de fermeture
 - cette topbar reste propre au process de creation et ne reutilise pas celle de
   `DashboardPropertyEditorPanel`
 
@@ -276,6 +304,10 @@ fermeture globale du slideover.
 - la section `create` contient visuellement `DashboardPropertyCreatorPanel`
 - aucun bouton save, message ou topbar n est partagé entre les deux panels
 - le creator fonctionne en steps navigables avec steps optionnels skippables
+- le contenu de chaque step est centre horizontalement et verticalement
+- le stepper est affiche en haut de la zone de contenu, sans libelle technique de step
+- les phrases d accompagnement adressees au client utilisent un effet typing
+- l interface donne une impression d assistant de creation, pas de formulaire backoffice
 - `identifier` et `slug` ne sont jamais saisis ni generes cote front
 - le bien est cree inactif par defaut
 - le bouton `Nouveau bien` est prevu dans `DashboardPropertySidebar`, sous la liste des biens
@@ -283,7 +315,45 @@ fermeture globale du slideover.
 - une fiche ne peut proposer la publication que si elle a au moins une image representative, un
   prix ou `prix sur demande`, et `floorSize` ou `areaSize`
 - apres le premier POST, la topbar du creator affiche la ref generee et le nom du bien
+- la topbar du creator propose un acces au resume
 - le choix de l image representative reprend les conventions de la section Media du process de
   modification
 - le composant de création peut évoluer sans modifier le composant de modification
 - lint et format ciblés passent sur les fichiers modifiés
+
+## Etat d avancement (2026-06-04)
+
+Branche : `feat/dashboard-property-creator-panel`.
+
+### Fait — squelette UI / onboarding + pre-creation (≈ 90 %)
+
+- `DashboardPropertyCreatorPanel` créé et autonome (topbar, steps, actions, typing propres)
+- slideover orchestre les deux process `edit` / `create` sans partage de topbar ni de save
+- bouton `Nouveau bien` dans `DashboardPropertySidebar` -> `openCreator` (process `create`)
+- steps navigables avec etats `locked/current/completed/skipped/invalid`
+- contenu structure en trois zones, stepper en haut, messages assistant et transitions directionnelles
+- effet typing sur les phrases d assistant
+- image representative auto si une seule image, regles `canPublish` calculees
+- `identifier` / `slug` jamais saisis cote front, bien cree `isActive: false`
+- pre-creation apres le step classification via route Nitro dediee
+  `/api/dashboard/accommodations/creator`
+- affichage de l `identifier` backend dans la topbar des que le premier POST reussit
+- fermeture du creator confirmee si un brouillon backend a deja ete cree, avec conservation du
+  brouillon pour reprise plus tard
+
+### Restes a faire — branchement metier
+
+1. Brancher les steps suivants sur la sauvegarde du brouillon cree au premier POST.
+2. Brancher l emit `ready` du creator vers la finalisation du brouillon : actuellement `ready` n est
+   pas ecoute par le slideover.
+3. Bouton de publication explicite (`Publier le bien`) avec confirmation et message positif :
+   `canPublish` existe mais aucune action de passage `isActive: true` n est cablee.
+4. Bascule automatique vers le process `edit` du bien cree apres creation reussie.
+
+### Points a verifier
+
+- comportement produit souhaite pour les brouillons abandonnes : conservation simple, nettoyage
+  manuel, expiration automatique ou action explicite de suppression.
+- mapping `createPayload` (structure a plat) -> contrat de mise a jour du brouillon
+  (`translations[]`, IRIs).
+- representation de `prix sur demande` dans le payload final (cote `priceSpecification`).

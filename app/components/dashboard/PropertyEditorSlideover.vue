@@ -4,11 +4,15 @@
     :open="isOpen"
     :side="isMobile ? 'bottom' : 'left'"
     :ui="slideroverUi"
-    @update:open="isOpen = $event"
+    @update:open="handleOpenUpdate"
   >
     <template #content>
       <div class="flex h-dvh min-h-0 flex-col">
-        <section class="flex min-h-0 flex-1 flex-col" data-property-editor-process="edit">
+        <section
+          v-if="process === 'edit'"
+          class="flex min-h-0 flex-1 flex-col"
+          data-property-editor-process="edit"
+        >
           <DashboardPropertyEditorPanel
             :active-section="activeSection"
             :active-locale="activeLocale"
@@ -41,7 +45,12 @@
           />
         </section>
 
-        <section data-property-editor-process="create" aria-hidden="true" />
+        <section v-else class="flex min-h-0 flex-1 flex-col" data-property-editor-process="create">
+          <DashboardPropertyCreatorPanel
+            @close="handleCreatorClose"
+            @draft-created="handleCreatorDraftCreated"
+          />
+        </section>
       </div>
     </template>
   </USlideover>
@@ -54,17 +63,20 @@ import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
+type EditorProcess = 'edit' | 'create'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
 defineOptions({ name: 'DashboardPropertyEditorSlideover' })
 
 const props = defineProps<{
   open: boolean
+  process: EditorProcess
   accommodation?: DashboardAccommodation | null
 }>()
 
 const emit = defineEmits<{
   'update:open': [value: boolean]
+  'update:process': [value: EditorProcess]
   saved: []
 }>()
 
@@ -82,6 +94,7 @@ const expandedBlocks = ref<Set<string>>(new Set<string>())
 const isMobile = ref(false)
 const localeLoadToken = ref(0)
 const skipNextLocaleLoad = ref(false)
+const hasCreatorDraft = ref(false)
 
 const {
   status: saveStatus,
@@ -260,6 +273,11 @@ const isOpen = computed<boolean>({
   set: (value) => emit('update:open', value),
 })
 
+const process = computed<EditorProcess>({
+  get: () => props.process,
+  set: (value) => emit('update:process', value),
+})
+
 const activeDraft = computed<DashboardDraft | null>(
   () => drafts.value?.[activeLocale.value] ?? null,
 )
@@ -301,6 +319,37 @@ const propertyMenuItems = computed<BlockMenuItem[][]>(() => [
     },
   ],
 ])
+
+const canCloseCreator = (): boolean => {
+  if (process.value !== 'create' || !hasCreatorDraft.value) return true
+  if (!import.meta.client) return true
+  return window.confirm('Un brouillon de bien a déjà été créé. Fermer et continuer plus tard ?')
+}
+
+const closeCreator = (): void => {
+  if (!canCloseCreator()) return
+  hasCreatorDraft.value = false
+  isOpen.value = false
+}
+
+const handleOpenUpdate = (value: boolean): void => {
+  if (value) {
+    isOpen.value = true
+    return
+  }
+
+  if (!canCloseCreator()) return
+  hasCreatorDraft.value = false
+  isOpen.value = false
+}
+
+const handleCreatorClose = (): void => {
+  closeCreator()
+}
+
+const handleCreatorDraftCreated = (): void => {
+  hasCreatorDraft.value = true
+}
 
 const toggleBlock = (id: string): void => {
   if (expandedBlocks.value.has(id)) {

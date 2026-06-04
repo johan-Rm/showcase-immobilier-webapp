@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div :class="fullWidthItems ? 'w-full' : ''">
     <!-- Liste des images associées -->
     <div v-if="resolvedItems.length" class="mb-3">
       <div
         v-for="(item, index) in resolvedItems"
         :key="item.identifier"
         class="flex min-h-14 gap-3 border-b border-white/5 py-2.5 last:border-0"
+        :class="fullWidthItems ? 'w-full' : ''"
       >
         <!-- Vignette -->
         <div class="shrink-0">
@@ -24,9 +25,9 @@
         </div>
 
         <!-- Texte alt -->
-        <div class="min-w-0 flex-1">
+        <div class="flex min-h-14 min-w-0 flex-1 flex-col text-left">
           <span
-            class="text-[0.55rem] font-semibold tracking-widest uppercase"
+            class="block shrink-0 text-[0.55rem] font-semibold tracking-widest uppercase"
             style="color: #6b7a4a"
             >Texte alt</span
           >
@@ -36,7 +37,7 @@
             type="text"
             :value="getCaptionFor(item.identifier)"
             placeholder="Description de l'image pour les lecteurs d'écran et le SEO"
-            class="mt-0.5 w-full border-b border-white/20 bg-transparent pb-0.5 text-xs text-white/90 caret-white outline-none placeholder:text-white/20"
+            class="mt-auto w-full border-b border-white/20 bg-transparent pb-0.5 text-xs text-white/90 caret-white outline-none placeholder:text-white/20"
             :aria-label="`Texte alternatif pour ${item.identifier}`"
             @input="updateCaption(item.identifier, ($event.target as HTMLInputElement).value)"
             @blur="editingAlt = null"
@@ -46,7 +47,7 @@
           <button
             v-else
             type="button"
-            class="mt-0.5 w-full text-left text-xs transition-colors"
+            class="mt-auto w-full text-left text-xs transition-colors"
             :class="
               getCaptionFor(item.identifier)
                 ? 'text-white/55 hover:text-white/75'
@@ -121,6 +122,7 @@
 
     <!-- Bouton ajouter -->
     <button
+      v-if="!hideAddButton"
       type="button"
       class="flex w-full items-center justify-center gap-2 rounded border border-dashed border-white/10 py-2 text-xs text-white/35 transition-colors hover:border-white/20 hover:text-white/60"
       @click="isPickerOpen = true"
@@ -135,8 +137,11 @@
 </template>
 
 <script setup lang="ts">
+import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 import type { MediaObject } from '@schemas/interfaces'
 import type { ComponentPublicInstance } from 'vue'
+
+import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 type AssocItem = {
   image: string
@@ -156,7 +161,12 @@ defineOptions({ name: 'DashboardPropertyAssociatedMediaEditor' })
 
 const props = defineProps<{
   associatedMedia: DashboardEditableValue
+  fullWidthItems?: boolean
+  hideAddButton?: boolean
 }>()
+
+const fullWidthItems = computed<boolean>(() => props.fullWidthItems === true)
+const hideAddButton = computed<boolean>(() => props.hideAddButton === true)
 
 const emit = defineEmits<{
   'update:associatedMedia': [value: DashboardEditableValue]
