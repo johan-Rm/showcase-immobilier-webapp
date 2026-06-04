@@ -17,10 +17,6 @@ interface SidePanels {
 }
 
 type UseDashboardReturn = {
-  isCommandPaletteOpen: Ref<boolean>
-  openCommandPalette: () => void
-  closeCommandPalette: () => void
-  toggleCommandPalette: () => void
   isCommandPropertyOpen: Ref<boolean>
   openCommandProperty: () => void
   closeCommandProperty: () => void
@@ -34,19 +30,7 @@ type UseDashboardReturn = {
 
 const _useDashboard = (): UseDashboardReturn => {
   const route = useRoute()
-  const isCommandPaletteOpen = useState<boolean>('ui.commandPalette.open', () => false)
-
-  const openCommandPalette = (): void => {
-    isCommandPaletteOpen.value = true
-  }
-
-  const closeCommandPalette = (): void => {
-    isCommandPaletteOpen.value = false
-  }
-
-  const toggleCommandPalette = (): void => {
-    isCommandPaletteOpen.value = !isCommandPaletteOpen.value
-  }
+  const { loggedIn } = useUserSession()
 
   const isCommandPropertyOpen = useState<boolean>('ui.commandProperty.open', () => false)
 
@@ -104,34 +88,17 @@ const _useDashboard = (): UseDashboardReturn => {
 
   if (import.meta.client) {
     defineShortcuts({
-      meta_k: {
-        usingInput: true,
-        handler: () => {
-          toggleCommandPalette()
-        },
-      },
-      escape: {
-        usingInput: true,
-        handler: () => {
-          if (!isCommandPaletteOpen.value) return
-          closeCommandPalette()
-        },
-      },
       meta_q: {
         usingInput: true,
         handler: () => {
+          if (!loggedIn.value) return
           toggleSidePanel('designControls')
         },
       },
-      ctrl_m: {
+      ctrl_s: {
         usingInput: true,
         handler: () => {
-          toggleSidePanel('mainMenu')
-        },
-      },
-      ctrl_s: {
-        usingInput: false,
-        handler: () => {
+          if (!loggedIn.value) return
           toggleCommandProperty()
         },
       },
@@ -153,10 +120,6 @@ const _useDashboard = (): UseDashboardReturn => {
   )
 
   return {
-    isCommandPaletteOpen,
-    openCommandPalette,
-    closeCommandPalette,
-    toggleCommandPalette,
     isCommandPropertyOpen,
     openCommandProperty,
     closeCommandProperty,
