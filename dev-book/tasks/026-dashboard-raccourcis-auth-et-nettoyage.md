@@ -166,7 +166,11 @@ git rm app/components/CommandPaletteModal.vue
 `ctrl+s` ouvre aujourd'hui une modale centrée (`UModal` + `UCommandPalette`). On la remplace par un **slideover latéral droit** au look du sidebar dashboard, contenu réduit à **recherche texte + liste**.
 
 Référence de thème et de mécanisme : [PropertyEditorSlideover.vue](../../app/components/dashboard/PropertyEditorSlideover.vue) (USlideover, `side` responsive, `:ui` `bg-[#212121] text-white`, overlay `bg-black/55`).
-Référence de style de liste : [PropertySidebar.vue](../../app/components/dashboard/PropertySidebar.vue) (liseré olive, item `identifier` mono + titre tronqué, hover `bg-white/5`).
+Référence de style de liste : [PropertySidebar.vue](../../app/components/dashboard/PropertySidebar.vue) — la liste de résultats doit être **graphiquement identique** : item `identifier` mono + titre tronqué, hover `bg-white/5`, **item actif** `bg-white/10` avec identifiant en olive `#6B7A4A` (inactif en `text-white/35`), piloté par un `activeIndex`.
+
+**Polices :** le slideover est monté dans le layout **public**, il n'hérite donc pas des polices du dashboard. On les force explicitement, conformément au thème dashboard : **Rationale** sur le titre (`font-[rationale]`), **Inter** sur les textes (`font-[Inter]` sur le conteneur), `font-mono` sur l'identifiant (comme `PropertySidebar`).
+
+**Header :** titre « Rechercher un bien » en **olive** avec une **icône search à sa gauche** ; l'input n'a donc **pas** d'icône interne, mais une **bordure olive** (`ring-[#6B7A4A]`).
 
 **Données :** `useAccommodation().items: ComputedRef<Accommodation[]>` (déjà utilisé par le composant actuel). Le filtrage n'est plus délégué à `UCommandPalette` → on filtre localement sur `identifier` + `name` (insensible à la casse).
 
@@ -192,13 +196,16 @@ Remplacer le contenu par un `USlideover` calqué sur les références ci-dessus.
     @update:open="handleOpenChange"
   >
     <template #content>
-      <div class="flex h-dvh min-h-0 flex-col bg-[#212121] text-white">
+      <div class="flex h-dvh min-h-0 flex-col bg-[#212121] font-[Inter] text-white">
         <!-- Liseré olive -->
         <div class="h-0.5 w-full shrink-0 bg-[#6B7A4A]" />
 
-        <!-- Header : titre + fermeture -->
-        <div class="flex shrink-0 items-center gap-3 px-5 pt-5 pb-4">
-          <p class="flex-1 text-[0.6rem] font-semibold tracking-[0.22em] text-white/40 uppercase">
+        <!-- Header : icône + titre olive + fermeture -->
+        <div class="flex shrink-0 items-center gap-2 px-5 pt-5 pb-4">
+          <UIcon name="i-lucide-search" class="shrink-0 text-sm text-[#6B7A4A]" aria-hidden="true" />
+          <p
+            class="flex-1 font-[rationale] text-[0.7rem] font-semibold tracking-[0.22em] text-[#6B7A4A] uppercase"
+          >
             Rechercher un bien
           </p>
           <UButton
@@ -212,29 +219,40 @@ Remplacer le contenu par un `USlideover` calqué sur les références ci-dessus.
           />
         </div>
 
-        <!-- Champ de recherche -->
+        <!-- Champ de recherche : bordure olive, sans icône interne -->
         <div class="shrink-0 px-5 pb-3">
           <UInput
             v-model="query"
-            icon="i-lucide-search"
             placeholder="Rechercher par référence ou nom…"
             autofocus
-            :ui="{ base: 'bg-white/5 text-white placeholder:text-white/35' }"
+            class="w-full"
+            :ui="{
+              base: 'bg-white/5 text-white placeholder:text-white/35 ring-1 ring-inset ring-[#6B7A4A] focus-visible:ring-2 focus-visible:ring-[#6B7A4A]',
+            }"
+            @keydown.down.prevent="moveActive(1)"
+            @keydown.up.prevent="moveActive(-1)"
+            @keydown.enter.prevent="selectActive"
           />
         </div>
 
         <div class="mx-5 h-px shrink-0 bg-white/5" />
 
-        <!-- Liste scrollable -->
+        <!-- Liste scrollable (design identique au sidebar dashboard) -->
         <div class="min-h-0 flex-1 overflow-y-auto">
           <ul v-if="filteredItems.length" class="space-y-0.5 px-5 py-2">
-            <li v-for="item in filteredItems" :key="item.id">
+            <li v-for="(item, index) in filteredItems" :key="item.id">
               <button
                 type="button"
                 class="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-white/5"
+                :class="index === activeIndex ? 'bg-white/10' : ''"
+                @mouseenter="activeIndex = index"
                 @click="item.onSelect"
               >
-                <span class="shrink-0 font-mono text-[0.6rem] leading-none text-white/35">
+                <span
+                  class="shrink-0 font-mono text-[0.6rem] leading-none"
+                  :class="index !== activeIndex ? 'text-white/35' : ''"
+                  :style="index === activeIndex ? 'color: #6B7A4A' : ''"
+                >
                   {{ item.identifier }}
                 </span>
                 <span class="min-w-0 truncate text-xs text-white/60">
@@ -254,11 +272,12 @@ Remplacer le contenu par un `USlideover` calqué sur les références ci-dessus.
 Côté script :
 
 - conserver `buildPropertyItem` (référence + nom + slugs + `onSelect`) ;
-- ajouter `const query = ref('')` ;
+- état local : `query = ref('')`, `isMobile = ref(false)`, `activeIndex = ref(0)` ;
 - `filteredItems` = `propertyItems` filtré localement sur `identifier`/`propertyName` (normalisés `toLowerCase().trim()`), sans la limite `slice(0, 5)` (la liste défile) ;
 - `isMobile` + `slideoverUi` repris du pattern de `PropertyEditorSlideover.vue` (`bottom` < 1024px, `right` au-delà ; `content: '...bg-[#212121] text-white...'`, `overlay: 'bg-black/55'`) ;
 - `handleOpenChange = (open: boolean) => { if (!open) closeCommandProperty() }` ;
-- réinitialiser `query` à la fermeture (watch sur `isCommandPropertyOpen`).
+- navigation clavier : `moveActive(delta)` (modulo sur `filteredItems.length`) et `selectActive()` (`filteredItems[activeIndex]?.onSelect()`) ;
+- watch : réinitialiser `query` à la fermeture (`isCommandPropertyOpen`) et `activeIndex = 0` quand `filteredItems` change.
 
 - [ ] **Étape 3 : Mettre à jour le montage dans `default.vue`**
 
@@ -314,7 +333,9 @@ make lint:check 2>&1 | head -20
 3. **Connecté** :
    - `meta+q` → ouvre/ferme `designControls`.
    - `ctrl+s` → ouvre le **slideover de recherche** depuis la droite (overlay, fond `#212121`, liseré olive). Y compris quand le focus est dans un champ (`usingInput: true`).
-   - Saisie partielle (ex. `BAV`) → la liste se filtre sur référence + nom.
+   - Saisie partielle (ex. `BAV`) → la liste se filtre sur référence + nom ; le 1ᵉʳ résultat est mis en surbrillance (`activeIndex = 0`).
+   - **Parité visuelle** : titre olive + icône search, input à bordure olive, liste identique au sidebar dashboard (identifiant mono olive sur l'item actif, titre Inter, titre du panneau en Rationale).
+   - Survol / flèches ↑↓ → déplacent l'item actif ; `Entrée` ouvre l'item actif.
    - Clic sur un bien → navigation vers `/properties/{listing}/{category}/{slug}` + fermeture du slideover.
    - Escape / clic extérieur → ferme le slideover, `query` réinitialisé.
    - `ctrl+d` → navigue vers `/dashboard`.
