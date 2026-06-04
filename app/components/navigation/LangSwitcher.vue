@@ -1,16 +1,16 @@
 <template>
   <nav :aria-label="navAriaLabel" class="flex items-center">
     <ul class="flex items-center gap-2">
-      <li v-for="locale in availableLocales" :key="locale.code">
+      <li v-for="loc in availableLocales" :key="loc.code">
         <NuxtLink
-          v-if="locale.code !== currentLocale"
-          :to="switchLocalePath(locale.code)"
+          v-if="loc.code !== currentLocale"
+          :to="switchLocalePath(loc.code)"
           class="inline-flex items-center gap-1 text-xs font-semibold tracking-widest uppercase opacity-50 transition-opacity duration-200 hover:opacity-100"
           :class="colorClass"
-          :aria-label="locale.name"
+          :aria-label="loc.name"
         >
-          <span aria-hidden="true">{{ locale.flag }}</span>
-          <span>{{ locale.code.toUpperCase() }}</span>
+          <span aria-hidden="true">{{ loc.flag }}</span>
+          <span>{{ loc.code.toUpperCase() }}</span>
         </NuxtLink>
 
         <span
@@ -18,10 +18,10 @@
           aria-current="true"
           class="inline-flex cursor-default items-center gap-1 text-xs font-semibold tracking-widest uppercase opacity-100"
           :class="colorClass"
-          :aria-label="locale.name"
+          :aria-label="loc.name"
         >
-          <span aria-hidden="true">{{ locale.flag }}</span>
-          <span>{{ locale.code.toUpperCase() }}</span>
+          <span aria-hidden="true">{{ loc.flag }}</span>
+          <span>{{ loc.code.toUpperCase() }}</span>
         </span>
       </li>
     </ul>

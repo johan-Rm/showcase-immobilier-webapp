@@ -196,7 +196,8 @@ export const loadDashboardAccommodations = async (
 
       return {
         locale,
-        fileName: sourceFileName || `${basename(slug || identifier || `accommodation-${index + 1}`)}.md`,
+        fileName:
+          sourceFileName || `${basename(slug || identifier || `accommodation-${index + 1}`)}.md`,
         slug,
         identifier,
         frontmatter: toEditableRecord(rawRecord),

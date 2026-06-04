@@ -11,9 +11,9 @@ import {
   exportToMarkdown,
   propagateGlobalFields,
 } from '../../../utils/dashboard/markdownExporter'
-import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
+import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
 
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
@@ -56,14 +56,9 @@ const resolveSymfonyIdentifier = (
 ): string =>
   response.id ?? response.identifier ?? response['@id']?.split('/').at(-1) ?? fallbackIdentifier
 
-const getString = (value: unknown): string | null =>
-  typeof value === 'string' ? value : null
+const getString = (value: unknown): string | null => (typeof value === 'string' ? value : null)
 
-const applyString = (
-  fm: Record<string, unknown>,
-  key: string,
-  value: unknown,
-): void => {
+const applyString = (fm: Record<string, unknown>, key: string, value: unknown): void => {
   const str = getString(value)
   if (str) fm[key] = str
 }
@@ -95,7 +90,11 @@ const mergeFromSymfonyResponse = (
 
   const body = getString(symfony.body) ?? accommodation.body
 
-  return { ...accommodation, frontmatter: fm as DashboardAccommodationSavePayload['frontmatter'], body }
+  return {
+    ...accommodation,
+    frontmatter: fm as DashboardAccommodationSavePayload['frontmatter'],
+    body,
+  }
 }
 
 const isSaveDebugEnabled = (): boolean => process.env.DASHBOARD_SAVE_DEBUG === '1'
@@ -211,12 +210,7 @@ export default defineEventHandler(
 
     if (markdownUpdated && newFilePath && accommodation.fileName) {
       await deleteOrphanFile(accommodation.fileName, newFilePath, merged.locale)
-      await propagateGlobalFields(
-        merged.frontmatter,
-        identifier,
-        merged.locale,
-        ['fr', 'en', 'es'],
-      )
+      await propagateGlobalFields(merged.frontmatter, identifier, merged.locale, ['fr', 'en', 'es'])
     }
 
     let freshAccommodation: DashboardAccommodation | null = null
@@ -231,6 +225,13 @@ export default defineEventHandler(
 
     const freshTranslations = extractTranslations(savedData)
 
-    return { success: true, uuid, markdownUpdated, data: savedData, freshAccommodation, freshTranslations }
+    return {
+      success: true,
+      uuid,
+      markdownUpdated,
+      data: savedData,
+      freshAccommodation,
+      freshTranslations,
+    }
   },
 )

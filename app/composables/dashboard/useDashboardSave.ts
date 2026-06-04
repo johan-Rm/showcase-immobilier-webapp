@@ -122,5 +122,15 @@ export const useDashboardSave = () => {
     freshTranslations.value = []
   }
 
-  return { status, errorMessage, markdownUpdated, lastSavedData, freshAccommodation, freshTranslations, save, saveMultilingual, reset }
+  return {
+    status,
+    errorMessage,
+    markdownUpdated,
+    lastSavedData,
+    freshAccommodation,
+    freshTranslations,
+    save,
+    saveMultilingual,
+    reset,
+  }
 }

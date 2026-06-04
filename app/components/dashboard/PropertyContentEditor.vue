@@ -325,8 +325,18 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       id: 'seo',
       label: s('seo', 'SEO'),
       fields: [
-        { key: 'metaTitle', label: f('metaTitle', 'Méta Title'), default: null, hint: 'Si vide ce champ sera automatiquement édité' },
-        { key: 'metaDescription', label: f('metaDescription', 'Méta Description'), default: null, hint: 'Si vide ce champ sera automatiquement édité' },
+        {
+          key: 'metaTitle',
+          label: f('metaTitle', 'Méta Title'),
+          default: null,
+          hint: 'Si vide ce champ sera automatiquement édité',
+        },
+        {
+          key: 'metaDescription',
+          label: f('metaDescription', 'Méta Description'),
+          default: null,
+          hint: 'Si vide ce champ sera automatiquement édité',
+        },
       ],
     },
     {
