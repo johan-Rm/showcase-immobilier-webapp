@@ -6,7 +6,7 @@
     @update:open="handleOpenChange"
   >
     <template #content>
-      <div class="flex h-dvh min-h-0 flex-col bg-[#212121] text-white">
+      <div class="flex h-dvh min-h-0 flex-col bg-[#212121] font-[Inter] text-white">
         <!-- Liseré olive -->
         <div class="h-0.5 w-full shrink-0 bg-[#6B7A4A]" />
 
@@ -17,7 +17,9 @@
             class="shrink-0 text-sm text-[#6B7A4A]"
             aria-hidden="true"
           />
-          <p class="flex-1 text-[0.6rem] font-semibold tracking-[0.22em] text-[#6B7A4A] uppercase">
+          <p
+            class="flex-1 font-[rationale] text-[0.7rem] font-semibold tracking-[0.22em] text-[#6B7A4A] uppercase"
+          >
             Rechercher un bien
           </p>
           <UButton
@@ -41,21 +43,30 @@
             :ui="{
               base: 'bg-white/5 text-white placeholder:text-white/35 ring-1 ring-inset ring-[#6B7A4A] focus-visible:ring-2 focus-visible:ring-[#6B7A4A]',
             }"
+            @keydown.down.prevent="moveActive(1)"
+            @keydown.up.prevent="moveActive(-1)"
+            @keydown.enter.prevent="selectActive"
           />
         </div>
 
         <div class="mx-5 h-px shrink-0 bg-white/5" />
 
-        <!-- Liste scrollable -->
+        <!-- Liste scrollable (design identique au sidebar dashboard) -->
         <div class="min-h-0 flex-1 overflow-y-auto">
           <ul v-if="filteredItems.length" class="space-y-0.5 px-5 py-2">
-            <li v-for="item in filteredItems" :key="item.id">
+            <li v-for="(item, index) in filteredItems" :key="item.id">
               <button
                 type="button"
                 class="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-white/5"
+                :class="index === activeIndex ? 'bg-white/10' : ''"
+                @mouseenter="activeIndex = index"
                 @click="item.onSelect"
               >
-                <span class="shrink-0 font-mono text-[0.6rem] leading-none text-white/35">
+                <span
+                  class="shrink-0 font-mono text-[0.6rem] leading-none"
+                  :class="index !== activeIndex ? 'text-white/35' : ''"
+                  :style="index === activeIndex ? 'color: #6B7A4A' : ''"
+                >
                   {{ item.identifier }}
                 </span>
                 <span class="min-w-0 truncate text-xs text-white/60">
@@ -94,6 +105,7 @@ const { isCommandPropertyOpen, closeCommandProperty } = useDashboard()
 // 5. Etat local
 const query = ref('')
 const isMobile = ref(false)
+const activeIndex = ref(0)
 
 // 7. Validation et helpers purs
 const buildPropertyItem = (accommodation: Accommodation): PropertyItem | null => {
@@ -152,9 +164,23 @@ const handleOpenChange = (open: boolean): void => {
   if (!open) closeCommandProperty()
 }
 
+const moveActive = (delta: number): void => {
+  const count = filteredItems.value.length
+  if (!count) return
+  activeIndex.value = (activeIndex.value + delta + count) % count
+}
+
+const selectActive = (): void => {
+  filteredItems.value[activeIndex.value]?.onSelect()
+}
+
 // 10. Watch et watchEffect
 watch(isCommandPropertyOpen, (open) => {
   if (!open) query.value = ''
+})
+
+watch(filteredItems, () => {
+  activeIndex.value = 0
 })
 
 // 12. Lifecycle
