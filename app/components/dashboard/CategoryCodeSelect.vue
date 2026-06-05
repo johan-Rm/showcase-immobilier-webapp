@@ -185,6 +185,7 @@ const emit = defineEmits<{
 
 const store = useMetadataStore()
 const { locale } = useI18n()
+const { isEnabledLocale, sourceLocale } = useProjectLocales()
 
 const creating = ref(false)
 const createError = ref<string | null>(null)
@@ -230,10 +231,8 @@ const canCreate = computed(() => {
   return !options.value.some((o) => o.value === q || o.label === q)
 })
 
-const getCreateLocale = (): 'fr' | 'en' | 'es' => {
-  if (locale.value === 'en' || locale.value === 'es') return locale.value
-  return 'fr'
-}
+const getCreateLocale = (): LocaleCode =>
+  isEnabledLocale(locale.value) ? locale.value : sourceLocale.value
 
 const getCreatedLabel = (
   created: { label?: string; translations?: Array<{ locale?: string; label?: string | null }> },

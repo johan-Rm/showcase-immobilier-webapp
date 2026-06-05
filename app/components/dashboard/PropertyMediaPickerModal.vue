@@ -173,11 +173,10 @@ const statusColor = (status: UploadStatus): string => {
 }
 
 const { locale } = useI18n()
+const { isEnabledLocale, sourceLocale } = useProjectLocales()
 
-const getUploadLocale = (): 'fr' | 'en' | 'es' => {
-  if (locale.value === 'en' || locale.value === 'es') return locale.value
-  return 'fr'
-}
+const getUploadLocale = (): LocaleCode =>
+  isEnabledLocale(locale.value) ? locale.value : sourceLocale.value
 
 const createCaptionFromFilename = (filename: string): string =>
   filename

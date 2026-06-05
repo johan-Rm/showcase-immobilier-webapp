@@ -14,6 +14,7 @@ import {
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
 import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
+import { getProjectLocales } from '../../../utils/projectLocales'
 
 function getApiBase(): { apiUrl: string; projectId: string } {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
@@ -210,7 +211,8 @@ export default defineEventHandler(
 
     if (markdownUpdated && newFilePath && accommodation.fileName) {
       await deleteOrphanFile(accommodation.fileName, newFilePath, merged.locale)
-      await propagateGlobalFields(merged.frontmatter, identifier, merged.locale, ['fr', 'en', 'es'])
+      const { enabledLocales } = await getProjectLocales()
+      await propagateGlobalFields(merged.frontmatter, identifier, merged.locale, enabledLocales)
     }
 
     let freshAccommodation: DashboardAccommodation | null = null

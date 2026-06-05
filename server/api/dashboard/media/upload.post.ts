@@ -2,6 +2,7 @@ import type { LocaleCode } from '#shared/types/i18n'
 import type { MediaObject } from '@schemas/interfaces'
 
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
+import { getProjectLocales } from '../../../utils/projectLocales'
 
 type MediaObjectTranslationPayload = {
   locale: LocaleCode
@@ -101,9 +102,13 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
 
   const form = await readFormData(event)
   const file = form.get('file') as File | null
-  const locale = normalizeLocale(
+
+  // Locale d'upload restreinte aux locales activees du projet (fallback source).
+  const { enabledLocales, sourceLocale } = await getProjectLocales()
+  const requestedLocale = normalizeLocale(
     getStringEntry(form.get('locale')) ?? getQueryString(getQuery(event).locale),
   )
+  const locale = enabledLocales.includes(requestedLocale) ? requestedLocale : sourceLocale
   const fallbackCaption =
     getStringEntry(form.get('caption'))?.trim() ||
     (file ? createCaptionFromFilename(file.name) : '')
@@ -120,12 +125,16 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
   const { apiUrl, projectId } = getApiBase()
   const token = await getSymfonyServiceToken()
 
+  const parsedTranslations = parseTranslations(form.get('translations'), locale, fallbackCaption)
+  const enabledTranslations = parsedTranslations.filter((translation) =>
+    enabledLocales.includes(translation.locale),
+  )
+  const translations =
+    enabledTranslations.length > 0 ? enabledTranslations : [{ locale, caption: fallbackCaption }]
+
   const symfonyForm = new FormData()
   symfonyForm.append('file', file, file.name)
-  symfonyForm.append(
-    'translations',
-    JSON.stringify(parseTranslations(form.get('translations'), locale, fallbackCaption)),
-  )
+  symfonyForm.append('translations', JSON.stringify(translations))
 
   const raw = await $fetch<SymfonyMediaResponse>(
     `${apiUrl}/api/projects/${projectId}/media-objects/translations`,
