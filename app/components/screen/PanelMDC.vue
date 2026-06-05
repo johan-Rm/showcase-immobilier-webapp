@@ -48,10 +48,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { WebPage } from '@schemas/interfaces'
-
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 // 2. Types et constantes statiques
 type PanelMdcProps = {

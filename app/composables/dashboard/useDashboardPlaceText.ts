@@ -1,4 +1,3 @@
-import type { LocaleCode } from '#shared/types/i18n'
 import type { CategoryCode } from '@schemas/interfaces'
 
 import { useMetadataStore } from '~/stores/metadata'

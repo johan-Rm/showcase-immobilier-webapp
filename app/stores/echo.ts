@@ -1,5 +1,4 @@
 import type { EchoRequest, EchoResponse } from '#shared/schemas'
-import type { ApiError, JsonFetcher } from '#shared/types/echo'
 import type { FetchError } from 'ofetch'
 
 import { defineStore } from 'pinia'

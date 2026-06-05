@@ -11,3 +11,11 @@ bun.lock
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Artefacts générés depuis les schémas YAML
+schemas/dtos
+schemas/interfaces
+
+# Certificats TLS locaux et captures réseau (non formatables)
+nginx/certs
+*.har

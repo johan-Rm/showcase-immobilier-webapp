@@ -1,4 +1,3 @@
-import type { TransitionMode } from '#shared/types/ui'
 import type { ComputedRef, Ref } from 'vue'
 
 import { nextTick, ref } from 'vue'

@@ -59,10 +59,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { PropertyItem } from '#shared/types/accommodation'
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
-
-import { usePropertyListOptions } from '~/composables/usePropertyListOptions'
 
 // 2. Types et constantes statiques
 type PropertyListProps = {

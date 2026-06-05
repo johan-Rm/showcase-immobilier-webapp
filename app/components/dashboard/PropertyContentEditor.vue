@@ -120,11 +120,6 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  DashboardEditableRecord,
-  DashboardEditableValue,
-} from '#shared/types/dashboardAccommodation'
-
 defineOptions({ name: 'DashboardPropertyContentEditor' })
 
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
@@ -325,8 +320,18 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
       id: 'seo',
       label: s('seo', 'SEO'),
       fields: [
-        { key: 'metaTitle', label: f('metaTitle', 'Méta Title'), default: null, hint: 'Si vide ce champ sera automatiquement édité' },
-        { key: 'metaDescription', label: f('metaDescription', 'Méta Description'), default: null, hint: 'Si vide ce champ sera automatiquement édité' },
+        {
+          key: 'metaTitle',
+          label: f('metaTitle', 'Méta Title'),
+          default: null,
+          hint: 'Si vide ce champ sera automatiquement édité',
+        },
+        {
+          key: 'metaDescription',
+          label: f('metaDescription', 'Méta Description'),
+          default: null,
+          hint: 'Si vide ce champ sera automatiquement édité',
+        },
       ],
     },
     {

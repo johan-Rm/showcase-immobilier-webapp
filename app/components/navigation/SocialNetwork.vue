@@ -63,10 +63,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { AppFooterSocialLink } from '#shared/types/app'
-
-import { useApp } from '~/composables/useApp'
-import { useAppFooter } from '~/composables/useAppFooter'
 
 // 2. Types et constantes statiques
 type SocialNetworkBackgroundTone = 'white' | 'black'

@@ -174,13 +174,14 @@
       </div>
     </template>
 
-    <p v-if="hint" class="mt-0.5 italic opacity-35" style="color: #6b7a4a; font-size: 8px">{{ hint }}</p>
+    <p v-if="hint" class="mt-0.5 italic opacity-35" style="color: #6b7a4a; font-size: 8px">
+      {{ hint }}
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
 // 1. Imports
-import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 
 defineOptions({
   name: 'DashboardPropertyFieldEditor',

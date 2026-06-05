@@ -168,8 +168,6 @@
 </template>
 
 <script setup lang="ts">
-import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
-
 defineOptions({ name: 'DashboardCategoryCodeSelect' })
 
 const props = defineProps<{

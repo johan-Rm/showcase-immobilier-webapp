@@ -96,7 +96,9 @@
             :aria-label="`Définir ${item.identifier} comme image principale`"
             :aria-pressed="item.representativeOfPage"
             class="flex items-center gap-1 rounded p-0.5 transition-colors"
-            :class="item.representativeOfPage ? 'text-[#6B7A4A]' : 'text-white/20 hover:text-white/50'"
+            :class="
+              item.representativeOfPage ? 'text-[#6B7A4A]' : 'text-white/20 hover:text-white/50'
+            "
             @click="setRepresentative(item.identifier)"
           >
             <UIcon
@@ -133,12 +135,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ComponentPublicInstance } from 'vue'
-
-import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 import type { MediaObject } from '@schemas/interfaces'
-
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
+import type { ComponentPublicInstance } from 'vue'
 
 type AssocItem = {
   image: string

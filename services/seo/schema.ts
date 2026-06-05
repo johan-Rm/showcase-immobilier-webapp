@@ -1,6 +1,8 @@
 import type { AppOrganization } from '#shared/types/app'
 import type { Accommodation, WebPage } from '@schemas/interfaces'
 
+import { toAbsoluteUrl } from '#shared/utils/url'
+
 export type BuildSeoMetaInput = {
   page: WebPage | null
   siteUrl: string

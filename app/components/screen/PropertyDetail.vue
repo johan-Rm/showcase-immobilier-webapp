@@ -192,15 +192,10 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
 import type { Accommodation, CategoryCode } from '@schemas/interfaces'
 
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch, watchEffect } from 'vue'
 
-import { useApp } from '~/composables/useApp'
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { useDeviceDetect } from '~/composables/useDeviceDetect'
-import { prefetchWithPreset, useImageWarmup } from '~/composables/useImageWarmup'
 import { useAccommodationStore } from '~/stores/accommodation'
 
 // 2. Types et constantes statiques

@@ -174,12 +174,6 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  DashboardAccommodation,
-  DashboardEditableRecord,
-  DashboardEditableValue,
-} from '#shared/types/dashboardAccommodation'
-
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
 type SaveStatus = 'idle' | 'saving' | 'success' | 'error'

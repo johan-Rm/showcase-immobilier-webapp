@@ -3,8 +3,8 @@ import type {
   DashboardLocalizedAccommodationField,
 } from '#shared/types/dashboardAccommodation'
 
-import { isLocaleCode } from '#shared/i18n/config'
 import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
+import { isLocaleCode } from '#shared/utils/locale'
 
 type UnknownRecord = Record<string, unknown>
 

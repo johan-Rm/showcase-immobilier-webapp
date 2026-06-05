@@ -13,3 +13,7 @@ dist
 .env.*
 schemas/dtos
 schemas/interfaces
+
+# Certificats TLS locaux et captures réseau (ne jamais embarquer dans l'image)
+nginx/certs
+*.har

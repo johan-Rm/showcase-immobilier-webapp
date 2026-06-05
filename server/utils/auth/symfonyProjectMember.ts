@@ -45,5 +45,8 @@ export async function isSymfonyProjectMember(event: H3Event, email: string): Pro
 
   const token = await getSymfonyServiceToken()
 
-  return checkProjectMembership(apiUrl, projectId, token, email, $fetch)
+  // `$fetch` porte le type de toutes les routes Nitro : le comparer au type
+  // simple `Fetcher` fait exploser la profondeur d'inférence (TS2321).
+  // On le réduit au contrat `Fetcher` attendu par `checkProjectMembership`.
+  return checkProjectMembership(apiUrl, projectId, token, email, $fetch as unknown as Fetcher)
 }

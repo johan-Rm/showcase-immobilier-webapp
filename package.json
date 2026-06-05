@@ -25,7 +25,7 @@
     "quality:fix": "bun run format:fix && bun run lint:fix",
     "test": "vitest run",
     "test:dashboard": "vitest run server/utils/dashboard/*.vitest.ts",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "nuxt prepare && vue-tsc --noEmit"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.107",

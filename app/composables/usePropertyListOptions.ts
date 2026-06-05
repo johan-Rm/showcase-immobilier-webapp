@@ -1,4 +1,3 @@
-import type { PropertyItem } from '#shared/types/accommodation'
 import type { ComputedRef } from 'vue'
 
 type AccommodationCategoryOption = {

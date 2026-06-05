@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path'
 import ViteYaml from '@modyfi/vite-plugin-yaml'
 
 import { runSchemaHook } from './services/hooks/schema'
-import { FALLBACK_LOCALE, AVAILABLES_LOCALES } from './shared/i18n/config'
+import { FALLBACK_LOCALE, AVAILABLES_LOCALES } from './shared/utils/locale'
 
 const appEnv = process.env.APP_ENV?.trim().toLowerCase() === 'prod' ? 'prod' : 'dev'
 const nodeEnv = process.env.NODE_ENV?.trim().toLowerCase()
@@ -137,7 +137,6 @@ export default defineNuxtConfig({
     '@services': resolve(__dirname, 'services'),
     '@utils': resolve(__dirname, 'app/utils'),
     '@locales': resolve(__dirname, 'i18n/locales'),
-    '@content': resolve(__dirname, 'content'),
     ...(process.env.DIGITAL_ORCHESTRATION_CORE_PATH?.trim()
       ? {
           '@DigitalOrchestrationCore': resolve(process.env.DIGITAL_ORCHESTRATION_CORE_PATH.trim()),

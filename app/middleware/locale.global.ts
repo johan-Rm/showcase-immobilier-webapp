@@ -1,4 +1,4 @@
-import { FALLBACK_LOCALE, isLocaleCode } from '#shared/i18n/config'
+import { FALLBACK_LOCALE, isLocaleCode } from '#shared/utils/locale'
 
 /**
  * Extrait une locale valide depuis le path.

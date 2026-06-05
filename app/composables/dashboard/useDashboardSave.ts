@@ -1,11 +1,3 @@
-import type {
-  DashboardAccommodation,
-  DashboardAccommodationResolvedIris,
-  DashboardAccommodationSavePayload,
-  DashboardAccommodationTranslationPayload,
-} from '#shared/types/dashboardAccommodation'
-import type { LocaleCode } from '#shared/types/i18n'
-
 import { toValue } from 'vue'
 
 import { useMetadataStore } from '~/stores/metadata'
@@ -122,5 +114,15 @@ export const useDashboardSave = () => {
     freshTranslations.value = []
   }
 
-  return { status, errorMessage, markdownUpdated, lastSavedData, freshAccommodation, freshTranslations, save, saveMultilingual, reset }
+  return {
+    status,
+    errorMessage,
+    markdownUpdated,
+    lastSavedData,
+    freshAccommodation,
+    freshTranslations,
+    save,
+    saveMultilingual,
+    reset,
+  }
 }

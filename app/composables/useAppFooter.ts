@@ -1,7 +1,3 @@
-import type { AppFooter } from '#shared/types/app'
-
-import { useApp } from '~/composables/useApp'
-
 export const useAppFooter = () => {
   const { appData } = useApp()
 

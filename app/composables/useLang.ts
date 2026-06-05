@@ -1,10 +1,9 @@
-import type { LocaleCode, LocaleInfo } from '#shared/types/i18n'
 import type { Ref } from 'vue'
 import type { RouteLocationAsRelativeGeneric, RouteParamsRawGeneric } from 'vue-router'
 
 import { useI18n } from 'vue-i18n'
 
-import { FALLBACK_LOCALE, AVAILABLES_LOCALES, isLocaleCode } from '#shared/i18n/config'
+import { FALLBACK_LOCALE, AVAILABLES_LOCALES, isLocaleCode } from '#shared/utils/locale'
 
 export type Locales = Record<LocaleCode, LocaleInfo>
 type LocalizedParams = RouteParamsRawGeneric

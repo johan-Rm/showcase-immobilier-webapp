@@ -18,14 +18,14 @@
 
 ## État actuel des raccourcis
 
-| Raccourci | Action                                  | `usingInput` (cible) | Décision                                       |
-| --------- | --------------------------------------- | :------------------: | ---------------------------------------------- |
-| `meta+k`  | Toggle command palette                  |          —           | **Supprimer**                                  |
-| `escape`  | Ferme la command palette (si ouverte)   |          —           | **Supprimer**                                  |
-| `meta+q`  | Toggle panneau `designControls`         |        `true`        | **Gater sur `loggedIn`**                       |
-| `ctrl+m`  | Toggle panneau `mainMenu`               |          —           | **Supprimer**                                  |
-| `ctrl+s`  | Toggle recherche de biens (slideover)   |        `true`        | **Gater sur `loggedIn`** + passer à `true`     |
-| `ctrl+d`  | Navigue vers `/dashboard`               |       `false`        | Inchangé                                       |
+| Raccourci | Action                                | `usingInput` (cible) | Décision                                   |
+| --------- | ------------------------------------- | :------------------: | ------------------------------------------ |
+| `meta+k`  | Toggle command palette                |          —           | **Supprimer**                              |
+| `escape`  | Ferme la command palette (si ouverte) |          —           | **Supprimer**                              |
+| `meta+q`  | Toggle panneau `designControls`       |        `true`        | **Gater sur `loggedIn`**                   |
+| `ctrl+m`  | Toggle panneau `mainMenu`             |          —           | **Supprimer**                              |
+| `ctrl+s`  | Toggle recherche de biens (slideover) |        `true`        | **Gater sur `loggedIn`** + passer à `true` |
+| `ctrl+d`  | Navigue vers `/dashboard`             |       `false`        | Inchangé                                   |
 
 **Point D tranché** — `meta+q` et `ctrl+s` passent/restent en `usingInput: true` : ce sont des combos avec modificateur (aucune interférence avec la frappe), donc déclenchables même focus dans un champ ; bonus, `ctrl+s` en `usingInput: true` neutralise le « Enregistrer la page » du navigateur partout.
 
@@ -35,13 +35,13 @@
 
 ## Périmètre — fichiers touchés
 
-| Action     | Fichier                                                                  |
-| ---------- | ------------------------------------------------------------------------ |
-| Modifier   | `app/composables/useDashboard.ts`                                        |
-| Supprimer  | `app/components/CommandPaletteModal.vue`                                  |
-| Renommer   | `app/components/CommandPropertyModal.vue` → `CommandPropertySlideover.vue` |
-| Réécrire   | `app/components/CommandPropertySlideover.vue` (slideover style sidebar)   |
-| Modifier   | `app/layouts/default.vue` (mise à jour du composant monté)               |
+| Action    | Fichier                                                                    |
+| --------- | -------------------------------------------------------------------------- |
+| Modifier  | `app/composables/useDashboard.ts`                                          |
+| Supprimer | `app/components/CommandPaletteModal.vue`                                   |
+| Renommer  | `app/components/CommandPropertyModal.vue` → `CommandPropertySlideover.vue` |
+| Réécrire  | `app/components/CommandPropertySlideover.vue` (slideover style sidebar)    |
+| Modifier  | `app/layouts/default.vue` (mise à jour du composant monté)                 |
 
 ---
 
@@ -202,7 +202,11 @@ Remplacer le contenu par un `USlideover` calqué sur les références ci-dessus.
 
         <!-- Header : icône + titre olive + fermeture -->
         <div class="flex shrink-0 items-center gap-2 px-5 pt-5 pb-4">
-          <UIcon name="i-lucide-search" class="shrink-0 text-sm text-[#6B7A4A]" aria-hidden="true" />
+          <UIcon
+            name="i-lucide-search"
+            class="shrink-0 text-sm text-[#6B7A4A]"
+            aria-hidden="true"
+          />
           <p
             class="flex-1 font-[rationale] text-[0.7rem] font-semibold tracking-[0.22em] text-[#6B7A4A] uppercase"
           >
@@ -362,14 +366,14 @@ git commit -m "feat(dashboard): gater meta+q/ctrl+s sur la connexion, nettoyer l
 
 ## Points de vigilance
 
-| Sujet                     | Note                                                                                                                                  |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| SSR-safety                | `loggedIn` est un état SSR-safe ; sa lecture reste dans `import.meta.client` — aucun risque d'hydratation.                           |
-| No-op silencieux          | Hors connexion, `meta+q` et `ctrl+s` ne font **rien** : pas de navigation, pas de page de login. Garde = `if (!loggedIn.value) return`. |
-| Command palette morte     | Retirée intégralement (composant + état + actions). Vérifier qu'aucune référence orpheline ne subsiste avant commit (grep + type-check). |
-| `commandProperty` préservé | Ne **pas** toucher à `isCommandPropertyOpen` ni à ses actions : encore utilisés par `ctrl+s` et le slideover.                       |
-| `usingInput`              | `meta+q` **et** `ctrl+s` en `usingInput: true` (point D) — actifs même focus input ; `ctrl+s` capte aussi le « Save » navigateur.    |
-| Slideover SSR-safe        | `isMobile` se calcule dans `onMounted` (`matchMedia`) — pas de lecture `window` au SSR. `isCommandPropertyOpen` est un `useState`.   |
-| Auto-import / Lazy        | Le renommage casse l'auto-import `LazyCommandPropertyModal` : mettre à jour `default.vue` **dans le même commit** (sinon build KO).  |
-| `query` réinitialisé      | Vider `query` à la fermeture pour ne pas rouvrir le slideover sur un filtre obsolète.                                                |
-| Scope                     | Aucune modification de `ctrl+d`. Diff : `useDashboard.ts`, suppression `CommandPaletteModal.vue`, refonte + renommage du slideover, `default.vue`. |
+| Sujet                      | Note                                                                                                                                               |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SSR-safety                 | `loggedIn` est un état SSR-safe ; sa lecture reste dans `import.meta.client` — aucun risque d'hydratation.                                         |
+| No-op silencieux           | Hors connexion, `meta+q` et `ctrl+s` ne font **rien** : pas de navigation, pas de page de login. Garde = `if (!loggedIn.value) return`.            |
+| Command palette morte      | Retirée intégralement (composant + état + actions). Vérifier qu'aucune référence orpheline ne subsiste avant commit (grep + type-check).           |
+| `commandProperty` préservé | Ne **pas** toucher à `isCommandPropertyOpen` ni à ses actions : encore utilisés par `ctrl+s` et le slideover.                                      |
+| `usingInput`               | `meta+q` **et** `ctrl+s` en `usingInput: true` (point D) — actifs même focus input ; `ctrl+s` capte aussi le « Save » navigateur.                  |
+| Slideover SSR-safe         | `isMobile` se calcule dans `onMounted` (`matchMedia`) — pas de lecture `window` au SSR. `isCommandPropertyOpen` est un `useState`.                 |
+| Auto-import / Lazy         | Le renommage casse l'auto-import `LazyCommandPropertyModal` : mettre à jour `default.vue` **dans le même commit** (sinon build KO).                |
+| `query` réinitialisé       | Vider `query` à la fermeture pour ne pas rouvrir le slideover sur un filtre obsolète.                                                              |
+| Scope                      | Aucune modification de `ctrl+d`. Diff : `useDashboard.ts`, suppression `CommandPaletteModal.vue`, refonte + renommage du slideover, `default.vue`. |

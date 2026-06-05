@@ -1,6 +1,5 @@
-import type { LocaleCode } from '#shared/types/i18n'
 import type { WebPageDto } from '@schemas/dtos/webPage'
-import type { CreativeWork, WebPage } from '@schemas/interfaces'
+import type { WebPage } from '@schemas/interfaces'
 import type { ComputedRef, Ref } from 'vue'
 
 import { computed } from 'vue'
@@ -110,7 +109,9 @@ export const useWebPage = (): UseWebPageReturn => {
    * @returns Liste normalisée des composants adressables de la page.
    */
   const getPageComponents = (page: WebPage | null): IdentifiedCreativeWork[] => {
-    return (page?.hasPart ?? []).filter(hasIdentifier)
+    // `hasPart` est un contrat générique côté orchestrateur (blocs de contenu) ;
+    // on lui applique la forme riche CreativeWork définie côté frontend.
+    return ((page?.hasPart ?? []) as CreativeWork[]).filter(hasIdentifier)
   }
 
   /**

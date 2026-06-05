@@ -50,7 +50,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { ViewModeList } from '#shared/types/accommodation'
 
 import { computed } from 'vue'
 

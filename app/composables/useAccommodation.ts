@@ -1,4 +1,3 @@
-import type { PropertyItem, ViewModeList } from '#shared/types/accommodation'
 import type { Accommodation } from '@schemas/interfaces'
 import type { ComputedRef, MaybeRefOrGetter, Ref } from 'vue'
 

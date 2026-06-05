@@ -1,8 +1,3 @@
-import type { App } from '#shared/types/app'
-import type { MenuItem } from '@schemas/interfaces'
-
-import { useApp } from '~/composables/useApp'
-
 type AppMenuGroupKey = 'primaryMenuItems' | 'secondaryMenuItems' | 'otherItems'
 type NavigationMenuItem = MenuItem & { identifier: string; name: string; url: string }
 

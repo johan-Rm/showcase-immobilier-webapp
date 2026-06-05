@@ -1,5 +1,11 @@
 import type { ResourceKey } from '#shared/types/content'
 
+/**
+ * Registre des cles de ressources de contenu valides (Nuxt Content).
+ *
+ * Source de verite unique pour la validation des ressources, notamment cote serveur.
+ * Framework-agnostic.
+ */
 export const CONTENT_RESOURCES = [
   'app',
   'web-pages',

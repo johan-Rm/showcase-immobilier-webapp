@@ -1,5 +1,3 @@
-import { useConstructionModal } from '~/composables/useConstructionModal'
-
 export default defineNuxtRouteMiddleware((to, from) => {
   if (import.meta.server) return
 
