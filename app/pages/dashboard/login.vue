@@ -59,7 +59,7 @@
             block
             :loading="isLoading"
             :disabled="!form.email || !form.password"
-            class="mt-2 bg-[#6B7A4A] hover:bg-[#7d8f57] disabled:opacity-40"
+            class="mt-2 min-h-12 justify-center bg-[#6B7A4A] hover:bg-[#7d8f57] disabled:opacity-40"
           >
             Se connecter
           </UButton>
@@ -88,7 +88,7 @@ const error = ref<string | null>(null)
 const form = reactive({ email: '', password: '' })
 
 const inputUi = {
-  base: 'bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:border-[#6B7A4A] focus:ring-0',
+  base: 'bg-[#e8ecdd] border border-[#6B7A4A]/20 text-[#212121] placeholder:text-[#212121]/40 focus:border-[#6B7A4A] focus:ring-0',
 }
 
 // 9. Handlers et actions
@@ -125,3 +125,16 @@ definePageMeta({
   layout: 'dashboard',
 })
 </script>
+
+<style scoped>
+/* Neutralise le fond jaune d'autofill imposé par le navigateur sur les inputs */
+.pages-dashboard-login :deep(input:-webkit-autofill),
+.pages-dashboard-login :deep(input:-webkit-autofill:hover),
+.pages-dashboard-login :deep(input:-webkit-autofill:focus) {
+  -webkit-box-shadow: 0 0 0 1000px #e8ecdd inset;
+  box-shadow: 0 0 0 1000px #e8ecdd inset;
+  -webkit-text-fill-color: #212121;
+  caret-color: #212121;
+  transition: background-color 9999s ease-in-out 0s;
+}
+</style>
