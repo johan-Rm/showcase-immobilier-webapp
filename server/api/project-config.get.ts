@@ -1,8 +1,8 @@
 import type { ProjectLocalesConfig } from '#shared/types/i18n'
 
-import { FALLBACK_LOCALE, SUPPORTED_LOCALES } from '#shared/utils/locale'
-
 import { getProjectLocales } from '../utils/projectLocales'
+
+import { FALLBACK_LOCALE, SUPPORTED_LOCALES } from '#shared/utils/locale'
 
 /**
  * Expose au client les locales activees du projet courant.

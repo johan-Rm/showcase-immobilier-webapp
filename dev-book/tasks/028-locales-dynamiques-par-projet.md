@@ -27,12 +27,12 @@ dérivée du projet API, et de la faire consommer partout à la place des listes
 
 Deux notions distinctes, à ne plus confondre :
 
-| Notion | Locales **supportées** (build) | Locales **activées** (runtime, par projet) |
-|---|---|---|
-| Sens | Ce que l'app sait afficher | Ce que le projet API contient |
-| Valeur | `fr, en, es` (figé) | `enabledLocales` + `sourceLocale` |
-| Source | `shared/utils/locale.ts` (`AVAILABLES_LOCALES`) | API `/api/projects/{id}` |
-| Change quand | on recompile l'app | on change de `SYMFONY_PROJECT_ID` |
+| Notion       | Locales **supportées** (build)                  | Locales **activées** (runtime, par projet) |
+| ------------ | ----------------------------------------------- | ------------------------------------------ |
+| Sens         | Ce que l'app sait afficher                      | Ce que le projet API contient              |
+| Valeur       | `fr, en, es` (figé)                             | `enabledLocales` + `sourceLocale`          |
+| Source       | `shared/utils/locale.ts` (`AVAILABLES_LOCALES`) | API `/api/projects/{id}`                   |
+| Change quand | on recompile l'app                              | on change de `SYMFONY_PROJECT_ID`          |
 
 Règle : l'ensemble effectif = `AVAILABLES_LOCALES` ∩ `enabledLocales`, avec
 `sourceLocale` comme langue par défaut/source.
@@ -65,18 +65,18 @@ Règle : l'ensemble effectif = `AVAILABLES_LOCALES` ∩ `enabledLocales`, avec
 
 ### Listes `['fr','en','es']` en dur à remplacer
 
-| Périmètre | Fichier |
-|---|---|
-| Dashboard — onglets d'édition | `app/components/dashboard/PropertyEditorSlideover.vue` |
-| Dashboard — onglets d'édition | `app/components/dashboard/PropertyEditorPanel.vue` |
-| Dashboard — upload média | `app/components/dashboard/PropertyMediaPickerModal.vue` |
-| Dashboard — code catégorie | `app/components/dashboard/CategoryCodeSelect.vue` |
-| BFF — propagation champs globaux | `server/api/dashboard/accommodations/[identifier].put.ts` |
-| BFF — création code catégorie | `server/api/dashboard/category-codes.post.ts` |
-| BFF — upload média | `server/api/dashboard/media/upload.post.ts` |
-| BFF — texte code catégorie | `server/api/dashboard/category-codes/[code]/text.put.ts` |
-| Site public — switcher | `app/components/navigation/LangSwitcher.vue` (via `AVAILABLES_LOCALES`) |
-| Script | `scripts/content-sync.ts` (correction déjà amorcée) |
+| Périmètre                        | Fichier                                                                 |
+| -------------------------------- | ----------------------------------------------------------------------- |
+| Dashboard — onglets d'édition    | `app/components/dashboard/PropertyEditorSlideover.vue`                  |
+| Dashboard — onglets d'édition    | `app/components/dashboard/PropertyEditorPanel.vue`                      |
+| Dashboard — upload média         | `app/components/dashboard/PropertyMediaPickerModal.vue`                 |
+| Dashboard — code catégorie       | `app/components/dashboard/CategoryCodeSelect.vue`                       |
+| BFF — propagation champs globaux | `server/api/dashboard/accommodations/[identifier].put.ts`               |
+| BFF — création code catégorie    | `server/api/dashboard/category-codes.post.ts`                           |
+| BFF — upload média               | `server/api/dashboard/media/upload.post.ts`                             |
+| BFF — texte code catégorie       | `server/api/dashboard/category-codes/[code]/text.put.ts`                |
+| Site public — switcher           | `app/components/navigation/LangSwitcher.vue` (via `AVAILABLES_LOCALES`) |
+| Script                           | `scripts/content-sync.ts` (correction déjà amorcée)                     |
 
 ### Contrat API disponible
 
