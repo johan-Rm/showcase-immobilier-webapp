@@ -1,8 +1,8 @@
 import type { ProjectLocalesConfig } from '#shared/types/i18n'
 
-import { isLocaleCode, resolveSourceLocale } from '#shared/utils/locale'
-
 import { getSymfonyServiceToken } from './dashboard/symfonyAuth'
+
+import { isLocaleCode, resolveSourceLocale } from '#shared/utils/locale'
 
 /**
  * Resolution des locales activees du projet API courant.
