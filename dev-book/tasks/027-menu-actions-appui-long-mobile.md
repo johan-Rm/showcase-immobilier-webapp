@@ -1,6 +1,11 @@
 # Spec — Menu d'actions par appui long (mobile)
 
-> Document de design (brainstorming). L'implémentation pas-à-pas sera produite par la suite (writing-plans) dans ce même fichier ou un fichier de plan dédié.
+> **Statut : implémenté.** Document de design (brainstorming) ci-dessous, conservé comme
+> référence. Livré conformément à la section « Fichiers touchés » :
+> `app/composables/useLongPress.ts`, `app/components/navigation/MobileActionsMenu.vue`,
+> montage dans `app/layouts/default.vue`. Test unitaire node du helper pur
+> `exceedsMoveThreshold` (`useLongPress.vitest.ts`) ; les tests de geste/timer et de
+> composant nécessitent un environnement DOM (happy-dom + @vue/test-utils) absent du projet.
 
 ## Problème
 
@@ -18,16 +23,16 @@ Offrir un **appui long (long-press) n'importe où** sur les pages du site public
 
 ## Décisions actées (brainstorming)
 
-| Sujet | Décision |
-| --- | --- |
-| Déclencheur | Appui long **n'importe où** sur la page |
-| Rendu | Petit context menu ancré aux coordonnées du doigt |
-| Actions | Les 3 : Rechercher un bien, Tableau de bord, Contrôles de design |
-| Périmètre | Site public (layout `default`), **connecté**, appareils **tactiles** (phone + tablette) |
-| Approche technique | Détection custom (timer tactile) + `UDropdownMenu` ancré sur un trigger invisible |
-| Libellés | **Français en dur** (cohérent avec la famille admin `PropertySidebar` / `CommandPropertySlideover`, pas de clés i18n) |
-| Champs de saisie | Long-press démarrant sur `input/textarea/[contenteditable]/select` → **ignoré** (préserve l'édition) |
-| Liens / cartes | Non épargnés : un long-press dessus ouvre **notre** menu (choix « n'importe où » assumé) |
+| Sujet              | Décision                                                                                                              |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Déclencheur        | Appui long **n'importe où** sur la page                                                                               |
+| Rendu              | Petit context menu ancré aux coordonnées du doigt                                                                     |
+| Actions            | Les 3 : Rechercher un bien, Tableau de bord, Contrôles de design                                                      |
+| Périmètre          | Site public (layout `default`), **connecté**, appareils **tactiles** (phone + tablette)                               |
+| Approche technique | Détection custom (timer tactile) + `UDropdownMenu` ancré sur un trigger invisible                                     |
+| Libellés           | **Français en dur** (cohérent avec la famille admin `PropertySidebar` / `CommandPropertySlideover`, pas de clés i18n) |
+| Champs de saisie   | Long-press démarrant sur `input/textarea/[contenteditable]/select` → **ignoré** (préserve l'édition)                  |
+| Liens / cartes     | Non épargnés : un long-press dessus ouvre **notre** menu (choix « n'importe où » assumé)                              |
 
 ## Pourquoi détecter le geste nous-mêmes
 
@@ -43,10 +48,10 @@ Composable client-only, sans dépendance au menu ni au dashboard, testable isol�
 
 ```ts
 interface UseLongPressOptions {
-  enabled: Ref<boolean>            // n'attache les listeners que si true
-  delay?: number                   // défaut 500 ms
-  moveThreshold?: number           // défaut 10 px — au-delà = scroll → annulation
-  ignoreSelector?: string          // ex. 'input, textarea, [contenteditable], select'
+  enabled: Ref<boolean> // n'attache les listeners que si true
+  delay?: number // défaut 500 ms
+  moveThreshold?: number // défaut 10 px — au-delà = scroll → annulation
+  ignoreSelector?: string // ex. 'input, textarea, [contenteditable], select'
   onLongPress: (point: { x: number; y: number }) => void
 }
 
@@ -74,11 +79,11 @@ Monté dans le layout, auto-gating, client-only.
 
 **Items (thème dashboard `#212121` / olive `#6B7A4A`, libellés FR en dur) :**
 
-| Libellé | Icône | Action |
-| --- | --- | --- |
-| Rechercher un bien | `i-lucide-search` | `openCommandProperty()` |
-| Tableau de bord | `i-lucide-layout-dashboard` | `navigateTo(localePath('/dashboard'))` |
-| Contrôles de design | `i-lucide-sliders` | `toggleSidePanel('designControls')` |
+| Libellé             | Icône                       | Action                                 |
+| ------------------- | --------------------------- | -------------------------------------- |
+| Rechercher un bien  | `i-lucide-search`           | `openCommandProperty()`                |
+| Tableau de bord     | `i-lucide-layout-dashboard` | `navigateTo(localePath('/dashboard'))` |
+| Contrôles de design | `i-lucide-sliders`          | `toggleSidePanel('designControls')`    |
 
 ### Montage — `app/layouts/default.vue`
 
@@ -96,14 +101,14 @@ default.vue
 
 ## Mitigation des conflits (le point dur du « n'importe où »)
 
-| Risque | Mitigation |
-| --- | --- |
-| Scroll confondu avec long-press | annulation si `touchmove` > seuil |
-| Pinch / zoom | ignoré si `touches.length > 1` |
-| Édition / sélection dans un champ | long-press sur `input/textarea/[contenteditable]/select` ignoré |
-| Menu contextuel natif (image, lien) | `preventDefault` du `contextmenu` suivant le déclenchement |
-| Clic fantôme après le geste | neutralisation du `click` synthétique |
-| Menu hors écran | coordonnées **clampées** au viewport |
+| Risque                              | Mitigation                                                      |
+| ----------------------------------- | --------------------------------------------------------------- |
+| Scroll confondu avec long-press     | annulation si `touchmove` > seuil                               |
+| Pinch / zoom                        | ignoré si `touches.length > 1`                                  |
+| Édition / sélection dans un champ   | long-press sur `input/textarea/[contenteditable]/select` ignoré |
+| Menu contextuel natif (image, lien) | `preventDefault` du `contextmenu` suivant le déclenchement      |
+| Clic fantôme après le geste         | neutralisation du `click` synthétique                           |
+| Menu hors écran                     | coordonnées **clampées** au viewport                            |
 
 ## Points transverses
 
@@ -119,11 +124,11 @@ default.vue
 
 ## Fichiers touchés
 
-| Action | Fichier |
-| --- | --- |
-| Créer | `app/composables/useLongPress.ts` |
-| Créer | `app/components/navigation/MobileActionsMenu.vue` |
-| Modifier | `app/layouts/default.vue` (montage) |
+| Action   | Fichier                                           |
+| -------- | ------------------------------------------------- |
+| Créer    | `app/composables/useLongPress.ts`                 |
+| Créer    | `app/components/navigation/MobileActionsMenu.vue` |
+| Modifier | `app/layouts/default.vue` (montage)               |
 
 ## Hors périmètre
 

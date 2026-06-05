@@ -21,6 +21,7 @@
     </UMain>
     <LazyUdrawerDesignSystem />
     <LazyCommandPropertySlideover />
+    <LazyNavigationMobileActionsMenu />
     <Transition name="fade-up" appear>
       <LazyNavigationMain />
     </Transition>
