@@ -70,14 +70,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type {
-  DashboardAccommodation,
-  DashboardAccommodationsResponse,
-  DashboardFilterOption,
-} from '#shared/types/dashboardAccommodation'
-
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { prefetchWithPreset, useImageWarmup } from '~/composables/useImageWarmup'
 
 // 2. Types et constantes statiques
 type SelectOption = {

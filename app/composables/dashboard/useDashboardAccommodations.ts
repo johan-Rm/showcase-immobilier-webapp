@@ -1,4 +1,3 @@
-import type { DashboardAccommodationsResponse } from '#shared/types/dashboardAccommodation'
 import type { MaybeRefOrGetter } from 'vue'
 
 import { toValue } from 'vue'

@@ -1,5 +1,3 @@
-import type { ContactPayload, ContactResponse } from '#shared/types/contact'
-
 type ContactSubmitStatus = 'idle' | 'success' | 'error'
 
 const CONTACT_ERROR_MESSAGE =

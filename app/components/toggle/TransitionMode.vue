@@ -62,7 +62,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { TransitionMode } from '#shared/types/ui'
 
 import { computed } from 'vue'
 

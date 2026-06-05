@@ -1,15 +1,11 @@
 import type { AppNavigation } from '#shared/types/app'
+import type { CreativeWork, MenuItem } from '#shared/types/content'
 import type { WebPageDto } from '@schemas/dtos'
-import type {
-  Accommodation,
-  CategoryCode,
-  CreativeWork,
-  MediaObject,
-  MenuItem,
-  WebPage,
-} from '@schemas/interfaces'
+import type { Accommodation, CategoryCode, MediaObject, WebPage } from '@schemas/interfaces'
 
 import { extractBodyComponents } from '@services/content/mdc'
+
+import { isNonEmptyString } from '#shared/utils/guards'
 
 /**
  * Mapper des pages éditoriales (`WebPageDto` -> `WebPage`).

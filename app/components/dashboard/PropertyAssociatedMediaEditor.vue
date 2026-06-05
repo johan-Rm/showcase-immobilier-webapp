@@ -135,11 +135,8 @@
 </template>
 
 <script setup lang="ts">
-import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 import type { MediaObject } from '@schemas/interfaces'
 import type { ComponentPublicInstance } from 'vue'
-
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 type AssocItem = {
   image: string

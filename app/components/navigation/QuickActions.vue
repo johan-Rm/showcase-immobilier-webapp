@@ -42,14 +42,9 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { MenuItem } from '@schemas/interfaces'
 import type { ComponentPublicInstance } from 'vue'
 
 import { useIntersectionObserver, useTimeoutFn } from '@vueuse/core'
-
-import { useConstructionModal } from '~/composables/useConstructionModal'
-import { prefetchWithPreset } from '~/composables/useImageWarmup'
-import { useQuickActionWarmup } from '~/composables/useQuickActionWarmup'
 
 // 2. Types et constantes statiques
 type QuickActionsContainerVariant = 'glass'

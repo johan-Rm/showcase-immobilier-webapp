@@ -1,6 +1,3 @@
-import type { AccommodationForm } from '#shared/types/accommodationForm'
-import type { App, AppAccommodation } from '#shared/types/app'
-import type { DashboardContent } from '#shared/types/dashboard'
 import type { CategoryCode, MediaObject } from '@schemas/interfaces'
 
 import { useMetadataStore } from '~/stores/metadata'

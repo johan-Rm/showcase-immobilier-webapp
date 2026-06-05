@@ -55,7 +55,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import { useEcho } from '~/composables/useEcho'
 
 // 2. Types et constantes statiques
 

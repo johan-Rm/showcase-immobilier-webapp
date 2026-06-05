@@ -4,8 +4,6 @@ import type { AccommodationMedia } from './accommodationMedia'
 
 import type { AccommodationPlace } from './accommodationPlace'
 
-import type { AmenityFeature } from './amenityFeature'
-
 import type { CategoryCode } from './categoryCode'
 
 import type { Offer } from './offer'
@@ -102,7 +100,7 @@ export interface Accommodation {
   /**
    * Liste des équipements (piscine, jacuzzi, alarme…) sous forme de codes catégorie
    */
-  amenityFeature?: AmenityFeature[]
+  amenityFeature?: CategoryCode[]
   /**
    * Valeurs qualitatives libres (ex: exposition, vue, standing) sous forme clé/valeur
    * --- Offre commerciale ---

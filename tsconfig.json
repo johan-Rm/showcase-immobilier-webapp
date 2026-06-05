@@ -13,7 +13,6 @@
       "@/*": ["./app/*"],
       "@utils/*": ["./app/utils/*"],
       "@locales/*": ["./i18n/locales/*"],
-      "@content/*": ["./content/*"],
       "#shared": ["./shared"],
       "#shared/*": ["./shared/*"],
       "@schemas/*": ["./schemas/*"],

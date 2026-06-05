@@ -1,10 +1,3 @@
-import type {
-  ScreenAnchorSyncMode,
-  ScreenAxis,
-  ScreenColumnTemplate,
-  ScreenTransitionMode,
-  ScreenTransitionStyle,
-} from '#shared/types/screenNavigator'
 import type { ComponentPublicInstance, ComputedRef, MaybeRefOrGetter } from 'vue'
 
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'

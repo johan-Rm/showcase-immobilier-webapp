@@ -1,7 +1,5 @@
 import type { MediaObject } from './mediaObject'
 
-export type CreativeWork = Record<string, unknown>
-
 export type PropertyValue = Record<string, unknown>
 
 export interface Article {
@@ -60,7 +58,7 @@ export interface Article {
   text?: string
   articleBody?: string
   /**
-   * ex-components / sections de page
+   * ex-components / sections de page (blocs de contenu generiques)
    */
-  hasPart?: CreativeWork[]
+  hasPart?: Record<string, unknown>[]
 }

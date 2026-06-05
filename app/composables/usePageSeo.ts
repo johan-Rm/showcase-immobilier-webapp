@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import { buildJsonLd, buildSeoMeta } from '@services/seo/schema'
 
-import { AVAILABLES_LOCALES, FALLBACK_LOCALE } from '#shared/i18n/config'
+import { AVAILABLES_LOCALES, FALLBACK_LOCALE } from '#shared/utils/locale'
 
 type UsePageSeoReturn = {
   seoMeta: ComputedRef<ReturnType<typeof buildSeoMeta>>

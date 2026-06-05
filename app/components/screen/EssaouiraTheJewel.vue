@@ -32,12 +32,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { GalleryItem } from '#shared/types/gallery'
-import type { CreativeWork } from '@schemas/interfaces'
-
-import { useAppNavigation } from '~/composables/useAppNavigation'
-import { useDeviceDetect } from '~/composables/useDeviceDetect'
-import { useGalleryItems } from '~/composables/useGalleryItems'
 
 // 2. Types et constantes statiques
 type Props = {

@@ -1,5 +1,3 @@
-import type { ResourceKey } from '#shared/types/content'
-
 /**
  * Adapter client de chargement de contenu via l'API Nitro.
  *

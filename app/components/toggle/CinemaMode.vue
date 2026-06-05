@@ -47,7 +47,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { CinemaMode } from '#shared/types/ui'
 
 import { computed } from 'vue'
 

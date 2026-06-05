@@ -1,5 +1,3 @@
-import { useAppPending } from '~/composables/useAppPending'
-
 type InitResult = {
   loadMetadata: () => Promise<void>
   loadMainData: () => Promise<void>

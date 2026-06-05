@@ -253,12 +253,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { AppFooterLink, AppFooterSocialLink, AppLinkTarget } from '#shared/types/app'
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
-import type { CreativeWork, MediaObject } from '@schemas/interfaces'
-
-import { useAppFooter } from '~/composables/useAppFooter'
-import { useAppNavigation } from '~/composables/useAppNavigation'
+import type { MediaObject } from '@schemas/interfaces'
 
 // 2. Types et constantes statiques
 type FooterLink = AppFooterLink

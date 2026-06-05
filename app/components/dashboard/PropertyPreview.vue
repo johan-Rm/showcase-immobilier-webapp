@@ -135,7 +135,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { DashboardAccommodation } from '#shared/types/dashboardAccommodation'
 
 // 2. Types et constantes statiques
 

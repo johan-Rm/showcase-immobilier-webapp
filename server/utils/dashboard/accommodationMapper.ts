@@ -1,10 +1,10 @@
-import { isLocaleCode } from '#shared/i18n/config'
 import {
   DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS,
   type DashboardAccommodationSavePayload,
   type DashboardAccommodationTranslationPayload,
   type DashboardEditableValue,
 } from '#shared/types/dashboardAccommodation'
+import { isLocaleCode } from '#shared/utils/locale'
 
 // ---------------------------------------------------------------------------
 // Types helpers
@@ -61,7 +61,7 @@ function mapAssociatedMedia(
         representativeOfPage: asBoolean(item.representativeOfPage),
       }
     })
-    .filter((item): item is Record<string, unknown> => item !== null)
+    .filter((item): item is NonNullable<typeof item> => item !== null)
 }
 
 function hasUsableTranslation(

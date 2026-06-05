@@ -74,6 +74,24 @@ Le check doit etre calibre pour Nuxt afin de ne pas signaler a tort les fichiers
 les routes `app/pages/`, les conventions Nitro, les contenus Nuxt Content et les schemas
 generes.
 
+### Inventaire des auto-imports (calibrage code mort)
+
+Le check de code mort ne peut pas etre calibre sans la liste reelle des symboles
+auto-importes par Nuxt : sinon il signale a tort composables, stores, types et composants
+comme inutilises. Cette liste sert aussi de reference pour retirer les imports explicites
+devenus redondants dans le contexte app.
+
+Action :
+
+- completer `docs/2.architecture/7.auto-imports-and-aliases.md` : references vers la doc
+  officielle Nuxt 4 et inventaire concret propre au projet (composables, stores, utils,
+  types, server utils, composants), verifie via `bunx nuxi prepare` puis `.nuxt/imports.d.ts`,
+  `.nuxt/types/nitro-imports.d.ts` et `.nuxt/components.d.ts`
+- acter les exclusions hors auto-import : `services/`, `schemas/interfaces/`, `schemas/dtos/`
+- nettoyer les imports redondants de `shared/types/content` (`CreativeWork`, `MenuItem`) dans
+  les fichiers app (.vue, composables), en conservant l import explicite dans
+  `services/mapper/webPage.ts` (hors auto-import)
+
 ### Script global
 
 Clarifier les scripts de qualite :
@@ -129,6 +147,7 @@ Clarifier les scripts de qualite :
 - un check securite dependances est disponible ou explicitement documente comme couvert par
   une alternative CI
 - un check code mort avance est disponible et calibre pour Nuxt
+- l inventaire des auto-imports projet est documente et sert de calibrage au check code mort
 - les scripts sont nommes dans `package.json`
 - les workflows GitHub Actions lancent les checks retenus
 - la documentation indique les commandes a lancer en local et avant PR

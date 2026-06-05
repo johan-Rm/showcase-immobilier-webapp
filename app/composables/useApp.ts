@@ -1,6 +1,3 @@
-import type { App, AppAccommodation } from '#shared/types/app'
-import type { DashboardAccommodationsResponse } from '#shared/types/dashboardAccommodation'
-import type { LocaleCode } from '#shared/types/i18n'
 import type { ComputedRef, Ref } from 'vue'
 
 import { computed } from 'vue'

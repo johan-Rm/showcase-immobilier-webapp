@@ -1,5 +1,4 @@
-import type { GalleryItem } from '#shared/types/gallery'
-import type { CreativeWork, MediaObject } from '@schemas/interfaces'
+import type { MediaObject } from '@schemas/interfaces'
 import type { ComputedRef } from 'vue'
 
 export type { GalleryItem }

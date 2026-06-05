@@ -1,6 +1,4 @@
-import type { Accommodation, CreativeWork, WebPage } from '@schemas/interfaces'
-
-import { prefetchWithPreset, registerImgFn } from '~/composables/useImageWarmup'
+import type { Accommodation, WebPage } from '@schemas/interfaces'
 
 type PropertyListItemLike = {
   image?: string

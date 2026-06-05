@@ -50,7 +50,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { ThemeMode } from '#shared/types/ui'
 
 import { computed } from 'vue'
 

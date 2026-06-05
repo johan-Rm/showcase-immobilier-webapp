@@ -86,11 +86,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
-import type { CreativeWork, MediaObject, MenuItem } from '@schemas/interfaces'
-
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { useDeviceDetect } from '~/composables/useDeviceDetect'
+import type { MediaObject } from '@schemas/interfaces'
 
 // 2. Types et constantes statiques
 type FullImageScreenProps = {

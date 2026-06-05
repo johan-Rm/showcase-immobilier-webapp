@@ -2,7 +2,7 @@ import { createError, defineEventHandler, getQuery, getRouterParam } from 'h3'
 
 import { loadContentFromFiles } from '../../utils/content/loaders'
 
-import { isResourceKey } from '#shared/content/config'
+import { isResourceKey } from '#shared/utils/contentResources'
 
 export default defineEventHandler(async (event) => {
   const resourceParam = getRouterParam(event, 'resource')

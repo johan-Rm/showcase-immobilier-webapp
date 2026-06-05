@@ -2,9 +2,6 @@ import type { MaybeRefOrGetter } from 'vue'
 
 import { computed, onBeforeUnmount, toValue, watch } from 'vue'
 
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { useLogger } from '~/composables/useLogger'
-
 type UseImageWarmupOptions = {
   stateKey?: string
   warmupEnabled?: MaybeRefOrGetter<boolean>

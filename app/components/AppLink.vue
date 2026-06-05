@@ -52,10 +52,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { AppLinkTarget } from '#shared/types/app'
 import type { RouteLocationRaw } from 'vue-router'
-
-import { useConstructionModal } from '~/composables/useConstructionModal'
 
 // 2. Types et constantes statiques
 type AppLinkVariant = 'icon' | 'text'

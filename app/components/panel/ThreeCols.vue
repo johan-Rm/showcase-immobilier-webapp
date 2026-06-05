@@ -48,7 +48,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 // 2. Types et constantes statiques
 type TryptiquePanel = {

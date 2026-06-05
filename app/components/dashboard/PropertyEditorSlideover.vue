@@ -48,22 +48,9 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  DashboardAccommodation,
-  DashboardAccommodationSavePayload,
-  DashboardAccommodationTranslationPayload,
-  DashboardAccommodationTranslationsResponse,
-  DashboardEditableRecord,
-  DashboardEditableValue,
-  DashboardLocalizedAccommodationField,
-} from '#shared/types/dashboardAccommodation'
-import type { LocaleCode } from '#shared/types/i18n'
-
 import { useDashboardPlaceText } from '~/composables/dashboard/useDashboardPlaceText'
 import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
 import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
-
-import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'

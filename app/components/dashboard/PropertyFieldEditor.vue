@@ -182,7 +182,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 
 defineOptions({
   name: 'DashboardPropertyFieldEditor',

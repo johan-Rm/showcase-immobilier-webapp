@@ -73,7 +73,9 @@ const getFallbackLabel = (body: CategoryCodeCreateRequest): string => {
 
   const firstTranslation = body.translations.find(
     (translation): translation is { label: string } =>
-      isRecord(translation) && typeof translation.label === 'string' && translation.label.trim(),
+      isRecord(translation) &&
+      typeof translation.label === 'string' &&
+      translation.label.trim().length > 0,
   )
 
   return firstTranslation?.label.trim() ?? ''

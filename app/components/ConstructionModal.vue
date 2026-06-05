@@ -74,7 +74,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import { useConstructionModal } from '~/composables/useConstructionModal'
 
 // 2. Types et constantes statiques
 // 3. Props et emits

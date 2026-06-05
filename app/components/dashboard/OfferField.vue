@@ -71,11 +71,6 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  DashboardEditableRecord,
-  DashboardEditableValue,
-} from '#shared/types/dashboardAccommodation'
-
 defineOptions({ name: 'DashboardOfferField' })
 
 const props = defineProps<{

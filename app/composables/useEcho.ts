@@ -1,5 +1,4 @@
 import type { EchoRequest } from '#shared/schemas'
-import type { ApiError } from '#shared/types/echo'
 import type { Ref } from 'vue'
 
 import { storeToRefs } from 'pinia'

@@ -136,11 +136,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { PropertyItem, ViewModeList } from '#shared/types/accommodation'
-import type { CinemaMode } from '#shared/types/ui'
 import type { ComponentPublicInstance } from 'vue'
-
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
 // 2. Types et constantes statiques
 

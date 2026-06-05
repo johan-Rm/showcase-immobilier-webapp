@@ -1,11 +1,3 @@
-import type {
-  DashboardAccommodation,
-  DashboardAccommodationResolvedIris,
-  DashboardAccommodationSavePayload,
-  DashboardAccommodationTranslationPayload,
-} from '#shared/types/dashboardAccommodation'
-import type { LocaleCode } from '#shared/types/i18n'
-
 import { toValue } from 'vue'
 
 import { useMetadataStore } from '~/stores/metadata'

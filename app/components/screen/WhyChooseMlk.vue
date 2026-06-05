@@ -35,11 +35,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
-import type { CreativeWork, MediaObject } from '@schemas/interfaces'
-
-import { useAppNavigation } from '~/composables/useAppNavigation'
-import { useDeviceDetect } from '~/composables/useDeviceDetect'
+import type { MediaObject } from '@schemas/interfaces'
 
 // 2. Types et constantes statiques
 type ValueItem = {

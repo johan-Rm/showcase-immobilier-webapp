@@ -1,4 +1,4 @@
-import type { MenuItem } from '@schemas/interfaces'
+import type { MenuItem } from './content'
 
 export type AppNavigationItem = Omit<MenuItem, 'identifier'> & {
   name: string

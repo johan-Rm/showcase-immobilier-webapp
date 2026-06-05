@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import { AVAILABLES_LOCALES } from '#shared/i18n/config'
+import { AVAILABLES_LOCALES } from '#shared/utils/locale'
 
 // 2. Types et constantes statiques
 type ColorVariant = 'default' | 'contrast'

@@ -1,4 +1,3 @@
-import type { CinemaMode, ThemeMode } from '#shared/types/ui'
 import type { ComputedRef, Ref } from 'vue'
 
 import { computed, watch } from 'vue'

@@ -212,13 +212,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { AppFooterSocialLink, AppLinkTarget } from '#shared/types/app'
-import type { ScreenColumnTemplate } from '#shared/types/screenNavigator'
-import type { MenuItem } from '@schemas/interfaces'
-
-import { useAppFooter } from '~/composables/useAppFooter'
-import { IMAGE_PRESETS } from '~/composables/useAppImage'
-import { useAppNavigation } from '~/composables/useAppNavigation'
 
 // 2. Types et constantes statiques
 type TryptiqueMenuItem = MenuItem

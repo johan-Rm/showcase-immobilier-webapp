@@ -175,7 +175,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import type { DashboardAccommodation } from '#shared/types/dashboardAccommodation'
 
 import LogoGd from '~/assets/logo/logo_gd.svg'
 
