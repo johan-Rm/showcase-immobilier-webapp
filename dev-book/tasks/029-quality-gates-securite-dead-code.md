@@ -3,7 +3,7 @@ status: Todo
 doc: docs/3.application/ci-conventions-validation.md
 ---
 
-# 027 Quality gates — securite, secrets et code mort
+# 029 Quality gates — securite, secrets et code mort
 
 ## Intention
 
