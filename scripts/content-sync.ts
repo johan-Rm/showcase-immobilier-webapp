@@ -2,8 +2,8 @@
 /**
  * Synchronisation API → fichiers content (pull-only).
  *
- * Lit l'API Symfony et écrit les fichiers locaux pour toutes les locales.
- * Coexiste avec import-accommodations.ts qui fait l'inverse (push).
+ * Lit l'API Symfony et écrit les fichiers locaux pour les locales activées du
+ * projet (champ `enabledLocales`). Coexiste avec import-accommodations.ts (push).
  *
  * Usage :
  *   bun scripts/content-sync.ts
@@ -25,7 +25,6 @@ loadDotenv({ path: resolve(process.cwd(), '.env') })
 
 const isDryRun = process.argv.includes('--dry-run')
 const localeFlag = process.argv.find((a) => a.startsWith('--locale='))?.split('=')[1]
-const LOCALES = localeFlag ? [localeFlag] : ['fr', 'en', 'es']
 
 const API_URL = process.env.SYMFONY_API_URL ?? ''
 const PROJECT_ID = process.env.SYMFONY_PROJECT_ID ?? ''
@@ -109,6 +108,13 @@ type ApiMediaObject = {
   mainEntity: string | null
 }
 
+type ApiProject = {
+  id: string
+  name: string
+  sourceLocale: string
+  enabledLocales: string[]
+}
+
 // ---------------------------------------------------------------------------
 // Auth
 // ---------------------------------------------------------------------------
@@ -150,6 +156,18 @@ async function fetchCollection<TItem>(url: string, token: string): Promise<TItem
 
 function projectUrl(path: string, locale: string) {
   return `${API_URL}/api/projects/${PROJECT_ID}/${path}?pagination=false&locale=${locale}`
+}
+
+/**
+ * Récupère le projet pour connaître les locales réellement activées côté API.
+ * Évite de demander une locale non activée (erreur 400 « Locale is not enabled »).
+ */
+async function fetchProject(token: string): Promise<ApiProject> {
+  const url = `${API_URL}/api/projects/${PROJECT_ID}`
+  const res = await fetch(url, { headers: authHeaders(token) })
+  const raw = await res.text()
+  if (!res.ok) throw new Error(`Fetch projet échoué [${res.status}] ${url}\n${raw.slice(0, 500)}`)
+  return JSON.parse(raw) as ApiProject
 }
 
 // ---------------------------------------------------------------------------
@@ -392,16 +410,37 @@ async function syncLocale(locale: string, token: string) {
 // Main
 // ---------------------------------------------------------------------------
 
-async function main() {
-  console.log(`[content-sync] mode=${isDryRun ? 'dry-run' : 'live'} locales=${LOCALES.join(',')}`)
+/**
+ * Résout les locales à synchroniser depuis les locales activées du projet.
+ * Si `--locale=` est fourni, on le valide contre les locales activées.
+ */
+function resolveLocales(project: ApiProject): string[] {
+  const enabled = project.enabledLocales
+  if (!localeFlag) return enabled
 
+  if (!enabled.includes(localeFlag)) {
+    console.warn(
+      `[content-sync] [skip] locale demandée '${localeFlag}' non activée pour le projet '${project.name}' (activées: ${enabled.join(', ')})`,
+    )
+    return []
+  }
+  return [localeFlag]
+}
+
+async function main() {
   const token = await fetchToken()
   console.log('[content-sync] authentifié ✓')
+
+  const project = await fetchProject(token)
+  const locales = resolveLocales(project)
+  console.log(
+    `[content-sync] mode=${isDryRun ? 'dry-run' : 'live'} projet=${project.name} locales=${locales.join(',') || '(aucune)'}`,
+  )
 
   let totalOk = 0
   let totalErrors = 0
 
-  for (const locale of LOCALES) {
+  for (const locale of locales) {
     const { ok, errors } = await syncLocale(locale, token)
     totalOk += ok
     totalErrors += errors

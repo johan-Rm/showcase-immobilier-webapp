@@ -1,6 +1,7 @@
 import type { LocaleCode } from '#shared/types/i18n'
 
 import { getSymfonyServiceToken } from '../../utils/dashboard/symfonyAuth'
+import { getProjectLocales } from '../../utils/projectLocales'
 
 type CategoryCodeTranslationPayload = {
   locale: LocaleCode
@@ -92,7 +93,16 @@ export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> =>
 
   const { apiUrl, projectId } = getApiBase()
   const token = await getSymfonyServiceToken()
-  const translations = normalizeTranslations(body.translations, normalizeLocale(body.locale), label)
+
+  // On ne pousse que des locales activees pour le projet (fallback locale source).
+  const { enabledLocales, sourceLocale } = await getProjectLocales()
+  const requestedLocale = normalizeLocale(body.locale)
+  const fallbackLocale = enabledLocales.includes(requestedLocale) ? requestedLocale : sourceLocale
+  const translations = normalizeTranslations(body.translations, fallbackLocale, label).filter(
+    (translation) => enabledLocales.includes(translation.locale),
+  )
+  const safeTranslations =
+    translations.length > 0 ? translations : [{ locale: sourceLocale, label }]
 
   const created = await $fetch<SymfonyCategoryCode>(
     `${apiUrl}/api/projects/${projectId}/category-codes/translations`,
@@ -103,7 +113,7 @@ export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> =>
         'Content-Type': 'application/ld+json',
         Accept: 'application/ld+json',
       },
-      body: { inCodeSet: body.inCodeSet, translations },
+      body: { inCodeSet: body.inCodeSet, translations: safeTranslations },
     },
   )
 

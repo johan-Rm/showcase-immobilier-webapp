@@ -1,4 +1,4 @@
-import { FALLBACK_LOCALE, isLocaleCode } from '#shared/utils/locale'
+import { isLocaleCode } from '#shared/utils/locale'
 
 /**
  * Extrait une locale valide depuis le path.
@@ -42,16 +42,30 @@ export default defineNuxtRouteMiddleware((to) => {
   if (isApiPath(to.path)) return
   if (isServerAuthPath(to.path)) return
 
+  const { isEnabledLocale, sourceLocale } = useProjectLocales()
+
   const pathLocale = getLocaleFromPath(to.path)
   const paramLocale =
     typeof to.params?.locale === 'string' && isLocaleCode(to.params.locale)
       ? to.params.locale
       : null
 
-  // Si la route porte déjà une locale (path ou param), on n’intervient pas.
+  // Locale présente dans l’URL mais non activée pour ce projet : on redirige
+  // vers la locale source en retirant le préfixe `/xx`.
+  if (pathLocale && !isEnabledLocale(pathLocale)) {
+    const rest = to.path.slice(3)
+    return navigateTo({
+      path: `/${sourceLocale.value}${rest}`,
+      query: to.query,
+      hash: to.hash,
+    })
+  }
+
+  // Si la route porte déjà une locale activée (path ou param), on n’intervient pas.
   if (pathLocale || paramLocale) return
 
-  const locale = getLocaleFromCookie() ?? FALLBACK_LOCALE
+  const cookieLocale = getLocaleFromCookie()
+  const locale = cookieLocale && isEnabledLocale(cookieLocale) ? cookieLocale : sourceLocale.value
 
   // Redirection vers la version localisée pour stabiliser le routing et l’init.
   return navigateTo({

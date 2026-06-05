@@ -30,7 +30,6 @@
 
 <script setup lang="ts">
 // 1. Imports
-import { AVAILABLES_LOCALES } from '#shared/utils/locale'
 
 // 2. Types et constantes statiques
 type ColorVariant = 'default' | 'contrast'
@@ -49,11 +48,13 @@ const props = withDefaults(
 const { locale } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 const { appData } = useAppNavigation()
+const { enabledLocales } = useProjectLocales()
 
 // 5. Etat local
 
 // 6. Data inputs
-const availableLocales = Object.values(AVAILABLES_LOCALES)
+// Seules les locales activees pour le projet courant sont proposees.
+const availableLocales = enabledLocales
 
 // 7. Validation et helpers purs
 

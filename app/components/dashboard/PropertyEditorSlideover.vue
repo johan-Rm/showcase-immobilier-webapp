@@ -103,6 +103,7 @@ const {
   savePlaceText,
 } = useDashboardPlaceText()
 const { available: symfonyAvailable, check: checkSymfonyStatus } = useSymfonyStatus()
+const { enabledLocales, sourceLocale: projectSourceLocale } = useProjectLocales()
 
 const slideroverUi = computed(() =>
   isMobile.value
@@ -134,7 +135,9 @@ const cloneEditableValue = (value: DashboardEditableValue): DashboardEditableVal
   JSON.parse(JSON.stringify(value)) as DashboardEditableValue
 
 const localizedFieldSet = new Set<string>(DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS)
-const localeTabs: DashboardLocale[] = ['fr', 'en', 'es']
+// Onglets limites aux locales activees du projet (les drafts restent indexes
+// sur le catalogue complet, voir createDrafts).
+const localeTabs: DashboardLocale[] = enabledLocales.value.map((locale) => locale.code)
 
 const isDashboardLocale = (value: string | undefined): value is DashboardLocale =>
   value === 'fr' || value === 'en' || value === 'es'
@@ -210,7 +213,9 @@ const createFallbackDraft = (accommodation?: DashboardAccommodation | null): Das
 const createDrafts = (
   accommodation?: DashboardAccommodation | null,
 ): Record<DashboardLocale, DashboardDraft> => {
-  const sourceLocale = isDashboardLocale(accommodation?.locale) ? accommodation.locale : 'fr'
+  const sourceLocale = isDashboardLocale(accommodation?.locale)
+    ? accommodation.locale
+    : projectSourceLocale.value
   const fallback = createFallbackDraft(accommodation)
   const result: Record<DashboardLocale, DashboardDraft> = {
     fr: { frontmatter: cloneEditableRecord(fallback.frontmatter), body: fallback.body },
@@ -399,7 +404,9 @@ const ensureTranslations = (
 const resolveSaveLocale = (
   translations: DashboardAccommodationTranslationPayload[],
 ): LocaleCode => {
-  return translations.length > 1 ? 'fr' : (translations[0]?.locale ?? activeLocale.value)
+  return translations.length > 1
+    ? projectSourceLocale.value
+    : (translations[0]?.locale ?? activeLocale.value)
 }
 
 const loadLocaleDrafts = async (accommodation?: DashboardAccommodation | null): Promise<void> => {
@@ -468,7 +475,7 @@ watch(
     activeSection.value = 'content'
     activeLocale.value = isDashboardLocale(props.accommodation?.locale)
       ? props.accommodation.locale
-      : 'fr'
+      : projectSourceLocale.value
     expandedBlocks.value = new Set<string>()
     resetSave()
     if (skipNextLocaleLoad.value) {

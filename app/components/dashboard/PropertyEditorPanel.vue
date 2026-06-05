@@ -215,7 +215,9 @@ const emit = defineEmits<{
   save: []
 }>()
 
-const localeTabs: DashboardLocale[] = ['fr', 'en', 'es']
+const { enabledLocales } = useProjectLocales()
+// Onglets limites aux locales activees du projet courant.
+const localeTabs: DashboardLocale[] = enabledLocales.value.map((locale) => locale.code)
 const sectionTabs: Array<{ value: EditorSection; label: string; icon: string }> = [
   { value: 'content', label: 'Contenu', icon: 'i-lucide-file-text' },
   { value: 'media', label: 'Media', icon: 'i-lucide-images' },

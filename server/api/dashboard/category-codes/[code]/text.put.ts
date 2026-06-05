@@ -1,6 +1,7 @@
 import type { LocaleCode } from '#shared/types/i18n'
 
 import { getSymfonyServiceToken } from '../../../../utils/dashboard/symfonyAuth'
+import { getProjectLocales } from '../../../../utils/projectLocales'
 
 type SymfonyCategoryCodeTranslationPayload = {
   locale: LocaleCode
@@ -60,6 +61,14 @@ export default defineEventHandler(async (event): Promise<UpdatePlaceTextResponse
   }
   if (typeof body.text !== 'string') {
     throw createError({ statusCode: 400, statusMessage: 'Texte du lieu invalide' })
+  }
+
+  const { enabledLocales } = await getProjectLocales()
+  if (!enabledLocales.includes(body.locale)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: `Locale ${body.locale} non activée pour ce projet`,
+    })
   }
 
   const { apiUrl, projectId } = getApiBase()
