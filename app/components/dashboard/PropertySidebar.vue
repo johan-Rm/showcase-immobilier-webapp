@@ -60,6 +60,7 @@
       <ul v-if="filteredItems.length" class="min-h-0 flex-1 overflow-y-auto px-4 pb-2">
         <li v-for="(item, index) in filteredItems" :key="item.slug">
           <button
+            :ref="(el) => setItemRef(mobileItemEls, el, index)"
             type="button"
             class="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-white/5"
             :class="index === activeIndex ? 'bg-white/10' : ''"
@@ -146,6 +147,7 @@
     <ul v-if="filteredItems.length" class="space-y-0.5 px-5 py-2">
       <li v-for="(item, index) in filteredItems" :key="item.slug">
         <button
+          :ref="(el) => setItemRef(desktopItemEls, el, index)"
           type="button"
           class="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-white/5"
           :class="index === activeIndex ? 'bg-white/10' : ''"
@@ -175,6 +177,7 @@
 
 <script setup lang="ts">
 // 1. Imports
+import type { ComponentPublicInstance } from 'vue'
 
 import LogoGd from '~/assets/logo/logo_gd.svg'
 
@@ -189,7 +192,7 @@ type WorkspaceUser = {
 type SelectOption = { label: string; value: string }
 
 // 3. Props et emits
-defineProps<{
+const props = defineProps<{
   user?: WorkspaceUser
   listingOptions: SelectOption[]
   categoryOptions: SelectOption[]
@@ -214,10 +217,30 @@ const emit = defineEmits<{
 
 // 5. Etat local
 const isTopbarOpen = ref(false)
+const desktopItemEls = new Map<number, HTMLElement>()
+const mobileItemEls = new Map<number, HTMLElement>()
 
 // 9. Actions et handlers
+const setItemRef = (
+  store: Map<number, HTMLElement>,
+  el: Element | ComponentPublicInstance | null,
+  index: number,
+): void => {
+  if (el instanceof HTMLElement) store.set(index, el)
+  else store.delete(index)
+}
+
+const scrollActiveIntoView = async (index: number): Promise<void> => {
+  await nextTick()
+  desktopItemEls.get(index)?.scrollIntoView({ block: 'nearest' })
+  mobileItemEls.get(index)?.scrollIntoView({ block: 'nearest' })
+}
+
 const selectItem = (index: number): void => {
   emit('select', index)
   isTopbarOpen.value = false
 }
+
+// 10. Watch et watchEffect
+watch(() => props.activeIndex, scrollActiveIntoView)
 </script>
