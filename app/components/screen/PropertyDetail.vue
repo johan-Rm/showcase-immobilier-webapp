@@ -1,66 +1,83 @@
 <template>
   <section
-    class="screen-property-detail relative h-dvh min-h-screen w-full overflow-hidden lg:grid lg:grid-cols-[33%_67%]"
+    class="screen-property-detail relative h-dvh min-h-screen w-full overflow-hidden"
   >
-    <Transition name="mobile-aside-fade">
-      <UButton
-        v-if="isMobileAsideOpen"
-        type="button"
-        class="fixed inset-0 z-50 bg-black/45 lg:hidden"
-        aria-label="Fermer les détails"
-        color="neutral"
-        variant="ghost"
-        :ui="{
-          base: 'rounded-none border-0 bg-black/45 shadow-none ring-0 hover:bg-black/45',
-        }"
-        @click="closeMobileAside"
-      />
-    </Transition>
-
-    <aside
-      id="property-detail-mobile-aside"
-      data-screen-touch-ignore
-      :class="[
-        'bg-background screen-property-detail__aside fixed inset-x-0 bottom-0 z-9999 h-[min(82dvh,48rem)] min-h-0 w-full min-w-0 rounded-t-2xl shadow-2xl transition-transform duration-220 ease-out lg:relative lg:z-auto lg:flex lg:min-h-screen lg:rounded-none lg:shadow-none',
-        isDetailScreenActive && isMobileAsideOpen
-          ? 'translate-y-0'
-          : 'translate-y-full lg:translate-y-0',
-      ]"
-    >
-      <div
-        v-if="isMobileAsideOpen"
-        class="relative flex items-center justify-center px-4 py-3 lg:hidden"
-      >
+    <Teleport to="body">
+      <Transition name="mobile-aside-fade">
         <UButton
+          v-if="isDetailScreenActive && isAsideOpen"
           type="button"
-          class="bg-surface text-foreground absolute -top-4 left-1/2 inline-flex -translate-x-1/2 items-center justify-center rounded-full border-0 p-2 shadow-lg shadow-black/10"
+          class="fixed inset-0 z-9990 bg-black/45"
+          aria-label="Fermer les détails"
+          color="neutral"
+          variant="ghost"
+          :ui="{
+            base: 'rounded-none border-0 bg-black/45 shadow-none ring-0 hover:bg-black/45',
+          }"
+          @click="closeAside"
+        />
+      </Transition>
+
+      <aside
+        id="property-detail-aside"
+        data-screen-touch-ignore
+        :class="[
+          'bg-background screen-property-detail__aside fixed inset-x-0 bottom-0 z-9999 h-[min(82dvh,48rem)] min-h-0 w-full min-w-0 rounded-t-2xl shadow-2xl transition-transform duration-220 ease-out lg:inset-y-0 lg:right-auto lg:left-0 lg:flex lg:h-dvh lg:w-[38%] lg:max-w-xl lg:min-h-screen lg:rounded-none',
+          isDetailScreenActive && isAsideOpen
+            ? 'translate-y-0 lg:translate-x-0'
+            : 'translate-y-full lg:translate-y-0 lg:-translate-x-full',
+        ]"
+      >
+        <div
+          v-if="isAsideOpen"
+          class="relative flex items-center justify-center px-4 py-3 lg:hidden"
+        >
+          <UButton
+            type="button"
+            class="bg-surface text-foreground absolute -top-4 left-1/2 inline-flex -translate-x-1/2 items-center justify-center rounded-full border-0 p-2 shadow-lg shadow-black/10"
+            aria-label="Fermer les détails"
+            color="neutral"
+            variant="ghost"
+            :ui="{
+              base: 'rounded-full border-0 shadow-none ring-0 hover:bg-transparent',
+            }"
+            @click="closeAside"
+          >
+            <UIcon name="i-lucide-chevrons-down" class="text-xl" aria-hidden="true" />
+          </UButton>
+
+          <!-- <span class="bg-foreground/15 mx-auto h-1.5 w-14 rounded-full" /> -->
+        </div>
+
+        <UButton
+          v-if="isAsideOpen"
+          type="button"
+          class="text-foreground/60 hover:text-foreground absolute top-4 right-4 z-10 hidden h-9 w-9 items-center justify-center rounded-full lg:flex"
           aria-label="Fermer les détails"
           color="neutral"
           variant="ghost"
           :ui="{
             base: 'rounded-full border-0 shadow-none ring-0 hover:bg-transparent',
           }"
-          @click="closeMobileAside"
+          @click="closeAside"
         >
-          <UIcon name="i-lucide-chevrons-down" class="text-xl" aria-hidden="true" />
+          <UIcon name="i-lucide-x" class="text-xl" aria-hidden="true" />
         </UButton>
 
-        <!-- <span class="bg-foreground/15 mx-auto h-1.5 w-14 rounded-full" /> -->
-      </div>
-
-      <PropertyDetailPanel
-        ref="detailPanel"
-        :property="property"
-        :place-label="placeLabel"
-        :offer-label="offerLabel"
-        :listing-label="listingLabel"
-        :category-label="categoryLabel"
-        :summary-items="summaryItems"
-        :detail-items="detailItems"
-        :feature-items="featureItems"
-        :sections="detailSectionLabels"
-      />
-    </aside>
+        <PropertyDetailPanel
+          ref="detailPanel"
+          :property="property"
+          :place-label="placeLabel"
+          :offer-label="offerLabel"
+          :listing-label="listingLabel"
+          :category-label="categoryLabel"
+          :summary-items="summaryItems"
+          :detail-items="detailItems"
+          :feature-items="featureItems"
+          :sections="detailSectionLabels"
+        />
+      </aside>
+    </Teleport>
 
     <div class="flex h-full min-h-screen w-full min-w-0 justify-center overflow-hidden">
       <div class="relative h-full min-h-screen w-full overflow-hidden">
@@ -114,7 +131,7 @@
 
         <span
           v-if="galleryImages.length > 0"
-          class="pointer-events-none fixed right-4 bottom-42 left-4 z-9998 inline-flex justify-center text-center text-xs tracking-wider text-white lg:absolute lg:right-auto lg:bottom-0 lg:left-0 lg:justify-start lg:text-left"
+          class="pointer-events-none fixed right-4 bottom-42 left-4 z-9998 inline-flex justify-center text-center text-xs tracking-wider text-white md:absolute md:right-32 md:bottom-4 md:left-auto md:justify-end md:text-right"
         >
           <span
             class="inline-flex h-10 max-w-full items-center justify-center gap-2 px-4 shadow-lg shadow-white/1"
@@ -134,17 +151,17 @@
         </span>
 
         <UButton
-          v-if="isDetailScreenActive && !isMobileAsideOpen"
+          v-if="isDetailScreenActive && !isAsideOpen"
           type="button"
           color="neutral"
           variant="solid"
           class="bg-background text-foreground fixed inset-x-0 bottom-0 z-40 flex w-full items-start justify-start rounded-t-xl px-3 pt-5 pb-[calc(env(safe-area-inset-bottom)+0.9rem)] text-left shadow-[0_-10px_30px_rgba(0,0,0,0.22)] transition hover:opacity-95 lg:hidden"
-          :aria-expanded="isMobileAsideOpen"
-          aria-controls="property-detail-mobile-aside"
+          :aria-expanded="isAsideOpen"
+          aria-controls="property-detail-aside"
           :ui="{
             base: 'justify-start rounded-t-2xl ring-0',
           }"
-          @click="openMobileAside"
+          @click="openAside"
         >
           <span
             class="bg-surface text-foreground absolute -top-5 left-1/2 inline-flex -translate-x-1/2 items-center rounded-full p-2 shadow-lg shadow-black/10"
@@ -185,6 +202,38 @@
             </div>
           </div>
         </UButton>
+
+        <button
+          v-if="isDetailScreenActive && !isAsideOpen"
+          type="button"
+          class="fixed bottom-4 left-6 z-40 hidden max-w-[calc(100vw-3rem)] cursor-pointer items-center gap-4 overflow-hidden text-left text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:flex"
+          aria-label="Voir les détails du bien"
+          aria-haspopup="dialog"
+          :aria-expanded="isAsideOpen"
+          aria-controls="property-detail-aside"
+          @click="openAside"
+        >
+          <span class="flex shrink-0 flex-col gap-1.5">
+            <span class="block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
+            <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
+              {{ property?.name ?? '—' }}
+            </span>
+            <span class="text-left text-sm font-bold tracking-[0.06em] whitespace-nowrap text-white">
+              {{ offerLabel }}
+            </span>
+          </span>
+
+          <span class="flex min-w-0 items-center gap-1.5 overflow-hidden">
+            <span
+              v-for="badge in summaryBadges"
+              :key="badge.key"
+              class="bg-background/80 inline-flex shrink-0 items-center gap-1 rounded-md px-2.5 py-2.5 text-xs font-bold whitespace-nowrap text-white/80 backdrop-blur-xl"
+            >
+              <UIcon :name="badge.icon" class="text-[0.9rem]" aria-hidden="true" />
+              {{ badge.value }}
+            </span>
+          </span>
+        </button>
       </div>
     </div>
   </section>
@@ -204,6 +253,13 @@ type GalleryCarouselItem = {
   caption: string
 }
 
+type SummaryItem = {
+  key: string
+  label: string
+  value: string
+  icon: string
+}
+
 type GalleryCarouselExpose = {
   emblaApi?: {
     plugins: () => {
@@ -219,7 +275,7 @@ type DetailPanelExpose = {
 }
 
 const SCREEN_ID = 'screen-property-detail'
-const columnTemplate: ScreenColumnTemplate = 'split-33-67'
+const columnTemplate: ScreenColumnTemplate = 'single'
 const GALLERY_AUTOPLAY_RESUME_DELAY_MS = 5000
 const GALLERY_NAVIGATION_KEYS = new Set(['ArrowLeft', 'ArrowRight'])
 
@@ -229,13 +285,12 @@ const props = defineProps<{ slug: string }>()
 // 4. Composables, stores, routeur
 const store = useAccommodationStore()
 const { accommodationUi, locale } = useApp()
-const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const { screenStatus, setScreenMeta } = useScreenSystem()
 const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')
 const detailPanel = useTemplateRef<DetailPanelExpose>('detailPanel')
 
 // 5. Etat local
-const isMobileAsideOpen = ref(false)
+const isAsideOpen = ref(false)
 const activeGalleryIndex = ref(0)
 const galleryAutoplayResumeTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
@@ -435,7 +490,7 @@ const accommodationTexts = computed(() => ({
   propertyVisual: accommodationUi.value?.texts.propertyVisual ?? 'Property visual',
 }))
 
-const summaryItems = computed(() => [
+const summaryItems = computed<SummaryItem[]>(() => [
   {
     key: 'rooms',
     label: accommodationLabels.value.rooms,
@@ -468,6 +523,9 @@ const summaryItems = computed(() => [
   },
 ])
 const mobileQuickFacts = computed(() => summaryItems.value.slice(0, 3))
+const summaryBadges = computed(() =>
+  summaryItems.value.filter((item) => item.key !== 'reference' && item.value !== '—'),
+)
 
 const detailItems = computed(() => [
   { label: accommodationLabels.value.propertyReference, value: property.value?.identifier ?? '—' },
@@ -522,14 +580,14 @@ const resetDetailPanelScroll = (): void => {
   detailPanel.value?.resetScrollPosition()
 }
 
-const openMobileAside = async (): Promise<void> => {
-  isMobileAsideOpen.value = true
+const openAside = async (): Promise<void> => {
+  isAsideOpen.value = true
   await nextTick()
   resetDetailPanelScroll()
 }
 
-const closeMobileAside = (): void => {
-  isMobileAsideOpen.value = false
+const closeAside = (): void => {
+  isAsideOpen.value = false
   resetDetailPanelScroll()
 }
 
@@ -569,7 +627,7 @@ watch(
   () => {
     clearGalleryAutoplayResumeTimer()
     activeGalleryIndex.value = 0
-    closeMobileAside()
+    closeAside()
   },
 )
 
@@ -577,7 +635,7 @@ watch(activeGalleryIndex, preloadAdjacentGalleryImages)
 
 watch(isDetailScreenActive, (isActive) => {
   if (!isActive) {
-    closeMobileAside()
+    closeAside()
   }
 })
 
@@ -589,8 +647,8 @@ watchEffect(() => {
     },
     layout: {
       column: columnTemplate,
-      contentZone: isPhoneDevice.value || isTabletPortrait.value ? 'none' : 'left',
-      imageZone: isPhoneDevice.value || isTabletPortrait.value ? 'background' : 'right',
+      contentZone: 'none',
+      imageZone: 'background',
     },
   })
 })
