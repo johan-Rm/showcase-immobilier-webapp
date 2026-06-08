@@ -9,6 +9,16 @@ export interface AccommodationDtoAssociatedMedia {
   keywords?: string[]
 }
 
+export interface AccommodationDtoHasPart {
+  additionalType?: string
+  name?: string
+  headline?: string
+  text?: string
+  position?: number
+  associatedMedia?: uuid[]
+  meta?: Record<string, unknown>
+}
+
 export interface AccommodationDtoOffer {
   price?: string
   priceCurrency?: string
@@ -46,4 +56,5 @@ export interface AccommodationDto {
   slug?: string
   review?: string
   highlight?: string
+  hasPart?: AccommodationDtoHasPart[]
 }
