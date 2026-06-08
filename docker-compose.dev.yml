@@ -18,7 +18,7 @@ services:
       - ./.data:/app/.data
       - ./public:/app/public
       - ./scripts:/app/scripts
-      - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
+      - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/app-schemas
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     ports:
@@ -27,7 +27,7 @@ services:
       - .env
     environment:
       NODE_ENV: development
-      SCHEMAS_PATH: /opt/mlk-schemas
+      SCHEMAS_PATH: /opt/app-schemas
       CONTENT_PATH: /app/content
 
   webapp-ssr:
@@ -38,8 +38,8 @@ services:
         schemas: ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}
       args:
         APP_ENV: ${APP_ENV:-dev}
-        SITE_URL: ${SITE_URL:-http://localhost:8080}
-        SITE_NAME: ${SITE_NAME:-Blue Bay Mogador}
+        SITE_URL: ${SITE_URL:-http://webapp.localhost:8080}
+        SITE_NAME: ${SITE_NAME:-Mon Webapp}
         WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
     working_dir: /app
     init: true
@@ -47,9 +47,9 @@ services:
       - .env
     environment:
       NODE_ENV: production
-      SCHEMAS_PATH: /opt/mlk-schemas
+      SCHEMAS_PATH: /opt/app-schemas
       CONTENT_PATH: /app/content
-      PUBLIC_HOST: ${PUBLIC_HOST:-blue-bay-mogador-nuxt-ssr.localhost}
+      PUBLIC_HOST: ${PUBLIC_HOST:-webapp.localhost}
       PUBLIC_PORT: ${PUBLIC_PORT:-8080}
       WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
       SYMFONY_API_URL: ${SYMFONY_API_URL:-http://host.docker.internal:18080}
@@ -63,7 +63,7 @@ services:
     volumes:
       - ./.data:/app/.data
       - ./content:/app/content
-      - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/mlk-schemas
+      - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/app-schemas
       - ./public/images:/app/.output/public/images
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider http://127.0.0.1:3000/ || exit 1']

@@ -1,6 +1,19 @@
-name: mlk-webapp-preprod
-
 services:
+  content-sync:
+    image: oven/bun:1-alpine
+    working_dir: /app
+    env_file:
+      - .env.preprod
+    volumes:
+      - ./:/app
+      - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
+    environment:
+      NODE_ENV: production
+      SCHEMAS_PATH: /opt/app-schemas
+    command: sh -c "bun install --frozen-lockfile && bun scripts/content-sync.ts"
+    networks:
+      app_stack: {}
+
   webapp-ssr:
     build:
       context: .
@@ -8,32 +21,32 @@ services:
       additional_contexts:
         schemas: ${SCHEMAS_PATH:-../../schemas}
       args:
-        APP_ENV: ${APP_ENV:-dev}
-        SITE_URL: ${SITE_URL:-https://www.mlk-my-little-kasbah.immo}
-        SITE_NAME: ${SITE_NAME:-MLK - My Little Kasbah}
+        APP_ENV: ${APP_ENV:-production}
+        SITE_URL: ${SITE_URL:?SITE_URL is required — set it in .env.preprod}
+        SITE_NAME: ${SITE_NAME:?SITE_NAME is required — set it in .env.preprod}
     working_dir: /app
     init: true
     env_file:
-      - .env
+      - .env.preprod
     environment:
       NODE_ENV: production
-      SCHEMAS_PATH: /opt/mlk-schemas
+      SCHEMAS_PATH: /opt/app-schemas
       NUXT_RESEND_API_KEY: ${RESEND_API_KEY:-}
-      NUXT_RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-MLK - My Little Kasbah <contact@mlk-my-little-kasbah.immo>}
-      NUXT_CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
-      NUXT_CONTACT_BCC_EMAILS: ${CONTACT_BCC_EMAILS:-developer@graines-digitales.online}
-      NUXT_CONTACT_REPLY_TO_EMAIL: ${CONTACT_REPLY_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
+      NUXT_RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+      NUXT_CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-}
+      NUXT_CONTACT_BCC_EMAILS: ${CONTACT_BCC_EMAILS:-}
+      NUXT_CONTACT_REPLY_TO_EMAIL: ${CONTACT_REPLY_TO_EMAIL:-}
       NUXT_CONTACT_SUBMISSIONS_PATH: ${CONTACT_SUBMISSIONS_PATH:-.data/contact-submissions.csv}
     expose:
       - '3000'
     volumes:
-      - ${SCHEMAS_PATH:-../../schemas}:/opt/mlk-schemas
+      - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
       - ./public/images:/app/.output/public/images
     networks:
-      mlk_network_preprod: {}
+      app_stack: {}
       edge_network:
         aliases:
-          - ${EDGE_ALIAS:-mlk-webapp-preprod}
+          - ${EDGE_ALIAS:?EDGE_ALIAS is required — set it in .env.preprod}
     healthcheck:
       test:
         [
@@ -48,8 +61,8 @@ services:
       start_period: 10s
 
 networks:
-  mlk_network_preprod:
-    name: ${APP_STACK_NETWORK_NAME:-mlk_network_preprod}
+  app_stack:
+    name: ${APP_STACK_NETWORK_NAME:?APP_STACK_NETWORK_NAME is required — set it in .env.preprod}
     driver: bridge
   edge_network:
     external: true

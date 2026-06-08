@@ -33,11 +33,10 @@ nginx/certs/*
 # Bun
 .bun-cache
 
-# Content généré par make content-sync (non versionné — pull depuis Symfony)
+# Content généré par make content-sync
 content/*/accommodations/
 content/*/metadata/category-code.yaml
 content/*/metadata/media-object.yaml
-
 
 # Nuxt 4 ref
 nuxt-4-reference
@@ -45,8 +44,11 @@ nuxt-4-reference
 # Git worktrees
 .worktrees/
 
+# Generated/public assets
 public/images/
 lighthouse-*
 !scripts/lighthouse-*.sh
 firefox.*
+
+# Bootstrap state
 scripts/bootstrap-data/.state

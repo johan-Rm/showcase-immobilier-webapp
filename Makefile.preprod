@@ -2,23 +2,29 @@
 # Docker Compose (PREPROD)
 # ============================
 
-PREPROD_PROJECT_NAME ?= mlk-webapp-preprod
-PREPROD_STACK_NETWORK_NAME ?= mlk_network_preprod
-PREPROD_EDGE_ALIAS ?= mlk-webapp-preprod
-COMPOSE_PREPROD_ENV = APP_STACK_NETWORK_NAME=$(PREPROD_STACK_NETWORK_NAME) EDGE_ALIAS=$(PREPROD_EDGE_ALIAS)
-COMPOSE_PREPROD = $(COMPOSE_PREPROD_ENV) docker compose -p $(PREPROD_PROJECT_NAME) -f docker-compose.preprod.yml
+PREPROD_ENV_FILE ?= .env.preprod
+COMPOSE_PREPROD = docker compose --env-file $(PREPROD_ENV_FILE) -f docker-compose.preprod.yml
 
-# Logs options
 TAIL ?= 200
 FOLLOW ?= -f
 
-# Service groups
 PREPROD_CORE_SERVICES = webapp-ssr
 PREPROD_BUILD_SERVICES = webapp-ssr
 
 .PHONY: preprod-up preprod-up-build preprod-down preprod-clean preprod-stop preprod-status
 .PHONY: preprod-build preprod-build-no-cache preprod-pull preprod-deploy
+.PHONY: preprod-content-sync preprod-content-sync-dry
 .PHONY: preprod-logs preprod-logs-service preprod-logs-webapp
+
+# ----------------------------
+# Content Sync
+# ----------------------------
+
+preprod-content-sync:
+	$(COMPOSE_PREPROD) run --rm content-sync
+
+preprod-content-sync-dry:
+	$(COMPOSE_PREPROD) run --rm content-sync bun scripts/content-sync.ts --dry-run
 
 # ----------------------------
 # Up / Build / Deploy
@@ -40,6 +46,7 @@ preprod-pull:
 	$(COMPOSE_PREPROD) pull $(PREPROD_CORE_SERVICES)
 
 preprod-deploy:
+	$(MAKE) preprod-content-sync
 	$(MAKE) preprod-build-no-cache
 	$(MAKE) preprod-up
 
