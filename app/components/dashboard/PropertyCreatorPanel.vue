@@ -748,7 +748,6 @@ const creatorDraft = reactive<CreatorDraft>({
 
 const activeStep = ref<CreatorStepId>('classification')
 const skippedSteps = ref<Set<CreatorStepId>>(new Set())
-const stepError = ref<string | null>(null)
 const readyMessage = ref<string | null>(null)
 const isCreatingDraft = ref(false)
 const isFinalizing = ref(false)
@@ -1270,7 +1269,6 @@ const createDraftAccommodation = async (): Promise<boolean> => {
   if (hasGeneratedIdentifier.value) return true
 
   isCreatingDraft.value = true
-  clearStepError()
   clearReadyMessage()
 
   try {
@@ -1384,7 +1382,6 @@ const finalizeDraft = async (): Promise<boolean> => {
   if (!hasGeneratedIdentifier.value) return false
 
   isFinalizing.value = true
-  clearStepError()
   clearReadyMessage()
 
   const ok = await saveMultilingual(buildSavePayload(), localeSetting.value)
@@ -1405,16 +1402,11 @@ const finalizeDraft = async (): Promise<boolean> => {
 }
 
 const setStepError = (message: string): void => {
-  stepError.value = message
   toast.add({
     title: message,
     icon: 'i-lucide-alert-triangle',
     color: 'error',
   })
-}
-
-const clearStepError = (): void => {
-  stepError.value = null
 }
 
 const clearReadyMessage = (): void => {
@@ -1447,7 +1439,6 @@ const goToStep = (stepId: CreatorStepId): void => {
   if (isFinalized.value) return
   if (!canAccessStep(stepId)) return
   setActiveStep(stepId)
-  clearStepError()
   clearReadyMessage()
 }
 
@@ -1455,7 +1446,6 @@ const goNext = (): void => {
   const nextStep = steps[activeStepIndex.value + 1]
   if (!nextStep) return
   setActiveStep(nextStep.id)
-  clearStepError()
   clearReadyMessage()
 }
 
@@ -1463,7 +1453,6 @@ const goPrevious = (): void => {
   const previousStep = steps[activeStepIndex.value - 1]
   if (!previousStep) return
   setActiveStep(previousStep.id)
-  clearStepError()
   clearReadyMessage()
 }
 
@@ -1635,7 +1624,6 @@ const updateStringField = (
   value: DashboardEditableValue,
 ): void => {
   creatorDraft[field] = typeof value === 'string' ? value : ''
-  clearStepError()
   clearReadyMessage()
 }
 
@@ -1643,7 +1631,6 @@ const updatePrice = (event: Event): void => {
   const raw = (event.target as HTMLInputElement).value
   const parsed = Number(raw)
   creatorDraft.price = raw === '' || !Number.isFinite(parsed) ? null : parsed
-  clearStepError()
   clearReadyMessage()
 }
 
@@ -1674,7 +1661,6 @@ const updateQualities = (value: DashboardEditableValue): void => {
 const adjustPrice = (amount: number): void => {
   const currentPrice = creatorDraft.price ?? 0
   creatorDraft.price = Math.max(0, currentPrice + amount)
-  clearStepError()
   clearReadyMessage()
 }
 
@@ -1709,7 +1695,6 @@ const updateAssociatedMedia = (value: DashboardEditableValue): void => {
   })
 
   creatorDraft.associatedMedia = normalizeAssociatedMedia(items)
-  clearStepError()
   clearReadyMessage()
 }
 

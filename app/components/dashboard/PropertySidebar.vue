@@ -190,8 +190,6 @@
     </button>
   </div>
 
-  <!-- <div class="mx-5 h-0.5 shrink-0 bg-[#6B7A4A]/50" /> -->
-
   <div class="px-5 py-5">
     <DashboardSidebarUserCard :user="user" size="md" />
   </div>
