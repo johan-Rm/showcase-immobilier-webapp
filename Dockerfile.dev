@@ -12,7 +12,7 @@ COPY . ./
 
 ENV NODE_ENV=development
 ENV CONTENT_PATH=/app/content
-ENV SCHEMAS_PATH=/opt/mlk-schemas
+ENV SCHEMAS_PATH=/opt/app-schemas
 
 EXPOSE 3000
 

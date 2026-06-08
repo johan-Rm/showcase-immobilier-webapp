@@ -1,6 +1,19 @@
-name: mlk-webapp-prod
-
 services:
+  content-sync:
+    image: oven/bun:1-alpine
+    working_dir: /app
+    env_file:
+      - .env.prod
+    volumes:
+      - ./:/app
+      - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
+    environment:
+      NODE_ENV: production
+      SCHEMAS_PATH: /opt/app-schemas
+    command: sh -c "bun install --frozen-lockfile && bun scripts/content-sync.ts"
+    networks:
+      app_stack: {}
+
   webapp-ssr:
     restart: unless-stopped
     build:
@@ -10,37 +23,37 @@ services:
         schemas: ${SCHEMAS_PATH:-../../schemas}
       args:
         APP_ENV: ${APP_ENV:-prod}
-        SITE_URL: ${SITE_URL:-https://mlk-my-little-kasbah.immo}
-        SITE_NAME: ${SITE_NAME:-MLK - My Little Kasbah}
+        SITE_URL: ${SITE_URL:?SITE_URL is required}
+        SITE_NAME: ${SITE_NAME:?SITE_NAME is required}
         WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
         NODE_BUILD_MEMORY_MB: ${NODE_BUILD_MEMORY_MB:-4096}
     working_dir: /app
     init: true
     env_file:
-      - .env
+      - .env.prod
     environment:
       APP_ENV: ${APP_ENV:-prod}
-      SITE_URL: ${SITE_URL:-https://mlk-my-little-kasbah.immo}
-      SITE_NAME: ${SITE_NAME:-MLK - My Little Kasbah}
+      SITE_URL: ${SITE_URL:?SITE_URL is required}
+      SITE_NAME: ${SITE_NAME:?SITE_NAME is required}
       NODE_ENV: production
-      SCHEMAS_PATH: /app/schemas
+      SCHEMAS_PATH: /opt/app-schemas
       NUXT_RESEND_API_KEY: ${RESEND_API_KEY:-}
-      NUXT_RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-MLK - My Little Kasbah <contact@mlk-my-little-kasbah.immo>}
-      NUXT_CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
-      NUXT_CONTACT_BCC_EMAILS: ${CONTACT_BCC_EMAILS:-developer@graines-digitales.online}
-      NUXT_CONTACT_REPLY_TO_EMAIL: ${CONTACT_REPLY_TO_EMAIL:-contact@mlk-my-little-kasbah.immo}
+      NUXT_RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+      NUXT_CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-}
+      NUXT_CONTACT_BCC_EMAILS: ${CONTACT_BCC_EMAILS:-}
+      NUXT_CONTACT_REPLY_TO_EMAIL: ${CONTACT_REPLY_TO_EMAIL:-}
       NUXT_CONTACT_SUBMISSIONS_PATH: ${CONTACT_SUBMISSIONS_PATH:-.data/contact-submissions.csv}
       NUXT_AUTHORIZED_CLIENT_EMAILS: ${AUTHORIZED_CLIENT_EMAILS:-}
     expose:
       - '3000'
     volumes:
-      - ${SCHEMAS_PATH:-../../schemas}:/app/schemas
+      - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
       - ./public/images:/app/.output/public/images
     networks:
-      mlk_network_prod: {}
+      app_stack: {}
       edge_network:
         aliases:
-          - mlk-webapp-prod
+          - ${EDGE_ALIAS:?EDGE_ALIAS is required}
     healthcheck:
       test:
         [
@@ -55,8 +68,8 @@ services:
       start_period: 10s
 
 networks:
-  mlk_network_prod:
-    name: mlk_network_prod
+  app_stack:
+    name: ${APP_STACK_NETWORK_NAME:?APP_STACK_NETWORK_NAME is required}
     driver: bridge
   edge_network:
     external: true
