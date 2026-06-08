@@ -27,10 +27,12 @@
          Conteneur scrollable unique : chaque <section> est un écran plein
          viewport aimanté (snap). La molette verticale est convertie en
          défilement horizontal (cf. handleWheel). En mode lecture, le snap est
-         neutralisé via readingModeScrollerStyle pour un travelling continu. -->
+         neutralisé via readingModeScrollerStyle pour un travelling continu.
+         `overscroll-x-contain` : en mobile, empêche le swipe horizontal en
+         butée de bord de déclencher le geste « retour » du navigateur (iOS Safari). -->
     <div
       ref="scrollerRef"
-      class="flex h-full w-full snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overflow-y-hidden scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      class="flex h-full w-full snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       :style="readingModeScrollerStyle"
     >
       <!-- Un écran du parcours. Le layout rendu dépend de screen.template,
@@ -52,18 +54,20 @@
           v-if="screenLayout(screen) === 'split'"
           class="flex h-full w-full flex-col md:flex-row"
         >
-          <!-- Zone média — visuel pleine moitié (eager + priorité haute si 1er écran). -->
+          <!-- Zone média — visuel pleine moitié (eager + priorité haute si 1er écran).
+               sizes : pleine largeur en mobile, moitié à partir de md. -->
           <div
             class="relative order-first h-[42%] md:h-full md:w-1/2"
             :class="screen.reverse ? 'md:order-2' : 'md:order-1'"
           >
-            <img
-              :src="screen.media[0]?.src"
-              :alt="screen.media[0]?.alt"
+            <AppImage
+              :src="screen.media[0]?.src ?? ''"
+              :alt="screen.media[0]?.alt ?? ''"
               class="absolute inset-0 size-full object-cover"
+              sizes="xs:100vw md:50vw"
               :loading="index === 0 ? 'eager' : 'lazy'"
+              :preload="index === 0"
               :fetchpriority="index === 0 ? 'high' : 'auto'"
-              decoding="async"
             />
           </div>
           <!-- Zone texte — désignation (eyebrow) + titre (accent) + contexte + specs/CTA. -->
@@ -104,14 +108,15 @@
              │ via overlayPanelClass / overlayTextClass / overlayAccentClass.│
              └──────────────────────────────────────────────────────────────┘ -->
         <template v-else-if="screenLayout(screen) === 'full-overlay'">
-          <!-- Zone média — image de fond plein écran. -->
-          <img
-            :src="screen.media[0]?.src"
-            :alt="screen.media[0]?.alt"
+          <!-- Zone média — image de fond plein écran (sizes : pleine largeur). -->
+          <AppImage
+            :src="screen.media[0]?.src ?? ''"
+            :alt="screen.media[0]?.alt ?? ''"
             class="absolute inset-0 size-full object-cover"
+            sizes="xs:100vw"
             :loading="index === 0 ? 'eager' : 'lazy'"
+            :preload="index === 0"
             :fetchpriority="index === 0 ? 'high' : 'auto'"
-            decoding="async"
           />
           <!-- Voile global (lisibilité) + panneau latéral teinté (desktop, côté selon reverse). -->
           <div class="bg-foreground/45 md:bg-foreground/20 absolute inset-0" />
@@ -148,14 +153,15 @@
              │ aligné à droite pour ne pas concurrencer la synthèse fixe.   │
              └──────────────────────────────────────────────────────────────┘ -->
         <template v-else-if="screenLayout(screen) === 'full'">
-          <!-- Zone média — image de fond + dégradé sombre pour le contraste du texte. -->
-          <img
-            :src="screen.media[0]?.src"
-            :alt="screen.media[0]?.alt"
+          <!-- Zone média — image de fond + dégradé sombre (sizes : pleine largeur). -->
+          <AppImage
+            :src="screen.media[0]?.src ?? ''"
+            :alt="screen.media[0]?.alt ?? ''"
             class="absolute inset-0 size-full object-cover"
+            sizes="xs:100vw"
             :loading="index === 0 ? 'eager' : 'lazy'"
+            :preload="index === 0"
             :fetchpriority="index === 0 ? 'high' : 'auto'"
-            decoding="async"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
           <!-- Vue d'ouverture : bloc à droite pour ne pas concurrencer la synthèse fixe en bas gauche. -->
@@ -189,18 +195,18 @@
 
         <!-- ┌─ SCREEN_01 — Triptyque (3 visuels) + texte ──────────────────┐
              │ Desktop : composition éditoriale de 3 visuels superposés,    │
-             │ chacun cliquable (→ lightbox, RÉGION E). Mobile : repli sur  │
-             │ un visuel de couverture + texte. `reverse` permute texte et  │
-             │ triptyque sur desktop.                                       │
+             │ chacun cliquable (→ lightbox, RÉGION E). Mobile : visuel de  │
+             │ couverture + texte + bouton « Voir les N photos » ouvrant la │
+             │ lightbox. `reverse` permute texte et triptyque sur desktop.  │
              └──────────────────────────────────────────────────────────────┘ -->
         <template v-else-if="screenLayout(screen) === 'triptych'">
           <!-- Zone média (mobile) — visuel de couverture + voile + texte superposé. -->
-          <img
-            :src="screen.media[0]?.src"
-            :alt="screen.media[0]?.alt"
+          <AppImage
+            :src="screen.media[0]?.src ?? ''"
+            :alt="screen.media[0]?.alt ?? ''"
             class="absolute inset-0 size-full object-cover md:hidden"
+            sizes="xs:100vw"
             loading="lazy"
-            decoding="async"
           />
           <div class="absolute inset-0 bg-black/55 md:hidden" />
           <div class="absolute right-6 bottom-20 left-6 z-10 md:hidden">
@@ -214,6 +220,18 @@
               >
             </h2>
             <p class="mt-3 max-w-md text-sm text-white">{{ screen.text }}</p>
+            <!-- Mobile : le triptyque desktop est masqué ; ce bouton rend les autres
+                 visuels de l'espace accessibles via la lightbox (navigation tactile). -->
+            <button
+              v-if="screen.media.length > 1"
+              type="button"
+              class="mt-4 inline-flex items-center gap-2 border-b border-white/50 pb-1 text-sm text-white transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              :aria-label="`Voir les ${screen.media.length} photos des ${screen.label}`"
+              @click="openLightbox(screen.media, 0)"
+            >
+              Voir les {{ screen.media.length }} photos
+              <span aria-hidden="true">→</span>
+            </button>
           </div>
           <!-- Zone média (desktop) — triptyque éditorial superposé : deux visuels
                horizontaux + un vertical, chacun cliquable pour ouvrir la lightbox. -->
@@ -228,12 +246,12 @@
               :aria-label="`Agrandir : ${screen.media[0].alt}`"
               @click="openLightbox(screen.media, 0)"
             >
-              <img
+              <AppImage
                 :src="screen.media[0].src"
                 :alt="screen.media[0].alt"
                 class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="md:36vw"
                 loading="lazy"
-                decoding="async"
               />
             </button>
             <button
@@ -243,12 +261,12 @@
               :aria-label="`Agrandir : ${screen.media[1].alt}`"
               @click="openLightbox(screen.media, 1)"
             >
-              <img
+              <AppImage
                 :src="screen.media[1].src"
                 :alt="screen.media[1].alt"
                 class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="md:34vw"
                 loading="lazy"
-                decoding="async"
               />
             </button>
             <button
@@ -258,12 +276,12 @@
               :aria-label="`Agrandir : ${screen.media[2].alt}`"
               @click="openLightbox(screen.media, 2)"
             >
-              <img
+              <AppImage
                 :src="screen.media[2].src"
                 :alt="screen.media[2].alt"
                 class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="md:18vw"
                 loading="lazy"
-                decoding="async"
               />
             </button>
           </div>
@@ -305,12 +323,12 @@
              └──────────────────────────────────────────────────────────────┘ -->
         <template v-else-if="screenLayout(screen) === 'carousel'">
           <!-- Zone média — visuel principal courant (transition d'opacité au changement). -->
-          <img
+          <AppImage
             :src="currentMedia(screen).src"
             :alt="currentMedia(screen).alt"
             class="absolute inset-0 size-full object-cover transition-[opacity] duration-300"
+            sizes="xs:100vw"
             loading="lazy"
-            decoding="async"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
           <!-- Zone texte — désignation + titre + contexte + bande de vignettes (navigation). -->
@@ -335,7 +353,7 @@
                 v-for="(media, mediaIndex) in screen.media"
                 :key="media.src"
                 type="button"
-                class="relative h-10 w-14 shrink-0 overflow-hidden rounded border transition-all md:h-12 md:w-18"
+                class="relative h-11 w-16 shrink-0 overflow-hidden rounded border transition-all md:h-12 md:w-18"
                 :class="
                   (galleryIndex[screen.id] ?? 0) === mediaIndex
                     ? 'border-white opacity-100'
@@ -344,10 +362,12 @@
                 :aria-label="`Voir : ${media.alt}`"
                 @click="selectMedia(screen.id, mediaIndex)"
               >
-                <img
+                <!-- Vignette : largeur source réduite (~72px) via sizes, pas la pleine image. -->
+                <AppImage
                   :src="media.src"
                   :alt="media.alt"
                   class="size-full object-cover"
+                  sizes="xs:64px md:72px"
                   loading="lazy"
                 />
               </button>
@@ -360,16 +380,17 @@
              │ dégradé sombre, puis bloc texte aligné à droite.             │
              └──────────────────────────────────────────────────────────────┘ -->
         <template v-else-if="screenLayout(screen) === 'duo'">
-          <!-- Zone média — grille des 2 visuels (colonnes desktop / lignes mobile). -->
+          <!-- Zone média — grille des 2 visuels (colonnes desktop / lignes mobile).
+               sizes : pleine largeur en mobile (empilés), moitié à partir de md. -->
           <div class="absolute inset-0 grid grid-rows-2 md:grid-cols-2 md:grid-rows-1">
-            <img
+            <AppImage
               v-for="media in screen.media"
               :key="media.src"
               :src="media.src"
               :alt="media.alt"
               class="size-full object-cover"
+              sizes="xs:100vw md:50vw"
               loading="lazy"
-              decoding="async"
             />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
@@ -395,14 +416,15 @@
              │ via property.reference (composant FormContactProperty).      │
              └──────────────────────────────────────────────────────────────┘ -->
         <div v-else class="flex h-full w-full flex-col overflow-hidden md:flex-row">
-          <!-- Zone média — visuel d'ambiance (terrasse/piscine). -->
+          <!-- Zone média — visuel d'ambiance (terrasse/piscine).
+               sizes : pleine largeur en mobile, moitié à partir de md. -->
           <div class="relative h-[38%] md:h-full md:w-1/2">
-            <img
+            <AppImage
               :src="property.contactImage"
               alt="Terrasse extérieure et piscine de la villa au cœur du jardin"
               class="absolute inset-0 size-full object-cover"
+              sizes="xs:100vw md:50vw"
               loading="lazy"
-              decoding="async"
             />
           </div>
           <!-- Zone formulaire — titre + FormContactProperty (prérempli avec la référence). -->
@@ -423,12 +445,13 @@
          ║ RÉGION B — MODE LECTURE (déclencheur du travelling cinématique)  ║
          ╚══════════════════════════════════════════════════════════════════╝
          Visible uniquement au point d'entrée du parcours (canStartReadingMode :
-         premier écran, parcours non terminé, lecture non lancée). Le clic
-         démarre/arrête le défilement automatique horizontal. -->
+         premier écran, parcours non terminé, lecture non lancée).
+         Masqué en mobile (`hidden md:flex`) : la navigation tactile se fait au
+         swipe, la cinématique reste une affordance desktop. -->
     <button
       v-if="canStartReadingMode"
       type="button"
-      class="fixed top-1/2 right-5 z-50 flex -translate-y-1/2 animate-pulse items-center text-white/70 transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:right-4"
+      class="fixed top-1/2 right-5 z-50 hidden -translate-y-1/2 animate-pulse items-center text-white/70 transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:right-4 md:flex"
       :aria-label="readingModeButtonLabel"
       :aria-pressed="false"
       @click="toggleReadingMode"
@@ -439,12 +462,15 @@
     <!-- ╔══════════════════════════════════════════════════════════════════╗
          ║ RÉGION C — SYNTHÈSE FIXE (repère permanent du bien)              ║
          ╚══════════════════════════════════════════════════════════════════╝
-         Carte d'identité du bien (nom + badges), ancrée en bas à gauche et
+         Carte d'identité du bien (nom + prix + badges), ancrée en bas à gauche et
          indépendante du rail. Sert aussi de déclencheur du panneau
-         d'informations détaillées (drawer gauche, RÉGION F). -->
+         d'informations détaillées (drawer gauche, RÉGION F).
+         Mobile : seuls le nom et le prix sont affichés (les badges, qui débordaient,
+         restent accessibles dans le drawer). Le décalage bas intègre la safe-area
+         iOS pour ne pas passer sous la barre gestuelle. -->
     <button
       type="button"
-      class="fixed bottom-3 left-4 z-50 flex max-w-[calc(100vw-2rem)] cursor-pointer items-center gap-2 overflow-hidden rounded-md text-left text-xs text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:left-6"
+      class="fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-4 z-50 flex max-w-[calc(100vw-2rem)] cursor-pointer items-center gap-2 overflow-hidden rounded-md text-left text-xs text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:left-6"
       aria-label="Voir les informations du bien"
       aria-haspopup="dialog"
       :aria-expanded="isDetailPanelOpen"
@@ -460,7 +486,8 @@
           {{ property.price }}
         </span>
       </span>
-      <span class="flex min-w-0 items-center gap-1.5 overflow-hidden">
+      <!-- Badges — masqués en mobile (débordement) ; repli dans le drawer d'infos. -->
+      <span class="hidden min-w-0 items-center gap-1.5 overflow-hidden md:flex">
         <span
           v-for="badge in propertyBadges"
           :key="badge"
@@ -522,11 +549,15 @@
           <UIcon name="i-heroicons-chevron-left" class="text-2xl" aria-hidden="true" />
         </button>
 
-        <img
+        <!-- Visuel agrandi : fit `contain` côté provider (pas de crop) + qualité relevée. -->
+        <AppImage
           :src="currentLightboxMedia.src"
           :alt="currentLightboxMedia.alt"
           class="max-h-full max-w-full rounded-md object-contain shadow-2xl"
-          decoding="async"
+          sizes="xs:100vw"
+          fit="contain"
+          :quality="85"
+          loading="eager"
         />
 
         <button
@@ -585,7 +616,7 @@
       >
         <button
           type="button"
-          class="text-foreground/60 hover:text-foreground focus-visible:outline-foreground absolute top-4 right-4 flex size-10 items-center justify-center rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2"
+          class="text-foreground/60 hover:text-foreground focus-visible:outline-foreground absolute top-4 right-4 flex size-11 items-center justify-center rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2"
           aria-label="Fermer les informations"
           @click="closeDetailPanel"
         >
@@ -742,7 +773,7 @@ const slugify = (value: string): string =>
     .replace(/(^-|-$)/g, '')
 
 const toMedia = (value: unknown): Media | null => {
-  const record = isRecord(value) ? value : {}
+  const record = asRecord(value)
   const src = readString(record.url)
   return src ? { src, alt: readString(record.caption) } : null
 }
@@ -751,7 +782,7 @@ const toMedia = (value: unknown): Media | null => {
 const deriveScreens = (item: Accommodation | undefined): Screen[] => {
   const rawParts = Array.isArray(item?.hasPart) ? item.hasPart : []
   return rawParts
-    .map((part): UnknownRecord => (isRecord(part) ? part : {}))
+    .map((part): UnknownRecord => asRecord(part))
     .sort((left, right) => (readNumber(left.position) ?? 0) - (readNumber(right.position) ?? 0))
     .map((part, index): Screen => {
       const template =
@@ -844,6 +875,9 @@ const activeScreenId = ref<string>(screens.value[0]?.id ?? 'contact')
 // Index du visuel principal sélectionné par écran carousel (SCREEN_05).
 const galleryIndex = reactive<Record<string, number>>({})
 const isReadingModeActive = ref(false)
+// Préférence d'accessibilité : si l'utilisateur réduit les animations, on désactive
+// la cinématique et l'autoplay carousel. Résolu côté client au montage (SSR-safe).
+const prefersReducedMotion = ref(false)
 // Panneau d'informations du bien (drawer gauche) ouvert depuis la synthèse fixe.
 const isDetailPanelOpen = ref(false)
 // Lightbox du triptyque (SCREEN_01) : visuels affichés et index courant (null = fermée).
@@ -901,9 +935,14 @@ const activeIndex = computed<number>(() =>
 // Remplissage de la barre : index courant / dernier index, ramené à [0, 1].
 const progress = computed<number>(() => (total <= 1 ? 0 : activeIndex.value / (total - 1)))
 const hasNextScreen = computed<boolean>(() => activeIndex.value < total - 1)
-// Le mode lecture est une entrée de parcours : il ne se lance que depuis le premier écran.
+// Le mode lecture est une entrée de parcours : il ne se lance que depuis le premier écran,
+// et jamais si l'utilisateur a demandé à réduire les animations.
 const canStartReadingMode = computed<boolean>(
-  () => activeIndex.value === 0 && hasNextScreen.value && !isReadingModeActive.value,
+  () =>
+    activeIndex.value === 0 &&
+    hasNextScreen.value &&
+    !isReadingModeActive.value &&
+    !prefersReducedMotion.value,
 )
 const readingModeButtonLabel = computed<string>(() => 'Lancer le parcours automatique de la fiche')
 const readingModeIcon = computed<string>(() => 'i-heroicons-play-solid')
@@ -951,10 +990,12 @@ const stopCarouselAutoplay = (): void => {
 
 /**
  * Lance le défilement automatique des visuels d'un écran carousel actif (boucle).
- * N'a d'effet que sur un écran `carousel` comportant plusieurs visuels.
+ * N'a d'effet que sur un écran `carousel` comportant plusieurs visuels, et reste
+ * inactif si l'utilisateur a demandé à réduire les animations.
  */
 const startCarouselAutoplay = (id: string): void => {
   stopCarouselAutoplay()
+  if (prefersReducedMotion.value) return
   const screen = screens.value.find((item) => item.id === id)
   if (!screen || screenLayout(screen) !== 'carousel' || screen.media.length <= 1) return
 
@@ -1145,6 +1186,10 @@ useHead({
 
 // 12. Lifecycle
 onMounted(() => {
+  // Résolution de la préférence d'animation réduite (client uniquement : `window`
+  // est requis). Conditionne la cinématique et l'autoplay carousel.
+  prefersReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
   const scroller = scrollerRef.value
   if (!scroller) return
 
