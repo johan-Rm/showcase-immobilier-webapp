@@ -358,16 +358,25 @@ const propertyMenuItems = computed<BlockMenuItem[][]>(() => [
   ],
 ])
 
-const discardCreatorDraft = (identifier: string): void => {
-  void $fetch(`/api/dashboard/accommodations/${encodeURIComponent(identifier)}`, {
-    method: 'DELETE',
-  }).catch(() => undefined)
-
-  toast.add({
-    title: 'Brouillon supprimé',
-    icon: 'i-lucide-trash-2',
-    color: 'info',
-  })
+const discardCreatorDraft = async (identifier: string): Promise<void> => {
+  try {
+    await $fetch(`/api/dashboard/accommodations/${encodeURIComponent(identifier)}`, {
+      method: 'DELETE',
+    })
+    toast.add({
+      title: 'Brouillon supprimé',
+      icon: 'i-lucide-trash-2',
+      color: 'info',
+    })
+  } catch {
+    // Échec de la purge : le brouillon (inactif) subsiste côté Symfony — on le signale
+    // plutôt que d'afficher un faux succès.
+    toast.add({
+      title: 'Suppression du brouillon impossible',
+      icon: 'i-lucide-alert-triangle',
+      color: 'error',
+    })
+  }
 }
 
 const needsDiscardConfirm = (): boolean =>
@@ -397,7 +406,7 @@ const confirmDiscard = (): void => {
   const identifier = creatorDraftIdentifier.value
   isDiscardModalOpen.value = false
   closeEditorNow()
-  if (identifier) discardCreatorDraft(identifier)
+  if (identifier) void discardCreatorDraft(identifier)
 }
 
 // Purge best-effort au déchargement de la page (onglet fermé, navigation) : la modale ne
