@@ -29,9 +29,10 @@
           <DashboardPropertyPreview
             :accommodation="activeAccommodation"
             :filtered-count="filteredItems.length"
+            :hide-edit-action="isEditorOpen"
             @prev="goPrev"
             @next="goNext"
-            @edit="isEditorOpen = true"
+            @edit="openEditor"
           />
         </div>
       </div>
@@ -52,6 +53,7 @@
           @logout="emit('logout')"
           @prev="goPrev"
           @next="goNext"
+          @create="openCreator"
           @select="activeIndex = $event"
           @update:selected-listing="selectedListing = $event"
           @update:selected-category="selectedCategory = $event"
@@ -62,8 +64,10 @@
 
     <DashboardPropertyEditorSlideover
       v-model:open="isEditorOpen"
+      v-model:process="editorProcess"
       :accommodation="activeAccommodation"
       @saved="emit('saved')"
+      @created="handleCreated"
     />
   </section>
 </template>
@@ -83,6 +87,8 @@ type WorkspaceUser = {
   email?: string
   picture?: string
 } | null
+
+type EditorProcess = 'edit' | 'create'
 
 const ALL_VALUE = '__all__'
 
@@ -107,6 +113,9 @@ const identifierSearch = ref('')
 const activeIndex = ref(0)
 const activeMediaIndex = ref(0)
 const isEditorOpen = ref(false)
+const editorProcess = ref<EditorProcess>('edit')
+// Bien fraîchement créé à sélectionner une fois la liste rechargée (bascule vers l'édition).
+const pendingEditIdentifier = ref<string | null>(null)
 
 // 6. Data inputs
 
@@ -218,6 +227,27 @@ const goNext = (): void => {
     activeIndex.value >= filteredItems.value.length - 1 ? 0 : activeIndex.value + 1
 }
 
+const openCreator = (): void => {
+  editorProcess.value = 'create'
+  isEditorOpen.value = true
+}
+
+const openEditor = (): void => {
+  editorProcess.value = 'edit'
+  isEditorOpen.value = true
+}
+
+// Bien créé via le creator : on recharge la liste puis on sélectionnera le nouveau
+// bien (cf. watch filteredItems) pour basculer le slideover en édition.
+const handleCreated = (identifier: string): void => {
+  pendingEditIdentifier.value = identifier
+  // Réinitialiser les filtres pour garantir la visibilité du bien créé.
+  selectedListing.value = ALL_VALUE
+  selectedCategory.value = ALL_VALUE
+  identifierSearch.value = ''
+  emit('saved')
+}
+
 // 10. Watch et watchEffect
 watch(activeIndex, preloadAdjacentProperties, { immediate: true })
 
@@ -229,6 +259,17 @@ watch([selectedListing, selectedCategory, identifierSearch], () => {
 watch(filteredItems, () => {
   clampActiveIndex()
   preloadAdjacentProperties(activeIndex.value)
+})
+
+// Une fois la liste rechargée, sélectionner le bien créé et basculer en édition.
+watch(filteredItems, (items) => {
+  const target = pendingEditIdentifier.value
+  if (!target) return
+  const index = items.findIndex((item) => item.identifier === target)
+  if (index === -1) return
+  activeIndex.value = index
+  editorProcess.value = 'edit'
+  pendingEditIdentifier.value = null
 })
 
 watch(

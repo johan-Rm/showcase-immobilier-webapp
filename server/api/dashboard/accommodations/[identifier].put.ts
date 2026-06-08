@@ -131,6 +131,13 @@ export default defineEventHandler(
     const { apiUrl, projectId } = getApiBase()
     const token = await getSymfonyServiceToken()
 
+    // Locale transmise au backend pour la résolution des relations (LocaleResolver lit
+    // `?locale=` en priorité) ; fallback sur la locale du payload.
+    const localeQuery = getQuery(event).locale
+    const locale =
+      typeof localeQuery === 'string' && localeQuery ? localeQuery : accommodation.locale
+    const localeParam = locale ? `?locale=${encodeURIComponent(locale)}` : ''
+
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
       payload = await mapToApiPlatform(accommodation, { apiUrl, projectId })
@@ -166,7 +173,7 @@ export default defineEventHandler(
 
     try {
       const updated = await callSymfony(
-        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}/translations`,
+        `${apiUrl}/api/projects/${projectId}/accommodations/${identifier}/translations${localeParam}`,
         'PUT',
         'translations',
       )
@@ -182,7 +189,7 @@ export default defineEventHandler(
 
       try {
         const created = await callSymfony(
-          `${apiUrl}/api/projects/${projectId}/accommodations/translations`,
+          `${apiUrl}/api/projects/${projectId}/accommodations/translations${localeParam}`,
           'POST',
           'create',
         )

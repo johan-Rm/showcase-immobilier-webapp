@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-b border-l-2 border-white/5 border-l-transparent px-1 py-1.5"
+    class="ml-0.5 border-b border-l-2 border-white/5 border-l-transparent py-1.5 pr-1"
     :class="[multiple ? 'relative col-span-2' : 'relative col-span-1']"
   >
     <p
@@ -243,6 +243,15 @@ const getCreatedLabel = (
   created.translations?.find((translation) => translation.label)?.label ??
   fallback
 
+const getCreateErrorMessage = (error: unknown): string => {
+  if (error instanceof Error && error.message) {
+    return error.message.includes('[POST]')
+      ? 'Création impossible pour le moment. Réessaie ou choisis une option existante.'
+      : error.message
+  }
+  return 'Erreur lors de la création'
+}
+
 const selectSingle = (value: string): void => {
   emit('update:modelValue', value === singleModel.value ? null : value)
   isOpen.value = false
@@ -276,6 +285,7 @@ const onEnterCreate = async (): Promise<void> => {
   creating.value = true
   createError.value = null
   try {
+    const createLocale = getCreateLocale()
     const created = await $fetch<{
       '@id': string
       code?: string
@@ -287,7 +297,8 @@ const onEnterCreate = async (): Promise<void> => {
       method: 'POST',
       body: {
         inCodeSet: props.inCodeSet,
-        translations: [{ locale: getCreateLocale(), label: code }],
+        locale: createLocale,
+        translations: [{ locale: createLocale, label: code }],
       },
     })
     const createdCode = created.codeValue ?? created.code ?? code
@@ -301,7 +312,7 @@ const onEnterCreate = async (): Promise<void> => {
     toggleOption(createdCode)
     search.value = ''
   } catch (err) {
-    createError.value = err instanceof Error ? err.message : 'Erreur lors de la création'
+    createError.value = getCreateErrorMessage(err)
   } finally {
     creating.value = false
   }

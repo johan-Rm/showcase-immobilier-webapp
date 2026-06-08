@@ -79,5 +79,13 @@ content-sync:
 content-sync-dry:
 	$(DOCKER_RUN) bun scripts/content-sync.ts --dry-run
 
+# Sync contenu
+
+content-sync:
+	bun scripts/content-sync.ts
+
+content-sync-dry:
+	bun scripts/content-sync.ts --dry-run
+
 conventions-check:
 	$(DOCKER_RUN) sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards"

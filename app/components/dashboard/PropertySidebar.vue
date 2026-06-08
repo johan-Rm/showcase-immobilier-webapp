@@ -82,6 +82,17 @@
 
       <div class="mx-4 h-px shrink-0 bg-white/5" />
 
+      <div class="shrink-0 px-4 py-2">
+        <button
+          type="button"
+          class="flex w-full items-center justify-center gap-2 rounded border border-[#6B7A4A]/35 px-3 py-2 text-xs font-semibold text-[#6B7A4A] transition-colors hover:bg-[#6B7A4A]/10"
+          @click="createProperty"
+        >
+          <UIcon name="i-lucide-plus" class="text-sm" aria-hidden="true" />
+          Nouveau bien
+        </button>
+      </div>
+
       <div class="shrink-0 px-4 py-3">
         <DashboardSidebarUserCard :user="user" size="sm" />
       </div>
@@ -168,7 +179,18 @@
     </ul>
   </div>
 
-  <div class="mx-5 h-0.5 shrink-0 bg-[#6B7A4A]/50" />
+  <div class="px-5 py-3">
+    <button
+      type="button"
+      class="flex w-full items-center justify-center gap-2 rounded border border-[#6B7A4A]/35 px-3 py-2 text-xs font-semibold text-[#6B7A4A] transition-colors hover:bg-[#6B7A4A]/10"
+      @click="emit('create')"
+    >
+      <UIcon name="i-lucide-plus" class="text-sm" aria-hidden="true" />
+      Nouveau bien
+    </button>
+  </div>
+
+  <!-- <div class="mx-5 h-0.5 shrink-0 bg-[#6B7A4A]/50" /> -->
 
   <div class="px-5 py-5">
     <DashboardSidebarUserCard :user="user" size="md" />
@@ -209,6 +231,7 @@ const emit = defineEmits<{
   logout: []
   prev: []
   next: []
+  create: []
   select: [index: number]
   'update:selectedListing': [value: string]
   'update:selectedCategory': [value: string]
@@ -238,6 +261,11 @@ const scrollActiveIntoView = async (index: number): Promise<void> => {
 
 const selectItem = (index: number): void => {
   emit('select', index)
+  isTopbarOpen.value = false
+}
+
+const createProperty = (): void => {
+  emit('create')
   isTopbarOpen.value = false
 }
 

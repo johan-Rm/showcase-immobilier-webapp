@@ -83,31 +83,32 @@
       </UDropdownMenu>
     </div>
 
-    <div class="min-h-0 flex-1 overflow-y-auto">
+    <div class="flex min-h-0 flex-1 flex-col">
       <template v-if="activeDraft">
-        <DashboardPropertyContentEditor
-          v-if="activeSection === 'content'"
-          :active-draft="activeDraft"
-          :expanded-blocks="expandedBlocks"
-          :associated-media-value="associatedMediaValue"
-          :place-name="placeName"
-          :place-text="placeText"
-          :place-text-status="placeTextStatus"
-          :place-text-error-message="placeTextErrorMessage"
-          :is-place-text-dirty="isPlaceTextDirty"
-          @toggle-block="emit('toggle-block', $event)"
-          @update-field="(path, value) => emit('update-field', path, value)"
-          @update-body="emit('update-body', $event)"
-          @update-associated-media="emit('update-associated-media', $event)"
-          @update-place-text="emit('update-place-text', $event)"
-        />
-
-        <template v-else>
-          <DashboardPropertyMediaGallery
-            :associated-media="associatedMediaValue"
-            @update:associated-media="emit('update-associated-media', $event)"
+        <div v-if="activeSection === 'content'" class="min-h-0 flex-1 overflow-y-auto">
+          <DashboardPropertyContentEditor
+            :active-draft="activeDraft"
+            :expanded-blocks="expandedBlocks"
+            :associated-media-value="associatedMediaValue"
+            :place-name="placeName"
+            :place-text="placeText"
+            :place-text-status="placeTextStatus"
+            :place-text-error-message="placeTextErrorMessage"
+            :is-place-text-dirty="isPlaceTextDirty"
+            @toggle-block="emit('toggle-block', $event)"
+            @update-field="(path, value) => emit('update-field', path, value)"
+            @update-body="emit('update-body', $event)"
+            @update-associated-media="emit('update-associated-media', $event)"
+            @update-place-text="emit('update-place-text', $event)"
           />
-        </template>
+        </div>
+
+        <DashboardPropertyMediaGallery
+          v-else
+          class="min-h-0 flex-1"
+          :associated-media="associatedMediaValue"
+          @update:associated-media="emit('update-associated-media', $event)"
+        />
       </template>
     </div>
 

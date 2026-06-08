@@ -4,11 +4,15 @@
     :open="isOpen"
     :side="isMobile ? 'bottom' : 'left'"
     :ui="slideroverUi"
-    @update:open="isOpen = $event"
+    @update:open="handleOpenUpdate"
   >
     <template #content>
       <div class="flex h-dvh min-h-0 flex-col">
-        <section class="flex min-h-0 flex-1 flex-col" data-property-editor-process="edit">
+        <section
+          v-if="process === 'edit'"
+          class="flex min-h-0 flex-1 flex-col"
+          data-property-editor-process="edit"
+        >
           <DashboardPropertyEditorPanel
             :active-section="activeSection"
             :active-locale="activeLocale"
@@ -41,10 +45,47 @@
           />
         </section>
 
-        <section data-property-editor-process="create" aria-hidden="true" />
+        <section v-else class="flex min-h-0 flex-1 flex-col" data-property-editor-process="create">
+          <DashboardPropertyCreatorPanel
+            @close="handleCreatorClose"
+            @draft-created="handleCreatorDraftCreated"
+            @created="handleCreatorCreated"
+          />
+        </section>
       </div>
     </template>
   </USlideover>
+
+  <!-- Confirmation de suppression d'un brouillon non finalisé (option A) -->
+  <UModal
+    v-model:open="isDiscardModalOpen"
+    :ui="{ content: 'max-w-sm bg-[#212121] text-white ring-0 shadow-none', overlay: 'bg-black/80' }"
+  >
+    <template #content>
+      <div class="p-5">
+        <div class="flex items-center gap-2">
+          <UIcon name="i-lucide-trash-2" class="text-base text-red-400" aria-hidden="true" />
+          <h3 class="text-sm font-semibold text-white">Supprimer le brouillon ?</h3>
+        </div>
+        <p class="mt-2 text-xs leading-relaxed text-white/60">
+          Ce brouillon de bien n'a pas été finalisé. Tu pourras annuler la suppression pendant
+          quelques secondes.
+        </p>
+        <div class="mt-5 flex justify-end gap-2">
+          <UButton
+            type="button"
+            color="neutral"
+            variant="ghost"
+            class="text-white/55 hover:bg-white/10 hover:text-white"
+            @click="isDiscardModalOpen = false"
+          >
+            Annuler
+          </UButton>
+          <UButton type="button" color="error" @click="confirmDiscard"> Supprimer </UButton>
+        </div>
+      </div>
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
@@ -54,18 +95,22 @@ import { useSymfonyStatus } from '~/composables/dashboard/useSymfonyStatus'
 
 type DashboardLocale = 'fr' | 'en' | 'es'
 type EditorSection = 'content' | 'media'
+type EditorProcess = 'edit' | 'create'
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
 type BlockMenuItem = { label: string; icon?: string; onSelect?: () => void }
 defineOptions({ name: 'DashboardPropertyEditorSlideover' })
 
 const props = defineProps<{
   open: boolean
+  process: EditorProcess
   accommodation?: DashboardAccommodation | null
 }>()
 
 const emit = defineEmits<{
   'update:open': [value: boolean]
+  'update:process': [value: EditorProcess]
   saved: []
+  created: [identifier: string]
 }>()
 
 const activeSection = ref<EditorSection>('content')
@@ -82,6 +127,12 @@ const expandedBlocks = ref<Set<string>>(new Set<string>())
 const isMobile = ref(false)
 const localeLoadToken = ref(0)
 const skipNextLocaleLoad = ref(false)
+// Brouillon de création en cours : identifier renvoyé au premier POST, et indicateur
+// de finalisation (le bien existe alors et ne doit plus être purgé à la fermeture).
+const creatorDraftIdentifier = ref<string | null>(null)
+const creatorFinalized = ref(false)
+const isDiscardModalOpen = ref(false)
+const toast = useToast()
 
 const {
   status: saveStatus,
@@ -260,6 +311,11 @@ const isOpen = computed<boolean>({
   set: (value) => emit('update:open', value),
 })
 
+const process = computed<EditorProcess>({
+  get: () => props.process,
+  set: (value) => emit('update:process', value),
+})
+
 const activeDraft = computed<DashboardDraft | null>(
   () => drafts.value?.[activeLocale.value] ?? null,
 )
@@ -301,6 +357,91 @@ const propertyMenuItems = computed<BlockMenuItem[][]>(() => [
     },
   ],
 ])
+
+const discardCreatorDraft = (identifier: string): void => {
+  void $fetch(`/api/dashboard/accommodations/${encodeURIComponent(identifier)}`, {
+    method: 'DELETE',
+  }).catch(() => undefined)
+
+  toast.add({
+    title: 'Brouillon supprimé',
+    icon: 'i-lucide-trash-2',
+    color: 'info',
+  })
+}
+
+const needsDiscardConfirm = (): boolean =>
+  process.value === 'create' && Boolean(creatorDraftIdentifier.value) && !creatorFinalized.value
+
+const resetCreatorState = (): void => {
+  creatorDraftIdentifier.value = null
+  creatorFinalized.value = false
+}
+
+const closeEditorNow = (): void => {
+  resetCreatorState()
+  isOpen.value = false
+}
+
+// Fermeture demandée : si un brouillon non finalisé existe, on ouvre la modale de
+// confirmation (sans fermer) ; sinon on ferme directement.
+const requestClose = (): void => {
+  if (needsDiscardConfirm()) {
+    isDiscardModalOpen.value = true
+    return
+  }
+  closeEditorNow()
+}
+
+const confirmDiscard = (): void => {
+  const identifier = creatorDraftIdentifier.value
+  isDiscardModalOpen.value = false
+  closeEditorNow()
+  if (identifier) discardCreatorDraft(identifier)
+}
+
+// Purge best-effort au déchargement de la page (onglet fermé, navigation) : la modale ne
+// peut pas s'afficher. `fetch` keepalive survit au unload — `navigator.sendBeacon` est
+// limité au POST, inutilisable sur une route DELETE. La session cookie suffit à
+// `requireUserSession`. Pas de toast : la page disparaît.
+const discardDraftOnUnload = (): void => {
+  if (!needsDiscardConfirm()) return
+  const identifier = creatorDraftIdentifier.value
+  if (!identifier) return
+  void fetch(`/api/dashboard/accommodations/${encodeURIComponent(identifier)}`, {
+    method: 'DELETE',
+    keepalive: true,
+  }).catch(() => undefined)
+}
+
+onMounted(() => {
+  window.addEventListener('pagehide', discardDraftOnUnload)
+  onUnmounted(() => window.removeEventListener('pagehide', discardDraftOnUnload))
+})
+
+const handleOpenUpdate = (value: boolean): void => {
+  if (value) {
+    isOpen.value = true
+    return
+  }
+  requestClose()
+}
+
+const handleCreatorClose = (): void => {
+  requestClose()
+}
+
+const handleCreatorDraftCreated = (identifier: string): void => {
+  creatorDraftIdentifier.value = identifier
+}
+
+// Bien finalisé : il existe désormais, plus de purge, on remonte au workspace qui
+// bascule vers l'édition du bien créé.
+const handleCreatorCreated = (identifier: string): void => {
+  creatorFinalized.value = true
+  creatorDraftIdentifier.value = null
+  emit('created', identifier)
+}
 
 const toggleBlock = (id: string): void => {
   if (expandedBlocks.value.has(id)) {
@@ -498,6 +639,11 @@ watch(isOpen, async (open) => {
     checkSymfonyStatus()
   }
   await loadLocaleDrafts(props.accommodation)
+})
+
+// Nouvelle création : repartir d'un état de brouillon vierge.
+watch(process, (value) => {
+  if (value === 'create') resetCreatorState()
 })
 
 watch(

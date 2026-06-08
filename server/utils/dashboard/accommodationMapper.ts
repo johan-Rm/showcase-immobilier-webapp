@@ -64,6 +64,20 @@ function mapAssociatedMedia(
     .filter((item): item is NonNullable<typeof item> => item !== null)
 }
 
+function mapQualities(
+  value: DashboardEditableValue | undefined,
+): Array<{ name: string; value: number }> {
+  if (!Array.isArray(value)) return []
+
+  return value.flatMap((item) => {
+    if (!isRecord(item)) return []
+    const name = asString(item.name)
+    const numeric = asNumber(item.value)
+    if (name === null || numeric === null) return []
+    return [{ name, value: numeric }]
+  })
+}
+
 function hasUsableTranslation(
   translation: DashboardAccommodationTranslationPayload,
 ): translation is DashboardAccommodationTranslationPayload {
@@ -175,6 +189,7 @@ export async function mapToApiPlatform(
 
   const mediaObjectIriBase = `${context.apiUrl}/api/projects/${context.projectId}/media-objects`
   const associatedMedia = mapAssociatedMedia(fm.associatedMedia, mediaObjectIriBase)
+  const qualities = mapQualities(fm.qualities)
 
   // -- Payload final -------------------------------------------------------
   const payload: SymfonyAccommodationPayload = {
@@ -186,6 +201,7 @@ export async function mapToApiPlatform(
     amenityFeature,
     tags,
     associatedMedia,
+    ...(qualities.length > 0 && { qualities }),
     ...(yearBuilt !== null && { yearBuilt }),
     ...(areaSize !== null && { areaSize }),
     ...(areaTerrace !== null && { areaTerrace }),

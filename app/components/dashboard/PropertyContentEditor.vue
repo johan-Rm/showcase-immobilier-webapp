@@ -3,13 +3,9 @@
     <div
       v-for="block in contentBlocks"
       :key="block.id"
-      class="flex min-h-14 flex-col border-b border-white/6"
-      :class="expandedBlocks.size === 0 || expandedBlocks.has(block.id) ? 'flex-1' : 'flex-none'"
+      class="flex min-h-14 flex-none flex-col border-b border-white/6"
     >
-      <div
-        class="flex items-stretch transition-colors hover:bg-white/5"
-        :class="expandedBlocks.size === 0 ? 'flex-1' : 'shrink-0'"
-      >
+      <div class="flex shrink-0 items-stretch transition-colors hover:bg-white/5">
         <button
           type="button"
           class="flex flex-1 items-center gap-3 px-4 py-3 text-left"
@@ -38,13 +34,13 @@
         </div>
       </div>
 
-      <div v-if="expandedBlocks.has(block.id)" class="flex-1 px-4 pt-1 pb-5">
+      <div v-if="expandedBlocks.has(block.id)" class="px-4 pt-1 pb-5">
         <template v-if="block.id === 'frontmatter'">
           <div v-for="section in frontmatterSections" :key="section.id">
             <div v-if="section.separator" class="mt-4 h-px bg-[#6B7A4A]/40" />
             <div v-if="!section.hideLabel" class="sticky top-0 z-10 -mx-4 bg-[#212121] px-4">
               <p
-                class="pt-2.5 pb-1 text-[0.6rem] font-semibold tracking-[0.12em] uppercase"
+                class="pt-10 pb-2.5 text-[0.6rem] font-semibold tracking-[0.12em] uppercase"
                 style="color: #6b7a4a"
               >
                 {{ section.label }}
@@ -113,8 +109,6 @@
           />
         </template>
       </div>
-
-      <div class="mx-4 h-px bg-white/5" />
     </div>
   </div>
 </template>

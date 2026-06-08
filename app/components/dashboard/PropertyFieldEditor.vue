@@ -1,13 +1,13 @@
 <template>
   <div
-    class="dashboard-property-field-editor border-b border-white/5 px-1 py-1.5 transition-colors"
+    class="dashboard-property-field-editor ml-0.5 border-b border-white/5 py-1.5 pr-1 transition-colors"
     :class="[
       isNumberValue || props.half ? 'col-span-1' : 'col-span-2',
       readonly
-        ? 'border-l-2 border-l-transparent pl-2'
+        ? 'border-l-2 border-l-transparent'
         : isActive
-          ? 'group border-l-2 border-l-[#6B7A4A] pl-2 hover:bg-white/2.5'
-          : 'group border-l-2 border-l-transparent pl-2 hover:bg-white/2.5',
+          ? 'group border-l-2 border-l-[#6B7A4A] hover:bg-white/2.5'
+          : 'group border-l-2 border-l-transparent hover:bg-white/2.5',
     ]"
   >
     <!-- Boolean: toggle inline -->
