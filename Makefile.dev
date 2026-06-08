@@ -74,14 +74,6 @@ generate-schemas:
 # Sync contenu
 
 content-sync:
-	$(DOCKER_RUN) bun scripts/content-sync.ts
-
-content-sync-dry:
-	$(DOCKER_RUN) bun scripts/content-sync.ts --dry-run
-
-# Sync contenu
-
-content-sync:
 	bun scripts/content-sync.ts
 
 content-sync-dry:
