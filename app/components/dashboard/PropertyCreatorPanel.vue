@@ -15,7 +15,7 @@
       </p>
       <button
         type="button"
-        class="flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-white/35 transition-colors hover:bg-white/5 hover:text-white/70 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white/35"
+        class="flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-[#8A9A5B] transition-colors hover:bg-[#6B7A4A]/15 hover:text-[#A4B872] disabled:cursor-not-allowed disabled:text-white/30 disabled:hover:bg-transparent disabled:hover:text-white/30"
         :disabled="!hasAnyInput"
         @click="showSummary"
       >
@@ -36,14 +36,22 @@
       <Transition :name="stepTransitionName" mode="out-in">
         <div
           :key="activeStep"
-          class="h-full overflow-y-auto px-6 py-8"
-          :class="isStructuredStep ? 'flex flex-col' : 'flex items-center justify-center'"
+          class="h-full p-4"
+          :class="[
+            activeStep === 'summary' ? 'overflow-hidden' : 'overflow-y-auto',
+            isStructuredStep ? 'flex flex-col' : 'flex items-center justify-center',
+          ]"
         >
           <div
             class="w-full"
             :class="
               isStructuredStep
-                ? 'creator-step-layout mx-auto grid h-full min-h-full max-w-2xl grid-rows-[auto_minmax(0,1fr)_minmax(0,1fr)]'
+                ? [
+                    'creator-step-layout mx-auto grid h-full min-h-full max-w-2xl transition-[grid-template-rows] duration-300 ease-out',
+                    activeStep === 'media' && isMediaHeadlineCollapsed
+                      ? 'grid-rows-[auto_0fr_minmax(0,1fr)]'
+                      : 'grid-rows-[auto_minmax(0,1fr)_minmax(0,1fr)]',
+                  ]
                 : 'max-w-md'
             "
           >
@@ -99,81 +107,18 @@
                   </div>
                 </div>
               </template>
-              <template v-else-if="activeStep === 'name'">
-                <div class="creator-step-typing flex min-h-0 items-center">
-                  <div class="mx-auto min-h-[6lh] w-full max-w-2xl text-left">
-                    <div class="text-2xl leading-tight font-light text-white/95">
-                      {{ nameHeadlineLine
-                      }}<span
-                        v-if="nameCaretLineIndex === 0 && !isTypingDone"
-                        class="creator-caret"
-                        aria-hidden="true"
-                        >▍</span
-                      >
-                    </div>
-
-                    <div
-                      v-if="hasNameSupportLine"
-                      class="mt-6 h-0.5 w-24 bg-[#8A9A5B]"
-                      aria-hidden="true"
-                    />
-
-                    <div
-                      v-if="hasNameSupportLine"
-                      class="mt-6 text-sm leading-relaxed font-light text-white/55"
-                    >
-                      {{ nameSupportLine
-                      }}<span
-                        v-if="nameCaretLineIndex === 1 && !isTypingDone"
-                        class="creator-caret"
-                        aria-hidden="true"
-                        >▍</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </template>
-              <template v-else-if="activeStep === 'price'">
-                <div class="creator-step-typing flex min-h-0 items-center">
-                  <div class="mx-auto min-h-[6lh] w-full max-w-2xl text-left">
-                    <div class="text-2xl leading-tight font-light text-white/95">
-                      {{ priceHeadlineLine
-                      }}<span
-                        v-if="priceCaretLineIndex === 0 && !isTypingDone"
-                        class="creator-caret"
-                        aria-hidden="true"
-                        >▍</span
-                      >
-                    </div>
-
-                    <div
-                      v-if="hasPriceSupportLine"
-                      class="mt-6 h-0.5 w-24 bg-[#8A9A5B]"
-                      aria-hidden="true"
-                    />
-
-                    <div
-                      v-if="hasPriceSupportLine"
-                      class="mt-6 text-sm leading-relaxed font-light text-white/55"
-                    >
-                      {{ priceSupportLine
-                      }}<span
-                        v-if="priceCaretLineIndex === 1 && !isTypingDone"
-                        class="creator-caret"
-                        aria-hidden="true"
-                        >▍</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </template>
               <template v-else-if="isStructuredStep">
-                <div class="creator-step-typing flex min-h-0 items-center">
+                <div class="creator-step-typing flex min-h-0 items-center overflow-hidden">
                   <div class="mx-auto min-h-[6lh] w-full max-w-2xl text-left">
-                    <div class="text-2xl leading-tight font-light text-white/95">
-                      {{ structuredHeadlineLine
-                      }}<span
-                        v-if="structuredCaretLineIndex === 0 && !isTypingDone"
+                    <div
+                      v-for="(part, index) in structuredHeadlineParts"
+                      :key="index"
+                      class="text-2xl leading-tight font-light text-white/95"
+                    >
+                      <span>{{ part.lead }}</span>
+                      <span class="text-[#8A9A5B]">{{ part.accent }}</span>
+                      <span
+                        v-if="structuredCaretLineIndex === index && !isTypingDone"
                         class="creator-caret"
                         aria-hidden="true"
                         >▍</span
@@ -192,7 +137,7 @@
                     >
                       {{ structuredSupportLine
                       }}<span
-                        v-if="structuredCaretLineIndex === 1 && !isTypingDone"
+                        v-if="structuredCaretLineIndex === 2 && !isTypingDone"
                         class="creator-caret"
                         aria-hidden="true"
                         >▍</span
@@ -246,13 +191,25 @@
               class="creator-step-fields flex min-h-0 items-start pb-6 text-center"
             >
               <Transition name="creator-reveal">
-                <label v-if="revealedNameInput" class="block w-full text-left">
+                <label
+                  v-if="revealedNameInput"
+                  class="relative block w-full overflow-hidden text-left"
+                >
                   <input
                     v-model="creatorDraft.name"
                     type="text"
-                    class="w-full rounded border border-white/10 bg-white/5 px-3 py-3 text-lg font-semibold text-white/85 caret-white transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]/60"
-                    placeholder="Ex. Riad lumineux en médina"
+                    class="w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-lg font-semibold text-white/85 caret-[#6B7A4A] transition-colors outline-none focus:border-[#6B7A4A]"
                   />
+                  <!-- Placeholder rotatif (slide vertical) : overlay, le placeholder natif ne s'anime pas. -->
+                  <Transition name="creator-suggestion" mode="out-in">
+                    <span
+                      v-if="!creatorDraft.name"
+                      :key="designationPlaceholder"
+                      class="pointer-events-none absolute inset-x-0 top-2 truncate text-lg font-semibold text-white/20"
+                    >
+                      {{ designationPlaceholder }}
+                    </span>
+                  </Transition>
                 </label>
               </Transition>
             </section>
@@ -324,14 +281,38 @@
 
             <section
               v-else-if="activeStep === 'media'"
-              class="creator-step-fields flex min-h-0 items-start overflow-y-auto pb-6 text-center"
+              class="creator-step-fields flex min-h-0 flex-col text-left"
             >
               <Transition name="creator-reveal">
-                <DashboardPropertyMediaGallery
-                  v-if="revealedMediaFields"
-                  :associated-media="creatorDraft.associatedMedia"
-                  @update:associated-media="updateAssociatedMedia"
-                />
+                <div v-if="revealedMediaFields" class="flex min-h-0 flex-1 flex-col">
+                  <div class="mt-2 flex shrink-0 justify-center">
+                    <button
+                      type="button"
+                      class="flex items-center gap-1 rounded px-2 py-0.5 text-[0.6rem] text-white/40 transition-colors hover:bg-white/5 hover:text-white/70"
+                      :aria-pressed="isMediaHeadlineCollapsed"
+                      :aria-label="
+                        isMediaHeadlineCollapsed ? 'Afficher le titre' : 'Agrandir la galerie'
+                      "
+                      @click="isMediaHeadlineCollapsed = !isMediaHeadlineCollapsed"
+                    >
+                      <UIcon
+                        :name="
+                          isMediaHeadlineCollapsed
+                            ? 'i-lucide-chevrons-down'
+                            : 'i-lucide-chevrons-up'
+                        "
+                        class="text-xs"
+                        aria-hidden="true"
+                      />
+                      {{ isMediaHeadlineCollapsed ? 'Réduire' : 'Agrandir' }}
+                    </button>
+                  </div>
+                  <DashboardPropertyMediaGallery
+                    class="min-h-0 flex-1"
+                    :associated-media="creatorDraft.associatedMedia"
+                    @update:associated-media="updateAssociatedMedia"
+                  />
+                </div>
               </Transition>
             </section>
 
@@ -352,24 +333,159 @@
 
             <section
               v-else-if="activeStep === 'details'"
+              class="creator-step-fields flex min-h-0 items-start overflow-y-auto pb-6 text-center"
+            >
+              <Transition name="creator-reveal">
+                <div v-if="revealedDetailsFields" class="w-full space-y-4 text-left">
+                  <div class="grid grid-cols-2 gap-3">
+                    <input
+                      v-model="creatorDraft.floorSize"
+                      type="text"
+                      class="w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Surface habitable"
+                      aria-label="Surface habitable"
+                    />
+                    <input
+                      v-model="creatorDraft.areaSize"
+                      type="text"
+                      class="w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Surface totale"
+                      aria-label="Surface totale"
+                    />
+                  </div>
+
+                  <button
+                    v-if="!showExtraDetails"
+                    type="button"
+                    class="flex items-center gap-1 text-xs text-[#8A9A5B] transition-colors hover:text-[#A4B872]"
+                    @click="showExtraDetails = true"
+                  >
+                    <UIcon name="i-lucide-plus" class="text-xs" aria-hidden="true" />
+                    Ajouter plus de détails
+                  </button>
+
+                  <div v-else class="grid grid-cols-2 gap-3">
+                    <input
+                      v-model="creatorDraft.landArea"
+                      type="text"
+                      class="w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Surface terrain"
+                      aria-label="Surface terrain"
+                    />
+                    <input
+                      v-model="creatorDraft.areaTerrace"
+                      type="text"
+                      class="w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Terrasse"
+                      aria-label="Terrasse"
+                    />
+                    <input
+                      :value="creatorDraft.numberOfRooms ?? ''"
+                      type="number"
+                      min="0"
+                      class="creator-price-input w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Pièces"
+                      aria-label="Nombre de pièces"
+                      @input="updateNumberField('numberOfRooms', $event)"
+                    />
+                    <input
+                      :value="creatorDraft.numberOfBedrooms ?? ''"
+                      type="number"
+                      min="0"
+                      class="creator-price-input w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Chambres"
+                      aria-label="Nombre de chambres"
+                      @input="updateNumberField('numberOfBedrooms', $event)"
+                    />
+                    <input
+                      :value="creatorDraft.numberOfBathroomsTotal ?? ''"
+                      type="number"
+                      min="0"
+                      class="creator-price-input w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Salles de bain"
+                      aria-label="Nombre de salles de bain"
+                      @input="updateNumberField('numberOfBathroomsTotal', $event)"
+                    />
+                    <input
+                      :value="creatorDraft.numberOfGarages ?? ''"
+                      type="number"
+                      min="0"
+                      class="creator-price-input w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Garages"
+                      aria-label="Nombre de garages"
+                      @input="updateNumberField('numberOfGarages', $event)"
+                    />
+                    <input
+                      :value="creatorDraft.occupancy ?? ''"
+                      type="number"
+                      min="0"
+                      class="creator-price-input w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Capacité"
+                      aria-label="Capacité d'accueil"
+                      @input="updateNumberField('occupancy', $event)"
+                    />
+                    <input
+                      :value="creatorDraft.yearBuilt ?? ''"
+                      type="number"
+                      min="0"
+                      class="creator-price-input w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Année de construction"
+                      aria-label="Année de construction"
+                      @input="updateNumberField('yearBuilt', $event)"
+                    />
+                  </div>
+
+                  <p class="text-xs text-white/30">
+                    Rien ne presse : tu peux ignorer cette étape et compléter ces détails plus tard.
+                  </p>
+                </div>
+              </Transition>
+            </section>
+
+            <section
+              v-else-if="activeStep === 'description'"
               class="creator-step-fields flex min-h-0 items-start pb-6 text-center"
             >
               <Transition name="creator-reveal">
-                <div v-if="revealedDetailsFields" class="grid w-full grid-cols-2 gap-3 text-left">
-                  <input
-                    v-model="creatorDraft.floorSize"
-                    type="text"
-                    class="w-full rounded border border-white/10 bg-white/5 px-3 py-3 text-sm text-white/80 caret-white transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]/60"
-                    placeholder="Surface habitable"
-                    aria-label="Surface habitable"
-                  />
+                <textarea
+                  v-if="revealedDescriptionFields"
+                  v-model="creatorDraft.body"
+                  rows="6"
+                  class="w-full resize-none border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                  placeholder="Décris le bien, son ambiance, ses atouts…"
+                  aria-label="Description du bien"
+                />
+              </Transition>
+            </section>
 
-                  <input
-                    v-model="creatorDraft.areaSize"
-                    type="text"
-                    class="w-full rounded border border-white/10 bg-white/5 px-3 py-3 text-sm text-white/80 caret-white transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]/60"
-                    placeholder="Surface totale"
-                    aria-label="Surface totale"
+            <section
+              v-else-if="activeStep === 'comfort'"
+              class="creator-step-fields flex min-h-0 items-start overflow-y-auto pb-6 text-center"
+            >
+              <Transition name="creator-reveal">
+                <div v-if="revealedComfortFields" class="grid w-full grid-cols-1 gap-3 text-left">
+                  <DashboardCategoryCodeSelect
+                    in-code-set="amenity-feature"
+                    :model-value="creatorDraft.amenityFeature"
+                    label="Équipements"
+                    placeholder="Choisir les équipements"
+                    multiple
+                    :show-label="false"
+                    @update:model-value="updateAmenityFeature"
+                  />
+                </div>
+              </Transition>
+            </section>
+
+            <section
+              v-else-if="activeStep === 'qualities'"
+              class="creator-step-fields flex min-h-0 items-start overflow-y-auto pb-6 text-center"
+            >
+              <Transition name="creator-reveal">
+                <div v-if="revealedQualitiesFields" class="grid w-full grid-cols-2 gap-3 text-left">
+                  <DashboardQualitiesEditor
+                    :model-value="creatorDraft.qualities"
+                    @update:model-value="updateQualities"
                   />
                 </div>
               </Transition>
@@ -384,7 +500,7 @@
                   v-if="revealedOptionalFields"
                   v-model="creatorDraft.review"
                   rows="4"
-                  class="w-full resize-none rounded border border-white/10 bg-white/5 p-3 text-sm text-white/75 caret-white transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]/60"
+                  class="w-full resize-none border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
                   placeholder="Ce qui rend ce bien intéressant…"
                   aria-label="Notre avis"
                 />
@@ -392,22 +508,66 @@
             </section>
 
             <section
-              v-else
+              v-else-if="activeStep === 'seo'"
               class="creator-step-fields flex min-h-0 items-start overflow-y-auto pb-6 text-center"
             >
-              <div v-if="revealedSummaryContent" class="w-full space-y-6">
-                <dl class="space-y-2 rounded border border-white/10 bg-white/5 p-4 text-xs">
-                  <div v-for="item in summaryItems" :key="item.label" class="flex gap-3">
-                    <dt class="w-28 shrink-0 text-white/30">{{ item.label }}</dt>
-                    <dd class="min-w-0 flex-1 text-white/65">{{ item.value }}</dd>
-                  </div>
-                </dl>
+              <Transition name="creator-reveal">
+                <div v-if="revealedSeoFields" class="w-full space-y-4 text-left">
+                  <label class="block">
+                    <span
+                      class="mb-1 block text-[0.6rem] font-semibold tracking-widest text-white/30 uppercase"
+                      >Titre SEO</span
+                    >
+                    <input
+                      v-model="creatorDraft.metaTitle"
+                      type="text"
+                      class="w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Titre pour les moteurs de recherche"
+                      aria-label="Titre SEO"
+                    />
+                  </label>
+                  <label class="block">
+                    <span
+                      class="mb-1 block text-[0.6rem] font-semibold tracking-widest text-white/30 uppercase"
+                      >Description SEO</span
+                    >
+                    <textarea
+                      v-model="creatorDraft.metaDescription"
+                      rows="3"
+                      class="w-full resize-none border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
+                      placeholder="Description courte pour les moteurs de recherche"
+                      aria-label="Description SEO"
+                    />
+                  </label>
+                </div>
+              </Transition>
+            </section>
 
+            <section
+              v-else
+              class="creator-step-fields flex min-h-0 items-start overflow-hidden pb-6 text-center"
+            >
+              <div v-if="revealedSummaryContent" class="flex h-full min-h-0 w-full flex-col gap-6">
                 <div
-                  v-if="canPublish"
-                  class="rounded border border-[#6B7A4A]/35 bg-[#6B7A4A]/10 px-3 py-2 text-xs text-white/70"
+                  v-if="canFinalizeDraft"
+                  class="shrink-0 rounded border border-[#6B7A4A]/35 bg-[#6B7A4A]/10 px-3 py-2 text-xs text-white/70"
                 >
-                  Très bien, la fiche contient assez d’informations pour proposer une publication.
+                  Très bien, la fiche contient assez d’informations pour enregistrer le bien.
+                </div>
+
+                <div class="min-h-0 flex-1 overflow-y-auto">
+                  <table class="w-full table-fixed text-xs">
+                    <tbody>
+                      <tr v-for="item in summaryItems" :key="item.label">
+                        <th class="w-32 py-1 pr-4 text-right font-normal text-white/30">
+                          {{ item.label }}
+                        </th>
+                        <td class="py-1 text-left text-white/65">
+                          {{ item.value }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </section>
@@ -417,9 +577,9 @@
     </div>
 
     <div class="shrink-0 border-t border-white/10 bg-[#1a1a1a] px-4 py-3">
-      <p v-if="stepError" class="mb-2 text-xs text-red-400">{{ stepError }}</p>
       <p v-if="readyMessage" class="mb-2 text-xs text-[#6B7A4A]">{{ readyMessage }}</p>
 
+      <!-- Navigation standard entre étapes -->
       <div class="flex items-center gap-2">
         <UButton
           type="button"
@@ -447,8 +607,8 @@
           type="button"
           block
           class="font-medium"
-          :disabled="isCreatingDraft"
-          :loading="isCreatingDraft"
+          :disabled="isCreatingDraft || isFinalizing"
+          :loading="isCreatingDraft || isFinalizing"
           :class="['bg-[#6B7A4A]! hover:bg-[#5c6940]!']"
           @click="handlePrimaryAction"
         >
@@ -461,9 +621,14 @@
 
 <script setup lang="ts">
 import type {
+  DashboardAccommodationPreview,
+  DashboardAccommodationSavePayload,
   DashboardEditableRecord,
   DashboardEditableValue,
 } from '#shared/types/dashboardAccommodation'
+
+import { useDashboardSave } from '~/composables/dashboard/useDashboardSave'
+import { useDesignationPlaceholder } from '~/composables/dashboard/useDesignationPlaceholder'
 
 type CreatorStepId =
   | 'classification'
@@ -472,7 +637,11 @@ type CreatorStepId =
   | 'media'
   | 'mediaAlt'
   | 'details'
+  | 'description'
+  | 'comfort'
+  | 'qualities'
   | 'optional'
+  | 'seo'
   | 'summary'
 type CreatorStepState = 'locked' | 'current' | 'completed' | 'skipped' | 'invalid'
 
@@ -492,6 +661,7 @@ type CreatorMediaItem = {
 
 type CreatorDraft = {
   identifier: string
+  slug: string
   realEstateListing: string
   category: string
   place: string
@@ -502,11 +672,25 @@ type CreatorDraft = {
   associatedMedia: CreatorMediaItem[]
   floorSize: string
   areaSize: string
+  landArea: string
+  areaTerrace: string
+  numberOfBedrooms: number | null
+  numberOfRooms: number | null
+  numberOfBathroomsTotal: number | null
+  numberOfGarages: number | null
+  occupancy: number | null
+  yearBuilt: number | null
+  body: string
+  amenityFeature: string[]
+  qualities: DashboardEditableValue
+  metaTitle: string
+  metaDescription: string
   review: string
 }
 
 type CreatorDraftResponse = {
   identifier: string
+  slug: string | null
   iri: string | null
 }
 
@@ -515,22 +699,27 @@ defineOptions({ name: 'DashboardPropertyCreatorPanel' })
 const emit = defineEmits<{
   close: []
   'draft-created': [identifier: string]
-  ready: [payload: DashboardEditableRecord]
+  created: [identifier: string]
 }>()
 
 const steps: CreatorStep[] = [
   { id: 'classification', label: 'Départ', icon: 'i-lucide-tags' },
-  { id: 'name', label: 'Nom', icon: 'i-lucide-type' },
+  { id: 'name', label: 'Désignation', icon: 'i-lucide-type' },
   { id: 'price', label: 'Prix', icon: 'i-lucide-badge-dollar-sign' },
   { id: 'media', label: 'Image', icon: 'i-lucide-image' },
   { id: 'mediaAlt', label: 'Textes alt', icon: 'i-lucide-text-cursor-input' },
-  { id: 'details', label: 'Détails', icon: 'i-lucide-ruler' },
+  { id: 'details', label: 'Détails', icon: 'i-lucide-ruler', optional: true },
+  { id: 'description', label: 'Description', icon: 'i-lucide-align-left' },
+  { id: 'comfort', label: 'Confort', icon: 'i-lucide-armchair', optional: true },
+  { id: 'qualities', label: 'Qualités', icon: 'i-lucide-sliders-horizontal', optional: true },
   { id: 'optional', label: 'Avis', icon: 'i-lucide-sparkles', optional: true },
+  { id: 'seo', label: 'SEO', icon: 'i-lucide-search', optional: true },
   { id: 'summary', label: 'Résumé', icon: 'i-lucide-check-circle' },
 ]
 
 const creatorDraft = reactive<CreatorDraft>({
   identifier: '',
+  slug: '',
   realEstateListing: '',
   category: '',
   place: '',
@@ -541,6 +730,19 @@ const creatorDraft = reactive<CreatorDraft>({
   associatedMedia: [],
   floorSize: '',
   areaSize: '',
+  landArea: '',
+  areaTerrace: '',
+  numberOfBedrooms: null,
+  numberOfRooms: null,
+  numberOfBathroomsTotal: null,
+  numberOfGarages: null,
+  occupancy: null,
+  yearBuilt: null,
+  body: '',
+  amenityFeature: [],
+  qualities: [],
+  metaTitle: '',
+  metaDescription: '',
   review: '',
 })
 
@@ -549,6 +751,8 @@ const skippedSteps = ref<Set<CreatorStepId>>(new Set())
 const stepError = ref<string | null>(null)
 const readyMessage = ref<string | null>(null)
 const isCreatingDraft = ref(false)
+const isFinalizing = ref(false)
+const isFinalized = ref(false)
 const stepTransitionName = ref<'creator-step-forward' | 'creator-step-backward'>(
   'creator-step-forward',
 )
@@ -562,11 +766,20 @@ const revealedSelects = reactive<Record<CreatorSelectKey, boolean>>({
 const revealedNameInput = ref(false)
 const revealedPriceFields = ref(false)
 const revealedMediaFields = ref(false)
+const isMediaHeadlineCollapsed = ref(false)
 const revealedMediaAltFields = ref(false)
 const revealedDetailsFields = ref(false)
+const revealedDescriptionFields = ref(false)
+const revealedComfortFields = ref(false)
+const revealedQualitiesFields = ref(false)
 const revealedOptionalFields = ref(false)
+const revealedSeoFields = ref(false)
 const revealedSummaryContent = ref(false)
+// Détails optionnels masqués au départ (révélés à la demande).
+const showExtraDetails = ref(false)
 let typingTimer: ReturnType<typeof setTimeout> | null = null
+// Steps dont l'effet typing a déjà joué : au retour, le texte s'affiche sans animation.
+const typedSteps = new Set<CreatorStepId>()
 
 const activeStepIndex = computed<number>(() =>
   steps.findIndex((step) => step.id === activeStep.value),
@@ -574,6 +787,26 @@ const activeStepIndex = computed<number>(() =>
 const currentStep = computed<CreatorStep>(() => steps[activeStepIndex.value] ?? steps[0]!)
 const metadataStore = useMetadataStore()
 const { localeSetting } = useLang()
+const { errorMessage: saveErrorMessage, saveMultilingual } = useDashboardSave()
+const toast = useToast()
+
+// Libellé du lieu choisi (code -> label) pour les suggestions contextuelles.
+const placeLabel = computed<string>(
+  () =>
+    metadataStore
+      .getOptionsForCodeSet('accommodation-place')
+      .find((option) => option.value === creatorDraft.place)?.label ?? '',
+)
+
+// Rotation suspendue dès qu'une désignation est saisie (placeholder alors masqué).
+const isDesignationActive = computed<boolean>(
+  () => activeStep.value === 'name' && !creatorDraft.name.trim(),
+)
+
+const { placeholder: designationPlaceholder } = useDesignationPlaceholder({
+  placeLabel,
+  active: isDesignationActive,
+})
 const isStructuredStep = computed<boolean>(
   () =>
     activeStep.value === 'classification' ||
@@ -582,27 +815,38 @@ const isStructuredStep = computed<boolean>(
     activeStep.value === 'media' ||
     activeStep.value === 'mediaAlt' ||
     activeStep.value === 'details' ||
+    activeStep.value === 'description' ||
+    activeStep.value === 'comfort' ||
+    activeStep.value === 'qualities' ||
     activeStep.value === 'optional' ||
+    activeStep.value === 'seo' ||
     activeStep.value === 'summary',
 )
 
 const assistantMessage = computed<string>(() => {
   const messages: Record<CreatorStepId, string> = {
     classification:
-      'On commence tranquillement. Choisis le type, la catégorie et le lieu, je m’occupe de préparer la référence.',
-    name: 'Donne-lui un nom simple. Je garderai ce repère pour rendre la fiche facile à reconnaître.',
+      'Commençons tranquillement. Choisis le type, la catégorie et le lieu. Je m’occupe de préparer la référence.',
+    name: 'Poursuivons tranquillement. Donne au bien une désignation courte. Je m’en sers comme repère et je m’occupe du SEO.',
     price:
-      'Indique le prix si tu l’as sous la main. Sinon, on peut afficher prix sur demande sans bloquer la création.',
+      'Passons au prix. Indique le prix du bien si tu l’as. Sinon je l’affiche en « prix sur demande », sans bloquer la création.',
     media:
-      'Ajoute une première belle image. Si tu en mets plusieurs, on choisira ensemble celle qui représentera la fiche.',
+      'Occupons-nous des images. Ajoute une ou plusieurs images du bien. Je m’occupe de l’affichage et de la mise en avant de l’image principale.',
     mediaAlt:
-      'Décris les images choisies. Ces textes aident Google et les lecteurs d’écran à comprendre la fiche.',
+      'Soignons les descriptions. Décris brièvement chaque image. Je m’en sers pour l’accessibilité et le référencement de la fiche.',
     details:
-      'Une surface suffit pour avancer. Le reste pourra être complété ensuite dans l’éditeur.',
+      'Précisons quelques détails. Renseigne au moins une surface. Je te laisse compléter le reste plus tard dans l’éditeur.',
+    description:
+      'Ajoutons une description. Décris le bien en quelques lignes. Je m’en sers pour enrichir la fiche et son référencement.',
+    comfort:
+      'Passons au confort. Sélectionne les équipements présents. Je les afficherai comme points forts de la fiche.',
+    qualities:
+      'Évaluons les qualités. Note le bien sur quelques critères. Je les mets en valeur sous forme de repères visuels.',
     optional:
-      'Cette étape est libre. Ajoute ton avis si tu veux donner un peu plus de caractère au bien.',
+      'Ajoutons une touche en plus. Partage le regard de l’agence sur ce bien. Je le mets en valeur sur la fiche.',
+    seo: 'Occupons-nous du référencement. Vérifie le titre et la description proposés. Je les ai préremplis depuis la désignation et la description.',
     summary:
-      'Voici le point de contrôle. Tu peux vérifier, revenir corriger, ou préparer la suite quand tout est prêt.',
+      'Faisons le point ensemble. Jette un dernier coup d’œil au récapitulatif. Je m’occupe de créer le bien dès que tu valides.',
   }
 
   return messages[activeStep.value]
@@ -616,7 +860,11 @@ type CreatorRevealKey =
   | 'mediaFields'
   | 'mediaAltFields'
   | 'detailsFields'
+  | 'descriptionFields'
+  | 'comfortFields'
+  | 'qualitiesFields'
   | 'optionalFields'
+  | 'seoFields'
   | 'summaryContent'
 
 type AssistantSegment = {
@@ -634,7 +882,7 @@ const CLASSIFICATION_ACCENT_STARTS = ['tranquillement', 'le type'] as const
 const buildConversation = (stepId: CreatorStepId): AssistantSegment[] => {
   if (stepId === 'classification') {
     return [
-      { text: 'Ok, on commence tranquillement.' },
+      { text: 'Commençons tranquillement.' },
       {
         text: 'Choisis le type',
         newLine: true,
@@ -651,29 +899,32 @@ const buildConversation = (stepId: CreatorStepId): AssistantSegment[] => {
 
   if (stepId === 'name') {
     return [
+      { text: 'Poursuivons tranquillement.' },
       {
-        text: 'Donne-lui un nom simple.',
+        text: 'Donne au bien une désignation courte.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'nameInput',
         revealDelay: 260,
         pauseAfter: 420,
       },
-      {
-        text: 'Je garderai ce repère pour rendre la fiche facile à reconnaître.',
-        newLine: true,
-      },
+      { text: 'Je m’en sers comme repère et je m’occupe du SEO.', newLine: true },
     ]
   }
 
   if (stepId === 'price') {
     return [
+      { text: 'Passons au prix.' },
       {
-        text: 'Indique le prix si tu l’as sous la main.',
+        text: 'Indique le prix du bien si tu l’as.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'priceFields',
         revealDelay: 260,
         pauseAfter: 420,
       },
       {
-        text: 'Sinon, on peut afficher prix sur demande sans bloquer la création.',
+        text: 'Sinon je l’affiche en « prix sur demande », sans bloquer la création.',
         newLine: true,
       },
     ]
@@ -681,14 +932,17 @@ const buildConversation = (stepId: CreatorStepId): AssistantSegment[] => {
 
   if (stepId === 'media') {
     return [
+      { text: 'Occupons-nous des images.' },
       {
-        text: 'Ajoute une première belle image.',
+        text: 'Ajoute une ou plusieurs images du bien.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'mediaFields',
         revealDelay: 260,
         pauseAfter: 420,
       },
       {
-        text: 'Si tu en mets plusieurs, on choisira celle qui représentera la fiche.',
+        text: 'Je m’occupe de l’affichage et de la mise en avant de l’image principale.',
         newLine: true,
       },
     ]
@@ -696,14 +950,17 @@ const buildConversation = (stepId: CreatorStepId): AssistantSegment[] => {
 
   if (stepId === 'mediaAlt') {
     return [
+      { text: 'Soignons les descriptions.' },
       {
-        text: 'Décris les images choisies.',
+        text: 'Décris brièvement chaque image.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'mediaAltFields',
         revealDelay: 260,
         pauseAfter: 420,
       },
       {
-        text: 'Ces textes aident Google et les lecteurs d’écran à comprendre la fiche.',
+        text: 'Je m’en sers pour l’accessibilité et le référencement de la fiche.',
         newLine: true,
       },
     ]
@@ -711,46 +968,106 @@ const buildConversation = (stepId: CreatorStepId): AssistantSegment[] => {
 
   if (stepId === 'details') {
     return [
+      { text: 'Précisons quelques détails.' },
       {
         text: 'Renseigne au moins une surface.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'detailsFields',
         revealDelay: 260,
         pauseAfter: 420,
       },
-      {
-        text: 'Les autres détails pourront être complétés ensuite dans l’éditeur.',
-        newLine: true,
-      },
+      { text: 'Je te laisse compléter le reste plus tard dans l’éditeur.', newLine: true },
     ]
   }
 
   if (stepId === 'optional') {
     return [
+      { text: 'Ajoutons une touche en plus.' },
       {
-        text: 'Ajoute ton avis si tu veux.',
+        text: 'Partage le regard de l’agence sur ce bien.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'optionalFields',
         revealDelay: 260,
         pauseAfter: 420,
       },
+      { text: 'Je le mets en valeur sur la fiche.', newLine: true },
+    ]
+  }
+
+  if (stepId === 'description') {
+    return [
+      { text: 'Ajoutons une description.' },
       {
-        text: 'Cette étape est libre et peut aider à mettre en avant le potentiel du bien.',
+        text: 'Décris le bien en quelques lignes.',
         newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
+        reveal: 'descriptionFields',
+        revealDelay: 260,
+        pauseAfter: 420,
       },
+      { text: 'Je m’en sers pour enrichir la fiche et son référencement.', newLine: true },
+    ]
+  }
+
+  if (stepId === 'comfort') {
+    return [
+      { text: 'Passons au confort.' },
+      {
+        text: 'Sélectionne les équipements présents.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
+        reveal: 'comfortFields',
+        revealDelay: 260,
+        pauseAfter: 420,
+      },
+      { text: 'Je les afficherai comme points forts de la fiche.', newLine: true },
+    ]
+  }
+
+  if (stepId === 'qualities') {
+    return [
+      { text: 'Évaluons les qualités.' },
+      {
+        text: 'Note le bien sur quelques critères.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
+        reveal: 'qualitiesFields',
+        revealDelay: 260,
+        pauseAfter: 420,
+      },
+      { text: 'Je les mets en valeur sous forme de repères visuels.', newLine: true },
+    ]
+  }
+
+  if (stepId === 'seo') {
+    return [
+      { text: 'Occupons-nous du référencement.' },
+      {
+        text: 'Vérifie le titre et la description proposés.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
+        reveal: 'seoFields',
+        revealDelay: 260,
+        pauseAfter: 420,
+      },
+      { text: 'Je les ai préremplis depuis la désignation et la description.', newLine: true },
     ]
   }
 
   if (stepId === 'summary') {
     return [
+      { text: 'Faisons le point ensemble.' },
       {
-        text: 'Voici le point de contrôle.',
+        text: 'Jette un dernier coup d’œil au récapitulatif.',
+        newLine: true,
+        delayBefore: SEGMENT_PAUSE_MS,
         reveal: 'summaryContent',
         revealDelay: 260,
         pauseAfter: 420,
       },
-      {
-        text: 'Tu peux vérifier les informations ou revenir corriger une étape.',
-        newLine: true,
-      },
+      { text: 'Je m’occupe de créer le bien dès que tu valides.', newLine: true },
     ]
   }
 
@@ -786,33 +1103,26 @@ const classificationCaretLineIndex = computed<number>(() =>
   Math.max(0, classificationMessageLines.value.length - 1),
 )
 
-const nameMessageLines = computed<string[]>(() => displayedAssistantMessage.value.split('\n'))
-
-const nameHeadlineLine = computed<string>(() => nameMessageLines.value[0] ?? '')
-
-const hasNameSupportLine = computed<boolean>(() => nameMessageLines.value.length > 1)
-
-const nameSupportLine = computed<string>(() => nameMessageLines.value[1] ?? '')
-
-const nameCaretLineIndex = computed<number>(() => Math.max(0, nameMessageLines.value.length - 1))
-
-const priceMessageLines = computed<string[]>(() => displayedAssistantMessage.value.split('\n'))
-
-const priceHeadlineLine = computed<string>(() => priceMessageLines.value[0] ?? '')
-
-const hasPriceSupportLine = computed<boolean>(() => priceMessageLines.value.length > 1)
-
-const priceSupportLine = computed<string>(() => priceMessageLines.value[1] ?? '')
-
-const priceCaretLineIndex = computed<number>(() => Math.max(0, priceMessageLines.value.length - 1))
-
 const structuredMessageLines = computed<string[]>(() => displayedAssistantMessage.value.split('\n'))
 
-const structuredHeadlineLine = computed<string>(() => structuredMessageLines.value[0] ?? '')
+// Patron 3 temps : 2 lignes de titre (amorce + consigne) puis l'engagement en support.
+const structuredHeadlineLines = computed<string[]>(() => structuredMessageLines.value.slice(0, 2))
 
-const hasStructuredSupportLine = computed<boolean>(() => structuredMessageLines.value.length > 1)
+// Mise en avant olive : le premier mot (le verbe) reste blanc, le reste passe en accent,
+// comme la classification.
+const splitHeadlineAccent = (line: string): { lead: string; accent: string } => {
+  const spaceIndex = line.indexOf(' ')
+  if (spaceIndex === -1) return { lead: line, accent: '' }
+  return { lead: line.slice(0, spaceIndex + 1), accent: line.slice(spaceIndex + 1) }
+}
 
-const structuredSupportLine = computed<string>(() => structuredMessageLines.value[1] ?? '')
+const structuredHeadlineParts = computed<Array<{ lead: string; accent: string }>>(() =>
+  structuredHeadlineLines.value.map(splitHeadlineAccent),
+)
+
+const hasStructuredSupportLine = computed<boolean>(() => structuredMessageLines.value.length > 2)
+
+const structuredSupportLine = computed<string>(() => structuredMessageLines.value[2] ?? '')
 
 const structuredCaretLineIndex = computed<number>(() =>
   Math.max(0, structuredMessageLines.value.length - 1),
@@ -829,6 +1139,8 @@ const hasAnyInput = computed<boolean>(() =>
     creatorDraft.associatedMedia.length > 0 ||
     creatorDraft.floorSize.trim() ||
     creatorDraft.areaSize.trim() ||
+    creatorDraft.body.trim() ||
+    creatorDraft.amenityFeature.length > 0 ||
     creatorDraft.review.trim(),
   ),
 )
@@ -855,33 +1167,48 @@ const hasSurface = computed<boolean>(() =>
   Boolean(creatorDraft.floorSize.trim() || creatorDraft.areaSize.trim()),
 )
 
-const canPublish = computed<boolean>(
+// La description alimente le metaDescription (SEO) : elle est requise.
+const hasBody = computed<boolean>(() => Boolean(creatorDraft.body.trim()))
+
+const canFinalizeDraft = computed<boolean>(
   () =>
     hasClassification.value &&
     hasName.value &&
     hasPrice.value &&
     hasRepresentativeImage.value &&
     hasMediaAlt.value &&
-    hasSurface.value,
+    hasSurface.value &&
+    hasBody.value,
 )
 
-const primaryActionLabel = computed<string>(() =>
-  activeStep.value === 'summary' ? 'Préparer le payload' : 'Continuer',
-)
+const primaryActionLabel = computed<string>(() => {
+  if (activeStep.value !== 'summary') return 'Continuer'
+  return 'Valider et enregistrer'
+})
 
-const summaryItems = computed<Array<{ label: string; value: string }>>(() => [
-  { label: 'Type', value: creatorDraft.realEstateListing || 'À choisir' },
-  { label: 'Catégorie', value: creatorDraft.category || 'À choisir' },
-  { label: 'Lieu', value: creatorDraft.place || 'À choisir' },
-  { label: 'Nom', value: creatorDraft.name || 'À renseigner' },
-  { label: 'Prix', value: creatorDraft.priceOnRequest ? 'Prix sur demande' : formatPrice() },
-  { label: 'Images', value: `${creatorDraft.associatedMedia.length} image(s)` },
-  {
-    label: 'Textes alt',
-    value: hasMediaAlt.value ? 'Complétés' : 'À compléter',
-  },
-  { label: 'Surface', value: creatorDraft.floorSize || creatorDraft.areaSize || 'À renseigner' },
-])
+const summaryItems = computed<Array<{ label: string; value: string }>>(() => {
+  const amenityCount = creatorDraft.amenityFeature.length
+  // Variable `unknown` intermédiaire : `Array.isArray` sur le type récursif
+  // DashboardEditableValue fait exploser l'instanciation de types (TS2589).
+  const qualitiesValue: unknown = creatorDraft.qualities
+  const qualitiesCount = Array.isArray(qualitiesValue) ? qualitiesValue.length : 0
+  const seoReady = Boolean(creatorDraft.metaTitle.trim() || creatorDraft.metaDescription.trim())
+
+  return [
+    { label: 'Type', value: creatorDraft.realEstateListing || 'À choisir' },
+    { label: 'Catégorie', value: creatorDraft.category || 'À choisir' },
+    { label: 'Lieu', value: creatorDraft.place || 'À choisir' },
+    { label: 'Désignation', value: creatorDraft.name || 'À renseigner' },
+    { label: 'Prix', value: creatorDraft.priceOnRequest ? 'Prix sur demande' : formatPrice() },
+    { label: 'Images', value: `${creatorDraft.associatedMedia.length} image(s)` },
+    { label: 'Textes alt', value: hasMediaAlt.value ? 'Complétés' : 'À compléter' },
+    { label: 'Surface', value: creatorDraft.floorSize || creatorDraft.areaSize || 'À renseigner' },
+    { label: 'Description', value: creatorDraft.body.trim() ? 'Complétée' : 'À compléter' },
+    { label: 'Confort', value: amenityCount ? `${amenityCount} équipement(s)` : '—' },
+    { label: 'Qualités', value: qualitiesCount ? 'Renseignées' : '—' },
+    { label: 'SEO', value: seoReady ? 'Préparé' : 'Auto' },
+  ]
+})
 
 const getStepRequirement = (stepId: CreatorStepId): boolean => {
   switch (stepId) {
@@ -897,10 +1224,15 @@ const getStepRequirement = (stepId: CreatorStepId): boolean => {
       return hasMediaAlt.value
     case 'details':
       return hasSurface.value
+    case 'description':
+      return hasBody.value
+    case 'comfort':
+    case 'qualities':
     case 'optional':
+    case 'seo':
       return true
     case 'summary':
-      return canPublish.value
+      return canFinalizeDraft.value
   }
 }
 
@@ -934,12 +1266,6 @@ const formatPrice = (): string => {
   return `${creatorDraft.price.toLocaleString('fr-FR')} ${creatorDraft.priceCurrency || 'MAD'}`
 }
 
-const resolveCreatorIri = (inCodeSet: string, code: string, label: string): string => {
-  const iri = metadataStore.getIri(inCodeSet, code)
-  if (iri) return iri
-  throw new Error(`IRI introuvable pour ${label}`)
-}
-
 const createDraftAccommodation = async (): Promise<boolean> => {
   if (hasGeneratedIdentifier.value) return true
 
@@ -948,23 +1274,26 @@ const createDraftAccommodation = async (): Promise<boolean> => {
   clearReadyMessage()
 
   try {
+    // Les relations sont envoyées en codes (codeValue) : le backend les résout
+    // (ProjectScopedRelationDenormalizer). Pas d'IRI côté client.
     const result = await $fetch<CreatorDraftResponse>('/api/dashboard/accommodations/creator', {
       method: 'POST',
       body: {
-        category: resolveCreatorIri('accommodation-type', creatorDraft.category, 'la catégorie'),
-        realEstateListing: resolveCreatorIri(
-          'real-estate-listing',
-          creatorDraft.realEstateListing,
-          'le type de listing',
-        ),
-        place: resolveCreatorIri('accommodation-place', creatorDraft.place, 'le lieu'),
+        category: creatorDraft.category,
+        realEstateListing: creatorDraft.realEstateListing,
+        place: creatorDraft.place,
         locale: localeSetting.value,
       },
     })
 
     creatorDraft.identifier = result.identifier
+    if (result.slug) creatorDraft.slug = result.slug
     emit('draft-created', result.identifier)
-    readyMessage.value = `Référence ${result.identifier} créée.`
+    toast.add({
+      title: 'Brouillon créé',
+      icon: 'i-lucide-badge-check',
+      color: 'success',
+    })
     return true
   } catch (error: unknown) {
     setStepError(error instanceof Error ? error.message : 'Création de la référence impossible.')
@@ -979,7 +1308,7 @@ const createPayload = (): DashboardEditableRecord => ({
   category: creatorDraft.category,
   place: creatorDraft.place,
   name: creatorDraft.name,
-  isActive: false,
+  isActive: true,
   offer: {
     price: creatorDraft.priceOnRequest ? null : creatorDraft.price,
     priceCurrency: creatorDraft.priceCurrency,
@@ -988,11 +1317,100 @@ const createPayload = (): DashboardEditableRecord => ({
   associatedMedia: creatorDraft.associatedMedia,
   floorSize: creatorDraft.floorSize || null,
   areaSize: creatorDraft.areaSize || null,
+  landArea: creatorDraft.landArea || null,
+  areaTerrace: creatorDraft.areaTerrace || null,
+  numberOfBedrooms: creatorDraft.numberOfBedrooms,
+  numberOfRooms: creatorDraft.numberOfRooms,
+  numberOfBathroomsTotal: creatorDraft.numberOfBathroomsTotal,
+  numberOfGarages: creatorDraft.numberOfGarages,
+  occupancy: creatorDraft.occupancy,
+  yearBuilt: creatorDraft.yearBuilt,
+  amenityFeature: creatorDraft.amenityFeature,
+  qualities: creatorDraft.qualities,
+  metaTitle: creatorDraft.metaTitle || null,
+  metaDescription: creatorDraft.metaDescription || null,
   review: creatorDraft.review || null,
 })
 
+// Preview minimale : non lue par la route PUT (seul le frontmatter sert au mapping),
+// mais requise par le type DashboardAccommodationSavePayload. La preview réelle est
+// renvoyée par le backend (freshAccommodation) après l'enregistrement.
+const buildCreatorPreview = (): DashboardAccommodationPreview => ({
+  identifier: creatorDraft.identifier,
+  slug: creatorDraft.slug,
+  title: creatorDraft.name,
+  description: '',
+  price: creatorDraft.price,
+  priceCurrency: creatorDraft.priceCurrency,
+  priceSpecification: creatorDraft.priceOnRequest ? 'prix-sur-demande' : '',
+  placeSlug: creatorDraft.place,
+  placeLabel: '',
+  categorySlug: creatorDraft.category,
+  categoryLabel: '',
+  listingSlug: creatorDraft.realEstateListing,
+  listingLabel: '',
+  isActive: true,
+  floorSize: creatorDraft.floorSize || null,
+  landArea: null,
+  numberOfRooms: null,
+  numberOfBedrooms: null,
+  numberOfBathroomsTotal: null,
+  primaryImageUrl: '',
+  media: [],
+})
+
+const buildSavePayload = (): DashboardAccommodationSavePayload => {
+  const frontmatter = createPayload()
+  frontmatter.isActive = true
+  if (creatorDraft.slug) frontmatter.slug = creatorDraft.slug
+  return {
+    locale: localeSetting.value,
+    fileName: '',
+    slug: creatorDraft.slug,
+    identifier: creatorDraft.identifier,
+    frontmatter,
+    body: creatorDraft.body,
+    preview: buildCreatorPreview(),
+  }
+}
+
+const finishToEdit = (): void => {
+  emit('created', creatorDraft.identifier)
+}
+
+// Enregistre en une fois sur le brouillon les étapes accumulées (nom, prix, médias,
+// détails) via la route de sauvegarde existante. Le bien est actif par défaut.
+const finalizeDraft = async (): Promise<boolean> => {
+  if (!hasGeneratedIdentifier.value) return false
+
+  isFinalizing.value = true
+  clearStepError()
+  clearReadyMessage()
+
+  const ok = await saveMultilingual(buildSavePayload(), localeSetting.value)
+  isFinalizing.value = false
+
+  if (!ok) {
+    setStepError(saveErrorMessage.value ?? 'Enregistrement du bien impossible.')
+    return false
+  }
+
+  isFinalized.value = true
+  toast.add({
+    title: 'Bien enregistré',
+    icon: 'i-lucide-save',
+    color: 'success',
+  })
+  return true
+}
+
 const setStepError = (message: string): void => {
   stepError.value = message
+  toast.add({
+    title: message,
+    icon: 'i-lucide-alert-triangle',
+    color: 'error',
+  })
 }
 
 const clearStepError = (): void => {
@@ -1009,12 +1427,16 @@ const validateCurrentStep = (): boolean => {
 
   const messages: Record<CreatorStepId, string> = {
     classification: 'Choisissez un type, une catégorie et un lieu.',
-    name: 'Ajoutez un nom simple pour le bien.',
-    price: 'Indiquez un prix ou choisissez prix sur demande.',
+    name: 'Ajoutez une désignation pour le bien.',
+    price: 'Veuillez indiquer un prix.',
     media: 'Ajoutez au moins une image principale.',
-    mediaAlt: 'Complétez le texte alt de chaque image associée.',
-    details: 'Renseignez la surface habitable ou la surface totale.',
+    mediaAlt: 'Complétez le texte alt de chaque image.',
+    details: 'Renseignez au moins une surface.',
+    description: 'Ajoutez une description du bien.',
+    comfort: '',
+    qualities: '',
     optional: '',
+    seo: '',
     summary: 'La fiche doit être complète avant création.',
   }
   setStepError(messages[currentStep.value.id])
@@ -1022,6 +1444,7 @@ const validateCurrentStep = (): boolean => {
 }
 
 const goToStep = (stepId: CreatorStepId): void => {
+  if (isFinalized.value) return
   if (!canAccessStep(stepId)) return
   setActiveStep(stepId)
   clearStepError()
@@ -1066,8 +1489,9 @@ const handlePrimaryAction = async (): Promise<void> => {
     return
   }
   if (activeStep.value === 'summary') {
-    emit('ready', createPayload())
-    readyMessage.value = 'Le payload est prêt. Le POST Nitro reste à brancher.'
+    const finalized = await finalizeDraft()
+    if (!finalized) return
+    finishToEdit()
     return
   }
   goNext()
@@ -1086,6 +1510,38 @@ const stopTyping = (): void => {
   typingTimer = null
 }
 
+const revealField = (revealKey: CreatorRevealKey): void => {
+  if (revealKey === 'nameInput') revealedNameInput.value = true
+  else if (revealKey === 'priceFields') revealedPriceFields.value = true
+  else if (revealKey === 'mediaFields') revealedMediaFields.value = true
+  else if (revealKey === 'mediaAltFields') revealedMediaAltFields.value = true
+  else if (revealKey === 'detailsFields') revealedDetailsFields.value = true
+  else if (revealKey === 'descriptionFields') revealedDescriptionFields.value = true
+  else if (revealKey === 'comfortFields') revealedComfortFields.value = true
+  else if (revealKey === 'qualitiesFields') revealedQualitiesFields.value = true
+  else if (revealKey === 'optionalFields') revealedOptionalFields.value = true
+  else if (revealKey === 'seoFields') revealedSeoFields.value = true
+  else if (revealKey === 'summaryContent') revealedSummaryContent.value = true
+  else revealedSelects[revealKey] = true
+}
+
+const resetReveals = (): void => {
+  revealedSelects.listing = false
+  revealedSelects.category = false
+  revealedSelects.place = false
+  revealedNameInput.value = false
+  revealedPriceFields.value = false
+  revealedMediaFields.value = false
+  revealedMediaAltFields.value = false
+  revealedDetailsFields.value = false
+  revealedDescriptionFields.value = false
+  revealedComfortFields.value = false
+  revealedQualitiesFields.value = false
+  revealedOptionalFields.value = false
+  revealedSeoFields.value = false
+  revealedSummaryContent.value = false
+}
+
 const scheduleNextSegment = (segment: AssistantSegment, runNext: () => void): void => {
   if (!segment.reveal) {
     runNext()
@@ -1093,23 +1549,7 @@ const scheduleNextSegment = (segment: AssistantSegment, runNext: () => void): vo
   }
   const revealKey = segment.reveal
   typingTimer = setTimeout(() => {
-    if (revealKey === 'nameInput') {
-      revealedNameInput.value = true
-    } else if (revealKey === 'priceFields') {
-      revealedPriceFields.value = true
-    } else if (revealKey === 'mediaFields') {
-      revealedMediaFields.value = true
-    } else if (revealKey === 'mediaAltFields') {
-      revealedMediaAltFields.value = true
-    } else if (revealKey === 'detailsFields') {
-      revealedDetailsFields.value = true
-    } else if (revealKey === 'optionalFields') {
-      revealedOptionalFields.value = true
-    } else if (revealKey === 'summaryContent') {
-      revealedSummaryContent.value = true
-    } else {
-      revealedSelects[revealKey] = true
-    }
+    revealField(revealKey)
     typingTimer = setTimeout(runNext, segment.pauseAfter ?? 0)
   }, segment.revealDelay ?? 0)
 }
@@ -1142,21 +1582,52 @@ const runConversation = (segments: AssistantSegment[], segmentIndex: number): vo
   }
 }
 
+// Affichage immédiat (sans typing) : texte complet + champs révélés. Utilisé au retour
+// sur un step déjà animé.
+const renderConversationInstant = (segments: AssistantSegment[]): void => {
+  let message = ''
+  segments.forEach((segment) => {
+    if (segment.newLine) message += '\n'
+    message += segment.text
+    if (segment.reveal) revealField(segment.reveal)
+  })
+  displayedAssistantMessage.value = message
+  isTypingDone.value = true
+}
+
+// SEO auto : pré-remplit titre/description depuis la désignation et le corps (modifiable).
+const buildMetaDescription = (body: string): string => {
+  const text = body.replace(/\s+/g, ' ').trim()
+  return text.length > 160 ? `${text.slice(0, 157)}…` : text
+}
+
+const prefillSeo = (): void => {
+  if (!creatorDraft.metaTitle.trim() && creatorDraft.name.trim()) {
+    creatorDraft.metaTitle = creatorDraft.name.trim()
+  }
+  if (!creatorDraft.metaDescription.trim() && creatorDraft.body.trim()) {
+    creatorDraft.metaDescription = buildMetaDescription(creatorDraft.body)
+  }
+}
+
 const startTyping = (): void => {
   stopTyping()
   displayedAssistantMessage.value = ''
   isTypingDone.value = false
-  revealedSelects.listing = false
-  revealedSelects.category = false
-  revealedSelects.place = false
-  revealedNameInput.value = false
-  revealedPriceFields.value = false
-  revealedMediaFields.value = false
-  revealedMediaAltFields.value = false
-  revealedDetailsFields.value = false
-  revealedOptionalFields.value = false
-  revealedSummaryContent.value = false
-  runConversation(buildConversation(activeStep.value), 0)
+  resetReveals()
+
+  if (activeStep.value === 'seo') prefillSeo()
+
+  const segments = buildConversation(activeStep.value)
+
+  // L'effet ne joue qu'une fois par step ; au retour, tout est affiché directement.
+  if (typedSteps.has(activeStep.value)) {
+    renderConversationInstant(segments)
+    return
+  }
+
+  typedSteps.add(activeStep.value)
+  runConversation(segments, 0)
 }
 
 const updateStringField = (
@@ -1174,6 +1645,30 @@ const updatePrice = (event: Event): void => {
   creatorDraft.price = raw === '' || !Number.isFinite(parsed) ? null : parsed
   clearStepError()
   clearReadyMessage()
+}
+
+type CreatorNumberField =
+  | 'numberOfBedrooms'
+  | 'numberOfRooms'
+  | 'numberOfBathroomsTotal'
+  | 'numberOfGarages'
+  | 'occupancy'
+  | 'yearBuilt'
+
+const updateNumberField = (field: CreatorNumberField, event: Event): void => {
+  const raw = (event.target as HTMLInputElement).value
+  const parsed = Number(raw)
+  creatorDraft[field] = raw === '' || !Number.isFinite(parsed) ? null : parsed
+}
+
+const updateAmenityFeature = (value: DashboardEditableValue): void => {
+  creatorDraft.amenityFeature = Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === 'string')
+    : []
+}
+
+const updateQualities = (value: DashboardEditableValue): void => {
+  creatorDraft.qualities = value
 }
 
 const adjustPrice = (amount: number): void => {
@@ -1264,6 +1759,30 @@ onBeforeUnmount(stopTyping)
 .creator-reveal-enter-from {
   opacity: 0;
   transform: translateY(0.85rem);
+}
+
+.creator-suggestion-enter-active,
+.creator-suggestion-leave-active {
+  transition:
+    opacity 320ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.creator-suggestion-enter-from {
+  opacity: 0;
+  transform: translateY(0.6em);
+}
+
+.creator-suggestion-leave-to {
+  opacity: 0;
+  transform: translateY(-0.6em);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creator-suggestion-enter-active,
+  .creator-suggestion-leave-active {
+    transition: none;
+  }
 }
 
 .creator-caret {

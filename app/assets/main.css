@@ -13,3 +13,8 @@ button:active {
   background-color: transparent !important;
   outline: none;
 }
+
+li[data-state][data-swipe-direction] {
+  background-color: #212121 !important;
+  color: #fff !important;
+}

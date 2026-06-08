@@ -1,7 +1,7 @@
 <template>
-  <div class="flex min-h-0 flex-col">
+  <div class="flex min-h-0 flex-col p-4">
     <!-- Barre outils -->
-    <div class="flex shrink-0 items-center gap-2 border-b border-white/5 px-4 py-2.5">
+    <div class="flex shrink-0 items-center gap-2 border-b border-white/5 py-2.5">
       <div class="flex min-w-0 flex-1 items-center gap-2 rounded bg-white/5 px-2.5 py-1.5">
         <UIcon name="i-lucide-search" class="shrink-0 text-xs text-white/30" aria-hidden="true" />
         <input
@@ -24,8 +24,8 @@
     </div>
 
     <!-- Compteurs -->
-    <div class="shrink-0 border-b border-white/5 px-4 py-1.5">
-      <p class="text-[0.6rem] text-white/25">
+    <div class="flex shrink-0 items-center gap-2 border-b border-white/5 py-1.5">
+      <p class="min-w-0 flex-1 text-[0.6rem] text-white/25">
         {{ allImages.length }} dans le projet · {{ imageIdentifiers.length }} associée{{
           imageIdentifiers.length !== 1 ? 's' : ''
         }}
@@ -35,6 +35,23 @@
           }}</template
         >
       </p>
+      <button
+        type="button"
+        class="flex shrink-0 items-center gap-1 rounded px-2 py-1 text-[0.6rem] transition-colors"
+        :class="
+          showAssociatedOnly ? 'text-white' : 'text-white/40 hover:bg-white/5 hover:text-white/70'
+        "
+        :style="showAssociatedOnly ? 'background-color: rgba(107, 122, 74, 0.85)' : undefined"
+        :aria-pressed="showAssociatedOnly"
+        @click="showAssociatedOnly = !showAssociatedOnly"
+      >
+        <UIcon
+          :name="showAssociatedOnly ? 'i-lucide-link' : 'i-lucide-filter'"
+          class="text-[0.65rem]"
+          aria-hidden="true"
+        />
+        Associées
+      </button>
     </div>
 
     <!-- Grille -->
@@ -50,7 +67,7 @@
         </p>
       </div>
 
-      <div v-else class="p-4">
+      <div v-else class="p-2">
         <div class="grid grid-cols-2 gap-2">
           <button
             v-for="item in filteredImages"
@@ -187,6 +204,7 @@ const emit = defineEmits<{
 const metadataStore = useMetadataStore()
 
 const search = ref('')
+const showAssociatedOnly = ref(false)
 const isUploadOpen = ref(false)
 const scrollContainerRef = ref<HTMLDivElement | null>(null)
 const showScrollTop = ref(false)
@@ -242,8 +260,11 @@ const allImages = computed<ResolvedImage[]>(() =>
 
 const filteredImages = computed<ResolvedImage[]>(() => {
   const q = search.value.trim().toLowerCase()
-  if (!q) return allImages.value
-  return allImages.value.filter(
+  const base = showAssociatedOnly.value
+    ? allImages.value.filter((img) => imageIdentifiers.value.includes(img.identifier))
+    : allImages.value
+  if (!q) return base
+  return base.filter(
     (img) =>
       img.reference.toLowerCase().includes(q) ||
       img.identifier.toLowerCase().includes(q) ||
@@ -260,11 +281,11 @@ const emitAssocMedia = (items: AssocItem[]): void => {
   emit('update:associatedMedia', items)
 }
 
-const associate = (identifier: string): void => {
+const associate = (identifier: string, caption = ''): void => {
   if (imageIdentifiers.value.includes(identifier)) return
   emitAssocMedia([
     ...parsedAssocMedia.value,
-    { image: identifier, caption: '', keywords: [], representativeOfPage: false },
+    { image: identifier, caption, keywords: [], representativeOfPage: false },
   ])
 }
 
@@ -282,7 +303,8 @@ const toggleAssociation = (identifier: string): void => {
 
 const onUploaded = (mediaObjects: MediaObject[]): void => {
   for (const mediaObject of mediaObjects) {
-    associate(mediaObject.identifier)
+    // Reprend le texte alt auto-généré (caption) renvoyé à l'upload.
+    associate(mediaObject.identifier, mediaObject.caption ?? '')
   }
 }
 </script>

@@ -10,7 +10,7 @@
   <div class="grid min-h-0 flex-1 place-items-center px-5 py-10 text-center sm:px-8">
     <div v-if="accommodation" class="w-full max-w-3xl">
       <div v-if="!accommodation.preview.isActive" class="mx-auto mb-4 flex justify-center">
-        <UBadge color="warning" variant="soft" icon="i-lucide-eye-off">Inactif</UBadge>
+        <UBadge color="surface" variant="solid" icon="i-lucide-eye-off">Inactif</UBadge>
       </div>
 
       <div
@@ -122,10 +122,10 @@
 
   <!-- Bouton modifier (bas gauche) -->
   <button
-    v-if="accommodation"
+    v-if="accommodation && !hideEditAction"
     type="button"
-    class="pointer-events-auto absolute right-8 bottom-8 z-20 rounded-lg px-5 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-80"
-    style="background-color: rgba(33, 33, 33, 0.95)"
+    class="pointer-events-auto absolute right-8 bottom-6 z-20 rounded-lg px-5 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-80"
+    style="background-color: #6b7a4a"
     aria-label="Éditer le bien"
     @click="emit('edit')"
   >
@@ -142,6 +142,7 @@
 const props = defineProps<{
   accommodation: DashboardAccommodation | null
   filteredCount: number
+  hideEditAction?: boolean
 }>()
 
 const emit = defineEmits<{

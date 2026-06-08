@@ -20,6 +20,7 @@ type SymfonyAccommodationResponse = {
 type CreatorResponse = {
   data: SymfonyAccommodationResponse
   identifier: string
+  slug: string | null
   iri: string | null
 }
 
@@ -71,6 +72,9 @@ const getSymfonyErrorMessage = (error: unknown): string => {
 const resolveIdentifier = (response: SymfonyAccommodationResponse): string | null =>
   typeof response.identifier === 'string' && response.identifier.trim() ? response.identifier : null
 
+const resolveSlug = (response: SymfonyAccommodationResponse): string | null =>
+  typeof response.slug === 'string' && response.slug.trim() ? response.slug : null
+
 export default defineEventHandler(async (event): Promise<CreatorResponse> => {
   await requireUserSession(event)
 
@@ -83,13 +87,15 @@ export default defineEventHandler(async (event): Promise<CreatorResponse> => {
     category: getRequiredString(body, 'category'),
     realEstateListing: getRequiredString(body, 'realEstateListing'),
     place: getRequiredString(body, 'place'),
+    // Le brouillon reste inactif : il n'est publié qu'à la finalisation
+    // (« Valider et enregistrer » → save PUT avec isActive: true).
     isActive: false,
     translations: [{ locale, body: '' }],
   }
 
   try {
     const data = await $fetch<SymfonyAccommodationResponse>(
-      `${apiUrl}/api/projects/${projectId}/accommodations/translations`,
+      `${apiUrl}/api/projects/${projectId}/accommodations/translations?locale=${locale}`,
       {
         method: 'POST',
         headers: {
@@ -114,6 +120,7 @@ export default defineEventHandler(async (event): Promise<CreatorResponse> => {
     return {
       data,
       identifier,
+      slug: resolveSlug(data),
       iri: typeof data['@id'] === 'string' ? data['@id'] : null,
     }
   } catch (error: unknown) {

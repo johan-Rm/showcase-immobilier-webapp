@@ -32,32 +32,13 @@
             >Texte alt</span
           >
           <input
-            v-if="editingAlt === item.identifier"
-            :ref="setAltInputRef"
             type="text"
             :value="getCaptionFor(item.identifier)"
-            placeholder="Description de l'image pour les lecteurs d'écran et le SEO"
-            class="mt-auto w-full border-b border-white/20 bg-transparent pb-0.5 text-xs text-white/90 caret-white outline-none placeholder:text-white/20"
+            placeholder="Ajouter un texte alt…"
+            class="mt-auto w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]"
             :aria-label="`Texte alternatif pour ${item.identifier}`"
             @input="updateCaption(item.identifier, ($event.target as HTMLInputElement).value)"
-            @blur="editingAlt = null"
-            @keydown.enter="editingAlt = null"
-            @keydown.escape="editingAlt = null"
           />
-          <button
-            v-else
-            type="button"
-            class="mt-auto w-full text-left text-xs transition-colors"
-            :class="
-              getCaptionFor(item.identifier)
-                ? 'text-white/55 hover:text-white/75'
-                : 'text-white/20 italic hover:text-white/40'
-            "
-            :aria-label="`Modifier le texte alt de ${item.identifier}`"
-            @click="startEditAlt(item.identifier)"
-          >
-            {{ getCaptionFor(item.identifier) || 'Ajouter un texte alt…' }}
-          </button>
         </div>
 
         <!-- Actions -->
@@ -139,7 +120,6 @@
 <script setup lang="ts">
 import type { DashboardEditableValue } from '#shared/types/dashboardAccommodation'
 import type { MediaObject } from '@schemas/interfaces'
-import type { ComponentPublicInstance } from 'vue'
 
 import { IMAGE_PRESETS } from '~/composables/useAppImage'
 
@@ -174,12 +154,6 @@ const emit = defineEmits<{
 
 const metadataStore = useMetadataStore()
 const isPickerOpen = ref(false)
-const editingAlt = ref<string | null>(null)
-const altInputRef = ref<HTMLInputElement | null>(null)
-
-const setAltInputRef = (el: Element | ComponentPublicInstance | null): void => {
-  altInputRef.value = el instanceof HTMLInputElement ? el : null
-}
 
 const parsedAssocMedia = computed<AssocItem[]>(() => {
   if (!Array.isArray(props.associatedMedia)) return []
@@ -219,12 +193,6 @@ const resolvedItems = computed<ResolvedItem[]>(() => {
 
 const getCaptionFor = (identifier: string): string =>
   parsedAssocMedia.value.find((a) => a.image === identifier)?.caption ?? ''
-
-const startEditAlt = async (identifier: string): Promise<void> => {
-  editingAlt.value = identifier
-  await nextTick()
-  altInputRef.value?.focus()
-}
 
 const setRepresentative = (identifier: string): void => {
   emitAssocMedia(

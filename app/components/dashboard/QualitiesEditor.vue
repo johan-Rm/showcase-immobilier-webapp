@@ -1,5 +1,5 @@
 <template>
-  <div class="col-span-2 border-l-2 border-l-transparent py-1.5 pl-2">
+  <div class="col-span-2 ml-0.5 border-l-2 border-l-transparent py-1.5 pr-1">
     <div v-for="(quality, index) in qualities" :key="index" class="mb-3 last:mb-0">
       <div class="mb-1.5 flex items-center gap-2">
         <input
@@ -9,14 +9,22 @@
           placeholder="Nom"
           @input="updateName(index, ($event.target as HTMLInputElement).value)"
         />
-        <span class="shrink-0 text-[0.65rem] text-white/30 tabular-nums">
-          {{ quality.value }}
-        </span>
+        <input
+          :value="quality.value"
+          type="number"
+          inputmode="numeric"
+          :min="MIN_QUALITY_VALUE"
+          :max="MAX_QUALITY_VALUE"
+          :step="1"
+          aria-label="Note de qualité"
+          class="quality-value-input h-6 w-7 shrink-0 -translate-y-1 bg-transparent px-0 text-right text-xs font-semibold text-[#6B7A4A] tabular-nums caret-[#6B7A4A] transition-colors outline-none placeholder:text-[#6B7A4A]/35 focus:text-[#7d8f57]"
+          @input="updateValue(index, ($event.target as HTMLInputElement).value)"
+        />
       </div>
       <USlider
         :model-value="quality.value"
-        :min="0"
-        :max="100"
+        :min="MIN_QUALITY_VALUE"
+        :max="MAX_QUALITY_VALUE"
         :step="1"
         :ui="{
           track: 'bg-white/10',
@@ -33,6 +41,9 @@
 defineOptions({ name: 'DashboardQualitiesEditor' })
 
 type Quality = { name: string; value: number }
+
+const MIN_QUALITY_VALUE = 0
+const MAX_QUALITY_VALUE = 100
 
 const props = defineProps<{
   modelValue: DashboardEditableValue
@@ -73,8 +84,31 @@ const updateName = (index: number, name: string): void => {
   emitUpdate(next)
 }
 
-const updateValue = (index: number, value: number): void => {
-  const next = qualities.value.map((q, i) => (i === index ? { ...q, value } : q))
+const normalizeQualityValue = (value: unknown): number => {
+  const numericValue = typeof value === 'number' ? value : Number.parseInt(String(value).trim(), 10)
+
+  if (!Number.isFinite(numericValue)) return MIN_QUALITY_VALUE
+
+  return Math.min(MAX_QUALITY_VALUE, Math.max(MIN_QUALITY_VALUE, Math.round(numericValue)))
+}
+
+const updateValue = (index: number, value: unknown): void => {
+  const nextValue = normalizeQualityValue(value)
+  const next = qualities.value.map((q, i) => (i === index ? { ...q, value: nextValue } : q))
   emitUpdate(next)
 }
 </script>
+
+<style scoped>
+.quality-value-input {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.quality-value-input::-webkit-inner-spin-button,
+.quality-value-input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+</style>

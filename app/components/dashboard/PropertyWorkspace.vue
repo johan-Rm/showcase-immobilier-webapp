@@ -29,6 +29,7 @@
           <DashboardPropertyPreview
             :accommodation="activeAccommodation"
             :filtered-count="filteredItems.length"
+            :hide-edit-action="isEditorOpen"
             @prev="goPrev"
             @next="goNext"
             @edit="openEditor"
@@ -66,6 +67,7 @@
       v-model:process="editorProcess"
       :accommodation="activeAccommodation"
       @saved="emit('saved')"
+      @created="handleCreated"
     />
   </section>
 </template>
@@ -112,6 +114,8 @@ const activeIndex = ref(0)
 const activeMediaIndex = ref(0)
 const isEditorOpen = ref(false)
 const editorProcess = ref<EditorProcess>('edit')
+// Bien fraîchement créé à sélectionner une fois la liste rechargée (bascule vers l'édition).
+const pendingEditIdentifier = ref<string | null>(null)
 
 // 6. Data inputs
 
@@ -233,6 +237,17 @@ const openEditor = (): void => {
   isEditorOpen.value = true
 }
 
+// Bien créé via le creator : on recharge la liste puis on sélectionnera le nouveau
+// bien (cf. watch filteredItems) pour basculer le slideover en édition.
+const handleCreated = (identifier: string): void => {
+  pendingEditIdentifier.value = identifier
+  // Réinitialiser les filtres pour garantir la visibilité du bien créé.
+  selectedListing.value = ALL_VALUE
+  selectedCategory.value = ALL_VALUE
+  identifierSearch.value = ''
+  emit('saved')
+}
+
 // 10. Watch et watchEffect
 watch(activeIndex, preloadAdjacentProperties, { immediate: true })
 
@@ -244,6 +259,17 @@ watch([selectedListing, selectedCategory, identifierSearch], () => {
 watch(filteredItems, () => {
   clampActiveIndex()
   preloadAdjacentProperties(activeIndex.value)
+})
+
+// Une fois la liste rechargée, sélectionner le bien créé et basculer en édition.
+watch(filteredItems, (items) => {
+  const target = pendingEditIdentifier.value
+  if (!target) return
+  const index = items.findIndex((item) => item.identifier === target)
+  if (index === -1) return
+  activeIndex.value = index
+  editorProcess.value = 'edit'
+  pendingEditIdentifier.value = null
 })
 
 watch(

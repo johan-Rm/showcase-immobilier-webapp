@@ -22,6 +22,16 @@ type SymfonyCategoryCode = {
   translations?: SymfonyCategoryCodeTranslation[]
 }
 
+type SymfonyFetchError = {
+  message?: string
+  response?: {
+    _data?: unknown
+    statusCode?: number
+  }
+  status?: number
+  statusCode?: number
+}
+
 type CategoryCodeCreateRequest = {
   code?: string
   label?: string
@@ -82,6 +92,19 @@ const getFallbackLabel = (body: CategoryCodeCreateRequest): string => {
   return firstTranslation?.label.trim() ?? ''
 }
 
+const getSymfonyStatusCode = (error: unknown): number =>
+  (error as SymfonyFetchError).response?.statusCode ??
+  (error as SymfonyFetchError).status ??
+  (error as SymfonyFetchError).statusCode ??
+  502
+
+const getSymfonyErrorMessage = (error: unknown): string => {
+  const fetchErr = error as SymfonyFetchError
+  const data = fetchErr.response?._data
+  if (typeof data === 'object' && data !== null) return JSON.stringify(data)
+  return fetchErr.message ?? 'Symfony category code error'
+}
+
 export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> => {
   await requireUserSession(event)
 
@@ -103,19 +126,28 @@ export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> =>
   )
   const safeTranslations =
     translations.length > 0 ? translations : [{ locale: sourceLocale, label }]
+  const requestLocale = safeTranslations.at(0)?.locale ?? sourceLocale
 
-  const created = await $fetch<SymfonyCategoryCode>(
-    `${apiUrl}/api/projects/${projectId}/category-codes/translations`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/ld+json',
-        Accept: 'application/ld+json',
+  try {
+    const created = await $fetch<SymfonyCategoryCode>(
+      `${apiUrl}/api/projects/${projectId}/category-codes/translations`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        query: { locale: requestLocale },
+        body: { inCodeSet: body.inCodeSet, translations: safeTranslations },
       },
-      body: { inCodeSet: body.inCodeSet, translations: safeTranslations },
-    },
-  )
+    )
 
-  return created
+    return created
+  } catch (error: unknown) {
+    throw createError({
+      statusCode: getSymfonyStatusCode(error),
+      statusMessage: getSymfonyErrorMessage(error),
+    })
+  }
 })

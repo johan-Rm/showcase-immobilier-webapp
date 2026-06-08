@@ -161,7 +161,7 @@ export const loadDashboardAccommodations = async (
   ])
 
   const categories = allCodes
-    .filter((c) => c.inCodeSet === 'accommodation-category')
+    .filter((c) => c.inCodeSet === 'accommodation-type')
     .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
   const places = allCodes
     .filter((c) => c.inCodeSet === 'accommodation-place')
