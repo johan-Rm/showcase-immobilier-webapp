@@ -57,10 +57,6 @@ SYMFONY_API_URL=http://localhost:18080
 # Compte admin plateforme (ROLE_SUPER_ADMIN) — meme compte que import-accommodations.ts
 SYMFONY_SERVICE_EMAIL=<admin-email>
 SYMFONY_SERVICE_PASSWORD=<admin-password>
-
-# Passwords des membres crees a l etape 03
-BOOTSTRAP_JOHAN_PASSWORD=<password>
-BOOTSTRAP_CAROLINE_PASSWORD=<password>
 ```
 
 `SYMFONY_PROJECT_ID` n est pas requis au demarrage — genere dynamiquement par l etape 02
@@ -110,11 +106,11 @@ Ecrit `PROJECT_ID` dans `.state`.
 
 ```
 POST {SYMFONY_API_URL}/api/projects/{PROJECT_ID}/members
-{ "email": "johan.remy@graines-digitales.online", "password": "$BOOTSTRAP_JOHAN_PASSWORD",
+{ "email": "johan.remy@graines-digitales.online", "password": "<password>",
   "projectRole": "owner", "roles": ["ROLE_ADMIN"] }
 
 POST {SYMFONY_API_URL}/api/projects/{PROJECT_ID}/members
-{ "email": "buzac@mlk-my-little-kasbah.immo", "password": "$BOOTSTRAP_CAROLINE_PASSWORD",
+{ "email": "buzac@mlk-my-little-kasbah.immo", "password": "<password>",
   "projectRole": "admin", "roles": ["ROLE_USER"] }
 ```
 
