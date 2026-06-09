@@ -113,7 +113,7 @@
             :src="screen.media[0]?.src ?? ''"
             :alt="screen.media[0]?.alt ?? ''"
             class="absolute inset-0 size-full object-cover"
-            sizes="xs:100vw"
+            sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
             :loading="index === 0 ? 'eager' : 'lazy'"
             :preload="index === 0"
             :fetchpriority="index === 0 ? 'high' : 'auto'"
@@ -158,7 +158,7 @@
             :src="screen.media[0]?.src ?? ''"
             :alt="screen.media[0]?.alt ?? ''"
             class="absolute inset-0 size-full object-cover"
-            sizes="xs:100vw"
+            sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
             :loading="index === 0 ? 'eager' : 'lazy'"
             :preload="index === 0"
             :fetchpriority="index === 0 ? 'high' : 'auto'"
@@ -205,7 +205,7 @@
             :src="screen.media[0]?.src ?? ''"
             :alt="screen.media[0]?.alt ?? ''"
             class="absolute inset-0 size-full object-cover md:hidden"
-            sizes="xs:100vw"
+            sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
             loading="lazy"
           />
           <div class="absolute inset-0 bg-black/55 md:hidden" />
@@ -327,7 +327,7 @@
             :src="currentMedia(screen).src"
             :alt="currentMedia(screen).alt"
             class="absolute inset-0 size-full object-cover transition-[opacity] duration-300"
-            sizes="xs:100vw"
+            sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
             loading="lazy"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
@@ -554,7 +554,7 @@
           :src="currentLightboxMedia.src"
           :alt="currentLightboxMedia.alt"
           class="max-h-full max-w-full rounded-md object-contain shadow-2xl"
-          sizes="xs:100vw"
+          sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
           fit="contain"
           :quality="85"
           loading="eager"
