@@ -64,7 +64,7 @@ services:
       - ./.data:/app/.data
       - ./content:/app/content
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/app-schemas
-      - ./public/images:/app/.output/public/images
+      - ${MEDIA_HOST_DIR:-./public/images}:/app/.output/public/images
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider http://127.0.0.1:3000/ || exit 1']
       interval: 5s
