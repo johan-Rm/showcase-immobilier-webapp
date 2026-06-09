@@ -98,7 +98,7 @@
       {{ submitErrorMessage }}
     </p>
 
-    <div class="pt-4">
+    <div class="flex justify-end pt-4 md:justify-start">
       <UButton
         type="submit"
         class="bg-foreground px-8 py-3 tracking-[0.2em] text-white uppercase"

@@ -124,9 +124,9 @@
             class="absolute inset-y-0 hidden w-1/2 md:block"
             :class="[screen.reverse ? 'right-0' : 'left-0', overlayPanelClass(screen)]"
           />
-          <!-- Zone texte — posée sur le panneau (desktop) / en bas (mobile). -->
+          <!-- Zone texte — posée sur le panneau (desktop) / centrée verticalement (mobile). -->
           <div
-            class="absolute right-6 bottom-20 left-6 z-10 md:top-[55%] md:w-[40%] md:-translate-y-1/2"
+            class="absolute top-1/2 right-6 left-6 z-10 -translate-y-1/2 md:top-[55%] md:w-[40%]"
             :class="screen.reverse ? 'md:right-[5%] md:left-auto' : 'md:left-[5%]'"
           >
             <p :class="overlayLabelClass(screen)">— {{ screen.eyebrow }}</p>
@@ -170,8 +170,8 @@
             class="absolute z-10 max-w-xl text-white"
             :class="
               index === 0
-                ? 'right-6 bottom-36 left-6 text-right md:right-32 md:left-auto md:max-w-2xl'
-                : 'bottom-20 left-6 md:left-16'
+                ? 'right-6 bottom-28 left-6 text-right md:right-32 md:bottom-36 md:left-auto md:max-w-2xl'
+                : 'bottom-28 left-6 md:bottom-36 md:left-16'
             "
           >
             <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
@@ -194,125 +194,101 @@
         </template>
 
         <!-- ┌─ SCREEN_01 — Triptyque (3 visuels) + texte ──────────────────┐
-             │ Desktop : composition éditoriale de 3 visuels superposés,    │
-             │ chacun cliquable (→ lightbox, RÉGION E). Mobile : visuel de  │
-             │ couverture + texte + bouton « Voir les N photos » ouvrant la │
-             │ lightbox. `reverse` permute texte et triptyque sur desktop.  │
+             │ Composition éditoriale de 3 visuels superposés, chacun       │
+             │ cliquable (→ lightbox, RÉGION E), sur fond `background`.      │
+             │ Desktop : texte et triptyque côte à côte (centrés). Mobile : │
+             │ texte en haut, triptyque en bas (empilés). `reverse` permute │
+             │ les deux blocs sur desktop.                                  │
              └──────────────────────────────────────────────────────────────┘ -->
         <template v-else-if="screenLayout(screen) === 'triptych'">
-          <!-- Zone média (mobile) — visuel de couverture + voile + texte superposé. -->
-          <AppImage
-            :src="screen.media[0]?.src ?? ''"
-            :alt="screen.media[0]?.alt ?? ''"
-            class="absolute inset-0 size-full object-cover md:hidden"
-            sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
-            loading="lazy"
-          />
-          <div class="absolute inset-0 bg-black/55 md:hidden" />
-          <div class="absolute right-6 bottom-20 left-6 z-10 md:hidden">
-            <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-4xl font-light">
-              <span
-                v-for="(part, partIndex) in titleParts(screen)"
-                :key="partIndex"
-                :class="part.accent ? IMAGE_ACCENT_CLASS : ''"
-                >{{ part.text }}</span
+          <!-- Empilé en mobile (texte en haut, triptyque en bas via flex), positionné en
+               absolu côte à côte en desktop. Aucun visuel de fond : fond `background` hérité
+               de la racine, comme en desktop. -->
+          <div class="flex h-full w-full flex-col justify-center px-6 pt-28 pb-24 md:block md:p-0">
+            <!-- Zone texte — face au triptyque, côté opposé selon `reverse` en desktop. -->
+            <div
+              class="text-foreground md:absolute md:top-1/2 md:z-10 md:max-w-sm md:-translate-y-1/2"
+              :class="
+                screen.reverse ? 'md:right-12 md:text-right lg:right-20' : 'md:left-12 lg:left-20'
+              "
+            >
+              <p :class="BACKGROUND_LABEL_CLASS">— {{ screen.eyebrow }}</p>
+              <h2 class="text-3xl leading-tight font-light md:text-4xl">
+                <span
+                  v-for="(part, partIndex) in titleParts(screen)"
+                  :key="partIndex"
+                  :class="part.accent ? BACKGROUND_ACCENT_CLASS : ''"
+                  >{{ part.text }}</span
+                >
+              </h2>
+              <p
+                class="text-foreground/80 mt-4 text-sm leading-relaxed"
+                :class="screen.reverse ? 'md:ml-auto' : ''"
               >
-            </h2>
-            <p class="mt-3 max-w-md text-sm text-white">{{ screen.text }}</p>
-            <!-- Mobile : le triptyque desktop est masqué ; ce bouton rend les autres
-                 visuels de l'espace accessibles via la lightbox (navigation tactile). -->
-            <button
-              v-if="screen.media.length > 1"
-              type="button"
-              class="mt-4 inline-flex items-center gap-2 border-b border-white/50 pb-1 text-sm text-white transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-              :aria-label="`Voir les ${screen.media.length} photos des ${screen.label}`"
-              @click="openLightbox(screen.media, 0)"
-            >
-              Voir les {{ screen.media.length }} photos
-              <span aria-hidden="true">→</span>
-            </button>
-          </div>
-          <!-- Zone média (desktop) — triptyque éditorial superposé : deux visuels
-               horizontaux + un vertical, chacun cliquable pour ouvrir la lightbox. -->
-          <div
-            class="absolute top-1/2 hidden h-[68dvh] w-[58vw] -translate-y-1/2 md:block"
-            :class="screen.reverse ? 'left-10 lg:left-16' : 'right-10 lg:right-16'"
-          >
-            <button
-              v-if="screen.media[0]"
-              type="button"
-              class="group absolute top-0 right-[10%] z-20 aspect-[16/9] w-[62%] cursor-zoom-in overflow-hidden rounded-md bg-white p-1 shadow-2xl transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-              :aria-label="`Agrandir : ${screen.media[0].alt}`"
-              @click="openLightbox(screen.media, 0)"
-            >
-              <AppImage
-                :src="screen.media[0].src"
-                :alt="screen.media[0].alt"
-                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="md:36vw"
-                loading="lazy"
-              />
-            </button>
-            <button
-              v-if="screen.media[1]"
-              type="button"
-              class="group absolute bottom-[10%] left-[4%] z-10 aspect-[16/9] w-[58%] cursor-zoom-in overflow-hidden rounded-md shadow-2xl transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-              :aria-label="`Agrandir : ${screen.media[1].alt}`"
-              @click="openLightbox(screen.media, 1)"
-            >
-              <AppImage
-                :src="screen.media[1].src"
-                :alt="screen.media[1].alt"
-                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="md:34vw"
-                loading="lazy"
-              />
-            </button>
-            <button
-              v-if="screen.media[2]"
-              type="button"
-              class="group absolute right-[6%] bottom-0 z-30 h-[56%] w-[32%] cursor-zoom-in overflow-hidden rounded-md shadow-2xl transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-              :aria-label="`Agrandir : ${screen.media[2].alt}`"
-              @click="openLightbox(screen.media, 2)"
-            >
-              <AppImage
-                :src="screen.media[2].src"
-                :alt="screen.media[2].alt"
-                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="md:18vw"
-                loading="lazy"
-              />
-            </button>
-          </div>
-          <!-- Zone texte (desktop) — face au triptyque, côté opposé selon `reverse`. -->
-          <div
-            class="text-foreground absolute top-1/2 z-10 hidden max-w-sm -translate-y-1/2 md:block"
-            :class="screen.reverse ? 'right-12 text-right lg:right-20' : 'left-12 lg:left-20'"
-          >
-            <p :class="BACKGROUND_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-4xl leading-tight font-light">
-              <span
-                v-for="(part, partIndex) in titleParts(screen)"
-                :key="partIndex"
-                :class="part.accent ? BACKGROUND_ACCENT_CLASS : ''"
-                >{{ part.text }}</span
+                {{ screen.text }}
+              </p>
+              <button
+                v-if="screen.cta"
+                type="button"
+                class="border-foreground/50 mt-6 inline-flex items-center gap-2 border-b pb-1 text-sm transition-opacity hover:opacity-70"
+                @click="goToNext(screen.id)"
               >
-            </h2>
-            <p
-              class="text-foreground/80 mt-4 text-sm leading-relaxed"
-              :class="screen.reverse ? 'ml-auto' : ''"
+                {{ screen.cta }} <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <!-- Triptyque éditorial superposé : deux visuels horizontaux + un vertical, chacun
+                 cliquable (→ lightbox). En mobile, sous le texte et centré avec lui (ratio
+                 paysage pour garder la composition) ; dimensionné en vw/dvh en desktop. -->
+            <div
+              class="relative mt-12 aspect-3/2 w-full md:absolute md:top-1/2 md:mt-0 md:aspect-auto md:h-[68dvh] md:w-[58vw] md:-translate-y-1/2"
+              :class="screen.reverse ? 'md:left-10 lg:left-16' : 'md:right-10 lg:right-16'"
             >
-              {{ screen.text }}
-            </p>
-            <button
-              v-if="screen.cta"
-              type="button"
-              class="border-foreground/50 mt-6 inline-flex items-center gap-2 border-b pb-1 text-sm transition-opacity hover:opacity-70"
-              @click="goToNext(screen.id)"
-            >
-              {{ screen.cta }} <span aria-hidden="true">→</span>
-            </button>
+              <button
+                v-if="screen.media[0]"
+                type="button"
+                class="group absolute top-0 right-[10%] z-20 aspect-video w-[62%] cursor-zoom-in overflow-hidden rounded-md bg-white p-1 shadow-2xl transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                :aria-label="`Agrandir : ${screen.media[0].alt}`"
+                @click="openLightbox(screen.media, 0)"
+              >
+                <AppImage
+                  :src="screen.media[0].src"
+                  :alt="screen.media[0].alt"
+                  class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="sm:58vw md:36vw"
+                  loading="lazy"
+                />
+              </button>
+              <button
+                v-if="screen.media[1]"
+                type="button"
+                class="group absolute bottom-[10%] left-[4%] z-10 aspect-video w-[58%] cursor-zoom-in overflow-hidden rounded-md shadow-2xl transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                :aria-label="`Agrandir : ${screen.media[1].alt}`"
+                @click="openLightbox(screen.media, 1)"
+              >
+                <AppImage
+                  :src="screen.media[1].src"
+                  :alt="screen.media[1].alt"
+                  class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="sm:54vw md:34vw"
+                  loading="lazy"
+                />
+              </button>
+              <button
+                v-if="screen.media[2]"
+                type="button"
+                class="group absolute right-[6%] bottom-0 z-30 h-[56%] w-[32%] cursor-zoom-in overflow-hidden rounded-md shadow-2xl transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                :aria-label="`Agrandir : ${screen.media[2].alt}`"
+                @click="openLightbox(screen.media, 2)"
+              >
+                <AppImage
+                  :src="screen.media[2].src"
+                  :alt="screen.media[2].alt"
+                  class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="sm:30vw md:18vw"
+                  loading="lazy"
+                />
+              </button>
+            </div>
           </div>
         </template>
 
@@ -418,7 +394,7 @@
         <div v-else class="flex h-full w-full flex-col overflow-hidden md:flex-row">
           <!-- Zone média — visuel d'ambiance (terrasse/piscine).
                sizes : pleine largeur en mobile, moitié à partir de md. -->
-          <div class="relative h-[38%] md:h-full md:w-1/2">
+          <div class="relative hidden md:block md:h-full md:w-1/2">
             <AppImage
               :src="property.contactImage"
               alt="Terrasse extérieure et piscine de la villa au cœur du jardin"
@@ -432,7 +408,7 @@
             class="bg-background text-foreground flex flex-1 items-center justify-center px-6 py-10 md:w-1/2 md:px-16"
           >
             <div class="w-full max-w-lg">
-              <h2 class="mb-8 text-3xl font-light md:text-5xl">{{ screen.title }}</h2>
+              <h2 class="mb-8 text-4xl font-light uppercase md:text-6xl">{{ screen.title }}</h2>
               <FormContactProperty :property-reference="property.reference" />
             </div>
           </div>
@@ -465,35 +441,45 @@
          Carte d'identité du bien (nom + prix + badges), ancrée en bas à gauche et
          indépendante du rail. Sert aussi de déclencheur du panneau
          d'informations détaillées (drawer gauche, RÉGION F).
-         Mobile : seuls le nom et le prix sont affichés (les badges, qui débordaient,
-         restent accessibles dans le drawer). Le décalage bas intègre la safe-area
-         iOS pour ne pas passer sous la barre gestuelle. -->
+         Mobile : la pastille passe pleine largeur — ligne 1 le nom, ligne 2 le prix à
+         gauche et les badges (compacts) à droite. Desktop : nom + prix empilés, badges
+         à droite, le tout centré. Le décalage bas intègre la safe-area iOS pour ne pas
+         passer sous la barre gestuelle. -->
     <button
       type="button"
-      class="fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-4 z-50 flex max-w-[calc(100vw-2rem)] cursor-pointer items-center gap-2 overflow-hidden rounded-md text-left text-xs text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:left-6"
+      class="fixed right-4 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-4 z-50 flex max-w-[calc(100vw-2rem)] cursor-pointer flex-col gap-1.5 overflow-hidden rounded-md text-left text-xs text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:right-auto md:left-6 md:flex-row md:items-center md:gap-2"
       aria-label="Voir les informations du bien"
       aria-haspopup="dialog"
       :aria-expanded="isDetailPanelOpen"
       @click="openDetailPanel"
     >
+      <!-- Identité — trait + nom (ligne 1 en mobile). Le prix s'y range sous le nom en desktop. -->
       <span class="flex shrink-0 flex-col gap-1.5">
         <span class="block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
         <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
           {{ property.name }}
         </span>
-        <!-- Prix — sous la désignation, aligné à droite, accentué (texte blanc plein). -->
-        <span class="self-start text-sm font-bold whitespace-nowrap text-white">
+        <!-- Prix (desktop) — sous la désignation, accentué (texte blanc plein). -->
+        <span class="hidden self-start text-sm font-bold whitespace-nowrap text-white md:block">
           {{ property.price }}
         </span>
       </span>
-      <!-- Badges — masqués en mobile (débordement) ; repli dans le drawer d'infos. -->
-      <span class="hidden min-w-0 items-center gap-1.5 overflow-hidden md:flex">
-        <span
-          v-for="badge in propertyBadges"
-          :key="badge"
-          class="bg-background/30 shrink-0 rounded-md px-2.5 py-3 font-bold text-white/75 backdrop-blur"
-        >
-          {{ badge }}
+      <!-- Ligne 2 (mobile) : prix à gauche, badges compacts à droite. Desktop : badges seuls à droite. -->
+      <span class="flex items-center justify-between gap-2 md:w-auto md:justify-start">
+        <!-- Prix (mobile) — colonne gauche de la ligne 2. -->
+        <span class="text-sm font-bold whitespace-nowrap text-white md:hidden">
+          {{ property.price }}
+        </span>
+        <!-- Badges — 4 max ; compacts en mobile, taille pleine à partir de md. -->
+        <span class="flex min-w-0 items-center gap-1 overflow-hidden md:gap-1.5">
+          <span
+            v-for="badge in propertyBadges"
+            :key="badge.full"
+            class="bg-background/30 shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-bold text-white/75 backdrop-blur md:px-2.5 md:py-3 md:text-xs"
+          >
+            <span class="md:hidden">{{ badge.short }}</span>
+            <span class="hidden md:inline">{{ badge.full }}</span>
+          </span>
         </span>
       </span>
     </button>
@@ -630,10 +616,10 @@
         <ul class="mt-8 flex flex-wrap gap-2">
           <li
             v-for="badge in propertyBadges"
-            :key="badge"
+            :key="badge.full"
             class="border-foreground/15 bg-foreground/5 rounded-md border px-3 py-1.5 text-xs font-bold tracking-[0.04em]"
           >
-            {{ badge }}
+            {{ badge.full }}
           </li>
         </ul>
 
@@ -704,6 +690,9 @@ type Screen = {
 }
 
 type TitlePart = { text: string; accent: boolean }
+
+// Badge de la synthèse fixe : libellé complet + diminutif compact (mobile).
+type PropertyBadge = { full: string; short: string }
 
 // Styles de la zone texte selon le contexte : image, panneau background ou overlay.
 const IMAGE_LABEL_CLASS = 'mb-3 text-xs font-semibold tracking-[0.3em] text-white/55 uppercase'
@@ -833,17 +822,20 @@ const deriveProperty = (item: Accommodation | undefined, derivedScreens: readonl
 }
 
 // Badges de la synthèse fixe : surface, pièces, chambres, salles de bains.
-const derivePropertyBadges = (item: Accommodation | undefined): string[] => {
+// `full` = libellé complet (drawer + desktop) ; `short` = diminutif compact (pastille mobile).
+const derivePropertyBadges = (item: Accommodation | undefined): PropertyBadge[] => {
   const record = asRecord(item)
-  const badges: string[] = []
+  const badges: PropertyBadge[] = []
   const surface = readNumber(record.floorSize)
   const rooms = readNumber(record.numberOfRooms)
   const bedrooms = readNumber(record.numberOfBedrooms)
   const bathrooms = readNumber(record.numberOfBathroomsTotal)
-  if (surface !== null) badges.push(`${surface} m²`)
-  if (rooms !== null) badges.push(`${rooms} pièces`)
-  if (bedrooms !== null) badges.push(`${bedrooms} chambres`)
-  if (bathrooms !== null) badges.push(`${bathrooms} salles de bains`)
+  if (surface !== null) badges.push({ full: `${surface} m²`, short: `${surface} m²` })
+  if (rooms !== null) badges.push({ full: `${rooms} pièces`, short: `${rooms} p.` })
+  if (bedrooms !== null) badges.push({ full: `${bedrooms} chambres`, short: `${bedrooms} ch.` })
+  if (bathrooms !== null) {
+    badges.push({ full: `${bathrooms} salles de bains`, short: `${bathrooms} sdb` })
+  }
   return badges
 }
 
