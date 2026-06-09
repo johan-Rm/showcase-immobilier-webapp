@@ -1,24 +1,19 @@
 # ============================
-# Docker Compose (PREPROD)
+# Docker Compose PREPROD
 # ============================
 
 PREPROD_ENV_FILE ?= .env.preprod
 COMPOSE_PREPROD = docker compose --env-file $(PREPROD_ENV_FILE) -f docker-compose.preprod.yml
 
-TAIL ?= 200
-FOLLOW ?= -f
-
 PREPROD_CORE_SERVICES = webapp-ssr
 PREPROD_BUILD_SERVICES = webapp-ssr
 
 .PHONY: preprod-up preprod-up-build preprod-down preprod-clean preprod-stop preprod-status
-.PHONY: preprod-build preprod-build-no-cache preprod-pull preprod-deploy
+.PHONY: preprod-build preprod-build-no-cache preprod-pull preprod-deploy preprod-deploy-no-cache
 .PHONY: preprod-content-sync preprod-content-sync-dry
 .PHONY: preprod-logs preprod-logs-service preprod-logs-webapp
 
-# ----------------------------
 # Content Sync
-# ----------------------------
 
 preprod-content-sync:
 	$(COMPOSE_PREPROD) run --rm content-sync
@@ -26,9 +21,7 @@ preprod-content-sync:
 preprod-content-sync-dry:
 	$(COMPOSE_PREPROD) run --rm content-sync bun scripts/content-sync.ts --dry-run
 
-# ----------------------------
 # Up / Build / Deploy
-# ----------------------------
 
 preprod-up:
 	$(COMPOSE_PREPROD) up -d $(PREPROD_CORE_SERVICES)
@@ -46,12 +39,14 @@ preprod-pull:
 	$(COMPOSE_PREPROD) pull $(PREPROD_CORE_SERVICES)
 
 preprod-deploy:
+	$(MAKE) preprod-build
+	$(MAKE) preprod-up
+
+preprod-deploy-no-cache:
 	$(MAKE) preprod-build-no-cache
 	$(MAKE) preprod-up
 
-# ----------------------------
 # Lifecycle
-# ----------------------------
 
 preprod-stop:
 	$(COMPOSE_PREPROD) stop
@@ -65,9 +60,7 @@ preprod-clean:
 preprod-status:
 	$(COMPOSE_PREPROD) ps
 
-# ----------------------------
 # Logs
-# ----------------------------
 
 preprod-logs:
 	$(COMPOSE_PREPROD) logs $(FOLLOW) --tail=$(TAIL)

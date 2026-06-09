@@ -1,12 +1,9 @@
 # ============================
-# Docker Compose (PROD)
+# Docker Compose PROD
 # ============================
 
 PROD_ENV_FILE ?= .env.prod
 COMPOSE_PROD = docker compose --env-file $(PROD_ENV_FILE) -f docker-compose.prod.yml
-
-TAIL ?= 200
-FOLLOW ?= -f
 
 PROD_CORE_SERVICES = webapp-ssr
 PROD_BUILD_SERVICES = webapp-ssr
@@ -16,11 +13,15 @@ PROD_BUILD_SERVICES = webapp-ssr
 .PHONY: prod-content-sync prod-content-sync-dry
 .PHONY: prod-logs prod-logs-service prod-logs-webapp
 
+# Content Sync
+
 prod-content-sync:
 	$(COMPOSE_PROD) run --rm content-sync
 
 prod-content-sync-dry:
 	$(COMPOSE_PROD) run --rm content-sync bun scripts/content-sync.ts --dry-run
+
+# Up / Build / Deploy
 
 prod-up:
 	$(COMPOSE_PROD) up -d $(PROD_CORE_SERVICES)
@@ -45,6 +46,8 @@ prod-deploy-no-cache:
 	$(MAKE) prod-build-no-cache
 	$(MAKE) prod-up
 
+# Lifecycle
+
 prod-stop:
 	$(COMPOSE_PROD) stop
 
@@ -56,6 +59,8 @@ prod-clean:
 
 prod-status:
 	$(COMPOSE_PROD) ps
+
+# Logs
 
 prod-logs:
 	$(COMPOSE_PROD) logs $(FOLLOW) --tail=$(TAIL)

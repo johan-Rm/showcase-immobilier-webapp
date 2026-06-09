@@ -1,18 +1,23 @@
-SHELL := /bin/bash
 COMPOSE_FILE := docker-compose.dev.yml
 DOCKER_RUN := docker compose -f $(COMPOSE_FILE) run --rm webapp-localhost
 
 export DOCKER_UID := $(shell id -u)
 export DOCKER_GID := $(shell id -g)
 
-.PHONY: dev-env dev-webapp-localhost dev-webapp-ssr dev-nginx dev-build dev-build-no-cache dev-down dev-logs dev-shell-webapp-localhost dev-shell-webapp-ssr dev-shell-nginx dev-analyze dev-analyse quality-check type-check lint-check lint-fix format-check conventions-check generate-schemas content-sync content-sync-dry
-
-# Initialise les fichiers .env Docker si absents
+.PHONY: dev-env
+.PHONY: dev-webapp-localhost dev-webapp-ssr dev-nginx
+.PHONY: dev-build dev-build-no-cache
+.PHONY: dev-build-localhost dev-build-localhost-no-cache
+.PHONY: dev-build-ssr dev-build-ssr-no-cache
+.PHONY: dev-down dev-logs
+.PHONY: dev-shell-webapp-localhost dev-shell-webapp-ssr dev-shell-nginx
+.PHONY: dev-analyze dev-analyse
+.PHONY: quality-check quality-lint-check quality-lint-fix quality-format-check quality-type-check
+.PHONY: quality-conventions-check quality-generate-schemas
+.PHONY: dev-content-sync dev-content-sync-dry
 
 dev-env:
 	@test -f .env || cp .env.example .env
-
-# Docker
 
 dev-webapp-localhost: dev-env
 	docker compose -f $(COMPOSE_FILE) up webapp-localhost
@@ -29,6 +34,18 @@ dev-build:
 dev-build-no-cache:
 	docker compose -f $(COMPOSE_FILE) build --no-cache
 
+dev-build-localhost:
+	docker compose -f $(COMPOSE_FILE) build webapp-localhost
+
+dev-build-localhost-no-cache:
+	docker compose -f $(COMPOSE_FILE) build --no-cache webapp-localhost
+
+dev-build-ssr:
+	docker compose -f $(COMPOSE_FILE) build webapp-ssr
+
+dev-build-ssr-no-cache:
+	docker compose -f $(COMPOSE_FILE) build --no-cache webapp-ssr
+
 dev-down:
 	docker compose -f $(COMPOSE_FILE) down
 
@@ -44,40 +61,34 @@ dev-shell-webapp-ssr:
 dev-shell-nginx:
 	docker compose -f $(COMPOSE_FILE) exec nginx sh
 
-# Analyse bundle Nuxt (local)
-
 dev-analyze:
 	bunx nuxi analyze
 
 dev-analyse: dev-analyze
 
-# Qualité (Docker)
-
 quality-check:
 	$(DOCKER_RUN) bun run quality:check
 
-lint-check:
+quality-lint-check:
 	$(DOCKER_RUN) bun run lint:check
 
-lint-fix:
+quality-lint-fix:
 	$(DOCKER_RUN) bun run lint:fix
 
-format-check:
+quality-format-check:
 	$(DOCKER_RUN) bun run format:check
 
-type-check:
+quality-type-check:
 	$(DOCKER_RUN) bun run type-check
 
-generate-schemas:
+quality-generate-schemas:
 	$(DOCKER_RUN) bun run scripts/run-schema-hook.mjs
 
-# Sync contenu
+quality-conventions-check:
+	$(DOCKER_RUN) sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards"
 
-content-sync:
+dev-content-sync:
 	$(DOCKER_RUN) bun scripts/content-sync.ts
 
-content-sync-dry:
+dev-content-sync-dry:
 	$(DOCKER_RUN) bun scripts/content-sync.ts --dry-run
-
-conventions-check:
-	$(DOCKER_RUN) sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards"

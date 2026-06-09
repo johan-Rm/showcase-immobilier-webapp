@@ -1,50 +1,128 @@
+SHELL := /bin/bash
+
+TAIL ?= 200
+FOLLOW ?= -f
+
+include Makefile.dev
 include Makefile.preprod
 include Makefile.prod
-include Makefile.dev
 
 .PHONY: help
 
 help:
-	@printf "Targets:\n"
-	@printf "  dev-webapp-localhost        Lancer le dev Nuxt HMR dans Docker\n"
-	@printf "  dev-webapp-ssr              Lancer le SSR via Nginx en mode prod-like\n"
-	@printf "  dev-webapp-ssr BUILD=1      Forcer le rebuild du SSR avant lancement\n"
-	@printf "  dev-nginx                   Lancer le vhost Nginx SSR\n"
-	@printf "  dev-build                   Builder les images Docker dev\n"
-	@printf "  dev-build-no-cache          Builder les images Docker dev sans cache\n"
-	@printf "  dev-build NO_CACHE=1        Variante sans cache de dev-build\n"
+	@printf "\n"
+	@printf "═══════════════════════════════════════════════════════════════\n"
+	@printf " 🚀 WEBAPP NUXT - COMMANDES DISPONIBLES\n"
+	@printf "═══════════════════════════════════════════════════════════════\n"
+	@printf "\n"
+
+	@printf "🔧 Commandes communes\n\n"
+	@printf "  quality-check               Lint + Format + Type Check\n"
+	@printf "  quality-lint-check          ESLint\n"
+	@printf "  quality-lint-fix            ESLint Fix\n"
+	@printf "  quality-format-check        Prettier\n"
+	@printf "  quality-type-check          Vue TSC\n"
+	@printf "  quality-conventions-check   Vérification conventions\n"
+	@printf "  quality-generate-schemas    Génération des schémas\n"
+	@printf "\n"
+
+	@printf "═══════════════════════════════════════════════════════════════\n"
+	@printf "\n"
+
+	@printf "📦 DEV\n\n"
+	@printf "  dev-webapp-localhost        Nuxt HMR dans Docker\n"
+	@printf "  dev-webapp-ssr              SSR via Nginx (mode prod-like)\n"
+	@printf "  dev-nginx                   Nginx uniquement\n"
+	@printf "\n"
+
+	@printf "🔨 Build DEV\n\n"
+	@printf "  dev-build                   Build toutes les images dev\n"
+	@printf "  dev-build-no-cache          Build toutes les images dev sans cache\n"
+	@printf "  dev-build-localhost         Build image HMR uniquement\n"
+	@printf "  dev-build-localhost-no-cache Build image HMR sans cache\n"
+	@printf "  dev-build-ssr               Build image SSR uniquement\n"
+	@printf "  dev-build-ssr-no-cache      Build image SSR sans cache\n"
+	@printf "\n"
+
+	@printf "📜 Logs & Debug\n\n"
+	@printf "  dev-logs                    Suivre les logs dev\n"
+	@printf "  dev-analyze                 Analyse du bundle Nuxt\n"
+	@printf "\n"
+
+	@printf "🐚 Shell\n\n"
+	@printf "  dev-shell-webapp-localhost  Shell container dev\n"
+	@printf "  dev-shell-webapp-ssr        Shell container SSR\n"
+	@printf "  dev-shell-nginx             Shell container Nginx\n"
+	@printf "\n"
+
+	@printf "📄 Contenu DEV\n\n"
+	@printf "  dev-content-sync            Synchroniser le contenu DEV\n"
+	@printf "  dev-content-sync-dry        Simulation DEV sans écriture\n"
+	@printf "\n"
+
+	@printf "🧹 Lifecycle\n\n"
 	@printf "  dev-down                    Stopper les containers Docker dev\n"
-	@printf "  dev-logs                    Suivre les logs Docker dev\n"
-	@printf "  dev-analyze                 Analyser le bundle Nuxt\n"
-	@printf "  dev-analyse                 Alias francise de dev-analyze\n"
-	@printf "  dev-shell-webapp-localhost  Ouvrir un shell dans le container dev\n"
-	@printf "  dev-shell-webapp-ssr        Ouvrir un shell dans le container SSR dev\n"
-	@printf "  dev-shell-nginx             Ouvrir un shell dans le container Nginx dev\n"
-	@printf "  content-sync                Synchroniser le contenu DEV depuis l'API Symfony\n"
-	@printf "  content-sync-dry            Simuler la sync DEV sans écrire sur le disque\n"
-	@printf "  generate-schemas            Générer les interfaces TS depuis les schémas YAML\n"
-	@printf "  conventions-check           Vérifier les conventions de code\n"
-	@printf "  quality-check               Lancer lint + format + type-check\n"
-	@printf "  lint-check                  Lancer ESLint\n"
-	@printf "  lint-fix                    Corriger ESLint quand possible\n"
-	@printf "  format-check                Lancer Prettier\n"
-	@printf "  type-check                  Lancer vue-tsc\n"
-	@printf "  preprod-content-sync        Synchroniser le contenu PREPROD depuis l'API Symfony\n"
-	@printf "  preprod-content-sync-dry    Simuler la sync PREPROD\n"
+	@printf "\n"
+
+	@printf "═══════════════════════════════════════════════════════════════\n"
+	@printf "\n"
+
+	@printf "🚧 PREPROD\n\n"
 	@printf "  preprod-up                  Lancer les services preprod\n"
-	@printf "  preprod-up-build            Lancer les services preprod avec build\n"
+	@printf "  preprod-up-build            Lancer les services preprod avec rebuild\n"
 	@printf "  preprod-build               Builder les images preprod\n"
 	@printf "  preprod-build-no-cache      Builder les images preprod sans cache\n"
-	@printf "  preprod-deploy              Build sans cache + lancement preprod (sans content-sync)\n"
-	@printf "  preprod-down                Stopper les containers preprod\n"
+	@printf "  preprod-deploy              Build + lancement preprod\n"
+	@printf "  preprod-deploy-no-cache     Build sans cache + lancement preprod\n"
+	@printf "\n"
+
+	@printf "📄 Contenu PREPROD\n\n"
+	@printf "  preprod-content-sync        Synchroniser le contenu PREPROD\n"
+	@printf "  preprod-content-sync-dry    Simulation PREPROD sans écriture\n"
+	@printf "\n"
+
+	@printf "📜 Logs & Shell\n\n"
 	@printf "  preprod-logs                Suivre les logs preprod\n"
-	@printf "  prod-content-sync           Synchroniser le contenu PROD depuis l'API Symfony\n"
-	@printf "  prod-content-sync-dry       Simuler la sync PROD\n"
+	@printf "  preprod-logs-webapp         Suivre les logs webapp SSR preprod\n"
+	@printf "  preprod-logs-service S=...  Suivre les logs d'un service preprod\n"
+	@printf "\n"
+
+	@printf "🧹 Lifecycle\n\n"
+	@printf "  preprod-down                Stopper les containers preprod\n"
+	@printf "  preprod-stop                Stopper sans supprimer les containers preprod\n"
+	@printf "  preprod-clean               Supprimer containers, volumes et orphelins preprod\n"
+	@printf "  preprod-status              Afficher l'état des services preprod\n"
+	@printf "\n"
+
+	@printf "═══════════════════════════════════════════════════════════════\n"
+	@printf "\n"
+
+	@printf "🏭 PROD\n\n"
 	@printf "  prod-up                     Lancer les services prod\n"
 	@printf "  prod-up-build               Lancer la prod avec rebuild\n"
 	@printf "  prod-build                  Builder les images prod\n"
-	@printf "  prod-build-no-cache         Builder la prod sans cache\n"
-	@printf "  prod-deploy                 Build + lancement prod (sans content-sync)\n"
-	@printf "  prod-deploy-no-cache        Build sans cache + lancement prod (sans content-sync)\n"
-	@printf "  prod-down                   Stopper les containers prod\n"
+	@printf "  prod-build-no-cache         Builder les images prod sans cache\n"
+	@printf "  prod-deploy                 Build + lancement prod\n"
+	@printf "  prod-deploy-no-cache        Build sans cache + lancement prod\n"
+	@printf "\n"
+
+	@printf "📄 Contenu PROD\n\n"
+	@printf "  prod-content-sync           Synchroniser le contenu PROD\n"
+	@printf "  prod-content-sync-dry       Simulation PROD sans écriture\n"
+	@printf "\n"
+
+	@printf "📜 Logs & Shell\n\n"
 	@printf "  prod-logs                   Suivre les logs prod\n"
+	@printf "  prod-logs-webapp            Suivre les logs webapp SSR prod\n"
+	@printf "  prod-logs-service S=...     Suivre les logs d'un service prod\n"
+	@printf "\n"
+
+	@printf "🧹 Lifecycle\n\n"
+	@printf "  prod-down                   Stopper les containers prod\n"
+	@printf "  prod-stop                   Stopper sans supprimer les containers prod\n"
+	@printf "  prod-clean                  Supprimer containers, volumes et orphelins prod\n"
+	@printf "  prod-status                 Afficher l'état des services prod\n"
+	@printf "\n"
+
+	@printf "═══════════════════════════════════════════════════════════════\n"
+	@printf "\n"

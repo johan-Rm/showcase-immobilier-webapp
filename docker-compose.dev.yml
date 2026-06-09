@@ -41,6 +41,7 @@ services:
         SITE_URL: ${SITE_URL:-http://webapp.localhost:8080}
         SITE_NAME: ${SITE_NAME:-Mon Webapp}
         WEB_VITALS_ENABLED: ${WEB_VITALS_ENABLED:-false}
+        NODE_BUILD_MEMORY_MB: ${NODE_BUILD_MEMORY_MB:-8192}
     working_dir: /app
     init: true
     env_file:
