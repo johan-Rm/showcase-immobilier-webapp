@@ -46,7 +46,6 @@ preprod-pull:
 	$(COMPOSE_PREPROD) pull $(PREPROD_CORE_SERVICES)
 
 preprod-deploy:
-	$(MAKE) preprod-content-sync
 	$(MAKE) preprod-build-no-cache
 	$(MAKE) preprod-up
 

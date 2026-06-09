@@ -38,12 +38,10 @@ prod-pull:
 	$(COMPOSE_PROD) pull $(PROD_CORE_SERVICES)
 
 prod-deploy:
-	$(MAKE) prod-content-sync
 	$(MAKE) prod-build
 	$(MAKE) prod-up
 
 prod-deploy-no-cache:
-	$(MAKE) prod-content-sync
 	$(MAKE) prod-build-no-cache
 	$(MAKE) prod-up
 
