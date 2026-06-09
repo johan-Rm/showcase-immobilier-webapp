@@ -41,7 +41,7 @@ services:
       - '3000'
     volumes:
       - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
-      - ./public/images:/app/.output/public/images
+      - ${MEDIA_HOST_DIR:-./public/images}:/app/.output/public/images
     networks:
       app_stack: {}
       edge_network:
