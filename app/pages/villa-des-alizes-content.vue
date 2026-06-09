@@ -18,7 +18,7 @@
       RÉGION F · Panneau d'infos       — drawer gauche : détails du bien + accès au contact
     Les régions B→F sont des surcouches `fixed`/`absolute` : elles vivent hors du flux du rail.
   -->
-  <div class="bg-background font-body relative h-dvh w-full overflow-hidden">
+  <div ref="rootRef" class="bg-background font-body relative h-dvh w-full overflow-hidden">
     <h1 class="sr-only">{{ property.name }} — {{ property.location }}</h1>
 
     <!-- ╔══════════════════════════════════════════════════════════════════╗
@@ -27,13 +27,13 @@
          Conteneur scrollable unique : chaque <section> est un écran plein
          viewport aimanté (snap). La molette verticale est convertie en
          défilement horizontal (cf. handleWheel). En mode lecture, le snap est
-         neutralisé via readingModeScrollerStyle pour un travelling continu.
+         neutralisé via scrollerStyle pour un travelling continu.
          `overscroll-x-contain` : en mobile, empêche le swipe horizontal en
          butée de bord de déclencher le geste « retour » du navigateur (iOS Safari). -->
     <div
       ref="scrollerRef"
       class="flex h-full w-full snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-      :style="readingModeScrollerStyle"
+      :style="scrollerStyle"
     >
       <!-- Un écran du parcours. Le layout rendu dépend de screen.template,
            résolu en `screenLayout(screen)` puis aiguillé par le v-if/v-else-if
@@ -870,11 +870,17 @@ const propertyBadges = computed(() => derivePropertyBadges(accommodation.value))
 
 // 5. Etat local
 const scrollerRef = useTemplateRef<HTMLElement>('scrollerRef')
+// Conteneur racine : porte le listener `wheel` (élément normal → preventDefault honoré,
+// contrairement à window/document que Chrome force en passive), et englobe les surcouches.
+const rootRef = useTemplateRef<HTMLElement>('rootRef')
 const screenElements = new Map<string, HTMLElement>()
 const activeScreenId = ref<string>(screens.value[0]?.id ?? 'contact')
 // Index du visuel principal sélectionné par écran carousel (SCREEN_05).
 const galleryIndex = reactive<Record<string, number>>({})
 const isReadingModeActive = ref(false)
+// Navigation programmatique en cours (flèches/molette) : neutralise le scroll-snap le
+// temps de l'animation pour un défilement fluide, et sert de garde anti-emballement molette.
+const navigationInProgress = ref(false)
 // Préférence d'accessibilité : si l'utilisateur réduit les animations, on désactive
 // la cinématique et l'autoplay carousel. Résolu côté client au montage (SSR-safe).
 const prefersReducedMotion = ref(false)
@@ -888,6 +894,8 @@ let screenObserver: IntersectionObserver | null = null
 let readingModeAnimationFrame: number | null = null
 let readingModePreviousTimestamp: number | null = null
 let carouselAutoplayTimer: ReturnType<typeof setInterval> | null = null
+// Réactive le scroll-snap une fois l'animation de navigation terminée (cf. goToAdjacentScreen).
+let programmaticScrollEndTimer: ReturnType<typeof setTimeout> | null = null
 
 // 6. Data inputs
 
@@ -946,11 +954,14 @@ const canStartReadingMode = computed<boolean>(
 )
 const readingModeButtonLabel = computed<string>(() => 'Lancer le parcours automatique de la fiche')
 const readingModeIcon = computed<string>(() => 'i-heroicons-play-solid')
-const readingModeScrollerStyle = computed<Record<string, string> | undefined>(() =>
-  // Pendant la cinématique, on neutralise le snap et le smooth natifs : l'animation pilote
-  // directement `scrollLeft` pour obtenir un travelling continu, sans navigation par écran.
-  isReadingModeActive.value ? { scrollBehavior: 'auto', scrollSnapType: 'none' } : undefined,
-)
+const scrollerStyle = computed<Record<string, string> | undefined>(() => {
+  // Cinématique : l'animation pilote `scrollLeft` à la main → on neutralise le smooth ET le snap.
+  if (isReadingModeActive.value) return { scrollBehavior: 'auto', scrollSnapType: 'none' }
+  // Navigation flèches/molette : on garde le smooth (classe `scroll-smooth`) mais on désactive
+  // le snap mandatory le temps de l'animation, sinon il hache le défilement (effet saccadé).
+  if (navigationInProgress.value) return { scrollSnapType: 'none' }
+  return undefined
+})
 // Visuel agrandi courant ; null tant que la lightbox est fermée.
 const currentLightboxMedia = computed<Media | null>(() => {
   const media = lightboxMedia.value
@@ -1121,19 +1132,41 @@ const toggleReadingMode = (): void => {
   startReadingMode()
 }
 
-/** Avance ou recule d'un écran (navigation clavier). */
-const navigateByViewport = (direction: 1 | -1): void => {
+/**
+ * Avance ou recule d'un écran (flèches clavier, molette).
+ * Défile vers la position exacte de l'écran adjacent (`index × largeur`) en `smooth`, snap
+ * neutralisé le temps de l'animation (via `scrollerStyle`) pour éviter l'effet saccadé du
+ * ré-aimantage `mandatory`. `navigationInProgress` sert aussi de garde anti-emballement molette.
+ */
+const goToAdjacentScreen = (direction: 1 | -1): void => {
   stopReadingMode()
-  scrollerRef.value?.scrollBy({ left: direction * window.innerWidth, behavior: 'smooth' })
+  const scroller = scrollerRef.value
+  const targetIndex = activeIndex.value + direction
+  if (!scroller || targetIndex < 0 || targetIndex >= screens.value.length) return
+
+  navigationInProgress.value = true
+  scroller.scrollTo({ left: targetIndex * scroller.clientWidth, behavior: 'smooth' })
+
+  if (programmaticScrollEndTimer !== null) clearTimeout(programmaticScrollEndTimer)
+  programmaticScrollEndTimer = setTimeout(() => {
+    navigationInProgress.value = false
+    programmaticScrollEndTimer = null
+  }, 500)
 }
 
-/** Convertit le défilement vertical de la molette en défilement horizontal du rail. */
+/**
+ * Convertit la molette verticale en navigation horizontale, un écran par geste.
+ * `navigationInProgress` ignore les `wheel` pendant l'animation : un même geste de molette
+ * (qui émet de nombreux événements) ne fait donc avancer que d'un écran à la fois.
+ */
 const handleWheel = (event: WheelEvent): void => {
-  if (!scrollerRef.value) return
+  // Une surcouche scrollable est ouverte (drawer d'infos, lightbox) : on laisse le
+  // défilement natif agir et on ne navigue pas dans le rail.
+  if (isDetailPanelOpen.value || lightboxMedia.value) return
   if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return
-  stopReadingMode()
-  scrollerRef.value.scrollLeft += event.deltaY
   event.preventDefault()
+  if (navigationInProgress.value) return
+  goToAdjacentScreen(event.deltaY > 0 ? 1 : -1)
 }
 
 /** Navigation clavier : la lightbox capte les touches en priorité quand elle est ouverte. */
@@ -1148,8 +1181,15 @@ const handleKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') closeDetailPanel()
     return
   }
-  if (event.key === 'ArrowRight') navigateByViewport(1)
-  else if (event.key === 'ArrowLeft') navigateByViewport(-1)
+  // preventDefault : empêche le défilement natif du conteneur par les flèches, qui se
+  // cumulait avec notre navigation et faisait sauter deux écrans.
+  if (event.key === 'ArrowRight') {
+    event.preventDefault()
+    goToAdjacentScreen(1)
+  } else if (event.key === 'ArrowLeft') {
+    event.preventDefault()
+    goToAdjacentScreen(-1)
+  }
 }
 
 /** Rend la main à l'utilisateur sur action explicite : clic/tap, molette ou clavier. */
@@ -1209,7 +1249,10 @@ onMounted(() => {
     screenObserver.observe(el)
   }
 
-  scroller.addEventListener('wheel', handleWheel, { passive: false })
+  // wheel sur le conteneur racine (élément normal) : capte la molette quel que soit
+  // l'élément survolé (overlays `fixed` inclus) ET honore preventDefault — ce que window
+  // ne ferait pas (Chrome force les listeners wheel de window/document en passive).
+  rootRef.value?.addEventListener('wheel', handleWheel, { passive: false })
   scroller.addEventListener('pointerdown', handleReadingModePointerInterrupt)
   window.addEventListener('keydown', handleKeydown)
 })
@@ -1217,9 +1260,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
   clearReadingModeAnimation()
   stopCarouselAutoplay()
+  if (programmaticScrollEndTimer !== null) clearTimeout(programmaticScrollEndTimer)
   screenObserver?.disconnect()
   screenObserver = null
-  scrollerRef.value?.removeEventListener('wheel', handleWheel)
+  rootRef.value?.removeEventListener('wheel', handleWheel)
   scrollerRef.value?.removeEventListener('pointerdown', handleReadingModePointerInterrupt)
   window.removeEventListener('keydown', handleKeydown)
 })
