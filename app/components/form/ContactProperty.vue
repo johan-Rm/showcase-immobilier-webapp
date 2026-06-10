@@ -98,6 +98,7 @@
       {{ submitErrorMessage }}
     </p>
 
+    <!-- Bouton aligné à droite en mobile (hors zone de la synthèse fixe en bas), à gauche en desktop. -->
     <div class="flex justify-end pt-4 md:justify-start">
       <UButton
         type="submit"
