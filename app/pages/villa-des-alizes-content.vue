@@ -164,7 +164,9 @@
             :fetchpriority="index === 0 ? 'high' : 'auto'"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
-          <!-- Vue d'ouverture : bloc à droite pour ne pas concurrencer la synthèse fixe en bas gauche. -->
+          <!-- Bloc texte ancré en bas. Hauteur de départ harmonisée avec les autres écrans de
+               la famille « bas » (carousel, duo) : bottom-28 en mobile, md:bottom-36 en desktop.
+               index 0 (ouverture) aligné à droite pour ne pas concurrencer la synthèse fixe. -->
           <div
             v-if="screen.title"
             class="absolute z-10 max-w-xl text-white"
@@ -307,7 +309,8 @@
             loading="lazy"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
-          <!-- Zone texte — désignation + titre + contexte + bande de vignettes (navigation). -->
+          <!-- Zone texte — désignation + titre + contexte + bande de vignettes (navigation).
+               Hauteur de départ harmonisée famille « bas » : bottom-28 / md:bottom-36. -->
           <div
             class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
           >
@@ -321,15 +324,15 @@
               {{ screen.text }}
             </p>
 
-            <!-- Navigation interne au SCREEN_05 : intégrée au bloc texte pour garder une zone unique. -->
-            <div
-              class="mt-5 flex max-w-full justify-end gap-1.5 overflow-x-auto pl-10 [&::-webkit-scrollbar]:hidden"
-            >
+            <!-- Navigation interne au SCREEN_05 (max 5 vignettes) : intégrée au bloc texte pour
+                 garder une zone unique. Mobile : flex-1 → toutes visibles, sans troncature.
+                 Desktop : taille fixe alignée à droite. -->
+            <div class="mt-5 flex gap-1.5 md:justify-end">
               <button
-                v-for="(media, mediaIndex) in screen.media"
+                v-for="(media, mediaIndex) in screen.media.slice(0, 5)"
                 :key="media.src"
                 type="button"
-                class="relative h-11 w-16 shrink-0 overflow-hidden rounded border transition-all md:h-12 md:w-18"
+                class="relative h-11 min-w-0 flex-1 overflow-hidden rounded border transition-all md:h-12 md:w-18 md:flex-none"
                 :class="
                   (galleryIndex[screen.id] ?? 0) === mediaIndex
                     ? 'border-white opacity-100'
@@ -370,7 +373,8 @@
             />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
-          <!-- Zone texte — désignation + titre + contexte. -->
+          <!-- Zone texte — désignation + titre + contexte.
+               Hauteur de départ harmonisée famille « bas » : bottom-28 / md:bottom-36. -->
           <div
             class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
           >
@@ -388,18 +392,20 @@
 
         <!-- ┌─ ÉCRAN FINAL — Footer / Contact (template CONTACT) ──────────┐
              │ Branche `v-else` : tout template non graphique retombe ici.  │
-             │ Image d'ambiance + formulaire de contact rattaché au bien    │
-             │ via property.reference (composant FormContactProperty).      │
+             │ Formulaire de contact rattaché au bien via property.reference│
+             │ (FormContactProperty). Visuel d'ambiance affiché à partir de │
+             │ md seulement : masqué en mobile pour laisser le formulaire    │
+             │ occuper tout l'écran.                                         │
              └──────────────────────────────────────────────────────────────┘ -->
         <div v-else class="flex h-full w-full flex-col overflow-hidden md:flex-row">
-          <!-- Zone média — visuel d'ambiance (terrasse/piscine).
-               sizes : pleine largeur en mobile, moitié à partir de md. -->
+          <!-- Zone média — visuel d'ambiance (terrasse/piscine). Masqué en mobile
+               (formulaire plein écran), demi-largeur à partir de md. -->
           <div class="relative hidden md:block md:h-full md:w-1/2">
             <AppImage
               :src="property.contactImage"
               alt="Terrasse extérieure et piscine de la villa au cœur du jardin"
               class="absolute inset-0 size-full object-cover"
-              sizes="xs:100vw md:50vw"
+              sizes="md:50vw"
               loading="lazy"
             />
           </div>
@@ -993,12 +999,13 @@ const stopCarouselAutoplay = (): void => {
 
 /**
  * Lance le défilement automatique des visuels d'un écran carousel actif (boucle).
- * N'a d'effet que sur un écran `carousel` comportant plusieurs visuels, et reste
- * inactif si l'utilisateur a demandé à réduire les animations.
+ * N'a d'effet que sur un écran `carousel` comportant plusieurs visuels. Reste inactif
+ * si l'utilisateur a demandé à réduire les animations, ou pendant le mode lecture
+ * cinématique : le travelling traverse le carousel sans en déclencher l'autoplay.
  */
 const startCarouselAutoplay = (id: string): void => {
   stopCarouselAutoplay()
-  if (prefersReducedMotion.value) return
+  if (prefersReducedMotion.value || isReadingModeActive.value) return
   const screen = screens.value.find((item) => item.id === id)
   if (!screen || screenLayout(screen) !== 'carousel' || screen.media.length <= 1) return
 
@@ -1070,6 +1077,9 @@ const clearReadingModeAnimation = (): void => {
 const stopReadingMode = (): void => {
   isReadingModeActive.value = false
   clearReadingModeAnimation()
+  // Si l'arrêt laisse l'utilisateur sur un carousel (interruption manuelle), on (re)lance
+  // l'autoplay que le mode lecture avait neutralisé.
+  startCarouselAutoplay(activeScreenId.value)
 }
 
 /**
@@ -1110,6 +1120,9 @@ const startReadingMode = (): void => {
   if (!scroller || !hasNextScreen.value) return
 
   clearReadingModeAnimation()
+  // Coupe un éventuel autoplay carousel en cours : la cinématique ne doit pas cohabiter
+  // avec le défilement automatique des vignettes.
+  stopCarouselAutoplay()
   isReadingModeActive.value = true
   readingModeAnimationFrame = requestAnimationFrame(runReadingModeFrame)
 }
