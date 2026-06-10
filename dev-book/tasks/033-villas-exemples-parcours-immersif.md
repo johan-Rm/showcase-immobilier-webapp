@@ -38,6 +38,8 @@ les textes verbatim ni réutiliser les noms/identité réels :
 | 1 | Villa Lucia (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador | …/villa-lucia-mogador/photos | _à définir (ex. villa-lumiere-mogador)_ |
 | 2 | Villa Mamouna (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-mamouna | …/villa-mamouna/photos | _à définir (ex. villa-najma-mogador)_ |
 | 3 | Villa Betty (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-betty | …/villa-betty/photos | _à définir (ex. villa-saadia-essaouira)_ |
+| 4 | Villa Sunny Baraka (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-sunny-baraka | …/villa-sunny-baraka/photos | _à définir (ex. villa-soleil-essaouira)_ |
+| 5 | Villa DL (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-dl | …/villa-dl/photos | _à définir (ex. villa-dunes-essaouira)_ |
 | … | _liens suivants fournis par l'utilisateur_ | | | |
 
 ---
