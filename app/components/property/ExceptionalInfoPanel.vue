@@ -47,7 +47,9 @@
       </ul>
 
       <dl class="text-foreground/70 mt-8 text-sm">
-        <dt class="text-foreground/45 text-xs tracking-[0.18em] uppercase">Référence</dt>
+        <dt class="text-foreground/45 text-xs tracking-[0.18em] uppercase">
+          {{ labels.reference }}
+        </dt>
         <dd class="mt-1 font-medium">{{ summary.reference }}</dd>
       </dl>
 
@@ -56,7 +58,7 @@
         class="border-foreground/50 hover:bg-foreground hover:text-background focus-visible:outline-foreground mt-auto inline-flex items-center justify-center gap-2 rounded-md border px-5 py-3 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2"
         @click="emit('request-visit')"
       >
-        Demander une visite <span aria-hidden="true">→</span>
+        {{ labels.requestVisit }} <span aria-hidden="true">→</span>
       </button>
     </aside>
   </Transition>
@@ -74,6 +76,7 @@ defineProps<{
   open: boolean
   summary: ExceptionalPropertySummary
   badges: readonly ExceptionalPropertyBadge[]
+  labels: { reference: string; requestVisit: string }
 }>()
 const emit = defineEmits<{ close: []; 'request-visit': [] }>()
 </script>

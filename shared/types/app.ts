@@ -112,6 +112,7 @@ export type AppAccommodationSections = {
 export type AppAccommodationTexts = {
   noImageAvailable: string
   propertyVisual: string
+  requestVisit: string
 }
 
 export type AppAccommodation = {
