@@ -379,7 +379,7 @@ const contentBlocks = computed<Block[]>(() => {
     },
     {
       id: 'screens',
-      label: panel?.blocks['screens'] ?? 'Screens',
+      label: panel?.blocks['screens'] ?? 'Parcours',
       icon: 'i-lucide-layout-list',
       actions: [],
     },
