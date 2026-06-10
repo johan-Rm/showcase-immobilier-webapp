@@ -1,5 +1,7 @@
 import type { AccommodationCategory } from './accommodationCategory'
 
+import type { AccommodationComponent } from './accommodationComponent'
+
 import type { AccommodationMedia } from './accommodationMedia'
 
 import type { AccommodationPlace } from './accommodationPlace'
@@ -117,9 +119,14 @@ export interface Accommodation {
   realEstateListing: RealEstateListing
   /**
    * Photos, vidéos et documents associés au bien (ordonnés)
-   * --- Avis & contenu éditorial ---
+   * --- Composition de la page ---
    */
   associatedMedia: AccommodationMedia[]
+  /**
+   * Blocs de contenu ("écrans") composant la fiche — structure partagée, textes localisés
+   * --- Avis & contenu éditorial ---
+   */
+  hasPart?: AccommodationComponent[]
   /**
    * Avis ou coup de cœur rédigé par l'agence — optionnel
    * --- SEO ---

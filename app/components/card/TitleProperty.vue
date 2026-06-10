@@ -60,7 +60,7 @@
         class="mt-2 [--h3-size:clamp(1.8rem,9vw,2.8rem)] md:[--h3-size:clamp(2.4rem,3.5vw,4.6rem)]"
       >
         <NuxtLink
-          :to="localePath('/properties' + props.href)"
+          :to="demoTo"
           class="cursor-pointer font-black text-white uppercase transition-opacity hover:opacity-85"
           :aria-label="props.ariaLabel"
         >
@@ -156,6 +156,15 @@ const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 // 7. Validation et helpers purs
 
 // 8. Computed UI-ready
+// DEMO TEMPORAIRE — les biens en location saisonnière pointent vers le parcours
+// immersif Villa des Alizés au lieu de leur fiche produit. À retirer après la démo.
+const demoTo = computed(() => {
+  if (props.href?.startsWith('/location-saisonniere')) {
+    return localePath('/villa-des-alizes-content')
+  }
+  return localePath('/properties' + props.href)
+})
+
 const isHero = computed(() => props.size === 'hero')
 
 const cardUi = computed(() => ({
