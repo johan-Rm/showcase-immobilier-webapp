@@ -35,7 +35,9 @@ les textes verbatim ni réutiliser les noms/identité réels :
 
 | # | Bien source (réel) | Infos | Photos | Slug fictif cible |
 | - | ------------------ | ----- | ------ | ----------------- |
-| 1 | Villa Lucia Mogador (villanovo) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador | …/villa-lucia-mogador/photos | _à définir (ex. villa-lumiere-mogador)_ |
+| 1 | Villa Lucia (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador | …/villa-lucia-mogador/photos | _à définir (ex. villa-lumiere-mogador)_ |
+| 2 | Villa Mamouna (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-mamouna | …/villa-mamouna/photos | _à définir (ex. villa-najma-mogador)_ |
+| 3 | Villa Betty (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-betty | …/villa-betty/photos | _à définir (ex. villa-saadia-essaouira)_ |
 | … | _liens suivants fournis par l'utilisateur_ | | | |
 
 ---
