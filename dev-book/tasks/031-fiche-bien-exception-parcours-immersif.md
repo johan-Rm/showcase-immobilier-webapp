@@ -1,5 +1,5 @@
 ---
-status: À faire
+status: Fait
 dependances: []
 ---
 
@@ -7,6 +7,21 @@ dependances: []
 
 > **Pour les agents:** Utiliser `superpowers:subagent-driven-development` ou
 > `superpowers:executing-plans` pour exécuter ce plan tâche par tâche.
+>
+> **Réalisé (commits `bfa18e1` + `0dec781`)** : décomposition complète livrée et vérifiée en
+> runtime sur `/properties/bien-a-vendre/villa-golf/villa-des-alizes`.
+> - `services/mapper/exceptional.ts` (+ `shared/types/exceptional.ts`) + 14 tests
+>   (`exceptional.vitest.ts`) ; garde `isExceptionalProperty`.
+> - 7 composants `components/property/Exceptional*.vue` + `exceptional.helpers.ts`,
+>   surcouches `ExceptionalSummary` / `ExceptionalInfoPanel` / `ExceptionalLightbox`.
+> - `composables/useExceptionalRail.ts` (rail, molette→horizontal, clavier, mode lecture,
+>   autoplay carousel, lightbox, handoff `next-screen`, neutralisation hors écran actif).
+> - `components/screen/PropertyExceptional.vue` (capture `navigator.enabled:false`, patron
+>   `ScreenPropertyList`) ; page `[accommodationSlug]` : garde + fallback + `@next-screen="next"`.
+> - i18n : « Référence » + « Demander une visite » via `accommodationUi` (aria en dur, comme
+>   l'existant).
+>
+> **Aria-labels non externalisés** (FR en dur, cohérent avec `ScreenPropertyDetail`).
 
 **Goal:** Faire passer la fiche d'un bien d'exception du carrousel vertical classique
 (`ScreenPropertyDetail`) à un **parcours immersif horizontal** content-driven, dérivé des
