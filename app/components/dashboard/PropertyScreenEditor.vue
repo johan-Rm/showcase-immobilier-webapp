@@ -78,17 +78,15 @@
       </label>
     </div>
 
-    <!-- Médias (partagés) — réutilise l'éditeur de médias associés -->
+    <!-- Médias (partagés) — sélection parmi les médias associés du bien -->
     <div class="flex flex-col gap-1.5">
       <span class="text-[0.55rem] font-semibold tracking-widest uppercase" style="color: #6b7a4a">
         Images
       </span>
-      <DashboardPropertyAssociatedMediaEditor
-        :associated-media="screen.associatedMedia ?? []"
-        :full-width-items="true"
-        @update:associated-media="
-          (value) => patch({ associatedMedia: value as DashboardScreenMedia[] })
-        "
+      <DashboardScreenMediaSelector
+        :model-value="screen.associatedMedia ?? []"
+        :available-media="availableMedia"
+        @update:model-value="(value) => patch({ associatedMedia: value as DashboardScreenMedia[] })"
       />
     </div>
   </div>
@@ -98,6 +96,7 @@
 // 1. Imports
 import type {
   DashboardAccommodationScreen,
+  DashboardEditableValue,
   DashboardScreenMedia,
   DashboardScreenMeta,
 } from '#shared/types/dashboardAccommodation'
@@ -118,7 +117,11 @@ const TEMPLATES_WITH_REVERSE = [
 ]
 
 // 3. Props et emits
-const props = defineProps<{ screen: DashboardAccommodationScreen }>()
+const props = defineProps<{
+  screen: DashboardAccommodationScreen
+  /** Médias associés du bien, source de sélection des images de l'écran. */
+  availableMedia: DashboardEditableValue
+}>()
 const emit = defineEmits<{ 'update:screen': [screen: DashboardAccommodationScreen] }>()
 
 // 8. Computed UI-ready

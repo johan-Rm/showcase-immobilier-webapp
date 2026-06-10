@@ -61,6 +61,7 @@
       <div v-if="openIndex === index" class="border-t border-white/8 px-3">
         <DashboardPropertyScreenEditor
           :screen="screen"
+          :available-media="availableMedia"
           @update:screen="(updated) => update(index, updated)"
         />
       </div>
@@ -102,7 +103,11 @@ defineOptions({ name: 'DashboardPropertyScreensEditor' })
 const DEFAULT_TEMPLATE = 'SCREEN_ACCOMMODATION_FULL'
 
 // 3. Props et emits
-const props = defineProps<{ screens: DashboardEditableValue }>()
+const props = defineProps<{
+  screens: DashboardEditableValue
+  /** Médias associés du bien, transmis aux cartes pour la sélection d'images. */
+  availableMedia: DashboardEditableValue
+}>()
 const emit = defineEmits<{ 'update:screens': [value: DashboardEditableValue] }>()
 
 // 5. État local
