@@ -1,6 +1,7 @@
 import type {
   Accommodation,
   AccommodationCategory,
+  AccommodationComponent,
   AccommodationMedia,
   AccommodationPlace,
   CategoryCode,
@@ -373,6 +374,46 @@ const mapAssociatedMedia = (
 }
 
 /**
+ * Résout les médias d'un screen (`hasPart`) : chaque entrée référence soit un
+ * identifiant d'image (saisie dashboard), soit une url directe (contenu), et est
+ * résolue en `MediaObject` avec url, afin que le mapper du parcours immersif
+ * (`services/mapper/exceptional.ts`) lise des url prêtes à l'emploi.
+ */
+const mapScreenMedia = (value: unknown, indexes: AccommodationMetadataIndexes): MediaObject[] => {
+  if (!Array.isArray(value)) return []
+
+  const mapped: MediaObject[] = []
+  for (const entry of value) {
+    if (!isRecord(entry)) continue
+    const source =
+      typeof entry.image === 'string' && entry.image.length > 0 ? entry.image : entry.url
+    const media = mapMediaObject(source, indexes)
+    if (!media?.url) continue
+    mapped.push({ ...media, caption: getString(entry.caption, media.caption) })
+  }
+  return mapped
+}
+
+/**
+ * Normalise les blocs `hasPart` (écrans du parcours) : conserve la structure et
+ * résout les médias internes. `position`, `additionalType`, textes et `meta`
+ * restent inchangés.
+ */
+const mapHasPart = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+): AccommodationComponent[] | undefined => {
+  if (!Array.isArray(value)) return undefined
+  return value.map((part): AccommodationComponent => {
+    if (!isRecord(part)) return part as AccommodationComponent
+    return {
+      ...(part as unknown as AccommodationComponent),
+      associatedMedia: mapScreenMedia(part.associatedMedia, indexes),
+    }
+  })
+}
+
+/**
  * Applique tous les mappers sur un bien en utilisant les index déjà construits.
  *
  * @param item Bien qui sera enrichi par les références.
@@ -398,6 +439,7 @@ const mapAccommodationWithIndexes = (
     amenityFeature: mapCategoryList(record.amenityFeature, indexes),
     qualities: Array.isArray(record.qualities) ? record.qualities : undefined,
     associatedMedia: mapAssociatedMedia(record.associatedMedia, indexes),
+    hasPart: mapHasPart(record.hasPart, indexes),
     realEstateListing: mapListing(record.realEstateListing, indexes),
     isActive: typeof record.isActive === 'boolean' ? record.isActive : false,
 

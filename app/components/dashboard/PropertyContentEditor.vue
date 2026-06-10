@@ -108,6 +108,13 @@
             @update:associated-media="emit('update-associated-media', $event)"
           />
         </template>
+
+        <template v-else-if="block.id === 'screens'">
+          <DashboardPropertyScreensEditor
+            :screens="hasPartValue"
+            @update:screens="emit('update-field', 'hasPart', $event)"
+          />
+        </template>
       </div>
     </div>
   </div>
@@ -370,8 +377,17 @@ const contentBlocks = computed<Block[]>(() => {
       icon: 'i-lucide-files',
       actions: [],
     },
+    {
+      id: 'screens',
+      label: panel?.blocks['screens'] ?? 'Screens',
+      icon: 'i-lucide-layout-list',
+      actions: [],
+    },
   ]
 })
+
+// Blocs `hasPart` (screens du parcours) du brouillon de la locale active.
+const hasPartValue = computed<DashboardEditableValue>(() => getFieldValue('hasPart', []))
 
 const getNestedValue = (record: DashboardEditableRecord, path: string): DashboardEditableValue => {
   const [first, ...rest] = path.split('.')
