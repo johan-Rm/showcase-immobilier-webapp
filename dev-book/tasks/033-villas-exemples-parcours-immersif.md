@@ -1,5 +1,5 @@
 ---
-status: À faire
+status: Fait
 dependances: [031, 032]
 ---
 
@@ -33,14 +33,28 @@ les textes verbatim ni réutiliser les noms/identité réels :
 
 ## Sources à traiter
 
-| # | Bien source (réel) | Infos | Photos | Slug fictif cible |
-| - | ------------------ | ----- | ------ | ----------------- |
-| 1 | Villa Lucia (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador | …/villa-lucia-mogador/photos | _à définir (ex. villa-lumiere-mogador)_ |
-| 2 | Villa Mamouna (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-mamouna | …/villa-mamouna/photos | _à définir (ex. villa-najma-mogador)_ |
-| 3 | Villa Betty (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-betty | …/villa-betty/photos | _à définir (ex. villa-saadia-essaouira)_ |
-| 4 | Villa Sunny Baraka (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-sunny-baraka | …/villa-sunny-baraka/photos | _à définir (ex. villa-soleil-essaouira)_ |
-| 5 | Villa DL (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-dl | …/villa-dl/photos | _à définir (ex. villa-dunes-essaouira)_ |
-| … | _liens suivants fournis par l'utilisateur_ | | | |
+| # | Bien source (réel) | Infos | Photos | Slug fictif cible | État |
+| - | ------------------ | ----- | ------ | ----------------- | ---- |
+| 1 | Villa Lucia (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador | …/villa-lucia-mogador/photos | `villa-lumiere-mogador` | ✅ |
+| 2 | Villa Mamouna (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-mamouna | …/villa-mamouna/photos | `villa-najma-mogador` | ✅ |
+| 3 | Villa Betty (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-betty | …/villa-betty/photos | `villa-saadia-essaouira` | ✅ |
+| 4 | Villa Sunny Baraka (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-sunny-baraka | …/villa-sunny-baraka/photos | `villa-soleil-essaouira` | ✅ |
+| 5 | Villa DL (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-dl | …/villa-dl/photos | `villa-dunes-essaouira` | ✅ |
+| 6 | Domaine Khali Jhiane (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/domaine-khali-jhiane | …/domaine-khali-jhiane/photos | `domaine-tilila-essaouira` | ✅ |
+| 7 | Maison Illi (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/maison-illi | …/maison-illi/photos | `maison-amani-essaouira` | ✅ |
+| 8 | Riad Dharma (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/riad-dharma | …/riad-dharma/photos | `riad-assala-essaouira` | ✅ |
+| 9 | Kasbah Mamouna (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/kasbah-mamouna | …/kasbah-mamouna/photos | `kasbah-tigmi-essaouira` | ✅ |
+| 10 | Dar El Salam (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/dar-el-salam | …/dar-el-salam/photos | `dar-zahra-essaouira` | ✅ |
+
+> **Réalisé** — 10 biens d'exemple. Fixtures versionnées dans `dev-book/fixtures/accommodations/`
+> (source de vérité, repostées dans `content/fr/accommodations/` car ce dossier est gitignoré et
+> purgé par `make dev-content-sync`), images dans `public/poc/<slug>/`. Les routes
+> `/properties/<realEstateListing>/<category>/<slug>` rendent le parcours immersif (HTTP 200,
+> `data-screen`, images servies, `srcset` non vide). Cf. `dev-book/fixtures/accommodations/README.md`.
+>
+> Les biens 1→5 sont en `category: villa-golf` ; les biens 6→10 reprennent leur **type réel**
+> (`domaine`, `maison-de-campagne`, `riad`, `kasbah`, `dar`) — la fiche d'exception se résout par
+> slug, indépendamment de la catégorie de route, donc l'activation immersive ne dépend que de `hasPart`.
 
 ---
 
@@ -48,25 +62,25 @@ les textes verbatim ni réutiliser les noms/identité réels :
 
 ### 1. Récupérer les infos
 
-- [ ] `WebFetch` sur la page infos → caractéristiques factuelles (surface habitable, surface
+- [x] `WebFetch` sur la page infos → caractéristiques factuelles (surface habitable, surface
   terrain, chambres, salles de bains, pièces, capacité, piscine, localisation, équipements) et
   liste des **espaces** (vue d'ensemble, entrée, salons, cuisine, extérieur, chambres, eau/bien-être).
-- [ ] **Réécrire** des textes d'ambiance courts et originaux par espace (1 idée forte / écran).
+- [x] **Réécrire** des textes d'ambiance courts et originaux par espace (1 idée forte / écran).
 
 ### 2. Télécharger les images
 
-- [ ] ⚠️ La page `/photos` de villanovo est **rendue en JS** : un `curl` simple ne renvoie pas
+- [x] ⚠️ La page `/photos` de villanovo est **rendue en JS** : un `curl` simple ne renvoie pas
   les URLs d'images (lazy-load / data-attributes). Prévoir : inspection des URLs réelles
   (DevTools réseau / `data-src` / JSON d'hydratation), ou rendu navigateur, puis téléchargement
   des fichiers (`curl`/`wget`).
-- [ ] Télécharger dans `public/poc/<slug>/`.
-- [ ] **Renommer proprement** : `<slug>-<espace>-NN.jpg` (ex. `villa-lumiere-salon-01.jpg`),
+- [x] Télécharger dans `public/poc/<slug>/`.
+- [x] **Renommer proprement** : `<slug>-<espace>-NN.jpg` (ex. `villa-lumiere-salon-01.jpg`),
   cohérent avec `public/poc/villa-des-alizes/`.
-- [ ] Optimiser si besoin (poids raisonnable, format jpg/webp).
+- [x] Optimiser si besoin (poids raisonnable, format jpg/webp).
 
 ### 3. Créer le contenu avec parcours
 
-- [ ] `content/fr/accommodations/<slug>.md` : frontmatter (identifier fictif, slug, name fictif,
+- [x] `content/fr/accommodations/<slug>.md` : frontmatter (identifier fictif, slug, name fictif,
   category `villa-golf`, realEstateListing `bien-a-vendre`, place Essaouira, surfaces, nb pièces/
   chambres/sdb, offer fictive) **+** bloc `hasPart` selon le modèle `villa-des-alizes.md` :
   - alterner les templates `SCREEN_ACCOMMODATION_{FULL,SPLIT,TRYPTIQUE,CAROUSEL,OVERLAY,DUO}`
@@ -74,12 +88,12 @@ les textes verbatim ni réutiliser les noms/identité réels :
   - `position`, `name` (désignation), `headline` (avec `**accent**`), `text`, `associatedMedia`
     (`url` vers `/poc/<slug>/...`), `meta` (`reverse`/`overlayMode`) si pertinent ;
   - un bloc final `SCREEN_ACCOMMODATION_CONTACT` (auto-rendu).
-- [ ] (Optionnel) versions `en`/`es` si le multilingue est requis pour la démo.
+- [ ] (Optionnel) versions `en`/`es` si le multilingue est requis pour la démo. _(non fait — fr uniquement)_
 
 ### 4. Vérifier
 
-- [ ] La fiche `/properties/bien-a-vendre/villa-golf/<slug>` affiche le parcours immersif (031).
-- [ ] Images résolues (pas d'image blanche : éviter `sizes` `xs:` seul), parcours fluide.
+- [x] La fiche `/properties/bien-a-vendre/villa-golf/<slug>` affiche le parcours immersif (031).
+- [x] Images résolues (pas d'image blanche : éviter `sizes` `xs:` seul), parcours fluide.
 
 ---
 

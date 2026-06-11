@@ -25,6 +25,17 @@ numberOfRooms: 5
 numberOfBedrooms: 3
 numberOfBathroomsTotal: 2
 occupancy: 6
+yearBuilt: null
+landArea: null
+areaSize: null
+areaTerrace: null
+numberOfGarages: null
+amenityFeature: []
+additionalProperty: []
+associatedMedia: []
+realEstateAgent: null
+highlight: null
+review: null
 isActive: true
 metaTitle: Villa des Alizés — Visite immersive | Essaouira, Maroc
 metaDescription: Découvrez la Villa des Alizés, oasis contemporaine au cœur d'un domaine de golf à Essaouira, à travers un parcours immersif, espace après espace.
