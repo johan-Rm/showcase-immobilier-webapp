@@ -58,6 +58,18 @@ type ApiAccommodationMedia = {
   representativeOfPage?: boolean
 }
 
+type ApiAccommodationHasPart = {
+  additionalType?: string | null
+  position?: number | null
+  name?: string | null
+  headline?: string | null
+  text?: string | null
+  // L'API renvoie `[]` quand vide, sinon un objet { reverse?, overlayMode? }.
+  meta?: Record<string, unknown> | unknown[] | null
+  // Références media-object (UUID), ordonnées.
+  associatedMedia?: string[]
+}
+
 type ApiAccommodation = {
   id: string
   identifier: string
@@ -87,6 +99,7 @@ type ApiAccommodation = {
   numberOfGarages: number | null
   occupancy: number | null
   associatedMedia: ApiAccommodationMedia[]
+  hasPart?: ApiAccommodationHasPart[]
   status: 'published' | 'draft' | 'archived'
   createdAt: string
   updatedAt: string
@@ -237,6 +250,7 @@ function mapAccommodation(
   const fm: AccommodationFrontmatter = {}
 
   fm.identifier = item.identifier
+  if (item.slug) fm.slug = item.slug
   if (item.name) fm.name = item.name
   fm.dateCreated = item.createdAt
   fm.dateModified = item.updatedAt
@@ -285,6 +299,34 @@ function mapAccommodation(
     })
   }
   fm.associatedMedia = resolvedMedia
+
+  // Parcours immersif : chaque écran référence ses médias par UUID ; on les résout
+  // en identifiants de galerie (`{ image }`), comme `associatedMedia`, pour que le
+  // mapper runtime (services/mapper/accommodation.ts) retrouve les url via la galerie.
+  if (item.hasPart?.length) {
+    const screens = [...item.hasPart]
+      .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+      .map((screen) => {
+        const media = (screen.associatedMedia ?? [])
+          .map((uuid) => uuidToFilename[uuid])
+          .filter((filename): filename is string => Boolean(filename))
+          .map((filename) => ({ image: filename }))
+
+        const hasMeta =
+          screen.meta != null && !Array.isArray(screen.meta) && Object.keys(screen.meta).length > 0
+
+        return {
+          ...(screen.additionalType && { additionalType: screen.additionalType }),
+          ...(screen.position != null && { position: screen.position }),
+          ...(screen.name && { name: screen.name }),
+          ...(screen.headline && { headline: screen.headline }),
+          ...(screen.text && { text: screen.text }),
+          ...(hasMeta && { meta: screen.meta }),
+          associatedMedia: media,
+        }
+      })
+    fm.hasPart = screens
+  }
 
   fm.isActive = item.status === 'published'
 
