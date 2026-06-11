@@ -31,7 +31,56 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: maison-amani-vue-ensemble-01
+    url: /poc/maison-amani-essaouira/maison-amani-vue-ensemble-01.jpg
+    caption: Piscine et jardin planté de palmiers
+    representativeOfPage: true
+  - image: maison-amani-galerie-01
+    url: /poc/maison-amani-essaouira/maison-amani-galerie-01.jpg
+    caption: Galerie d'arches en pierre
+  - image: maison-amani-exterieur-01
+    url: /poc/maison-amani-essaouira/maison-amani-exterieur-01.jpg
+    caption: Terrasse repas couverte ouverte sur le jardin
+  - image: maison-amani-exterieur-02
+    url: /poc/maison-amani-essaouira/maison-amani-exterieur-02.jpg
+    caption: Lounge de jardin sous pergola
+  - image: maison-amani-exterieur-03
+    url: /poc/maison-amani-essaouira/maison-amani-exterieur-03.jpg
+    caption: Table de plein air sous la pergola
+  - image: maison-amani-chambre-01
+    url: /poc/maison-amani-essaouira/maison-amani-chambre-01.jpg
+    caption: Chambre aux accents vert d'eau
+  - image: maison-amani-chambre-02
+    url: /poc/maison-amani-essaouira/maison-amani-chambre-02.jpg
+    caption: Chambre aux tons bleu nuit
+  - image: maison-amani-chambre-03
+    url: /poc/maison-amani-essaouira/maison-amani-chambre-03.jpg
+    caption: Chambre chaleureuse et son coin salon
+  - image: maison-amani-chambre-04
+    url: /poc/maison-amani-essaouira/maison-amani-chambre-04.jpg
+    caption: Chambre ouverte sur la terrasse
+  - image: maison-amani-salon-01
+    url: /poc/maison-amani-essaouira/maison-amani-salon-01.jpg
+    caption: Séjour coloré ouvert sur la salle à manger
+  - image: maison-amani-salle-de-bains-01
+    url: /poc/maison-amani-essaouira/maison-amani-salle-de-bains-01.jpg
+    caption: Double vasque et grand miroir
+  - image: maison-amani-salle-de-bains-02
+    url: /poc/maison-amani-essaouira/maison-amani-salle-de-bains-02.jpg
+    caption: Salle de bain avec baignoire
+  - image: maison-amani-cuisine-01
+    url: /poc/maison-amani-essaouira/maison-amani-cuisine-01.jpg
+    caption: Cuisine-bar ouverte sur le jardin
+  - image: maison-amani-salon-02
+    url: /poc/maison-amani-essaouira/maison-amani-salon-02.jpg
+    caption: Salon aux banquettes intégrées
+  - image: maison-amani-salon-03
+    url: /poc/maison-amani-essaouira/maison-amani-salon-03.jpg
+    caption: Salon à la baie ouverte sur la piscine
+  - image: maison-amani-patio-01
+    url: /poc/maison-amani-essaouira/maison-amani-patio-01.jpg
+    caption: Patio planté d'un olivier
 realEstateAgent: null
 highlight: null
 review: null
@@ -47,8 +96,7 @@ hasPart:
     headline: Une maison **au grand jardin**
     text: À Ghazoua, une maison de plain-pied entourée d'un vaste jardin arboré, ouverte sur sa piscine et ses palmiers.
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-vue-ensemble-01.jpg
-        caption: Piscine et jardin planté de palmiers
+      - image: maison-amani-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -58,8 +106,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-galerie-01.jpg
-        caption: Galerie d'arches en pierre
+      - image: maison-amani-galerie-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -67,12 +114,9 @@ hasPart:
     headline: Vivre **sous les pergolas**
     text: Terrasses couvertes, coins repas sous pergola et lounges de jardin prolongent la maison vers le dehors.
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-exterieur-01.jpg
-        caption: Terrasse repas couverte ouverte sur le jardin
-      - url: /poc/maison-amani-essaouira/maison-amani-exterieur-02.jpg
-        caption: Lounge de jardin sous pergola
-      - url: /poc/maison-amani-essaouira/maison-amani-exterieur-03.jpg
-        caption: Table de plein air sous la pergola
+      - image: maison-amani-exterieur-01
+      - image: maison-amani-exterieur-02
+      - image: maison-amani-exterieur-03
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -80,14 +124,10 @@ hasPart:
     headline: Cinq chambres **colorées**
     text: Cinq chambres aux teintes franches et tissus chinés, chacune ouverte sur le jardin ou une terrasse.
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-chambre-01.jpg
-        caption: Chambre aux accents vert d'eau
-      - url: /poc/maison-amani-essaouira/maison-amani-chambre-02.jpg
-        caption: Chambre aux tons bleu nuit
-      - url: /poc/maison-amani-essaouira/maison-amani-chambre-03.jpg
-        caption: Chambre chaleureuse et son coin salon
-      - url: /poc/maison-amani-essaouira/maison-amani-chambre-04.jpg
-        caption: Chambre ouverte sur la terrasse
+      - image: maison-amani-chambre-01
+      - image: maison-amani-chambre-02
+      - image: maison-amani-chambre-03
+      - image: maison-amani-chambre-04
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -97,8 +137,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-salon-01.jpg
-        caption: Séjour coloré ouvert sur la salle à manger
+      - image: maison-amani-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 6
@@ -106,10 +145,8 @@ hasPart:
     headline: Des salles d'eau **lumineuses**
     text: Plans vasques, miroirs et baignoires composent des salles d'eau claires aux matières douces.
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-salle-de-bains-01.jpg
-        caption: Double vasque et grand miroir
-      - url: /poc/maison-amani-essaouira/maison-amani-salle-de-bains-02.jpg
-        caption: Salle de bain avec baignoire
+      - image: maison-amani-salle-de-bains-01
+      - image: maison-amani-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 7
@@ -117,14 +154,10 @@ hasPart:
     headline: Des espaces **à partager**
     text: De la cuisine-bar aux salons-banquettes jusqu'au patio planté d'un olivier, la maison se vit dehors comme dedans.
     associatedMedia:
-      - url: /poc/maison-amani-essaouira/maison-amani-cuisine-01.jpg
-        caption: Cuisine-bar ouverte sur le jardin
-      - url: /poc/maison-amani-essaouira/maison-amani-salon-02.jpg
-        caption: Salon aux banquettes intégrées
-      - url: /poc/maison-amani-essaouira/maison-amani-salon-03.jpg
-        caption: Salon à la baie ouverte sur la piscine
-      - url: /poc/maison-amani-essaouira/maison-amani-patio-01.jpg
-        caption: Patio planté d'un olivier
+      - image: maison-amani-cuisine-01
+      - image: maison-amani-salon-02
+      - image: maison-amani-salon-03
+      - image: maison-amani-patio-01
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8

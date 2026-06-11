@@ -31,7 +31,56 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: villa-soleil-vue-ensemble-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-vue-ensemble-01.jpg
+    caption: La demeure et son bassin au crépuscule
+    representativeOfPage: true
+  - image: villa-soleil-salon-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-salon-01.jpg
+    caption: Grand salon voûté ouvert sur le jardin
+  - image: villa-soleil-piscine-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-piscine-01.jpg
+    caption: Piscine et parasols devant la demeure
+  - image: villa-soleil-exterieur-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-exterieur-01.jpg
+    caption: Terrasse ombragée ouverte sur le jardin
+  - image: villa-soleil-terrasse-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-terrasse-01.jpg
+    caption: Toit-terrasse lounge panoramique
+  - image: villa-soleil-chambre-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-01.jpg
+    caption: Chambre double aux fenêtres cintrées
+  - image: villa-soleil-chambre-02
+    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-02.jpg
+    caption: Chambre blanche baignée de lumière
+  - image: villa-soleil-chambre-03
+    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-03.jpg
+    caption: Chambre aux teintes douces
+  - image: villa-soleil-chambre-04
+    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-04.jpg
+    caption: Chambre claire ouverte sur le jardin
+  - image: villa-soleil-salon-02
+    url: /poc/villa-soleil-essaouira/villa-soleil-salon-02.jpg
+    caption: Salon avec cheminée et assises colorées
+  - image: villa-soleil-salle-de-bains-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-salle-de-bains-01.jpg
+    caption: Double vasque sous fenêtre en mashrabiya
+  - image: villa-soleil-salle-de-bains-02
+    url: /poc/villa-soleil-essaouira/villa-soleil-salle-de-bains-02.jpg
+    caption: Baignoire devant la fenêtre cintrée
+  - image: villa-soleil-salle-a-manger-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-salle-a-manger-01.jpg
+    caption: Salle à manger sous voûtes autour d'une grande table
+  - image: villa-soleil-piscine-interieure-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-piscine-interieure-01.jpg
+    caption: Piscine intérieure couverte et voûtée
+  - image: villa-soleil-golf-01
+    url: /poc/villa-soleil-essaouira/villa-soleil-golf-01.jpg
+    caption: Putting green privatif dans le jardin
+  - image: villa-soleil-salon-03
+    url: /poc/villa-soleil-essaouira/villa-soleil-salon-03.jpg
+    caption: Salon lounge aux banquettes basses
 realEstateAgent: null
 highlight: null
 review: null
@@ -48,8 +97,7 @@ hasPart:
     headline: Une propriété de prestige **au bord de l'eau**
     text: Dans la campagne d'Essaouira, une vaste demeure ocre déployée autour d'un bassin et de jardins, pensée pour recevoir en grand.
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-vue-ensemble-01.jpg
-        caption: La demeure et son bassin au crépuscule
+      - image: villa-soleil-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -59,8 +107,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-salon-01.jpg
-        caption: Grand salon voûté ouvert sur le jardin
+      - image: villa-soleil-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -68,12 +115,9 @@ hasPart:
     headline: Jardins, terrasses **et piscine**
     text: Piscine chauffée bordée de parasols, vaste terrasse de mille mètres carrés et toit-terrasse panoramique.
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-piscine-01.jpg
-        caption: Piscine et parasols devant la demeure
-      - url: /poc/villa-soleil-essaouira/villa-soleil-exterieur-01.jpg
-        caption: Terrasse ombragée ouverte sur le jardin
-      - url: /poc/villa-soleil-essaouira/villa-soleil-terrasse-01.jpg
-        caption: Toit-terrasse lounge panoramique
+      - image: villa-soleil-piscine-01
+      - image: villa-soleil-exterieur-01
+      - image: villa-soleil-terrasse-01
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -81,14 +125,10 @@ hasPart:
     headline: Cinq chambres **lumineuses**
     text: Cinq chambres aux fenêtres cintrées, entre blanc lumineux et matières naturelles, ouvertes sur les jardins.
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-chambre-01.jpg
-        caption: Chambre double aux fenêtres cintrées
-      - url: /poc/villa-soleil-essaouira/villa-soleil-chambre-02.jpg
-        caption: Chambre blanche baignée de lumière
-      - url: /poc/villa-soleil-essaouira/villa-soleil-chambre-03.jpg
-        caption: Chambre aux teintes douces
-      - url: /poc/villa-soleil-essaouira/villa-soleil-chambre-04.jpg
-        caption: Chambre claire ouverte sur le jardin
+      - image: villa-soleil-chambre-01
+      - image: villa-soleil-chambre-02
+      - image: villa-soleil-chambre-03
+      - image: villa-soleil-chambre-04
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -98,8 +138,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-salon-02.jpg
-        caption: Salon avec cheminée et assises colorées
+      - image: villa-soleil-salon-02
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 6
@@ -107,10 +146,8 @@ hasPart:
     headline: Six salles d'eau **baignées de jour**
     text: Doubles vasques, baignoires et mashrabiyas filtrent la lumière dans des salles d'eau spacieuses.
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-salle-de-bains-01.jpg
-        caption: Double vasque sous fenêtre en mashrabiya
-      - url: /poc/villa-soleil-essaouira/villa-soleil-salle-de-bains-02.jpg
-        caption: Baignoire devant la fenêtre cintrée
+      - image: villa-soleil-salle-de-bains-01
+      - image: villa-soleil-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 7
@@ -118,14 +155,10 @@ hasPart:
     headline: Une propriété **à vivre**
     text: Salle à manger sous voûtes, piscine intérieure, putting green et salons composent un art de recevoir sans limite.
     associatedMedia:
-      - url: /poc/villa-soleil-essaouira/villa-soleil-salle-a-manger-01.jpg
-        caption: Salle à manger sous voûtes autour d'une grande table
-      - url: /poc/villa-soleil-essaouira/villa-soleil-piscine-interieure-01.jpg
-        caption: Piscine intérieure couverte et voûtée
-      - url: /poc/villa-soleil-essaouira/villa-soleil-golf-01.jpg
-        caption: Putting green privatif dans le jardin
-      - url: /poc/villa-soleil-essaouira/villa-soleil-salon-03.jpg
-        caption: Salon lounge aux banquettes basses
+      - image: villa-soleil-salle-a-manger-01
+      - image: villa-soleil-piscine-interieure-01
+      - image: villa-soleil-golf-01
+      - image: villa-soleil-salon-03
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8

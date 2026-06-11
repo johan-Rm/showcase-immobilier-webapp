@@ -31,7 +31,56 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: riad-assala-vue-ensemble-01
+    url: /poc/riad-assala-essaouira/riad-assala-vue-ensemble-01.jpg
+    caption: Le riad et sa piscine au crépuscule
+    representativeOfPage: true
+  - image: riad-assala-patio-01
+    url: /poc/riad-assala-essaouira/riad-assala-patio-01.jpg
+    caption: Patio couvert aux lanternes et tapis
+  - image: riad-assala-piscine-01
+    url: /poc/riad-assala-essaouira/riad-assala-piscine-01.jpg
+    caption: Piscine sous pergola et zellige
+  - image: riad-assala-spa-01
+    url: /poc/riad-assala-essaouira/riad-assala-spa-01.jpg
+    caption: Jacuzzi extérieur entouré de verdure
+  - image: riad-assala-exterieur-01
+    url: /poc/riad-assala-essaouira/riad-assala-exterieur-01.jpg
+    caption: Jardins arborés et dépendances
+  - image: riad-assala-chambre-01
+    url: /poc/riad-assala-essaouira/riad-assala-chambre-01.jpg
+    caption: Chambre aux teintes grenat et fenêtres cintrées
+  - image: riad-assala-chambre-02
+    url: /poc/riad-assala-essaouira/riad-assala-chambre-02.jpg
+    caption: Chambre épurée aux tons neutres
+  - image: riad-assala-chambre-03
+    url: /poc/riad-assala-essaouira/riad-assala-chambre-03.jpg
+    caption: Chambre aux rideaux rouges et décor ciselé
+  - image: riad-assala-chambre-04
+    url: /poc/riad-assala-essaouira/riad-assala-chambre-04.jpg
+    caption: Chambre chaleureuse aux coussins brodés
+  - image: riad-assala-salon-01
+    url: /poc/riad-assala-essaouira/riad-assala-salon-01.jpg
+    caption: Salon marocain aux banquettes basses
+  - image: riad-assala-salle-de-bains-01
+    url: /poc/riad-assala-essaouira/riad-assala-salle-de-bains-01.jpg
+    caption: Double vasque en zellige bleu
+  - image: riad-assala-salle-de-bains-02
+    url: /poc/riad-assala-essaouira/riad-assala-salle-de-bains-02.jpg
+    caption: Salle de bain aux faïences ciselées
+  - image: riad-assala-hammam-01
+    url: /poc/riad-assala-essaouira/riad-assala-hammam-01.jpg
+    caption: Hammam habillé de zellige
+  - image: riad-assala-petit-dejeuner-01
+    url: /poc/riad-assala-essaouira/riad-assala-petit-dejeuner-01.jpg
+    caption: Petit-déjeuner dressé sur table en zellige
+  - image: riad-assala-salon-02
+    url: /poc/riad-assala-essaouira/riad-assala-salon-02.jpg
+    caption: Salon ouvert sur le jardin par les arches
+  - image: riad-assala-patio-02
+    url: /poc/riad-assala-essaouira/riad-assala-patio-02.jpg
+    caption: Patio planté aux assises colorées
 realEstateAgent: null
 highlight: null
 review: null
@@ -47,8 +96,7 @@ hasPart:
     headline: Un riad **au cœur du jardin**
     text: Un riad d'exception et ses dépendances, ouverts sur la piscine et les jardins à la tombée du jour.
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-vue-ensemble-01.jpg
-        caption: Le riad et sa piscine au crépuscule
+      - image: riad-assala-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -58,8 +106,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-patio-01.jpg
-        caption: Patio couvert aux lanternes et tapis
+      - image: riad-assala-patio-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -67,12 +114,9 @@ hasPart:
     headline: Piscine, spa **et jardins**
     text: Piscine sous pergola habillée de zellige, jacuzzi extérieur et jardins arborés composent un dehors raffiné.
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-piscine-01.jpg
-        caption: Piscine sous pergola et zellige
-      - url: /poc/riad-assala-essaouira/riad-assala-spa-01.jpg
-        caption: Jacuzzi extérieur entouré de verdure
-      - url: /poc/riad-assala-essaouira/riad-assala-exterieur-01.jpg
-        caption: Jardins arborés et dépendances
+      - image: riad-assala-piscine-01
+      - image: riad-assala-spa-01
+      - image: riad-assala-exterieur-01
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -80,14 +124,10 @@ hasPart:
     headline: Sept chambres **ornées**
     text: Sept chambres habillées de tissus et de zelliges, chacune avec sa salle de bain privative.
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-chambre-01.jpg
-        caption: Chambre aux teintes grenat et fenêtres cintrées
-      - url: /poc/riad-assala-essaouira/riad-assala-chambre-02.jpg
-        caption: Chambre épurée aux tons neutres
-      - url: /poc/riad-assala-essaouira/riad-assala-chambre-03.jpg
-        caption: Chambre aux rideaux rouges et décor ciselé
-      - url: /poc/riad-assala-essaouira/riad-assala-chambre-04.jpg
-        caption: Chambre chaleureuse aux coussins brodés
+      - image: riad-assala-chambre-01
+      - image: riad-assala-chambre-02
+      - image: riad-assala-chambre-03
+      - image: riad-assala-chambre-04
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -97,8 +137,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-salon-01.jpg
-        caption: Salon marocain aux banquettes basses
+      - image: riad-assala-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 6
@@ -106,10 +145,8 @@ hasPart:
     headline: Le zellige **en majesté**
     text: Doubles vasques, miroirs cintrés et zelliges bleus composent des salles de bains précieuses.
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-salle-de-bains-01.jpg
-        caption: Double vasque en zellige bleu
-      - url: /poc/riad-assala-essaouira/riad-assala-salle-de-bains-02.jpg
-        caption: Salle de bain aux faïences ciselées
+      - image: riad-assala-salle-de-bains-01
+      - image: riad-assala-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 7
@@ -117,14 +154,10 @@ hasPart:
     headline: Prendre **le temps**
     text: Du hammam aux petits-déjeuners colorés jusqu'aux salons ouverts et patios, le riad invite à ralentir.
     associatedMedia:
-      - url: /poc/riad-assala-essaouira/riad-assala-hammam-01.jpg
-        caption: Hammam habillé de zellige
-      - url: /poc/riad-assala-essaouira/riad-assala-petit-dejeuner-01.jpg
-        caption: Petit-déjeuner dressé sur table en zellige
-      - url: /poc/riad-assala-essaouira/riad-assala-salon-02.jpg
-        caption: Salon ouvert sur le jardin par les arches
-      - url: /poc/riad-assala-essaouira/riad-assala-patio-02.jpg
-        caption: Patio planté aux assises colorées
+      - image: riad-assala-hammam-01
+      - image: riad-assala-petit-dejeuner-01
+      - image: riad-assala-salon-02
+      - image: riad-assala-patio-02
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8

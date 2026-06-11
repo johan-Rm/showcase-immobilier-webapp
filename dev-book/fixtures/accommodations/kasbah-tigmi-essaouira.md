@@ -31,7 +31,26 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: kasbah-tigmi-vue-ensemble-01
+    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-vue-ensemble-01.jpg
+    caption: Piscine et terrasses éclairées au crépuscule
+    representativeOfPage: true
+  - image: kasbah-tigmi-salon-01
+    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-salon-01.jpg
+    caption: Salon voûté ouvert sur la terrasse
+  - image: kasbah-tigmi-cuisine-01
+    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-cuisine-01.jpg
+    caption: Cuisine rustique avec foyer maçonné
+  - image: kasbah-tigmi-chambre-01
+    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-chambre-01.jpg
+    caption: Chambre aux teintes profondes et plafond de bois
+  - image: kasbah-tigmi-chambre-02
+    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-chambre-02.jpg
+    caption: Chambre lumineuse et son coin salon
+  - image: kasbah-tigmi-salle-de-bains-01
+    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-salle-de-bains-01.jpg
+    caption: Dressing et salle d'eau en tadelakt
 realEstateAgent: null
 highlight: null
 review: null
@@ -47,8 +66,7 @@ hasPart:
     headline: Une kasbah **au crépuscule**
     text: Au cœur de la campagne, une demeure de terre aux lignes berbères, sa longue piscine et ses bougies à la tombée du jour.
     associatedMedia:
-      - url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-vue-ensemble-01.jpg
-        caption: Piscine et terrasses éclairées au crépuscule
+      - image: kasbah-tigmi-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -58,8 +76,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-salon-01.jpg
-        caption: Salon voûté ouvert sur la terrasse
+      - image: kasbah-tigmi-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 3
@@ -69,8 +86,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-cuisine-01.jpg
-        caption: Cuisine rustique avec foyer maçonné
+      - image: kasbah-tigmi-cuisine-01
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -78,10 +94,8 @@ hasPart:
     headline: Quatre chambres **en terre et bois**
     text: Quatre chambres aux plafonds de roseaux et murs de tadelakt, chacune avec sa salle d'eau privative.
     associatedMedia:
-      - url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-chambre-01.jpg
-        caption: Chambre aux teintes profondes et plafond de bois
-      - url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-chambre-02.jpg
-        caption: Chambre lumineuse et son coin salon
+      - image: kasbah-tigmi-chambre-01
+      - image: kasbah-tigmi-chambre-02
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 5
@@ -89,8 +103,7 @@ hasPart:
     headline: Le tadelakt **dans le détail**
     text: Vasques de pierre, miroirs cintrés et dressings habillés composent des espaces d'eau bruts et raffinés.
     associatedMedia:
-      - url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-salle-de-bains-01.jpg
-        caption: Dressing et salle d'eau en tadelakt
+      - image: kasbah-tigmi-salle-de-bains-01
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 6

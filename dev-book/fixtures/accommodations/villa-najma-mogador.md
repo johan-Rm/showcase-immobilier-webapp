@@ -31,7 +31,41 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: villa-najma-vue-ensemble-01
+    url: /poc/villa-najma-mogador/villa-najma-vue-ensemble-01.jpg
+    caption: Façade contemporaine ouverte sur la pelouse
+    representativeOfPage: true
+  - image: villa-najma-salon-01
+    url: /poc/villa-najma-mogador/villa-najma-salon-01.jpg
+    caption: Séjour et salle à manger en enfilade
+  - image: villa-najma-exterieur-01
+    url: /poc/villa-najma-mogador/villa-najma-exterieur-01.jpg
+    caption: Jardin et piscine ouverts sur le plan d'eau
+  - image: villa-najma-piscine-01
+    url: /poc/villa-najma-mogador/villa-najma-piscine-01.jpg
+    caption: Piscine à débordement face au golf
+  - image: villa-najma-terrasse-01
+    url: /poc/villa-najma-mogador/villa-najma-terrasse-01.jpg
+    caption: Terrasse repas ombragée sous parasol
+  - image: villa-najma-chambre-01
+    url: /poc/villa-najma-mogador/villa-najma-chambre-01.jpg
+    caption: Chambre lumineuse ouverte sur le jardin
+  - image: villa-najma-chambre-02
+    url: /poc/villa-najma-mogador/villa-najma-chambre-02.jpg
+    caption: Chambre aux accents bleus
+  - image: villa-najma-salon-02
+    url: /poc/villa-najma-mogador/villa-najma-salon-02.jpg
+    caption: Salon TV avec assises profondes
+  - image: villa-najma-terrasse-02
+    url: /poc/villa-najma-mogador/villa-najma-terrasse-02.jpg
+    caption: Toit-terrasse lounge avec vue panoramique
+  - image: villa-najma-salle-de-bains-01
+    url: /poc/villa-najma-mogador/villa-najma-salle-de-bains-01.jpg
+    caption: Douche à l'italienne et plan vasque en bois
+  - image: villa-najma-salle-de-bains-02
+    url: /poc/villa-najma-mogador/villa-najma-salle-de-bains-02.jpg
+    caption: Double vasque ouverte sur le jardin
 realEstateAgent: null
 highlight: null
 review: null
@@ -48,8 +82,7 @@ hasPart:
     headline: Une architecture contemporaine **face au green**
     text: Lignes nettes, pierre claire et grandes ouvertures pour une villa résolument moderne, posée au cœur d'un domaine de golf.
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-vue-ensemble-01.jpg
-        caption: Façade contemporaine ouverte sur la pelouse
+      - image: villa-najma-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -59,8 +92,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-salon-01.jpg
-        caption: Séjour et salle à manger en enfilade
+      - image: villa-najma-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -68,12 +100,9 @@ hasPart:
     headline: Une piscine **à débordement**
     text: Piscine chauffée ouverte sur le plan d'eau et les fairways, terrasses ombragées et coins repas au grand air.
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-exterieur-01.jpg
-        caption: Jardin et piscine ouverts sur le plan d'eau
-      - url: /poc/villa-najma-mogador/villa-najma-piscine-01.jpg
-        caption: Piscine à débordement face au golf
-      - url: /poc/villa-najma-mogador/villa-najma-terrasse-01.jpg
-        caption: Terrasse repas ombragée sous parasol
+      - image: villa-najma-exterieur-01
+      - image: villa-najma-piscine-01
+      - image: villa-najma-terrasse-01
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -81,10 +110,8 @@ hasPart:
     headline: Quatre chambres **avec salle d'eau**
     text: Quatre chambres aux teintes douces, chacune avec sa salle d'eau privative et sa vue sur le jardin.
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-chambre-01.jpg
-        caption: Chambre lumineuse ouverte sur le jardin
-      - url: /poc/villa-najma-mogador/villa-najma-chambre-02.jpg
-        caption: Chambre aux accents bleus
+      - image: villa-najma-chambre-01
+      - image: villa-najma-chambre-02
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -94,8 +121,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-salon-02.jpg
-        caption: Salon TV avec assises profondes
+      - image: villa-najma-salon-02
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 6
@@ -103,8 +129,7 @@ hasPart:
     headline: Le panorama, **plein ciel**
     text: Un toit-terrasse aménagé en lounge, ouvert sur le golf et l'arrière-pays jusqu'à l'horizon.
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-terrasse-02.jpg
-        caption: Toit-terrasse lounge avec vue panoramique
+      - image: villa-najma-terrasse-02
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 7
@@ -112,10 +137,8 @@ hasPart:
     headline: Le bois et **l'eau claire**
     text: Travertin et bois clair composent des salles d'eau apaisantes, baignées de lumière naturelle.
     associatedMedia:
-      - url: /poc/villa-najma-mogador/villa-najma-salle-de-bains-01.jpg
-        caption: Douche à l'italienne et plan vasque en bois
-      - url: /poc/villa-najma-mogador/villa-najma-salle-de-bains-02.jpg
-        caption: Double vasque ouverte sur le jardin
+      - image: villa-najma-salle-de-bains-01
+      - image: villa-najma-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8

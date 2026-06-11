@@ -31,7 +31,62 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: domaine-tilila-vue-ensemble-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-vue-ensemble-01.jpg
+    caption: Le domaine et sa piscine au cœur du jardin
+    representativeOfPage: true
+  - image: domaine-tilila-salon-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-salon-01.jpg
+    caption: Séjour aux bibliothèques intégrées et cheminée
+  - image: domaine-tilila-piscine-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-piscine-01.jpg
+    caption: Piscine et transats sous les palmiers
+  - image: domaine-tilila-exterieur-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-01.jpg
+    caption: Piscine bordée de palmiers et de pelouse
+  - image: domaine-tilila-exterieur-02
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-02.jpg
+    caption: Lounge de jardin au bord de l'eau
+  - image: domaine-tilila-chambre-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-01.jpg
+    caption: Chambre aux accents turquoise
+  - image: domaine-tilila-chambre-02
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-02.jpg
+    caption: Chambre aux teintes safran
+  - image: domaine-tilila-chambre-03
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-03.jpg
+    caption: Chambre corail ouverte sur la vue
+  - image: domaine-tilila-chambre-04
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-04.jpg
+    caption: Chambre vert sauge ouverte sur le jardin
+  - image: domaine-tilila-chambre-05
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-05.jpg
+    caption: Chambre turquoise spacieuse
+  - image: domaine-tilila-salon-02
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-salon-02.jpg
+    caption: Grand salon avec cheminée et larges baies
+  - image: domaine-tilila-salle-de-bains-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-de-bains-01.jpg
+    caption: Double vasque de pierre ouverte sur la vue
+  - image: domaine-tilila-salle-de-bains-02
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-de-bains-02.jpg
+    caption: Salle de bain avec double vasque et douche
+  - image: domaine-tilila-salle-a-manger-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-a-manger-01.jpg
+    caption: Grande table de banquet sous les baies
+  - image: domaine-tilila-salle-a-manger-02
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-a-manger-02.jpg
+    caption: Salle à manger ouverte sur le séjour
+  - image: domaine-tilila-cuisine-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-cuisine-01.jpg
+    caption: Cuisine équipée à l'îlot central
+  - image: domaine-tilila-exterieur-03
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-03.jpg
+    caption: Table de plein air dressée sur la terrasse
+  - image: domaine-tilila-terrasse-01
+    url: /poc/domaine-tilila-essaouira/domaine-tilila-terrasse-01.jpg
+    caption: Terrasse lounge ouverte sur la piscine
 realEstateAgent: null
 highlight: null
 review: null
@@ -47,8 +102,7 @@ hasPart:
     headline: Un domaine contemporain **aux teintes sable**
     text: Dans la campagne d'Essaouira, une vaste propriété aux volumes épurés et tons sable, déployée autour de ses piscines et terrasses.
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-vue-ensemble-01.jpg
-        caption: Le domaine et sa piscine au cœur du jardin
+      - image: domaine-tilila-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -58,8 +112,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-salon-01.jpg
-        caption: Séjour aux bibliothèques intégrées et cheminée
+      - image: domaine-tilila-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -67,12 +120,9 @@ hasPart:
     headline: Piscines **et palmeraie**
     text: Plusieurs piscines, transats à l'ombre des palmiers et lounges de jardin composent un dehors d'exception.
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-piscine-01.jpg
-        caption: Piscine et transats sous les palmiers
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-01.jpg
-        caption: Piscine bordée de palmiers et de pelouse
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-02.jpg
-        caption: Lounge de jardin au bord de l'eau
+      - image: domaine-tilila-piscine-01
+      - image: domaine-tilila-exterieur-01
+      - image: domaine-tilila-exterieur-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -80,16 +130,11 @@ hasPart:
     headline: Dix chambres **colorées**
     text: Dix chambres aux teintes vives et matières naturelles, chacune ouverte sur une terrasse ou le jardin.
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-01.jpg
-        caption: Chambre aux accents turquoise
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-02.jpg
-        caption: Chambre aux teintes safran
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-03.jpg
-        caption: Chambre corail ouverte sur la vue
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-04.jpg
-        caption: Chambre vert sauge ouverte sur le jardin
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-05.jpg
-        caption: Chambre turquoise spacieuse
+      - image: domaine-tilila-chambre-01
+      - image: domaine-tilila-chambre-02
+      - image: domaine-tilila-chambre-03
+      - image: domaine-tilila-chambre-04
+      - image: domaine-tilila-chambre-05
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -99,8 +144,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-salon-02.jpg
-        caption: Grand salon avec cheminée et larges baies
+      - image: domaine-tilila-salon-02
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 6
@@ -108,10 +152,8 @@ hasPart:
     headline: La pierre claire **et la lumière**
     text: Doubles vasques de pierre, douches à l'italienne et grands miroirs composent des salles d'eau lumineuses.
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-de-bains-01.jpg
-        caption: Double vasque de pierre ouverte sur la vue
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-de-bains-02.jpg
-        caption: Salle de bain avec double vasque et douche
+      - image: domaine-tilila-salle-de-bains-01
+      - image: domaine-tilila-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 7
@@ -119,14 +161,10 @@ hasPart:
     headline: Recevoir **sans limite**
     text: De la grande table de banquet aux séjours ouverts, à la cuisine équipée et aux repas au jardin, le domaine est pensé pour les grandes tablées.
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-a-manger-01.jpg
-        caption: Grande table de banquet sous les baies
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-a-manger-02.jpg
-        caption: Salle à manger ouverte sur le séjour
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-cuisine-01.jpg
-        caption: Cuisine équipée à l'îlot central
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-03.jpg
-        caption: Table de plein air dressée sur la terrasse
+      - image: domaine-tilila-salle-a-manger-01
+      - image: domaine-tilila-salle-a-manger-02
+      - image: domaine-tilila-cuisine-01
+      - image: domaine-tilila-exterieur-03
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 8
@@ -134,8 +172,7 @@ hasPart:
     headline: Des terrasses **face au paysage**
     text: Terrasses privatives et coins lounge ouvrent les chambres et les salons sur la piscine et la campagne.
     associatedMedia:
-      - url: /poc/domaine-tilila-essaouira/domaine-tilila-terrasse-01.jpg
-        caption: Terrasse lounge ouverte sur la piscine
+      - image: domaine-tilila-terrasse-01
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 9

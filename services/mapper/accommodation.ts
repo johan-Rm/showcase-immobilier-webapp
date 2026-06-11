@@ -357,13 +357,19 @@ const mapAssociatedMedia = (
     const media = mapMediaObject(entry.image, indexes)
     if (!media) continue
 
-    const caption = getString(entry.caption, media.caption)
+    // Contenu POC : un item de galerie peut porter un identifiant lisible (`image`)
+    // ET une `url` directe ; on complète l'url quand l'identifiant ne résout pas un média.
+    const directUrl = getString(entry.url)
+    const url = media.url || (isDirectImageUrl(directUrl) ? directUrl : '')
+    const resolved: MediaObject = url === media.url ? media : { ...media, url }
+
+    const caption = getString(entry.caption, resolved.caption)
     const keywords = getStringArray(entry.keywords)
     const representativeOfPage =
       typeof entry.representativeOfPage === 'boolean' ? entry.representativeOfPage : undefined
 
     mapped.push({
-      image: media,
+      image: resolved,
       caption,
       keywords,
       ...(typeof representativeOfPage === 'boolean' ? { representativeOfPage } : {}),
@@ -374,20 +380,42 @@ const mapAssociatedMedia = (
 }
 
 /**
- * Résout les médias d'un screen (`hasPart`) : chaque entrée référence soit un
- * identifiant d'image (saisie dashboard), soit une url directe (contenu), et est
- * résolue en `MediaObject` avec url, afin que le mapper du parcours immersif
- * (`services/mapper/exceptional.ts`) lise des url prêtes à l'emploi.
+ * Indexe la galerie `associatedMedia` du bien par identifiant de média, afin que
+ * les écrans (`hasPart`) puissent référencer une image par son seul identifiant
+ * (modèle dashboard 032), sans dupliquer l'url. Seules les entrées résolues
+ * (url non vide) sont indexées.
  */
-const mapScreenMedia = (value: unknown, indexes: AccommodationMetadataIndexes): MediaObject[] => {
+const buildGalleryIndex = (media: Accommodation['associatedMedia']): Map<string, MediaObject> => {
+  const index = new Map<string, MediaObject>()
+  for (const item of media) {
+    const identifier = item.image?.identifier
+    if (identifier && item.image.url) {
+      index.set(identifier, { ...item.image, caption: getString(item.caption, item.image.caption) })
+    }
+  }
+  return index
+}
+
+/**
+ * Résout les médias d'un screen (`hasPart`). Chaque entrée référence, par ordre
+ * de priorité : un identifiant présent dans la galerie `associatedMedia` du bien
+ * (modèle dashboard 032), sinon un identifiant d'image global, sinon une url
+ * directe (contenu). Le résultat est un `MediaObject` avec url, afin que le mapper
+ * du parcours immersif (`services/mapper/exceptional.ts`) lise des url prêtes à l'emploi.
+ */
+const mapScreenMedia = (
+  value: unknown,
+  indexes: AccommodationMetadataIndexes,
+  galleryIndex?: Map<string, MediaObject>,
+): MediaObject[] => {
   if (!Array.isArray(value)) return []
 
   const mapped: MediaObject[] = []
   for (const entry of value) {
     if (!isRecord(entry)) continue
-    const source =
-      typeof entry.image === 'string' && entry.image.length > 0 ? entry.image : entry.url
-    const media = mapMediaObject(source, indexes)
+    const reference = typeof entry.image === 'string' && entry.image.length > 0 ? entry.image : ''
+    const fromGallery = reference ? galleryIndex?.get(reference) : undefined
+    const media = fromGallery ?? mapMediaObject(reference || entry.url, indexes)
     if (!media?.url) continue
     mapped.push({ ...media, caption: getString(entry.caption, media.caption) })
   }
@@ -402,13 +430,14 @@ const mapScreenMedia = (value: unknown, indexes: AccommodationMetadataIndexes): 
 const mapHasPart = (
   value: unknown,
   indexes: AccommodationMetadataIndexes,
+  galleryIndex?: Map<string, MediaObject>,
 ): AccommodationComponent[] | undefined => {
   if (!Array.isArray(value)) return undefined
   return value.map((part): AccommodationComponent => {
     if (!isRecord(part)) return part as AccommodationComponent
     return {
       ...(part as unknown as AccommodationComponent),
-      associatedMedia: mapScreenMedia(part.associatedMedia, indexes),
+      associatedMedia: mapScreenMedia(part.associatedMedia, indexes, galleryIndex),
     }
   })
 }
@@ -428,6 +457,10 @@ const mapAccommodationWithIndexes = (
   // permet de lire ces variantes sans casser le contrat de sortie.
   const record = item as unknown as UnknownRecord
 
+  // Galerie résolue d'abord : sert d'index pour les références d'image des écrans.
+  const associatedMedia = mapAssociatedMedia(record.associatedMedia, indexes)
+  const galleryIndex = buildGalleryIndex(associatedMedia)
+
   return {
     ...item,
     name: getString(record.name, getString(record.metaTitle, getString(record.slug))),
@@ -438,8 +471,8 @@ const mapAccommodationWithIndexes = (
     place: mapPlace(record.place, indexes),
     amenityFeature: mapCategoryList(record.amenityFeature, indexes),
     qualities: Array.isArray(record.qualities) ? record.qualities : undefined,
-    associatedMedia: mapAssociatedMedia(record.associatedMedia, indexes),
-    hasPart: mapHasPart(record.hasPart, indexes),
+    associatedMedia,
+    hasPart: mapHasPart(record.hasPart, indexes, galleryIndex),
     realEstateListing: mapListing(record.realEstateListing, indexes),
     isActive: typeof record.isActive === 'boolean' ? record.isActive : false,
 

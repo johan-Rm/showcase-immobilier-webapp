@@ -31,7 +31,56 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: villa-saadia-vue-ensemble-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-vue-ensemble-01.jpg
+    caption: Bassin et palmeraie au cœur de la demeure
+    representativeOfPage: true
+  - image: villa-saadia-patio-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-patio-01.jpg
+    caption: Patio ombragé sous les arches en terre
+  - image: villa-saadia-piscine-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-piscine-01.jpg
+    caption: Piscine entourée de verdure et de palmiers
+  - image: villa-saadia-exterieur-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-exterieur-01.jpg
+    caption: Bassin fleuri au cœur du jardin
+  - image: villa-saadia-exterieur-02
+    url: /poc/villa-saadia-essaouira/villa-saadia-exterieur-02.jpg
+    caption: Grande table dressée pour les repas au jardin
+  - image: villa-saadia-chambre-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-01.jpg
+    caption: Chambre aux teintes sable et coussins moelleux
+  - image: villa-saadia-chambre-02
+    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-02.jpg
+    caption: Chambre à la tête de lit colorée
+  - image: villa-saadia-chambre-03
+    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-03.jpg
+    caption: Chambre aux poutres de bois et fenêtre cintrée
+  - image: villa-saadia-chambre-04
+    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-04.jpg
+    caption: Chambre en alcôve voûtée
+  - image: villa-saadia-salon-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-salon-01.jpg
+    caption: Salon voûté aux assises profondes
+  - image: villa-saadia-salle-de-bains-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-salle-de-bains-01.jpg
+    caption: Plan vasque en pierre et miroir
+  - image: villa-saadia-salle-de-bains-02
+    url: /poc/villa-saadia-essaouira/villa-saadia-salle-de-bains-02.jpg
+    caption: Salle d'eau en tadelakt ocre et lanternes
+  - image: villa-saadia-salon-02
+    url: /poc/villa-saadia-essaouira/villa-saadia-salon-02.jpg
+    caption: Séjour lumineux ouvert sur le jardin
+  - image: villa-saadia-salon-03
+    url: /poc/villa-saadia-essaouira/villa-saadia-salon-03.jpg
+    caption: Salon cosy ponctué de plantes et lanternes
+  - image: villa-saadia-salon-04
+    url: /poc/villa-saadia-essaouira/villa-saadia-salon-04.jpg
+    caption: Salon marocain aux tapis et coussins
+  - image: villa-saadia-terrasse-01
+    url: /poc/villa-saadia-essaouira/villa-saadia-terrasse-01.jpg
+    caption: Lounge ombragé sous pergola
 realEstateAgent: null
 highlight: null
 review: null
@@ -48,8 +97,7 @@ hasPart:
     headline: Une demeure **sous les palmiers**
     text: À vingt minutes d'Essaouira, une vaste demeure de tadelakt et d'arches, nichée dans un jardin de palmiers autour d'un grand bassin.
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-vue-ensemble-01.jpg
-        caption: Bassin et palmeraie au cœur de la demeure
+      - image: villa-saadia-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -59,8 +107,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-patio-01.jpg
-        caption: Patio ombragé sous les arches en terre
+      - image: villa-saadia-patio-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -68,12 +115,9 @@ hasPart:
     headline: Un jardin **luxuriant**
     text: Piscine à débordement bordée de fleurs, longues tables de plein air et coins d'ombre rythment un jardin généreux.
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-piscine-01.jpg
-        caption: Piscine entourée de verdure et de palmiers
-      - url: /poc/villa-saadia-essaouira/villa-saadia-exterieur-01.jpg
-        caption: Bassin fleuri au cœur du jardin
-      - url: /poc/villa-saadia-essaouira/villa-saadia-exterieur-02.jpg
-        caption: Grande table dressée pour les repas au jardin
+      - image: villa-saadia-piscine-01
+      - image: villa-saadia-exterieur-01
+      - image: villa-saadia-exterieur-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -81,14 +125,10 @@ hasPart:
     headline: Six chambres **indépendantes**
     text: Six chambres habillées de tadelakt et de bois, entre alcôves voûtées et fenêtres ouvertes sur la verdure.
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-chambre-01.jpg
-        caption: Chambre aux teintes sable et coussins moelleux
-      - url: /poc/villa-saadia-essaouira/villa-saadia-chambre-02.jpg
-        caption: Chambre à la tête de lit colorée
-      - url: /poc/villa-saadia-essaouira/villa-saadia-chambre-03.jpg
-        caption: Chambre aux poutres de bois et fenêtre cintrée
-      - url: /poc/villa-saadia-essaouira/villa-saadia-chambre-04.jpg
-        caption: Chambre en alcôve voûtée
+      - image: villa-saadia-chambre-01
+      - image: villa-saadia-chambre-02
+      - image: villa-saadia-chambre-03
+      - image: villa-saadia-chambre-04
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -98,8 +138,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-salon-01.jpg
-        caption: Salon voûté aux assises profondes
+      - image: villa-saadia-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 6
@@ -107,10 +146,8 @@ hasPart:
     headline: Le tadelakt et **la lumière**
     text: Vasques de pierre, miroirs ronds et lanternes composent des salles d'eau aux matières brutes et chaleureuses.
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-salle-de-bains-01.jpg
-        caption: Plan vasque en pierre et miroir
-      - url: /poc/villa-saadia-essaouira/villa-saadia-salle-de-bains-02.jpg
-        caption: Salle d'eau en tadelakt ocre et lanternes
+      - image: villa-saadia-salle-de-bains-01
+      - image: villa-saadia-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 7
@@ -118,14 +155,10 @@ hasPart:
     headline: Des pièces **chaleureuses**
     text: Du séjour lumineux aux salons d'inspiration marocaine jusqu'aux lounges sous pergola, chaque pièce invite à la détente.
     associatedMedia:
-      - url: /poc/villa-saadia-essaouira/villa-saadia-salon-02.jpg
-        caption: Séjour lumineux ouvert sur le jardin
-      - url: /poc/villa-saadia-essaouira/villa-saadia-salon-03.jpg
-        caption: Salon cosy ponctué de plantes et lanternes
-      - url: /poc/villa-saadia-essaouira/villa-saadia-salon-04.jpg
-        caption: Salon marocain aux tapis et coussins
-      - url: /poc/villa-saadia-essaouira/villa-saadia-terrasse-01.jpg
-        caption: Lounge ombragé sous pergola
+      - image: villa-saadia-salon-02
+      - image: villa-saadia-salon-03
+      - image: villa-saadia-salon-04
+      - image: villa-saadia-terrasse-01
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8

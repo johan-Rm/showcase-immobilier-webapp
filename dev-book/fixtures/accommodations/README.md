@@ -43,3 +43,32 @@ Tous en `realEstateListing: bien-a-vendre`. Route
 `/properties/bien-a-vendre/<category>/<slug>` → activation de la fiche bien d'exception
 (`isExceptionalProperty`, cf. `services/mapper/exceptional.ts`). La fiche se résout **par slug**,
 indépendamment de la catégorie de route ; l'activation immersive ne dépend que du bloc `hasPart`.
+
+## Modèle média (aligné dashboard 032)
+
+La galerie `associatedMedia` du bien est la **source unique** des images. Chaque item porte
+un identifiant lisible, son url et sa légende :
+
+```yaml
+associatedMedia:
+  - image: villa-lumiere-salon-01            # identifiant (clé de référence)
+    url: /poc/villa-lumiere-mogador/villa-lumiere-salon-01.jpg
+    caption: Salon ouvert sur le jardin
+    representativeOfPage: true               # 1er média = visuel représentatif
+```
+
+Les écrans (`hasPart`) ne dupliquent pas l'url : ils **référencent** un média de la galerie
+par son seul identifiant (une légende optionnelle peut surcharger celle de la galerie) :
+
+```yaml
+hasPart:
+  - additionalType: SCREEN_ACCOMMODATION_SPLIT
+    associatedMedia:
+      - image: villa-lumiere-salon-01
+```
+
+Résolution : `services/mapper/accommodation.ts` indexe la galerie du bien puis résout chaque
+référence d'écran par ordre de priorité **galerie du bien → index média global → url directe**
+(cette dernière pour la rétro-compat du contenu legacy). Le mapper du parcours
+(`services/mapper/exceptional.ts`) reçoit ainsi des url prêtes à l'emploi. Couverture :
+`services/mapper/accommodation.vitest.ts`.

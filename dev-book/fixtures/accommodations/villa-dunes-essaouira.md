@@ -31,7 +31,56 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: villa-dunes-vue-ensemble-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-vue-ensemble-01.jpg
+    caption: Façade de pierre et piscine au crépuscule
+    representativeOfPage: true
+  - image: villa-dunes-terrasse-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-terrasse-01.jpg
+    caption: Terrasse couverte en pierre meublée en lounge
+  - image: villa-dunes-piscine-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-piscine-01.jpg
+    caption: Piscine bordée de pierre et d'oliviers
+  - image: villa-dunes-exterieur-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-exterieur-01.jpg
+    caption: Table dressée près de la piscine
+  - image: villa-dunes-exterieur-02
+    url: /poc/villa-dunes-essaouira/villa-dunes-exterieur-02.jpg
+    caption: Terrasse lounge ouverte sur la campagne
+  - image: villa-dunes-chambre-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-chambre-01.jpg
+    caption: Chambre ouverte sur la terrasse et un olivier
+  - image: villa-dunes-chambre-02
+    url: /poc/villa-dunes-essaouira/villa-dunes-chambre-02.jpg
+    caption: Chambre baignée de lumière sur le jardin
+  - image: villa-dunes-chambre-03
+    url: /poc/villa-dunes-essaouira/villa-dunes-chambre-03.jpg
+    caption: Chambre aux accents chaleureux
+  - image: villa-dunes-chambre-04
+    url: /poc/villa-dunes-essaouira/villa-dunes-chambre-04.jpg
+    caption: Chambre double ouverte sur la terrasse
+  - image: villa-dunes-salon-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-salon-01.jpg
+    caption: Séjour ouvert sur la campagne
+  - image: villa-dunes-salle-de-bains-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-salle-de-bains-01.jpg
+    caption: Douche à l'italienne et baignoire en pierre
+  - image: villa-dunes-salle-de-bains-02
+    url: /poc/villa-dunes-essaouira/villa-dunes-salle-de-bains-02.jpg
+    caption: Double vasque en pierre et plantes
+  - image: villa-dunes-cuisine-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-cuisine-01.jpg
+    caption: Cuisine en bois et pierre ouverte sur la terrasse
+  - image: villa-dunes-salon-02
+    url: /poc/villa-dunes-essaouira/villa-dunes-salon-02.jpg
+    caption: Lounge sous pergola de bois
+  - image: villa-dunes-terrasse-02
+    url: /poc/villa-dunes-essaouira/villa-dunes-terrasse-02.jpg
+    caption: Terrasse couverte aux coussins colorés
+  - image: villa-dunes-patio-01
+    url: /poc/villa-dunes-essaouira/villa-dunes-patio-01.jpg
+    caption: Patio vitré ouvert sur le jardin
 realEstateAgent: null
 highlight: null
 review: null
@@ -48,8 +97,7 @@ hasPart:
     headline: La pierre, **épurée**
     text: Au milieu des oliviers, une villa de pierre aux lignes franches, posée autour de sa piscine et ouverte sur la campagne d'Essaouira.
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-vue-ensemble-01.jpg
-        caption: Façade de pierre et piscine au crépuscule
+      - image: villa-dunes-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -59,8 +107,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-terrasse-01.jpg
-        caption: Terrasse couverte en pierre meublée en lounge
+      - image: villa-dunes-terrasse-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -68,12 +115,9 @@ hasPart:
     headline: Une piscine **parmi les oliviers**
     text: Piscine chauffée bordée de pierre, transats à l'ombre des oliviers et coins repas ouverts sur l'horizon.
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-piscine-01.jpg
-        caption: Piscine bordée de pierre et d'oliviers
-      - url: /poc/villa-dunes-essaouira/villa-dunes-exterieur-01.jpg
-        caption: Table dressée près de la piscine
-      - url: /poc/villa-dunes-essaouira/villa-dunes-exterieur-02.jpg
-        caption: Terrasse lounge ouverte sur la campagne
+      - image: villa-dunes-piscine-01
+      - image: villa-dunes-exterieur-01
+      - image: villa-dunes-exterieur-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -81,14 +125,10 @@ hasPart:
     headline: Cinq chambres **plain-pied jardin**
     text: Cinq chambres aux teintes minérales, chacune ouverte de plain-pied sur le jardin par de grandes baies.
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-chambre-01.jpg
-        caption: Chambre ouverte sur la terrasse et un olivier
-      - url: /poc/villa-dunes-essaouira/villa-dunes-chambre-02.jpg
-        caption: Chambre baignée de lumière sur le jardin
-      - url: /poc/villa-dunes-essaouira/villa-dunes-chambre-03.jpg
-        caption: Chambre aux accents chaleureux
-      - url: /poc/villa-dunes-essaouira/villa-dunes-chambre-04.jpg
-        caption: Chambre double ouverte sur la terrasse
+      - image: villa-dunes-chambre-01
+      - image: villa-dunes-chambre-02
+      - image: villa-dunes-chambre-03
+      - image: villa-dunes-chambre-04
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -98,8 +138,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-salon-01.jpg
-        caption: Séjour ouvert sur la campagne
+      - image: villa-dunes-salon-01
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 6
@@ -107,10 +146,8 @@ hasPart:
     headline: La pierre **et l'eau**
     text: Douche à l'italienne, baignoire et plans de pierre composent des salles d'eau brutes et lumineuses.
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-salle-de-bains-01.jpg
-        caption: Douche à l'italienne et baignoire en pierre
-      - url: /poc/villa-dunes-essaouira/villa-dunes-salle-de-bains-02.jpg
-        caption: Double vasque en pierre et plantes
+      - image: villa-dunes-salle-de-bains-01
+      - image: villa-dunes-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 7
@@ -118,14 +155,10 @@ hasPart:
     headline: Des espaces **à habiter**
     text: De la cuisine ouverte aux lounges sous pergola et au patio vitré, la villa se prolonge d'un espace à l'autre.
     associatedMedia:
-      - url: /poc/villa-dunes-essaouira/villa-dunes-cuisine-01.jpg
-        caption: Cuisine en bois et pierre ouverte sur la terrasse
-      - url: /poc/villa-dunes-essaouira/villa-dunes-salon-02.jpg
-        caption: Lounge sous pergola de bois
-      - url: /poc/villa-dunes-essaouira/villa-dunes-terrasse-02.jpg
-        caption: Terrasse couverte aux coussins colorés
-      - url: /poc/villa-dunes-essaouira/villa-dunes-patio-01.jpg
-        caption: Patio vitré ouvert sur le jardin
+      - image: villa-dunes-cuisine-01
+      - image: villa-dunes-salon-02
+      - image: villa-dunes-terrasse-02
+      - image: villa-dunes-patio-01
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8

@@ -32,7 +32,59 @@ areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
 additionalProperty: []
-associatedMedia: []
+associatedMedia:
+  - image: villa-des-alizes-vue-ensemble-01
+    url: /poc/villa-des-alizes/villa-des-alizes-vue-ensemble-01.jpg
+    caption: Villa et piscine privée ouvertes sur le jardin
+    representativeOfPage: true
+  - image: villa-des-alizes-entree-01
+    url: /poc/villa-des-alizes/villa-des-alizes-entree-01.jpg
+    caption: Couloir d'entrée lumineux avec banquette
+  - image: villa-des-alizes-salon-04
+    url: /poc/villa-des-alizes/villa-des-alizes-salon-04.jpg
+    caption: Salon ouvert sur le jardin
+  - image: villa-des-alizes-salon-02
+    url: /poc/villa-des-alizes/villa-des-alizes-salon-02.jpg
+    caption: Séjour et salle à manger réunis
+  - image: villa-des-alizes-salon-05
+    url: /poc/villa-des-alizes/villa-des-alizes-salon-05.jpg
+    caption: Salon avec cheminée et large vue
+  - image: villa-des-alizes-exterieur-01
+    url: /poc/villa-des-alizes/villa-des-alizes-exterieur-01.jpg
+    caption: Terrasse repas ouverte sur le jardin et la piscine
+  - image: villa-des-alizes-piscine-01
+    url: /poc/villa-des-alizes/villa-des-alizes-piscine-01.jpg
+    caption: Piscine privée bordée de pierre avec transat
+  - image: villa-des-alizes-piscine-02
+    url: /poc/villa-des-alizes/villa-des-alizes-piscine-02.jpg
+    caption: Transats au bord de la piscine
+  - image: villa-des-alizes-exterieur-03
+    url: /poc/villa-des-alizes/villa-des-alizes-exterieur-03.jpg
+    caption: Toit-terrasse avec vue sur le golf
+  - image: villa-des-alizes-exterieur-05
+    url: /poc/villa-des-alizes/villa-des-alizes-exterieur-05.jpg
+    caption: Terrasse ombragée sous voile au cœur du jardin
+  - image: villa-des-alizes-cuisine-01
+    url: /poc/villa-des-alizes/villa-des-alizes-cuisine-01.jpg
+    caption: Cuisine américaine ouverte sur la salle à manger
+  - image: villa-des-alizes-chambre-05
+    url: /poc/villa-des-alizes/villa-des-alizes-chambre-05.jpg
+    caption: Suite aux teintes chaudes ouverte sur le jardin
+  - image: villa-des-alizes-chambre-02
+    url: /poc/villa-des-alizes/villa-des-alizes-chambre-02.jpg
+    caption: Chambre lits jumeaux et coin bibliothèque
+  - image: villa-des-alizes-chambre-04
+    url: /poc/villa-des-alizes/villa-des-alizes-chambre-04.jpg
+    caption: Chambre double avec banquette en rotin
+  - image: villa-des-alizes-chambre-06
+    url: /poc/villa-des-alizes/villa-des-alizes-chambre-06.jpg
+    caption: Chambre lumineuse ouverte sur la pelouse
+  - image: villa-des-alizes-salle-de-bains-03
+    url: /poc/villa-des-alizes/villa-des-alizes-salle-de-bains-03.jpg
+    caption: Douche à l'italienne et baignoire en travertin
+  - image: villa-des-alizes-salle-de-bains-02
+    url: /poc/villa-des-alizes/villa-des-alizes-salle-de-bains-02.jpg
+    caption: Vasque et baignoire ouvertes sur le jardin
 realEstateAgent: null
 highlight: null
 review: null
@@ -49,8 +101,7 @@ hasPart:
     headline: Une oasis contemporaine **au cœur du golf**
     text: Entre fairways et Atlantique, une villa de plain-pied baignée de lumière, pensée pour le calme et la douceur de vivre.
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-vue-ensemble-01.jpg
-        caption: Villa et piscine privée ouvertes sur le jardin
+      - image: villa-des-alizes-vue-ensemble-01
 
   - additionalType: SCREEN_ACCOMMODATION_SPLIT
     position: 2
@@ -60,8 +111,7 @@ hasPart:
     meta:
       reverse: true
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-entree-01.jpg
-        caption: Couloir d'entrée lumineux avec banquette
+      - image: villa-des-alizes-entree-01
 
   - additionalType: SCREEN_ACCOMMODATION_TRYPTIQUE
     position: 3
@@ -69,12 +119,9 @@ hasPart:
     headline: Vivre grand, **autour du feu**
     text: Un salon et une salle à manger réunis sous de hautes baies vitrées, autour d'une cheminée et prolongés par la terrasse.
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-salon-04.jpg
-        caption: Salon ouvert sur le jardin
-      - url: /poc/villa-des-alizes/villa-des-alizes-salon-02.jpg
-        caption: Séjour et salle à manger réunis
-      - url: /poc/villa-des-alizes/villa-des-alizes-salon-05.jpg
-        caption: Salon avec cheminée et large vue
+      - image: villa-des-alizes-salon-04
+      - image: villa-des-alizes-salon-02
+      - image: villa-des-alizes-salon-05
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 4
@@ -82,16 +129,11 @@ hasPart:
     headline: Le jardin, prolongé **jusqu'au green**
     text: Terrasses, piscine privée de 9,5 × 4 m et toit-terrasse aménagé ouvrent la villa sur le domaine de golf.
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-exterieur-01.jpg
-        caption: Terrasse repas ouverte sur le jardin et la piscine
-      - url: /poc/villa-des-alizes/villa-des-alizes-piscine-01.jpg
-        caption: Piscine privée bordée de pierre avec transat
-      - url: /poc/villa-des-alizes/villa-des-alizes-piscine-02.jpg
-        caption: Transats au bord de la piscine
-      - url: /poc/villa-des-alizes/villa-des-alizes-exterieur-03.jpg
-        caption: Toit-terrasse avec vue sur le golf
-      - url: /poc/villa-des-alizes/villa-des-alizes-exterieur-05.jpg
-        caption: Terrasse ombragée sous voile au cœur du jardin
+      - image: villa-des-alizes-exterieur-01
+      - image: villa-des-alizes-piscine-01
+      - image: villa-des-alizes-piscine-02
+      - image: villa-des-alizes-exterieur-03
+      - image: villa-des-alizes-exterieur-05
 
   - additionalType: SCREEN_ACCOMMODATION_OVERLAY
     position: 5
@@ -101,8 +143,7 @@ hasPart:
     meta:
       overlayMode: dark
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-cuisine-01.jpg
-        caption: Cuisine américaine ouverte sur la salle à manger
+      - image: villa-des-alizes-cuisine-01
 
   - additionalType: SCREEN_ACCOMMODATION_CAROUSEL
     position: 6
@@ -110,14 +151,10 @@ hasPart:
     headline: Trois chambres de **plain-pied**
     text: Trois chambres climatisées ouvertes sur le jardin, dont une suite avec cheminée, salon et salle de bain privée.
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-chambre-05.jpg
-        caption: Suite aux teintes chaudes ouverte sur le jardin
-      - url: /poc/villa-des-alizes/villa-des-alizes-chambre-02.jpg
-        caption: Chambre lits jumeaux et coin bibliothèque
-      - url: /poc/villa-des-alizes/villa-des-alizes-chambre-04.jpg
-        caption: Chambre double avec banquette en rotin
-      - url: /poc/villa-des-alizes/villa-des-alizes-chambre-06.jpg
-        caption: Chambre lumineuse ouverte sur la pelouse
+      - image: villa-des-alizes-chambre-05
+      - image: villa-des-alizes-chambre-02
+      - image: villa-des-alizes-chambre-04
+      - image: villa-des-alizes-chambre-06
 
   - additionalType: SCREEN_ACCOMMODATION_DUO
     position: 7
@@ -125,10 +162,8 @@ hasPart:
     headline: Une parenthèse **spa**
     text: Travertin, double vasque, baignoire et douche à l'italienne composent des salles d'eau pleines de douceur.
     associatedMedia:
-      - url: /poc/villa-des-alizes/villa-des-alizes-salle-de-bains-03.jpg
-        caption: Douche à l'italienne et baignoire en travertin
-      - url: /poc/villa-des-alizes/villa-des-alizes-salle-de-bains-02.jpg
-        caption: Vasque et baignoire ouvertes sur le jardin
+      - image: villa-des-alizes-salle-de-bains-03
+      - image: villa-des-alizes-salle-de-bains-02
 
   - additionalType: SCREEN_ACCOMMODATION_CONTACT
     position: 8
