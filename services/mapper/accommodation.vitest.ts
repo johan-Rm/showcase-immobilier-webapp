@@ -59,6 +59,31 @@ describe('mapAccommodation — médias d’écran', () => {
     expect(media.caption).toBe('Salon lumineux')
   })
 
+  it('résout une référence d’écran sous forme d’identifiant brut (liste plate, modèle API uuid[])', () => {
+    const result = mapAccommodation(
+      baseAccommodation({
+        associatedMedia: [
+          {
+            image: 'bien-test-salon-01',
+            url: '/poc/bien-test/bien-test-salon-01.jpg',
+            caption: 'Salon lumineux',
+          },
+        ],
+        hasPart: [
+          {
+            additionalType: 'SCREEN_ACCOMMODATION_FULL',
+            position: 1,
+            associatedMedia: ['bien-test-salon-01'],
+          },
+        ],
+      }),
+    )
+
+    const media = firstScreenMedia(result)
+    expect(media.url).toBe('/poc/bien-test/bien-test-salon-01.jpg')
+    expect(media.caption).toBe('Salon lumineux')
+  })
+
   it('reste rétro-compatible avec une url directe portée par l’écran (contenu legacy)', () => {
     const result = mapAccommodation(
       baseAccommodation({

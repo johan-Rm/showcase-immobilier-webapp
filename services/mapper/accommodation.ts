@@ -412,12 +412,21 @@ const mapScreenMedia = (
 
   const mapped: MediaObject[] = []
   for (const entry of value) {
-    if (!isRecord(entry)) continue
-    const reference = typeof entry.image === 'string' && entry.image.length > 0 ? entry.image : ''
+    // L'entrée peut être un identifiant brut (modèle API `uuid[]` / liste plate de
+    // filenames résolue par content-sync) ou un objet `{ image?, url?, caption? }`
+    // (contenu POC / brouillon dashboard).
+    const reference =
+      typeof entry === 'string'
+        ? entry
+        : isRecord(entry) && typeof entry.image === 'string'
+          ? entry.image
+          : ''
+    const directUrl = isRecord(entry) ? entry.url : undefined
     const fromGallery = reference ? galleryIndex?.get(reference) : undefined
-    const media = fromGallery ?? mapMediaObject(reference || entry.url, indexes)
+    const media = fromGallery ?? mapMediaObject(reference || directUrl, indexes)
     if (!media?.url) continue
-    mapped.push({ ...media, caption: getString(entry.caption, media.caption) })
+    const caption = isRecord(entry) ? getString(entry.caption, media.caption) : media.caption
+    mapped.push({ ...media, caption })
   }
   return mapped
 }
