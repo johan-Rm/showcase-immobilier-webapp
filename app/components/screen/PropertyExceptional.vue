@@ -105,14 +105,25 @@
     />
 
     <!-- RÉGION F — Panneau d'infos du bien (drawer gauche). -->
-    <PropertyExceptionalInfoPanel
+    <PropertyDetailDrawer
       :open="isInfoPanelOpen"
-      :summary="summary"
-      :badges="badges"
-      :labels="infoPanelLabels"
-      @close="closeInfoPanel"
-      @request-visit="goToContactFromPanel"
-    />
+      content-class="w-[38%] max-w-xl"
+      aria-label="Détails du bien"
+      @update:open="(value: boolean) => (value ? undefined : closeInfoPanel())"
+    >
+      <PropertyDetailPanel
+        ref="detailPanel"
+        :property="accommodation"
+        :place-label="panelData.placeLabel"
+        :offer-label="panelData.offerLabel"
+        :listing-label="panelData.listingLabel"
+        :category-label="panelData.categoryLabel"
+        :summary-items="panelData.summaryItems"
+        :detail-items="panelData.detailItems"
+        :feature-items="panelData.featureItems"
+        :sections="panelData.sections"
+      />
+    </PropertyDetailDrawer>
   </div>
 </template>
 
@@ -126,6 +137,10 @@ import {
 
 // 2. Types et constantes statiques
 // Le parcours remplace le détail classique dans la même section verticale.
+type DetailPanelExpose = {
+  resetScrollPosition: () => void
+}
+
 const SCREEN_ID = 'screen-property-detail'
 const columnTemplate: ScreenColumnTemplate = 'single'
 
@@ -135,24 +150,18 @@ const emit = defineEmits<{ 'next-screen': [] }>()
 
 // 4. Composables, stores, routeur
 const store = useAccommodationStore()
-const { accommodationUi } = useApp()
 const { screenStatus, setScreenMeta } = useScreenSystem()
+const detailPanel = useTemplateRef<DetailPanelExpose>('detailPanel')
 
 // 6. Data inputs
 const accommodation = computed(() => store.getAccommodationBySlug(props.slug))
+const { panelData } = usePropertyDetailPanelData(accommodation)
 
 // 8. Computed UI-ready
 const screens = computed(() => deriveExceptionalScreens(accommodation.value))
 const summary = computed(() => deriveExceptionalSummary(accommodation.value, screens.value))
 const badges = computed(() => deriveExceptionalBadges(accommodation.value))
 const isScreenActive = computed(() => screenStatus.value.currentId === SCREEN_ID)
-
-// Libellés visibles du drawer (content-driven, repli FR) ; les aria restent en dur comme
-// dans ScreenPropertyDetail.
-const infoPanelLabels = computed(() => ({
-  reference: accommodationUi.value?.labels.propertyReference ?? 'Référence',
-  requestVisit: accommodationUi.value?.texts.requestVisit ?? 'Demander une visite',
-}))
 
 // 4bis. Logique du rail (état + handlers), avec handoff vertical en fin de parcours.
 const {
@@ -177,12 +186,18 @@ const {
   goToNext,
   openInfoPanel,
   closeInfoPanel,
-  goToContactFromPanel,
   toggleReadingMode,
 } = useExceptionalRail({
   screens,
   isActive: isScreenActive,
   onRequestNextScreen: () => emit('next-screen'),
+})
+
+// 10. Watch et watchEffect
+watch(isInfoPanelOpen, async (isOpen) => {
+  if (!isOpen) return
+  await nextTick()
+  detailPanel.value?.resetScrollPosition()
 })
 
 // 11. Métadonnées écran

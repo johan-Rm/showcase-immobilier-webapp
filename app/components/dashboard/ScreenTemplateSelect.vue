@@ -1,6 +1,6 @@
 <template>
   <!-- Sélecteur visuel : une carte par template, chacune avec son skeleton (wireframe fidèle). -->
-  <div class="grid grid-cols-2 gap-2">
+  <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
     <button
       v-for="item in items"
       :key="item.value"
