@@ -105,6 +105,7 @@ const emit = defineEmits<{
 }>()
 
 // 4. Composables, stores, routeur
+const route = useRoute()
 
 // 5. Etat local
 const selectedListing = ref(ALL_VALUE)
@@ -237,6 +238,17 @@ const openEditor = (): void => {
   isEditorOpen.value = true
 }
 
+// Pré-sélection d'un bien arrivant depuis sa fiche (Ctrl+D → /dashboard?slug=...).
+// On réinitialise les filtres pour garantir sa visibilité, puis on cible son index.
+const selectAccommodationBySlug = (slug: string): void => {
+  selectedListing.value = ALL_VALUE
+  selectedCategory.value = ALL_VALUE
+  identifierSearch.value = ''
+
+  const index = filteredItems.value.findIndex((item) => item.slug === slug)
+  if (index !== -1) activeIndex.value = index
+}
+
 // Bien créé via le creator : on recharge la liste puis on sélectionnera le nouveau
 // bien (cf. watch filteredItems) pour basculer le slideover en édition.
 const handleCreated = (identifier: string): void => {
@@ -282,4 +294,9 @@ watch(
 // 11. Metadonnees ecran ou page
 
 // 12. Lifecycle
+onMounted(() => {
+  const slug = route.query.slug
+  const targetSlug = Array.isArray(slug) ? slug.at(-1) : slug
+  if (targetSlug) selectAccommodationBySlug(targetSlug)
+})
 </script>

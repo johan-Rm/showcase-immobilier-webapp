@@ -252,9 +252,15 @@ const setItemRef = (
 }
 
 const scrollActiveIntoView = async (index: number): Promise<void> => {
+  if (!import.meta.client) return
+
   await nextTick()
-  desktopItemEls.get(index)?.scrollIntoView({ block: 'nearest' })
-  mobileItemEls.get(index)?.scrollIntoView({ block: 'nearest' })
+  // rAF : au montage initial, le conteneur flex scrollable n'a pas encore sa
+  // hauteur définitive après nextTick ; on attend une frame de layout.
+  requestAnimationFrame(() => {
+    desktopItemEls.get(index)?.scrollIntoView({ block: 'center' })
+    mobileItemEls.get(index)?.scrollIntoView({ block: 'center' })
+  })
 }
 
 const selectItem = (index: number): void => {

@@ -105,7 +105,15 @@ const _useDashboard = (): UseDashboardReturn => {
       ctrl_d: {
         usingInput: false,
         handler: () => {
-          navigateTo(useLocalePath()('/dashboard'))
+          // Si l'on consulte une fiche bien, on transmet son slug pour pré-sélectionner
+          // le même bien dans le dashboard (cf. PropertyWorkspace).
+          const slug = route.params.accommodationSlug
+          const targetSlug = Array.isArray(slug) ? slug.at(-1) : slug
+
+          navigateTo({
+            path: useLocalePath()('/dashboard'),
+            query: targetSlug ? { slug: targetSlug } : undefined,
+          })
         },
       },
     })
