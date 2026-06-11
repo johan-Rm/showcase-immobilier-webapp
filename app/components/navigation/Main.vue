@@ -157,29 +157,42 @@
                   </li>
                 </ul>
 
-                <ul
-                  class="mt-6 space-y-1 text-sm text-white/70 sm:mt-8 2xl:mt-14 2xl:space-y-3 2xl:text-lg"
-                >
-                  <li v-for="item in secondaryMenuItems" :key="item.url">
+                <div class="mt-6 flex items-start justify-start gap-12 sm:mt-8 2xl:mt-14">
+                  <ul class="space-y-1 text-sm text-white/70 2xl:space-y-3 2xl:text-lg">
+                    <li v-for="item in secondaryMenuItems" :key="item.url">
+                      <AppLink
+                        v-if="!isDisabledMenuItem(item)"
+                        :to="resolveMenuItemPath(item.url)"
+                        variant="text"
+                        text-animation="slide-arrow"
+                        class="hover:text-background transition"
+                        @click="handleMenuRouteClick(item.url)"
+                      >
+                        {{ item.name }}
+                      </AppLink>
+
+                      <span v-else class="cursor-not-allowed text-white/35" aria-disabled="true">
+                        {{ item.name }}
+                      </span>
+                    </li>
+                  </ul>
+
+                  <div class="flex flex-col gap-3 2xl:gap-4">
+                    <NavigationLangSwitcher variant="contrast" />
+
+                    <!-- Accès dashboard réservé aux administrateurs connectés. -->
                     <AppLink
-                      v-if="!isDisabledMenuItem(item)"
-                      :to="resolveMenuItemPath(item.url)"
+                      v-if="loggedIn"
+                      :to="localePath('/dashboard')"
+                      icon="i-lucide-layout-dashboard"
+                      label="Tableau de bord"
                       variant="text"
-                      text-animation="slide-arrow"
-                      class="hover:text-background transition"
-                      @click="handleMenuRouteClick(item.url)"
-                    >
-                      {{ item.name }}
-                    </AppLink>
-
-                    <span v-else class="cursor-not-allowed text-white/35" aria-disabled="true">
-                      {{ item.name }}
-                    </span>
-                  </li>
-                </ul>
+                      class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest text-white/50 uppercase transition hover:text-white 2xl:text-sm"
+                      @click="handleMenuRouteClick('/dashboard')"
+                    />
+                  </div>
+                </div>
               </nav>
-
-              <NavigationLangSwitcher variant="contrast" class="mt-8 2xl:mt-14" />
             </div>
           </div>
         </div>
@@ -238,6 +251,8 @@ const { footer } = useAppFooter()
 const appConfig = useAppConfig()
 
 const localePath = useLocalePath()
+
+const { loggedIn } = useUserSession()
 
 const route = useRoute()
 
