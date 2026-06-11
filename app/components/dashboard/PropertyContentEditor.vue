@@ -1,11 +1,15 @@
 <template>
   <div class="flex min-h-full flex-col">
     <div
-      v-for="block in contentBlocks"
+      v-for="block in displayedBlocks"
       :key="block.id"
-      class="flex min-h-14 flex-none flex-col border-b border-white/6"
+      class="flex flex-none flex-col border-b border-white/6"
+      :class="expandedBlock ? 'min-h-0 flex-1' : ''"
     >
-      <div class="flex shrink-0 items-stretch transition-colors hover:bg-white/5">
+      <div
+        class="flex min-h-14 shrink-0 items-stretch transition-colors hover:bg-white/5"
+        :class="expandedBlock ? 'sticky top-0 z-30 bg-[#212121]' : ''"
+      >
         <button
           type="button"
           class="flex flex-1 items-center gap-3 px-4 py-3 text-left"
@@ -34,88 +38,100 @@
         </div>
       </div>
 
-      <div v-if="expandedBlocks.has(block.id)" class="px-4 pt-1 pb-5">
-        <template v-if="block.id === 'frontmatter'">
-          <div v-for="section in frontmatterSections" :key="section.id">
-            <div v-if="section.separator" class="mt-4 h-px bg-[#6B7A4A]/40" />
-            <div v-if="!section.hideLabel" class="sticky top-0 z-10 -mx-4 bg-[#212121] px-4">
-              <p
-                class="pt-10 pb-2.5 text-[0.6rem] font-semibold tracking-[0.12em] uppercase"
-                style="color: #6b7a4a"
-              >
-                {{ section.label }}
-              </p>
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 translate-y-1"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition duration-150 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 translate-y-1"
+      >
+        <div v-if="expandedBlocks.has(block.id)" class="px-4 pt-1 pb-5">
+          <template v-if="block.id === 'frontmatter'">
+            <div v-for="section in frontmatterSections" :key="section.id">
+              <div v-if="section.separator" class="mt-4 h-px bg-[#6B7A4A]/40" />
+              <div v-if="!section.hideLabel" class="sticky top-12 z-10 -mx-4 bg-[#212121] px-4">
+                <p
+                  class="pt-10 pb-2.5 text-[0.6rem] font-semibold tracking-[0.12em] uppercase"
+                  style="color: #6b7a4a"
+                >
+                  {{ section.label }}
+                </p>
+              </div>
+              <div class="grid grid-cols-2">
+                <template v-for="field in section.fields" :key="field.key">
+                  <DashboardOfferField
+                    v-if="field.type === 'offer'"
+                    :model-value="getFieldValue(field.key, field.default)"
+                    @update:model-value="emit('update-field', field.key, $event)"
+                  />
+                  <DashboardQualitiesEditor
+                    v-else-if="field.type === 'qualities'"
+                    :model-value="getFieldValue(field.key, field.default)"
+                    @update:model-value="emit('update-field', field.key, $event)"
+                  />
+                  <DashboardCategoryCodeSelect
+                    v-else-if="
+                      field.type === 'category-code' || field.type === 'category-code-multi'
+                    "
+                    :in-code-set="field.inCodeSet ?? ''"
+                    :model-value="getFieldValue(field.key, field.default)"
+                    :label="field.label"
+                    :placeholder="field.label"
+                    :multiple="field.type === 'category-code-multi'"
+                    :show-label="field.showLabel !== false"
+                    @update:model-value="emit('update-field', field.key, $event)"
+                  />
+                  <DashboardPropertyFieldEditor
+                    v-else
+                    :label="field.label"
+                    :path="field.key"
+                    :model-value="getFieldValue(field.key, field.default)"
+                    :readonly="field.readonly"
+                    :half="field.half"
+                    :zero-as-empty="field.zeroAsEmpty"
+                    :hint="field.hint"
+                    @update:model-value="emit('update-field', field.key, $event)"
+                  />
+                </template>
+              </div>
             </div>
-            <div class="grid grid-cols-2">
-              <template v-for="field in section.fields" :key="field.key">
-                <DashboardOfferField
-                  v-if="field.type === 'offer'"
-                  :model-value="getFieldValue(field.key, field.default)"
-                  @update:model-value="emit('update-field', field.key, $event)"
-                />
-                <DashboardQualitiesEditor
-                  v-else-if="field.type === 'qualities'"
-                  :model-value="getFieldValue(field.key, field.default)"
-                  @update:model-value="emit('update-field', field.key, $event)"
-                />
-                <DashboardCategoryCodeSelect
-                  v-else-if="field.type === 'category-code' || field.type === 'category-code-multi'"
-                  :in-code-set="field.inCodeSet ?? ''"
-                  :model-value="getFieldValue(field.key, field.default)"
-                  :label="field.label"
-                  :placeholder="field.label"
-                  :multiple="field.type === 'category-code-multi'"
-                  :show-label="field.showLabel !== false"
-                  @update:model-value="emit('update-field', field.key, $event)"
-                />
-                <DashboardPropertyFieldEditor
-                  v-else
-                  :label="field.label"
-                  :path="field.key"
-                  :model-value="getFieldValue(field.key, field.default)"
-                  :readonly="field.readonly"
-                  :half="field.half"
-                  :zero-as-empty="field.zeroAsEmpty"
-                  :hint="field.hint"
-                  @update:model-value="emit('update-field', field.key, $event)"
-                />
-              </template>
-            </div>
-          </div>
-        </template>
+          </template>
 
-        <template v-else-if="block.id === 'body'">
-          <DashboardTiptapEditor
-            :model-value="activeDraft.body"
-            @update:model-value="emit('update-body', String($event))"
-          />
-        </template>
+          <template v-else-if="block.id === 'body'">
+            <DashboardTiptapEditor
+              :model-value="activeDraft.body"
+              @update:model-value="emit('update-body', String($event))"
+            />
+          </template>
 
-        <template v-else-if="block.id === 'place'">
-          <DashboardPropertyPlaceEditor
-            :place-name="placeName"
-            :place-text="placeText"
-            :status="placeTextStatus"
-            :error-message="placeTextErrorMessage"
-            :is-dirty="isPlaceTextDirty"
-            @update-place-text="emit('update-place-text', $event)"
-          />
-        </template>
+          <template v-else-if="block.id === 'place'">
+            <DashboardPropertyPlaceEditor
+              :place-name="placeName"
+              :place-text="placeText"
+              :status="placeTextStatus"
+              :error-message="placeTextErrorMessage"
+              :is-dirty="isPlaceTextDirty"
+              @update-place-text="emit('update-place-text', $event)"
+            />
+          </template>
 
-        <template v-else-if="block.id === 'associated-media'">
-          <DashboardPropertyAssociatedMediaEditor
-            :associated-media="associatedMediaValue"
-            @update:associated-media="emit('update-associated-media', $event)"
-          />
-        </template>
+          <template v-else-if="block.id === 'associated-media'">
+            <DashboardPropertyAssociatedMediaEditor
+              :associated-media="associatedMediaValue"
+              @update:associated-media="emit('update-associated-media', $event)"
+            />
+          </template>
 
-        <template v-else-if="block.id === 'screens'">
-          <DashboardPropertyScreensEditor
-            :screens="hasPartValue"
-            @update:screens="emit('update-field', 'hasPart', $event)"
-          />
-        </template>
-      </div>
+          <template v-else-if="block.id === 'screens'">
+            <DashboardPropertyScreensEditor
+              :screens="hasPartValue"
+              :available-media="associatedMediaValue"
+              @update:screens="emit('update-field', 'hasPart', $event)"
+            />
+          </template>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
@@ -385,6 +401,17 @@ const contentBlocks = computed<Block[]>(() => {
     },
   ]
 })
+
+// Bloc actuellement déployé (un seul à la fois, cf. toggleBlock côté slideover).
+const expandedBlock = computed<Block | null>(
+  () => contentBlocks.value.find((block) => props.expandedBlocks.has(block.id)) ?? null,
+)
+
+// Déployé : seul le bloc ouvert est rendu (en-tête épinglé en haut + contenu défilant).
+// Replié : la liste complète des accordéons.
+const displayedBlocks = computed<Block[]>(() =>
+  expandedBlock.value ? [expandedBlock.value] : contentBlocks.value,
+)
 
 // Blocs `hasPart` (screens du parcours) du brouillon de la locale active.
 const hasPartValue = computed<DashboardEditableValue>(() => getFieldValue('hasPart', []))
