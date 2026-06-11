@@ -1,37 +1,14 @@
 <template>
-  <!-- RÉGION F — Panneau d'infos du bien (drawer gauche). Ouvert depuis la synthèse fixe.
-       Voile cliquable (ferme) + drawer (nom, localisation, badges, référence, CTA visite). -->
-  <Transition
-    enter-active-class="transition-opacity duration-200"
-    leave-active-class="transition-opacity duration-200"
-    enter-from-class="opacity-0"
-    leave-to-class="opacity-0"
+  <!-- RÉGION F — Panneau d'infos du bien (drawer). Ouvert depuis la synthèse fixe.
+       Chrome (voile, fermeture, transitions, focus-trap) délégué au shell PropertyDetailDrawer ;
+       ce composant ne porte que le contenu (nom, localisation, badges, référence, CTA visite). -->
+  <PropertyDetailDrawer
+    :open="open"
+    content-class="w-[min(88vw,24rem)]"
+    aria-label="Informations du bien"
+    @update:open="(value: boolean) => (value ? undefined : emit('close'))"
   >
-    <div v-if="open" class="fixed inset-0 z-[70] bg-black/55" @click.self="emit('close')" />
-  </Transition>
-
-  <Transition
-    enter-active-class="transition-transform duration-300 ease-out"
-    leave-active-class="transition-transform duration-200 ease-in"
-    enter-from-class="-translate-x-full"
-    leave-to-class="-translate-x-full"
-  >
-    <aside
-      v-if="open"
-      class="bg-background text-foreground fixed inset-y-0 left-0 z-[71] flex h-dvh w-[min(88vw,24rem)] flex-col overflow-y-auto px-6 py-8 shadow-2xl md:px-8 md:py-10"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Informations du bien"
-    >
-      <button
-        type="button"
-        class="text-foreground/60 hover:text-foreground focus-visible:outline-foreground absolute top-4 right-4 flex size-11 items-center justify-center rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2"
-        aria-label="Fermer les informations"
-        @click="emit('close')"
-      >
-        <UIcon name="i-heroicons-x-mark" class="text-2xl" aria-hidden="true" />
-      </button>
-
+    <div class="flex min-h-0 flex-1 flex-col overflow-y-auto px-6 py-8 md:px-8 md:py-10">
       <span class="bg-foreground/70 block h-px w-12 rounded-full" aria-hidden="true" />
       <h2 class="mt-4 text-2xl font-bold tracking-[0.04em] uppercase">{{ summary.name }}</h2>
       <p class="text-foreground/60 mt-1 text-sm">{{ summary.location }}</p>
@@ -60,8 +37,8 @@
       >
         {{ labels.requestVisit }} <span aria-hidden="true">→</span>
       </button>
-    </aside>
-  </Transition>
+    </div>
+  </PropertyDetailDrawer>
 </template>
 
 <script setup lang="ts">

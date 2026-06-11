@@ -2,82 +2,25 @@
   <section
     class="screen-property-detail relative h-dvh min-h-screen w-full overflow-hidden"
   >
-    <Teleport to="body">
-      <Transition name="mobile-aside-fade">
-        <UButton
-          v-if="isDetailScreenActive && isAsideOpen"
-          type="button"
-          class="fixed inset-0 z-9990 bg-black/45"
-          aria-label="Fermer les détails"
-          color="neutral"
-          variant="ghost"
-          :ui="{
-            base: 'rounded-none border-0 bg-black/45 shadow-none ring-0 hover:bg-black/45',
-          }"
-          @click="closeAside"
-        />
-      </Transition>
-
-      <aside
-        id="property-detail-aside"
-        data-screen-touch-ignore
-        :class="[
-          'bg-background screen-property-detail__aside fixed inset-x-0 bottom-0 z-9999 h-[min(82dvh,48rem)] min-h-0 w-full min-w-0 rounded-t-2xl shadow-2xl transition-transform duration-220 ease-out lg:inset-y-0 lg:right-auto lg:left-0 lg:flex lg:h-dvh lg:w-[38%] lg:max-w-xl lg:min-h-screen lg:rounded-none',
-          isDetailScreenActive && isAsideOpen
-            ? 'translate-y-0 lg:translate-x-0'
-            : 'translate-y-full lg:translate-y-0 lg:-translate-x-full',
-        ]"
-      >
-        <div
-          v-if="isAsideOpen"
-          class="relative flex items-center justify-center px-4 py-3 lg:hidden"
-        >
-          <UButton
-            type="button"
-            class="bg-surface text-foreground absolute -top-4 left-1/2 inline-flex -translate-x-1/2 items-center justify-center rounded-full border-0 p-2 shadow-lg shadow-black/10"
-            aria-label="Fermer les détails"
-            color="neutral"
-            variant="ghost"
-            :ui="{
-              base: 'rounded-full border-0 shadow-none ring-0 hover:bg-transparent',
-            }"
-            @click="closeAside"
-          >
-            <UIcon name="i-lucide-chevrons-down" class="text-xl" aria-hidden="true" />
-          </UButton>
-
-          <!-- <span class="bg-foreground/15 mx-auto h-1.5 w-14 rounded-full" /> -->
-        </div>
-
-        <UButton
-          v-if="isAsideOpen"
-          type="button"
-          class="text-foreground/60 hover:text-foreground absolute top-4 right-4 z-10 hidden h-9 w-9 items-center justify-center rounded-full lg:flex"
-          aria-label="Fermer les détails"
-          color="neutral"
-          variant="ghost"
-          :ui="{
-            base: 'rounded-full border-0 shadow-none ring-0 hover:bg-transparent',
-          }"
-          @click="closeAside"
-        >
-          <UIcon name="i-lucide-x" class="text-xl" aria-hidden="true" />
-        </UButton>
-
-        <PropertyDetailPanel
-          ref="detailPanel"
-          :property="property"
-          :place-label="placeLabel"
-          :offer-label="offerLabel"
-          :listing-label="listingLabel"
-          :category-label="categoryLabel"
-          :summary-items="summaryItems"
-          :detail-items="detailItems"
-          :feature-items="featureItems"
-          :sections="detailSectionLabels"
-        />
-      </aside>
-    </Teleport>
+    <PropertyDetailDrawer
+      :open="isDetailScreenActive && isAsideOpen"
+      content-class="w-[38%] max-w-xl"
+      aria-label="Détails du bien"
+      @update:open="(value: boolean) => (value ? undefined : closeAside())"
+    >
+      <PropertyDetailPanel
+        ref="detailPanel"
+        :property="property"
+        :place-label="placeLabel"
+        :offer-label="offerLabel"
+        :listing-label="listingLabel"
+        :category-label="categoryLabel"
+        :summary-items="summaryItems"
+        :detail-items="detailItems"
+        :feature-items="featureItems"
+        :sections="detailSectionLabels"
+      />
+    </PropertyDetailDrawer>
 
     <div class="flex h-full min-h-screen w-full min-w-0 justify-center overflow-hidden">
       <div class="relative h-full min-h-screen w-full overflow-hidden">
@@ -156,8 +99,8 @@
           color="neutral"
           variant="solid"
           class="bg-background text-foreground fixed inset-x-0 bottom-0 z-40 flex w-full items-start justify-start rounded-t-xl px-3 pt-5 pb-[calc(env(safe-area-inset-bottom)+0.9rem)] text-left shadow-[0_-10px_30px_rgba(0,0,0,0.22)] transition hover:opacity-95 lg:hidden"
+          aria-haspopup="dialog"
           :aria-expanded="isAsideOpen"
-          aria-controls="property-detail-aside"
           :ui="{
             base: 'justify-start rounded-t-2xl ring-0',
           }"
@@ -210,7 +153,6 @@
           aria-label="Voir les détails du bien"
           aria-haspopup="dialog"
           :aria-expanded="isAsideOpen"
-          aria-controls="property-detail-aside"
           @click="openAside"
         >
           <span class="flex shrink-0 flex-col gap-1.5">
@@ -660,21 +602,3 @@ onBeforeUnmount(() => {
   clearGalleryAutoplayResumeTimer()
 })
 </script>
-
-<style scoped>
-.mobile-aside-fade-enter-active,
-.mobile-aside-fade-leave-active {
-  transition: opacity 180ms ease;
-}
-
-.mobile-aside-fade-enter-from,
-.mobile-aside-fade-leave-to {
-  opacity: 0;
-}
-
-@media (max-width: 1023px) {
-  .screen-property-detail__aside {
-    will-change: transform;
-  }
-}
-</style>
