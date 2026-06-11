@@ -475,6 +475,19 @@ const updateField = (path: string, value: DashboardEditableValue): void => {
     return
   }
 
+  // `hasPart` est hybride (structure partagée, textes localisés) : on l'écrit sur la locale
+  // active uniquement, pour ne pas écraser les textes des autres langues avec ceux de la
+  // locale courante. La propagation de la structure aux autres locales se fait à la
+  // sauvegarde (mergeHasPartLocales).
+  if (path === 'hasPart') {
+    drafts.value[locale].frontmatter = setNestedValue(
+      drafts.value[locale].frontmatter,
+      path,
+      nextValue,
+    )
+    return
+  }
+
   localeTabs.forEach((draftLocale) => {
     drafts.value![draftLocale].frontmatter = setNestedValue(
       drafts.value![draftLocale].frontmatter,

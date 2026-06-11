@@ -1,0 +1,64 @@
+<template>
+  <!-- SCREEN_05 — Mini carousel (full image + vignettes). Le visuel principal change selon la
+       vignette sélectionnée (`activeMediaIndex`, piloté par le composable du rail). -->
+  <AppImage
+    :src="currentMedia.src"
+    :alt="currentMedia.alt"
+    class="absolute inset-0 size-full object-cover transition-[opacity] duration-300"
+    sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+    loading="lazy"
+  />
+  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
+  <div
+    class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
+  >
+    <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
+    <h2 class="text-4xl leading-tight font-light text-balance text-white md:text-5xl">
+      <span v-for="(part, partIndex) in parts" :key="partIndex">{{ part.text }}</span>
+    </h2>
+    <p class="mt-4 ml-auto max-w-md text-base leading-relaxed text-white">{{ screen.text }}</p>
+
+    <!-- Navigation interne (max 5 vignettes). Mobile : flex-1 → toutes visibles. -->
+    <div class="mt-5 flex gap-1.5 md:justify-end">
+      <button
+        v-for="(media, mediaIndex) in screen.media.slice(0, 5)"
+        :key="media.src"
+        type="button"
+        class="relative h-11 min-w-0 flex-1 overflow-hidden rounded border transition-all md:h-12 md:w-18 md:flex-none"
+        :class="
+          activeIndex === mediaIndex
+            ? 'border-white opacity-100'
+            : 'border-white/30 opacity-70 hover:opacity-100'
+        "
+        :aria-label="`Voir : ${media.alt}`"
+        @click="emit('select-media', mediaIndex)"
+      >
+        <AppImage
+          :src="media.src"
+          :alt="media.alt"
+          class="size-full object-cover"
+          sizes="xs:64px md:72px"
+          loading="lazy"
+        />
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 1. Imports
+import type { ExceptionalMedia, ExceptionalScreen } from '#shared/types/exceptional'
+
+import { IMAGE_LABEL_CLASS, titleParts } from './exceptional.helpers'
+
+// 3. Props et emits
+const props = defineProps<{ screen: ExceptionalScreen; activeMediaIndex?: number }>()
+const emit = defineEmits<{ 'select-media': [index: number] }>()
+
+// 8. Computed UI-ready
+const parts = computed(() => titleParts(props.screen))
+const activeIndex = computed<number>(() => props.activeMediaIndex ?? 0)
+const currentMedia = computed<ExceptionalMedia>(
+  () => props.screen.media[activeIndex.value] ?? props.screen.media[0] ?? { src: '', alt: '' },
+)
+</script>

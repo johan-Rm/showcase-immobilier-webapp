@@ -1,7 +1,18 @@
 # Parcours immersif horizontal d'un bien d'exception
 
-> Statut : spec de référence.
+> Statut : spec de référence — **implémentée**.
 > Périmètre : template de page réutilisable pour présenter un bien immobilier d'exception.
+>
+> **Implémentation :**
+> - **Rendu** (tâche 031, ✅) : `services/mapper/exceptional.ts` (dérivation `hasPart` → écrans
+>   + garde `isExceptionalProperty`), composants `app/components/property/Exceptional*.vue`,
+>   composable `app/composables/useExceptionalRail.ts`, orchestrateur
+>   `app/components/screen/PropertyExceptional.vue`. Activé sur la fiche bien si `hasPart` valide,
+>   sinon repli sur `ScreenPropertyDetail`. Coexistence verticale via le patron `ScreenPropertyList`
+>   (capture `navigator.enabled:false` + emit `next-screen`).
+> - **Saisie** (tâche 032, en cours) : bloc « Parcours » du dashboard ; images = sélection parmi
+>   les médias associés du bien. Persistance API Symfony + localisation hybride : tranche 2.
+> - Le POC d'origine `app/pages/villa-des-alizes-content.vue` reste comme référence figée.
 
 ## Concept
 

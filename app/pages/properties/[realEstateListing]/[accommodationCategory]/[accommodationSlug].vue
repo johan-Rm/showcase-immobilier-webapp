@@ -1,8 +1,10 @@
 <template>
   <UPage ref="pageRef" :ui="screenUi.page">
-    <!-- Détail du bien : le slug route pilote le chargement et le screen garde le rendu métier. -->
+    <!-- Détail du bien : parcours immersif si le bien définit des screens (hasPart), sinon la
+         fiche détail classique. Le slug route pilote le chargement. -->
     <UPageSection data-screen="screen-property-detail" :ui="screenUi.pageSection">
-      <ScreenPropertyDetail :slug="slug" />
+      <ScreenPropertyExceptional v-if="isExceptional" :slug="slug" @next-screen="next" />
+      <ScreenPropertyDetail v-else :slug="slug" />
     </UPageSection>
 
     <!-- Relance immobilière après le détail pour prolonger l'exploration. -->
@@ -19,6 +21,7 @@
 
 <script setup lang="ts">
 // 1. Imports
+import { isExceptionalProperty } from '@services/mapper/exceptional'
 import { accommodationToWebPage } from '@services/mapper/webPage'
 
 // 2. Types et constantes statiques
@@ -35,7 +38,7 @@ const { loadAccommodations } = useAccommodation()
 // Conteneur racine utilisé par le système de navigation par screens.
 const pageRef = useTemplateRef<HTMLElement>('pageRef')
 
-const { screenUi } = useScreenSystem({
+const { screenUi, next } = useScreenSystem({
   // Parcours vertical : détail, relance, footer.
   axis: 'y',
   // Pas de boucle afin de garder une sortie de page explicite.
@@ -95,6 +98,9 @@ await useAsyncData(
 
 // Bien métier résolu depuis le store après chargement éventuel.
 const accommodation = computed(() => accommodationStore.getAccommodationBySlug(slug.value))
+
+// Active le parcours immersif si le bien définit des screens valides (sinon fiche classique).
+const isExceptional = computed(() => isExceptionalProperty(accommodation.value))
 
 // Conversion vers un contrat WebPage pour réutiliser la même pipeline SEO que les pages éditoriales.
 const page = computed(() => {

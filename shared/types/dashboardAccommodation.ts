@@ -28,6 +28,51 @@ export type DashboardEditableValue =
 
 export type DashboardEditableRecord = Record<string, DashboardEditableValue>
 
+// --- Screens du parcours (blocs hasPart) éditables dans le dashboard ---
+
+/** Champs localisés d'un screen (édités par onglet de langue). */
+export const DASHBOARD_LOCALIZED_SCREEN_FIELDS = ['name', 'headline', 'text'] as const
+
+/** Média d'un screen : identifiant d'image + texte alternatif (réutilise le media picker). */
+export type DashboardScreenMedia = {
+  image: string
+  caption?: string
+}
+
+/** Options d'affichage partagées d'un screen (non localisées). */
+export type DashboardScreenMeta = {
+  reverse?: boolean
+  overlayMode?: 'dark' | 'light'
+}
+
+/** Screen éditable du parcours (forme draft d'un bloc hasPart). */
+export type DashboardAccommodationScreen = {
+  /** Template d'espace (string, ex. SCREEN_ACCOMMODATION_FULL). */
+  additionalType: string
+  position: number
+  name?: string
+  headline?: string
+  text?: string
+  associatedMedia?: DashboardScreenMedia[]
+  meta?: DashboardScreenMeta
+}
+
+/** Templates d'espaces sélectionnables (hors CONTACT, auto-ajouté au rendu). */
+export const DASHBOARD_SCREEN_TEMPLATES = [
+  { value: 'SCREEN_ACCOMMODATION_FULL', label: 'Image plein écran', icon: 'i-lucide-image' },
+  { value: 'SCREEN_ACCOMMODATION_SPLIT', label: 'Split 50/50', icon: 'i-lucide-panel-left' },
+  { value: 'SCREEN_ACCOMMODATION_TRYPTIQUE', label: 'Triptyque', icon: 'i-lucide-layout-grid' },
+  {
+    value: 'SCREEN_ACCOMMODATION_CAROUSEL',
+    label: 'Carousel',
+    icon: 'i-lucide-gallery-horizontal',
+  },
+  { value: 'SCREEN_ACCOMMODATION_OVERLAY', label: 'Image + overlay', icon: 'i-lucide-layers' },
+  { value: 'SCREEN_ACCOMMODATION_DUO', label: 'Duo', icon: 'i-lucide-columns-2' },
+] as const
+
+export type DashboardScreenTemplate = (typeof DASHBOARD_SCREEN_TEMPLATES)[number]['value']
+
 export type DashboardAccommodationMedia = {
   image: string
   imageUrl: string

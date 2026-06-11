@@ -1,5 +1,5 @@
 ---
-status: À faire
+status: En cours
 dependances: []
 ---
 
@@ -7,6 +7,17 @@ dependances: []
 
 > **Pour les agents:** Utiliser `superpowers:subagent-driven-development` ou
 > `superpowers:executing-plans` pour exécuter ce plan tâche par tâche.
+>
+> **Avancement :**
+> - ✅ **Tranche 1 — UI + lecture** (commit `1e12438`) : bloc « Parcours » (libellé FR, id
+>   `screens`) dans l'éditeur de contenu, liste de cartes repliables (T2/T3), carte d'édition
+>   (T4), `ScreenTemplateSelect` (T5), types éditables (T1). `updateField` route `hasPart` sur la
+>   **locale active**. `services/mapper/accommodation.ts` résout les médias internes (T9).
+> - ✅ **Images = sélection parmi les médias associés** (commit `0ac623d`) : `ScreenMediaSelector`
+>   (toggle ordonné, pastille de rang) remplace l'upload par écran ; légende héritée de la galerie.
+> - ⏳ **Tranche 2 — persistance** : PUT Symfony `mapHasPart` (T6), export markdown explicite (T7),
+>   **localisation hybride** `mergeHasPartLocales` (T8), tests (T11).
+> - ⏳ **Finition** : i18n libellés dashboard (T10) + validation souple.
 >
 > **Lien :** produit la donnée `hasPart` que la tâche **031** consomme côté public
 > (parcours immersif). Le contrat `hasPart` (types `SCREEN_ACCOMMODATION_*`, champs
@@ -46,8 +57,9 @@ Le pipeline de sauvegarde existant est étendu :
 - **Écran Contact** : **auto-ajouté** au rendu (031), **non éditable** ici → l'éditeur ne propose
   que les **6 templates d'espaces** `SCREEN_ACCOMMODATION_{FULL,SPLIT,TRYPTIQUE,CAROUSEL,OVERLAY,DUO}`.
 - **Persistance** : **API Symfony + markdown** (pipeline complet).
-- **Médias de screen** : stockés par **identifiant** (réutilisation du media picker + résolution
-  centrale), comme `associatedMedia` — pas d'url en dur.
+- **Médias de screen** : **sélection parmi les médias associés du bien** (pas d'upload par écran).
+  Stockés par **identifiant** (`{ image }`), légende héritée de la galerie, résolution centrale en
+  lecture (`accommodation.ts`) — pas d'url en dur.
 
 **Tech Stack:** Nuxt 4, Vue 3, TypeScript strict, Nuxt UI v4, Nitro, Pinia, `yaml`.
 
@@ -57,9 +69,10 @@ Le pipeline de sauvegarde existant est étendu :
 
 | Fichier                                                          | Action   |
 | --------------------------------------------------------------- | -------- |
-| `app/components/dashboard/PropertyScreensEditor.vue`            | Créer    |
-| `app/components/dashboard/PropertyScreenEditor.vue`             | Créer    |
-| `app/components/dashboard/ScreenTemplateSelect.vue`             | Créer    |
+| `app/components/dashboard/PropertyScreensEditor.vue`            | Créé ✅  |
+| `app/components/dashboard/PropertyScreenEditor.vue`             | Créé ✅  |
+| `app/components/dashboard/ScreenTemplateSelect.vue`             | Créé ✅  |
+| `app/components/dashboard/ScreenMediaSelector.vue`             | Créé ✅  |
 | `app/components/dashboard/PropertyContentEditor.vue`            | Modifier |
 | `app/components/dashboard/PropertyEditorPanel.vue`              | Modifier |
 | `shared/types/dashboardAccommodation.ts`                        | Modifier |
@@ -122,10 +135,12 @@ Le pipeline de sauvegarde existant est étendu :
 - [ ] **Options conditionnelles** (`meta`, partagé) selon le template :
   - `reverse` (toggle) pour `SPLIT` / `OVERLAY` / `TRYPTIQUE` ;
   - `overlayMode` (`dark` / `light`) pour `OVERLAY`.
-- [ ] **Médias** : réutiliser `<DashboardPropertyAssociatedMediaEditor :associated-media="…"
-  :full-width-items="true" @update:associated-media="…" />` sur le tableau de médias du screen
-  (stockage par identifiant + media picker existant).
-- [ ] Émet les mutations vers le parent (pas d'accès store direct au draft).
+- [x] **Médias** : `<DashboardScreenMediaSelector :model-value="screen.associatedMedia"
+  :available-media="…" />` — **sélection parmi les médias associés du bien** (toggle ordonné,
+  pastille de rang), **pas d'upload par écran**. Stocke `{ image: identifiant }` ordonné ; la
+  légende est héritée de la galerie (résolue en lecture). `available-media` provient de
+  `PropertyContentEditor` (→ `PropertyScreensEditor` → carte).
+- [x] Émet les mutations vers le parent (pas d'accès store direct au draft).
 
 ## Tâche 5 — Select de template de screen
 
