@@ -1,7 +1,5 @@
 <template>
-  <section
-    class="screen-property-detail relative h-dvh min-h-screen w-full overflow-hidden"
-  >
+  <section class="screen-property-detail relative h-dvh min-h-screen w-full overflow-hidden">
     <PropertyDetailDrawer
       :open="isDetailScreenActive && isAsideOpen"
       content-class="w-[38%] max-w-xl"
@@ -160,7 +158,9 @@
             <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
               {{ property?.name ?? '—' }}
             </span>
-            <span class="text-left text-sm font-bold tracking-[0.06em] whitespace-nowrap text-white">
+            <span
+              class="text-left text-sm font-bold tracking-[0.06em] whitespace-nowrap text-white"
+            >
               {{ offerLabel }}
             </span>
           </span>
