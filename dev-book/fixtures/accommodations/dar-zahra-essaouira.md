@@ -12,7 +12,7 @@ slug: dar-zahra-essaouira
 name: Dar Zahra
 dateCreated: 2026-06-10T00:00:00+00:00
 dateModified: 2026-06-10T00:00:00+00:00
-category: dar
+category: villa
 realEstateListing: bien-a-vendre
 place: campagne-d-essaouira
 offer:

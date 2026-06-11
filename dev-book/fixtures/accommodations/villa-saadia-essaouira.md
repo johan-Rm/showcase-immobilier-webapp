@@ -12,7 +12,7 @@ slug: villa-saadia-essaouira
 name: Villa Saadia
 dateCreated: 2026-06-10T00:00:00+00:00
 dateModified: 2026-06-10T00:00:00+00:00
-category: villa-golf
+category: villa
 realEstateListing: bien-a-vendre
 place: ida-ougourd
 offer:

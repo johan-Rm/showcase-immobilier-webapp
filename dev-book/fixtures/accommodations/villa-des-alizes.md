@@ -13,7 +13,7 @@ slug: villa-des-alizes
 name: Villa des Alizés
 dateCreated: 2026-06-09T00:00:00+00:00
 dateModified: 2026-06-09T00:00:00+00:00
-category: villa-golf
+category: villa
 realEstateListing: bien-a-vendre
 place: essaouira
 offer:

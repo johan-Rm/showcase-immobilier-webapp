@@ -12,7 +12,7 @@ slug: domaine-tilila-essaouira
 name: Domaine Tilila
 dateCreated: 2026-06-10T00:00:00+00:00
 dateModified: 2026-06-10T00:00:00+00:00
-category: domaine
+category: villa
 realEstateListing: bien-a-vendre
 place: zone-rurale
 offer:

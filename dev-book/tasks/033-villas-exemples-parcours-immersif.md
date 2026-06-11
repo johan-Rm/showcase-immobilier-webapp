@@ -52,9 +52,10 @@ les textes verbatim ni réutiliser les noms/identité réels :
 > `/properties/<realEstateListing>/<category>/<slug>` rendent le parcours immersif (HTTP 200,
 > `data-screen`, images servies, `srcset` non vide). Cf. `dev-book/fixtures/accommodations/README.md`.
 >
-> Les biens 1→5 sont en `category: villa-golf` ; les biens 6→10 reprennent leur **type réel**
-> (`domaine`, `maison-de-campagne`, `riad`, `kasbah`, `dar`) — la fiche d'exception se résout par
-> slug, indépendamment de la catégorie de route, donc l'activation immersive ne dépend que de `hasPart`.
+> Les 11 biens (10 + `villa-des-alizes`) sont en `category: villa` — la fiche d'exception se résout
+> par slug, indépendamment de la catégorie de route, donc l'activation immersive ne dépend que de
+> `hasPart`. `villa` est prévu dans la taxonomie `accommodation-type` (à ajouter côté Symfony ;
+> `category-code.yaml` ne contient pour l'instant que `villa-golf`).
 
 ---
 
