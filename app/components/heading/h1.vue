@@ -1,6 +1,6 @@
 <template>
   <h1
-    class="heading-h1 leading-tight tracking-[0.01em] space-y-2"
+    class="heading-h1 space-y-2 leading-tight tracking-[0.01em]"
     :class="[{ 'text-white': !props.colorClass }, props.colorClass, sizeClass, textAlignClass]"
   >
     <span

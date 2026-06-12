@@ -2,8 +2,6 @@ import type { Accommodation } from '@schemas/interfaces'
 
 import { describe, expect, it } from 'vitest'
 
-import { DASHBOARD_CONTACT_SCREEN } from '#shared/types/dashboardAccommodation'
-
 import {
   deriveExceptionalBadges,
   deriveExceptionalScreens,
@@ -11,6 +9,8 @@ import {
   isExceptionalProperty,
   resolveExceptionalLayout,
 } from './exceptional'
+
+import { DASHBOARD_CONTACT_SCREEN } from '#shared/types/dashboardAccommodation'
 
 // hasPart est content-driven (faiblement typé) : on construit des fixtures
 // partielles castées vers Accommodation, comme à la lecture réelle du store.

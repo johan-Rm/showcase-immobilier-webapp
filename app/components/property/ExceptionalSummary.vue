@@ -9,8 +9,8 @@
     :aria-expanded="expanded"
     @click="emit('open-info')"
   >
-    <div class="flex px-1 shrink-0 flex-col leading-tight tracking-[0.01em]">
-      <span class="block mb-2 h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
+    <div class="flex shrink-0 flex-col px-1 leading-tight tracking-[0.01em]">
+      <span class="mb-2 block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
       <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
         {{ summary.name }}
       </span>

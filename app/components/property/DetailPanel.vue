@@ -8,7 +8,7 @@
               <!-- <span class="block h-2 w-12 bg-white/75" aria-hidden="true" /> -->
               <HeadingH1
                 color-class="text-foreground"
-                class="text-balance text-2xl font-semibold uppercase sm:text-3xl"
+                class="text-2xl font-semibold text-balance uppercase sm:text-3xl"
               >
                 {{ props.property?.name ?? '—' }}
               </HeadingH1>
