@@ -42,6 +42,34 @@ Le template consomme des valeurs déjà préparées. La logique métier ne doit 
 
 Règle YAML : `app-script-setup-standard`
 
+### Données prêtes pour le template
+
+Le template ne doit pas contenir de transformation de données non triviale. Il consomme
+des labels, nombres formatés, listes filtrées, variantes d'affichage et objets de
+présentation déjà préparés.
+
+Exemples à éviter dans le template :
+
+```vue
+{{ String(index + 1).padStart(2, '0') }}
+{{ items.filter((item) => item.isVisible).length }}
+{{ accommodation.price?.toLocaleString(locale) }}
+```
+
+Le placement de la transformation dépend de sa portée :
+
+- si la transformation est strictement locale au composant et purement UI, utiliser un
+  helper pur ou un `computed` dans le bloc `computed UI-ready`
+- si elle est réutilisée par plusieurs composants ou dépend d'une logique réactive
+  transverse, la déplacer dans un composable
+- si elle dérive un état global partagé, l'exposer via un getter de store
+- si elle correspond à une règle métier, un mapping API/contenu ou une normalisation de
+  données, la placer dans `services/mapper/` ou dans le service métier approprié
+
+Un composant peut préparer une valeur d'affichage locale, mais il ne doit pas devenir la
+couche de normalisation des données. Par défaut, traiter les données le plus haut possible
+hors des fichiers dédiés à l'UX/UI, sans créer d'abstraction prématurée pour un cas isolé.
+
 ### Images
 
 Toute image affichée dans `app/` passe par le composant `<AppImage>`.

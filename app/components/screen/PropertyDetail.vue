@@ -154,7 +154,7 @@
           @click="openAside"
         >
           <span class="flex shrink-0 flex-col gap-1.5">
-            <span class="block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
+            <!-- <span class="block h-px w-12 rounded-full bg-white/75" aria-hidden="true" /> -->
             <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
               {{ property?.name ?? '—' }}
             </span>

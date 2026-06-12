@@ -9,20 +9,20 @@
     :aria-expanded="expanded"
     @click="emit('open-info')"
   >
-    <span class="flex shrink-0 flex-col gap-1.5">
-      <span class="block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
+    <div class="flex shrink-0 flex-col px-1 leading-tight tracking-[0.01em]">
+      <span class="mb-2 block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
       <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
         {{ summary.name }}
       </span>
       <span class="hidden self-start text-sm font-bold whitespace-nowrap text-white md:block">
         {{ summary.price }}
       </span>
-    </span>
-    <span class="flex items-center justify-between gap-2 md:w-auto md:justify-start">
+    </div>
+    <div class="flex items-center justify-between gap-2 md:w-auto md:justify-start">
       <span class="text-sm font-bold whitespace-nowrap text-white md:hidden">
         {{ summary.price }}
       </span>
-      <span class="flex min-w-0 items-center gap-1 overflow-hidden md:gap-1.5">
+      <div class="flex min-w-0 items-center gap-1 overflow-hidden md:gap-1.5">
         <span
           v-for="badge in badges"
           :key="badge.full"
@@ -31,8 +31,8 @@
           <span class="md:hidden">{{ badge.short }}</span>
           <span class="hidden md:inline">{{ badge.full }}</span>
         </span>
-      </span>
-    </span>
+      </div>
+    </div>
   </button>
 </template>
 

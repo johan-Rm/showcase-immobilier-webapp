@@ -22,10 +22,15 @@
           <span class="text-[0.65rem] font-bold text-white/40 tabular-nums">
             {{ String(index + 1).padStart(2, '0') }}
           </span>
-          <span class="truncate text-sm text-white/70">{{
-            templateLabel(screen.additionalType)
-          }}</span>
-          <span v-if="screen.name" class="truncate text-xs text-white/30">· {{ screen.name }}</span>
+          <span
+            class="truncate text-sm"
+            :class="screen.name ? 'text-white/70' : 'text-amber-400/70 italic'"
+          >
+            {{ screen.name || 'Sans désignation' }}
+          </span>
+          <span class="truncate text-xs text-white/30"
+            >· {{ templateLabel(screen.additionalType) }}</span
+          >
         </button>
         <div class="flex items-center gap-0.5 pr-2">
           <button
@@ -74,6 +79,28 @@
     >
       <UIcon name="i-lucide-layout-list" class="text-xl text-white/15" aria-hidden="true" />
       <p class="mt-2 text-xs">Aucun écran de parcours</p>
+    </div>
+
+    <!--
+      Écran de contact figé : clôt systématiquement le parcours. Affiché en
+      lecture seule, hors de `parsedScreens`, jamais persisté dans `hasPart`.
+    -->
+    <div class="rounded border border-white/8 bg-white/2">
+      <div class="flex items-stretch">
+        <div class="flex flex-1 items-center gap-2 px-3 py-2.5 text-left">
+          <UIcon name="i-lucide-minus" class="shrink-0 text-xs text-white/20" aria-hidden="true" />
+          <span class="text-[0.65rem] font-bold text-white/40 tabular-nums">
+            {{ String(parsedScreens.length + 1).padStart(2, '0') }}
+          </span>
+          <span class="truncate text-sm text-white/70">Contact</span>
+          <span class="truncate text-xs text-white/30">· Footer</span>
+        </div>
+        <div class="flex items-center pr-2">
+          <span class="p-1 text-white/20" aria-label="Écran figé">
+            <UIcon name="i-lucide-lock" class="text-xs" aria-hidden="true" />
+          </span>
+        </div>
+      </div>
     </div>
 
     <!-- Ajouter -->
