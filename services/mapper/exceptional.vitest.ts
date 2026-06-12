@@ -2,6 +2,8 @@ import type { Accommodation } from '@schemas/interfaces'
 
 import { describe, expect, it } from 'vitest'
 
+import { DASHBOARD_CONTACT_SCREEN } from '#shared/types/dashboardAccommodation'
+
 import {
   deriveExceptionalBadges,
   deriveExceptionalScreens,
@@ -31,7 +33,22 @@ describe('deriveExceptionalScreens', () => {
 
     const screens = deriveExceptionalScreens(item)
 
-    expect(screens.map((screen) => screen.eyebrow)).toEqual(['Vue', 'Entrée'])
+    // Le dernier écran est le contact figé, ajouté hors hasPart.
+    expect(screens.slice(0, -1).map((screen) => screen.eyebrow)).toEqual(['Vue', 'Entrée'])
+  })
+
+  it('ajoute l’écran de contact figé en clôture du parcours', () => {
+    const item = buildAccommodation({
+      hasPart: [part({ additionalType: 'SCREEN_ACCOMMODATION_FULL', position: 1, name: 'Vue' })],
+    })
+
+    const screens = deriveExceptionalScreens(item)
+    const last = screens.at(-1)
+
+    expect(last?.template).toBe('CONTACT')
+    expect(last?.id).toBe('contact')
+    expect(last?.eyebrow).toBe(DASHBOARD_CONTACT_SCREEN.name)
+    expect(last?.media).toEqual([])
   })
 
   it('mappe additionalType vers le bon template', () => {
@@ -125,9 +142,9 @@ describe('isExceptionalProperty', () => {
     expect(isExceptionalProperty(item)).toBe(false)
   })
 
-  it('ignore le seul écran Contact (sans média)', () => {
+  it('est faux pour un additionalType inconnu sans média', () => {
     const item = buildAccommodation({
-      hasPart: [{ additionalType: 'SCREEN_ACCOMMODATION_CONTACT', position: 1 }],
+      hasPart: [{ additionalType: 'SCREEN_ACCOMMODATION_UNKNOWN', position: 1 }],
     })
 
     expect(isExceptionalProperty(item)).toBe(false)

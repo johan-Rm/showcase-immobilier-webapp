@@ -5,9 +5,10 @@
         <header class="space-y-4 pt-4">
           <div class="space-y-3 px-4">
             <div class="min-w-0 space-y-2">
+              <!-- <span class="block h-2 w-12 bg-white/75" aria-hidden="true" /> -->
               <HeadingH1
-                hide-line
-                class="text-foreground text-2xl font-semibold text-balance uppercase sm:text-3xl"
+                color-class="text-foreground"
+                class="text-balance text-2xl font-semibold uppercase sm:text-3xl"
               >
                 {{ props.property?.name ?? '—' }}
               </HeadingH1>

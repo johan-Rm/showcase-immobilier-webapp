@@ -14,12 +14,14 @@
     <!-- Zone de texte (localisée) -->
     <label class="flex flex-col gap-1.5">
       <span class="text-[0.55rem] font-semibold tracking-widest uppercase" style="color: #6b7a4a">
-        Désignation
+        Désignation <span class="text-amber-400/70">*</span>
       </span>
       <input
         type="text"
         :value="screen.name ?? ''"
         placeholder="Ex. Les salons"
+        required
+        :aria-invalid="!screen.name?.trim()"
         :class="inputClass"
         @input="patch({ name: inputValue($event) })"
       />

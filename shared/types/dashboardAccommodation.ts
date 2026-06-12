@@ -57,7 +57,18 @@ export type DashboardAccommodationScreen = {
   meta?: DashboardScreenMeta
 }
 
-/** Templates d'espaces sélectionnables (hors CONTACT, auto-ajouté au rendu). */
+/**
+ * Écran de contact figé qui clôt tout parcours immersif. Il n'est pas stocké
+ * dans `hasPart` (donnée éditoriale) : il est ajouté au rendu et présenté en
+ * lecture seule dans l'éditeur. Contenu fixe, non localisé, non éditable.
+ */
+export const DASHBOARD_CONTACT_SCREEN = {
+  name: 'Dernière étape',
+  headline: 'Intéressé ?',
+  text: 'Laissez vos coordonnées pour organiser une visite privée.',
+} as const
+
+/** Templates d'espaces sélectionnables (hors contact, ajouté au rendu). */
 export const DASHBOARD_SCREEN_TEMPLATES = [
   { value: 'SCREEN_ACCOMMODATION_FULL', label: 'Image plein écran', icon: 'i-lucide-image' },
   { value: 'SCREEN_ACCOMMODATION_SPLIT', label: 'Split 50/50', icon: 'i-lucide-panel-left' },

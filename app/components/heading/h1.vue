@@ -1,11 +1,11 @@
 <template>
   <h1
-    class="heading-h1 leading-tight tracking-[0.01em]"
+    class="heading-h1 leading-tight tracking-[0.01em] space-y-2"
     :class="[{ 'text-white': !props.colorClass }, props.colorClass, sizeClass, textAlignClass]"
   >
     <span
       v-if="!props.hideLine"
-      class="block h-px w-12 rounded-full bg-white/75"
+      class="block h-px w-12 rounded-full bg-current/75"
       aria-hidden="true"
     />
     <span>

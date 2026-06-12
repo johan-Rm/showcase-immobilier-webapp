@@ -8,6 +8,8 @@ import type {
 } from '#shared/types/exceptional'
 import type { Accommodation } from '@schemas/interfaces'
 
+import { DASHBOARD_CONTACT_SCREEN } from '#shared/types/dashboardAccommodation'
+
 /**
  * Mapper view-model du parcours immersif d'un bien d'exception.
  *
@@ -37,7 +39,11 @@ const readNumber = (value: unknown): number | null => {
   return null
 }
 
-/** Mapping type de screen (contrat partagé `hasPart`) → template visuel interne. */
+/**
+ * Mapping type de screen (contrat partagé `hasPart`) → template visuel interne.
+ * Le template `CONTACT` n'y figure pas : l'écran de contact n'est pas stocké
+ * dans `hasPart`, il est ajouté en fin de parcours par `deriveExceptionalScreens`.
+ */
 const ADDITIONAL_TYPE_TO_TEMPLATE: Readonly<Record<string, ExceptionalScreenTemplate>> = {
   SCREEN_ACCOMMODATION_FULL: 'SCREEN_03',
   SCREEN_ACCOMMODATION_SPLIT: 'SCREEN_04',
@@ -45,7 +51,6 @@ const ADDITIONAL_TYPE_TO_TEMPLATE: Readonly<Record<string, ExceptionalScreenTemp
   SCREEN_ACCOMMODATION_CAROUSEL: 'SCREEN_05',
   SCREEN_ACCOMMODATION_OVERLAY: 'SCREEN_02',
   SCREEN_ACCOMMODATION_DUO: 'SCREEN_06',
-  SCREEN_ACCOMMODATION_CONTACT: 'CONTACT',
 }
 
 const FALLBACK_TEMPLATE: ExceptionalScreenTemplate = 'SCREEN_03'
@@ -105,9 +110,30 @@ const sortedParts = (item: Accommodation | undefined): UnknownRecord[] =>
     .map((part): UnknownRecord => asRecord(part))
     .sort((left, right) => (readNumber(left.position) ?? 0) - (readNumber(right.position) ?? 0))
 
-/** Convertit les blocs `hasPart` du bien en écrans internes du parcours. */
-export const deriveExceptionalScreens = (item: Accommodation | undefined): ExceptionalScreen[] =>
-  sortedParts(item).map((part, index): ExceptionalScreen => {
+/**
+ * Écran de contact figé qui clôt tout parcours. Hors `hasPart` (donnée
+ * éditoriale) : construit une fois depuis le contenu partagé `DASHBOARD_CONTACT_SCREEN`.
+ */
+const CONTACT_SCREEN: ExceptionalScreen = (() => {
+  const { title, titleHighlight } = parseHeadline(DASHBOARD_CONTACT_SCREEN.headline)
+  return {
+    id: 'contact',
+    label: DASHBOARD_CONTACT_SCREEN.name.toLowerCase(),
+    template: 'CONTACT',
+    eyebrow: DASHBOARD_CONTACT_SCREEN.name,
+    title,
+    ...(titleHighlight ? { titleHighlight } : {}),
+    text: DASHBOARD_CONTACT_SCREEN.text,
+    media: [],
+  }
+})()
+
+/**
+ * Convertit les blocs `hasPart` du bien en écrans internes du parcours, puis
+ * ajoute systématiquement l'écran de contact figé en clôture.
+ */
+export const deriveExceptionalScreens = (item: Accommodation | undefined): ExceptionalScreen[] => [
+  ...sortedParts(item).map((part, index): ExceptionalScreen => {
     const template = readTemplate(part)
     const eyebrow = readString(part.name)
     const { title, titleHighlight } = parseHeadline(readString(part.headline))
@@ -116,7 +142,7 @@ export const deriveExceptionalScreens = (item: Accommodation | undefined): Excep
       meta.overlayMode === 'light' || meta.overlayMode === 'dark' ? meta.overlayMode : undefined
 
     return {
-      id: template === 'CONTACT' ? 'contact' : slugify(eyebrow) || `screen-${index + 1}`,
+      id: slugify(eyebrow) || `screen-${index + 1}`,
       label: eyebrow.toLowerCase(),
       template,
       eyebrow,
@@ -127,7 +153,9 @@ export const deriveExceptionalScreens = (item: Accommodation | undefined): Excep
       ...(typeof meta.reverse === 'boolean' ? { reverse: meta.reverse } : {}),
       ...(overlayMode ? { overlayMode } : {}),
     }
-  })
+  }),
+  CONTACT_SCREEN,
+]
 
 /** Prix affiché dans la synthèse fixe, formaté depuis l'offre du bien. */
 export const formatExceptionalPrice = (item: Accommodation | undefined): string => {
