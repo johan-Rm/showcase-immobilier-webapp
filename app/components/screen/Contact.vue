@@ -35,21 +35,19 @@
         </div>
 
         <div
-          ref="contactLineRef"
           class="pointer-events-auto mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.65rem] leading-relaxed tracking-[0.08em] text-white"
-          :class="
-            isMobilePortrait || isTabletPortrait
-              ? 'justify-center text-center'
-              : 'justify-start text-left'
-          "
+          :class="isCompactContactLayout ? 'justify-center text-center' : 'justify-start text-left'"
         >
           <span
             v-for="(contactLink, index) in contactLinks"
             :key="contactLink.to"
-            data-contact-link
             class="inline-flex items-center gap-3"
           >
-            <span v-if="shouldShowContactSeparator(index)" class="text-white/60" aria-hidden="true">
+            <span
+              v-if="shouldShowContactSeparator(index)"
+              class="text-white/60 max-lg:hidden"
+              aria-hidden="true"
+            >
               •
             </span>
 
@@ -84,10 +82,6 @@ const { setScreenMeta } = useScreenSystem()
 const { isMobilePortrait, isTabletPortrait } = useDeviceDetect()
 
 // 5. Etat local
-const contactLineRef = ref<HTMLElement | null>(null)
-const wrappedContactLinkIndexes = ref<Set<number>>(new Set())
-
-let contactResizeObserver: ResizeObserver | null = null
 
 // 6. Data inputs
 
@@ -110,35 +104,13 @@ const contactLinks = computed<ContactInfoLink[]>(() => [
   })),
 ])
 
+const isCompactContactLayout = computed<boolean>(
+  () => isMobilePortrait.value || isTabletPortrait.value,
+)
+
 // 9. Actions et handlers
 const shouldShowContactSeparator = (index: number): boolean => {
-  return index > 0 && !wrappedContactLinkIndexes.value.has(index)
-}
-
-const updateContactSeparators = async (): Promise<void> => {
-  await nextTick()
-
-  const container = contactLineRef.value
-  if (!container) {
-    return
-  }
-
-  const items = Array.from(container.querySelectorAll<HTMLElement>('[data-contact-link]'))
-  const nextWrappedIndexes = new Set<number>()
-
-  items.forEach((item, index) => {
-    if (index === 0) {
-      return
-    }
-
-    const previousItem = items[index - 1]
-
-    if (previousItem && item.offsetTop > previousItem.offsetTop) {
-      nextWrappedIndexes.add(index)
-    }
-  })
-
-  wrappedContactLinkIndexes.value = nextWrappedIndexes
+  return index > 0
 }
 
 // 10. Watch et watchEffect
@@ -160,19 +132,5 @@ onMounted(() => {
       backgroundImage: backgroundImageUrl,
     },
   })
-
-  updateContactSeparators()
-
-  if (contactLineRef.value) {
-    contactResizeObserver = new ResizeObserver(() => {
-      updateContactSeparators()
-    })
-
-    contactResizeObserver.observe(contactLineRef.value)
-  }
-})
-
-onBeforeUnmount(() => {
-  contactResizeObserver?.disconnect()
 })
 </script>
