@@ -16,6 +16,22 @@ reste le point d entree local.
 Les conventions techniques automatisables doivent etre protegees par le CI/CD. Les scripts
 dans `scripts/ci/app/` executent ces controles.
 
+## README Contract
+
+Tout dossier de code (`app/`, `app/*`, `services/`, `server/`, `shared/`) porte un
+`README.md` au modele strict a deux chapitres, dans cet ordre :
+
+1. `## Role et responsabilites` — ce que la couche fait et ne fait pas.
+2. `## Conventions techniques` — les regles locales courtes et actionnables.
+
+Aucun autre chapitre de premier niveau n'est autorise. Une convention qui demande du contexte,
+des exemples ou des exceptions reste courte dans le README et renvoie vers `docs/`. Le README
+est le point d'entree local ; il n'est pas la documentation explicative.
+
+Chaque convention technique automatisable du second chapitre doit pouvoir etre reliee a une
+regle YAML et a un script CI (voir sections suivantes). Une couche n'est consideree comme
+couverte que lorsque ses conventions automatisables sont protegees par la CI.
+
 ## Rule Declaration
 
 Les regles de validation projet ne doivent pas etre codees en dur dans les scripts quand
