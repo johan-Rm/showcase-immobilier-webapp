@@ -59,7 +59,15 @@ export const useMetadata = (): UseMetadataReturn => {
 
   const loadDashboardCategoryCodes = async (): Promise<void> => {
     const items = await $fetch<
-      Array<{ iri: string; code: string; inCodeSet: string; label: string }>
+      Array<{
+        iri: string
+        code: string
+        inCodeSet: string
+        label: string
+        metadata?: {
+          isEnabled?: boolean
+        }
+      }>
     >('/api/dashboard/category-codes')
     store.setIrisMap(items)
     store.upsertDashboardCategoryCodes(items)

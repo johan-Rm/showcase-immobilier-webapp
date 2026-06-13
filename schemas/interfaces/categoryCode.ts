@@ -6,4 +6,7 @@ export interface CategoryCode {
   name: string
   inCodeSet?: string
   text?: string
+  metadata?: {
+    isEnabled?: boolean
+  }
 }

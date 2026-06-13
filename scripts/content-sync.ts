@@ -110,6 +110,9 @@ type ApiCategoryCode = {
   codeValue: string
   label: string
   inCodeSet: string
+  metadata?: {
+    isEnabled?: boolean
+  }
   text?: string | null
 }
 
@@ -192,6 +195,9 @@ type CategoryCodeYamlItem = {
   codeValue: string
   name: string
   inCodeSet: string
+  metadata?: {
+    isEnabled?: boolean
+  }
   text?: string
 }
 
@@ -203,6 +209,9 @@ function mapCategoryCodes(items: ApiCategoryCode[]): CategoryCodeYamlItem[] {
       codeValue: item.codeValue,
       name: item.label ?? item.codeValue,
       inCodeSet: item.inCodeSet,
+      ...(typeof item.metadata?.isEnabled === 'boolean'
+        ? { metadata: { isEnabled: item.metadata.isEnabled } }
+        : {}),
       ...(item.text ? { text: item.text } : {}),
     }))
     .sort(

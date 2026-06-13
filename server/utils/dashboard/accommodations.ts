@@ -168,7 +168,16 @@ export const loadDashboardAccommodations = async (
     .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
   const listings = allCodes
     .filter((c) => c.inCodeSet === 'real-estate-listing')
-    .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
+    .map((item) => {
+      const isEnabled = item.metadata?.isEnabled
+
+      return {
+        slug: item.codeValue,
+        name: item.name,
+        text: item.text,
+        ...(typeof isEnabled === 'boolean' ? { isEnabled } : {}),
+      }
+    })
 
   const mapped = mapAccommodations(rawAccommodations, {
     categories,

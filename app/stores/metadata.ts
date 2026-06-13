@@ -27,6 +27,10 @@ type DashboardCategoryCodeItem = {
   code: string
   inCodeSet: string
   label?: string
+  isEnabled?: boolean
+  metadata?: {
+    isEnabled?: boolean
+  }
 }
 
 const CATEGORY_CODE_SETS = new Set(['accommodation-category', 'accommodation-type'])
@@ -51,6 +55,27 @@ const upsertSlugOption = <TItem extends { slug?: string }>(
   if (index < 0) return [...items, item]
 
   return items.map((current, currentIndex) => (currentIndex === index ? item : current))
+}
+
+const isEnabledOption = (item: { isEnabled?: boolean }): boolean => item.isEnabled !== false
+
+const getCategoryCodeIsEnabled = (item: {
+  isEnabled?: unknown
+  metadata?: { isEnabled?: unknown }
+}): boolean | undefined => {
+  if (typeof item.metadata?.isEnabled === 'boolean') return item.metadata.isEnabled
+  return typeof item.isEnabled === 'boolean' ? item.isEnabled : undefined
+}
+
+const toRealEstateListing = (item: CategoryCode): RealEstateListing => {
+  const isEnabled = getCategoryCodeIsEnabled(item)
+
+  return {
+    slug: item.codeValue,
+    name: item.name,
+    text: item.text,
+    ...(typeof isEnabled === 'boolean' ? { isEnabled } : {}),
+  }
 }
 
 export const useMetadataStore = defineStore('metadata', {
@@ -101,7 +126,7 @@ export const useMetadataStore = defineStore('metadata', {
     },
 
     getAccommodationRealEstateListings(state: MetadataState): RealEstateListing[] {
-      return state.realEstateListings
+      return state.realEstateListings.filter(isEnabledOption)
     },
 
     /**
@@ -193,7 +218,7 @@ export const useMetadataStore = defineStore('metadata', {
           'accommodation-category': state.accommodationCategories,
           'accommodation-type': state.accommodationCategories,
           'accommodation-place': state.accommodationPlaces,
-          'real-estate-listing': state.realEstateListings,
+          'real-estate-listing': state.realEstateListings.filter(isEnabledOption),
         }
         if (inCodeSet in slugged) {
           return (slugged[inCodeSet] ?? []).map((c) => ({ label: c.name, value: c.slug }))
@@ -258,7 +283,7 @@ export const useMetadataStore = defineStore('metadata', {
         .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
       this.realEstateListings = items
         .filter((c) => c.inCodeSet === 'real-estate-listing')
-        .map(({ codeValue, name, text }) => ({ slug: codeValue, name, text }))
+        .map(toRealEstateListing)
       this.amenityFeatures = items.filter((c) => c.inCodeSet === 'amenity-feature')
       this.tags = items.filter((c) => c.inCodeSet === 'tag')
       this.categoryCodes = items.filter((c) => !SLUG_SETS.has(c.inCodeSet ?? ''))
@@ -302,11 +327,10 @@ export const useMetadataStore = defineStore('metadata', {
           })
           break
         case 'real-estate-listing':
-          this.realEstateListings = upsertSlugOption(this.realEstateListings, {
-            slug: item.codeValue,
-            name: item.name,
-            text: item.text,
-          })
+          this.realEstateListings = upsertSlugOption(
+            this.realEstateListings,
+            toRealEstateListing(item),
+          )
           break
         case 'amenity-feature':
           this.amenityFeatures = upsertCategoryCode(this.amenityFeatures, item)
@@ -336,12 +360,15 @@ export const useMetadataStore = defineStore('metadata', {
               name,
             })
             break
-          case 'real-estate-listing':
+          case 'real-estate-listing': {
+            const isEnabled = getCategoryCodeIsEnabled(item)
             this.realEstateListings = upsertSlugOption(this.realEstateListings, {
               slug: item.code,
               name,
+              ...(typeof isEnabled === 'boolean' ? { isEnabled } : {}),
             })
             break
+          }
           case 'amenity-feature':
             this.amenityFeatures = upsertCategoryCode(this.amenityFeatures, {
               codeValue: item.code,

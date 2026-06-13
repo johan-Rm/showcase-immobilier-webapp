@@ -79,6 +79,14 @@ export const useAccommodationStore = defineStore('accommodation', {
           return this.getAccommodations
         }
 
+        const metadataStore = useMetadataStore()
+        const knownEnabledListings = metadataStore.getAccommodationRealEstateListings
+        const isKnownEnabledListing = knownEnabledListings.some((item) => item.slug === listingSlug)
+
+        if (knownEnabledListings.length > 0 && !isKnownEnabledListing) {
+          return []
+        }
+
         return this.getAccommodations.filter((item) => item.realEstateListing?.slug === listingSlug)
       }
     },

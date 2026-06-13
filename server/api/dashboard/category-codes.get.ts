@@ -10,6 +10,9 @@ type SymfonyCategoryCode = {
   code?: string
   codeValue?: string
   inCodeSet: string
+  metadata?: {
+    isEnabled?: boolean
+  }
   label?: string | null
   name?: string | null
   translations?: SymfonyCategoryCodeTranslation[]
@@ -21,6 +24,9 @@ export type DashboardCategoryCodeIri = {
   code: string
   inCodeSet: string
   label: string
+  metadata?: {
+    isEnabled?: boolean
+  }
 }
 
 function getCollectionMembers<T>(response: HydraCollection<T>): T[] {
@@ -61,6 +67,16 @@ export default defineEventHandler(async (event): Promise<DashboardCategoryCodeIr
   return getCollectionMembers(response).flatMap((item) => {
     const code = item.codeValue ?? item.code
     if (!code) return []
-    return [{ iri: item['@id'], code, inCodeSet: item.inCodeSet, label: resolveLabel(item, code) }]
+    return [
+      {
+        iri: item['@id'],
+        code,
+        inCodeSet: item.inCodeSet,
+        label: resolveLabel(item, code),
+        ...(typeof item.metadata?.isEnabled === 'boolean'
+          ? { metadata: { isEnabled: item.metadata.isEnabled } }
+          : {}),
+      },
+    ]
   })
 })

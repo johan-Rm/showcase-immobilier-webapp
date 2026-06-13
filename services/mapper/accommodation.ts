@@ -110,16 +110,30 @@ const toAccommodationPlace = (value: UnknownRecord): AccommodationPlace => ({
   name: getString(value.name, getString(value.codeValue, getString(value.slug))),
 })
 
+const getRealEstateListingIsEnabled = (value: UnknownRecord): boolean | undefined => {
+  if (isRecord(value.metadata) && typeof value.metadata.isEnabled === 'boolean') {
+    return value.metadata.isEnabled
+  }
+
+  return typeof value.isEnabled === 'boolean' ? value.isEnabled : undefined
+}
+
 /**
  * Crée un objet `RealEstateListing` compact à partir d’une source générique.
  *
  * @param value Données brutes pouvant être un slug ou un objet complet.
  * @returns Objet `RealEstateListing` contenant les champs clés.
  */
-const toRealEstateListing = (value: UnknownRecord): RealEstateListing => ({
-  slug: getString(value.codeValue, getString(value.slug, getString(value.name))),
-  name: getString(value.name, getString(value.codeValue, getString(value.slug))),
-})
+const toRealEstateListing = (value: UnknownRecord): RealEstateListing => {
+  const isEnabled = getRealEstateListingIsEnabled(value)
+
+  return {
+    slug: getString(value.codeValue, getString(value.slug, getString(value.name))),
+    name: getString(value.name, getString(value.codeValue, getString(value.slug))),
+    ...(typeof value.text === 'string' ? { text: value.text } : {}),
+    ...(typeof isEnabled === 'boolean' ? { isEnabled } : {}),
+  }
+}
 
 /**
  * Normalise le bloc `offer` pour garantir un contrat stable côté UI.
