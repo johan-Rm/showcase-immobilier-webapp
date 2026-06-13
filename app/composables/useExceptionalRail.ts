@@ -19,6 +19,7 @@ import type { ComponentPublicInstance, MaybeRefOrGetter } from 'vue'
 const READING_MODE_SCROLL_SPEED_PX_PER_SECOND = 280
 // Cadence de défilement automatique des vignettes d'un écran carousel actif.
 const CAROUSEL_AUTOPLAY_INTERVAL_MS = 3500
+const TOUCH_SWIPE_THRESHOLD_PX = 48
 
 type UseExceptionalRailOptions = {
   screens: MaybeRefOrGetter<readonly ExceptionalScreen[]>
@@ -39,6 +40,8 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
   const screenElements = new Map<string, HTMLElement>()
   const activeScreenId = ref<string>(screens.value[0]?.id ?? 'contact')
   const galleryIndex = reactive<Record<string, number>>({})
+  const touchStartPoint = reactive({ x: 0, y: 0 })
+  const touchCurrentPoint = reactive({ x: 0, y: 0 })
   const isReadingModeActive = ref(false)
   const navigationInProgress = ref(false)
   const prefersReducedMotion = ref(false)
@@ -51,6 +54,7 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
   let readingModePreviousTimestamp: number | null = null
   let carouselAutoplayTimer: ReturnType<typeof setInterval> | null = null
   let programmaticScrollEndTimer: ReturnType<typeof setTimeout> | null = null
+  let isTouchTracking = false
 
   // Computed ------------------------------------------------------------------
   const total = computed<number>(() => screens.value.length)
@@ -148,6 +152,16 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
     const index = screens.value.findIndex((screen) => screen.id === currentId)
     const next = screens.value[index + 1]
     if (next) scrollToScreen(next.id)
+  }
+
+  const goToFirst = (): void => {
+    const first = screens.value[0]
+    if (first) scrollToScreen(first.id)
+  }
+
+  const goToLast = (): void => {
+    const last = screens.value.at(-1)
+    if (last) scrollToScreen(last.id)
   }
 
   // Panneau d'infos -----------------------------------------------------------
@@ -252,11 +266,14 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
   const handleWheel = (event: WheelEvent): void => {
     if (!isActive.value) return
     if (isInfoPanelOpen.value || lightboxMedia.value) return
-    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return
+    const deltaX = Math.abs(event.deltaX)
+    const deltaY = Math.abs(event.deltaY)
+    const dominantDelta = deltaX > deltaY ? event.deltaX : event.deltaY
+
     event.preventDefault()
     if (navigationInProgress.value) return
-    if (event.deltaY > 0) advanceForward()
-    else goToAdjacentScreen(-1)
+    if (dominantDelta > 0) advanceForward()
+    else if (dominantDelta < 0) goToAdjacentScreen(-1)
   }
 
   const handleKeydown = (event: KeyboardEvent): void => {
@@ -274,18 +291,128 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
     // Navigation du rail : uniquement quand l'écran parcours est actif (sinon on laisse
     // le useScreenSystem vertical gérer les flèches sur la relance / le footer).
     if (!isActive.value) return
-    if (event.key === 'ArrowRight') {
-      event.preventDefault()
-      advanceForward()
-    } else if (event.key === 'ArrowLeft') {
-      event.preventDefault()
-      goToAdjacentScreen(-1)
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        event.preventDefault()
+        advanceForward()
+        break
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        event.preventDefault()
+        goToAdjacentScreen(-1)
+        break
+      case 'Home':
+        event.preventDefault()
+        goToFirst()
+        break
+      case 'End':
+        event.preventDefault()
+        goToLast()
+        break
     }
   }
 
   const handleReadingModePointerInterrupt = (): void => {
     if (!isReadingModeActive.value) return
     stopReadingMode()
+  }
+
+  const isInteractiveEventTarget = (target: EventTarget | null): boolean => {
+    if (!(target instanceof HTMLElement)) return false
+
+    return Boolean(
+      target.closest(
+        [
+          'a',
+          'button',
+          'input',
+          'textarea',
+          'select',
+          'option',
+          'label',
+          'summary',
+          '[role="button"]',
+          '[contenteditable="true"]',
+          '[data-no-swipe]',
+          '[data-screen-touch-ignore]',
+        ].join(', '),
+      ),
+    )
+  }
+
+  const handleTouchStart = (event: TouchEvent): void => {
+    if (!isActive.value) return
+    if (isInfoPanelOpen.value || lightboxMedia.value) return
+    if (navigationInProgress.value || event.touches.length !== 1) return
+    if (isInteractiveEventTarget(event.target)) return
+
+    const touch = event.touches[0]
+    if (!touch) return
+
+    touchStartPoint.x = touch.clientX
+    touchStartPoint.y = touch.clientY
+    touchCurrentPoint.x = touch.clientX
+    touchCurrentPoint.y = touch.clientY
+    isTouchTracking = true
+  }
+
+  const handleTouchMove = (event: TouchEvent): void => {
+    if (!isActive.value) return
+    if (isInfoPanelOpen.value || lightboxMedia.value) return
+    if (!isTouchTracking || event.touches.length !== 1) return
+
+    const touch = event.touches[0]
+    if (!touch) return
+
+    touchCurrentPoint.x = touch.clientX
+    touchCurrentPoint.y = touch.clientY
+
+    const deltaX = touchCurrentPoint.x - touchStartPoint.x
+    const deltaY = touchCurrentPoint.y - touchStartPoint.y
+    const absX = Math.abs(deltaX)
+    const absY = Math.abs(deltaY)
+
+    if (
+      (absX >= TOUCH_SWIPE_THRESHOLD_PX || absY >= TOUCH_SWIPE_THRESHOLD_PX) &&
+      event.cancelable
+    ) {
+      event.preventDefault()
+    }
+  }
+
+  const handleTouchEnd = (): void => {
+    if (!isActive.value) {
+      isTouchTracking = false
+      return
+    }
+
+    if (
+      !isTouchTracking ||
+      isInfoPanelOpen.value ||
+      lightboxMedia.value ||
+      navigationInProgress.value
+    ) {
+      isTouchTracking = false
+      return
+    }
+
+    const deltaX = touchCurrentPoint.x - touchStartPoint.x
+    const deltaY = touchCurrentPoint.y - touchStartPoint.y
+    const absX = Math.abs(deltaX)
+    const absY = Math.abs(deltaY)
+
+    if (absX > absY && absX >= TOUCH_SWIPE_THRESHOLD_PX) {
+      if (deltaX < 0) advanceForward()
+      if (deltaX > 0) goToAdjacentScreen(-1)
+    }
+
+    if (absY > absX && absY >= TOUCH_SWIPE_THRESHOLD_PX) {
+      if (deltaY < 0) advanceForward()
+      if (deltaY > 0) goToAdjacentScreen(-1)
+    }
+
+    isTouchTracking = false
   }
 
   // Watch ---------------------------------------------------------------------
@@ -313,6 +440,10 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
     for (const el of screenElements.values()) screenObserver.observe(el)
 
     rootRef.value?.addEventListener('wheel', handleWheel, { passive: false })
+    rootRef.value?.addEventListener('touchstart', handleTouchStart, { passive: true })
+    rootRef.value?.addEventListener('touchmove', handleTouchMove, { passive: false })
+    rootRef.value?.addEventListener('touchend', handleTouchEnd, { passive: true })
+    rootRef.value?.addEventListener('touchcancel', handleTouchEnd, { passive: true })
     scroller.addEventListener('pointerdown', handleReadingModePointerInterrupt)
     window.addEventListener('keydown', handleKeydown)
   })
@@ -324,6 +455,10 @@ export const useExceptionalRail = (options: UseExceptionalRailOptions) => {
     screenObserver?.disconnect()
     screenObserver = null
     rootRef.value?.removeEventListener('wheel', handleWheel)
+    rootRef.value?.removeEventListener('touchstart', handleTouchStart)
+    rootRef.value?.removeEventListener('touchmove', handleTouchMove)
+    rootRef.value?.removeEventListener('touchend', handleTouchEnd)
+    rootRef.value?.removeEventListener('touchcancel', handleTouchEnd)
     scrollerRef.value?.removeEventListener('pointerdown', handleReadingModePointerInterrupt)
     window.removeEventListener('keydown', handleKeydown)
   })
