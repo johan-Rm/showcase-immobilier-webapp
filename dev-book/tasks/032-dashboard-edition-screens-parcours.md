@@ -9,6 +9,7 @@ dependances: []
 > `superpowers:executing-plans` pour exécuter ce plan tâche par tâche.
 >
 > **Avancement :**
+>
 > - ✅ **Tranche 1 — UI + lecture** (commit `1e12438`) : bloc « Parcours » (libellé FR, id
 >   `screens`) dans l'éditeur de contenu, liste de cartes repliables (T2/T3), carte d'édition
 >   (T4), `ScreenTemplateSelect` (T5), types éditables (T1). `updateField` route `hasPart` sur la
@@ -67,20 +68,20 @@ Le pipeline de sauvegarde existant est étendu :
 
 ## Fichiers impactés
 
-| Fichier                                                          | Action   |
-| --------------------------------------------------------------- | -------- |
-| `app/components/dashboard/PropertyScreensEditor.vue`            | Créé ✅  |
-| `app/components/dashboard/PropertyScreenEditor.vue`             | Créé ✅  |
-| `app/components/dashboard/ScreenTemplateSelect.vue`             | Créé ✅  |
-| `app/components/dashboard/ScreenMediaSelector.vue`             | Créé ✅  |
-| `app/components/dashboard/PropertyContentEditor.vue`            | Modifier |
-| `app/components/dashboard/PropertyEditorPanel.vue`              | Modifier |
-| `shared/types/dashboardAccommodation.ts`                        | Modifier |
-| `server/utils/dashboard/accommodationMapper.ts`                 | Modifier |
-| `server/utils/dashboard/markdownExporter.ts`                    | Modifier |
-| `server/utils/dashboard/translationNormalizer.ts`              | Modifier |
-| `services/mapper/accommodation.ts`                              | Modifier |
-| `server/utils/dashboard/accommodationMapper.vitest.ts`         | Modifier |
+| Fichier                                                | Action   |
+| ------------------------------------------------------ | -------- |
+| `app/components/dashboard/PropertyScreensEditor.vue`   | Créé ✅  |
+| `app/components/dashboard/PropertyScreenEditor.vue`    | Créé ✅  |
+| `app/components/dashboard/ScreenTemplateSelect.vue`    | Créé ✅  |
+| `app/components/dashboard/ScreenMediaSelector.vue`     | Créé ✅  |
+| `app/components/dashboard/PropertyContentEditor.vue`   | Modifier |
+| `app/components/dashboard/PropertyEditorPanel.vue`     | Modifier |
+| `shared/types/dashboardAccommodation.ts`               | Modifier |
+| `server/utils/dashboard/accommodationMapper.ts`        | Modifier |
+| `server/utils/dashboard/markdownExporter.ts`           | Modifier |
+| `server/utils/dashboard/translationNormalizer.ts`      | Modifier |
+| `services/mapper/accommodation.ts`                     | Modifier |
+| `server/utils/dashboard/accommodationMapper.vitest.ts` | Modifier |
 
 ---
 
@@ -89,10 +90,10 @@ Le pipeline de sauvegarde existant est étendu :
 **Fichier :** `shared/types/dashboardAccommodation.ts` (modifier)
 
 - [ ] Définir le type éditable d'un screen (forme draft) :
-  `{ additionalType: string; position: number; name?: string; headline?: string; text?: string;
-  associatedMedia?: Array<{ image: string; caption?: string }>; meta?: { reverse?: boolean; overlayMode?: 'dark' | 'light' } }`.
+      `{ additionalType: string; position: number; name?: string; headline?: string; text?: string;
+associatedMedia?: Array<{ image: string; caption?: string }>; meta?: { reverse?: boolean; overlayMode?: 'dark' | 'light' } }`.
 - [ ] Exposer la liste des templates d'espaces sélectionnables (les **6**, hors `CONTACT`) avec
-  libellé + icône, source unique réutilisée par le select et la validation.
+      libellé + icône, source unique réutilisée par le select et la validation.
 - [ ] `additionalType` est une **string** (cf. fixture `villa-des-alizes.md`), pas un objet.
 
 ## Tâche 2 — Block `screens` dans l'éditeur de contenu
@@ -100,29 +101,29 @@ Le pipeline de sauvegarde existant est étendu :
 **Fichier :** `app/components/dashboard/PropertyContentEditor.vue` (modifier)
 
 - [ ] Ajouter un block `screens` à `contentBlocks` **après** `associated-media`
-  (icône `i-lucide-layout-list`, libellé i18n « Screens » via `panel.blocks.screens`).
+      (icône `i-lucide-layout-list`, libellé i18n « Screens » via `panel.blocks.screens`).
 - [ ] Dans le `v-if` de rendu des blocks, brancher
-  `<DashboardPropertyScreensEditor :screens="hasPartValue" :locale="activeLocale"
-  @update:screens="emit('update-field','hasPart', $event)" />`.
+      `<DashboardPropertyScreensEditor :screens="hasPartValue" :locale="activeLocale"
+@update:screens="emit('update-field','hasPart', $event)" />`.
 - [ ] Ajouter `hasPartValue` (lecture de `activeDraft.frontmatter.hasPart`) et le passage de la
-  locale active (pour savoir quel texte localisé éditer). Réutiliser `getFieldValue('hasPart', [])`.
+      locale active (pour savoir quel texte localisé éditer). Réutiliser `getFieldValue('hasPart', [])`.
 
 ## Tâche 3 — Éditeur de liste de screens
 
 **Fichier :** `app/components/dashboard/PropertyScreensEditor.vue` (créer)
 
 - [ ] Affiche la liste ordonnée des screens (tri par `position`) sous forme de **cartes
-  repliables** : en-tête récapitulatif `« ⋮ {position} · {libellé template} »` + chevron
-  d'ouverture, le corps (carte d'édition Tâche 4) ne se déploie que sur la carte ouverte. Le
-  bloc d'accordéon de 1er niveau « Screens » reste, lui, unique et stable.
+      repliables** : en-tête récapitulatif `« ⋮ {position} · {libellé template} »` + chevron
+      d'ouverture, le corps (carte d'édition Tâche 4) ne se déploie que sur la carte ouverte. Le
+      bloc d'accordéon de 1er niveau « Screens » reste, lui, unique et stable.
 - [ ] État vide explicite (aucun screen).
 - [ ] Bouton « Ajouter un screen » → ajoute un screen avec `position` = max+1,
-  `additionalType` par défaut (`SCREEN_ACCOMMODATION_FULL`), textes/médias vides, et l'ouvre.
+      `additionalType` par défaut (`SCREEN_ACCOMMODATION_FULL`), textes/médias vides, et l'ouvre.
 - [ ] Par screen : monter/descendre (recalcule `position`, patron `PropertyAssociatedMediaEditor`),
-  supprimer, et la carte d'édition repliable (Tâche 4).
+      supprimer, et la carte d'édition repliable (Tâche 4).
 - [ ] Émet `update:screens` avec le tableau complet à chaque mutation. **Mutations de structure**
-  (ajout/suppression/ordre/template/meta/médias) → s'appliquent à la donnée partagée ; **mutations
-  de texte** → seulement sur la locale active (cf. Tâche 8).
+      (ajout/suppression/ordre/template/meta/médias) → s'appliquent à la donnée partagée ; **mutations
+      de texte** → seulement sur la locale active (cf. Tâche 8).
 
 ## Tâche 4 — Carte d'édition d'un screen
 
@@ -130,16 +131,16 @@ Le pipeline de sauvegarde existant est étendu :
 
 - [ ] **Template** : `<DashboardScreenTemplateSelect>` (Tâche 5) → écrit `additionalType` (string).
 - [ ] **Zone de texte** (localisée) : champs `name` (désignation), `headline` (titre — gérer le
-  marqueur d'accent `**…**` comme dans le POC), `text` (paragraphe). Réutiliser le style des
-  inputs dashboard.
+      marqueur d'accent `**…**` comme dans le POC), `text` (paragraphe). Réutiliser le style des
+      inputs dashboard.
 - [ ] **Options conditionnelles** (`meta`, partagé) selon le template :
   - `reverse` (toggle) pour `SPLIT` / `OVERLAY` / `TRYPTIQUE` ;
   - `overlayMode` (`dark` / `light`) pour `OVERLAY`.
 - [x] **Médias** : `<DashboardScreenMediaSelector :model-value="screen.associatedMedia"
-  :available-media="…" />` — **sélection parmi les médias associés du bien** (toggle ordonné,
-  pastille de rang), **pas d'upload par écran**. Stocke `{ image: identifiant }` ordonné ; la
-  légende est héritée de la galerie (résolue en lecture). `available-media` provient de
-  `PropertyContentEditor` (→ `PropertyScreensEditor` → carte).
+:available-media="…" />` — **sélection parmi les médias associés du bien** (toggle ordonné,
+      pastille de rang), **pas d'upload par écran**. Stocke `{ image: identifiant }` ordonné ; la
+      légende est héritée de la galerie (résolue en lecture). `available-media` provient de
+      `PropertyContentEditor` (→ `PropertyScreensEditor` → carte).
 - [x] Émet les mutations vers le parent (pas d'accès store direct au draft).
 
 ## Tâche 5 — Select de template de screen
@@ -147,7 +148,7 @@ Le pipeline de sauvegarde existant est étendu :
 **Fichier :** `app/components/dashboard/ScreenTemplateSelect.vue` (créer)
 
 - [ ] `USelect`/`USelectMenu` listant les **6** templates (libellé lisible + icône, source Tâche 1),
-  `model-value` = `additionalType` string, `@update:model-value`.
+      `model-value` = `additionalType` string, `@update:model-value`.
 - [ ] Pas d'option `CONTACT` (auto-ajouté au rendu, cf. décisions).
 
 ## Tâche 6 — Persistance API Symfony (PUT)
@@ -165,9 +166,9 @@ Le pipeline de sauvegarde existant est étendu :
 **Fichier :** `server/utils/dashboard/markdownExporter.ts` (modifier)
 
 - [ ] Vérifier que `hasPart` présent dans le frontmatter est bien sérialisé par
-  `YAML.stringify` (forme attendue : identique à `villa-des-alizes.md`).
+      `YAML.stringify` (forme attendue : identique à `villa-des-alizes.md`).
 - [ ] Gérer le statut localisé/global de `hasPart` en cohérence avec la Tâche 8 (ne pas le laisser
-  écraser les textes des autres locales lors de `mergeGlobalFields` / `propagateGlobalFields`).
+      écraser les textes des autres locales lors de `mergeGlobalFields` / `propagateGlobalFields`).
 
 ## Tâche 8 — Traductions : structure partagée / textes localisés (POINT DUR)
 
@@ -184,27 +185,27 @@ entièrement localisé). `hasPart` est **hybride** : structure partagée, textes
   - crée les screens nouvellement ajoutés (textes vides côté autre locale), supprime/réordonne
     comme la locale active.
 - [ ] Câbler cette fusion dans le flux `saveMultilingual` / la normalisation des traductions, pour
-  que chaque locale enregistrée ait la **même structure** et **ses propres** textes.
+      que chaque locale enregistrée ait la **même structure** et **ses propres** textes.
 - [ ] Ne **pas** se contenter d'ajouter `hasPart` à `LOCALIZED_FIELDS` (gèlerait les textes des
-  autres langues) ni de le laisser global (textes figés sur une langue).
+      autres langues) ni de le laisser global (textes figés sur une langue).
 
 ## Tâche 9 — Résolution des médias de screen côté lecture
 
 **Fichier :** `services/mapper/accommodation.ts` (modifier)
 
 - [ ] Étendre le mapping pour résoudre `hasPart[].associatedMedia[]` (identifiant → `{ url, caption }`)
-  via le même index image que `mapAssociatedMedia`, afin que le mapper de **031**
-  (`services/mapper/exceptional.ts`, qui lit `part.associatedMedia[].url`) reçoive des url résolues.
+      via le même index image que `mapAssociatedMedia`, afin que le mapper de **031**
+      (`services/mapper/exceptional.ts`, qui lit `part.associatedMedia[].url`) reçoive des url résolues.
 - [ ] Rester dans le rôle d'ingestion (résolution d'identifiants) ; aucune logique de présentation.
 
 ## Tâche 10 — i18n & validation
 
 - [ ] Externaliser les libellés dashboard ajoutés (block « Screens », « Ajouter un screen »,
-  libellés de templates, « Inverser », « Mode overlay »…) via les clés de traduction du dashboard
-  (`dashboardContent.editor.panel…`).
+      libellés de templates, « Inverser », « Mode overlay »…) via les clés de traduction du dashboard
+      (`dashboardContent.editor.panel…`).
 - [ ] Validation souple : un screen a besoin d'un `additionalType` et d'au moins un média ;
-  signaler (sans bloquer la sauvegarde) un screen incomplet. La garde `isExceptionalProperty`
-  (031) filtre déjà les screens invalides côté public.
+      signaler (sans bloquer la sauvegarde) un screen incomplet. La garde `isExceptionalProperty`
+      (031) filtre déjà les screens invalides côté public.
 
 ## Tâche 11 — Tests
 
@@ -212,7 +213,7 @@ entièrement localisé). `hasPart` est **hybride** : structure partagée, textes
 
 - [ ] `mapHasPart` : structure conservée, `associatedMedia.image` → IRI, absence de screens.
 - [ ] `mergeHasPartLocales` : structure de la locale active appliquée à l'autre locale, textes
-  cibles préservés, ajout/suppression/réordonnancement, screen nouveau = textes vides.
+      cibles préservés, ajout/suppression/réordonnancement, screen nouveau = textes vides.
 - [ ] Export markdown : `hasPart` sérialisé à la forme attendue.
 
 ---

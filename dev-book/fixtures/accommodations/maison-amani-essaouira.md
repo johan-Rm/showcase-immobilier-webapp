@@ -163,7 +163,7 @@ hasPart:
     position: 8
     name: Dernière étape
     headline: Intéressé ?
-    text: "Vous venez de visiter la Maison Amani. Laissez-nous vos coordonnées pour organiser une visite privée."
+    text: 'Vous venez de visiter la Maison Amani. Laissez-nous vos coordonnées pour organiser une visite privée.'
     associatedMedia: []
 ---
 

@@ -178,7 +178,7 @@ hasPart:
     position: 9
     name: Dernière étape
     headline: Intéressé ?
-    text: "Vous venez de visiter le Domaine Tilila. Laissez-nous vos coordonnées pour organiser une visite privée."
+    text: 'Vous venez de visiter le Domaine Tilila. Laissez-nous vos coordonnées pour organiser une visite privée.'
     associatedMedia: []
 ---
 

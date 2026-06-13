@@ -42,7 +42,7 @@
         v-for="(screen, index) in screens"
         :id="screen.id"
         :key="screen.id"
-        :ref="(el: Element | null) => registerScreen(el, screen.id)"
+        :ref="(el) => registerScreen(el, screen.id)"
         class="relative h-full w-screen shrink-0 snap-start snap-always overflow-hidden"
       >
         <!-- ┌─ SCREEN_04 — Split 50/50 ────────────────────────────────────┐
@@ -954,10 +954,16 @@ const readingModeButtonLabel = computed<string>(() => 'Lancer le parcours automa
 const readingModeIcon = computed<string>(() => 'i-heroicons-play-solid')
 const scrollerStyle = computed<Record<string, string> | undefined>(() => {
   // Cinématique : l'animation pilote `scrollLeft` à la main → on neutralise le smooth ET le snap.
-  if (isReadingModeActive.value) return { scrollBehavior: 'auto', scrollSnapType: 'none' }
+  if (isReadingModeActive.value) {
+    const style: Record<string, string> = { scrollBehavior: 'auto', scrollSnapType: 'none' }
+    return style
+  }
   // Navigation flèches/molette : on garde le smooth (classe `scroll-smooth`) mais on désactive
   // le snap mandatory le temps de l'animation, sinon il hache le défilement (effet saccadé).
-  if (navigationInProgress.value) return { scrollSnapType: 'none' }
+  if (navigationInProgress.value) {
+    const style: Record<string, string> = { scrollSnapType: 'none' }
+    return style
+  }
   return undefined
 })
 // Visuel agrandi courant ; null tant que la lightbox est fermée.

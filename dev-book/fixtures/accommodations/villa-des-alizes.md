@@ -107,7 +107,7 @@ hasPart:
     position: 2
     name: L'entrée
     headline: Le seuil de la **sérénité**
-    text: "Un couloir lumineux ponctué de banquettes et de pièces chinées donne le ton : calme et élégance discrète."
+    text: 'Un couloir lumineux ponctué de banquettes et de pièces chinées donne le ton : calme et élégance discrète.'
     meta:
       reverse: true
     associatedMedia:

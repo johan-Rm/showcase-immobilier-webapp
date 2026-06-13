@@ -155,7 +155,7 @@ hasPart:
     position: 8
     name: Dernière étape
     headline: Intéressé ?
-    text: "Vous venez de visiter Dar Zahra. Laissez-nous vos coordonnées pour organiser une visite privée."
+    text: 'Vous venez de visiter Dar Zahra. Laissez-nous vos coordonnées pour organiser une visite privée.'
     associatedMedia: []
 ---
 

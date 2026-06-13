@@ -30,7 +30,7 @@
          neutralisé via readingModeScrollerStyle pour un travelling continu. -->
     <div
       ref="scrollerRef"
-      class="flex h-full w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      class="flex h-full w-full snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overflow-y-hidden scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       :style="readingModeScrollerStyle"
     >
       <!-- Un écran du parcours. Le layout rendu dépend de screen.template,
@@ -40,7 +40,7 @@
         v-for="(screen, index) in screens"
         :id="screen.id"
         :key="screen.id"
-        :ref="(el: Element | null) => registerScreen(el, screen.id)"
+        :ref="(el) => registerScreen(el, screen.id)"
         class="relative h-full w-screen shrink-0 snap-start snap-always overflow-hidden"
       >
         <!-- ┌─ SCREEN_04 — Split 50/50 ────────────────────────────────────┐
@@ -48,7 +48,10 @@
              │ `screen.reverse` permute les deux moitiés sur desktop.       │
              │ Mobile : image en haut (42%), panneau dessous (colonne).     │
              └──────────────────────────────────────────────────────────────┘ -->
-        <div v-if="screenLayout(screen) === 'split'" class="flex h-full w-full flex-col md:flex-row">
+        <div
+          v-if="screenLayout(screen) === 'split'"
+          class="flex h-full w-full flex-col md:flex-row"
+        >
           <!-- Zone média — visuel pleine moitié (eager + priorité haute si 1er écran). -->
           <div
             class="relative order-first h-[42%] md:h-full md:w-1/2"
@@ -69,7 +72,7 @@
             :class="screen.reverse ? 'md:order-1' : 'md:order-2'"
           >
             <p :class="BACKGROUND_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-balance text-4xl font-light leading-tight md:text-5xl">
+            <h2 class="text-4xl leading-tight font-light text-balance md:text-5xl">
               <span
                 v-for="(part, partIndex) in titleParts(screen)"
                 :key="partIndex"
@@ -123,7 +126,7 @@
           >
             <p :class="overlayLabelClass(screen)">— {{ screen.eyebrow }}</p>
             <h2
-              class="text-balance text-4xl font-light leading-tight md:text-5xl"
+              class="text-4xl leading-tight font-light text-balance md:text-5xl"
               :class="overlayTextClass(screen)"
             >
               <span
@@ -133,10 +136,7 @@
                 >{{ part.text }}</span
               >
             </h2>
-            <p
-              class="mt-5 max-w-md text-base leading-relaxed"
-              :class="overlayTextClass(screen)"
-            >
+            <p class="mt-5 max-w-md text-base leading-relaxed" :class="overlayTextClass(screen)">
               {{ screen.text }}
             </p>
           </div>
@@ -169,7 +169,7 @@
             "
           >
             <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-balance text-4xl font-light leading-tight md:text-5xl">
+            <h2 class="text-4xl leading-tight font-light text-balance md:text-5xl">
               <span
                 v-for="(part, partIndex) in titleParts(screen)"
                 :key="partIndex"
@@ -273,7 +273,7 @@
             :class="screen.reverse ? 'right-12 text-right lg:right-20' : 'left-12 lg:left-20'"
           >
             <p :class="BACKGROUND_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-4xl font-light leading-tight">
+            <h2 class="text-4xl leading-tight font-light">
               <span
                 v-for="(part, partIndex) in titleParts(screen)"
                 :key="partIndex"
@@ -314,14 +314,14 @@
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
           <!-- Zone texte — désignation + titre + contexte + bande de vignettes (navigation). -->
-          <div class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto">
+          <div
+            class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
+          >
             <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-balance text-4xl font-light leading-tight text-white md:text-5xl">
-              <span
-                v-for="(part, partIndex) in titleParts(screen)"
-                :key="partIndex"
-                >{{ part.text }}</span
-              >
+            <h2 class="text-4xl leading-tight font-light text-balance text-white md:text-5xl">
+              <span v-for="(part, partIndex) in titleParts(screen)" :key="partIndex">{{
+                part.text
+              }}</span>
             </h2>
             <p class="mt-4 ml-auto max-w-md text-base leading-relaxed text-white">
               {{ screen.text }}
@@ -374,14 +374,14 @@
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
           <!-- Zone texte — désignation + titre + contexte. -->
-          <div class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto">
+          <div
+            class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
+          >
             <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-            <h2 class="text-balance text-4xl font-light leading-tight text-white md:text-5xl">
-              <span
-                v-for="(part, partIndex) in titleParts(screen)"
-                :key="partIndex"
-                >{{ part.text }}</span
-              >
+            <h2 class="text-4xl leading-tight font-light text-balance text-white md:text-5xl">
+              <span v-for="(part, partIndex) in titleParts(screen)" :key="partIndex">{{
+                part.text
+              }}</span>
             </h2>
             <p class="mt-4 ml-auto max-w-md text-base leading-relaxed text-white">
               {{ screen.text }}
@@ -418,7 +418,6 @@
       </section>
     </div>
     <!-- ╚═ Fin RÉGION A — Rail horizontal ════════════════════════════════ -->
-
 
     <!-- ╔══════════════════════════════════════════════════════════════════╗
          ║ RÉGION B — MODE LECTURE (déclencheur du travelling cinématique)  ║
@@ -632,14 +631,7 @@ import type { ComponentPublicInstance } from 'vue'
 // Les 6 types de screens canoniques du parcours + l'écran de contact final.
 // split → SCREEN_04 · full-overlay → SCREEN_02 · full → SCREEN_03
 // triptych → SCREEN_01 · carousel → SCREEN_05 · duo → SCREEN_06
-type ScreenLayout =
-  | 'split'
-  | 'full-overlay'
-  | 'full'
-  | 'triptych'
-  | 'carousel'
-  | 'duo'
-  | 'contact'
+type ScreenLayout = 'split' | 'full-overlay' | 'full' | 'triptych' | 'carousel' | 'duo' | 'contact'
 
 type ScreenTemplate =
   | 'SCREEN_01'
@@ -896,9 +888,7 @@ const hasNextScreen = computed<boolean>(() => activeIndex.value < total - 1)
 const canStartReadingMode = computed<boolean>(
   () => activeIndex.value === 0 && hasNextScreen.value && !isReadingModeActive.value,
 )
-const readingModeButtonLabel = computed<string>(() =>
-  'Lancer le parcours automatique de la fiche',
-)
+const readingModeButtonLabel = computed<string>(() => 'Lancer le parcours automatique de la fiche')
 const readingModeIcon = computed<string>(() => 'i-heroicons-play-solid')
 const readingModeScrollerStyle = computed<Record<string, string> | undefined>(() =>
   // Pendant la cinématique, on neutralise le snap et le smooth natifs : l'animation pilote

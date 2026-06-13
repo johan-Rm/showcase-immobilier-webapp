@@ -25,19 +25,19 @@ de chambres, piscine, localisation régionale). Images : usage démo/POC interne
 
 ## Fixtures
 
-| Slug | `category` | Type | Localisation (fictive) |
-| ---- | ---------- | ---- | ---------------------- |
-| `villa-des-alizes` | `villa` | villa de plain-pied (POC d'origine) | Essaouira |
-| `villa-lumiere-mogador` | `villa` | villa contemporaine de plain-pied | Mogador |
-| `villa-najma-mogador` | `villa` | villa contemporaine | Mogador |
-| `villa-saadia-essaouira` | `villa` | demeure d'inspiration marocaine | campagne (Ida Ougourd) |
-| `villa-soleil-essaouira` | `villa` | propriété de prestige (tennis, golf) | campagne d'Essaouira |
-| `villa-dunes-essaouira` | `villa` | villa de pierre épurée | campagne |
-| `domaine-tilila-essaouira` | `villa` | domaine contemporain (10 ch.) | campagne (zone rurale) |
-| `maison-amani-essaouira` | `villa` | maison de campagne aux galeries d'arches | Ghazoua |
-| `riad-assala-essaouira` | `villa` | riad d'exception (zelliges, spa) | Ounagha |
-| `kasbah-tigmi-essaouira` | `villa` | kasbah de terre berbère | Had Draa |
-| `dar-zahra-essaouira` | `villa` | demeure ocre aux patios fleuris | campagne d'Essaouira |
+| Slug                       | `category` | Type                                     | Localisation (fictive) |
+| -------------------------- | ---------- | ---------------------------------------- | ---------------------- |
+| `villa-des-alizes`         | `villa`    | villa de plain-pied (POC d'origine)      | Essaouira              |
+| `villa-lumiere-mogador`    | `villa`    | villa contemporaine de plain-pied        | Mogador                |
+| `villa-najma-mogador`      | `villa`    | villa contemporaine                      | Mogador                |
+| `villa-saadia-essaouira`   | `villa`    | demeure d'inspiration marocaine          | campagne (Ida Ougourd) |
+| `villa-soleil-essaouira`   | `villa`    | propriété de prestige (tennis, golf)     | campagne d'Essaouira   |
+| `villa-dunes-essaouira`    | `villa`    | villa de pierre épurée                   | campagne               |
+| `domaine-tilila-essaouira` | `villa`    | domaine contemporain (10 ch.)            | campagne (zone rurale) |
+| `maison-amani-essaouira`   | `villa`    | maison de campagne aux galeries d'arches | Ghazoua                |
+| `riad-assala-essaouira`    | `villa`    | riad d'exception (zelliges, spa)         | Ounagha                |
+| `kasbah-tigmi-essaouira`   | `villa`    | kasbah de terre berbère                  | Had Draa               |
+| `dar-zahra-essaouira`      | `villa`    | demeure ocre aux patios fleuris          | campagne d'Essaouira   |
 
 Tous en `category: villa` / `realEstateListing: bien-a-vendre`. Route
 `/properties/bien-a-vendre/villa/<slug>` → activation de la fiche bien d'exception
@@ -56,10 +56,10 @@ un identifiant lisible, son url et sa légende :
 
 ```yaml
 associatedMedia:
-  - image: villa-lumiere-salon-01            # identifiant (clé de référence)
+  - image: villa-lumiere-salon-01 # identifiant (clé de référence)
     url: /poc/villa-lumiere-mogador/villa-lumiere-salon-01.jpg
     caption: Salon ouvert sur le jardin
-    representativeOfPage: true               # 1er média = visuel représentatif
+    representativeOfPage: true # 1er média = visuel représentatif
 ```
 
 Les écrans (`hasPart`) ne dupliquent pas l'url : ils **référencent** un média de la galerie

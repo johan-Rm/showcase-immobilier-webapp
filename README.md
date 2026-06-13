@@ -29,3 +29,4 @@ Initialisation des environnements :
 cp .env.example .env
 cp .env.example .env.preprod
 cp .env.example .env.prod
+```

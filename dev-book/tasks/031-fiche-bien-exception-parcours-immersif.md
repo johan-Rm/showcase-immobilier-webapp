@@ -10,6 +10,7 @@ dependances: []
 >
 > **Réalisé (commits `bfa18e1` + `0dec781`)** : décomposition complète livrée et vérifiée en
 > runtime sur `/properties/bien-a-vendre/villa-golf/villa-des-alizes`.
+>
 > - `services/mapper/exceptional.ts` (+ `shared/types/exceptional.ts`) + 14 tests
 >   (`exceptional.vitest.ts`) ; garde `isExceptionalProperty`.
 > - 7 composants `components/property/Exceptional*.vue` + `exceptional.helpers.ts`,
@@ -44,7 +45,7 @@ figée, à ne pas modifier) est **décomposé** conformément aux standards `doc
 > est le mapper **d'ingestion** (DTO brut → modèle de domaine `Accommodation`), partagé par
 > toutes les pages. Il fait `...item` (l. 391) : `hasPart` **traverse** donc le mapper et
 > arrive au store tel quel, sans transformation. La transformation `hasPart → view-model de
-> screens` (résolution `additionalType`→layout, `parseHeadline`, badges, ids, template de
+screens` (résolution `additionalType`→layout, `parseHeadline`, badges, ids, template de
 > repli) est une **logique de présentation** propre au parcours : la mettre dans le mapper
 > d'ingestion le couplerait à une seule feature UI (SRP/SoC). Le mapper dédié `exceptional.ts`
 > consomme `accommodation.hasPart` et produit `ExceptionalScreen[]`.
@@ -85,23 +86,23 @@ de geste en butée.
 
 ## Fichiers impactés
 
-| Fichier                                                                              | Action   |
-| ------------------------------------------------------------------------------------ | -------- |
-| `services/mapper/exceptional.ts`                                                     | Créer    |
-| `services/mapper/exceptional.test.ts`                                                | Créer    |
-| `shared/types/exceptional.ts`                                                        | Créer    |
-| `app/components/property/ExceptionalFull.vue`                                         | Créer    |
-| `app/components/property/ExceptionalOverlay.vue`                                      | Créer    |
-| `app/components/property/ExceptionalSplit.vue`                                        | Créer    |
-| `app/components/property/ExceptionalTriptych.vue`                                     | Créer    |
-| `app/components/property/ExceptionalCarousel.vue`                                     | Créer    |
-| `app/components/property/ExceptionalDuo.vue`                                          | Créer    |
-| `app/components/property/ExceptionalContact.vue`                                      | Créer    |
-| `app/components/property/ExceptionalSummary.vue`                                      | Créer    |
-| `app/components/property/ExceptionalInfoPanel.vue`                                    | Créer    |
-| `app/components/property/ExceptionalLightbox.vue`                                     | Créer    |
-| `app/composables/useExceptionalRail.ts`                                               | Créer    |
-| `app/components/screen/PropertyExceptional.vue`                                       | Créer    |
+| Fichier                                                                                    | Action   |
+| ------------------------------------------------------------------------------------------ | -------- |
+| `services/mapper/exceptional.ts`                                                           | Créer    |
+| `services/mapper/exceptional.test.ts`                                                      | Créer    |
+| `shared/types/exceptional.ts`                                                              | Créer    |
+| `app/components/property/ExceptionalFull.vue`                                              | Créer    |
+| `app/components/property/ExceptionalOverlay.vue`                                           | Créer    |
+| `app/components/property/ExceptionalSplit.vue`                                             | Créer    |
+| `app/components/property/ExceptionalTriptych.vue`                                          | Créer    |
+| `app/components/property/ExceptionalCarousel.vue`                                          | Créer    |
+| `app/components/property/ExceptionalDuo.vue`                                               | Créer    |
+| `app/components/property/ExceptionalContact.vue`                                           | Créer    |
+| `app/components/property/ExceptionalSummary.vue`                                           | Créer    |
+| `app/components/property/ExceptionalInfoPanel.vue`                                         | Créer    |
+| `app/components/property/ExceptionalLightbox.vue`                                          | Créer    |
+| `app/composables/useExceptionalRail.ts`                                                    | Créer    |
+| `app/components/screen/PropertyExceptional.vue`                                            | Créer    |
 | `app/pages/properties/[realEstateListing]/[accommodationCategory]/[accommodationSlug].vue` | Modifier |
 
 ---
@@ -198,8 +199,7 @@ Encapsuler **toute** la logique réactive du POC (§ 5/9/10/12), SSR-safe.
       `ScreenPropertyDetail`).
 - [ ] Dérive `screens` / `summary` / `badges` via le mapper (Tâche 1).
 - [ ] Instancie `useExceptionalRail({ screens, screenId })`.
-- [ ] Template : rail `v-for` aiguillant vers le bon `PropertyExceptional*` selon `screen.layout`,
-      + `PropertyExceptionalSummary`, progressbar (région D), bouton mode lecture (région B),
+- [ ] Template : rail `v-for` aiguillant vers le bon `PropertyExceptional*` selon `screen.layout`, + `PropertyExceptionalSummary`, progressbar (région D), bouton mode lecture (région B),
       `PropertyExceptionalLightbox`, `PropertyExceptionalInfoPanel`.
 - [ ] `setScreenMeta('screen-property-detail', { type:'landing', navigator:{ enabled:false }, logo:{ visible:true }, layout:{…} })`
       — capture totale de la nav verticale (patron `ScreenPropertyList`) + logo blanc lisible sur

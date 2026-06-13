@@ -4,12 +4,13 @@
 > Périmètre : template de page réutilisable pour présenter un bien immobilier d'exception.
 >
 > **Implémentation :**
+>
 > - **Rendu** (tâche 031, ✅) : `services/mapper/exceptional.ts` (dérivation `hasPart` → écrans
->   + garde `isExceptionalProperty`), composants `app/components/property/Exceptional*.vue`,
->   composable `app/composables/useExceptionalRail.ts`, orchestrateur
->   `app/components/screen/PropertyExceptional.vue`. Activé sur la fiche bien si `hasPart` valide,
->   sinon repli sur `ScreenPropertyDetail`. Coexistence verticale via le patron `ScreenPropertyList`
->   (capture `navigator.enabled:false` + emit `next-screen`).
+>   - garde `isExceptionalProperty`), composants `app/components/property/Exceptional*.vue`,
+>     composable `app/composables/useExceptionalRail.ts`, orchestrateur
+>     `app/components/screen/PropertyExceptional.vue`. Activé sur la fiche bien si `hasPart` valide,
+>     sinon repli sur `ScreenPropertyDetail`. Coexistence verticale via le patron `ScreenPropertyList`
+>     (capture `navigator.enabled:false` + emit `next-screen`).
 > - **Saisie** (tâche 032, en cours) : bloc « Parcours » du dashboard ; images = sélection parmi
 >   les médias associés du bien. Persistance API Symfony + localisation hybride : tranche 2.
 > - Le POC d'origine `app/pages/villa-des-alizes-content.vue` reste comme référence figée.
@@ -34,16 +35,16 @@ screen, il force explicitement l'affichage du logo via la meta de page `headerLo
 
 ## Parcours
 
-| Étape | Screen recommandé |
-| --- | --- |
-| 01 — Vue d'ouverture | SCREEN_03 — Full Image + texte |
-| 02 — Espace d'accueil | SCREEN_04 — Split 50/50 |
-| 03 — Pièce de vie | SCREEN_01 — Triptyque |
-| 04 — Espace extérieur | SCREEN_05 — Mini Carousel |
-| 05 — Cuisine / réception | SCREEN_02 — Full Image + Overlay |
-| 06 — Espace nuit | SCREEN_05 — Mini Carousel |
-| 07 — Espace d'eau / bien-être | SCREEN_06 — Duo |
-| 08 — Contact | Split 50/50 contact |
+| Étape                         | Screen recommandé                |
+| ----------------------------- | -------------------------------- |
+| 01 — Vue d'ouverture          | SCREEN_03 — Full Image + texte   |
+| 02 — Espace d'accueil         | SCREEN_04 — Split 50/50          |
+| 03 — Pièce de vie             | SCREEN_01 — Triptyque            |
+| 04 — Espace extérieur         | SCREEN_05 — Mini Carousel        |
+| 05 — Cuisine / réception      | SCREEN_02 — Full Image + Overlay |
+| 06 — Espace nuit              | SCREEN_05 — Mini Carousel        |
+| 07 — Espace d'eau / bien-être | SCREEN_06 — Duo                  |
+| 08 — Contact                  | Split 50/50 contact              |
 
 _Le screen indiqué est une affectation recommandée pour créer un rythme éditorial. Elle
 reste configurable par bien (cf. [Principe](#principe--vues--screens))._
@@ -54,20 +55,20 @@ Chaque vue du parcours utilise l'un des screens de la bibliothèque, afin de cr�
 **rythme visuel varié** tout au long de la visite. Toutes les zones de texte comportent au
 minimum un sur-titre (eyebrow), un titre et un court paragraphe.
 
-| Réf | Screen | Description |
-| --- | --- | --- |
-| **SCREEN_01** | Triptyque + texte | Trois visuels en composition éditoriale superposée : une horizontale principale en haut, une horizontale secondaire dessous, une verticale à droite + zone de texte latérale. Les visuels utilisent un arrondi léger. Chaque visuel est **cliquable** et s'agrandit en lightbox (cf. [Lightbox du triptyque](#lightbox-du-triptyque-screen_01)). |
-| **SCREEN_02** | Full Image + Overlay + texte | Image plein cadre recouverte d'un **panneau overlay translucide** (l'image transparaît) qui porte la zone de texte. |
-| **SCREEN_03** | Full Image + texte (optionnel) | **Une seule** image plein cadre, zone de texte en surimpression **optionnelle**, sans vignettes. |
-| **SCREEN_04** | Split 50/50 + texte | **Vrai split** : colonne image et colonne texte côte à côte, **sans superposition**. Ratio 50/50. |
-| **SCREEN_05** | Mini Carousel Full Image + texte | Image plein cadre + zone de texte alignée à droite intégrant de petites **vignettes** pour défiler entre plusieurs visuels du même espace. Les visuels défilent en **autoplay** tant que l'écran est actif (cf. [Autoplay du SCREEN_05](#autoplay-du-screen_05)). |
-| **SCREEN_06** | Duo + texte | **Deux visuels juxtaposés** + zone de texte blanche en surimpression, alignée à droite sur desktop. |
+| Réf           | Screen                           | Description                                                                                                                                                                                                                                                                                                                                      |
+| ------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **SCREEN_01** | Triptyque + texte                | Trois visuels en composition éditoriale superposée : une horizontale principale en haut, une horizontale secondaire dessous, une verticale à droite + zone de texte latérale. Les visuels utilisent un arrondi léger. Chaque visuel est **cliquable** et s'agrandit en lightbox (cf. [Lightbox du triptyque](#lightbox-du-triptyque-screen_01)). |
+| **SCREEN_02** | Full Image + Overlay + texte     | Image plein cadre recouverte d'un **panneau overlay translucide** (l'image transparaît) qui porte la zone de texte.                                                                                                                                                                                                                              |
+| **SCREEN_03** | Full Image + texte (optionnel)   | **Une seule** image plein cadre, zone de texte en surimpression **optionnelle**, sans vignettes.                                                                                                                                                                                                                                                 |
+| **SCREEN_04** | Split 50/50 + texte              | **Vrai split** : colonne image et colonne texte côte à côte, **sans superposition**. Ratio 50/50.                                                                                                                                                                                                                                                |
+| **SCREEN_05** | Mini Carousel Full Image + texte | Image plein cadre + zone de texte alignée à droite intégrant de petites **vignettes** pour défiler entre plusieurs visuels du même espace. Les visuels défilent en **autoplay** tant que l'écran est actif (cf. [Autoplay du SCREEN_05](#autoplay-du-screen_05)).                                                                                |
+| **SCREEN_06** | Duo + texte                      | **Deux visuels juxtaposés** + zone de texte blanche en surimpression, alignée à droite sur desktop.                                                                                                                                                                                                                                              |
 
 ### Points de distinction
 
 - **01** (3 visuels en collage) ≠ **06** (2 visuels juxtaposés).
 - **03** (1 image, sans vignettes) ≠ **05** (plusieurs images avec vignettes / carousel).
-- **02** (overlay translucide *sur* l'image) ≠ **04** (vrai split, sans superposition).
+- **02** (overlay translucide _sur_ l'image) ≠ **04** (vrai split, sans superposition).
 - La **progressbar globale** indique l'avancement dans le parcours horizontal.
 - Le premier screen peut afficher un indicateur discret de défilement horizontal.
 - La bande de vignettes du SCREEN_05 est une navigation interne à un espace ; elle ne remplace
@@ -175,14 +176,14 @@ La page utilise les tokens du thème du site pour rester cohérente avec les aut
 Le parcours sépare deux notions, ce qui permet de garder un déroulé cohérent tout en
 laissant une grande liberté de composition d'un bien à l'autre.
 
-Les **vues** définissent *ce qui* est présenté :
+Les **vues** définissent _ce qui_ est présenté :
 
 ```text
 Vue d'ouverture · Espace d'accueil · Pièce de vie · Espace extérieur
 Cuisine / réception · Espace nuit · Espace d'eau / bien-être · Contact
 ```
 
-Les **screens** définissent *comment* c'est présenté :
+Les **screens** définissent _comment_ c'est présenté :
 
 ```text
 SCREEN_01 Triptyque · SCREEN_02 Full Image + Overlay · SCREEN_03 Full Image + texte

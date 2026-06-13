@@ -33,18 +33,18 @@ les textes verbatim ni réutiliser les noms/identité réels :
 
 ## Sources à traiter
 
-| # | Bien source (réel) | Infos | Photos | Slug fictif cible | État |
-| - | ------------------ | ----- | ------ | ----------------- | ---- |
-| 1 | Villa Lucia (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador | …/villa-lucia-mogador/photos | `villa-lumiere-mogador` | ✅ |
-| 2 | Villa Mamouna (Mogador Golf Club) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-mamouna | …/villa-mamouna/photos | `villa-najma-mogador` | ✅ |
-| 3 | Villa Betty (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-betty | …/villa-betty/photos | `villa-saadia-essaouira` | ✅ |
-| 4 | Villa Sunny Baraka (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-sunny-baraka | …/villa-sunny-baraka/photos | `villa-soleil-essaouira` | ✅ |
-| 5 | Villa DL (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-dl | …/villa-dl/photos | `villa-dunes-essaouira` | ✅ |
-| 6 | Domaine Khali Jhiane (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/domaine-khali-jhiane | …/domaine-khali-jhiane/photos | `domaine-tilila-essaouira` | ✅ |
-| 7 | Maison Illi (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/maison-illi | …/maison-illi/photos | `maison-amani-essaouira` | ✅ |
-| 8 | Riad Dharma (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/riad-dharma | …/riad-dharma/photos | `riad-assala-essaouira` | ✅ |
-| 9 | Kasbah Mamouna (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/kasbah-mamouna | …/kasbah-mamouna/photos | `kasbah-tigmi-essaouira` | ✅ |
-| 10 | Dar El Salam (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/dar-el-salam | …/dar-el-salam/photos | `dar-zahra-essaouira` | ✅ |
+| #   | Bien source (réel)                           | Infos                                                                                                      | Photos                        | Slug fictif cible          | État |
+| --- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------- | ---- |
+| 1   | Villa Lucia (Mogador Golf Club)              | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-lucia-mogador     | …/villa-lucia-mogador/photos  | `villa-lumiere-mogador`    | ✅   |
+| 2   | Villa Mamouna (Mogador Golf Club)            | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/mogador-golf-club/villa-mamouna           | …/villa-mamouna/photos        | `villa-najma-mogador`      | ✅   |
+| 3   | Villa Betty (en dehors d'Essaouira)          | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-betty          | …/villa-betty/photos          | `villa-saadia-essaouira`   | ✅   |
+| 4   | Villa Sunny Baraka (en dehors d'Essaouira)   | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-sunny-baraka   | …/villa-sunny-baraka/photos   | `villa-soleil-essaouira`   | ✅   |
+| 5   | Villa DL (en dehors d'Essaouira)             | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/villa-dl             | …/villa-dl/photos             | `villa-dunes-essaouira`    | ✅   |
+| 6   | Domaine Khali Jhiane (en dehors d'Essaouira) | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/domaine-khali-jhiane | …/domaine-khali-jhiane/photos | `domaine-tilila-essaouira` | ✅   |
+| 7   | Maison Illi (en dehors d'Essaouira)          | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/maison-illi          | …/maison-illi/photos          | `maison-amani-essaouira`   | ✅   |
+| 8   | Riad Dharma (en dehors d'Essaouira)          | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/riad-dharma          | …/riad-dharma/photos          | `riad-assala-essaouira`    | ✅   |
+| 9   | Kasbah Mamouna (en dehors d'Essaouira)       | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/kasbah-mamouna       | …/kasbah-mamouna/photos       | `kasbah-tigmi-essaouira`   | ✅   |
+| 10  | Dar El Salam (en dehors d'Essaouira)         | https://www.villanovo.fr/location-villas/afrique/maroc/essaouira/en-dehors-dessaouira/dar-el-salam         | …/dar-el-salam/photos         | `dar-zahra-essaouira`      | ✅   |
 
 > **Réalisé** — 10 biens d'exemple. Fixtures versionnées dans `dev-book/fixtures/accommodations/`
 > (source de vérité, repostées dans `content/fr/accommodations/` car ce dossier est gitignoré et
@@ -64,26 +64,26 @@ les textes verbatim ni réutiliser les noms/identité réels :
 ### 1. Récupérer les infos
 
 - [x] `WebFetch` sur la page infos → caractéristiques factuelles (surface habitable, surface
-  terrain, chambres, salles de bains, pièces, capacité, piscine, localisation, équipements) et
-  liste des **espaces** (vue d'ensemble, entrée, salons, cuisine, extérieur, chambres, eau/bien-être).
+      terrain, chambres, salles de bains, pièces, capacité, piscine, localisation, équipements) et
+      liste des **espaces** (vue d'ensemble, entrée, salons, cuisine, extérieur, chambres, eau/bien-être).
 - [x] **Réécrire** des textes d'ambiance courts et originaux par espace (1 idée forte / écran).
 
 ### 2. Télécharger les images
 
 - [x] ⚠️ La page `/photos` de villanovo est **rendue en JS** : un `curl` simple ne renvoie pas
-  les URLs d'images (lazy-load / data-attributes). Prévoir : inspection des URLs réelles
-  (DevTools réseau / `data-src` / JSON d'hydratation), ou rendu navigateur, puis téléchargement
-  des fichiers (`curl`/`wget`).
+      les URLs d'images (lazy-load / data-attributes). Prévoir : inspection des URLs réelles
+      (DevTools réseau / `data-src` / JSON d'hydratation), ou rendu navigateur, puis téléchargement
+      des fichiers (`curl`/`wget`).
 - [x] Télécharger dans `public/poc/<slug>/`.
 - [x] **Renommer proprement** : `<slug>-<espace>-NN.jpg` (ex. `villa-lumiere-salon-01.jpg`),
-  cohérent avec `public/poc/villa-des-alizes/`.
+      cohérent avec `public/poc/villa-des-alizes/`.
 - [x] Optimiser si besoin (poids raisonnable, format jpg/webp).
 
 ### 3. Créer le contenu avec parcours
 
 - [x] `content/fr/accommodations/<slug>.md` : frontmatter (identifier fictif, slug, name fictif,
-  category `villa-golf`, realEstateListing `bien-a-vendre`, place Essaouira, surfaces, nb pièces/
-  chambres/sdb, offer fictive) **+** bloc `hasPart` selon le modèle `villa-des-alizes.md` :
+      category `villa-golf`, realEstateListing `bien-a-vendre`, place Essaouira, surfaces, nb pièces/
+      chambres/sdb, offer fictive) **+** bloc `hasPart` selon le modèle `villa-des-alizes.md` :
   - alterner les templates `SCREEN_ACCOMMODATION_{FULL,SPLIT,TRYPTIQUE,CAROUSEL,OVERLAY,DUO}`
     pour créer du rythme ;
   - `position`, `name` (désignation), `headline` (avec `**accent**`), `text`, `associatedMedia`
