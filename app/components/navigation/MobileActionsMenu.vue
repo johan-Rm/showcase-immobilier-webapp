@@ -26,7 +26,24 @@ type ActionItem = {
 
 const VIEWPORT_MARGIN = 8
 
-const IGNORE_SELECTOR = 'input, textarea, [contenteditable], select'
+const IGNORE_SELECTOR = [
+  'a',
+  'button',
+  'input',
+  'label',
+  'option',
+  'select',
+  'summary',
+  'textarea',
+  '[contenteditable]',
+  '[role="button"]',
+  '[role="combobox"]',
+  '[role="listbox"]',
+  '[role="menuitem"]',
+  '[role="option"]',
+  '[data-no-swipe]',
+  '[data-screen-touch-ignore]',
+].join(', ')
 
 // Thème dashboard : fond #212121, accent olive #6B7A4A, libellés FR en dur.
 const menuUi = {
@@ -40,7 +57,7 @@ const menuUi = {
 // 4. Composables, stores, routeur
 const { loggedIn } = useUserSession()
 const { isPhoneDevice, isTabletDevice } = useDeviceDetect()
-const { openCommandProperty, toggleSidePanel } = useDashboard()
+const { openCommandProperty } = useDashboard()
 const localePath = useLocalePath()
 const route = useRoute()
 
@@ -73,11 +90,6 @@ const items = computed<ActionItem[][]>(() => [
       onSelect: () => {
         void navigateTo(localePath('/dashboard'))
       },
-    },
-    {
-      label: 'Contrôles de design',
-      icon: 'i-lucide-sliders',
-      onSelect: () => toggleSidePanel('designControls'),
     },
   ],
 ])
