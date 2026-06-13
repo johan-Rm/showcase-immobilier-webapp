@@ -3,7 +3,7 @@
     <!-- Colonnes : contenu + sidebar -->
     <div class="flex h-full">
       <!-- Zone de contenu principale avec image en fond -->
-      <div class="pointer-events-none relative flex flex-1 flex-col pt-12 lg:pt-0">
+      <div class="pointer-events-none relative flex flex-1 flex-col pt-16 lg:pt-0">
         <div class="absolute inset-0">
           <template v-if="currentImageUrl">
             <AppImage

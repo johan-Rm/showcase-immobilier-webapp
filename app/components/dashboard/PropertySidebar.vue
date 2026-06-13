@@ -3,25 +3,22 @@
   <div class="fixed top-0 right-0 left-0 z-20 flex flex-col bg-[#212121] lg:hidden">
     <div class="h-0.5 w-full shrink-0 bg-[#6B7A4A]" />
 
-    <div class="flex shrink-0 items-center gap-3 px-4 py-2.5">
-      <p class="flex-1 text-[0.6rem] font-semibold tracking-[0.22em] text-white/40 uppercase">
-        Dashboard
-      </p>
-      <span class="text-[0.7rem] text-white/35">
-        {{ filteredCount }} bien{{ filteredCount > 1 ? 's' : '' }}
-      </span>
-      <button
-        type="button"
-        class="rounded p-1 text-white/35 transition-colors hover:text-white/70"
-        :aria-label="isTopbarOpen ? 'Réduire' : 'Développer'"
-        @click="isTopbarOpen = !isTopbarOpen"
-      >
-        <UIcon
-          :name="isTopbarOpen ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
-          class="text-sm"
-          aria-hidden="true"
-        />
-      </button>
+    <div class="flex shrink-0 items-center gap-3 px-4 py-3">
+      <div class="flex min-w-0 flex-1 items-center gap-3">
+        <LogoGd class="h-7 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
+        <div class="min-w-0">
+          <span
+            class="block text-[0.6rem] leading-none font-semibold tracking-[0.28em] whitespace-nowrap text-white/40 uppercase"
+          >
+            Dashboard
+          </span>
+          <span
+            class="mt-1 block truncate font-[rationale] text-base leading-none font-medium tracking-wider text-[#6B7A4A]/70 uppercase"
+          >
+            Graines Digitales
+          </span>
+        </div>
+      </div>
       <button
         type="button"
         class="rounded p-1 text-white/35 transition-colors hover:text-white/70"
@@ -32,7 +29,20 @@
       </button>
     </div>
 
-    <div v-if="isTopbarOpen" class="flex max-h-[70dvh] flex-col border-t border-white/10">
+    <button
+      v-if="!isTopbarOpen"
+      type="button"
+      class="absolute bottom-[-0.55rem] left-1/2 z-10 flex h-5 w-9 -translate-x-1/2 items-center justify-center rounded-b-md border border-t-0 border-[#6B7A4A]/35 bg-[#212121] text-[#6B7A4A]/60 transition-colors hover:text-[#6B7A4A]"
+      aria-label="Développer"
+      @click="isTopbarOpen = true"
+    >
+      <UIcon name="i-lucide-chevrons-down" class="text-sm" aria-hidden="true" />
+    </button>
+
+    <div
+      v-if="isTopbarOpen"
+      class="relative flex max-h-[70dvh] flex-col border-t border-b border-t-white/10 border-b-[#6B7A4A]/50"
+    >
       <div class="shrink-0 px-4 pt-1">
         <DashboardSidebarFilters
           variant="inline"
@@ -96,6 +106,15 @@
       <div class="shrink-0 px-4 py-3">
         <DashboardSidebarUserCard :user="user" size="sm" />
       </div>
+
+      <button
+        type="button"
+        class="absolute bottom-[-0.55rem] left-1/2 z-10 flex h-5 w-9 -translate-x-1/2 items-center justify-center rounded-b-md border border-t-0 border-[#6B7A4A]/35 bg-[#212121] text-[#6B7A4A]/60 transition-colors hover:text-[#6B7A4A]"
+        aria-label="Réduire"
+        @click="isTopbarOpen = false"
+      >
+        <UIcon name="i-lucide-chevrons-up" class="text-sm" aria-hidden="true" />
+      </button>
     </div>
   </div>
 
