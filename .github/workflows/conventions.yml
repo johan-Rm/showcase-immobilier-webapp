@@ -21,3 +21,4 @@ jobs:
       - run: bun run check:app:soc
       - run: bun run check:app:code-quality
       - run: bun run check:app:solid
+      - run: bun run check:services:no-framework-imports

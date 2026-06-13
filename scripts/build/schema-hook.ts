@@ -3,8 +3,8 @@ import type { NuxtHooks } from 'nuxt/schema'
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import { generateArtifacts } from '../converter/schema/generateArtifacts'
-import { resolveDtoPath, resolveSchemaPath } from '../infra/resolver/schema/path'
+import { generateArtifacts } from '../../services/converter/schema/generateArtifacts'
+import { resolveDtoPath, resolveSchemaPath } from '../../services/infra/resolver/schema/path'
 
 /**
  * Hook de génération des contrats TypeScript à partir des schémas YAML.

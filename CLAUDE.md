@@ -57,7 +57,6 @@ content/          contenu Markdown + YAML (source éditoriale)
 services/api/             appels clients vers l'API Symfony (echo)
 services/content/         utilitaires MDC / Nuxt Content
 services/converter/schema génération d'artefacts TypeScript depuis les schémas YAML
-services/hooks/           hooks de schéma (build)
 services/infra/resolver/  résolution de chemins pour les schémas
 services/mapper/          mapping API → types UI (accommodation, webPage)
 services/seo/             génération de données structurées Schema.org

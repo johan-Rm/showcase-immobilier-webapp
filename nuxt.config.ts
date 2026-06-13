@@ -2,7 +2,7 @@ import { join, resolve } from 'node:path'
 
 import ViteYaml from '@modyfi/vite-plugin-yaml'
 
-import { runSchemaHook } from './services/hooks/schema'
+import { runSchemaHook } from './scripts/build/schema-hook'
 import { FALLBACK_LOCALE, AVAILABLES_LOCALES } from './shared/utils/locale'
 
 const appEnv = process.env.APP_ENV?.trim().toLowerCase() === 'prod' ? 'prod' : 'dev'
