@@ -26,6 +26,13 @@ export interface AccommodationDtoOffer {
   availability?: string
 }
 
+export interface AccommodationDtoRealEstateListing {
+  slug?: string
+  name?: string
+  text?: string
+  isEnabled?: boolean
+}
+
 export interface AccommodationDto {
   label?: string
   id?: uuid
@@ -46,7 +53,7 @@ export interface AccommodationDto {
   amenityFeature?: uuid[]
   qualities?: PropertyValue[]
   associatedMedia?: AccommodationDtoAssociatedMedia[]
-  realEstateListing?: uuid
+  realEstateListing?: AccommodationDtoRealEstateListing
   areaSize?: string
   areaTerrace?: string
   isActive?: boolean
