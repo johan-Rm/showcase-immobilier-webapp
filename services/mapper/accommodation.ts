@@ -95,6 +95,7 @@ const getStringArray = (value: unknown): string[] | undefined => {
  * @returns Instance `CategoryCode` construite à partir des champs disponibles.
  */
 const toCategoryCode = (value: UnknownRecord): CategoryCode => ({
+  id: isRecord(value.id) ? value.id : {},
   codeValue: getString(value.codeValue, getString(value.slug)),
   name: getString(value.name, getString(value.codeValue, getString(value.slug))),
 })
@@ -256,7 +257,7 @@ const mapCategoryList = (
   return value
     .map((entry): CategoryCode | undefined => {
       if (typeof entry === 'string') {
-        return indexes.categoryCodes.get(entry) ?? { codeValue: entry, name: entry }
+        return indexes.categoryCodes.get(entry) ?? { id: {}, codeValue: entry, name: entry }
       }
       if (isRecord(entry)) {
         return toCategoryCode(entry)

@@ -371,6 +371,7 @@ export const useMetadataStore = defineStore('metadata', {
           }
           case 'amenity-feature':
             this.amenityFeatures = upsertCategoryCode(this.amenityFeatures, {
+              id: {},
               codeValue: item.code,
               name,
               inCodeSet: item.inCodeSet,
@@ -378,6 +379,7 @@ export const useMetadataStore = defineStore('metadata', {
             break
           case 'tag':
             this.tags = upsertCategoryCode(this.tags, {
+              id: {},
               codeValue: item.code,
               name,
               inCodeSet: item.inCodeSet,
@@ -385,6 +387,7 @@ export const useMetadataStore = defineStore('metadata', {
             break
           default:
             this.categoryCodes = upsertCategoryCode(this.categoryCodes, {
+              id: {},
               codeValue: item.code,
               name,
               inCodeSet: item.inCodeSet,

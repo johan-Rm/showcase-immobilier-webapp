@@ -304,6 +304,7 @@ const onEnterCreate = async (): Promise<void> => {
     const createdCode = created.codeValue ?? created.code ?? code
     const createdLabel = getCreatedLabel(created, code)
     store.addCategoryCode({
+      id: {},
       codeValue: createdCode,
       name: createdLabel,
       inCodeSet: props.inCodeSet,

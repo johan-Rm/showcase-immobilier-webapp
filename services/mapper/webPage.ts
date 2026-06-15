@@ -248,7 +248,7 @@ const mapImages = (
  */
 const mapCategory = (value: unknown, categoryCodes: CategoryCode[]): WebPage['articleSection'] => {
   if (isNonEmptyString(value)) {
-    return resolveCategoryCode(value, categoryCodes) ?? { codeValue: value, name: value }
+    return resolveCategoryCode(value, categoryCodes) ?? { id: {}, codeValue: value, name: value }
   }
 
   return undefined
@@ -269,7 +269,9 @@ const mapCategoryList = (value: unknown, categoryCodes: CategoryCode[]): WebPage
   return value
     .map((entry): CategoryCode | undefined => {
       if (isNonEmptyString(entry)) {
-        return resolveCategoryCode(entry, categoryCodes) ?? { codeValue: entry, name: entry }
+        return (
+          resolveCategoryCode(entry, categoryCodes) ?? { id: {}, codeValue: entry, name: entry }
+        )
       }
 
       return undefined
@@ -480,6 +482,7 @@ export const accommodationToWebPage = (item: Accommodation): WebPage => {
 
     articleSection: item.category
       ? {
+          id: {},
           codeValue: item.category.slug,
           name: item.category.name,
         }
