@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isConstructionEnabled && isOpen"
+    v-if="isConstructionEnabled && isOpen && !isExemptRoute"
     class="bg-background/70 fixed inset-0 z-[11000] flex items-center justify-center p-4 backdrop-blur-sm"
   >
     <section
@@ -79,7 +79,7 @@
 // 3. Props et emits
 
 // 4. Composables, stores, routeur
-const { isConstructionEnabled, isOpen } = useConstructionModal()
+const { isConstructionEnabled, isOpen, isExemptRoute } = useConstructionModal()
 
 const appConfig = useAppConfig()
 

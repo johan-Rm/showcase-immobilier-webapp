@@ -10,6 +10,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const { isConstructionEnabled, open } = useConstructionModal()
   if (!isConstructionEnabled.value) return
 
+  // Le dashboard reste accessible même en mode construction.
+  if (isConstructionExemptPath(to.path)) return
+
   open()
   return abortNavigation()
 })
