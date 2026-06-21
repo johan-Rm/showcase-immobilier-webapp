@@ -31,7 +31,7 @@ export default defineAppConfig({
       'guest-room',
     ],
     services: ['home-staging', 'rental-management', 'investing'],
-    meta: ['agency', 'fees', 'legal-notice'],
+    meta: ['agency', 'fees', 'legal-notice', 'partnerships'],
   },
   ui: {
     primary: 'primary',

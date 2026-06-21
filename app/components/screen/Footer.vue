@@ -137,7 +137,7 @@
                   variant="text"
                   text-animation="slide-arrow"
                   :text-class="LINK_FILL_TEXT_CLASS"
-                  class="inline-flex items-center transition hover:text-white/90"
+                  class="text-foreground/70 inline-flex items-center !opacity-100 !grayscale-0 transition hover:text-white/90"
                 />
               </nav>
             </div>
@@ -167,7 +167,7 @@
                   variant="text"
                   text-animation="slide-arrow"
                   :text-class="LINK_FILL_TEXT_CLASS"
-                  class="inline-flex items-center transition hover:text-white/90"
+                  class="text-foreground/70 inline-flex items-center transition hover:text-white/90"
                 />
               </nav>
             </div>
