@@ -78,7 +78,9 @@ export const useDashboardPlaceText = () => {
         },
       )
       if (!result.contentUpdated) {
-        throw new Error('Lieu mis à jour dans la BDD, mais le fichier content doit être resynchronisé.')
+        throw new Error(
+          'Lieu mis à jour dans la BDD, mais le fichier content doit être resynchronisé.',
+        )
       }
       placeName.value = result.name
       placeText.value = result.text

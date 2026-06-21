@@ -33,12 +33,7 @@ export default defineEventHandler(async (event): Promise<DashboardCategoryCodeIr
   const items = await loadContentFromFiles<ContentCategoryCode[]>('category-code', locale)
 
   return items.flatMap((item) => {
-    if (
-      typeof item.id !== 'string' ||
-      !item.id ||
-      !item.codeValue ||
-      !item.inCodeSet
-    ) {
+    if (typeof item.id !== 'string' || !item.id || !item.codeValue || !item.inCodeSet) {
       return []
     }
 

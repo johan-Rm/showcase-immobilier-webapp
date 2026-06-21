@@ -75,12 +75,8 @@ describe.sequential('contentProjection', () => {
       },
     })
 
-    const frenchItems = await readYamlItems(
-      join(contentRoot, 'fr/metadata/media-object.yaml'),
-    )
-    const englishItems = await readYamlItems(
-      join(contentRoot, 'en/metadata/media-object.yaml'),
-    )
+    const frenchItems = await readYamlItems(join(contentRoot, 'fr/metadata/media-object.yaml'))
+    const englishItems = await readYamlItems(join(contentRoot, 'en/metadata/media-object.yaml'))
 
     expect(frenchItems.map((item) => getStringField(item, 'identifier'))).toEqual([
       'media-new',
@@ -107,9 +103,7 @@ describe.sequential('contentProjection', () => {
       text: 'Coeur historique de la ville.',
     })
 
-    const items = await readYamlItems(
-      join(contentRoot, 'fr/metadata/category-code.yaml'),
-    )
+    const items = await readYamlItems(join(contentRoot, 'fr/metadata/category-code.yaml'))
     expect(items).toEqual([
       expect.objectContaining({
         id: 'category-medina',
@@ -168,9 +162,7 @@ describe.sequential('contentProjection', () => {
     const results = await exportAllLocales(accommodation)
     const raw = await readFile(join(englishDirectory, 'existing-slug.md'), 'utf8')
 
-    expect(results).toEqual([
-      expect.objectContaining({ locale: 'en', updated: true }),
-    ])
+    expect(results).toEqual([expect.objectContaining({ locale: 'en', updated: true })])
     expect(raw).toContain('slug: existing-slug')
     expect(raw).toContain('name: Updated name')
     expect(raw).toContain('category: villa')

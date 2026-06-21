@@ -291,18 +291,13 @@ export async function exportAllLocales(
           ? translation.slug.trim()
           : typeof existing?.frontmatter.slug === 'string' && existing.frontmatter.slug
             ? existing.frontmatter.slug
-          : accommodation.identifier.toLowerCase()
+            : accommodation.identifier.toLowerCase()
       if (!slug) {
         return { locale: translation.locale, updated: false, reason: 'missing_slug' }
       }
 
       const fileName = basename(`${slug}.md`)
-      const filePath = join(
-        resolveContentRoot(),
-        translation.locale,
-        'accommodations',
-        fileName,
-      )
+      const filePath = join(resolveContentRoot(), translation.locale, 'accommodations', fileName)
       const body = Object.hasOwn(translation, 'body')
         ? typeof translation.body === 'string'
           ? translation.body
@@ -314,10 +309,7 @@ export async function exportAllLocales(
         await deleteOtherLocaleFiles(translation.locale, accommodation.identifier, filePath)
         return { locale: translation.locale, updated: true, filePath }
       } catch (error) {
-        console.error(
-          `[markdown-export] Echec projection locale ${translation.locale}:`,
-          error,
-        )
+        console.error(`[markdown-export] Echec projection locale ${translation.locale}:`, error)
         return { locale: translation.locale, updated: false, reason: 'write_error' }
       }
     }),

@@ -15,9 +15,9 @@ import { basename } from 'node:path'
 
 import { mapAccommodations } from '@services/mapper/accommodation'
 
-import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
-
 import { loadContentFromFiles } from '../content/loaders'
+
+import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
 
 type UnknownRecord = Record<string, unknown>
 
@@ -260,7 +260,10 @@ export const loadDashboardAccommodationTranslations = async (
     locales.map(async (locale) => {
       try {
         const response = await loadDashboardAccommodations(locale, { force: true })
-        return { locale, accommodation: response.items.find((item) => item.identifier === identifier) }
+        return {
+          locale,
+          accommodation: response.items.find((item) => item.identifier === identifier),
+        }
       } catch {
         return { locale, accommodation: undefined }
       }

@@ -1,11 +1,8 @@
 import type { DashboardMediaObject } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 
+import { normalizeMediaUrl, projectMediaObject } from '../../../utils/dashboard/contentProjection'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
-import {
-  normalizeMediaUrl,
-  projectMediaObject,
-} from '../../../utils/dashboard/contentProjection'
 import { getProjectLocales } from '../../../utils/projectLocales'
 
 type MediaObjectTranslationPayload = {

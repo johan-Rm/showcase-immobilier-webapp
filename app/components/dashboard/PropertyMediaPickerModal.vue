@@ -171,7 +171,9 @@ const pendingCount = computed<number>(
   () => queue.value.filter((i) => i.status === 'pending').length,
 )
 const errorCount = computed<number>(() => queue.value.filter((i) => i.status === 'error').length)
-const warningCount = computed<number>(() => queue.value.filter((i) => i.status === 'warning').length)
+const warningCount = computed<number>(
+  () => queue.value.filter((i) => i.status === 'warning').length,
+)
 
 const statusIcon = (status: UploadStatus): string => {
   if (status === 'uploading') return 'i-lucide-loader'

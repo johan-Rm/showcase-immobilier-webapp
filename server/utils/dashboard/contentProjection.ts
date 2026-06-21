@@ -156,10 +156,7 @@ export const normalizeMediaUrl = (value: string): string => {
   }
 }
 
-const upsertMediaForLocale = async (
-  locale: string,
-  media: ProjectedMediaObject,
-): Promise<void> => {
+const upsertMediaForLocale = async (locale: string, media: ProjectedMediaObject): Promise<void> => {
   const filePath = getMetadataPath(locale, 'media-object.yaml')
   await withFileWriteQueue(filePath, async () => {
     const items = (await readItems(filePath))
@@ -274,7 +271,5 @@ export const findProjectedCategoryCode = async (
   const items = (await readItems(filePath))
     .map(toProjectedCategoryCode)
     .filter((item): item is ProjectedCategoryCode => item !== null)
-  return (
-    items.find((item) => item.inCodeSet === inCodeSet && item.codeValue === codeValue) ?? null
-  )
+  return items.find((item) => item.inCodeSet === inCodeSet && item.codeValue === codeValue) ?? null
 }

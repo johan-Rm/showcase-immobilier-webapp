@@ -1,10 +1,10 @@
 import type { LocaleCode } from '#shared/types/i18n'
 
-import { getSymfonyServiceToken } from '../../../../utils/dashboard/symfonyAuth'
 import {
   findProjectedCategoryCode,
   updateProjectedCategoryCodeText,
 } from '../../../../utils/dashboard/contentProjection'
+import { getSymfonyServiceToken } from '../../../../utils/dashboard/symfonyAuth'
 import { getProjectLocales } from '../../../../utils/projectLocales'
 
 type SymfonyCategoryCodeTranslationPayload = {

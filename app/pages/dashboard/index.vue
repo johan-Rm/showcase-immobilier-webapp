@@ -39,12 +39,8 @@ import { useDashboardAccommodations } from '~/composables/dashboard/useDashboard
 
 // 4. Composables, stores, routeur
 const { loggedIn, clear, fetch, user } = useUserSession()
-const {
-  loadAccommodationForm,
-  loadDashboardContent,
-  loadCategoryCodes,
-  loadMediaObjects,
-} = useMetadata()
+const { loadAccommodationForm, loadDashboardContent, loadCategoryCodes, loadMediaObjects } =
+  useMetadata()
 
 // 5. Etat local
 const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')

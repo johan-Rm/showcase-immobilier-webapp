@@ -11,10 +11,7 @@ import {
   loadDashboardAccommodationTranslations,
 } from '../../../utils/dashboard/accommodations'
 import { resolveCategoryCodeIris } from '../../../utils/dashboard/categoryCodeResolver'
-import {
-  exportAllLocales,
-  propagateGlobalFields,
-} from '../../../utils/dashboard/markdownExporter'
+import { exportAllLocales, propagateGlobalFields } from '../../../utils/dashboard/markdownExporter'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
 import { getProjectLocales } from '../../../utils/projectLocales'
