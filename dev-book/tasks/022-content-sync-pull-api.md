@@ -149,6 +149,7 @@ items:
     caption: <caption>
     url: <contentUrl> # URL publique du fichier
     mainEntity: ImageObject # valeur fixe ou champ "mainEntity" si présent
+    dateModified: <updatedAt> # date de modification Symfony
 ```
 
 ## Architecture du script

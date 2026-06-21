@@ -11,14 +11,11 @@
         v-for="item in availableItems"
         :key="item.identifier"
         type="button"
+        :disabled="isSelectionDisabled(item.identifier)"
         class="group relative aspect-3/2 overflow-hidden rounded border transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6B7A4A]"
-        :class="
-          selectionRank(item.identifier) > 0
-            ? 'border-[#6B7A4A] opacity-100'
-            : 'border-white/10 opacity-60 hover:opacity-100'
-        "
+        :class="selectionClass(item.identifier)"
         :aria-pressed="selectionRank(item.identifier) > 0"
-        :aria-label="`${selectionRank(item.identifier) > 0 ? 'Retirer' : 'Ajouter'} : ${item.caption || item.identifier}`"
+        :aria-label="selectionAriaLabel(item)"
         @click="toggle(item.identifier)"
       >
         <AppImage
@@ -42,8 +39,16 @@
       </button>
     </div>
 
-    <p v-if="availableItems.length > 0" class="text-[0.6rem] text-white/25">
-      Cliquez pour (dé)sélectionner. L'ordre des numéros est celui d'affichage dans l'écran.
+    <p
+      v-if="availableItems.length > 0"
+      class="text-[0.6rem]"
+      :class="isSelectionLimitReached ? 'text-amber-400/70' : 'text-white/25'"
+    >
+      {{ selectedIds.length }} / {{ selectionLimit }} image{{ selectionLimit > 1 ? 's' : '' }}.
+      <template v-if="isSelectionLimitReached">
+        Retirez une image pour en choisir une autre.</template
+      >
+      <template v-else> L'ordre des numéros est celui d'affichage dans l'écran.</template>
     </p>
   </div>
 </template>
@@ -65,6 +70,8 @@ const props = defineProps<{
   modelValue: DashboardEditableValue
   /** Médias associés du bien (source de sélection). */
   availableMedia: DashboardEditableValue
+  /** Nombre maximal d'images accepté par le template d'écran courant. */
+  maxSelections: number
 }>()
 const emit = defineEmits<{ 'update:modelValue': [value: DashboardEditableValue] }>()
 
@@ -100,13 +107,31 @@ const selectedIds = computed<string[]>(() =>
     .map((entry) => readImageId(entry))
     .filter((identifier) => identifier.length > 0),
 )
+const selectionLimit = computed<number>(() => Math.max(1, props.maxSelections))
+const isSelectionLimitReached = computed<boolean>(
+  () => selectedIds.value.length >= selectionLimit.value,
+)
 
 // 9. Actions et handlers
 // Rang d'affichage (1-indexé) d'un média dans la sélection ; 0 si non sélectionné.
 const selectionRank = (identifier: string): number => selectedIds.value.indexOf(identifier) + 1
+const isSelectionDisabled = (identifier: string): boolean =>
+  isSelectionLimitReached.value && !selectedIds.value.includes(identifier)
+const selectionClass = (identifier: string): string => {
+  if (isSelectionDisabled(identifier)) return 'cursor-not-allowed border-white/5 opacity-20'
+  return selectionRank(identifier) > 0
+    ? 'border-[#6B7A4A] opacity-100'
+    : 'border-white/10 opacity-60 hover:opacity-100'
+}
+const selectionAriaLabel = (item: AvailableItem): string => {
+  const label = item.caption || item.identifier
+  if (selectedIds.value.includes(item.identifier)) return `Retirer : ${label}`
+  return isSelectionLimitReached.value ? `Limite atteinte : ${label}` : `Ajouter : ${label}`
+}
 
 const toggle = (identifier: string): void => {
   const current = selectedIds.value
+  if (!current.includes(identifier) && isSelectionLimitReached.value) return
   const next = current.includes(identifier)
     ? current.filter((id) => id !== identifier)
     : [...current, identifier]

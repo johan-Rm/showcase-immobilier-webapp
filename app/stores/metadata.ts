@@ -1,8 +1,8 @@
+import type { DashboardMediaObject } from '#shared/types/dashboardAccommodation'
 import type {
   AccommodationCategory,
   AccommodationPlace,
   CategoryCode,
-  MediaObject,
   RealEstateListing,
 } from '@schemas/interfaces'
 
@@ -19,7 +19,7 @@ type MetadataState = {
   accommodationPlaces: AccommodationPlace[]
   amenityFeatures: CategoryCode[]
   tags: CategoryCode[]
-  imageObjects: MediaObject[]
+  imageObjects: DashboardMediaObject[]
   irisMap: Record<string, Record<string, string>>
 }
 
@@ -191,7 +191,7 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns Liste des `MediaObject` chargés.
      */
-    getImageObjects(state: MetadataState): MediaObject[] {
+    getImageObjects(state: MetadataState): DashboardMediaObject[] {
       return state.imageObjects
     },
 
@@ -202,10 +202,12 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns Map `identifier → MediaObject`.
      */
-    getImageObjectsByIdentifier(state: MetadataState): Map<string, MediaObject> {
+    getImageObjectsByIdentifier(state: MetadataState): Map<string, DashboardMediaObject> {
       return new Map(
         state.imageObjects
-          .filter((item): item is MediaObject & { identifier: string } => Boolean(item.identifier))
+          .filter((item): item is DashboardMediaObject & { identifier: string } =>
+            Boolean(item.identifier),
+          )
           .map((item) => [item.identifier, item] as const),
       )
     },
@@ -296,7 +298,7 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns `void`.
      */
-    setMediaObjects(items: MediaObject[]): void {
+    setMediaObjects(items: DashboardMediaObject[]): void {
       this.imageObjects = Array.isArray(items) ? items : []
     },
 
@@ -305,7 +307,7 @@ export const useMetadataStore = defineStore('metadata', {
      *
      * @returns `void`.
      */
-    addMediaObject(item: MediaObject): void {
+    addMediaObject(item: DashboardMediaObject): void {
       this.imageObjects = [...this.imageObjects, item]
     },
 

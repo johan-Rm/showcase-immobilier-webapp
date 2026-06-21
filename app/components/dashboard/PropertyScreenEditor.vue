@@ -7,7 +7,7 @@
       </span>
       <DashboardScreenTemplateSelect
         :model-value="screen.additionalType"
-        @update:model-value="(value) => patch({ additionalType: value })"
+        @update:model-value="handleTemplateUpdate"
       />
     </label>
 
@@ -57,25 +57,39 @@
     </label>
 
     <!-- Options d'affichage (partagées) selon le template -->
-    <div v-if="showReverse || showOverlayMode" class="flex flex-wrap items-center gap-4">
+    <div class="flex flex-wrap items-center gap-4">
       <label v-if="showReverse" class="flex cursor-pointer items-center gap-2">
         <USwitch
           :model-value="screen.meta?.reverse ?? false"
           :ui="{ base: 'data-[state=checked]:bg-[#6B7A4A]' }"
           @update:model-value="(value) => patchMeta({ reverse: value })"
         />
-        <span class="text-xs text-white/60">Inverser la composition</span>
+        <span class="text-xs text-white/60">Inverser les panneaux</span>
       </label>
 
       <label v-if="showOverlayMode" class="flex items-center gap-2">
-        <span class="text-xs text-white/60">Overlay</span>
+        <span class="text-xs text-white/60">Mode superposition</span>
         <USelect
           :model-value="screen.meta?.overlayMode ?? 'dark'"
           :items="overlayModeItems"
-          :ui="{
-            base: 'bg-transparent border-0 border-b border-[#6B7A4A]/60 rounded-none text-white/85',
-          }"
+          size="xs"
+          variant="none"
+          :ui="metaSelectUi"
           @update:model-value="(value) => patchMeta({ overlayMode: value as 'dark' | 'light' })"
+        />
+      </label>
+
+      <label class="flex items-center gap-2">
+        <span class="text-xs text-white/60">Filtre d'image</span>
+        <USelect
+          :model-value="screen.meta?.imageOverlay ?? 'dark'"
+          :items="imageOverlayItems"
+          size="xs"
+          variant="none"
+          :ui="metaSelectUi"
+          @update:model-value="
+            (value) => patchMeta({ imageOverlay: value as 'none' | 'dark' | 'light' })
+          "
         />
       </label>
     </div>
@@ -88,6 +102,7 @@
       <DashboardScreenMediaSelector
         :model-value="screen.associatedMedia ?? []"
         :available-media="availableMedia"
+        :max-selections="mediaLimit"
         @update:model-value="(value) => patch({ associatedMedia: value as DashboardScreenMedia[] })"
       />
     </div>
@@ -103,12 +118,27 @@ import type {
   DashboardScreenMeta,
 } from '#shared/types/dashboardAccommodation'
 
+import { getDashboardScreenMediaLimit } from '#shared/types/dashboardAccommodation'
+
 defineOptions({ name: 'DashboardPropertyScreenEditor' })
 
 // 2. Types et constantes statiques
 const inputClass =
   'w-full border-b border-[#6B7A4A]/60 bg-transparent px-0 py-2 text-sm text-white/85 caret-[#6B7A4A] transition-colors outline-none placeholder:text-white/20 focus:border-[#6B7A4A]'
+const metaSelectUi = {
+  base: 'min-w-24 rounded-none border-0 border-b border-[#6B7A4A]/60 bg-transparent px-0 text-white/75',
+  value: 'text-xs',
+  trailingIcon: 'text-white/30',
+  content: 'bg-[#212121] text-white ring-1 ring-[#6B7A4A]/35 shadow-xl',
+  item: 'text-xs text-white/45',
+  itemActive: 'bg-[#6B7A4A]/15 text-white',
+} as const
 const overlayModeItems = [
+  { value: 'dark', label: 'Sombre' },
+  { value: 'light', label: 'Clair' },
+]
+const imageOverlayItems = [
+  { value: 'none', label: 'Aucun' },
   { value: 'dark', label: 'Sombre' },
   { value: 'light', label: 'Clair' },
 ]
@@ -131,6 +161,7 @@ const showReverse = computed(() => TEMPLATES_WITH_REVERSE.includes(props.screen.
 const showOverlayMode = computed(
   () => props.screen.additionalType === 'SCREEN_ACCOMMODATION_OVERLAY',
 )
+const mediaLimit = computed(() => getDashboardScreenMediaLimit(props.screen.additionalType))
 
 // 9. Actions et handlers
 const patch = (changes: Partial<DashboardAccommodationScreen>): void => {
@@ -138,6 +169,13 @@ const patch = (changes: Partial<DashboardAccommodationScreen>): void => {
 }
 const patchMeta = (changes: Partial<DashboardScreenMeta>): void => {
   patch({ meta: { ...props.screen.meta, ...changes } })
+}
+const handleTemplateUpdate = (additionalType: string): void => {
+  const mediaLimit = getDashboardScreenMediaLimit(additionalType)
+  patch({
+    additionalType,
+    associatedMedia: props.screen.associatedMedia?.slice(0, mediaLimit) ?? [],
+  })
 }
 const inputValue = (event: Event): string => (event.target as HTMLInputElement).value
 const textareaValue = (event: Event): string => (event.target as HTMLTextAreaElement).value

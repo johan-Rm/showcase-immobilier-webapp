@@ -36,6 +36,13 @@ file: File
 translations: [{"locale":"fr","caption":"Patio lumineux de riad"}]
 ```
 
+Le BFF envoie aussi `Accept-Language` avec la locale retenue. Cette valeur explicite est requise
+car le client HTTP serveur utilise sinon `*`, valeur rejetee par le `LocaleResolver` Symfony.
+
+La galerie charge le catalogue courant via `GET /api/dashboard/media` et le trie par
+`dateModified` decroissante. Les medias sans date restent affiches apres les medias dates, avec
+un tri stable par caption.
+
 La reponse Symfony est normalisee cote Nuxt avec `id`, `identifier`, `contentUrl`,
 `originalFilename` et `@id` quand disponibles.
 

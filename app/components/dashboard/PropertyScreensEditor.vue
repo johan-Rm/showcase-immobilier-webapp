@@ -163,6 +163,12 @@ const toScreen = (value: unknown, index: number): DashboardAccommodationScreen =
       ...(meta.overlayMode === 'light' || meta.overlayMode === 'dark'
         ? { overlayMode: meta.overlayMode }
         : {}),
+      imageOverlay:
+        meta.imageOverlay === 'none' ||
+        meta.imageOverlay === 'light' ||
+        meta.imageOverlay === 'dark'
+          ? meta.imageOverlay
+          : 'dark',
     },
   }
 }

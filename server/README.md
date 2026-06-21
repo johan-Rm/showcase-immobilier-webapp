@@ -53,7 +53,10 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
   dans `translations[]`.
 - `POST /api/dashboard/media/upload` relaie les uploads vers
   `POST /api/projects/{projectId}/media-objects/translations` avec un multipart `file` et
-  `translations`.
+  `translations`. Le relais fixe `Accept-Language` a la locale d upload pour ne pas transmettre
+  le wildcard implicite du client HTTP serveur, refuse par le resolver Symfony.
+- `GET /api/dashboard/media` charge le catalogue media courant depuis Symfony et normalise
+  `updatedAt` en `dateModified` pour le tri du dashboard.
 - `POST /api/dashboard/category-codes` relaie la creation de metadonnees vers
   `POST /api/projects/{projectId}/category-codes/translations` avec `inCodeSet` et
   `translations[]`.

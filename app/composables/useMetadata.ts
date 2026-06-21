@@ -1,4 +1,5 @@
-import type { CategoryCode, MediaObject } from '@schemas/interfaces'
+import type { DashboardMediaObject } from '#shared/types/dashboardAccommodation'
+import type { CategoryCode } from '@schemas/interfaces'
 
 import { useMetadataStore } from '~/stores/metadata'
 import { loadContentResource } from '~/utils/loadContentResource'
@@ -11,6 +12,7 @@ type UseMetadataReturn = {
   loadAllMetadata: () => Promise<void>
   loadCategoryCodes: () => Promise<void>
   loadMediaObjects: () => Promise<void>
+  loadDashboardMediaObjects: () => Promise<void>
   loadDashboardCategoryCodes: () => Promise<void>
 }
 
@@ -50,7 +52,7 @@ export const useMetadata = (): UseMetadataReturn => {
   }
 
   const loadMediaObjects = async (): Promise<void> => {
-    const mediaObjectItems = await loadContentResource<MediaObject[]>(
+    const mediaObjectItems = await loadContentResource<DashboardMediaObject[]>(
       'media-object',
       localeSetting.value,
     )
@@ -73,6 +75,13 @@ export const useMetadata = (): UseMetadataReturn => {
     store.upsertDashboardCategoryCodes(items)
   }
 
+  const loadDashboardMediaObjects = async (): Promise<void> => {
+    const items = await $fetch<DashboardMediaObject[]>('/api/dashboard/media', {
+      query: { locale: localeSetting.value },
+    })
+    store.setMediaObjects(items)
+  }
+
   const loadAllMetadata = async (): Promise<void> => {
     await Promise.all([loadApp(), loadAccommodationUi(), loadCategoryCodes(), loadMediaObjects()])
   }
@@ -85,6 +94,7 @@ export const useMetadata = (): UseMetadataReturn => {
     loadAllMetadata,
     loadCategoryCodes,
     loadMediaObjects,
+    loadDashboardMediaObjects,
     loadDashboardCategoryCodes,
   }
 }
