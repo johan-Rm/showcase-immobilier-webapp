@@ -1,4 +1,5 @@
 import type { LocaleCode } from './i18n'
+import type { MediaObject } from '@schemas/interfaces'
 
 export const DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS = [
   'slug',
@@ -28,6 +29,11 @@ export type DashboardEditableValue =
 
 export type DashboardEditableRecord = Record<string, DashboardEditableValue>
 
+/** Média enrichi avec les métadonnées nécessaires aux écrans du dashboard. */
+export type DashboardMediaObject = MediaObject & {
+  dateModified?: string
+}
+
 // --- Screens du parcours (blocs hasPart) éditables dans le dashboard ---
 
 /** Champs localisés d'un screen (édités par onglet de langue). */
@@ -43,6 +49,7 @@ export type DashboardScreenMedia = {
 export type DashboardScreenMeta = {
   reverse?: boolean
   overlayMode?: 'dark' | 'light'
+  imageOverlay?: 'none' | 'dark' | 'light'
 }
 
 /** Screen éditable du parcours (forme draft d'un bloc hasPart). */
@@ -64,25 +71,54 @@ export type DashboardAccommodationScreen = {
  */
 export const DASHBOARD_CONTACT_SCREEN = {
   name: 'Dernière étape',
-  headline: 'Intéressé ?',
+  headline: 'Organisons votre visite',
   text: 'Laissez vos coordonnées pour organiser une visite privée.',
 } as const
 
 /** Templates d'espaces sélectionnables (hors contact, ajouté au rendu). */
 export const DASHBOARD_SCREEN_TEMPLATES = [
-  { value: 'SCREEN_ACCOMMODATION_FULL', label: 'Image plein écran', icon: 'i-lucide-image' },
-  { value: 'SCREEN_ACCOMMODATION_SPLIT', label: 'Split 50/50', icon: 'i-lucide-panel-left' },
-  { value: 'SCREEN_ACCOMMODATION_TRYPTIQUE', label: 'Triptyque', icon: 'i-lucide-layout-grid' },
+  {
+    value: 'SCREEN_ACCOMMODATION_FULL',
+    label: 'Image plein écran',
+    icon: 'i-lucide-image',
+    maxMedia: 1,
+  },
+  {
+    value: 'SCREEN_ACCOMMODATION_SPLIT',
+    label: 'Split 50/50',
+    icon: 'i-lucide-panel-left',
+    maxMedia: 1,
+  },
+  {
+    value: 'SCREEN_ACCOMMODATION_TRYPTIQUE',
+    label: 'Triptyque',
+    icon: 'i-lucide-layout-grid',
+    maxMedia: 3,
+  },
   {
     value: 'SCREEN_ACCOMMODATION_CAROUSEL',
     label: 'Carousel',
     icon: 'i-lucide-gallery-horizontal',
+    maxMedia: 5,
   },
-  { value: 'SCREEN_ACCOMMODATION_OVERLAY', label: 'Image + overlay', icon: 'i-lucide-layers' },
-  { value: 'SCREEN_ACCOMMODATION_DUO', label: 'Duo', icon: 'i-lucide-columns-2' },
+  {
+    value: 'SCREEN_ACCOMMODATION_OVERLAY',
+    label: 'Image + overlay',
+    icon: 'i-lucide-layers',
+    maxMedia: 1,
+  },
+  {
+    value: 'SCREEN_ACCOMMODATION_DUO',
+    label: 'Duo',
+    icon: 'i-lucide-columns-2',
+    maxMedia: 2,
+  },
 ] as const
 
 export type DashboardScreenTemplate = (typeof DASHBOARD_SCREEN_TEMPLATES)[number]['value']
+
+export const getDashboardScreenMediaLimit = (additionalType: string): number =>
+  DASHBOARD_SCREEN_TEMPLATES.find((template) => template.value === additionalType)?.maxMedia ?? 1
 
 export type DashboardAccommodationMedia = {
   image: string

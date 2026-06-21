@@ -29,6 +29,37 @@ services:
       NODE_ENV: development
       SCHEMAS_PATH: /opt/app-schemas
       CONTENT_PATH: /app/content
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -q --spider http://127.0.0.1:3000/fr || exit 1']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
+
+  playwright:
+    profiles:
+      - e2e
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    user: '${DOCKER_UID:-1000}:${DOCKER_GID:-1000}'
+    working_dir: /app
+    init: true
+    depends_on:
+      webapp-localhost:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      CI: 'true'
+      HOME: /tmp
+      PLAYWRIGHT_BASE_URL: http://webapp-localhost:3000
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    volumes:
+      - ./.tmp/playwright:/app/.tmp/playwright
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    command: bun run test:e2e
 
   webapp-ssr:
     build:

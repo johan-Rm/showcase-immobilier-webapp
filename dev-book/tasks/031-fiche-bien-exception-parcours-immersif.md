@@ -160,7 +160,9 @@ reprend **le markup et les classes Tailwind exacts** du bloc correspondant du PO
 **Fichiers :** `ExceptionalSummary.vue`, `ExceptionalInfoPanel.vue`, `ExceptionalLightbox.vue` (créer)
 
 - [ ] `ExceptionalSummary.vue` — région C : pastille fixe nom + prix + badges (responsive
-      mobile/desktop du POC). Émet `@open-info`. Reçoit `:summary`, `:badges`.
+      mobile/desktop du POC). Émet `@open-info`. Reçoit `:summary`, `:badges`. Sur mobile, un
+      double chevron haut à droite du nom signale que la zone summary ouvre le bottom-sheet ;
+      l'état reste exposé via `aria-expanded`.
 - [ ] `ExceptionalInfoPanel.vue` — région F : drawer gauche (nom, localisation, badges,
       référence, CTA « Demander une visite »). Props `:open`, `:summary`, `:badges` ; émet
       `@close`, `@request-visit`. Évaluer la réutilisation de `PropertyDetailPanel` ; si le

@@ -30,6 +30,9 @@ export type ExceptionalScreenTemplate =
 /** Variante chromatique du panneau overlay (SCREEN_02). */
 export type ExceptionalOverlayMode = 'dark' | 'light'
 
+/** Variante du voile appliqué aux images des screens éditables. */
+export type ExceptionalImageOverlay = 'none' | 'dark' | 'light'
+
 /** Visuel d'un écran : url résolue + texte alternatif. */
 export type ExceptionalMedia = {
   src: string
@@ -57,6 +60,8 @@ export type ExceptionalScreen = {
   reverse?: boolean
   /** SCREEN_02 : variante chromatique du panneau. */
   overlayMode?: ExceptionalOverlayMode
+  /** Voile optionnel appliqué aux images du screen. */
+  imageOverlay?: ExceptionalImageOverlay
 }
 
 /** Segment de titre : texte + indicateur d'accent. */

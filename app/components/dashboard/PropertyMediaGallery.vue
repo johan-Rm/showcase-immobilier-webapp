@@ -189,6 +189,7 @@ type ResolvedImage = {
   url: string
   name: string
   reference: string
+  dateModified?: string
 }
 
 defineOptions({ name: 'DashboardPropertyMediaGallery' })
@@ -247,6 +248,12 @@ const deriveReference = (mainEntity: string, identifier: string): string => {
   return (identifier.split('-')[0] ?? '').toUpperCase()
 }
 
+const getDateTimestamp = (value?: string): number => {
+  if (!value) return 0
+  const timestamp = Date.parse(value)
+  return Number.isNaN(timestamp) ? 0 : timestamp
+}
+
 const allImages = computed<ResolvedImage[]>(() =>
   metadataStore.getImageObjects
     .map((img) => ({
@@ -254,8 +261,12 @@ const allImages = computed<ResolvedImage[]>(() =>
       url: img.url,
       name: img.caption || img.identifier,
       reference: deriveReference(img.mainEntity, img.identifier),
+      dateModified: img.dateModified,
     }))
-    .sort((a, b) => a.name.localeCompare(b.name)),
+    .sort((left, right) => {
+      const dateOrder = getDateTimestamp(right.dateModified) - getDateTimestamp(left.dateModified)
+      return dateOrder || left.name.localeCompare(right.name)
+    }),
 )
 
 const filteredImages = computed<ResolvedImage[]>(() => {

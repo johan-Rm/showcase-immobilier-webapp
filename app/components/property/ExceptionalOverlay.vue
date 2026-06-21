@@ -10,7 +10,12 @@
     :preload="eager"
     :fetchpriority="eager ? 'high' : 'auto'"
   />
-  <div class="bg-foreground/45 md:bg-foreground/20 absolute inset-0" />
+  <div
+    v-if="displayImageOverlayClass"
+    class="pointer-events-none absolute inset-0"
+    :class="displayImageOverlayClass"
+    aria-hidden="true"
+  />
   <div
     class="absolute inset-y-0 hidden w-1/2 md:block"
     :class="[screen.reverse ? 'right-0' : 'left-0', overlayPanelClass(screen)]"
@@ -42,6 +47,7 @@
 import type { ExceptionalScreen } from '#shared/types/exceptional'
 
 import {
+  imageOverlayClass,
   overlayAccentClass,
   overlayLabelClass,
   overlayPanelClass,
@@ -54,4 +60,7 @@ const props = defineProps<{ screen: ExceptionalScreen; eager?: boolean }>()
 
 // 8. Computed UI-ready
 const parts = computed(() => titleParts(props.screen))
+const displayImageOverlayClass = computed(() =>
+  imageOverlayClass(props.screen, 'bg-foreground/45 md:bg-foreground/20'),
+)
 </script>

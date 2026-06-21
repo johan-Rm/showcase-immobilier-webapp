@@ -134,7 +134,7 @@
   line-height: 1.25;
 }
 
-/* .markdown-panel ul > li::before {
+.markdown-panel ul > li::before {
   content: '';
   position: absolute;
   left: 0;
@@ -146,7 +146,7 @@
 
   background: rgb(var(--color-foreground, var(--color-primary)) / 0.95);
   transform: translateY(-50%);
-} */
+}
 
 .markdown-panel ol {
   list-style: decimal;

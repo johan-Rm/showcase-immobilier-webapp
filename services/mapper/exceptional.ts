@@ -140,6 +140,10 @@ export const deriveExceptionalScreens = (item: Accommodation | undefined): Excep
     const meta = asRecord(part.meta)
     const overlayMode =
       meta.overlayMode === 'light' || meta.overlayMode === 'dark' ? meta.overlayMode : undefined
+    const imageOverlay =
+      meta.imageOverlay === 'none' || meta.imageOverlay === 'light' || meta.imageOverlay === 'dark'
+        ? meta.imageOverlay
+        : 'dark'
 
     return {
       id: slugify(eyebrow) || `screen-${index + 1}`,
@@ -152,6 +156,7 @@ export const deriveExceptionalScreens = (item: Accommodation | undefined): Excep
       media: readMedia(part),
       ...(typeof meta.reverse === 'boolean' ? { reverse: meta.reverse } : {}),
       ...(overlayMode ? { overlayMode } : {}),
+      imageOverlay,
     }
   }),
   CONTACT_SCREEN,

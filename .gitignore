@@ -49,6 +49,7 @@ public/images/
 lighthouse-*
 !scripts/lighthouse-*.sh
 firefox.*
+.tmp/playwright/
 
 # Bootstrap state
 scripts/bootstrap-data/.state

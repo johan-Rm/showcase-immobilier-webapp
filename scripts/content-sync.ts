@@ -122,6 +122,7 @@ type ApiMediaObject = {
   contentUrl: string | null
   originalFilename: string | null
   mainEntity: string | null
+  updatedAt: string
 }
 
 type ApiProject = {
@@ -219,7 +220,13 @@ function mapCategoryCodes(items: ApiCategoryCode[]): CategoryCodeYamlItem[] {
     )
 }
 
-type MediaObjectYamlItem = { identifier: string; caption: string; url: string; mainEntity: string }
+type MediaObjectYamlItem = {
+  identifier: string
+  caption: string
+  url: string
+  mainEntity: string
+  dateModified: string
+}
 type UuidFilenameMap = Record<string, string>
 
 function mapMediaObjects(items: ApiMediaObject[]): {
@@ -238,6 +245,7 @@ function mapMediaObjects(items: ApiMediaObject[]): {
       caption: item.caption ?? '',
       url: new URL(item.contentUrl).pathname,
       mainEntity: item.mainEntity ?? 'ImageObject',
+      dateModified: item.updatedAt,
     })
   }
 

@@ -1,5 +1,5 @@
+import type { DashboardMediaObject } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
-import type { MediaObject } from '@schemas/interfaces'
 
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { getProjectLocales } from '../../../utils/projectLocales'
@@ -25,6 +25,7 @@ type SymfonyMediaResponse = {
   contentUrl?: string
   caption?: string
   mainEntity?: string
+  updatedAt?: string
   translations?: SymfonyMediaTranslationResponse[]
 }
 
@@ -97,7 +98,7 @@ const resolveCaption = (
   response.translations?.find((translation) => translation.caption)?.caption ??
   fallbackCaption
 
-export default defineEventHandler(async (event): Promise<MediaObject> => {
+export default defineEventHandler(async (event): Promise<DashboardMediaObject> => {
   await requireUserSession(event)
 
   const form = await readFormData(event)
@@ -140,7 +141,11 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
     `${apiUrl}/api/projects/${projectId}/media-objects/translations`,
     {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Accept: 'application/json',
+        'Accept-Language': locale,
+        Authorization: `Bearer ${token}`,
+      },
       body: symfonyForm,
     },
   )
@@ -150,5 +155,6 @@ export default defineEventHandler(async (event): Promise<MediaObject> => {
     url: raw.url ?? raw.contentUrl ?? '',
     caption: resolveCaption(raw, locale, fallbackCaption),
     mainEntity: raw.mainEntity ?? '',
+    dateModified: raw.updatedAt,
   }
 })

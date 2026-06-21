@@ -15,6 +15,12 @@
         :preload="eager"
         :fetchpriority="eager ? 'high' : 'auto'"
       />
+      <div
+        v-if="displayImageOverlayClass"
+        class="pointer-events-none absolute inset-0"
+        :class="displayImageOverlayClass"
+        aria-hidden="true"
+      />
     </div>
     <div
       class="bg-background text-foreground flex flex-1 flex-col justify-center px-6 py-10 md:w-1/2 md:px-16"
@@ -52,7 +58,12 @@
 // 1. Imports
 import type { ExceptionalScreen } from '#shared/types/exceptional'
 
-import { BACKGROUND_ACCENT_CLASS, BACKGROUND_LABEL_CLASS, titleParts } from './exceptional.helpers'
+import {
+  BACKGROUND_ACCENT_CLASS,
+  BACKGROUND_LABEL_CLASS,
+  imageOverlayClass,
+  titleParts,
+} from './exceptional.helpers'
 
 // 2. Types et constantes statiques
 
@@ -62,4 +73,5 @@ const emit = defineEmits<{ 'go-next': [] }>()
 
 // 8. Computed UI-ready
 const parts = computed(() => titleParts(props.screen))
+const displayImageOverlayClass = computed(() => imageOverlayClass(props.screen))
 </script>

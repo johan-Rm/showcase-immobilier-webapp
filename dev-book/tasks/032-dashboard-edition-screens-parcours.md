@@ -135,12 +135,17 @@ associatedMedia?: Array<{ image: string; caption?: string }>; meta?: { reverse?:
       inputs dashboard.
 - [ ] **Options conditionnelles** (`meta`, partagé) selon le template :
   - `reverse` (toggle) pour `SPLIT` / `OVERLAY` / `TRYPTIQUE` ;
-  - `overlayMode` (`dark` / `light`) pour `OVERLAY`.
+  - `overlayMode` (`dark` / `light`) pour `OVERLAY` ;
+  - `imageOverlay` (`none` / `dark` / `light`, sombre par défaut) pour tous les templates.
 - [x] **Médias** : `<DashboardScreenMediaSelector :model-value="screen.associatedMedia"
 :available-media="…" />` — **sélection parmi les médias associés du bien** (toggle ordonné,
       pastille de rang), **pas d'upload par écran**. Stocke `{ image: identifiant }` ordonné ; la
       légende est héritée de la galerie (résolue en lecture). `available-media` provient de
       `PropertyContentEditor` (→ `PropertyScreensEditor` → carte).
+- [x] Limiter la sélection au nombre de visuels consommé par chaque template : `FULL` 1,
+      `SPLIT` 1, `TRYPTIQUE` 3, `CAROUSEL` 5, `OVERLAY` 1 et `DUO` 2. Un changement de template
+      conserve les premières images dans leur ordre et retire celles qui dépassent la nouvelle
+      limite.
 - [x] Émet les mutations vers le parent (pas d'accès store direct au draft).
 
 ## Tâche 5 — Select de template de screen
@@ -201,7 +206,8 @@ entièrement localisé). `hasPart` est **hybride** : structure partagée, textes
 ## Tâche 10 — i18n & validation
 
 - [ ] Externaliser les libellés dashboard ajoutés (block « Screens », « Ajouter un screen »,
-      libellés de templates, « Inverser », « Mode overlay »…) via les clés de traduction du dashboard
+      libellés de templates, « Inverser les panneaux », « Mode superposition »,
+      « Filtre d'image »…) via les clés de traduction du dashboard
       (`dashboardContent.editor.panel…`).
 - [ ] Validation souple : un screen a besoin d'un `additionalType` et d'au moins un média ;
       signaler (sans bloquer la sauvegarde) un screen incomplet. La garde `isExceptionalProperty`

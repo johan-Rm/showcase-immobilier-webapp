@@ -47,6 +47,8 @@ help:
 	@printf "📜 Logs & Debug\n\n"
 	@printf "  dev-logs                    Suivre les logs dev\n"
 	@printf "  dev-analyze                 Analyse du bundle Nuxt\n"
+	@printf "  dev-playwright              Tests navigateur Playwright dans Docker\n"
+	@printf "  dev-playwright-report       Ouvrir le rapport Playwright local\n"
 	@printf "\n"
 
 	@printf "🐚 Shell\n\n"

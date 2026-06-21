@@ -36,6 +36,13 @@ export const titleParts = (screen: ExceptionalScreen): ExceptionalTitlePart[] =>
   return parts
 }
 
+/** Classes du voile chromatique commun aux images des screens éditables. */
+export const imageOverlayClass = (screen: ExceptionalScreen, darkClass = 'bg-black/30'): string => {
+  const imageOverlay = screen.imageOverlay ?? 'dark'
+  if (imageOverlay === 'none') return ''
+  return imageOverlay === 'light' ? 'bg-white/20' : darkClass
+}
+
 const overlayMode = (screen: ExceptionalScreen): ExceptionalOverlayMode =>
   screen.overlayMode ?? 'dark'
 

@@ -42,13 +42,21 @@
         :aria-label="`Agrandir : ${screen.media[0].alt}`"
         @click="emit('open-lightbox', screen.media, 0)"
       >
-        <AppImage
-          :src="screen.media[0].src"
-          :alt="screen.media[0].alt"
-          class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="sm:58vw md:36vw"
-          loading="lazy"
-        />
+        <span class="relative block size-full overflow-hidden">
+          <AppImage
+            :src="screen.media[0].src"
+            :alt="screen.media[0].alt"
+            class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="sm:58vw md:36vw"
+            loading="lazy"
+          />
+          <span
+            v-if="displayImageOverlayClass"
+            class="pointer-events-none absolute inset-0"
+            :class="displayImageOverlayClass"
+            aria-hidden="true"
+          />
+        </span>
       </button>
       <button
         v-if="screen.media[1]"
@@ -57,13 +65,21 @@
         :aria-label="`Agrandir : ${screen.media[1].alt}`"
         @click="emit('open-lightbox', screen.media, 1)"
       >
-        <AppImage
-          :src="screen.media[1].src"
-          :alt="screen.media[1].alt"
-          class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="sm:54vw md:34vw"
-          loading="lazy"
-        />
+        <span class="relative block size-full overflow-hidden">
+          <AppImage
+            :src="screen.media[1].src"
+            :alt="screen.media[1].alt"
+            class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="sm:54vw md:34vw"
+            loading="lazy"
+          />
+          <span
+            v-if="displayImageOverlayClass"
+            class="pointer-events-none absolute inset-0"
+            :class="displayImageOverlayClass"
+            aria-hidden="true"
+          />
+        </span>
       </button>
       <button
         v-if="screen.media[2]"
@@ -72,13 +88,21 @@
         :aria-label="`Agrandir : ${screen.media[2].alt}`"
         @click="emit('open-lightbox', screen.media, 2)"
       >
-        <AppImage
-          :src="screen.media[2].src"
-          :alt="screen.media[2].alt"
-          class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="sm:30vw md:18vw"
-          loading="lazy"
-        />
+        <span class="relative block size-full overflow-hidden">
+          <AppImage
+            :src="screen.media[2].src"
+            :alt="screen.media[2].alt"
+            class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="sm:30vw md:18vw"
+            loading="lazy"
+          />
+          <span
+            v-if="displayImageOverlayClass"
+            class="pointer-events-none absolute inset-0"
+            :class="displayImageOverlayClass"
+            aria-hidden="true"
+          />
+        </span>
       </button>
     </div>
   </div>
@@ -88,7 +112,12 @@
 // 1. Imports
 import type { ExceptionalMedia, ExceptionalScreen } from '#shared/types/exceptional'
 
-import { BACKGROUND_ACCENT_CLASS, BACKGROUND_LABEL_CLASS, titleParts } from './exceptional.helpers'
+import {
+  BACKGROUND_ACCENT_CLASS,
+  BACKGROUND_LABEL_CLASS,
+  imageOverlayClass,
+  titleParts,
+} from './exceptional.helpers'
 
 // 3. Props et emits
 const props = defineProps<{ screen: ExceptionalScreen }>()
@@ -99,4 +128,5 @@ const emit = defineEmits<{
 
 // 8. Computed UI-ready
 const parts = computed(() => titleParts(props.screen))
+const displayImageOverlayClass = computed(() => imageOverlayClass(props.screen))
 </script>

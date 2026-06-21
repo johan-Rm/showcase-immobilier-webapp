@@ -12,6 +12,7 @@ Socle technique principal :
 - Nuxt UI, Nuxt Content, Nuxt i18n, Pinia
 - SSR avec pipeline de génération de schémas au build
 - Docker pour les environnements dev, preprod et prod
+- Playwright dans Docker pour les smoke tests navigateur
 - synchronisation de contenu depuis une API Symfony
 
 ## Setup
@@ -30,3 +31,15 @@ cp .env.example .env
 cp .env.example .env.preprod
 cp .env.example .env.prod
 ```
+
+## Playwright
+
+Les tests navigateur tournent dans un service Docker dedie, base sur l'image officielle
+Playwright. Le service lance le serveur Nuxt via `webapp-localhost`, attend son
+healthcheck, puis execute les tests.
+
+```bash
+make dev-playwright BUILD=1
+```
+
+Les traces, captures et rapports HTML sont ecrits dans `.tmp/playwright/`.
