@@ -20,17 +20,6 @@ type MetadataState = {
   amenityFeatures: CategoryCode[]
   tags: CategoryCode[]
   imageObjects: DashboardMediaObject[]
-  irisMap: Record<string, Record<string, string>>
-}
-
-type DashboardCategoryCodeItem = {
-  code: string
-  inCodeSet: string
-  label?: string
-  isEnabled?: boolean
-  metadata?: {
-    isEnabled?: boolean
-  }
 }
 
 const CATEGORY_CODE_SETS = new Set(['accommodation-category', 'accommodation-type'])
@@ -58,6 +47,15 @@ const upsertSlugOption = <TItem extends { slug?: string }>(
 }
 
 const isEnabledOption = (item: { isEnabled?: boolean }): boolean => item.isEnabled !== false
+
+const sortMediaByModificationDate = (
+  left: DashboardMediaObject,
+  right: DashboardMediaObject,
+): number => {
+  const leftTime = Date.parse(left.dateModified ?? '')
+  const rightTime = Date.parse(right.dateModified ?? '')
+  return (Number.isNaN(rightTime) ? 0 : rightTime) - (Number.isNaN(leftTime) ? 0 : leftTime)
+}
 
 const getCategoryCodeIsEnabled = (item: {
   isEnabled?: unknown
@@ -91,7 +89,6 @@ export const useMetadataStore = defineStore('metadata', {
     amenityFeatures: [],
     tags: [],
     imageObjects: [],
-    irisMap: {},
   }),
 
   getters: {
@@ -231,9 +228,6 @@ export const useMetadataStore = defineStore('metadata', {
       }
     },
 
-    getIri(state: MetadataState): (inCodeSet: string, code: string) => string | null {
-      return (inCodeSet: string, code: string) => state.irisMap[inCodeSet]?.[code] ?? null
-    },
   },
 
   actions: {
@@ -299,7 +293,7 @@ export const useMetadataStore = defineStore('metadata', {
      * @returns `void`.
      */
     setMediaObjects(items: DashboardMediaObject[]): void {
-      this.imageObjects = Array.isArray(items) ? items : []
+      this.imageObjects = Array.isArray(items) ? [...items].sort(sortMediaByModificationDate) : []
     },
 
     /**
@@ -308,7 +302,7 @@ export const useMetadataStore = defineStore('metadata', {
      * @returns `void`.
      */
     addMediaObject(item: DashboardMediaObject): void {
-      this.imageObjects = [...this.imageObjects, item]
+      this.imageObjects = [...this.imageObjects, item].sort(sortMediaByModificationDate)
     },
 
     addCategoryCode(item: CategoryCode): void {
@@ -345,78 +339,6 @@ export const useMetadataStore = defineStore('metadata', {
       }
     },
 
-    upsertDashboardCategoryCodes(items: DashboardCategoryCodeItem[]): void {
-      for (const item of items) {
-        const name = item.label ?? item.code
-        switch (item.inCodeSet) {
-          case 'accommodation-category':
-          case 'accommodation-type':
-            this.accommodationCategories = upsertSlugOption(this.accommodationCategories, {
-              slug: item.code,
-              name,
-            })
-            break
-          case 'accommodation-place':
-            this.accommodationPlaces = upsertSlugOption(this.accommodationPlaces, {
-              slug: item.code,
-              name,
-            })
-            break
-          case 'real-estate-listing': {
-            const isEnabled = getCategoryCodeIsEnabled(item)
-            this.realEstateListings = upsertSlugOption(this.realEstateListings, {
-              slug: item.code,
-              name,
-              ...(typeof isEnabled === 'boolean' ? { isEnabled } : {}),
-            })
-            break
-          }
-          case 'amenity-feature':
-            this.amenityFeatures = upsertCategoryCode(this.amenityFeatures, {
-              id: {},
-              codeValue: item.code,
-              name,
-              inCodeSet: item.inCodeSet,
-            })
-            break
-          case 'tag':
-            this.tags = upsertCategoryCode(this.tags, {
-              id: {},
-              codeValue: item.code,
-              name,
-              inCodeSet: item.inCodeSet,
-            })
-            break
-          default:
-            this.categoryCodes = upsertCategoryCode(this.categoryCodes, {
-              id: {},
-              codeValue: item.code,
-              name,
-              inCodeSet: item.inCodeSet,
-            })
-        }
-      }
-    },
-
-    setIrisMap(items: Array<{ iri: string; code: string; inCodeSet: string }>): void {
-      const map: Record<string, Record<string, string>> = {}
-      for (const item of items) {
-        if (!map[item.inCodeSet]) map[item.inCodeSet] = {}
-        map[item.inCodeSet]![item.code] = item.iri
-      }
-      this.irisMap = map
-    },
-
-    addIri(item: { iri: string; code: string; inCodeSet: string }): void {
-      this.irisMap = {
-        ...this.irisMap,
-        [item.inCodeSet]: {
-          ...(this.irisMap[item.inCodeSet] ?? {}),
-          [item.code]: item.iri,
-        },
-      }
-    },
-
     updateAccommodationPlaceText(code: string, text: string): void {
       this.accommodationPlaces = this.accommodationPlaces.map((item) =>
         item.slug === code ? { ...item, text } : item,
@@ -435,7 +357,6 @@ export const useMetadataStore = defineStore('metadata', {
       this.amenityFeatures = []
       this.tags = []
       this.imageObjects = []
-      this.irisMap = {}
     },
   },
 })

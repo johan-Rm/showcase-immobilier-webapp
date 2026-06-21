@@ -74,7 +74,13 @@
               <!-- Nom + erreur -->
               <div class="min-w-0 flex-1">
                 <p class="truncate text-xs text-white/70">{{ item.file.name }}</p>
-                <p v-if="item.error" class="text-[0.6rem] text-red-400">{{ item.error }}</p>
+                <p
+                  v-if="item.error"
+                  class="text-[0.6rem]"
+                  :class="item.status === 'warning' ? 'text-amber-400' : 'text-red-400'"
+                >
+                  {{ item.error }}
+                </p>
               </div>
 
               <!-- Taille -->
@@ -101,6 +107,9 @@
           <p v-if="errorCount" class="mb-2 text-xs text-red-400">
             {{ errorCount }} fichier{{ errorCount > 1 ? 's' : '' }} en erreur
           </p>
+          <p v-if="warningCount" class="mb-2 text-xs text-amber-400">
+            {{ warningCount }} fichier{{ warningCount > 1 ? 's' : '' }} à resynchroniser
+          </p>
           <UButton
             block
             :disabled="!pendingCount || isUploading"
@@ -122,7 +131,12 @@
 <script setup lang="ts">
 import type { MediaObject } from '@schemas/interfaces'
 
-type UploadStatus = 'pending' | 'uploading' | 'done' | 'error'
+type UploadStatus = 'pending' | 'uploading' | 'done' | 'warning' | 'error'
+
+type MediaUploadResponse = MediaObject & {
+  contentUpdated: boolean
+  reconciliationRequired: boolean
+}
 
 type QueueItem = {
   file: File
@@ -157,10 +171,12 @@ const pendingCount = computed<number>(
   () => queue.value.filter((i) => i.status === 'pending').length,
 )
 const errorCount = computed<number>(() => queue.value.filter((i) => i.status === 'error').length)
+const warningCount = computed<number>(() => queue.value.filter((i) => i.status === 'warning').length)
 
 const statusIcon = (status: UploadStatus): string => {
   if (status === 'uploading') return 'i-lucide-loader'
   if (status === 'done') return 'i-lucide-check-circle'
+  if (status === 'warning') return 'i-lucide-triangle-alert'
   if (status === 'error') return 'i-lucide-alert-circle'
   return 'i-lucide-file-image'
 }
@@ -168,6 +184,7 @@ const statusIcon = (status: UploadStatus): string => {
 const statusColor = (status: UploadStatus): string => {
   if (status === 'uploading') return 'animate-spin text-[#6B7A4A]'
   if (status === 'done') return 'text-[#6B7A4A]'
+  if (status === 'warning') return 'text-amber-400'
   if (status === 'error') return 'text-red-400'
   return 'text-white/30'
 }
@@ -235,14 +252,17 @@ const handleUpload = async (): Promise<void> => {
         ]),
       )
 
-      const result = await $fetch<MediaObject>('/api/dashboard/media/upload', {
+      const result = await $fetch<MediaUploadResponse>('/api/dashboard/media/upload', {
         method: 'POST',
         body: form,
       })
 
       metadataStore.addMediaObject(result)
       results.push(result)
-      item.status = 'done'
+      item.status = result.contentUpdated ? 'done' : 'warning'
+      if (!result.contentUpdated) {
+        item.error = 'Image créée dans la BDD, mais le fichier content doit être resynchronisé.'
+      }
     } catch (err: unknown) {
       item.status = 'error'
       item.error = err instanceof Error ? err.message : 'Erreur'

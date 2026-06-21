@@ -9,6 +9,8 @@ type DashboardPlaceTextResponse = {
   name: string
   inCodeSet: 'accommodation-place'
   text: string
+  contentUpdated: boolean
+  reconciliationRequired: boolean
 }
 
 const PLACE_CODE_SET = 'accommodation-place'
@@ -27,11 +29,6 @@ export const useDashboardPlaceText = () => {
 
   const findPlace = (items: CategoryCode[], code: string): CategoryCode | null =>
     items.find((item) => item.inCodeSet === PLACE_CODE_SET && item.codeValue === code) ?? null
-
-  const getCategoryCodeUuidFromIri = (iri: string): string | null => {
-    const uuid = iri.split('/').filter(Boolean).at(-1)
-    return uuid?.trim() || null
-  }
 
   const loadPlaceText = async (code: string | null, locale: LocaleCode): Promise<void> => {
     if (!code) {
@@ -73,22 +70,16 @@ export const useDashboardPlaceText = () => {
     errorMessage.value = null
 
     try {
-      const iri = metadataStore.getIri(PLACE_CODE_SET, code)
-      if (!iri) {
-        throw new Error(`IRI Symfony introuvable pour le lieu "${code}"`)
-      }
-      const uuid = getCategoryCodeUuidFromIri(iri)
-      if (!uuid) {
-        throw new Error(`UUID Symfony introuvable pour le lieu "${code}"`)
-      }
-
       const result = await $fetch<DashboardPlaceTextResponse>(
         `/api/dashboard/category-codes/${encodeURIComponent(code)}/text`,
         {
           method: 'PUT',
-          body: { uuid, locale, text: placeText.value },
+          body: { locale, text: placeText.value },
         },
       )
+      if (!result.contentUpdated) {
+        throw new Error('Lieu mis à jour dans la BDD, mais le fichier content doit être resynchronisé.')
+      }
       placeName.value = result.name
       placeText.value = result.text
       sourceText.value = result.text

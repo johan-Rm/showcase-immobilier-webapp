@@ -1,7 +1,6 @@
 import type { LocaleCode } from '#shared/types/i18n'
 
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
-import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
 
 type CreatorRequest = {
   category?: string
@@ -114,8 +113,6 @@ export default defineEventHandler(async (event): Promise<CreatorResponse> => {
         statusMessage: 'Symfony creator: identifier absent de la réponse',
       })
     }
-
-    invalidateSymfonyCache()
 
     return {
       data,

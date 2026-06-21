@@ -42,8 +42,8 @@ const { loggedIn, clear, fetch, user } = useUserSession()
 const {
   loadAccommodationForm,
   loadDashboardContent,
-  loadDashboardCategoryCodes,
-  loadDashboardMediaObjects,
+  loadCategoryCodes,
+  loadMediaObjects,
 } = useMetadata()
 
 // 5. Etat local
@@ -70,8 +70,8 @@ try {
   await Promise.all([
     loadAccommodationForm(),
     loadDashboardContent(),
-    loadDashboardCategoryCodes(),
-    loadDashboardMediaObjects(),
+    loadCategoryCodes(),
+    loadMediaObjects(),
   ])
 } catch {
   // Silencieux : les metadonnees locales restent disponibles en fallback.
