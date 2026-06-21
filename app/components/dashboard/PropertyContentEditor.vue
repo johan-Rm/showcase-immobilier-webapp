@@ -285,7 +285,7 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
         },
         {
           key: 'areaTerrace',
-          label: f('areaTerrace', 'Terrasse'),
+          label: f('areaTerrace', 'Surface terrasse'),
           default: '',
           half: true,
           zeroAsEmpty: true,
