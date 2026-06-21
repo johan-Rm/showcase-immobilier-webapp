@@ -7,21 +7,7 @@
       class="text-foreground md:absolute md:top-1/2 md:z-10 md:max-w-sm md:-translate-y-1/2"
       :class="screen.reverse ? 'md:right-12 md:text-right lg:right-20' : 'md:left-12 lg:left-20'"
     >
-      <p :class="BACKGROUND_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-      <h2 class="text-3xl leading-tight font-light md:text-4xl">
-        <span
-          v-for="(part, partIndex) in parts"
-          :key="partIndex"
-          :class="part.accent ? BACKGROUND_ACCENT_CLASS : ''"
-          >{{ part.text }}</span
-        >
-      </h2>
-      <p
-        class="text-foreground/80 mt-4 text-sm leading-relaxed"
-        :class="screen.reverse ? 'md:ml-auto' : ''"
-      >
-        {{ screen.text }}
-      </p>
+      <PropertyContentZone :screen="screen" tone="surface" />
       <button
         v-if="screen.cta"
         type="button"
@@ -112,12 +98,7 @@
 // 1. Imports
 import type { ExceptionalMedia, ExceptionalScreen } from '#shared/types/exceptional'
 
-import {
-  BACKGROUND_ACCENT_CLASS,
-  BACKGROUND_LABEL_CLASS,
-  imageOverlayClass,
-  titleParts,
-} from './exceptional.helpers'
+import { imageOverlayClass } from './exceptional.helpers'
 
 // 3. Props et emits
 const props = defineProps<{ screen: ExceptionalScreen }>()
@@ -127,6 +108,5 @@ const emit = defineEmits<{
 }>()
 
 // 8. Computed UI-ready
-const parts = computed(() => titleParts(props.screen))
 const displayImageOverlayClass = computed(() => imageOverlayClass(props.screen))
 </script>

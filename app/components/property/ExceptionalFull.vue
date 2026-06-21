@@ -25,7 +25,7 @@
         : 'bottom-32 left-6 md:bottom-36 md:left-16'
     "
   >
-    <PropertyExceptionalContent :screen="screen" :is-first="isFirst" />
+    <PropertyContentZone :screen="screen" tone="image" :align="isFirst ? 'right' : 'left'" />
   </div>
 </template>
 
