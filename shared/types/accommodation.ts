@@ -14,3 +14,6 @@ export type PropertyItem = {
 }
 
 export type ViewModeList = 'single' | 'quad' | 'row4'
+
+/** Devise par défaut et unique pour les offres de biens (dirham marocain). */
+export const DEFAULT_PRICE_CURRENCY = 'MAD'

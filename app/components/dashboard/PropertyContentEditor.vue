@@ -137,6 +137,8 @@
 </template>
 
 <script setup lang="ts">
+import { DEFAULT_PRICE_CURRENCY } from '#shared/types/accommodation'
+
 defineOptions({ name: 'DashboardPropertyContentEditor' })
 
 type DashboardDraft = { frontmatter: DashboardEditableRecord; body: string }
@@ -221,7 +223,13 @@ const frontmatterSections = computed<FrontmatterSection[]>(() => {
           default: null,
           half: true,
         },
-        { key: 'offer', label: f('offer', 'Offre'), type: 'offer', half: true, default: {} },
+        {
+          key: 'offer',
+          label: f('offer', 'Offre'),
+          type: 'offer',
+          half: true,
+          default: { priceCurrency: DEFAULT_PRICE_CURRENCY },
+        },
       ],
     },
     {
