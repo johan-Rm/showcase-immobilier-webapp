@@ -15,13 +15,9 @@
     aria-hidden="true"
   />
   <div
-    class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
+    class="absolute right-6 bottom-40 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-40 md:left-auto"
   >
-    <p :class="IMAGE_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-    <h2 class="text-4xl leading-tight font-light text-balance text-white md:text-5xl">
-      <span v-for="(part, partIndex) in parts" :key="partIndex">{{ part.text }}</span>
-    </h2>
-    <p class="mt-4 ml-auto max-w-md text-base leading-relaxed text-white">{{ screen.text }}</p>
+    <PropertyContentZone :screen="screen" tone="image" align="right" />
 
     <!-- Navigation interne (max 5 vignettes). Mobile : flex-1 → toutes visibles. -->
     <div class="mt-5 flex gap-1.5 md:justify-end">
@@ -54,14 +50,13 @@
 // 1. Imports
 import type { ExceptionalMedia, ExceptionalScreen } from '#shared/types/exceptional'
 
-import { IMAGE_LABEL_CLASS, imageOverlayClass, titleParts } from './exceptional.helpers'
+import { imageOverlayClass } from './exceptional.helpers'
 
 // 3. Props et emits
 const props = defineProps<{ screen: ExceptionalScreen; activeMediaIndex?: number }>()
 const emit = defineEmits<{ 'select-media': [index: number] }>()
 
 // 8. Computed UI-ready
-const parts = computed(() => titleParts(props.screen))
 const displayImageOverlayClass = computed(() =>
   imageOverlayClass(props.screen, 'bg-gradient-to-t from-black/85 via-black/35 to-black/30'),
 )

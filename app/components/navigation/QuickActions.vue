@@ -241,6 +241,9 @@ const handleQuickActionClick = (event: MouseEvent, item: QuickActionItem) => {
 
   if (!isConstructionEnabled.value) return
 
+  // Laisser passer les actions menant au dashboard, même en mode construction.
+  if (isConstructionExemptPath(getQuickActionTo(item))) return
+
   event.preventDefault()
   openConstructionModal()
 }

@@ -99,6 +99,8 @@ const emit = defineEmits<{
 // 4. Composables, stores, routeur
 const slots = useSlots()
 
+const router = useRouter()
+
 const { isConstructionEnabled, open: openConstructionModal } = useConstructionModal()
 
 // 5. Etat local
@@ -191,6 +193,9 @@ const handleAppLinkClick = (event: MouseEvent): void => {
   }
 
   if (!isConstructionEnabled.value) return
+
+  // Laisser passer les liens vers le dashboard, même en mode construction.
+  if (isConstructionExemptPath(router.resolve(props.to).path)) return
 
   event.preventDefault()
   openConstructionModal()

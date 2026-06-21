@@ -24,21 +24,7 @@
     class="absolute top-1/2 right-6 left-6 z-10 -translate-y-1/2 md:top-[55%] md:w-[40%]"
     :class="screen.reverse ? 'md:right-[5%] md:left-auto' : 'md:left-[5%]'"
   >
-    <p :class="overlayLabelClass(screen)">— {{ screen.eyebrow }}</p>
-    <h2
-      class="text-4xl leading-tight font-light text-balance md:text-5xl"
-      :class="overlayTextClass(screen)"
-    >
-      <span
-        v-for="(part, partIndex) in parts"
-        :key="partIndex"
-        :class="part.accent ? overlayAccentClass(screen) : ''"
-        >{{ part.text }}</span
-      >
-    </h2>
-    <p class="mt-5 max-w-md text-base leading-relaxed" :class="overlayTextClass(screen)">
-      {{ screen.text }}
-    </p>
+    <PropertyContentZone :screen="screen" tone="overlay" />
   </div>
 </template>
 
@@ -46,20 +32,12 @@
 // 1. Imports
 import type { ExceptionalScreen } from '#shared/types/exceptional'
 
-import {
-  imageOverlayClass,
-  overlayAccentClass,
-  overlayLabelClass,
-  overlayPanelClass,
-  overlayTextClass,
-  titleParts,
-} from './exceptional.helpers'
+import { imageOverlayClass, overlayPanelClass } from './exceptional.helpers'
 
 // 3. Props et emits
 const props = defineProps<{ screen: ExceptionalScreen; eager?: boolean }>()
 
 // 8. Computed UI-ready
-const parts = computed(() => titleParts(props.screen))
 const displayImageOverlayClass = computed(() =>
   imageOverlayClass(props.screen, 'bg-foreground/45 md:bg-foreground/20'),
 )

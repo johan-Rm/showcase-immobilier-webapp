@@ -26,16 +26,7 @@
       class="bg-background text-foreground flex flex-1 flex-col justify-center px-6 py-10 md:w-1/2 md:px-16"
       :class="screen.reverse ? 'md:order-1' : 'md:order-2'"
     >
-      <p :class="BACKGROUND_LABEL_CLASS">— {{ screen.eyebrow }}</p>
-      <h2 class="text-4xl leading-tight font-light text-balance md:text-5xl">
-        <span
-          v-for="(part, partIndex) in parts"
-          :key="partIndex"
-          :class="part.accent ? BACKGROUND_ACCENT_CLASS : ''"
-          >{{ part.text }}</span
-        >
-      </h2>
-      <p class="text-foreground mt-5 max-w-md text-base leading-relaxed">{{ screen.text }}</p>
+      <PropertyContentZone :screen="screen" tone="surface" />
       <ul
         v-if="screen.specs"
         class="text-foreground/70 mt-7 flex flex-wrap gap-x-4 gap-y-2 text-xs tracking-wide"
@@ -58,20 +49,12 @@
 // 1. Imports
 import type { ExceptionalScreen } from '#shared/types/exceptional'
 
-import {
-  BACKGROUND_ACCENT_CLASS,
-  BACKGROUND_LABEL_CLASS,
-  imageOverlayClass,
-  titleParts,
-} from './exceptional.helpers'
-
-// 2. Types et constantes statiques
+import { imageOverlayClass } from './exceptional.helpers'
 
 // 3. Props et emits
 const props = defineProps<{ screen: ExceptionalScreen; eager?: boolean }>()
 const emit = defineEmits<{ 'go-next': [] }>()
 
 // 8. Computed UI-ready
-const parts = computed(() => titleParts(props.screen))
 const displayImageOverlayClass = computed(() => imageOverlayClass(props.screen))
 </script>
