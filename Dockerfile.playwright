@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/playwright:v1.61.0-noble
+
+RUN npm install --global bun@1.2.22
+
+WORKDIR /app
+
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --ignore-scripts
+
+COPY . ./
+
+ENV CI=true
+ENV HOME=/tmp
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+CMD ["bun", "run", "test:e2e"]

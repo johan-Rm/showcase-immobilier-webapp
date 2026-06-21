@@ -1,5 +1,6 @@
 COMPOSE_FILE := docker-compose.dev.yml
 DOCKER_RUN := docker compose -f $(COMPOSE_FILE) run --rm webapp-localhost
+PLAYWRIGHT_RUN := docker compose -f $(COMPOSE_FILE) --profile e2e up $(if $(BUILD),--build) --abort-on-container-exit --exit-code-from playwright playwright
 
 export DOCKER_UID := $(shell id -u)
 export DOCKER_GID := $(shell id -g)
@@ -12,6 +13,7 @@ export DOCKER_GID := $(shell id -g)
 .PHONY: dev-down dev-logs
 .PHONY: dev-shell-webapp-localhost dev-shell-webapp-ssr dev-shell-nginx
 .PHONY: dev-analyze dev-analyse
+.PHONY: dev-playwright dev-playwright-report
 .PHONY: quality-check quality-lint-check quality-lint-fix quality-format-check quality-type-check
 .PHONY: quality-conventions-check quality-generate-schemas
 .PHONY: dev-content-sync dev-content-sync-dry
@@ -65,6 +67,13 @@ dev-analyze:
 	bunx nuxi analyze
 
 dev-analyse: dev-analyze
+
+dev-playwright: dev-env
+	@mkdir -p .tmp/playwright
+	$(PLAYWRIGHT_RUN)
+
+dev-playwright-report:
+	bun run test:e2e:report
 
 quality-check:
 	$(DOCKER_RUN) bun run quality:check
