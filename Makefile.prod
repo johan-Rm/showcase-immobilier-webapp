@@ -3,15 +3,22 @@
 # ============================
 
 PROD_ENV_FILE ?= .env.prod
-COMPOSE_PROD = docker compose --env-file $(PROD_ENV_FILE) -f docker-compose.prod.yml
+# ENV_FILE est exporté pour que `env_file:` dans le compose pointe le même
+# fichier que `--env-file` (source unique de vérité, surcharge cohérente).
+COMPOSE_PROD = ENV_FILE=$(PROD_ENV_FILE) docker compose --env-file $(PROD_ENV_FILE) -f docker-compose.prod.yml
 
 PROD_CORE_SERVICES = webapp-ssr
 PROD_BUILD_SERVICES = webapp-ssr
 
-.PHONY: prod-up prod-up-build prod-down prod-clean prod-stop prod-status
+.PHONY: prod-check prod-up prod-up-build prod-up-wait prod-down prod-clean prod-stop prod-status
 .PHONY: prod-build prod-build-no-cache prod-pull prod-deploy prod-deploy-no-cache
 .PHONY: prod-content-sync prod-content-sync-dry
 .PHONY: prod-logs prod-logs-service prod-logs-webapp
+
+# Préflight : valide la configuration avant tout build/up (bloquant)
+
+prod-check:
+	@scripts/ci/deploy-check.sh $(PROD_ENV_FILE) docker-compose.prod.yml prod
 
 # Content Sync
 
@@ -26,6 +33,9 @@ prod-content-sync-dry:
 prod-up:
 	$(COMPOSE_PROD) up -d $(PROD_CORE_SERVICES)
 
+prod-up-wait:
+	$(COMPOSE_PROD) up -d --wait $(PROD_CORE_SERVICES)
+
 prod-up-build:
 	$(COMPOSE_PROD) up -d --build $(PROD_CORE_SERVICES)
 
@@ -38,13 +48,19 @@ prod-build-no-cache:
 prod-pull:
 	$(COMPOSE_PROD) pull $(PROD_CORE_SERVICES)
 
+# Déploiement : préflight → build → up avec attente du healthcheck.
+# Le contenu est un volume runtime : `make prod-content-sync` se lance séparément
+# (dépend de l'API Symfony) et est reflété sans rebuild.
+
 prod-deploy:
+	$(MAKE) prod-check
 	$(MAKE) prod-build
-	$(MAKE) prod-up
+	$(MAKE) prod-up-wait
 
 prod-deploy-no-cache:
+	$(MAKE) prod-check
 	$(MAKE) prod-build-no-cache
-	$(MAKE) prod-up
+	$(MAKE) prod-up-wait
 
 # Lifecycle
 

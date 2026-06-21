@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 # Dockerfile (production-like SSR)
 
-FROM oven/bun:1-alpine AS build
+FROM oven/bun:1.2.22-alpine AS build
 
 ARG APP_ENV=prod
 ARG SITE_URL=https://example.com
@@ -28,7 +28,7 @@ ENV PUBLIC_PORT=3001
 COPY package.json \
     bun.lock ./
 
-RUN bun install
+RUN bun install --frozen-lockfile
 
 COPY . ./
 

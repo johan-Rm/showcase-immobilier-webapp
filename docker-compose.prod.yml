@@ -1,15 +1,19 @@
 services:
   content-sync:
-    image: oven/bun:1-alpine
+    image: oven/bun:1.2.22-alpine
     working_dir: /app
+    # Tourne avec l'UID/GID hôte : pas de fichiers root créés dans le dépôt monté.
+    user: '${DOCKER_UID:-1000}:${DOCKER_GID:-1000}'
     env_file:
-      - .env.prod
+      - ${ENV_FILE:-.env.prod}
     volumes:
       - ./:/app
       - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
     environment:
       NODE_ENV: production
       SCHEMAS_PATH: /opt/app-schemas
+      HOME: /tmp
+      BUN_INSTALL_CACHE_DIR: /tmp/.bun-cache
     command: sh -c "bun install --frozen-lockfile && bun scripts/content-sync.ts"
     networks:
       app_stack: {}
@@ -30,7 +34,7 @@ services:
     working_dir: /app
     init: true
     env_file:
-      - .env.prod
+      - ${ENV_FILE:-.env.prod}
     environment:
       APP_ENV: ${APP_ENV:-prod}
       SITE_URL: ${SITE_URL:?SITE_URL is required}
@@ -45,6 +49,7 @@ services:
       NUXT_CONTACT_SUBMISSIONS_PATH: ${CONTACT_SUBMISSIONS_PATH:-.data/contact-submissions.csv}
       NUXT_AUTHORIZED_CLIENT_EMAILS: ${AUTHORIZED_CLIENT_EMAILS:-}
       SYMFONY_API_URL: ${SYMFONY_API_URL:-}
+      CONTENT_PATH: /app/content
       NUXT_SYMFONY_API_URL: ${SYMFONY_API_URL:-}
       NUXT_SYMFONY_API_DOCS_URL: ${SYMFONY_API_DOCS_URL:-}
       NUXT_SYMFONY_PROJECT_ID: ${SYMFONY_PROJECT_ID:-}
@@ -54,7 +59,10 @@ services:
       - '3000'
     volumes:
       - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
+      - ${CONTENT_HOST_DIR:-./content}:/app/content
       - ${MEDIA_HOST_DIR:-./public/images}:/app/.output/public/images
+      # Persistance des demandes de contact (survit à la recréation du conteneur).
+      - ${DATA_HOST_DIR:-./.data}:/app/.data
     networks:
       app_stack: {}
       edge_network:

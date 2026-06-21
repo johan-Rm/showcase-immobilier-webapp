@@ -70,6 +70,7 @@ help:
 	@printf "\n"
 
 	@printf "🚧 PREPROD\n\n"
+	@printf "  preprod-check               Préflight config (bloquant avant deploy)\n"
 	@printf "  preprod-up                  Lancer les services preprod\n"
 	@printf "  preprod-up-build            Lancer les services preprod avec rebuild\n"
 	@printf "  preprod-build               Builder les images preprod\n"
@@ -100,6 +101,7 @@ help:
 	@printf "\n"
 
 	@printf "🏭 PROD\n\n"
+	@printf "  prod-check                  Préflight config (bloquant avant deploy)\n"
 	@printf "  prod-up                     Lancer les services prod\n"
 	@printf "  prod-up-build               Lancer la prod avec rebuild\n"
 	@printf "  prod-build                  Builder les images prod\n"
