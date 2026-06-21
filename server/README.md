@@ -55,12 +55,17 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
   `POST /api/projects/{projectId}/media-objects/translations` avec un multipart `file` et
   `translations`. Le relais fixe `Accept-Language` a la locale d upload pour ne pas transmettre
   le wildcard implicite du client HTTP serveur, refuse par le resolver Symfony.
-- `GET /api/dashboard/media` charge le catalogue media courant depuis Symfony et normalise
-  `updatedAt` en `dateModified` pour le tri du dashboard.
+- Les lectures metier du dashboard utilisent la projection locale `content/`, comme le site
+  public. `GET /api/dashboard/media` et `GET /api/dashboard/category-codes` restent des routes
+  protegees de compatibilite, mais lisent les fichiers YAML sans appeler Symfony.
+- Les commandes media et CategoryCode ecrivent d abord Symfony, puis mettent a jour les fichiers
+  YAML localises. Les URL media y sont normalisees en chemins relatifs.
 - `POST /api/dashboard/category-codes` relaie la creation de metadonnees vers
   `POST /api/projects/{projectId}/category-codes/translations` avec `inCodeSet` et
   `translations[]`.
 - Le JWT Symfony et `SYMFONY_*` restent strictement serveur.
+- Symfony est le modele d ecriture durable ; `content/` est la projection de lecture runtime et
+  Pinia son cache reactif cote client.
 
 ---
 

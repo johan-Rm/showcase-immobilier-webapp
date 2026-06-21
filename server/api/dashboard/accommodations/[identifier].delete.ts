@@ -1,5 +1,4 @@
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
-import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
 
 type SymfonyFetchError = {
   response?: { status?: number; statusCode?: number; _data?: unknown }
@@ -56,8 +55,6 @@ export default defineEventHandler(async (event): Promise<{ success: true }> => {
         },
       },
     )
-
-    invalidateSymfonyCache()
 
     return { success: true }
   } catch (error: unknown) {

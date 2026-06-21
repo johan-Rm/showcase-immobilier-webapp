@@ -12,8 +12,6 @@ type UseMetadataReturn = {
   loadAllMetadata: () => Promise<void>
   loadCategoryCodes: () => Promise<void>
   loadMediaObjects: () => Promise<void>
-  loadDashboardMediaObjects: () => Promise<void>
-  loadDashboardCategoryCodes: () => Promise<void>
 }
 
 export const useMetadata = (): UseMetadataReturn => {
@@ -59,29 +57,6 @@ export const useMetadata = (): UseMetadataReturn => {
     store.setMediaObjects(mediaObjectItems)
   }
 
-  const loadDashboardCategoryCodes = async (): Promise<void> => {
-    const items = await $fetch<
-      Array<{
-        iri: string
-        code: string
-        inCodeSet: string
-        label: string
-        metadata?: {
-          isEnabled?: boolean
-        }
-      }>
-    >('/api/dashboard/category-codes')
-    store.setIrisMap(items)
-    store.upsertDashboardCategoryCodes(items)
-  }
-
-  const loadDashboardMediaObjects = async (): Promise<void> => {
-    const items = await $fetch<DashboardMediaObject[]>('/api/dashboard/media', {
-      query: { locale: localeSetting.value },
-    })
-    store.setMediaObjects(items)
-  }
-
   const loadAllMetadata = async (): Promise<void> => {
     await Promise.all([loadApp(), loadAccommodationUi(), loadCategoryCodes(), loadMediaObjects()])
   }
@@ -94,7 +69,5 @@ export const useMetadata = (): UseMetadataReturn => {
     loadAllMetadata,
     loadCategoryCodes,
     loadMediaObjects,
-    loadDashboardMediaObjects,
-    loadDashboardCategoryCodes,
   }
 }

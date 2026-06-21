@@ -229,6 +229,13 @@ type MediaObjectYamlItem = {
 }
 type UuidFilenameMap = Record<string, string>
 
+// L'API peut renvoyer contentUrl en absolu (https://host/images/x.jpg) ou en
+// relatif (/images/x.jpg). On ne garde que le pathname : la base factice permet
+// de résoudre les deux formes sans planter sur un chemin relatif.
+function toMediaPath(contentUrl: string): string {
+  return new URL(contentUrl, 'http://_').pathname
+}
+
 function mapMediaObjects(items: ApiMediaObject[]): {
   yamlItems: MediaObjectYamlItem[]
   uuidToFilename: UuidFilenameMap
@@ -243,7 +250,7 @@ function mapMediaObjects(items: ApiMediaObject[]): {
     yamlItems.push({
       identifier: item.id,
       caption: item.caption ?? '',
-      url: new URL(item.contentUrl).pathname,
+      url: toMediaPath(item.contentUrl),
       mainEntity: item.mainEntity ?? 'ImageObject',
       dateModified: item.updatedAt,
     })

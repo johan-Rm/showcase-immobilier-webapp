@@ -1,23 +1,14 @@
-import { getSymfonyServiceToken } from '../../utils/dashboard/symfonyAuth'
+import { loadContentFromFiles } from '../../utils/content/loaders'
 
-type SymfonyCategoryCodeTranslation = {
-  locale?: string
-  label?: string | null
-}
-
-type SymfonyCategoryCode = {
-  '@id': string
-  code?: string
+type ContentCategoryCode = {
+  id?: unknown
   codeValue?: string
-  inCodeSet: string
+  inCodeSet?: string
+  name?: string
   metadata?: {
     isEnabled?: boolean
   }
-  label?: string | null
-  name?: string | null
-  translations?: SymfonyCategoryCodeTranslation[]
 }
-type HydraCollection<T> = { 'hydra:member'?: T[]; member?: T[] }
 
 export type DashboardCategoryCodeIri = {
   iri: string
@@ -29,53 +20,30 @@ export type DashboardCategoryCodeIri = {
   }
 }
 
-function getCollectionMembers<T>(response: HydraCollection<T>): T[] {
-  return response['hydra:member'] ?? response.member ?? []
-}
-
-function getApiBase(): { apiUrl: string; projectId: string } {
-  const { apiUrl, projectId } = useRuntimeConfig().symfony
-  if (!apiUrl) throw new Error('SYMFONY_API_URL manquant')
-  if (!projectId) throw new Error('SYMFONY_PROJECT_ID manquant')
-  return { apiUrl, projectId }
-}
-
-const resolveLabel = (item: SymfonyCategoryCode, code: string): string =>
-  item.label ??
-  item.name ??
-  item.translations?.find((translation) => translation.locale === 'fr')?.label ??
-  item.translations?.find((translation) => translation.label)?.label ??
-  code
-
 export default defineEventHandler(async (event): Promise<DashboardCategoryCodeIri[]> => {
   await requireUserSession(event)
 
-  const { apiUrl, projectId } = getApiBase()
-  const token = await getSymfonyServiceToken()
+  const queryLocale = getQuery(event).locale
+  const locale = typeof queryLocale === 'string' && queryLocale ? queryLocale : 'fr'
+  const { projectId } = useRuntimeConfig().symfony
+  if (!projectId) {
+    throw createError({ statusCode: 500, statusMessage: 'SYMFONY_PROJECT_ID manquant' })
+  }
 
-  const response = await $fetch<HydraCollection<SymfonyCategoryCode>>(
-    `${apiUrl}/api/projects/${projectId}/category-codes`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/ld+json',
-      },
-      query: { pagination: false, locale: 'fr' },
-    },
-  )
+  const items = await loadContentFromFiles<ContentCategoryCode[]>('category-code', locale)
 
-  return getCollectionMembers(response).flatMap((item) => {
-    const code = item.codeValue ?? item.code
-    if (!code) return []
+  return items.flatMap((item) => {
+    if (typeof item.id !== 'string' || !item.id || !item.codeValue || !item.inCodeSet) {
+      return []
+    }
+
     return [
       {
-        iri: item['@id'],
-        code,
+        iri: `/api/projects/${projectId}/category-codes/${item.id}`,
+        code: item.codeValue,
         inCodeSet: item.inCodeSet,
-        label: resolveLabel(item, code),
-        ...(typeof item.metadata?.isEnabled === 'boolean'
-          ? { metadata: { isEnabled: item.metadata.isEnabled } }
-          : {}),
+        label: item.name ?? item.codeValue,
+        ...(item.metadata ? { metadata: item.metadata } : {}),
       },
     ]
   })

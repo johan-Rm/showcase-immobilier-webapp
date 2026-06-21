@@ -39,12 +39,8 @@ import { useDashboardAccommodations } from '~/composables/dashboard/useDashboard
 
 // 4. Composables, stores, routeur
 const { loggedIn, clear, fetch, user } = useUserSession()
-const {
-  loadAccommodationForm,
-  loadDashboardContent,
-  loadDashboardCategoryCodes,
-  loadDashboardMediaObjects,
-} = useMetadata()
+const { loadAccommodationForm, loadDashboardContent, loadCategoryCodes, loadMediaObjects } =
+  useMetadata()
 
 // 5. Etat local
 const dashboardHeroImageUrl = useState<string>('dashboard.hero-image.url', () => '')
@@ -70,8 +66,8 @@ try {
   await Promise.all([
     loadAccommodationForm(),
     loadDashboardContent(),
-    loadDashboardCategoryCodes(),
-    loadDashboardMediaObjects(),
+    loadCategoryCodes(),
+    loadMediaObjects(),
   ])
 } catch {
   // Silencieux : les metadonnees locales restent disponibles en fallback.

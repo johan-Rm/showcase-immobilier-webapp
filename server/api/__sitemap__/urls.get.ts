@@ -1,7 +1,9 @@
+import { loadContentFromFiles } from '../../utils/content/loaders'
+
 export default defineEventHandler(async () => {
   const [accommodations, pages] = await Promise.all([
-    $fetch<Record<string, unknown>[]>('http://localhost:3000/api/content/accommodations'),
-    $fetch<Record<string, unknown>[]>('http://localhost:3000/api/content/web-pages'),
+    loadContentFromFiles<Record<string, unknown>[]>('accommodations', 'fr'),
+    loadContentFromFiles<Record<string, unknown>[]>('web-pages', 'fr'),
   ])
 
   const propertyUrls = accommodations

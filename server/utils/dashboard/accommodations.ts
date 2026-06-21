@@ -2,11 +2,13 @@ import type {
   DashboardAccommodation,
   DashboardAccommodationFilters,
   DashboardAccommodationMedia,
+  DashboardAccommodationTranslationPayload,
   DashboardAccommodationsResponse,
   DashboardEditableRecord,
   DashboardEditableValue,
   DashboardFilterOption,
 } from '#shared/types/dashboardAccommodation'
+import type { LocaleCode } from '#shared/types/i18n'
 import type { Accommodation, CategoryCode, MediaObject } from '@schemas/interfaces'
 
 import { basename } from 'node:path'
@@ -14,6 +16,8 @@ import { basename } from 'node:path'
 import { mapAccommodations } from '@services/mapper/accommodation'
 
 import { loadContentFromFiles } from '../content/loaders'
+
+import { DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS } from '#shared/types/dashboardAccommodation'
 
 type UnknownRecord = Record<string, unknown>
 
@@ -246,4 +250,40 @@ export const loadDashboardAccommodations = async (
   cache.set(locale, { data: result, expiresAt: Date.now() + CACHE_TTL_MS })
 
   return result
+}
+
+export const loadDashboardAccommodationTranslations = async (
+  identifier: string,
+  locales: LocaleCode[],
+): Promise<DashboardAccommodationTranslationPayload[]> => {
+  const localeItems = await Promise.all(
+    locales.map(async (locale) => {
+      try {
+        const response = await loadDashboardAccommodations(locale, { force: true })
+        return {
+          locale,
+          accommodation: response.items.find((item) => item.identifier === identifier),
+        }
+      } catch {
+        return { locale, accommodation: undefined }
+      }
+    }),
+  )
+
+  return localeItems.flatMap(({ locale, accommodation }) => {
+    if (!accommodation) return []
+
+    const translation: DashboardAccommodationTranslationPayload = {
+      locale,
+    }
+    DASHBOARD_LOCALIZED_ACCOMMODATION_FIELDS.forEach((field) => {
+      if (field === 'body') {
+        translation.body = accommodation.body
+        return
+      }
+      const value = accommodation.frontmatter[field]
+      translation[field] = typeof value === 'string' ? value : null
+    })
+    return [translation]
+  })
 }

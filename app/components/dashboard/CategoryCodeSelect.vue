@@ -293,6 +293,8 @@ const onEnterCreate = async (): Promise<void> => {
       inCodeSet: string
       label?: string
       translations?: Array<{ locale?: string; label?: string | null }>
+      contentUpdated: boolean
+      reconciliationRequired: boolean
     }>('/api/dashboard/category-codes', {
       method: 'POST',
       body: {
@@ -309,9 +311,11 @@ const onEnterCreate = async (): Promise<void> => {
       name: createdLabel,
       inCodeSet: props.inCodeSet,
     })
-    store.addIri({ iri: created['@id'], code: createdCode, inCodeSet: created.inCodeSet })
     toggleOption(createdCode)
     search.value = ''
+    if (!created.contentUpdated) {
+      createError.value = 'Code créé dans la BDD, mais le fichier content doit être resynchronisé.'
+    }
   } catch (err) {
     createError.value = getCreateErrorMessage(err)
   } finally {

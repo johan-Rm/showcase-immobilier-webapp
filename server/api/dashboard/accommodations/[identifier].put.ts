@@ -3,16 +3,16 @@ import type {
   DashboardAccommodationSavePayload,
   DashboardAccommodationTranslationPayload,
 } from '#shared/types/dashboardAccommodation'
+import type { LocaleMarkdownResult } from '../../../utils/dashboard/markdownExporter'
 
 import { mapToApiPlatform } from '../../../utils/dashboard/accommodationMapper'
-import { loadDashboardAccommodations } from '../../../utils/dashboard/accommodations'
 import {
-  deleteOrphanFile,
-  exportToMarkdown,
-  propagateGlobalFields,
-} from '../../../utils/dashboard/markdownExporter'
+  loadDashboardAccommodations,
+  loadDashboardAccommodationTranslations,
+} from '../../../utils/dashboard/accommodations'
+import { resolveCategoryCodeIris } from '../../../utils/dashboard/categoryCodeResolver'
+import { exportAllLocales, propagateGlobalFields } from '../../../utils/dashboard/markdownExporter'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
-import { invalidateSymfonyCache } from '../../../utils/dashboard/symfonyCache'
 import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
 import { getProjectLocales } from '../../../utils/projectLocales'
 
@@ -112,6 +112,9 @@ export default defineEventHandler(
     success: true
     uuid: string
     markdownUpdated: boolean
+    markdownResults: LocaleMarkdownResult[]
+    contentUpdated: boolean
+    reconciliationRequired: boolean
     data: SymfonyAccommodationResponse
     freshAccommodation: DashboardAccommodation | null
     freshTranslations: DashboardAccommodationTranslationPayload[]
@@ -137,10 +140,17 @@ export default defineEventHandler(
     const locale =
       typeof localeQuery === 'string' && localeQuery ? localeQuery : accommodation.locale
     const localeParam = locale ? `?locale=${encodeURIComponent(locale)}` : ''
+    const { enabledLocales } = await getProjectLocales()
 
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
-      payload = await mapToApiPlatform(accommodation, { apiUrl, projectId })
+      const resolvedIris = await resolveCategoryCodeIris({
+        locale,
+        frontmatter: accommodation.frontmatter,
+        apiUrl,
+        projectId,
+      })
+      payload = await mapToApiPlatform({ ...accommodation, resolvedIris }, { apiUrl, projectId })
     } catch (error) {
       throw createError({ statusCode: 400, statusMessage: (error as Error).message })
     }
@@ -195,7 +205,6 @@ export default defineEventHandler(
         )
         savedData = created
         uuid = resolveSymfonyIdentifier(created, identifier)
-        invalidateSymfonyCache()
       } catch (createErrorResponse: unknown) {
         throw createError({
           statusCode: getSymfonyErrorStatus(createErrorResponse),
@@ -206,21 +215,24 @@ export default defineEventHandler(
 
     const merged = mergeFromSymfonyResponse(accommodation, savedData)
 
-    let markdownUpdated = false
-    let newFilePath: string | null = null
-    try {
-      const result = await exportToMarkdown(merged)
-      markdownUpdated = result.updated
-      if (result.updated) newFilePath = result.filePath
-    } catch (err) {
-      console.error('[markdown-export] Échec write fichier :', err)
+    const symfonyTranslations = extractTranslations(savedData)
+    const translations =
+      symfonyTranslations.length > 0 ? symfonyTranslations : (accommodation.translations ?? [])
+    const markdownResults = await exportAllLocales({ ...merged, translations })
+    const markdownUpdated = markdownResults.some((result) => result.updated)
+    let propagationFailed = false
+    if (markdownUpdated) {
+      try {
+        await propagateGlobalFields(merged.frontmatter, identifier, merged.locale, enabledLocales)
+      } catch (error) {
+        propagationFailed = true
+        console.error('[markdown-export] Echec propagation des champs globaux:', error)
+      }
     }
-
-    if (markdownUpdated && newFilePath && accommodation.fileName) {
-      await deleteOrphanFile(accommodation.fileName, newFilePath, merged.locale)
-      const { enabledLocales } = await getProjectLocales()
-      await propagateGlobalFields(merged.frontmatter, identifier, merged.locale, enabledLocales)
-    }
+    const reconciliationRequired =
+      propagationFailed ||
+      markdownResults.some((result) => !result.updated && result.reason === 'write_error')
+    const contentUpdated = markdownUpdated && !reconciliationRequired
 
     let freshAccommodation: DashboardAccommodation | null = null
     if (markdownUpdated) {
@@ -232,12 +244,17 @@ export default defineEventHandler(
       }
     }
 
-    const freshTranslations = extractTranslations(savedData)
+    const freshTranslations = markdownUpdated
+      ? await loadDashboardAccommodationTranslations(identifier, enabledLocales)
+      : symfonyTranslations
 
     return {
       success: true,
       uuid,
       markdownUpdated,
+      markdownResults,
+      contentUpdated,
+      reconciliationRequired,
       data: savedData,
       freshAccommodation,
       freshTranslations,

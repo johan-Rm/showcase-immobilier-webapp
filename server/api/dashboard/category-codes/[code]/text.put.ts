@@ -1,5 +1,9 @@
 import type { LocaleCode } from '#shared/types/i18n'
 
+import {
+  findProjectedCategoryCode,
+  updateProjectedCategoryCodeText,
+} from '../../../../utils/dashboard/contentProjection'
 import { getSymfonyServiceToken } from '../../../../utils/dashboard/symfonyAuth'
 import { getProjectLocales } from '../../../../utils/projectLocales'
 
@@ -11,7 +15,6 @@ type SymfonyCategoryCodeTranslationPayload = {
 type UpdatePlaceTextBody = {
   locale?: unknown
   text?: unknown
-  uuid?: unknown
 }
 
 type UpdatePlaceTextResponse = {
@@ -19,6 +22,8 @@ type UpdatePlaceTextResponse = {
   name: string
   inCodeSet: 'accommodation-place'
   text: string
+  contentUpdated: boolean
+  reconciliationRequired: boolean
 }
 
 const DASHBOARD_LOCALES: LocaleCode[] = ['fr', 'en', 'es']
@@ -26,9 +31,6 @@ const PLACE_CODE_SET = 'accommodation-place'
 
 const isLocaleCode = (value: unknown): value is LocaleCode =>
   typeof value === 'string' && DASHBOARD_LOCALES.includes(value as LocaleCode)
-
-const isCategoryCodeUuid = (value: unknown): value is string =>
-  typeof value === 'string' && value.trim().length > 0
 
 const getApiBase = (): { apiUrl: string; projectId: string } => {
   const { apiUrl, projectId } = useRuntimeConfig().symfony
@@ -56,9 +58,6 @@ export default defineEventHandler(async (event): Promise<UpdatePlaceTextResponse
   if (!isLocaleCode(body.locale)) {
     throw createError({ statusCode: 400, statusMessage: 'Locale invalide' })
   }
-  if (!isCategoryCodeUuid(body.uuid)) {
-    throw createError({ statusCode: 400, statusMessage: 'UUID category-code invalide' })
-  }
   if (typeof body.text !== 'string') {
     throw createError({ statusCode: 400, statusMessage: 'Texte du lieu invalide' })
   }
@@ -68,6 +67,14 @@ export default defineEventHandler(async (event): Promise<UpdatePlaceTextResponse
     throw createError({
       statusCode: 400,
       statusMessage: `Locale ${body.locale} non activée pour ce projet`,
+    })
+  }
+
+  const projectedCategoryCode = await findProjectedCategoryCode(body.locale, PLACE_CODE_SET, code)
+  if (!projectedCategoryCode?.id) {
+    throw createError({
+      statusCode: 409,
+      statusMessage: `CategoryCode ${code} absent de la projection content`,
     })
   }
 
@@ -84,14 +91,14 @@ export default defineEventHandler(async (event): Promise<UpdatePlaceTextResponse
     locale: body.locale,
     text,
   }
-  const symfonyUrl = `${apiUrl}/api/projects/${projectId}/category-codes/${body.uuid}/translations`
+  const symfonyUrl = `${apiUrl}/api/projects/${projectId}/category-codes/${projectedCategoryCode.id}/translations`
 
   debugPlaceTextSave('request', {
     url: symfonyUrl,
     locale: body.locale,
     inCodeSet: PLACE_CODE_SET,
     code,
-    uuid: body.uuid,
+    uuid: projectedCategoryCode.id,
     textLength: text.length,
   })
 
@@ -105,10 +112,25 @@ export default defineEventHandler(async (event): Promise<UpdatePlaceTextResponse
     },
   })
 
+  let contentUpdated = false
+  try {
+    await updateProjectedCategoryCodeText({
+      locale: body.locale,
+      codeValue: code,
+      inCodeSet: PLACE_CODE_SET,
+      text,
+    })
+    contentUpdated = true
+  } catch (error) {
+    console.error('[content-projection] Echec projection texte CategoryCode:', error)
+  }
+
   return {
     codeValue: code,
-    name: code,
+    name: projectedCategoryCode.name,
     inCodeSet: PLACE_CODE_SET,
     text,
+    contentUpdated,
+    reconciliationRequired: !contentUpdated,
   }
 })

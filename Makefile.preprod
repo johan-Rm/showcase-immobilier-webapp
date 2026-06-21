@@ -3,15 +3,22 @@
 # ============================
 
 PREPROD_ENV_FILE ?= .env.preprod
-COMPOSE_PREPROD = docker compose --env-file $(PREPROD_ENV_FILE) -f docker-compose.preprod.yml
+# ENV_FILE est exporté pour que `env_file:` dans le compose pointe le même
+# fichier que `--env-file` (source unique de vérité, surcharge cohérente).
+COMPOSE_PREPROD = ENV_FILE=$(PREPROD_ENV_FILE) docker compose --env-file $(PREPROD_ENV_FILE) -f docker-compose.preprod.yml
 
 PREPROD_CORE_SERVICES = webapp-ssr
 PREPROD_BUILD_SERVICES = webapp-ssr
 
-.PHONY: preprod-up preprod-up-build preprod-down preprod-clean preprod-stop preprod-status
+.PHONY: preprod-check preprod-up preprod-up-build preprod-up-wait preprod-down preprod-clean preprod-stop preprod-status
 .PHONY: preprod-build preprod-build-no-cache preprod-pull preprod-deploy preprod-deploy-no-cache
 .PHONY: preprod-content-sync preprod-content-sync-dry
 .PHONY: preprod-logs preprod-logs-service preprod-logs-webapp
+
+# Préflight : valide la configuration avant tout build/up (bloquant)
+
+preprod-check:
+	@scripts/ci/deploy-check.sh $(PREPROD_ENV_FILE) docker-compose.preprod.yml preprod
 
 # Content Sync
 
@@ -26,6 +33,9 @@ preprod-content-sync-dry:
 preprod-up:
 	$(COMPOSE_PREPROD) up -d $(PREPROD_CORE_SERVICES)
 
+preprod-up-wait:
+	$(COMPOSE_PREPROD) up -d --wait $(PREPROD_CORE_SERVICES)
+
 preprod-up-build:
 	$(COMPOSE_PREPROD) up -d --build $(PREPROD_CORE_SERVICES)
 
@@ -38,13 +48,19 @@ preprod-build-no-cache:
 preprod-pull:
 	$(COMPOSE_PREPROD) pull $(PREPROD_CORE_SERVICES)
 
+# Déploiement : préflight → build → up avec attente du healthcheck.
+# Le contenu est un volume runtime : `make preprod-content-sync` se lance
+# séparément (dépend de l'API Symfony) et est reflété sans rebuild.
+
 preprod-deploy:
+	$(MAKE) preprod-check
 	$(MAKE) preprod-build
-	$(MAKE) preprod-up
+	$(MAKE) preprod-up-wait
 
 preprod-deploy-no-cache:
+	$(MAKE) preprod-check
 	$(MAKE) preprod-build-no-cache
-	$(MAKE) preprod-up
+	$(MAKE) preprod-up-wait
 
 # Lifecycle
 

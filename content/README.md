@@ -7,7 +7,7 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
 
 ## 1. Rôle et responsabilités
 
-- Source de vérité du contenu par langue (`fr`, `en`, etc.) : métadonnées métier, contenus éditoriaux et messages.
+- Projection de lecture runtime par langue (`fr`, `en`, etc.) : métadonnées métier, contenus éditoriaux et messages.
 - Sépare la structure (metadata, pages, components) des layouts/logic Vue (dans `app/`).
 - Fournit une API de contenu stable via `index.ts` (metadata + pages + components + messages).
 - Centralise les listes de valeurs métier localisées et les définitions UI (forms, tables, menus).
@@ -179,7 +179,7 @@ content/{lang}/
 
 ## 1. Rôle et responsabilités
 
-- Source de vérité du contenu par langue (`fr`, `en`, etc.) : métadonnées métier, contenus éditoriaux et messages.
+- Projection de lecture runtime par langue (`fr`, `en`, etc.) : métadonnées métier, contenus éditoriaux et messages.
 - Sépare la structure (metadata, pages, components) des layouts/logic Vue (dans `app/`).
 - Fournit une API de contenu stable via `index.ts` (metadata + pages + components + messages).
 - Centralise les listes de valeurs métier localisées et les définitions UI (forms, tables, menus).

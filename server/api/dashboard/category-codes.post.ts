@@ -1,5 +1,6 @@
 import type { LocaleCode } from '#shared/types/i18n'
 
+import { projectCategoryCode } from '../../utils/dashboard/contentProjection'
 import { getSymfonyServiceToken } from '../../utils/dashboard/symfonyAuth'
 import { getProjectLocales } from '../../utils/projectLocales'
 
@@ -15,11 +16,15 @@ type SymfonyCategoryCodeTranslation = {
 
 type SymfonyCategoryCode = {
   '@id': string
+  id?: string
   code?: string
   codeValue?: string
   inCodeSet: string
   label?: string
   translations?: SymfonyCategoryCodeTranslation[]
+  metadata?: {
+    isEnabled?: boolean
+  }
 }
 
 type SymfonyFetchError = {
@@ -105,7 +110,15 @@ const getSymfonyErrorMessage = (error: unknown): string => {
   return fetchErr.message ?? 'Symfony category code error'
 }
 
-export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> => {
+type DashboardCategoryCodeCreateResponse = SymfonyCategoryCode & {
+  contentUpdated: boolean
+  reconciliationRequired: boolean
+}
+
+const getCategoryCodeIdentifier = (item: SymfonyCategoryCode): string =>
+  item.id ?? item['@id'].split('/').at(-1) ?? ''
+
+export default defineEventHandler(async (event): Promise<DashboardCategoryCodeCreateResponse> => {
   await requireUserSession(event)
 
   const body = await readBody<CategoryCodeCreateRequest>(event)
@@ -143,7 +156,34 @@ export default defineEventHandler(async (event): Promise<SymfonyCategoryCode> =>
       },
     )
 
-    return created
+    const identifier = getCategoryCodeIdentifier(created)
+    const codeValue = created.codeValue ?? created.code ?? body.code ?? ''
+    let contentUpdated = false
+
+    if (identifier && codeValue) {
+      try {
+        await projectCategoryCode({
+          enabledLocales,
+          translations: safeTranslations,
+          fallbackLabel: label,
+          categoryCode: {
+            id: identifier,
+            codeValue,
+            inCodeSet: created.inCodeSet ?? body.inCodeSet,
+            ...(created.metadata ? { metadata: created.metadata } : {}),
+          },
+        })
+        contentUpdated = true
+      } catch (error) {
+        console.error('[content-projection] Echec projection CategoryCode:', error)
+      }
+    }
+
+    return {
+      ...created,
+      contentUpdated,
+      reconciliationRequired: !contentUpdated,
+    }
   } catch (error: unknown) {
     throw createError({
       statusCode: getSymfonyStatusCode(error),

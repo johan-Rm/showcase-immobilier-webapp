@@ -1,6 +1,7 @@
 import type { DashboardMediaObject } from '#shared/types/dashboardAccommodation'
 import type { LocaleCode } from '#shared/types/i18n'
 
+import { normalizeMediaUrl, projectMediaObject } from '../../../utils/dashboard/contentProjection'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { getProjectLocales } from '../../../utils/projectLocales'
 
@@ -98,7 +99,19 @@ const resolveCaption = (
   response.translations?.find((translation) => translation.caption)?.caption ??
   fallbackCaption
 
-export default defineEventHandler(async (event): Promise<DashboardMediaObject> => {
+type DashboardMediaUploadResponse = DashboardMediaObject & {
+  contentUpdated: boolean
+  reconciliationRequired: boolean
+}
+
+const resolveMediaIdentifier = (response: SymfonyMediaResponse): string =>
+  response.identifier ??
+  response.id ??
+  response['@id']?.split('/').at(-1) ??
+  response.originalFilename?.replace(/\.[^.]+$/, '') ??
+  ''
+
+export default defineEventHandler(async (event): Promise<DashboardMediaUploadResponse> => {
   await requireUserSession(event)
 
   const form = await readFormData(event)
@@ -150,11 +163,32 @@ export default defineEventHandler(async (event): Promise<DashboardMediaObject> =
     },
   )
 
+  const identifier = resolveMediaIdentifier(raw)
+  const caption = resolveCaption(raw, locale, fallbackCaption)
+  const url = normalizeMediaUrl(raw.url ?? raw.contentUrl ?? '')
+  const mainEntity = raw.mainEntity ?? 'ImageObject'
+  const dateModified = raw.updatedAt ?? new Date().toISOString()
+
+  let contentUpdated = false
+  try {
+    await projectMediaObject({
+      enabledLocales,
+      translations,
+      fallbackCaption: caption,
+      media: { identifier, url, mainEntity, dateModified },
+    })
+    contentUpdated = true
+  } catch (error) {
+    console.error('[content-projection] Echec projection media:', error)
+  }
+
   return {
-    identifier: raw.identifier ?? raw.originalFilename?.replace(/\.[^.]+$/, '') ?? raw.id ?? '',
-    url: raw.url ?? raw.contentUrl ?? '',
-    caption: resolveCaption(raw, locale, fallbackCaption),
-    mainEntity: raw.mainEntity ?? '',
-    dateModified: raw.updatedAt,
+    identifier,
+    url,
+    caption,
+    mainEntity,
+    dateModified,
+    contentUpdated,
+    reconciliationRequired: !contentUpdated,
   }
 })
