@@ -102,6 +102,36 @@ describe('deriveExceptionalScreens', () => {
     expect(screen?.overlayMode).toBe('light')
   })
 
+  it('lit imageOverlay depuis meta pour le split', () => {
+    const item = buildAccommodation({
+      hasPart: [
+        part({
+          additionalType: 'SCREEN_ACCOMMODATION_SPLIT',
+          position: 1,
+          name: 'Entrée',
+          meta: { imageOverlay: 'light' },
+        }),
+      ],
+    })
+
+    expect(deriveExceptionalScreens(item)[0]?.imageOverlay).toBe('light')
+  })
+
+  it.each([undefined, '', 'invalid'])('utilise dark quand imageOverlay vaut %s', (imageOverlay) => {
+    const item = buildAccommodation({
+      hasPart: [
+        part({
+          additionalType: 'SCREEN_ACCOMMODATION_FULL',
+          position: 1,
+          name: 'Vue',
+          meta: { imageOverlay },
+        }),
+      ],
+    })
+
+    expect(deriveExceptionalScreens(item)[0]?.imageOverlay).toBe('dark')
+  })
+
   it('mappe les médias url/caption en src/alt', () => {
     const item = buildAccommodation({
       hasPart: [

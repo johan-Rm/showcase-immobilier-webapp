@@ -60,7 +60,7 @@ minimum un sur-titre (eyebrow), un titre et un court paragraphe.
 | **SCREEN_01** | Triptyque + texte                | Trois visuels en composition éditoriale superposée : une horizontale principale en haut, une horizontale secondaire dessous, une verticale à droite + zone de texte latérale. Les visuels utilisent un arrondi léger. Chaque visuel est **cliquable** et s'agrandit en lightbox (cf. [Lightbox du triptyque](#lightbox-du-triptyque-screen_01)). |
 | **SCREEN_02** | Full Image + Overlay + texte     | Image plein cadre recouverte d'un **panneau overlay translucide** (l'image transparaît) qui porte la zone de texte.                                                                                                                                                                                                                              |
 | **SCREEN_03** | Full Image + texte (optionnel)   | **Une seule** image plein cadre, zone de texte en surimpression **optionnelle**, sans vignettes.                                                                                                                                                                                                                                                 |
-| **SCREEN_04** | Split 50/50 + texte              | **Vrai split** : colonne image et colonne texte côte à côte, **sans superposition**. Ratio 50/50.                                                                                                                                                                                                                                                |
+| **SCREEN_04** | Split 50/50 + texte              | **Vrai split** : colonne image et colonne texte côte à côte, sans superposition du contenu. Ratio 50/50.                                                                                                                                                                                                                                         |
 | **SCREEN_05** | Mini Carousel Full Image + texte | Image plein cadre + zone de texte alignée à droite intégrant de petites **vignettes** pour défiler entre plusieurs visuels du même espace. Les visuels défilent en **autoplay** tant que l'écran est actif (cf. [Autoplay du SCREEN_05](#autoplay-du-screen_05)).                                                                                |
 | **SCREEN_06** | Duo + texte                      | **Deux visuels juxtaposés** + zone de texte blanche en surimpression, alignée à droite sur desktop.                                                                                                                                                                                                                                              |
 
@@ -68,7 +68,8 @@ minimum un sur-titre (eyebrow), un titre et un court paragraphe.
 
 - **01** (3 visuels en collage) ≠ **06** (2 visuels juxtaposés).
 - **03** (1 image, sans vignettes) ≠ **05** (plusieurs images avec vignettes / carousel).
-- **02** (overlay translucide _sur_ l'image) ≠ **04** (vrai split, sans superposition).
+- **02** (panneau de contenu translucide _sur_ l'image) ≠ **04** (vrai split, dont seul le voile
+  chromatique optionnel couvre l'image).
 - La **progressbar globale** indique l'avancement dans le parcours horizontal.
 - Le premier screen peut afficher un indicateur discret de défilement horizontal.
 - La bande de vignettes du SCREEN_05 est une navigation interne à un espace ; elle ne remplace
@@ -77,6 +78,16 @@ minimum un sur-titre (eyebrow), un titre et un court paragraphe.
   de conserver une seule zone de lecture et de navigation interne.
 - La zone de texte du SCREEN_06 suit le même placement desktop que le SCREEN_05 :
   `md:bottom-36 md:right-32`, avec textes blancs.
+
+### Voile des images
+
+Tous les templates éditables acceptent `meta.imageOverlay` pour piloter le voile de leurs images :
+
+- `dark` (valeur par défaut) conserve le traitement sombre propre au template ;
+- `light` applique un voile blanc léger ;
+- `none` affiche l'image sans voile.
+
+Le voile couvre les visuels principaux du screen, mais pas les vignettes de navigation du carousel.
 
 ### Prop `reverse`
 

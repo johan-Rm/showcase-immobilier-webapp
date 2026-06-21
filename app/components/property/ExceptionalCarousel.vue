@@ -8,7 +8,12 @@
     sizes="sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
     loading="lazy"
   />
-  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
+  <div
+    v-if="displayImageOverlayClass"
+    class="pointer-events-none absolute inset-0"
+    :class="displayImageOverlayClass"
+    aria-hidden="true"
+  />
   <div
     class="absolute right-6 bottom-28 left-6 z-10 max-w-xl text-right md:right-32 md:bottom-36 md:left-auto"
   >
@@ -49,7 +54,7 @@
 // 1. Imports
 import type { ExceptionalMedia, ExceptionalScreen } from '#shared/types/exceptional'
 
-import { IMAGE_LABEL_CLASS, titleParts } from './exceptional.helpers'
+import { IMAGE_LABEL_CLASS, imageOverlayClass, titleParts } from './exceptional.helpers'
 
 // 3. Props et emits
 const props = defineProps<{ screen: ExceptionalScreen; activeMediaIndex?: number }>()
@@ -57,6 +62,9 @@ const emit = defineEmits<{ 'select-media': [index: number] }>()
 
 // 8. Computed UI-ready
 const parts = computed(() => titleParts(props.screen))
+const displayImageOverlayClass = computed(() =>
+  imageOverlayClass(props.screen, 'bg-gradient-to-t from-black/85 via-black/35 to-black/30'),
+)
 const activeIndex = computed<number>(() => props.activeMediaIndex ?? 0)
 const currentMedia = computed<ExceptionalMedia>(
   () => props.screen.media[activeIndex.value] ?? props.screen.media[0] ?? { src: '', alt: '' },

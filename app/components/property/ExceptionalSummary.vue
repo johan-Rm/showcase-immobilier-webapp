@@ -3,7 +3,7 @@
        à gauche, indépendante du rail. Déclencheur du panneau d'informations (drawer). -->
   <button
     type="button"
-    class="fixed right-4 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-4 z-50 flex max-w-[calc(100vw-2rem)] cursor-pointer flex-col gap-1.5 overflow-hidden rounded-md text-left text-xs text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:right-auto md:left-6 md:flex-row md:items-center md:gap-2"
+    class="group fixed right-4 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-4 z-50 flex max-w-[calc(100vw-2rem)] cursor-pointer flex-col gap-1.5 overflow-hidden rounded-md text-left text-xs text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:right-auto md:left-6 md:flex-row md:items-center md:gap-2"
     aria-label="Voir les informations du bien"
     aria-haspopup="dialog"
     :aria-expanded="expanded"
@@ -11,14 +11,21 @@
   >
     <div class="flex shrink-0 flex-col px-1 leading-tight tracking-[0.01em]">
       <span class="mb-2 block h-px w-12 rounded-full bg-white/75" aria-hidden="true" />
-      <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
-        {{ summary.name }}
+      <span class="flex items-center gap-2">
+        <span class="text-lg leading-none font-bold tracking-[0.08em] uppercase">
+          {{ summary.name }}
+        </span>
+        <UIcon
+          name="i-lucide-chevrons-up"
+          class="shrink-0 text-lg text-white/75 transition-transform duration-200 group-hover:-translate-y-0.5 md:hidden"
+          aria-hidden="true"
+        />
       </span>
       <span class="hidden self-start text-sm font-bold whitespace-nowrap text-white md:block">
         {{ summary.price }}
       </span>
     </div>
-    <div class="flex items-center justify-between gap-2 md:w-auto md:justify-start">
+    <div class="flex items-center justify-between gap-2 px-1 md:w-auto md:justify-start">
       <span class="text-sm font-bold whitespace-nowrap text-white md:hidden">
         {{ summary.price }}
       </span>
