@@ -602,7 +602,14 @@ const handleSave = async (): Promise<void> => {
   if (!props.accommodation || !activeDraft.value) return
 
   const placeSaved = await saveActivePlaceText()
-  if (!placeSaved) return
+  if (!placeSaved) {
+    toast.add({
+      title: placeTextErrorMessage.value ?? 'Enregistrement du lieu impossible',
+      icon: 'i-lucide-alert-triangle',
+      color: 'error',
+    })
+    return
+  }
 
   const translations = ensureTranslations(buildTranslations())
   const payload: DashboardAccommodationSavePayload = {
@@ -614,20 +621,33 @@ const handleSave = async (): Promise<void> => {
   }
 
   const ok = await saveMultilingual(payload, resolveSaveLocale(translations))
-  if (ok) {
-    dirtyLocalizedFields.value = createDirtyState()
-    const fresh = savedFreshAccommodation.value
-    if (fresh) {
-      drafts.value = createDrafts(fresh)
-      savedFreshTranslations.value.forEach((translation) => {
-        const locale = translation.locale
-        if (!isDashboardLocale(locale)) return
-        drafts.value![locale] = createDraftFromTranslation(fresh, translation)
-      })
-      skipNextLocaleLoad.value = true
-    }
-    emit('saved')
+  if (!ok) {
+    toast.add({
+      title: saveErrorMessage.value ?? 'Erreur lors de la sauvegarde',
+      icon: 'i-lucide-alert-triangle',
+      color: 'error',
+    })
+    return
   }
+
+  dirtyLocalizedFields.value = createDirtyState()
+  const fresh = savedFreshAccommodation.value
+  if (fresh) {
+    drafts.value = createDrafts(fresh)
+    savedFreshTranslations.value.forEach((translation) => {
+      const locale = translation.locale
+      if (!isDashboardLocale(locale)) return
+      drafts.value![locale] = createDraftFromTranslation(fresh, translation)
+    })
+    skipNextLocaleLoad.value = true
+  }
+
+  toast.add({
+    title: 'Bien enregistré',
+    icon: 'i-lucide-save',
+    color: 'success',
+  })
+  emit('saved')
 }
 
 watch(
