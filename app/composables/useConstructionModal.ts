@@ -7,8 +7,8 @@ export const isConstructionExemptPath = (path: string): boolean =>
 
 export const useConstructionModal = () => {
   const route = useRoute()
-  const isConstructionEnabled = useState<boolean>('is-construction-enabled', () => true)
-  const isOpen = useState<boolean>('construction-modal-open', () => true)
+  const isConstructionEnabled = useState<boolean>('is-construction-enabled', () => false)
+  const isOpen = useState<boolean>('construction-modal-open', () => false)
 
   // La route courante échappe-t-elle au verrou construction ?
   const isExemptRoute = computed<boolean>(() => isConstructionExemptPath(route.path))
