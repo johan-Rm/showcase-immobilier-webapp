@@ -21,6 +21,8 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
 - Un composable = une responsabilité ; exports nommés explicites.
 - Rester pur autant que possible ; pas de side-effects inattendus.
 - Documenter brièvement les cas limites dans le fichier concerné.
+- Les composables de synchronisation runtime, comme `useContentVersion`, doivent rester
+  client-only, SSR-safe et stopper leurs timers au démontage.
 
 ## 3. Conventions de nommage
 

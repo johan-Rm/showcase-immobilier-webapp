@@ -1,4 +1,4 @@
-import { createError, defineEventHandler, getQuery, getRouterParam } from 'h3'
+import { createError, defineEventHandler, getQuery, getRouterParam, setHeader } from 'h3'
 
 import { loadContentFromFiles } from '../../utils/content/loaders'
 
@@ -15,6 +15,8 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event)
   const locale = typeof query.locale === 'string' ? query.locale : 'fr'
+
+  setHeader(event, 'Cache-Control', 'no-store')
 
   return loadContentFromFiles(resourceParam, locale)
 })

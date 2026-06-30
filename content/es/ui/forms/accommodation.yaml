@@ -9,13 +9,13 @@ fields:
   floorSize: Surface habitable
   areaSize: Surface totale
   landArea: Surface terrain
-  areaTerrace: Terrasse
+  areaTerrace: Surface terrasse
   numberOfBedrooms: Chambres
   numberOfRooms: Pièces
   numberOfBathroomsTotal: Salles de bain
   numberOfGarages: Garages
   occupancy: Capacité
-  level: De plain-pied
+  level: Niveau
   yearBuilt: Année de construction
   amenityFeature: Équipements
   qualities: Qualités

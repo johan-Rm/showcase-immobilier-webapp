@@ -65,7 +65,7 @@ const isFixtureAccommodation = (frontmatter: Record<string, unknown>): boolean =
   })
 }
 
-const resolveContentRoot = (): string => {
+export const resolveRuntimeContentRoot = (): string => {
   const candidates = [
     process.env.CONTENT_PATH?.trim(),
     join(process.cwd(), 'content'),
@@ -157,7 +157,7 @@ const loadYamlResource = async <T>(resource: ResourceKey, locale: LocaleCode): P
     throw new Error(`Unsupported YAML resource "${resource}"`)
   }
 
-  const contentRoot = resolveContentRoot()
+  const contentRoot = resolveRuntimeContentRoot()
   const filePath = join(contentRoot, locale, fileName)
   const raw = await readFile(filePath, 'utf8')
   const parsed = YAML.parse(raw)
@@ -170,7 +170,7 @@ const loadYamlResource = async <T>(resource: ResourceKey, locale: LocaleCode): P
 }
 
 const loadWebPagesResource = async <T>(locale: LocaleCode): Promise<T> => {
-  const contentRoot = resolveContentRoot()
+  const contentRoot = resolveRuntimeContentRoot()
   const directory = join(contentRoot, locale, 'web-pages')
   const files = (await readdir(directory))
     .filter((file) => file.endsWith('.md'))
@@ -198,7 +198,7 @@ const loadWebPagesResource = async <T>(locale: LocaleCode): Promise<T> => {
 type AccommodationPlaceItem = { codeValue?: string; slug?: string; name: string }
 
 const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => {
-  const contentRoot = resolveContentRoot()
+  const contentRoot = resolveRuntimeContentRoot()
   const directory = join(contentRoot, locale, 'accommodations')
   const includeFixtures = areAccommodationFixturesEnabled()
   const categoryCodePath = join(contentRoot, locale, 'metadata/category-code.yaml')

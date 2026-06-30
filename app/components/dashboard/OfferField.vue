@@ -33,16 +33,6 @@
             />
           </div>
           <div class="px-3 py-2">
-            <p class="mb-1 text-[0.6rem] font-semibold tracking-widest text-white/20">Devise</p>
-            <input
-              type="text"
-              class="w-full bg-transparent text-sm text-white caret-white outline-none placeholder:text-white/20"
-              :value="priceCurrency"
-              placeholder="MAD"
-              @input="updateCurrency($event)"
-            />
-          </div>
-          <div class="px-3 py-2">
             <p class="mb-1 text-[0.6rem] font-semibold tracking-widest text-white/20">Type</p>
             <input
               type="text"
@@ -71,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+import { DEFAULT_PRICE_CURRENCY } from '#shared/types/accommodation'
+
 defineOptions({ name: 'DashboardOfferField' })
 
 const props = defineProps<{
@@ -104,7 +96,7 @@ const price = computed<number | null>(() => {
 
 const priceCurrency = computed<string>(() => {
   const v = offerObj.value.priceCurrency
-  return typeof v === 'string' ? v : ''
+  return typeof v === 'string' && v ? v : DEFAULT_PRICE_CURRENCY
 })
 
 const priceSpecification = computed<string>(() => {
@@ -120,7 +112,7 @@ const availability = computed<string>(() => {
 const formattedPrice = computed<string>(() => {
   if (price.value === null) return ''
   const formatted = price.value.toLocaleString('fr-FR')
-  return priceCurrency.value ? `${formatted} ${priceCurrency.value}` : formatted
+  return `${formatted} ${priceCurrency.value}`
 })
 
 const emitUpdate = (patch: Record<string, DashboardEditableValue>): void => {
@@ -135,10 +127,6 @@ const updatePrice = (event: Event): void => {
   }
   const parsed = Number(raw)
   emitUpdate({ price: Number.isFinite(parsed) ? parsed : null })
-}
-
-const updateCurrency = (event: Event): void => {
-  emitUpdate({ priceCurrency: (event.target as HTMLInputElement).value })
 }
 
 const updateSpecification = (event: Event): void => {

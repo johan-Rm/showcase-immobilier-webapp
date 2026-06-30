@@ -34,6 +34,7 @@ const transitionMode = 'cross-zoom'
 const route = useRoute()
 const accommodationStore = useAccommodationStore()
 const { loadAccommodations } = useAccommodation()
+useContentVersion()
 
 // Conteneur racine utilisé par le système de navigation par screens.
 const pageRef = useTemplateRef<HTMLElement>('pageRef')

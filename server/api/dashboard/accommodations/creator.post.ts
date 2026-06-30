@@ -86,9 +86,7 @@ export default defineEventHandler(async (event): Promise<CreatorResponse> => {
     category: getRequiredString(body, 'category'),
     realEstateListing: getRequiredString(body, 'realEstateListing'),
     place: getRequiredString(body, 'place'),
-    // Le brouillon reste inactif : il n'est publié qu'à la finalisation
-    // (« Valider et enregistrer » → save PUT avec isActive: true).
-    isActive: false,
+    isActive: true,
     translations: [{ locale, body: '' }],
   }
 

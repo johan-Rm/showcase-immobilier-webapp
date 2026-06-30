@@ -10,7 +10,7 @@ import {
   loadDashboardAccommodations,
   loadDashboardAccommodationTranslations,
 } from '../../../utils/dashboard/accommodations'
-import { resolveCategoryCodeIris } from '../../../utils/dashboard/categoryCodeResolver'
+import { resolveCategoryCodes } from '../../../utils/dashboard/categoryCodeResolver'
 import { exportAllLocales, propagateGlobalFields } from '../../../utils/dashboard/markdownExporter'
 import { getSymfonyServiceToken } from '../../../utils/dashboard/symfonyAuth'
 import { extractTranslations } from '../../../utils/dashboard/translationNormalizer'
@@ -84,7 +84,9 @@ const mergeFromSymfonyResponse = (
   if (typeof symfony.numberOfBedrooms === 'number') fm.numberOfBedrooms = symfony.numberOfBedrooms
   if (Array.isArray(symfony.amenityFeature)) fm.amenityFeature = symfony.amenityFeature
   if (Array.isArray(symfony.tags)) fm.tags = symfony.tags
-  if (typeof symfony.status === 'string') fm.isActive = symfony.status === 'published'
+  if (typeof symfony.status === 'string' && typeof fm.isActive !== 'boolean') {
+    fm.isActive = symfony.status === 'published'
+  }
   if (symfony.offer && typeof symfony.offer === 'object' && !Array.isArray(symfony.offer)) {
     fm.offer = symfony.offer
   }
@@ -144,13 +146,16 @@ export default defineEventHandler(
 
     let payload: Awaited<ReturnType<typeof mapToApiPlatform>>
     try {
-      const resolvedIris = await resolveCategoryCodeIris({
+      const resolvedCategoryCodes = resolveCategoryCodes({
         locale,
         frontmatter: accommodation.frontmatter,
         apiUrl,
         projectId,
       })
-      payload = await mapToApiPlatform({ ...accommodation, resolvedIris }, { apiUrl, projectId })
+      payload = await mapToApiPlatform(
+        { ...accommodation, resolvedCategoryCodes },
+        { apiUrl, projectId },
+      )
     } catch (error) {
       throw createError({ statusCode: 400, statusMessage: (error as Error).message })
     }

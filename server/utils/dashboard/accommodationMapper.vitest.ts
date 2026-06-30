@@ -4,12 +4,12 @@ import { describe, expect, it } from 'vitest'
 
 import { mapToApiPlatform } from './accommodationMapper'
 
-const resolvedIris = {
-  category: '/api/projects/project-1/category-codes/category-riad',
-  realEstateListing: '/api/projects/project-1/category-codes/listing-sale',
-  place: '/api/projects/project-1/category-codes/place-medina',
-  amenityFeature: ['/api/projects/project-1/category-codes/amenity-terrace'],
-  tags: ['/api/projects/project-1/category-codes/tag-investment'],
+const resolvedCategoryCodes = {
+  category: 'riad',
+  realEstateListing: 'bien-a-vendre',
+  place: 'medina',
+  amenityFeature: ['terrasse'],
+  tags: ['investissement'],
 }
 
 const createAccommodation = (
@@ -71,7 +71,7 @@ const createAccommodation = (
     primaryImageUrl: '/images/riad.jpg',
     media: [],
   },
-  resolvedIris,
+  resolvedCategoryCodes,
   ...overrides,
 })
 
@@ -109,11 +109,11 @@ describe('mapToApiPlatform', () => {
     expect(payload).toMatchObject({
       identifier: 'BAVR001',
       isActive: true,
-      category: resolvedIris.category,
-      realEstateListing: resolvedIris.realEstateListing,
-      place: resolvedIris.place,
-      amenityFeature: resolvedIris.amenityFeature,
-      tags: resolvedIris.tags,
+      category: resolvedCategoryCodes.category,
+      realEstateListing: resolvedCategoryCodes.realEstateListing,
+      place: resolvedCategoryCodes.place,
+      amenityFeature: resolvedCategoryCodes.amenityFeature,
+      tags: resolvedCategoryCodes.tags,
       associatedMedia: [
         {
           mediaObject:
@@ -201,9 +201,9 @@ describe('mapToApiPlatform', () => {
     ])
   })
 
-  it('rejette un payload sans resolvedIris pour eviter des relations CategoryCode invalides', async () => {
+  it('rejette un payload sans resolvedCategoryCodes pour eviter des relations CategoryCode ambigues', async () => {
     await expect(
-      mapToApiPlatform(createAccommodation({ resolvedIris: undefined }), testContext),
-    ).rejects.toThrow('resolvedIris manquant dans le payload')
+      mapToApiPlatform(createAccommodation({ resolvedCategoryCodes: undefined }), testContext),
+    ).rejects.toThrow('resolvedCategoryCodes manquant dans le payload')
   })
 })

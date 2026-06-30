@@ -175,17 +175,17 @@ export async function mapToApiPlatform(
         }
       : null
 
-  // -- CategoryCode IRIs (résolus côté client, transmis dans le payload) ----
-  const iris = accommodation.resolvedIris
-  if (!iris) {
-    throw new Error('resolvedIris manquant dans le payload')
+  // -- CategoryCode codeValues (stables, résolus côté Symfony par projet) ----
+  const categoryCodes = accommodation.resolvedCategoryCodes
+  if (!categoryCodes) {
+    throw new Error('resolvedCategoryCodes manquant dans le payload')
   }
 
-  const category = iris.category
-  const realEstateListing = iris.realEstateListing
-  const place = iris.place
-  const amenityFeature = iris.amenityFeature
-  const tags = iris.tags
+  const category = categoryCodes.category
+  const realEstateListing = categoryCodes.realEstateListing
+  const place = categoryCodes.place
+  const amenityFeature = categoryCodes.amenityFeature
+  const tags = categoryCodes.tags
 
   const mediaObjectIriBase = `${context.apiUrl}/api/projects/${context.projectId}/media-objects`
   const associatedMedia = mapAssociatedMedia(fm.associatedMedia, mediaObjectIriBase)

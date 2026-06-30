@@ -66,6 +66,9 @@ blueprint_copied_at: 2026-01-22T13:03:48+00:00
 - Le JWT Symfony et `SYMFONY_*` restent strictement serveur.
 - Symfony est le modele d ecriture durable ; `content/` est la projection de lecture runtime et
   Pinia son cache reactif cote client.
+- `GET /api/content-version` expose une signature legere du dossier
+  `content/{locale}/accommodations` pour permettre au site public de rafraichir son cache Pinia
+  apres une projection dashboard sans rebuild.
 
 ---
 

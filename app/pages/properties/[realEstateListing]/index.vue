@@ -44,6 +44,7 @@ const accommodationStore = useAccommodationStore()
 const { getItemsListByAccommodations } = useAccommodation()
 const metadataStore = useMetadataStore()
 const { getPageBySlug } = useWebPage()
+useContentVersion()
 
 // Conteneur de la navigation par screens pour limiter les interactions à cette page.
 const pageRef = useTemplateRef<HTMLElement>('pageRef')
