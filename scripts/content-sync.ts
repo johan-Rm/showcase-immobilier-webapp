@@ -11,7 +11,10 @@
  *   bun scripts/content-sync.ts --locale=fr
  */
 
-import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
+import type { Dirent } from 'node:fs'
+
+import { randomUUID } from 'node:crypto'
+import { mkdir, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 
 import { config as loadDotenv } from 'dotenv'
@@ -31,6 +34,9 @@ const PROJECT_ID = process.env.SYMFONY_PROJECT_ID ?? ''
 const SERVICE_EMAIL = process.env.SYMFONY_SERVICE_EMAIL ?? ''
 const SERVICE_PASSWORD = process.env.SYMFONY_SERVICE_PASSWORD ?? ''
 const CONTENT_DIR = join(process.cwd(), 'content')
+const MEDIA_DIR = resolve(
+  process.env.CONTENT_SYNC_MEDIA_DIR ?? join(process.cwd(), 'public/images'),
+)
 
 if (!API_URL || !PROJECT_ID || !SERVICE_EMAIL || !SERVICE_PASSWORD) {
   console.error('[content-sync] Erreur : variables SYMFONY_* manquantes dans .env')
@@ -131,6 +137,13 @@ type ApiProject = {
   sourceLocale: string
   enabledLocales: string[]
 }
+
+type NodeError = Error & { code?: string }
+
+const isNodeError = (value: unknown): value is NodeError => value instanceof Error
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value)
 
 // ---------------------------------------------------------------------------
 // Auth
@@ -236,27 +249,42 @@ function toMediaPath(contentUrl: string): string {
   return new URL(contentUrl, 'http://_').pathname
 }
 
+function toManagedMediaFilename(url: string): string | null {
+  const pathname = toMediaPath(url)
+  const parts = pathname.split('/').filter(Boolean)
+  if (parts.length !== 2 || parts.at(0) !== 'images') return null
+
+  const filename = parts.at(1)?.trim()
+  return filename ? filename : null
+}
+
 function mapMediaObjects(items: ApiMediaObject[]): {
   yamlItems: MediaObjectYamlItem[]
   uuidToFilename: UuidFilenameMap
+  managedFilenames: Set<string>
 } {
   const yamlItems: MediaObjectYamlItem[] = []
   const uuidToFilename: UuidFilenameMap = {}
+  const managedFilenames = new Set<string>()
 
   for (const item of items) {
     if (!item.id || !item.contentUrl) continue
 
     uuidToFilename[item.id] = item.id
+    const mediaPath = toMediaPath(item.contentUrl)
+    const filename = toManagedMediaFilename(item.contentUrl)
+    if (filename) managedFilenames.add(filename)
+
     yamlItems.push({
       identifier: item.id,
       caption: item.caption ?? '',
-      url: toMediaPath(item.contentUrl),
+      url: mediaPath,
       mainEntity: item.mainEntity ?? 'ImageObject',
       dateModified: item.updatedAt,
     })
   }
 
-  return { yamlItems, uuidToFilename }
+  return { yamlItems, uuidToFilename, managedFilenames }
 }
 
 function toNumericIfPossible(v: string | null | undefined): number | string | null {
@@ -385,7 +413,9 @@ function toYaml(items: unknown[]): string {
 
 async function safeWriteFile(filePath: string, content: string) {
   await mkdir(dirname(filePath), { recursive: true })
-  await writeFile(filePath, content, 'utf8')
+  const temporaryPath = `${filePath}.${randomUUID()}.tmp`
+  await writeFile(temporaryPath, content, 'utf8')
+  await rename(temporaryPath, filePath)
 }
 
 async function purgeMarkdownDir(dir: string) {
@@ -398,6 +428,60 @@ async function purgeMarkdownDir(dir: string) {
   const mdFiles = files.filter((f) => f.endsWith('.md'))
   await Promise.all(mdFiles.map((f) => rm(join(dir, f))))
   if (mdFiles.length > 0) console.log(`  purge ${mdFiles.length} fichiers dans ${dir}`)
+}
+
+async function readManagedMediaFilenames(mediaYamlPath: string): Promise<Set<string>> {
+  try {
+    const raw = await readFile(mediaYamlPath, 'utf8')
+    const parsed: unknown = YAML.parse(raw)
+    const items = isRecord(parsed) && Array.isArray(parsed.items) ? parsed.items : []
+    const filenames = new Set<string>()
+
+    for (const item of items) {
+      if (!isRecord(item) || typeof item.url !== 'string') continue
+      const filename = toManagedMediaFilename(item.url)
+      if (filename) filenames.add(filename)
+    }
+
+    return filenames
+  } catch (error) {
+    if (isNodeError(error) && error.code === 'ENOENT') return new Set()
+    throw error
+  }
+}
+
+async function purgeStaleManagedMediaFiles(
+  previousFilenames: Set<string>,
+  nextFilenames: Set<string>,
+) {
+  const staleFilenames = [...previousFilenames].filter((filename) => !nextFilenames.has(filename))
+  if (staleFilenames.length === 0) return
+
+  let entries: Dirent[]
+  try {
+    entries = await readdir(MEDIA_DIR, { withFileTypes: true })
+  } catch (error) {
+    if (isNodeError(error) && error.code === 'ENOENT') {
+      console.warn(`  [warn] dossier media absent, purge ignorée : ${MEDIA_DIR}`)
+      return
+    }
+    throw error
+  }
+
+  const existingFiles = new Set(
+    entries.filter((entry) => entry.isFile()).map((entry) => entry.name),
+  )
+  const filesToDelete = staleFilenames.filter((filename) => existingFiles.has(filename))
+
+  if (isDryRun) {
+    console.log(`  [dry-run] purge ${filesToDelete.length} fichiers media dans ${MEDIA_DIR}`)
+    return
+  }
+
+  await Promise.all(filesToDelete.map((filename) => rm(join(MEDIA_DIR, filename))))
+  if (filesToDelete.length > 0) {
+    console.log(`  purge ${filesToDelete.length} fichiers media dans ${MEDIA_DIR}`)
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -432,14 +516,16 @@ async function syncLocale(locale: string, token: string) {
   }
 
   // Media objects
-  const { yamlItems: mediaYaml, uuidToFilename } = mapMediaObjects(mediaObjects)
+  const { yamlItems: mediaYaml, uuidToFilename, managedFilenames } = mapMediaObjects(mediaObjects)
   const mediaYamlPath = join(CONTENT_DIR, locale, 'metadata', 'media-object.yaml')
+  const previousManagedFilenames = await readManagedMediaFilenames(mediaYamlPath)
   if (isDryRun) {
     console.log(`  [dry-run] ${mediaYamlPath} (${mediaYaml.length} items)`)
   } else {
     await safeWriteFile(mediaYamlPath, toYaml(mediaYaml))
     console.log(`  ✓ media-object.yaml (${mediaYaml.length})`)
   }
+  await purgeStaleManagedMediaFiles(previousManagedFilenames, managedFilenames)
 
   // Accommodations — purge avant réécriture pour refléter exactement l'état API
   const accommodationsDir = join(CONTENT_DIR, locale, 'accommodations')

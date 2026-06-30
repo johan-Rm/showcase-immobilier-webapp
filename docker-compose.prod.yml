@@ -8,10 +8,12 @@ services:
       - ${ENV_FILE:-.env.prod}
     volumes:
       - ./:/app
+      - ${MEDIA_HOST_DIR:-./public/images}:/app/public/images
       - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
     environment:
       NODE_ENV: production
       SCHEMAS_PATH: /opt/app-schemas
+      CONTENT_SYNC_MEDIA_DIR: /app/public/images
       HOME: /tmp
       BUN_INSTALL_CACHE_DIR: /tmp/.bun-cache
     command: sh -c "bun install --frozen-lockfile && bun scripts/content-sync.ts"
