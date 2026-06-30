@@ -292,7 +292,10 @@ const emitAssocMedia = (items: AssocItem[]): void => {
   emit('update:associatedMedia', items)
 }
 
-const associate = (identifier: string, caption = ''): void => {
+const getMediaCaption = (identifier: string): string =>
+  metadataStore.getImageObjectsByIdentifier.get(identifier)?.caption ?? ''
+
+const associate = (identifier: string, caption = getMediaCaption(identifier)): void => {
   if (imageIdentifiers.value.includes(identifier)) return
   emitAssocMedia([
     ...parsedAssocMedia.value,
@@ -313,9 +316,23 @@ const toggleAssociation = (identifier: string): void => {
 }
 
 const onUploaded = (mediaObjects: MediaObject[]): void => {
+  let nextItems = parsedAssocMedia.value
+  const nextIdentifiers = new Set(imageIdentifiers.value)
+
   for (const mediaObject of mediaObjects) {
-    // Reprend le texte alt auto-généré (caption) renvoyé à l'upload.
-    associate(mediaObject.identifier, mediaObject.caption ?? '')
+    if (nextIdentifiers.has(mediaObject.identifier)) continue
+    nextIdentifiers.add(mediaObject.identifier)
+    nextItems = [
+      ...nextItems,
+      {
+        image: mediaObject.identifier,
+        caption: mediaObject.caption ?? getMediaCaption(mediaObject.identifier),
+        keywords: [],
+        representativeOfPage: false,
+      },
+    ]
   }
+
+  emitAssocMedia(nextItems)
 }
 </script>

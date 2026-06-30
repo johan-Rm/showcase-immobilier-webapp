@@ -162,6 +162,7 @@ const route = useRoute()
 const appConfig = useAppConfig()
 const { getPageBySlug, getPageComponentByIdentifier } = useWebPage()
 const { items: accommodations } = useAccommodation()
+useContentVersion()
 const { runtimeReady } = useDeferredRuntime()
 
 // Référence du conteneur racine transmise au système d'écrans.

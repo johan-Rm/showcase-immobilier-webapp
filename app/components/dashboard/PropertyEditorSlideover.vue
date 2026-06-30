@@ -324,8 +324,8 @@ const associatedMediaValue = computed<DashboardEditableValue>(
   () => activeDraft.value?.frontmatter.associatedMedia ?? [],
 )
 
-const isActiveValue = computed<boolean>(() =>
-  Boolean(getNestedValue(activeDraft.value?.frontmatter ?? {}, 'isActive')),
+const isActiveValue = computed<boolean>(
+  () => getNestedValue(activeDraft.value?.frontmatter ?? {}, 'isActive') !== false,
 )
 
 const activePlaceCode = computed<string | null>(() => {

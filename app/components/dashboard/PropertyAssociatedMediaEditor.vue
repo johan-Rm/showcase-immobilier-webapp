@@ -192,7 +192,9 @@ const resolvedItems = computed<ResolvedItem[]>(() => {
 })
 
 const getCaptionFor = (identifier: string): string =>
-  parsedAssocMedia.value.find((a) => a.image === identifier)?.caption ?? ''
+  parsedAssocMedia.value.find((a) => a.image === identifier)?.caption ||
+  metadataStore.getImageObjectsByIdentifier.get(identifier)?.caption ||
+  ''
 
 const setRepresentative = (identifier: string): void => {
   emitAssocMedia(
@@ -217,13 +219,8 @@ const emitAssocMedia = (items: AssocItem[]): void => {
   emit('update:associatedMedia', items)
 }
 
-const addIdentifier = (identifier: string): void => {
-  if (imageIdentifiers.value.includes(identifier)) return
-  emitAssocMedia([
-    ...parsedAssocMedia.value,
-    { image: identifier, caption: '', keywords: [], representativeOfPage: false },
-  ])
-}
+const getMediaCaption = (identifier: string): string =>
+  metadataStore.getImageObjectsByIdentifier.get(identifier)?.caption ?? ''
 
 const removeIdentifier = (identifier: string): void => {
   emitAssocMedia(parsedAssocMedia.value.filter((a) => a.image !== identifier))
@@ -251,8 +248,23 @@ const moveDown = (index: number): void => {
 }
 
 const onUploaded = (mediaObjects: MediaObject[]): void => {
+  let nextItems = parsedAssocMedia.value
+  const nextIdentifiers = new Set(imageIdentifiers.value)
+
   for (const mediaObject of mediaObjects) {
-    addIdentifier(mediaObject.identifier)
+    if (nextIdentifiers.has(mediaObject.identifier)) continue
+    nextIdentifiers.add(mediaObject.identifier)
+    nextItems = [
+      ...nextItems,
+      {
+        image: mediaObject.identifier,
+        caption: mediaObject.caption ?? getMediaCaption(mediaObject.identifier),
+        keywords: [],
+        representativeOfPage: false,
+      },
+    ]
   }
+
+  emitAssocMedia(nextItems)
 }
 </script>

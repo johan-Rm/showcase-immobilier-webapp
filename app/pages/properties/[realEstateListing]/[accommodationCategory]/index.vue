@@ -31,6 +31,7 @@ const transitionMode = 'cross-zoom'
 const logger = useLogger({ module: 'page-properties-category-index' })
 const route = useRoute()
 const accommodationStore = useAccommodationStore()
+useContentVersion()
 
 // Conteneur racine utilisé pour scoper la navigation plein écran.
 const pageRef = useTemplateRef<HTMLElement>('pageRef')
