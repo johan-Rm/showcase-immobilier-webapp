@@ -6,7 +6,7 @@
         :key="item.id"
         class="gallery__item relative mb-3 overflow-hidden rounded-2xl md:mb-4"
       >
-        <div class="bg-foreground/10 relative aspect-[2/3] w-full overflow-hidden rounded-2xl">
+        <div class="bg-foreground/10 relative w-full overflow-hidden rounded-2xl">
           <AppImage
             v-if="isImageAllowed(item.sourceIndex)"
             :src="item.src"
@@ -140,7 +140,7 @@ const getImageProps = (sourceIndex: number) => {
           : 'low',
     placeholder: false,
     decoding: 'async',
-    class: 'absolute inset-0 h-full w-full object-cover',
+    class: 'block h-auto w-full object-contain',
   } as const
 }
 
@@ -229,13 +229,19 @@ onUnmounted(stop)
 }
 
 .gallery__grid {
-  columns: 2;
+  columns: 3;
   column-gap: 0.75rem;
   padding: 1rem 0.75rem;
 }
 
 .gallery__item {
   break-inside: avoid;
+}
+
+@media (max-width: 1023px) {
+  .gallery__grid {
+    columns: 2;
+  }
 }
 
 @media (max-width: 479px) {
