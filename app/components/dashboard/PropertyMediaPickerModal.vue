@@ -44,11 +44,11 @@
                 choisissez des fichiers
               </button>
             </p>
-            <p class="text-[0.65rem] text-white/25">JPEG, PNG, WebP, GIF, AVIF</p>
+            <p class="text-[0.65rem] text-white/25">JPEG, PNG, WebP</p>
             <input
               ref="fileInputRef"
               type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
               multiple
               class="hidden"
               aria-hidden="true"
@@ -210,7 +210,7 @@ const formatSize = (bytes: number): string => {
 }
 
 const addFiles = (files: FileList | File[]): void => {
-  const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']
+  const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
   for (const file of Array.from(files)) {
     if (!allowed.includes(file.type)) continue
     const alreadyQueued = queue.value.some(

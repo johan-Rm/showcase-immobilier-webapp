@@ -131,7 +131,7 @@ export default defineEventHandler(async (event): Promise<DashboardMediaUploadRes
     throw createError({ statusCode: 400, statusMessage: 'Fichier manquant ou vide' })
   }
 
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
   if (!allowedTypes.includes(file.type)) {
     throw createError({ statusCode: 400, statusMessage: 'Type de fichier non supporté' })
   }
