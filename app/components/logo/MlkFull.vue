@@ -22,13 +22,15 @@ import LogoSvg from '~/assets/logo/mlk_full.svg'
 type PresetSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'
 
 /**
- * Couleurs autorisées (strictement 2)
+ * Couleurs autorisées (strictement 3)
  */
 const DEFAULT_COLOR_CLASS = 'text-foreground/90'
 
 const CONTRAST_COLOR_CLASS = 'text-white/90'
 
-type LogoColorClass = typeof DEFAULT_COLOR_CLASS | typeof CONTRAST_COLOR_CLASS
+// 'text-surface' : utilisée par AppBootShell, logo sur le fond plein du shell de démarrage.
+// Littéral inline : cette couleur n'a pas d'usage runtime dans ce composant.
+type LogoColorClass = typeof DEFAULT_COLOR_CLASS | typeof CONTRAST_COLOR_CLASS | 'text-surface'
 
 // 3. Props et emits
 /**

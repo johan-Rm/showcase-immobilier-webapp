@@ -1,47 +1,20 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/app/utils/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# app/utils/
 
-# Dossier `app/utils`
+Helpers auto-importés de la couche Vue.
 
-## 1. Rôle et responsabilités
+## Rôle et responsabilités
 
-- Héberger des fonctions utilitaires auto-importées pour la partie Vue (JS/TS/Vue).
-- Séparer les helpers génériques des composables (`app/composables`).
-- Fournir des utilitaires légers, purs et réutilisables dans l’app.
+**Rôle Nuxt :** le dossier `utils/` héberge des fonctions utilitaires auto-importées
+(premier niveau) disponibles partout dans la couche Vue sans import explicite. Nuxt
+distingue les utils des composables : un util est un helper, pensé pur, sans état réactif
+ni lien avec le cycle de vie. Réf. : [doc Nuxt — `utils/`](https://nuxt.com/docs/4.x/directory-structure/app/utils).
 
----
+**Rôle attendu :** cette couche porte les helpers légers et purs propres à l'application —
+transformations sans état, adaptateurs techniques. Un util ne dépend ni de la route, ni
+d'un store, ni du DOM. Ce qui devient partageable au-delà de la couche Vue remonte dans
+`shared/`, et la logique métier appartient aux services.
 
-## 2. Bonnes pratiques
+## Conventions techniques
 
-- Un fichier = une responsabilité ; exports nommés explicites ou export par défaut.
-- Pas de dépendance au contexte Nuxt (pas de route/store) : rester pur/stateless.
-- Typage clair et validation minimale quand nécessaire.
-
-## 3. Conventions de nommage
-
-- Fichiers en `kebab-case.ts` ou `camelCase.ts` ; nom auto-importé en camelCase.
-- Fonctions utilitaires descriptives (`formatNumber`, `randomEntry`, etc.).
-- Garder les noms courts et liés à l’action fournie.
-
-## 4. Performance
-
-- Fonctions rapides, sans I/O ni effets de bord.
-- Éviter les allocations inutiles ; favoriser les constantes réutilisées.
-
-## 5. Structure et organisation
-
-- Racine `app/utils/` : auto-importée par Nuxt (niveau direct).
-- Sous-dossiers possibles si volumineux, mais penser à l’auto-import (ajouter aux dirs si besoin).
-
----
-
-### Ex. : Structure de template
-
-```ts
-// app/utils/random-entry.ts
-export default function randomEntry<T>(arr: T[]): T | undefined {
-  return arr.length ? arr[Math.floor(Math.random() * arr.length)] : undefined
-}
-```
+Aucune règle CI spécifique à ce dossier. Les règles transverses de la couche `app/`
+s'appliquent (voir [../README.md](../README.md)).

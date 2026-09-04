@@ -17,6 +17,7 @@
           variant="none"
           placeholder="Votre nom"
           autocomplete="family-name"
+          :maxlength="120"
           :disabled="isSubmitting"
           :ui="inputUi"
         />
@@ -28,6 +29,7 @@
           variant="none"
           placeholder="Votre prénom"
           autocomplete="given-name"
+          :maxlength="120"
           :disabled="isSubmitting"
           :ui="inputUi"
         />
@@ -41,6 +43,7 @@
         type="email"
         placeholder="vous@exemple.com"
         autocomplete="email"
+        :maxlength="254"
         :disabled="isSubmitting"
         :ui="inputUi"
       />
@@ -53,6 +56,7 @@
         type="tel"
         placeholder="Votre téléphone"
         autocomplete="tel"
+        :maxlength="40"
         :disabled="isSubmitting"
         :ui="inputUi"
       />
@@ -64,6 +68,7 @@
         variant="none"
         :rows="3"
         placeholder="Décrivez votre projet"
+        :maxlength="5000"
         :disabled="isSubmitting"
         :ui="textareaUi"
       />

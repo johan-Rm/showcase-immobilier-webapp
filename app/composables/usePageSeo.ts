@@ -134,7 +134,7 @@ export const usePageSeo = (
   useHead(() => ({
     link: [
       ...(seoMeta.value.canonicalUrl
-        ? [{ rel: 'canonical', href: seoMeta.value.canonicalUrl }]
+        ? [{ rel: 'canonical' as const, href: seoMeta.value.canonicalUrl }]
         : []),
       ...alternateLinks.value,
     ],

@@ -50,8 +50,22 @@ type ContactEmailConfig = {
   submissionsPath: string
 }
 
-const sanitize = (value: unknown): string => {
-  return typeof value === 'string' ? value.trim() : ''
+// Bornes anti-abus : évitent des lignes CSV arbitrairement volumineuses et une
+// croissance illimitée du fichier de soumissions.
+const FIELD_MAX_LENGTHS = {
+  firstName: 120,
+  lastName: 120,
+  email: 254,
+  phone: 40,
+  message: 5000,
+  propertyReference: 120,
+  userAgent: 512,
+} as const
+
+const sanitize = (value: unknown, maxLength?: number): string => {
+  const trimmed = typeof value === 'string' ? value.trim() : ''
+
+  return typeof maxLength === 'number' ? trimmed.slice(0, maxLength) : trimmed
 }
 
 const parseEmailList = (value: unknown): string[] => {
@@ -97,12 +111,21 @@ const isNodeError = (error: unknown): error is NodeJS.ErrnoException => {
   return error instanceof Error && 'code' in error
 }
 
+// Neutralise l'injection de formule (CSV injection) : un champ commençant par
+// = + - @ TAB ou CR est interprété comme une formule par Excel / Sheets / LibreOffice.
+// On préfixe par une apostrophe pour forcer l'interprétation en texte.
+const neutralizeCsvFormula = (value: string): string => {
+  return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value
+}
+
 const escapeCsvValue = (value: string): string => {
-  if (!/[",\n\r]/.test(value)) {
-    return value
+  const safeValue = neutralizeCsvFormula(value)
+
+  if (!/[",\n\r]/.test(safeValue)) {
+    return safeValue
   }
 
-  return `"${value.replaceAll('"', '""')}"`
+  return `"${safeValue.replaceAll('"', '""')}"`
 }
 
 const buildContactSubmissionCsvRow = (record: PersistedContactSubmission): string => {
@@ -242,13 +265,13 @@ export default defineEventHandler(async (event): Promise<ContactResponse> => {
   const contactEmailConfig = resolveContactEmailConfig(config)
   const body = await readBody<ContactPayload>(event)
 
-  const firstName = sanitize(body.firstName)
-  const lastName = sanitize(body.lastName)
-  const email = sanitize(body.email)
-  const phone = sanitize(body.phone)
-  const message = sanitize(body.message)
+  const firstName = sanitize(body.firstName, FIELD_MAX_LENGTHS.firstName)
+  const lastName = sanitize(body.lastName, FIELD_MAX_LENGTHS.lastName)
+  const email = sanitize(body.email, FIELD_MAX_LENGTHS.email)
+  const phone = sanitize(body.phone, FIELD_MAX_LENGTHS.phone)
+  const message = sanitize(body.message, FIELD_MAX_LENGTHS.message)
   const website = sanitize(body.website)
-  const propertyReference = sanitize(body.propertyReference)
+  const propertyReference = sanitize(body.propertyReference, FIELD_MAX_LENGTHS.propertyReference)
 
   if (website.length > 0) {
     return {
@@ -270,23 +293,8 @@ export default defineEventHandler(async (event): Promise<ContactResponse> => {
     })
   }
 
-  try {
-    await persistContactSubmission(contactEmailConfig.submissionsPath, {
-      firstName,
-      lastName,
-      email,
-      phone,
-      message,
-      propertyReference,
-      userAgent: sanitize(getRequestHeader(event, 'user-agent')),
-    })
-  } catch {
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Unable to persist contact submission',
-    })
-  }
-
+  // Config de déploiement statique : à valider avant de persister, pour ne pas
+  // stocker une soumission qui ne pourra jamais être envoyée par email.
   if (!config.resendApiKey) {
     throw createError({
       statusCode: 500,
@@ -298,6 +306,23 @@ export default defineEventHandler(async (event): Promise<ContactResponse> => {
     throw createError({
       statusCode: 500,
       statusMessage: 'Missing contact email configuration',
+    })
+  }
+
+  try {
+    await persistContactSubmission(contactEmailConfig.submissionsPath, {
+      firstName,
+      lastName,
+      email,
+      phone,
+      message,
+      propertyReference,
+      userAgent: sanitize(getRequestHeader(event, 'user-agent'), FIELD_MAX_LENGTHS.userAgent),
+    })
+  } catch {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Unable to persist contact submission',
     })
   }
 

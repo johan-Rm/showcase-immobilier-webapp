@@ -21,8 +21,4 @@ export type ScreenTransitionMode = ScreenTransitionStyle | 'slide-vertical' | 's
 export type ScreenAnchorSyncMode = 'explicit-only' | 'always'
 
 export type ScreenColumnTemplate =
-  | 'single'
-  | 'split-50-50'
-  | 'split-67-33'
-  | 'split-33-67'
-  | 'triple-equal'
+  'single' | 'split-50-50' | 'split-67-33' | 'split-33-67' | 'triple-equal'
