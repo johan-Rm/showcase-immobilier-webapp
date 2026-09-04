@@ -1,14 +1,20 @@
 # app/
 
-Couche frontend Nuxt. Contient les pages, composants, composables, stores, layouts, middleware et plugins.
+Couche frontend de l'application (Nuxt).
 
 ## Rôle et responsabilités
 
-- orchestration du routing et des layouts (`pages/`, `layouts/`)
-- rendu UI et composition visuelle (`components/`)
-- état global réactif (`stores/`)
-- logique transverse et passerelles vers les services (`composables/`)
-- initialisation et plugins (`plugins/`)
+**Rôle Nuxt :** `app/` est le répertoire source de l'application Nuxt 4 (`srcDir`). Il
+regroupe le code exécuté côté client et rendu côté serveur — routing, composants, état,
+composition réactive, gabarits et point d'entrée `app.vue` — auquel Nuxt applique ses
+conventions d'auto-import et de scan par dossier.
+
+**Rôle attendu :** `app/` est la couche frontend de la webapp. Elle orchestre le rendu
+(SSR puis hydratation), la navigation et l'état d'interface, et s'appuie sur les couches
+framework-agnostic pour la logique métier et sur la couche serveur pour l'accès aux
+données. Chaque sous-couche porte une responsabilité unique, décrite dans son propre
+README ; ce fichier porte les conventions techniques transverses à toute la couche
+frontend.
 
 ## Conventions techniques
 
@@ -69,6 +75,24 @@ Le placement de la transformation dépend de sa portée :
 Un composant peut préparer une valeur d'affichage locale, mais il ne doit pas devenir la
 couche de normalisation des données. Par défaut, traiter les données le plus haut possible
 hors des fichiers dédiés à l'UX/UI, sans créer d'abstraction prématurée pour un cas isolé.
+
+### Encapsulation des modules externes
+
+Un module externe — librairie tierce ou module Nuxt — n'est jamais consommé directement
+dans `app/`. Il est encapsulé derrière un unique wrapper interne (composant, composable ou
+service), seul autorisé à toucher son API. Le reste de l'application dépend du contrat du
+wrapper, jamais de celui du module.
+
+Le wrapper absorbe au même endroit les défauts imposés, les pièges du module et le
+comportement transverse ajouté, et garantit un point de swap unique le jour où le module
+change ou est remplacé.
+
+La frontière est ferme : chaque encapsulation est verrouillée par une règle CI dédiée qui
+interdit l'usage direct du module hors de son wrapper. Un wrapper sans verrou CI ne compte
+pas comme une encapsulation.
+
+Chaque module externe encapsulé fait l'objet de sa propre convention ci-dessous, avec sa ou
+ses règles YAML de verrouillage.
 
 ### Images
 

@@ -1,50 +1,21 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/app/assets/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# app/assets/
 
-# Dossier `app/assets`
+Assets traités par le pipeline de build.
 
-## 1. Rôle et responsabilités
+## Rôle et responsabilités
 
-- Héberger les assets traités par l’outillage de build (Vite/Nuxt).
-- Contenir les styles globaux (CSS/SCSS) et les images transformées.
-- Servir de source pour les imports bundlés (fingerprinting, optimisation).
+**Rôle Nuxt :** le dossier `assets/` héberge les fichiers que l'outillage de build (Vite)
+transforme — styles, fontes, images — avec bundling, optimisation et fingerprinting à la
+compilation. Ils sont référencés via `~/assets` et intégrés au graphe de dépendances de
+l'application. Ce qui doit être servi tel quel, sans transformation, relève de `public/`.
+Réf. : [doc Nuxt — `assets/`](https://nuxt.com/docs/4.x/directory-structure/app/assets).
 
----
+**Rôle attendu :** cette couche centralise l'identité visuelle et les ressources de
+présentation globales de l'application — point d'entrée unique des styles, thème,
+typographie, transitions de navigation, fontes et déclinaisons de marque. Elle garantit un
+chargement maîtrisé, sans dépendance à un CDN tiers, et un point d'entrée CSS unique dont
+tout le reste dérive.
 
-## 2. Bonnes pratiques
+## Conventions techniques
 
-- Placer ici ce qui doit être transformé/optimisé ; sinon utiliser `public/`.
-- Organiser par type (styles, images) et éviter les doublons.
-- Préférer des assets légers/optimisés pour limiter la taille du bundle.
-
-## 3. Conventions de nommage
-
-- Fichiers en kebab-case (`main.scss`, `brand-colors.scss`).
-- Images avec nom explicite et suffixe densité si besoin (`logo@2x.png`).
-
-## 4. Performance
-
-- Limiter le poids des images (SVG privilégié, compression).
-- Grouper les imports SCSS et utiliser des variables/mixins partagés.
-- Nettoyer les assets non utilisés pour éviter du bundle inutile.
-
-## 5. Structure et organisation
-
-- `app/assets/scss/` : styles globaux, variables, mixins.
-- `app/assets/images/` : visuels nécessitant transformation/bundling.
-- Pour des fichiers servis bruts et stables, préférer `public/`.
-
----
-
-### Ex. : Structure de template
-
-```bash
-app/assets/
-├─ scss/
-│  ├─ main.scss
-│  └─ _variables.scss
-└─ images/
-   └─ logo.svg
-```
+Aucune règle CI ne couvre ce dossier à ce jour.

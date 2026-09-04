@@ -1,80 +1,25 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/server/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# server/
 
-# Dossier `server`
+Couche serveur de l'application (Nitro).
 
-## 1. Rôle et responsabilités
+## Rôle et responsabilités
 
-- Héberger les routes et handlers serveur (API, routes sans préfixe, middleware).
-- Exposer les endpoints consommés par l’app (JSON, status codes).
-- Encapsuler la logique backend (validation, orchestration de services, accès données).
-- Étendre le runtime Nitro via plugins et utilitaires serveur.
+**Rôle Nitro :** le dossier `server/` enregistre les routes et handlers exécutés par le
+moteur Nitro — routes API (`api/`), routes sans préfixe (`routes/`), middlewares et
+utilitaires serveur. Chaque handler est un `defineEventHandler` ; l'arborescence des
+fichiers reflète les URLs exposées. Réf. : [doc Nuxt — `server/`](https://nuxt.com/docs/4.x/directory-structure/server).
 
----
+**Rôle attendu :** `server/` est le BFF (Backend for Frontend) qui s'interpose entre le
+frontend et les backends externes. Il possède les secrets et les accès privilégiés,
+valide les entrées, orchestre les appels vers l'API métier et normalise les réponses
+consommées par l'app. Il garde côté serveur ce qui ne doit jamais atteindre le client
+(jetons, identifiants, clés), et expose au frontend un contrat stable, indépendant de la
+forme des services amont.
 
-## 2. Bonnes pratiques
+## Conventions techniques
 
-- Un fichier = une responsabilité claire (route, middleware, plugin).
-- Validation des entrées ; erreurs explicites (`createError` / codes HTTP adaptés).
-- Séparer la logique métier dans `server/services` ou `server/utils` pour éviter la duplication.
-- Journalisation minimale et utile ; éviter les fuites de données sensibles.
+Aucune règle CI spécifique à ce dossier à ce jour.
 
-## 3. Conventions de nommage
-
-- Routes API dans `server/api/*.ts` ou arborescence reflétant l’URL (`users/[id].ts`, `foo/bar.get.ts`).
-- Routes sans préfixe dans `server/routes/` (ex. `hello.ts` → `/hello`).
-- Middlewares globaux dans `server/middleware/*.ts` (ne renvoient pas de réponse).
-- Plugins Nitro dans `server/plugins/*.ts` (`defineNitroPlugin`).
-
-## 4. Performance
-
-- Handlers courts, I/O non bloquantes ; limiter la taille des réponses.
-- Utiliser `event.waitUntil` pour les tâches async post-réponse (logs, cache).
-- Prefetch/timeout côté services pour éviter les blocages.
-
-## 5. Structure et organisation
-
-- `server/api/` : routes préfixées `/api`.
-- `server/routes/` : routes sans préfixe.
-- `server/middleware/` : middlewares exécutés sur chaque requête.
-- `server/plugins/` : extensions Nitro.
-- `server/utils/` : helpers serveur ; logique métier partagée dans `server/services/` si besoin.
-
-### Dashboard Symfony
-
-- `server/api/dashboard/` expose les routes BFF protegees par session dashboard.
-- `PUT /api/dashboard/accommodations/[identifier]` sauvegarde un bien par `identifier`
-  metier et relaie vers Symfony :
-  - `POST /api/projects/{projectId}/accommodations/translations`
-  - `PUT /api/projects/{projectId}/accommodations/{identifier}/translations`
-- Le payload Accommodation garde les champs globaux a la racine et les champs localises
-  dans `translations[]`.
-- `POST /api/dashboard/media/upload` relaie les uploads vers
-  `POST /api/projects/{projectId}/media-objects/translations` avec un multipart `file` et
-  `translations`. Le relais fixe `Accept-Language` a la locale d upload pour ne pas transmettre
-  le wildcard implicite du client HTTP serveur, refuse par le resolver Symfony.
-- Les lectures metier du dashboard utilisent la projection locale `content/`, comme le site
-  public. `GET /api/dashboard/media` et `GET /api/dashboard/category-codes` restent des routes
-  protegees de compatibilite, mais lisent les fichiers YAML sans appeler Symfony.
-- Les commandes media et CategoryCode ecrivent d abord Symfony, puis mettent a jour les fichiers
-  YAML localises. Les URL media y sont normalisees en chemins relatifs.
-- `POST /api/dashboard/category-codes` relaie la creation de metadonnees vers
-  `POST /api/projects/{projectId}/category-codes/translations` avec `inCodeSet` et
-  `translations[]`.
-- Le JWT Symfony et `SYMFONY_*` restent strictement serveur.
-- Symfony est le modele d ecriture durable ; `content/` est la projection de lecture runtime et
-  Pinia son cache reactif cote client.
-- `GET /api/content-version` expose une signature legere du dossier
-  `content/{locale}/accommodations` pour permettre au site public de rafraichir son cache Pinia
-  apres une projection dashboard sans rebuild.
-
----
-
-### Ex. : Structure de template
-
-```ts
-// server/api/health.get.ts
-export default defineEventHandler(() => ({ status: 'ok', timestamp: Date.now() }))
-```
+Le contrat d'intégration des routes BFF du dashboard avec l'API Symfony (écritures,
+projection de lecture `content/`, cache, sécurité des `SYMFONY_*`) est documenté dans
+[docs/3.application/bff-dashboard-symfony.md](../docs/3.application/bff-dashboard-symfony.md).

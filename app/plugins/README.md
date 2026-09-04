@@ -1,60 +1,28 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/app/plugins/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# app/plugins/
 
-<!-- @see official doc -->
+Plugins Nuxt exécutés à la création de l'application.
 
-# Dossier `app/plugins`
+## Rôle et responsabilités
 
-## 1. Rôle et responsabilités
+Rôle Nuxt : un plugin s'exécute une fois à l'instanciation de l'app — côté serveur, côté
+client, ou les deux selon le suffixe (`.server.ts`, `.client.ts`, aucun). C'est le point
+d'initialisation : préparer un état avant le rendu, brancher des hooks du cycle de vie
+Nuxt, enregistrer des injections ou des directives.
 
-- Enregistrer des plugins Nuxt/Vue auto-chargés à la création de l’app.
-- Étendre `nuxtApp`/`vueApp` (injections, directives, libs externes).
-- Scoper des plugins côté client ou serveur via suffixe.
+Rôle dans ce projet : initialiser l'état runtime dont le rendu et les middlewares ont
+besoin avant la première navigation. À ce titre, ce dossier est responsable de :
 
----
+- résoudre une seule fois en SSR les locales activées du projet (API Symfony) et les
+  exposer via `useState('project.locales')`, hydratées côté client par le payload sans
+  refetch (`project-locales.ts`)
+- piloter les paliers de chargement différé côté client à partir des hooks `page:start` /
+  `page:finish` : navigation terminée, post-rendu (2 frames + idle), palier passif après
+  première interaction ou fallback (`deferred-runtime.client.ts`)
 
-## 2. Bonnes pratiques
+La chaîne de résolution des locales est documentée dans
+[docs/2.architecture/13.routing-and-middleware.md](../../docs/2.architecture/13.routing-and-middleware.md).
 
-- Un fichier = un plugin ; limiter la logique à l’initialisation.
-- Préfixer pour l’ordre de chargement si dépendances (`01.foo.ts`, `02.bar.ts`).
-- Utiliser les suffixes `.client.ts` / `.server.ts` pour cibler l’environnement.
-- Privilégier les composables pour exposer des helpers plutôt que polluer `provide`.
+## Conventions techniques
 
-## 3. Conventions de nommage
-
-- Fichiers en `kebab-case.ts` à la racine (scannés automatiquement).
-- Sous-dossiers non scannés par défaut : déclarer dans `nuxt.config` si besoin.
-- `my-plugin.client.ts` / `my-plugin.server.ts` pour scoper l’exécution.
-
-## 4. Performance
-
-- Plugins courts ; éviter les imports lourds côté client si non nécessaires.
-- Charger en parallèle (`parallel: true`) seulement si aucune dépendance.
-- Déclarer `dependsOn` si un plugin attend un autre.
-
-## 5. Structure et organisation
-
-- Racine `app/plugins/` : plugins auto-enregistrés (fichiers de premier niveau).
-- Sous-dossiers : optionnels, mais à référencer dans `nuxt.config` pour charger.
-
----
-
-### Ex. : Structure de template
-
-```ts
-// app/plugins/hello.ts
-export default defineNuxtPlugin(() => ({
-  provide: {
-    hello: (msg: string) => `Hello ${msg}!`,
-  },
-}))
-```
-
-## Plugins actifs du projet
-
-- `deferred-runtime.client.ts` :
-  - `runtime.page-finished` -> navigation Nuxt terminee (`page:finish`)
-  - `deferred.runtime.ready` -> palier post-rendu (2 frames + idle/fallback)
-  - `deferred.passive.ready` -> palier passif (interaction
+Aucune règle CI spécifique à ce dossier. Les règles transverses de la couche `app/`
+s'appliquent (voir [../README.md](../README.md)).
