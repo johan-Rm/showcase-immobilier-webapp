@@ -135,4 +135,25 @@ const _useLang = (): UseLangReturn => {
   }
 }
 
-export const useLang = createSharedComposable(_useLang)
+// Une instance par application Nuxt, jamais de cache au niveau module :
+// `createSharedComposable` mémorise son résultat pour tout le process, donc en SSR
+// la deuxième requête récupérerait la route, le i18n et le state de la première
+// (fuite d'état cross-requêtes). La WeakMap garantit une instance par requête
+// côté serveur et une instance unique côté client.
+const instances = new WeakMap<object, UseLangReturn>()
+
+export const useLang = (): UseLangReturn => {
+  const nuxtApp = useNuxtApp()
+  const existing = instances.get(nuxtApp)
+  if (existing) return existing
+
+  // Scope détaché : les watchers de synchronisation locale <-> i18n doivent survivre
+  // au démontage du premier composant appelant, l'instance étant partagée ensuite.
+  const instance = effectScope(true).run(() => _useLang())
+  if (!instance) {
+    throw new Error('[useLang] initialisation du scope impossible')
+  }
+
+  instances.set(nuxtApp, instance)
+  return instance
+}

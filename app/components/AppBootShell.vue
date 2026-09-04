@@ -12,7 +12,7 @@
       :class="isLandingShellVisible ? 'opacity-100' : 'opacity-0'"
       size="5xl"
       :force-visible="true"
-      :color-class="resolvedLogoColorClass"
+      :color-class="props.logoColorClass"
       :aria-label="props.logoAriaLabel"
     />
   </div>
@@ -23,13 +23,19 @@
 
 // Doit correspondre à la durée `duration-500` de la transition CSS de sortie.
 const LANDING_SHELL_EXIT_DURATION_MS = 500
+// Filet de sécurité : si l'init ou l'image hero n'aboutissent jamais (API en panne,
+// requête suspendue), le shell se retire au lieu de masquer le site indéfiniment.
+const LANDING_SHELL_FAILSAFE_MS = 8000
 
 // 3. Props et emits
+// Doit rester un sous-ensemble de LogoColorClass (LogoMlkFull).
+type BootShellLogoColorClass = 'text-foreground/90' | 'text-white/90' | 'text-surface'
+
 const props = withDefaults(
   defineProps<{
     ariaLabel?: string
     logoAriaLabel?: string
-    logoColorClass?: string
+    logoColorClass?: BootShellLogoColorClass
   }>(),
   {
     ariaLabel: 'Chargement initial de l application',
@@ -48,15 +54,14 @@ const { initCoreDataStatus, isInitCoreDataReady } = useNuxtServerInit()
 
 // Référence au timer de complétion : permet d'annuler le délai si l'état redevient visible.
 let completionTimer: ReturnType<typeof setTimeout> | null = null
+// Timer du filet de sécurité : force la complétion si le boot ne se termine jamais.
+let failsafeTimer: ReturnType<typeof setTimeout> | null = null
 // Partagé avec app.vue via useState : signal de fin de vie du shell pour la session courante.
 const hasLandingShellCompleted = useState<boolean>('app.boot-shell.completed', () => false)
 // Accès direct pour le logging : même clé que FullImage.vue.
 const isHeroImageReady = useState<boolean>('screen.real-estate-full-image.hero-ready', () => false)
 
 // 8. Computed UI-ready
-const resolvedLogoColorClass = computed(
-  () => props.logoColorClass as 'text-foreground/90' | 'text-white/90' | undefined,
-)
 
 // 10. Watch et watchEffect
 
@@ -68,6 +73,10 @@ const resolvedLogoColorClass = computed(
 watch(
   isLandingShellVisible,
   async (visible) => {
+    // Protège l'accès au DOM et aux timers : client-only.
+    // Requis pour la compatibilité SSR (et évite un log par requête serveur).
+    if (import.meta.server) return
+
     logger.info('boot-shell:visibility-change', {
       visible,
       isHeroImageReady: isHeroImageReady.value,
@@ -76,9 +85,6 @@ watch(
       hasLandingShellCompleted: hasLandingShellCompleted.value,
     })
 
-    // Protège l'accès au DOM et aux timers : client-only.
-    // Requis pour la compatibilité SSR.
-    if (import.meta.server) return
     if (completionTimer) {
       clearTimeout(completionTimer)
       completionTimer = null
@@ -108,11 +114,28 @@ watch(
 
 // 12. Lifecycle
 
+onMounted(() => {
+  failsafeTimer = setTimeout(() => {
+    failsafeTimer = null
+    if (hasLandingShellCompleted.value) return
+
+    logger.warn('boot-shell:failsafe-triggered', {
+      isHeroImageReady: isHeroImageReady.value,
+      initCoreDataStatus: initCoreDataStatus.value,
+    })
+    hasLandingShellCompleted.value = true
+  }, LANDING_SHELL_FAILSAFE_MS)
+})
+
 onUnmounted(() => {
   // Nettoyage défensif : évite une mise à jour de state sur un composant démonté.
   if (completionTimer) {
     clearTimeout(completionTimer)
     completionTimer = null
+  }
+  if (failsafeTimer) {
+    clearTimeout(failsafeTimer)
+    failsafeTimer = null
   }
 })
 </script>

@@ -65,8 +65,12 @@ export const useApp = (): UseAppReturn => {
     const status = initCoreDataStatus.value
     if (status === 'idle' || status === 'loading') return true
 
-    // État terminal (ready ou error) : le shell attend que l'image hero soit prête.
-    // En cas d'erreur, le contenu SSR/cache est déjà affiché — on laisse l'image décider.
+    // Échec d'init : ne pas attendre une image hero qui n'arrivera jamais
+    // (sans données, FullImage ne pose aucun signal). On révèle immédiatement
+    // ce que le rendu SSR ou le cache a produit.
+    if (status === 'error') return false
+
+    // Init réussie : le shell attend que l'image hero soit prête.
     return !isHeroImageReady.value
   })
 

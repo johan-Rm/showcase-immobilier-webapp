@@ -67,7 +67,9 @@ const runInit = async (forceRefresh = false): Promise<void> => {
 
   if (initPromise) {
     await initPromise
-    return
+    // Un refresh forcé (ex : changement de locale) arrivé pendant une init en vol
+    // doit relancer l'init après elle, sinon les données restent dans l'ancienne locale.
+    if (!forceRefresh) return
   }
 
   const currentInitPromise = initCoreData()
@@ -82,6 +84,20 @@ const runInit = async (forceRefresh = false): Promise<void> => {
     }
   }
 }
+
+// Init SSR des données critiques : exécutée pendant le rendu serveur, l'état des
+// stores (Pinia + useState) est sérialisé dans le payload et réhydraté côté client
+// sans nouvel appel. En cas d'échec, le statut passe à 'error' et le client
+// retente via onNuxtReady.
+await callOnce('app.init-core-data', async () => {
+  try {
+    await runInit()
+  } catch (error) {
+    logger.error('app:init-core-data-ssr-failed', {
+      message: error instanceof Error ? error.message : String(error),
+    })
+  }
+})
 
 // 10. Watch et watchEffect
 
@@ -144,12 +160,14 @@ onErrorCaptured((error, instance, info) => {
     component: instance?.$?.type?.name,
   })
 
-  // Empêche Vue de remonter l'erreur et d'afficher son boundary par défaut.
-  return false
+  // Ne pas retourner false : l'erreur doit continuer de se propager au handler
+  // Nuxt pour qu'une erreur fatale atteigne error.vue au lieu de laisser une
+  // zone cassée silencieuse. Ce hook ne sert qu'à enrichir le logging.
 })
 
-// Déclenche l'init si le plugin n'a pas pu la compléter (ex : SSR raté, locale forcée).
-// Lance ensuite les données d'arrière-plan non critiques (accommodations).
+// Filet de sécurité client : retente l'init si le rendu SSR ne l'a pas complétée
+// (ex : échec API pendant le SSR). Lance ensuite les données d'arrière-plan non
+// critiques (accommodations).
 onNuxtReady(async () => {
   try {
     await runInit()
