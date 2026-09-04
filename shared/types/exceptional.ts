@@ -9,23 +9,11 @@
 
 /** Layout de rendu interne d'un écran du parcours. */
 export type ExceptionalScreenLayout =
-  | 'split'
-  | 'full-overlay'
-  | 'full'
-  | 'triptych'
-  | 'carousel'
-  | 'duo'
-  | 'contact'
+  'split' | 'full-overlay' | 'full' | 'triptych' | 'carousel' | 'duo' | 'contact'
 
 /** Template éditorial configurable par écran (contrat `additionalType`). */
 export type ExceptionalScreenTemplate =
-  | 'SCREEN_01'
-  | 'SCREEN_02'
-  | 'SCREEN_03'
-  | 'SCREEN_04'
-  | 'SCREEN_05'
-  | 'SCREEN_06'
-  | 'CONTACT'
+  'SCREEN_01' | 'SCREEN_02' | 'SCREEN_03' | 'SCREEN_04' | 'SCREEN_05' | 'SCREEN_06' | 'CONTACT'
 
 /** Variante chromatique du panneau overlay (SCREEN_02). */
 export type ExceptionalOverlayMode = 'dark' | 'light'

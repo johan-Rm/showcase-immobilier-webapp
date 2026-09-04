@@ -12,24 +12,10 @@ export type ScreenColumnTemplateDefinition = {
 }
 
 export type ScreenContentZonePlacement =
-  | 'full'
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'multiple'
-  | 'none'
+  'full' | 'top' | 'bottom' | 'left' | 'right' | 'multiple' | 'none'
 
 export type ScreenImageZonePlacement =
-  | 'none'
-  | 'full'
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'background'
-  | 'center'
-  | 'multiple'
+  'none' | 'full' | 'top' | 'bottom' | 'left' | 'right' | 'background' | 'center' | 'multiple'
 
 export type ScreenLayoutMeta = {
   column?: ScreenColumnTemplate

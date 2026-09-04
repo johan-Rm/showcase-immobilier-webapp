@@ -29,8 +29,7 @@ function buildMarkdown(frontmatter: Record<string, DashboardEditableValue>, body
 }
 
 export type MarkdownExportResult =
-  | { updated: true; filePath: string }
-  | { updated: false; reason: string }
+  { updated: true; filePath: string } | { updated: false; reason: string }
 
 export const resolveContentRoot = (): string => {
   const configuredPath = process.env.CONTENT_PATH?.trim()
