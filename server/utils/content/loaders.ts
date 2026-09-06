@@ -151,6 +151,48 @@ const extractYamlObject = <T>(data: unknown, source: string): T => {
   throw new Error(`Invalid YAML object in "${source}" (expected object)`)
 }
 
+/**
+ * Indique si une erreur systeme signale une ressource absente.
+ *
+ * @param error Erreur remontee par le systeme de fichiers.
+ * @returns `true` si le fichier ou le dossier n'existe pas.
+ */
+const isMissingEntry = (error: unknown): boolean =>
+  (error as NodeJS.ErrnoException).code === 'ENOENT'
+
+/**
+ * Liste un dossier de contenu en tolerant son absence.
+ *
+ * Une langue sans dossier de contenu est une langue vide, pas une erreur : sans
+ * cette tolerance, une locale incomplete fait echouer la generation du site.
+ *
+ * @param directory Dossier a lister.
+ * @returns Les noms de fichiers, ou une liste vide si le dossier n'existe pas.
+ */
+const readDirectorySafe = async (directory: string): Promise<string[]> => {
+  try {
+    return await readdir(directory)
+  } catch (error) {
+    if (isMissingEntry(error)) return []
+    throw error
+  }
+}
+
+/**
+ * Lit un fichier de contenu en tolerant son absence.
+ *
+ * @param filePath Fichier a lire.
+ * @returns Le contenu brut, ou `null` si le fichier n'existe pas.
+ */
+const readFileSafe = async (filePath: string): Promise<string | null> => {
+  try {
+    return await readFile(filePath, 'utf8')
+  } catch (error) {
+    if (isMissingEntry(error)) return null
+    throw error
+  }
+}
+
 const loadYamlResource = async <T>(resource: ResourceKey, locale: LocaleCode): Promise<T> => {
   const fileName = YAML_FILE_BY_RESOURCE[resource]
   if (!fileName) {
@@ -159,7 +201,15 @@ const loadYamlResource = async <T>(resource: ResourceKey, locale: LocaleCode): P
 
   const contentRoot = resolveRuntimeContentRoot()
   const filePath = join(contentRoot, locale, fileName)
-  const raw = await readFile(filePath, 'utf8')
+
+  // Une langue sans fichier de contenu ne doit pas interrompre le rendu : la
+  // ressource est simplement vide. Sans cette tolerance, une locale incomplete
+  // fait echouer la generation statique de l'ensemble du site.
+  const raw = await readFileSafe(filePath)
+  if (raw === null) {
+    return (YAML_OBJECT_RESOURCES.has(resource) ? {} : []) as T
+  }
+
   const parsed = YAML.parse(raw)
 
   if (YAML_OBJECT_RESOURCES.has(resource)) {
@@ -172,7 +222,7 @@ const loadYamlResource = async <T>(resource: ResourceKey, locale: LocaleCode): P
 const loadWebPagesResource = async <T>(locale: LocaleCode): Promise<T> => {
   const contentRoot = resolveRuntimeContentRoot()
   const directory = join(contentRoot, locale, 'web-pages')
-  const files = (await readdir(directory))
+  const files = (await readDirectorySafe(directory))
     .filter((file) => file.endsWith('.md'))
     .sort((left, right) => left.localeCompare(right))
 
@@ -204,9 +254,14 @@ const loadAccommodationsResource = async <T>(locale: LocaleCode): Promise<T> => 
   const categoryCodePath = join(contentRoot, locale, 'metadata/category-code.yaml')
 
   const [dirFiles, categoryCodeRaw] = await Promise.all([
-    readdir(directory),
-    readFile(categoryCodePath, 'utf8'),
+    readDirectorySafe(directory),
+    readFileSafe(categoryCodePath),
   ])
+
+  // Langue sans contenu : la collection est vide, ce n'est pas une erreur.
+  if (dirFiles.length === 0 || categoryCodeRaw === null) {
+    return [] as T
+  }
 
   const allCodes = extractYamlItems<AccommodationPlaceItem & { inCodeSet?: string }>(
     YAML.parse(categoryCodeRaw),

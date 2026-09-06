@@ -5,7 +5,7 @@ metaDescription: 'Découvrez les partenaires sélectionnés par BPI Blueprint Im
 headline: 'Nos partenariats'
 alternativeHeadline: 'Nos partenariats'
 associatedMedia:
-  - 'artisanat-maroc-tissus-traditionnels.jpg'
+  - '/images/artisanat-maroc-tissus-traditionnels.jpg'
 highlight: 'Un réseau de confiance pour vous accompagner au-delà de l’immobilier'
 articleSection: ''
 keywords: []
