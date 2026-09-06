@@ -9,7 +9,7 @@ status: Todo
 Aujourd'hui l'ensemble des locales `fr / en / es` est codé en dur dans le frontend, le
 dashboard, les routes serveur et les scripts. Or chaque **projet** côté API Symfony définit
 ses propres langues via les champs `sourceLocale` et `enabledLocales`
-(ex. `blue-bay-mogador` n'a que `fr` et `en`).
+(ex. `blueprint-immobilier` n'a que `fr` et `en`).
 
 Cette confusion entre **locales supportées par l'app** (catalogue de build) et **locales
 réellement activées par le projet** (runtime) provoque des erreurs et une UI incohérente

@@ -2,7 +2,7 @@
 
 > Revue de code passe 1 — 2026-07-04
 > Périmètre : `nuxt.config.ts`, plugins, middlewares globaux, `app.vue`, `AppBootShell.vue`
-> Version visuelle : artifact « Boot MLK — séquence avant / après correctifs »
+> Version visuelle : artifact « Boot BPI — séquence avant / après correctifs »
 
 Légende : **[SSR]** serveur Nitro · **[CLIENT]** navigateur · **[API]** `/api/content` · 🆕 correctif du 2026-07-04
 
@@ -88,7 +88,7 @@ Version texte :
 | 3. Fuite SSR `useLang`        | `app/composables/useLang.ts`                                                                       | instance par app Nuxt (WeakMap + effectScope détaché)                     |
 | 4. Splash infini              | `app/composables/useApp.ts`, `app/components/AppBootShell.vue`, `app/utils/loadContentResource.ts` | `error` → shell masqué ; failsafe 8 s ; timeout 15 s                      |
 | 6. Race `forceRefresh`        | `app/app.vue`                                                                                      | refresh forcé relancé après une init en vol                               |
-| 9. Cast logo                  | `app/components/logo/MlkFull.vue`, `AppBootShell.vue`                                              | `text-surface` ajouté à `LogoColorClass`, cast supprimé                   |
+| 9. Cast logo                  | `app/components/logo/BpiFull.vue`, `AppBootShell.vue`                                              | `text-surface` ajouté à `LogoColorClass`, cast supprimé                   |
 | 10. Log SSR par requête       | `app/components/AppBootShell.vue`                                                                  | garde `import.meta.server` avant le log                                   |
 | 12. Plugin bloquant           | `app/plugins/project-locales.ts`                                                                   | `parallel: true`                                                          |
 

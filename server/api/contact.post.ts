@@ -6,9 +6,9 @@ import { dirname, join, resolve } from 'node:path'
 
 import { Resend } from 'resend'
 
-const DEFAULT_CONTACT_TO_EMAIL = 'contact@mlk-my-little-kasbah.immo'
+const DEFAULT_CONTACT_TO_EMAIL = 'contact@blueprint-immobilier.immo'
 const DEFAULT_CONTACT_BCC_EMAILS = 'developer@graines-digitales.online'
-const DEFAULT_CONTACT_REPLY_TO_EMAIL = 'contact@mlk-my-little-kasbah.immo'
+const DEFAULT_CONTACT_REPLY_TO_EMAIL = 'contact@blueprint-immobilier.immo'
 const DEFAULT_CONTACT_SUBMISSIONS_PATH = join('.data', 'contact-submissions.csv')
 const CONTACT_SUBMISSIONS_HEADERS = [
   'id',
@@ -165,7 +165,7 @@ const renderEmailLayout = (title: string, content: string, replyToEmail: string)
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:0 auto;border-collapse:collapse;background:${EMAIL_THEME.surface};border:1px solid ${EMAIL_THEME.border};">
         <tr>
           <td style="padding:28px 28px 18px 28px;border-bottom:1px solid ${EMAIL_THEME.border};">
-            <p style="margin:0 0 10px 0;font-size:11px;line-height:1.4;letter-spacing:0.22em;text-transform:uppercase;color:${EMAIL_THEME.muted};">MLK - My Little Kasbah</p>
+            <p style="margin:0 0 10px 0;font-size:11px;line-height:1.4;letter-spacing:0.22em;text-transform:uppercase;color:${EMAIL_THEME.muted};">BPI - Blueprint Immobilier</p>
             <h1 style="margin:0;font-family:${EMAIL_THEME.fontFamily};font-size:24px;line-height:1.2;font-weight:500;color:${EMAIL_THEME.foreground};">${escapeHtml(title)}</h1>
           </td>
         </tr>
@@ -176,7 +176,7 @@ const renderEmailLayout = (title: string, content: string, replyToEmail: string)
         </tr>
         <tr>
           <td style="padding:18px 28px;border-top:1px solid ${EMAIL_THEME.border};font-size:12px;line-height:1.6;color:${EMAIL_THEME.muted};">
-            MLK - My Little Kasbah · Essaouira<br />
+            BPI - Blueprint Immobilier · Essaouira<br />
             <a href="mailto:${escapedReplyToEmail}" style="color:${EMAIL_THEME.secondary};text-decoration:none;">${escapedReplyToEmail}</a>
           </td>
         </tr>
@@ -214,7 +214,7 @@ const buildConfirmationEmail = (
     : 'Pour préparer notre échange, vous pouvez déjà préciser votre budget, le secteur recherché, votre calendrier et les critères les plus importants pour vous.'
 
   return {
-    subject: 'Nous avons bien reçu votre message — MLK - My Little Kasbah',
+    subject: 'Nous avons bien reçu votre message — BPI - Blueprint Immobilier',
     html: renderEmailLayout(
       'Nous avons bien reçu votre message',
       [
@@ -222,7 +222,7 @@ const buildConfirmationEmail = (
         renderParagraph(`Nous avons bien reçu votre message${propertyContext}.`),
         renderParagraph(escapeHtml(recommendation)),
         renderParagraph('Notre équipe revient vers vous rapidement avec une réponse adaptée.'),
-        `<p style="margin:22px 0 0 0;color:${EMAIL_THEME.muted};">À bientôt,<br />MLK - My Little Kasbah</p>`,
+        `<p style="margin:22px 0 0 0;color:${EMAIL_THEME.muted};">À bientôt,<br />BPI - Blueprint Immobilier</p>`,
       ].join(''),
       replyToEmail,
     ),
@@ -240,7 +240,7 @@ const buildConfirmationEmail = (
       'Notre équipe revient vers vous rapidement avec une réponse adaptée.',
       '',
       'À bientôt,',
-      'MLK - My Little Kasbah',
+      'BPI - Blueprint Immobilier',
     ].join('\n'),
   }
 }

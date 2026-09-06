@@ -36,7 +36,7 @@
       <div
         class="flex h-full w-full -translate-y-24 flex-col items-center justify-center text-white md:translate-y-0"
       >
-        <LogoMlkFull
+        <LogoBpiFull
           size="5xl"
           :force-visible="true"
           color-class="text-white/90"

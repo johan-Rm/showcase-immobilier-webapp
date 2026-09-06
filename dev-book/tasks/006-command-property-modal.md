@@ -101,7 +101,7 @@ toggleCommandProperty,
 - [ ] **Étape 5 : Vérifier le typage**
 
 ```bash
-cd /home/johan/www/graines-digitales/modern-web-apps/mlk-my-little-kasbah
+cd /home/johan/www/graines-digitales/modern-web-apps/blueprint-immobilier
 npx nuxi typecheck 2>&1 | head -40
 ```
 
@@ -253,7 +253,7 @@ Dans `app/layouts/default.vue`, ajouter `<CommandPropertyModal />` après `<Lazy
         :class="headerBackgroundClass"
       >
         <div class="justify-self-start">
-          <LazyLogoMlkFull size="lg" aria-label="Retour à l'accueil" />
+          <LazyLogoBpiFull size="lg" aria-label="Retour à l'accueil" />
         </div>
         <div class="justify-self-end">
           <LazyNavigationQuickActions />

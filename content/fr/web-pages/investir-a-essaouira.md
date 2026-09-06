@@ -68,4 +68,4 @@ Pour sécuriser et optimiser votre investissement à Essaouira :
 Essaouira incarne un **équilibre rare entre charme, sécurité et potentiel économique**.  
 Investir ici, c’est faire le choix d’un lieu de vie authentique tout en bénéficiant d’une **rentabilité réelle et durable**.
 
-**MLK – My Little Kasbah** accompagne chaque investisseur dans la concrétisation de son projet immobilier, avec exigence, transparence et expertise locale.
+**BPI – Blueprint Immobilier** accompagne chaque investisseur dans la concrétisation de son projet immobilier, avec exigence, transparence et expertise locale.

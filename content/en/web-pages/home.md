@@ -2,11 +2,11 @@
 identifier: 9
 slug: 'home'
 inLanguage: 'en'
-metaTitle: 'MLK – My Little Kasbah | Real Estate in Essaouira'
-metaDescription: 'Discover MLK – My Little Kasbah, your real estate partner in Essaouira for buying, selling, rental management and investment.'
+metaTitle: 'BPI – Blueprint Immobilier | Real Estate in Essaouira'
+metaDescription: 'Discover BPI – Blueprint Immobilier, your real estate partner in Essaouira for buying, selling, rental management and investment.'
 associatedMedia:
-  - '/images/mlk-logo.jpg'
-headline: 'MLK – My Little Kasbah'
+  - '/images/bpi-logo.jpg'
+headline: 'BPI – Blueprint Immobilier'
 alternativeHeadline: 'Your real estate partner in Essaouira'
 highlight: 'Buying, selling, rental management and investment with local and international expertise'
 articleSection: ''
@@ -19,7 +19,7 @@ dateModified: '2023-02-16T11:40:34+01:00'
 ::screen-landing
 ---
 identifier: 'screen-real-estate-full-image'
-headline: 'MLK - My Little Kasbah - Real Estate Agency in Essaouira'
+headline: 'BPI - Blueprint Immobilier - Real Estate Agency in Essaouira'
 image: '/images/essaouira-en-drone.jpg'
 hasPart:
   - additionalType: 'mobile-portrait-background'
@@ -39,9 +39,9 @@ additionalType: 'Online real estate agency'
 headline: 'Your real estate partner'
 alternativeHeadline: 'in Essaouira'
 text: |
-  Welcome to MLK – My Little Kasbah, an online real estate agency dedicated to property investment in Essaouira and the surrounding region.
+  Welcome to BPI – Blueprint Immobilier, an online real estate agency dedicated to property investment in Essaouira and the surrounding region.
 
-  Driven by a Franco-Moroccan team passionate about real estate and deeply attached to the city, MLK supports its clients through all their buying, selling and rental management projects, with rigour, transparency and proximity.
+  Driven by a Franco-Moroccan team passionate about real estate and deeply attached to the city, BPI supports its clients through all their buying, selling and rental management projects, with rigour, transparency and proximity.
 image: '/images/skala-du-port-bateaux.jpg'
 links:
   - for-sale
@@ -63,8 +63,8 @@ links:
 
 ::screen-panel
 ---
-identifier: 'screen-why-choose-mlk'
-headline: 'Why choose MLK?'
+identifier: 'screen-why-choose-bpi'
+headline: 'Why choose BPI?'
 alternativeHeadline: 'Real estate in Essaouira, between local expertise and international vision.'
 image: '/images/portrait-lifestyle-en-lumiere-naturelle.jpg'
 hasPart:
@@ -144,7 +144,7 @@ alternativeHeadline: 'Invest in Essaouira'
 text: |
   Investing here means choosing an authentic place to live while enjoying real and lasting returns.
 
-  MLK My Little Kasbah guides every investor through their project, with passion and expertise.
+  BPI Blueprint Immobilier guides every investor through their project, with passion and expertise.
 image: '/images/essaouira-porte-de-bab-sbah.jpg'
 links:
   - contact
@@ -238,7 +238,7 @@ identifier: 'screen-blockquote'
 headline: 'Your partner in Essaouira'
 url: 'agency'
 hasPart:
-  - headline: 'At MLK – My Little Kasbah, we celebrate character properties.'
+  - headline: 'At BPI – Blueprint Immobilier, we celebrate character properties.'
   - headline: 'We accompany every project with rigour, clarity and discretion.'
   - headline: 'While promoting the art of living in Essaouira.'
 ---
@@ -247,6 +247,6 @@ hasPart:
 ::screen-panel
 ---
 identifier: 'screen-footer'
-image: '/images/mlk-logo.jpg'
+image: '/images/bpi-logo.jpg'
 ---
 ::

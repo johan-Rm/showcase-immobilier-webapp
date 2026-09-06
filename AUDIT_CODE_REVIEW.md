@@ -1,4 +1,4 @@
-# Audit Code Review — My Little Kasbah
+# Audit Code Review — Blueprint Immobilier
 
 > Branche : `audit/code-review-2026-05-03`  
 > Date : 2026-05-03  

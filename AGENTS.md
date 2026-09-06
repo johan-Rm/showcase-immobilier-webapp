@@ -1,4 +1,4 @@
-# AGENTS — Contexte projet : mlk-my-little-kasbah
+# AGENTS — Contexte projet : blueprint-immobilier
 
 Fichier de gouvernance local Codex. Complète le socle global `~/.agents/AGENTS.md` sans le
 répéter. Les profils, principes d'ingénierie et mode d'exécution sont dans le global.

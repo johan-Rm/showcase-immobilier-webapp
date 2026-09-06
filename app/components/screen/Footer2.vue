@@ -50,7 +50,7 @@ const backgroundImage = computed<{ url: string; alt: string }>(() => {
   if (typeof image === 'string' && image.trim().length > 0) {
     return {
       url: image,
-      alt: 'My Little Kasbah',
+      alt: 'Blueprint Immobilier',
     }
   }
 
@@ -68,7 +68,7 @@ const backgroundImage = computed<{ url: string; alt: string }>(() => {
         rawImage.caption.trim().length > 0
           ? rawImage.caption
           : undefined) ??
-        'My Little Kasbah'
+        'Blueprint Immobilier'
 
       return {
         url,
@@ -79,7 +79,7 @@ const backgroundImage = computed<{ url: string; alt: string }>(() => {
 
   return {
     url: bgImageUrl,
-    alt: 'My Little Kasbah',
+    alt: 'Blueprint Immobilier',
   }
 })
 

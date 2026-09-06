@@ -2,9 +2,9 @@
 identifier: '7f6c2b9d-3e4a-4d9f-9c18-5a0b7e6d2f41'
 slug: 'contact'
 inLanguage: 'fr'
-metaTitle: 'Contact agence immobilière à Essaouira – MLK My Little Kasbah'
-metaDescription: "Contactez MLK My Little Kasbah, agence immobilière à Essaouira, pour un projet d’achat, de vente, de location ou d’investissement immobilier au Maroc."
-headline: 'Contactez MLK My Little Kasbah'
+metaTitle: 'Contact agence immobilière à Essaouira – BPI Blueprint Immobilier'
+metaDescription: "Contactez BPI Blueprint Immobilier, agence immobilière à Essaouira, pour un projet d’achat, de vente, de location ou d’investissement immobilier au Maroc."
+headline: 'Contactez BPI Blueprint Immobilier'
 alternativeHeadline: 'Échangeons sur votre projet immobilier à Essaouira'
 associatedMedia:
   - '/images/contact-essaouira-port-mouette.jpeg'
@@ -16,11 +16,11 @@ dateCreated: '2022-10-11T01:57:04+02:00'
 dateModified: '2026-04-29T12:00:00+01:00'
 ---
 
-## Contactez MLK My Little Kasbah
+## Contactez BPI Blueprint Immobilier
 
 Vous avez un projet immobilier à Essaouira ou dans sa région ?
 
-Que vous souhaitiez acheter, vendre, louer, investir ou simplement obtenir un premier avis, **MLK My Little Kasbah** vous accompagne avec une connaissance précise du marché local et une approche personnalisée.
+Que vous souhaitiez acheter, vendre, louer, investir ou simplement obtenir un premier avis, **BPI Blueprint Immobilier** vous accompagne avec une connaissance précise du marché local et une approche personnalisée.
 
 Notre équipe prend le temps de comprendre votre besoin, votre budget, vos attentes et le niveau d’accompagnement souhaité afin de vous orienter vers les solutions les plus adaptées.
 
@@ -32,4 +32,4 @@ Vous pouvez nous contacter pour :
 - préparer un projet d’investissement immobilier ;
 - obtenir des conseils sur le marché immobilier marocain.
 
-Avec **MLK My Little Kasbah**, chaque échange commence simplement : une demande, une écoute attentive, puis une réponse claire.
+Avec **BPI Blueprint Immobilier**, chaque échange commence simplement : une demande, une écoute attentive, puis une réponse claire.

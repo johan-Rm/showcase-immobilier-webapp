@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import LogoSvg from '~/assets/logo/mlk_full.svg'
+import LogoSvg from '~/assets/logo/bpi_full.svg'
 
 // 2. Types et constantes statiques
 /**
@@ -49,7 +49,7 @@ const props = withDefaults(
     colorClass: undefined,
     size: 'lg',
     forceVisible: false,
-    ariaLabel: 'MLK - My Little Kasbah logo',
+    ariaLabel: 'BPI - Blueprint Immobilier logo',
     to: '/',
   },
 )

@@ -314,7 +314,7 @@ SXO                GEO
  └── Analytics     └── Gemini
 ```
 
-Dans ton cas (dashboard immobilier MLK), cet agent pourrait être exposé via **MCP** et interroger directement :
+Dans ton cas (dashboard immobilier BPI), cet agent pourrait être exposé via **MCP** et interroger directement :
 
 - le CMS et les contenus,
 - les pages Nuxt,

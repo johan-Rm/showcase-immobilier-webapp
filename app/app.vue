@@ -121,7 +121,7 @@ watch(
 // 11. Metadonnees ecran ou page
 
 useHead(() => ({
-  title: 'MLK - My Little Kasbah',
+  title: 'BPI - Blueprint Immobilier',
   htmlAttrs: {
     // Synchronise l'attribut lang du document HTML avec la locale active.
     lang: localeSetting.value,

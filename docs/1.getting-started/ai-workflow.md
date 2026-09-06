@@ -9,10 +9,10 @@ Deux assistants IA interviennent depuis VSCode. Chacun lit son propre fichier de
 résolu en cascade du plus global au plus local. Le fichier local du projet a toujours la
 priorité la plus haute.
 
-| Assistant   | Fichier de gouvernance | Cascade (global → local)                                                             |
-| ----------- | ---------------------- | ------------------------------------------------------------------------------------ |
-| Claude Code | `CLAUDE.md`            | `~/.claude/CLAUDE.md` → `graines-digitales/CLAUDE.md` → `blue-bay-mogador/CLAUDE.md` |
-| Codex       | `AGENTS.md`            | `~/.agents/AGENTS.md` → `graines-digitales/AGENTS.md` → `blue-bay-mogador/AGENTS.md` |
+| Assistant   | Fichier de gouvernance | Cascade (global → local)                                                                 |
+| ----------- | ---------------------- | ---------------------------------------------------------------------------------------- |
+| Claude Code | `CLAUDE.md`            | `~/.claude/CLAUDE.md` → `graines-digitales/CLAUDE.md` → `blueprint-immobilier/CLAUDE.md` |
+| Codex       | `AGENTS.md`            | `~/.agents/AGENTS.md` → `graines-digitales/AGENTS.md` → `blueprint-immobilier/AGENTS.md` |
 
 Le runtime Codex propre au projet est isolé dans `.codex/` (qui renvoie au socle global).
 Les extensions VSCode attendues côté éditeur sont déclarées dans `.vscode/extensions.json`

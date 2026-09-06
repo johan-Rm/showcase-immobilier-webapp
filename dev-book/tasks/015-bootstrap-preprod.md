@@ -9,7 +9,7 @@ dependances: 008-dashboard-sauvegarde-biens-api-symfony.md
 
 ## Intention
 
-Fournir un jeu de scripts Bash permettant d initialiser un environnement Symfony MLK
+Fournir un jeu de scripts Bash permettant d initialiser un environnement Symfony BPI
 vierge avant la mise en production : creation de l organisation, du projet, des deux
 utilisateurs, seed des CategoryCodes, import des biens reels et upload des images.
 
@@ -18,8 +18,8 @@ utilisateurs existent deja. Ce bootstrap couvre les etapes amont.
 
 ## Perimetre
 
-1. Creation de l organisation `MLK - My Little Kasbah`
-2. Creation du projet `MLK - Modern Site Web` rattache a l organisation
+1. Creation de l organisation `BPI - Blueprint Immobilier`
+2. Creation du projet `BPI - Modern Site Web` rattache a l organisation
 3. Ajout de 2 utilisateurs au projet (Johan owner/admin, Caroline admin/user)
 4. Seed des CategoryCodes depuis un fichier de reference YAML
 5. Import des 7 biens reels non-fixtures (reuse de `scripts/import-accommodations.ts`)
@@ -83,7 +83,7 @@ et continue sans erreur. Toutes les etapes sont rejouables apres interruption.
 
 ```
 POST {SYMFONY_API_URL}/api/organizations
-{ "name": "MLK - My Little Kasbah" }
+{ "name": "BPI - Blueprint Immobilier" }
 ```
 
 Ecrit `ORG_ID` dans `.state`.
@@ -94,7 +94,7 @@ Ecrit `ORG_ID` dans `.state`.
 POST {SYMFONY_API_URL}/api/projects
 {
   "organization": "/api/organizations/{ORG_ID}",
-  "name": "MLK - Modern Site Web",
+  "name": "BPI - Modern Site Web",
   "sourceLocale": "fr",
   "enabledLocales": ["fr", "en"]
 }
@@ -110,7 +110,7 @@ POST {SYMFONY_API_URL}/api/projects/{PROJECT_ID}/members
   "projectRole": "owner", "roles": ["ROLE_ADMIN"] }
 
 POST {SYMFONY_API_URL}/api/projects/{PROJECT_ID}/members
-{ "email": "buzac@mlk-my-little-kasbah.immo", "password": "<password>",
+{ "email": "buzac@blueprint-immobilier.immo", "password": "<password>",
   "projectRole": "admin", "roles": ["ROLE_USER"] }
 ```
 

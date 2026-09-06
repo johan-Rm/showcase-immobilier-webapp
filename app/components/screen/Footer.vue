@@ -285,7 +285,7 @@ type ContactEntry = {
 const SCREEN_ID = 'screen-footer'
 const COLUMN_TEMPLATE: ScreenColumnTemplate = 'split-67-33'
 const DEFAULT_BACKGROUND_IMAGE_URL = '/images/essaouira-navigation-hero.jpg'
-const DEFAULT_BACKGROUND_IMAGE_ALT = 'MLK - My Little Kasbah'
+const DEFAULT_BACKGROUND_IMAGE_ALT = 'BPI - Blueprint Immobilier'
 const LINK_FILL_TEXT_CLASS = 'from-secondary to-foreground/70 inline-block'
 
 // 3. Props et emits

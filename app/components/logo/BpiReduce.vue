@@ -12,7 +12,7 @@
     >
       <ReduceLogoSvg
         class="w-auto"
-        :class="[{ 'logo-mlk-reduce--mono': props.mono }, props.colorClass, sizeClass]"
+        :class="[{ 'logo-bpi-reduce--mono': props.mono }, props.colorClass, sizeClass]"
         :style="inlineSize"
       />
     </NuxtLink>
@@ -26,7 +26,7 @@
   >
     <ReduceLogoSvg
       class="w-auto"
-      :class="[{ 'logo-mlk-reduce--mono': props.mono }, props.colorClass, sizeClass]"
+      :class="[{ 'logo-bpi-reduce--mono': props.mono }, props.colorClass, sizeClass]"
       :style="inlineSize"
     />
   </NuxtLink>
@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import ReduceLogoSvg from '~/assets/logo/mlk_reduce.svg'
+import ReduceLogoSvg from '~/assets/logo/bpi_reduce.svg'
 
 // 2. Types et constantes statiques
 type PresetSize = 'sm' | 'md' | 'lg' | 'xl'
@@ -55,7 +55,7 @@ const props = withDefaults(
     size: 'lg',
     mono: true,
     forceVisible: false,
-    ariaLabel: 'MLK - My Little Kasbah reduced logo',
+    ariaLabel: 'BPI - Blueprint Immobilier reduced logo',
     to: '/',
     containerClass: undefined,
   },
@@ -155,19 +155,19 @@ const handleClick = (event: MouseEvent): void => {
 </script>
 
 <style scoped>
-.logo-mlk-reduce--mono :deep(path),
-.logo-mlk-reduce--mono :deep(rect),
-.logo-mlk-reduce--mono :deep(circle),
-.logo-mlk-reduce--mono :deep(ellipse),
-.logo-mlk-reduce--mono :deep(polygon),
-.logo-mlk-reduce--mono :deep(polyline) {
+.logo-bpi-reduce--mono :deep(path),
+.logo-bpi-reduce--mono :deep(rect),
+.logo-bpi-reduce--mono :deep(circle),
+.logo-bpi-reduce--mono :deep(ellipse),
+.logo-bpi-reduce--mono :deep(polygon),
+.logo-bpi-reduce--mono :deep(polyline) {
   fill: currentColor;
   stroke: currentColor;
 }
 
-.logo-mlk-reduce--mono :deep([fill='white']),
-.logo-mlk-reduce--mono :deep([style*='fill:white']),
-.logo-mlk-reduce--mono :deep([style*='fill: white']) {
+.logo-bpi-reduce--mono :deep([fill='white']),
+.logo-bpi-reduce--mono :deep([style*='fill:white']),
+.logo-bpi-reduce--mono :deep([style*='fill: white']) {
   fill: white;
 }
 </style>

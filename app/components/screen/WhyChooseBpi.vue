@@ -1,5 +1,5 @@
 <template>
-  <div class="screen-why-choose-mlk bg-background text-foreground" :class="rootGridClass">
+  <div class="screen-why-choose-bpi bg-background text-foreground" :class="rootGridClass">
     <div :class="contentColumnClass">
       <div class="relative h-full min-h-0 w-full min-w-0 px-4 pt-20 pb-10 2xl:pt-32 2xl:pb-20">
         <div :class="contentBodyClass">
@@ -44,7 +44,7 @@ type ValueItem = {
   description: string
 }
 
-type WhyChooseMlkProps = {
+type WhyChooseBpiProps = {
   data?: CreativeWork
 }
 
@@ -57,10 +57,10 @@ type RawImageObject = {
 const columnTemplate: ScreenColumnTemplate = 'split-67-33'
 
 // 3. Props et emits
-const props = defineProps<WhyChooseMlkProps>()
+const props = defineProps<WhyChooseBpiProps>()
 
 // 4. Composables, stores, routeur
-const logger = useLogger({ module: 'screen-why-choose-mlk' })
+const logger = useLogger({ module: 'screen-why-choose-bpi' })
 const { setScreenMeta } = useScreenSystem()
 const { IMAGE_DIMENSIONS } = useAppImage()
 const localePath = useLocalePath()
@@ -184,19 +184,19 @@ const warmAgencyPageTarget = (): void => {
   hasWarmedAgencyPageTarget = true
 
   warmQuickActionTarget({
-    id: `why-choose-mlk:${to}`,
+    id: `why-choose-bpi:${to}`,
     to,
   })
 
   logger.info('Warm agency page target', {
-    screenId: 'screen-why-choose-mlk',
+    screenId: 'screen-why-choose-bpi',
     target: to,
   })
 }
 
 const onVisualImageLoaded = (payload: { src: string; time: number }) => {
   logger.info('Visual image loaded', {
-    screenId: 'screen-why-choose-mlk',
+    screenId: 'screen-why-choose-bpi',
     src: payload.src,
     time: payload.time,
   })
@@ -209,12 +209,12 @@ const onVisualImageLoaded = (payload: { src: string; time: number }) => {
 // 12. Lifecycle
 onMounted(() => {
   logger.info('Mounted screen', {
-    screenId: 'screen-why-choose-mlk',
+    screenId: 'screen-why-choose-bpi',
     hasVisualImage: Boolean(visualImage.value?.url),
     valuesCount: values.value.length,
   })
 
-  setScreenMeta('screen-why-choose-mlk', {
+  setScreenMeta('screen-why-choose-bpi', {
     type: 'standard',
     logo: {
       visible: true,
@@ -231,7 +231,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   logger.info('Unmounted screen', {
-    screenId: 'screen-why-choose-mlk',
+    screenId: 'screen-why-choose-bpi',
   })
 })
 </script>

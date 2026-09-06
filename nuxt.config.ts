@@ -67,10 +67,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     resendApiKey: process.env.RESEND_API_KEY,
     resendFromEmail:
-      process.env.RESEND_FROM_EMAIL ?? 'MLK - My Little Kasbah <contact@mlk-my-little-kasbah.immo>',
-    contactToEmail: process.env.CONTACT_TO_EMAIL ?? 'contact@mlk-my-little-kasbah.immo',
+      process.env.RESEND_FROM_EMAIL ??
+      'BPI - Blueprint Immobilier <contact@blueprint-immobilier.immo>',
+    contactToEmail: process.env.CONTACT_TO_EMAIL ?? 'contact@blueprint-immobilier.immo',
     contactBccEmails: process.env.CONTACT_BCC_EMAILS ?? 'developer@graines-digitales.online',
-    contactReplyToEmail: process.env.CONTACT_REPLY_TO_EMAIL ?? 'contact@mlk-my-little-kasbah.immo',
+    contactReplyToEmail: process.env.CONTACT_REPLY_TO_EMAIL ?? 'contact@blueprint-immobilier.immo',
     contactSubmissionsPath:
       process.env.CONTACT_SUBMISSIONS_PATH ??
       join(process.cwd(), '.data', 'contact-submissions.csv'),
@@ -84,7 +85,7 @@ export default defineNuxtConfig({
 
     public: {
       appEnv,
-      siteName: process.env.SITE_NAME?.trim() || 'MLK My Little Kasbah',
+      siteName: process.env.SITE_NAME?.trim() || 'BPI Blueprint Immobilier',
       siteUrl,
       isIndexable: appEnv === 'prod' && !isDevRuntime,
       webVitalsEnabled: process.env.WEB_VITALS_ENABLED === 'true',
@@ -165,7 +166,7 @@ export default defineNuxtConfig({
     },
     url: '/api/openapi',
     metaData: {
-      title: 'MLK API Documentation',
+      title: 'BPI API Documentation',
     },
   },
 

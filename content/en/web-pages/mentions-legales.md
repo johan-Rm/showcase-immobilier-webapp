@@ -2,8 +2,8 @@
 identifier: 16
 slug: 'mentions-legales'
 inLanguage: 'fr'
-metaTitle: 'Mentions légales – MLK My Little Kasbah'
-metaDescription: 'Mentions légales du site MLK My Little Kasbah – informations légales, hébergement, données personnelles et responsabilité.'
+metaTitle: 'Mentions légales – BPI Blueprint Immobilier'
+metaDescription: 'Mentions légales du site BPI Blueprint Immobilier – informations légales, hébergement, données personnelles et responsabilité.'
 headline: 'Mentions légales'
 alternativeHeadline: 'Informations légales et conditions d’utilisation du site'
 associatedMedia:
@@ -37,7 +37,7 @@ Le présent site est édité par :
 
 ## Activité
 
-**MLK – My Little Kasbah** est une agence immobilière opérant à Essaouira, Maroc.
+**BPI – Blueprint Immobilier** est une agence immobilière opérant à Essaouira, Maroc.
 
 Le site a pour objet la présentation de biens immobiliers à la vente et à la location, ainsi que l’accompagnement des projets d’investissement, d’achat, de vente et de gestion locative, avec une expertise locale et internationale.
 
@@ -58,7 +58,7 @@ Infrastructure : VPS localisé en France
 
 ## Propriété intellectuelle
 
-L’ensemble de la structure du site, des textes, graphismes, logos et éléments techniques est la propriété de **MLK – My Little Kasbah**.
+L’ensemble de la structure du site, des textes, graphismes, logos et éléments techniques est la propriété de **BPI – Blueprint Immobilier**.
 
 Les contenus relatifs aux biens immobiliers, notamment les images, peuvent être fournis par les propriétaires dans le cadre de la présentation des biens.
 
@@ -95,11 +95,11 @@ Aucun outil de mesure d’audience ni de tracking n’est utilisé.
 
 ## Responsabilité
 
-Les annonces immobilières présentées sur le site sont créées et publiées par l’agence **MLK – My Little Kasbah**.
+Les annonces immobilières présentées sur le site sont créées et publiées par l’agence **BPI – Blueprint Immobilier**.
 
 Les informations sont vérifiées avant publication. Toutefois, elles sont fournies à titre indicatif, peuvent évoluer à tout moment et ne présentent pas de caractère contractuel.
 
-MLK – My Little Kasbah ne saurait être tenu responsable des erreurs, omissions ou indisponibilités des informations.
+BPI – Blueprint Immobilier ne saurait être tenu responsable des erreurs, omissions ou indisponibilités des informations.
 
 ---
 

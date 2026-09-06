@@ -2,7 +2,7 @@
   <div class="inline-flex items-center justify-center" role="img" :aria-label="props.ariaLabel">
     <LogoPictoSvg
       class="w-auto shrink-0 object-contain"
-      :class="[{ 'logo-mlk-picto--mono': props.mono }, props.colorClass, sizeClass]"
+      :class="[{ 'logo-bpi-picto--mono': props.mono }, props.colorClass, sizeClass]"
       :style="inlineSize"
     />
   </div>
@@ -29,7 +29,7 @@ const props = withDefaults(
     colorClass: 'text-primary',
     size: 'sm',
     mono: true,
-    ariaLabel: 'MLK - My Little Kasbah picto',
+    ariaLabel: 'BPI - Blueprint Immobilier picto',
   },
 )
 
@@ -67,19 +67,19 @@ const inlineSize = computed(() =>
 </script>
 
 <style scoped>
-.logo-mlk-picto--mono :deep(path),
-.logo-mlk-picto--mono :deep(rect),
-.logo-mlk-picto--mono :deep(circle),
-.logo-mlk-picto--mono :deep(ellipse),
-.logo-mlk-picto--mono :deep(polygon),
-.logo-mlk-picto--mono :deep(polyline) {
+.logo-bpi-picto--mono :deep(path),
+.logo-bpi-picto--mono :deep(rect),
+.logo-bpi-picto--mono :deep(circle),
+.logo-bpi-picto--mono :deep(ellipse),
+.logo-bpi-picto--mono :deep(polygon),
+.logo-bpi-picto--mono :deep(polyline) {
   fill: currentColor;
   stroke: currentColor;
 }
 
-.logo-mlk-picto--mono :deep([fill='white']),
-.logo-mlk-picto--mono :deep([style*='fill:white']),
-.logo-mlk-picto--mono :deep([style*='fill: white']) {
+.logo-bpi-picto--mono :deep([fill='white']),
+.logo-bpi-picto--mono :deep([style*='fill:white']),
+.logo-bpi-picto--mono :deep([style*='fill: white']) {
   fill: white;
 }
 </style>
