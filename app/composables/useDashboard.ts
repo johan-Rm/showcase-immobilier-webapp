@@ -46,9 +46,14 @@ const _useDashboard = (): UseDashboardReturn => {
     isCommandPropertyOpen.value = !isCommandPropertyOpen.value
   }
 
+  // Variante de livrable statique : le menu principal s'ouvre normalement au
+  // clic. Sans script, il resterait inaccessible ; ce drapeau permet d'en
+  // produire une version deja ouverte, sans effet sur le site vivant.
+  const isStaticMenuOpen = useRuntimeConfig().public.staticMenuOpen === true
+
   const sidePanels = ref<SidePanels>({
     designControls: { visible: false },
-    mainMenu: { visible: false },
+    mainMenu: { visible: isStaticMenuOpen },
   })
 
   const modals = ref<Modals>({

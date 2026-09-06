@@ -22,6 +22,8 @@ const logger = useLogger({ module: 'app' })
 const { localeSetting } = useLang()
 // Statut et données critiques de l'application (web pages, métadonnées).
 const { initCoreData, isInitCoreDataReady, loadBackgroundData } = useNuxtServerInit()
+// Drapeau de sortie statique : voir `runtimeConfig.public.staticOutput`.
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
 const { preloadDashboard, seedDashboardHeroImageUrl } = useApp()
 preloadDashboard()
 
@@ -96,6 +98,20 @@ await callOnce('app.init-core-data', async () => {
     logger.error('app:init-core-data-ssr-failed', {
       message: error instanceof Error ? error.message : String(error),
     })
+  }
+
+  // Pre-rendu ou sortie statique : les donnees d'arriere-plan (accommodations)
+  // sont normalement chargees apres l'hydratation, donc absentes du HTML produit.
+  // Sans elles, les listes de biens sortent vides dans le livrable statique.
+  // Le rendu serveur classique et le client conservent leur comportement.
+  if (import.meta.prerender || (import.meta.server && isStaticOutput)) {
+    try {
+      await loadBackgroundData()
+    } catch (error) {
+      logger.error('app:prerender-background-data-failed', {
+        message: error instanceof Error ? error.message : String(error),
+      })
+    }
   }
 })
 

@@ -24,6 +24,9 @@ help:
 	@printf "  quality-type-check          Vue TSC\n"
 	@printf "  quality-conventions-check   Vérification conventions\n"
 	@printf "  quality-generate-schemas    Génération des schémas\n"
+	@printf "  maquette-html               Maquette HTML autonome (restitution)\n"
+	@printf "  generate-static             Génération statique du site (nuxt generate)\n"
+	@printf "  export-maquette DEST=…      Maquette autonome exportée vers un dossier\n"
 	@printf "\n"
 
 	@printf "═══════════════════════════════════════════════════════════════\n"

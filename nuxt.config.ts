@@ -12,6 +12,7 @@ const isNuxtBuild = process.argv.some((argument) => argument.includes('build'))
 const isScalarApiDocsEnabled =
   process.env.SCALAR_API_DOCS_ENABLED === 'true' || (isDevRuntime && !isNuxtBuild)
 const nitroContentCacheMaxAge = isDevRuntime ? 0 : 300
+const isStaticOutput = process.env.STATIC_OUTPUT === 'true'
 const siteUrl = process.env.SITE_URL?.trim() || 'http://localhost:3000'
 const symfonyApiUrl = process.env.SYMFONY_API_URL?.trim() ?? ''
 const symfonyApiDocsUrl =
@@ -89,6 +90,16 @@ export default defineNuxtConfig({
       siteUrl,
       isIndexable: appEnv === 'prod' && !isDevRuntime,
       webVitalsEnabled: process.env.WEB_VITALS_ENABLED === 'true',
+      // Sortie statique : la page finale n'aura aucun serveur derriere elle.
+      // Force le chargement serveur des donnees normalement differees au client,
+      // et coupe ce qui suppose une API vivante (verification de version...).
+      // Desactive par defaut ; active par la generation statique.
+      staticOutput: isStaticOutput,
+      // Variante de livrable : les panneaux normalement ouverts au clic sont
+      // rendus deja ouverts, pour documenter cet etat dans la maquette.
+      staticPanelsOpen: process.env.STATIC_PANELS_OPEN === 'true',
+      // Variante de livrable : le menu principal est rendu deja ouvert.
+      staticMenuOpen: process.env.STATIC_MENU_OPEN === 'true',
     },
   },
 
@@ -101,6 +112,31 @@ export default defineNuxtConfig({
     includeAppSources: true,
 
     sources: ['/api/__sitemap__/urls'],
+  },
+
+  nitro: {
+    prerender: {
+      // Les images transformees a la volee (`/_ipx/...`) sont decouvertes par le
+      // parcours des liens, mais leur generation ne rend jamais la main : la
+      // boucle de pre-rendu reste bloquee et la sortie finale n'est jamais
+      // construite, le tout en annoncant un succes. Les exclure la debloque.
+      ignore: [
+        '/_ipx',
+        // Espace prive, page de debogage et demos figees : hors livrable public.
+        /^\/[a-z]{2}\/dashboard/,
+        /^\/[a-z]{2}\/echo/,
+        /^\/[a-z]{2}\/villa-des-alizes-content/,
+        /^\/[a-z]{2}\/villa-des-alizes-mobile/,
+      ],
+      // Les images transformees a la volee (`/_ipx/...`) sont decouvertes par le
+      // parcours des liens, mais leur generation ne rend jamais la main : la
+      // boucle de pre-rendu reste bloquee et la sortie finale n'est jamais
+      // construite (ni `_nuxt/`, ni images, ni polices), le tout en annoncant un
+      // succes. Les exclure debloque `nuxt generate`.
+      // Routes serveur transformees en fichiers : sans elles, la sortie statique
+      // reclame un serveur qui n'existe plus (thème absent, page sans couleurs).
+      routes: ['/themes.css', '/themes.json'],
+    },
   },
 
   routeRules: {
@@ -143,6 +179,46 @@ export default defineNuxtConfig({
           '@DigitalOrchestrationCore': resolve(process.env.DIGITAL_ORCHESTRATION_CORE_PATH.trim()),
         }
       : {}),
+  },
+
+  icon: {
+    // Les icones sont normalement dessinees par une feuille generee a la volee,
+    // ou chargees depuis le reseau par script. En sortie statique, ni l'un ni
+    // l'autre n'aboutit : on les rend directement en SVG dans la page.
+    mode: 'svg',
+    // Collections resolues depuis les paquets installes : sans declaration
+    // explicite, une partie des icones n'est pas trouvee au rendu et sort vide.
+    // Les icones issues du contenu (menu, coordonnees, cartes) ne sont pas
+    // detectables dans le code source : sans declaration explicite, elles sont
+    // cherchees sur le reseau au rendu et sortent vides du livrable statique.
+    clientBundle: {
+      scan: true,
+      icons: [
+        'lucide:bed-double',
+        'lucide:building-2',
+        'lucide:dot',
+        'lucide:expand',
+        'lucide:mail',
+        'lucide:map-pin',
+        'lucide:menu',
+        'lucide:quote',
+        'simple-icons:facebook',
+        'simple-icons:instagram',
+        'simple-icons:whatsapp',
+        'heroicons:arrow-down',
+        'heroicons:chevron-left',
+        'heroicons:chevron-right',
+        'heroicons:play-solid',
+      ],
+    },
+  },
+
+  image: {
+    // En sortie statique, le transformateur d'images serveur (`/_ipx/...`) n'existe
+    // plus. Sa variante `ipxStatic`, censee ecrire les images au build, bloque la
+    // boucle de pre-rendu indefiniment sur ce projet. On sert donc les fichiers
+    // d'origine : plus lourds, mais autonomes et fiables.
+    provider: isStaticOutput ? 'none' : 'ipx',
   },
 
   modules: [

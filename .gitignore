@@ -53,3 +53,6 @@ firefox.*
 
 # Bootstrap state
 scripts/bootstrap-data/.state
+
+# Artefacts de build temporaires (maquette HTML)
+.tmp

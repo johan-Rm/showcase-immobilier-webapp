@@ -20,6 +20,27 @@
       />
     </PropertyDetailDrawer>
 
+    <!-- Variante de livrable statique : le panneau ci-dessus s'appuie sur une
+         fenetre modale, qui n'est jamais rendue cote serveur. On rend donc son
+         contenu directement, ancre a gauche, pour documenter cet etat. -->
+    <div
+      v-if="isStaticPanelsOpen"
+      class="bg-background absolute inset-y-0 left-0 z-50 w-[38%] max-w-xl overflow-y-auto shadow-2xl"
+      aria-label="Détails du bien"
+    >
+      <PropertyDetailPanel
+        :property="property"
+        :place-label="panelData.placeLabel"
+        :offer-label="panelData.offerLabel"
+        :listing-label="panelData.listingLabel"
+        :category-label="panelData.categoryLabel"
+        :summary-items="panelData.summaryItems"
+        :detail-items="panelData.detailItems"
+        :feature-items="panelData.featureItems"
+        :sections="panelData.sections"
+      />
+    </div>
+
     <div class="flex h-full min-h-screen w-full min-w-0 justify-center overflow-hidden">
       <div class="relative h-full min-h-screen w-full overflow-hidden">
         <div
@@ -222,7 +243,12 @@ const galleryCarousel = useTemplateRef<GalleryCarouselExpose>('galleryCarousel')
 const detailPanel = useTemplateRef<DetailPanelExpose>('detailPanel')
 
 // 5. Etat local
-const isAsideOpen = ref(false)
+// Variante de livrable : le panneau de details s'ouvre normalement au clic.
+// Sans script, il resterait inaccessible ; ce drapeau permet d'en produire une
+// version deja ouverte, sans effet sur le site vivant ni sur le livrable normal.
+const isStaticPanelsOpen = useRuntimeConfig().public.staticPanelsOpen === true
+
+const isAsideOpen = ref(isStaticPanelsOpen)
 const activeGalleryIndex = ref(0)
 const galleryAutoplayResumeTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
@@ -246,7 +272,13 @@ const getCarouselImagePriority = (index: number): 'high' | 'auto' | 'low' => {
 }
 
 // 8. Computed UI-ready
-const isDetailScreenActive = computed(() => screenStatus.value.currentId === SCREEN_ID)
+// Sortie statique : aucun ecran ne devient actif faute de script. Les blocs
+// d'information de la fiche (titre, prix, caracteristiques) resteraient masques.
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
+
+const isDetailScreenActive = computed(
+  () => isStaticOutput || screenStatus.value.currentId === SCREEN_ID,
+)
 
 const galleryImages = computed<GalleryCarouselItem[]>(() => {
   const list = property.value?.associatedMedia

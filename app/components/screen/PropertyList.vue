@@ -187,7 +187,12 @@ const getViewportWidth = (): number => {
   return viewportW.value || 1
 }
 
-const getScreenWidth = (): string => `${Math.max(1, viewportW.value)}px`
+// Sortie statique : aucune mesure de fenetre n'aura lieu, la largeur vaudrait
+// 1 pixel et chaque bien serait invisible. Le CSS prend le relais.
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
+
+const getScreenWidth = (): string =>
+  isStaticOutput ? '100vw' : `${Math.max(1, viewportW.value)}px`
 const screenWidth = computed(getScreenWidth)
 
 const getPropertyItemsToWarm = (): PropertyItem[] => {

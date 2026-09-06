@@ -278,7 +278,21 @@ const quickActions = computed<QuickActionItem[]>(() => [
 ])
 
 const colorClass = computed<QuickActionsColorClass>(() => {
-  return props.colorClass ?? latestEffectiveColorClass.value
+  if (props.colorClass) return props.colorClass
+
+  // Sortie statique : voir `BpiFull.vue`, meme mecanisme d'observateur inactif
+  // au rendu serveur. La couleur est deduite du contexte visuel de l'ecran.
+  if (useRuntimeConfig().public.staticOutput === true) {
+    const meta = currentMeta.value
+    return shouldUseContrastColor(
+      meta?.layout?.contentZone,
+      meta?.layout?.imageZone ?? 'background',
+    )
+      ? CONTRAST_COLOR_CLASS
+      : DEFAULT_COLOR_CLASS
+  }
+
+  return latestEffectiveColorClass.value
 })
 
 const warmQuickActionEntry = (item: QuickActionItem) => {

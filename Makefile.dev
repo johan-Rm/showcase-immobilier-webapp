@@ -101,3 +101,33 @@ dev-content-sync:
 
 dev-content-sync-dry:
 	$(DOCKER_RUN) bun scripts/content-sync.ts --dry-run
+
+.PHONY: maquette-html
+
+maquette-html:
+	bash scripts/build/maquette-statique.sh
+
+.PHONY: generate-static
+
+generate-static:
+	STATIC_OUTPUT=true NODE_ENV=production bun run generate
+
+.PHONY: export-maquette
+
+# Exporte la maquette HTML autonome vers un dossier de livraison.
+# Usage : make export-maquette DEST=/chemin/vers/le/dossier
+DEST ?= exports/maquette-html
+
+export-maquette:
+	@test -n "$(DEST)" || { echo "DEST est requis : make export-maquette DEST=/chemin"; exit 1; }
+	STATIC_OUTPUT=true NODE_ENV=production bun run generate
+	@mkdir -p "$(DEST)"
+	cp -r .output/public/. "$(DEST)"/
+	bun scripts/build/maquette-html.ts "$(DEST)"
+	@echo "Variante des fiches, panneau de details ouvert"
+	@bash scripts/build/variante-panneaux.sh "$(DEST)"
+	@echo "Variante des accueils, menu principal ouvert"
+	@bash scripts/build/variante-menu.sh "$(DEST)"
+	@echo
+	@echo "Maquette exportee : $(DEST)"
+	@echo "Ouvrir : $(DEST)/fr/index.html"

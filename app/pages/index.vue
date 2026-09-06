@@ -206,7 +206,12 @@ const { next, screenUi } = useScreenSystem({
 // 5. Etat local
 // Les sections non critiques attendent que le runtime client soit prêt afin de préserver
 // le rendu initial, l'hydratation et le poids JavaScript de la première vue.
-const shouldRenderDeferredScreens = ref(false)
+// Les ecrans secondaires sont montes apres stabilisation du runtime, cote client.
+// En capture statique, aucun script ne s'executera : ils doivent donc etre rendus
+// des le serveur, faute de quoi la maquette se limite au premier ecran.
+const shouldRenderDeferredScreens = ref(
+  import.meta.prerender || useRuntimeConfig().public.staticOutput === true,
+)
 
 // 6. Data inputs
 // Donnée éditoriale normalisée de la page d'accueil, résolue par slug stable.

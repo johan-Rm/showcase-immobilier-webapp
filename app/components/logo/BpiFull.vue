@@ -111,20 +111,15 @@ const logoSizeClass = computed<string>(() => {
 /**
  * Visibilité effective :
  * - forçable via props
+ * - toujours visible en sortie statique : la visibilité est normalement pilotée
+ *   par l'écran actif du parcours, notion qui n'existe pas sans script et qui
+ *   laisserait le logo masqué dans le livrable
  * - sinon pilotée par le screen meta
  */
-const effectiveVisible = computed<boolean>(() => {
-  return props.forceVisible || latestExplicitVisible.value
-})
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
 
-/**
- * Couleur finale appliquée :
- * priorité :
- * 1. props.colorClass
- * 2. dernière couleur effective
- */
-const colorClass = computed<LogoColorClass>(() => {
-  return props.colorClass ?? latestEffectiveColorClass.value
+const effectiveVisible = computed<boolean>(() => {
+  return isStaticOutput || props.forceVisible || latestExplicitVisible.value
 })
 
 /**
@@ -135,6 +130,26 @@ const resolveContextualColorClass = (imageZone?: string): LogoColorClass => {
     ? CONTRAST_COLOR_CLASS
     : DEFAULT_COLOR_CLASS
 }
+
+/**
+ * Couleur finale appliquée :
+ * priorité :
+ * 1. props.colorClass
+ * 2. dernière couleur effective
+ */
+const colorClass = computed<LogoColorClass>(() => {
+  if (props.colorClass) return props.colorClass
+
+  // Sortie statique : la couleur est normalement memorisee par un observateur
+  // qui ne s'execute pas au rendu serveur, et l'en-tete est rendu avant que les
+  // ecrans n'aient declare leur contexte visuel. On retient la couleur de
+  // contraste, les ecrans du site presentant des fonds photographiques.
+  if (isStaticOutput) {
+    return resolveContextualColorClass(currentMeta.value?.layout?.imageZone ?? 'background')
+  }
+
+  return latestEffectiveColorClass.value
+})
 
 /**
  * Synchronisation de la visibilité depuis le screen meta
