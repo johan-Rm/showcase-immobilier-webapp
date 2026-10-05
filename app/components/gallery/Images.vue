@@ -81,7 +81,11 @@ let rafId: number | null = null
 // 8. Computed UI-ready
 const galleryItems = computed<GalleryImageItem[]>(() => props.items ?? [])
 
-const isActive = computed<boolean>(() => props.active || hasBeenActivated.value)
+// Sortie statique : le parcours par ecrans ne s'executera pas, aucun ecran ne
+// deviendra actif. Sans cette bascule, la galerie resterait vide dans le livrable.
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
+
+const isActive = computed<boolean>(() => isStaticOutput || props.active || hasBeenActivated.value)
 
 const criticalVisibleImageIndexes = computed<number[]>(() => {
   if (galleryItems.value.length === 0) return []
@@ -112,6 +116,10 @@ const areAllImagesLoaded = computed<boolean>(() => {
 })
 
 const isImageAllowed = (sourceIndex: number): boolean => {
+  // Sortie statique : le chargement progressif ne s'executera pas, toutes les
+  // images doivent etre presentes des la generation.
+  if (isStaticOutput) return true
+
   const isCriticalVisibleImage = criticalVisibleImageIndexes.value.includes(sourceIndex)
 
   if (isCriticalVisibleImage) return isActive.value

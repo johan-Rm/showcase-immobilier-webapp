@@ -71,7 +71,12 @@ export const useLogger = (options: LoggerOptions = {}): LoggerInstance => {
   }
 
   const shouldLog = (required: LogLevel) => {
-    if (!enabled) return false
+    // error et fatal restent émis même quand le logger est désactivé (production) :
+    // sans eux, les incidents seraient totalement invisibles, côté client comme SSR.
+    // Un `enabled: false` explicite passé en option garde la priorité et coupe tout.
+    const isCriticalLevel = required === 'fatal' || required === 'error'
+    if (options.enabled === false) return false
+    if (!enabled && !isCriticalLevel) return false
     if ((required === 'debug' || required === 'trace') && !debugEnabled) return false
     return levelWeight[required] <= levelWeight[level]
   }

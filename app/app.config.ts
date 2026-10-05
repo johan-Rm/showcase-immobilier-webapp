@@ -1,15 +1,15 @@
 export default defineAppConfig({
   global: {},
   organization: {
-    acronym: 'MLK',
-    fullName: 'MLK - My Little Kasbah',
-    alternateName: 'MLK - My Little Kasbah',
+    acronym: 'SI',
+    fullName: 'Showcase Immobilier',
+    alternateName: 'Showcase Immobilier',
     location: 'Essaouira',
-    image: '/images/mlk-logo.jpg',
-    email: ['contact@mlk-my-little-kasbah.immo'],
-    phoneNumbers: ['+33 (0)7 67 235 008', '+212 (0)7 26 403 203'],
+    image: '/favicon.svg',
+    email: ['contact@showcase-immobilier.example'],
+    phoneNumbers: [] as string[],
     description:
-      'MLK – My Little Kasbah accompagne vos projets immobiliers à Essaouira investissement, achat, vente et gestion locative avec une expertise locale et internationale.',
+      'Showcase Immobilier accompagne vos projets immobiliers à Essaouira investissement, achat, vente et gestion locative avec une expertise locale et internationale.',
   },
   menu: {
     mainMenuCenterImageUrl: '/images/essaouira-navigation-hero.jpg',

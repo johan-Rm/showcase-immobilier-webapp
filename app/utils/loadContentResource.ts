@@ -9,5 +9,8 @@ export const loadContentResource = async <T>(resource: ResourceKey, locale: stri
 
   return $fetch(`/api/content/${resource}` as string, {
     query: { locale: normalizedLocale },
+    // Borne l'attente : une requête suspendue ne doit pas bloquer l'init
+    // indéfiniment (le boot shell attend la fin de ces chargements).
+    timeout: 15_000,
   }) as unknown as T
 }

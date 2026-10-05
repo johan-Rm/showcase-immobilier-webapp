@@ -1,0 +1,36 @@
+message:
+  required:
+    - id
+    - firstName
+    - email
+    - message
+  properties:
+    id:
+      type: uuid
+      primary: true
+      default: generated
+    firstName:
+      type: string
+      maxLength: 120
+    lastName:
+      type: string
+      maxLength: 120
+    email:
+      type: string
+      maxLength: 254
+    phone:
+      type: string
+      maxLength: 40
+    message:
+      type: text
+      minLength: 10
+      maxLength: 5000
+    propertyValue:
+      type: object
+      additionalProperties:
+        type: string
+    website:
+      type: string
+      maxLength: 200
+      private: true
+      purpose: honeypot

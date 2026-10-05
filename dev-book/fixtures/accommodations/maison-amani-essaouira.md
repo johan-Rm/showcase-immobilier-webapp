@@ -30,56 +30,58 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: maison-amani-vue-ensemble-01
-    url: /poc/maison-amani-essaouira/maison-amani-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: Piscine et jardin planté de palmiers
     representativeOfPage: true
   - image: maison-amani-galerie-01
-    url: /poc/maison-amani-essaouira/maison-amani-galerie-01.jpg
+    url: /demo/property.svg
     caption: Galerie d'arches en pierre
   - image: maison-amani-exterieur-01
-    url: /poc/maison-amani-essaouira/maison-amani-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Terrasse repas couverte ouverte sur le jardin
   - image: maison-amani-exterieur-02
-    url: /poc/maison-amani-essaouira/maison-amani-exterieur-02.jpg
+    url: /demo/property.svg
     caption: Lounge de jardin sous pergola
   - image: maison-amani-exterieur-03
-    url: /poc/maison-amani-essaouira/maison-amani-exterieur-03.jpg
+    url: /demo/property.svg
     caption: Table de plein air sous la pergola
   - image: maison-amani-chambre-01
-    url: /poc/maison-amani-essaouira/maison-amani-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre aux accents vert d'eau
   - image: maison-amani-chambre-02
-    url: /poc/maison-amani-essaouira/maison-amani-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre aux tons bleu nuit
   - image: maison-amani-chambre-03
-    url: /poc/maison-amani-essaouira/maison-amani-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre chaleureuse et son coin salon
   - image: maison-amani-chambre-04
-    url: /poc/maison-amani-essaouira/maison-amani-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre ouverte sur la terrasse
   - image: maison-amani-salon-01
-    url: /poc/maison-amani-essaouira/maison-amani-salon-01.jpg
+    url: /demo/property.svg
     caption: Séjour coloré ouvert sur la salle à manger
   - image: maison-amani-salle-de-bains-01
-    url: /poc/maison-amani-essaouira/maison-amani-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Double vasque et grand miroir
   - image: maison-amani-salle-de-bains-02
-    url: /poc/maison-amani-essaouira/maison-amani-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Salle de bain avec baignoire
   - image: maison-amani-cuisine-01
-    url: /poc/maison-amani-essaouira/maison-amani-cuisine-01.jpg
+    url: /demo/property.svg
     caption: Cuisine-bar ouverte sur le jardin
   - image: maison-amani-salon-02
-    url: /poc/maison-amani-essaouira/maison-amani-salon-02.jpg
+    url: /demo/property.svg
     caption: Salon aux banquettes intégrées
   - image: maison-amani-salon-03
-    url: /poc/maison-amani-essaouira/maison-amani-salon-03.jpg
+    url: /demo/property.svg
     caption: Salon à la baie ouverte sur la piscine
   - image: maison-amani-patio-01
-    url: /poc/maison-amani-essaouira/maison-amani-patio-01.jpg
+    url: /demo/property.svg
     caption: Patio planté d'un olivier
 realEstateAgent: null
 highlight: null

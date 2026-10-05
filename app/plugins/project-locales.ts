@@ -8,18 +8,24 @@ import { FALLBACK_LOCALE, SUPPORTED_LOCALES } from '#shared/utils/locale'
  * En cas d'echec API, le defaut (catalogue complet) est conserve afin de ne
  * jamais masquer une langue par erreur reseau.
  */
-export default defineNuxtPlugin(async () => {
-  const config = useState<ProjectLocalesConfig>('project.locales', () => ({
-    sourceLocale: FALLBACK_LOCALE,
-    enabledLocales: [...SUPPORTED_LOCALES],
-  }))
+export default defineNuxtPlugin({
+  name: 'project-locales',
+  // N'empeche pas les plugins suivants de demarrer pendant l'appel API ;
+  // Nuxt attend toujours sa resolution avant le rendu et les middlewares.
+  parallel: true,
+  async setup() {
+    const config = useState<ProjectLocalesConfig>('project.locales', () => ({
+      sourceLocale: FALLBACK_LOCALE,
+      enabledLocales: [...SUPPORTED_LOCALES],
+    }))
 
-  // Cote client, la valeur provient deja du payload SSR.
-  if (import.meta.client) return
+    // Cote client, la valeur provient deja du payload SSR.
+    if (import.meta.client) return
 
-  try {
-    config.value = await $fetch<ProjectLocalesConfig>('/api/project-config')
-  } catch (error) {
-    console.error('[project-locales] resolution SSR impossible, defaut conserve:', error)
-  }
+    try {
+      config.value = await $fetch<ProjectLocalesConfig>('/api/project-config')
+    } catch (error) {
+      console.error('[project-locales] resolution SSR impossible, defaut conserve:', error)
+    }
+  },
 })

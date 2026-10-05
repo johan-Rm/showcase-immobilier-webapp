@@ -1,0 +1,31 @@
+webPage:
+  id:
+    type: integer
+  slug:
+    type: string
+  inLanguage:
+    type: string
+  metaTitle:
+    type: string
+  metaDescription:
+    type: string
+  associatedMedia:
+    type: array<uuid>
+  headline:
+    type: string
+  alternativeHeadline:
+    type: string
+  highlight:
+    type: string
+  articleSection:
+    type: string
+  keywords:
+    type: array<string>
+  datePublished:
+    type: datetime
+  dateCreated:
+    type: datetime
+  dateModified:
+    type: datetime
+  body:
+    type: string

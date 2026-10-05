@@ -1,9 +1,9 @@
 <template>
-  <!-- Logo MLK en haut à gauche -->
+  <!-- Logo Showcase Immobilier en haut à gauche -->
   <div
     class="pointer-events-auto absolute top-6 left-5 z-10 sm:top-8 sm:left-8 lg:top-10 lg:left-10"
   >
-    <LogoMlkFull color-class="text-white/90" size="lg" force-visible />
+    <LogoShowcaseFull color-class="text-white/90" size="lg" force-visible />
   </div>
 
   <!-- Zone centrée : infos du bien actif -->

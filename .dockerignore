@@ -17,3 +17,6 @@ schemas/interfaces
 # Certificats TLS locaux et captures réseau (ne jamais embarquer dans l'image)
 nginx/certs
 *.har
+
+# Runtime media are mounted separately; never bake originals into images.
+public/images/

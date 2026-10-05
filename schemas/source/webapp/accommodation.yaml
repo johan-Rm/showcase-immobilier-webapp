@@ -1,0 +1,143 @@
+accommodation:
+  required:
+    - identifier
+    - name
+    - description
+    - slug
+    - category
+    - offer
+    - place
+    - associatedMedia
+    - isActive
+    - realEstateListing
+    - metaTitle
+    - metaDescription
+  properties:
+    # --- Identité & référencement ---
+
+    identifier:
+      type: string
+      # Identifiant unique du bien (ex: référence interne ou ID externe)
+    slug:
+      type: string
+      # Segment d'URL lisible, utilisé pour les routes publiques (ex: villa-piscine-saint-tropez)
+    name:
+      type: string
+      # Titre principal affiché sur la fiche bien
+    label:
+      type: string
+      # Libellé court alternatif (ex: badge, accroche courte) — optionnel
+    highlight:
+      type: string
+      # Phrase d'accroche mise en avant (ex: "Vue mer exceptionnelle") — optionnel
+    body:
+      type: string
+      # Contenu riche long (description étendue, markdown ou HTML) — optionnel
+
+    # --- Catégorisation & tags ---
+
+    category:
+      type: AccommodationCategory
+      # Type de bien : maison, appartement, terrain, etc.
+    tags:
+      type: array<CategoryCode>
+      # Tags libres pour la navigation filtrée ou le merchandising
+
+    # --- Localisation ---
+
+    place:
+      type: AccommodationPlace
+      # Données géographiques : commune, département, coordonnées, etc.
+
+    # --- Caractéristiques physiques ---
+
+    yearBuilt:
+      type: number
+      # Année de construction du bien — optionnel
+    floorSize:
+      type: string
+      # Surface habitable (ex: "120 m²") — optionnel
+    areaSize:
+      type: string
+      # Surface totale en m² (numérique, pour les calculs et filtres)
+    areaTerrace:
+      type: string
+      # Surface de la terrasse en m² — optionnel
+    landArea:
+      type: string
+      # Surface du terrain (ex: "500 m²") — optionnel
+    level:
+      type: number
+      # Indique le nombre d'étages (ex: 0 pour une maison de plain-pied, 1 pour un appartement au 1er étage) — optionnel
+    numberOfRooms:
+      type: number
+      # Nombre total de pièces — optionnel
+    numberOfBedrooms:
+      type: number
+      # Nombre de chambres — optionnel
+    numberOfBathroomsTotal:
+      type: number
+      # Nombre total de salles de bain et salles d'eau — optionnel
+    numberOfGarages:
+      type: number
+      # Nombre de garages ou emplacements véhicule — optionnel
+    occupancy:
+      type: number
+      # Capacité d'accueil maximale (personnes) — optionnel
+
+    # --- Équipements & qualités ---
+
+    amenityFeature:
+      type: array<CategoryCode>
+      # Liste des équipements (piscine, jacuzzi, alarme…) sous forme de codes catégorie
+    qualities:
+      type: array<PropertyValue>
+      # Valeurs qualitatives libres (ex: exposition, vue, standing) sous forme clé/valeur
+
+    # --- Offre commerciale ---
+
+    offer:
+      type: Offer
+      # Prix, devise et disponibilité du bien (vente, location, vendu…)
+    realEstateListing:
+      type: RealEstateListing
+      # Données de l'annonce : portail de diffusion, référence externe, etc.
+
+    # --- Médias ---
+
+    associatedMedia:
+      type: array<AccommodationMedia>
+      # Photos, vidéos et documents associés au bien (ordonnés)
+
+    # --- Composition de la page ---
+
+    hasPart:
+      type: array<AccommodationComponent>
+      # Blocs de contenu ("écrans") composant la fiche — structure partagée, textes localisés
+
+    # --- Avis & contenu éditorial ---
+
+    review:
+      type: string
+      # Avis ou coup de cœur rédigé par l'agence — optionnel
+
+    # --- SEO ---
+
+    metaTitle:
+      type: string
+      # Titre de la balise <title> pour le référencement naturel
+    metaDescription:
+      type: string
+      # Description de la balise <meta name="description"> pour le référencement naturel
+
+    # --- Cycle de vie ---
+
+    isActive:
+      type: boolean
+      # Contrôle la visibilité publique du bien (false = masqué du site)
+    dateCreated:
+      type: string
+      # Date de création de la fiche dans le système — optionnel
+    dateModified:
+      type: string
+      # Date de dernière modification — optionnel

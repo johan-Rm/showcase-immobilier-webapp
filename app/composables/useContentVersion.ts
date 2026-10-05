@@ -13,6 +13,11 @@ const DEFAULT_CONTENT_VERSION_INTERVAL_MS = 30_000
 export const useContentVersion = (options: UseContentVersionOptions = {}): void => {
   if (!import.meta.client) return
 
+  // Sortie statique : aucune API derriere la page. Interroger la version du
+  // contenu produirait une erreur reseau a chaque intervalle, sans objet
+  // puisque le contenu est fige au moment de la generation.
+  if (useRuntimeConfig().public.staticOutput === true) return
+
   const { localeSetting } = useLang()
   const { loadAccommodations } = useAccommodation()
   const intervalMs = options.intervalMs ?? DEFAULT_CONTENT_VERSION_INTERVAL_MS

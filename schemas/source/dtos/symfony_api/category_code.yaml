@@ -1,0 +1,13 @@
+categoryCode:
+  id:
+    type: uuid
+  codeValue:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+  incodeSet:
+    type: string
+  text:
+    type: string

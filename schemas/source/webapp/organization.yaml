@@ -1,0 +1,40 @@
+organization:
+  required:
+    - name
+    - email
+    - image
+  properties:
+    name:
+      type: string
+    acronym:
+      type: string
+    fullName:
+      type: string
+    alternateName:
+      type: string
+    legalName:
+      type: string
+    description:
+      type: string
+    url:
+      type: URL
+    mainEntityOfPage:
+      type: URL
+    location:
+      type: string
+    phoneNumbers:
+      type: array<string>
+    email:
+      type: array<string>
+    foundingDate:
+      type: date
+    address: # ex-addresses
+      type: array<PostalAddress>
+    numberOfEmployees:
+      type: QuantitativeValue
+    image: # ex-primaryImage / secondaryImage
+      type: URL
+    identifier: # ex-slug
+      type: string
+    additionalProperty: # ex-type, numberOfProjects, etc.
+      type: array<PropertyValue>

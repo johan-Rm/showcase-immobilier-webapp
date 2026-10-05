@@ -5,17 +5,15 @@ indépendante de Vue, Nuxt et Pinia.
 
 ## Rôle et responsabilités
 
-- logique métier pure, sans dépendance au framework de rendu
-- appels clients vers l'API Symfony (`api/`)
-- mapping API → types UI (`mapper/`)
-- génération de données structurées Schema.org (`seo/`)
-- utilitaires Nuxt Content / MDC (`content/`)
-- génération d'artefacts TypeScript depuis les schémas YAML (`converter/schema/`)
-- résolution de chemins pour les schémas (`infra/resolver/`)
-- utilitaires CLI et système de fichiers (`utils/`)
+Cette couche porte la logique métier pure de l'application, indépendante du framework de
+rendu : transformation et mapping de données, appels aux backends, génération d'artefacts
+et de données dérivées. Elle reçoit ses entrées en paramètres et retourne des données —
+elle ne connaît ni le cycle de vie des composants, ni l'état réactif, ni le store. Elle est
+consommée par les composables, les pages et la couche serveur, et reste testable hors
+runtime Nuxt.
 
-Cette couche est consommée par les composables, les pages et le `server/`. Elle ne connaît ni
-le cycle de vie des composants, ni l'état réactif, ni le store.
+Cette couche n'a pas de rôle framework : elle est agnostique par contrat (voir la règle
+« Zéro dépendance framework » ci-dessous).
 
 ## Conventions techniques
 

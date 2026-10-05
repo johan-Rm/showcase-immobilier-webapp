@@ -1,0 +1,3 @@
+realEstateAgent:
+  employee:
+    type: Person

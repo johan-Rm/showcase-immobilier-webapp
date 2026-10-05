@@ -30,56 +30,58 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: riad-assala-vue-ensemble-01
-    url: /poc/riad-assala-essaouira/riad-assala-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: Le riad et sa piscine au crépuscule
     representativeOfPage: true
   - image: riad-assala-patio-01
-    url: /poc/riad-assala-essaouira/riad-assala-patio-01.jpg
+    url: /demo/property.svg
     caption: Patio couvert aux lanternes et tapis
   - image: riad-assala-piscine-01
-    url: /poc/riad-assala-essaouira/riad-assala-piscine-01.jpg
+    url: /demo/property.svg
     caption: Piscine sous pergola et zellige
   - image: riad-assala-spa-01
-    url: /poc/riad-assala-essaouira/riad-assala-spa-01.jpg
+    url: /demo/property.svg
     caption: Jacuzzi extérieur entouré de verdure
   - image: riad-assala-exterieur-01
-    url: /poc/riad-assala-essaouira/riad-assala-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Jardins arborés et dépendances
   - image: riad-assala-chambre-01
-    url: /poc/riad-assala-essaouira/riad-assala-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre aux teintes grenat et fenêtres cintrées
   - image: riad-assala-chambre-02
-    url: /poc/riad-assala-essaouira/riad-assala-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre épurée aux tons neutres
   - image: riad-assala-chambre-03
-    url: /poc/riad-assala-essaouira/riad-assala-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre aux rideaux rouges et décor ciselé
   - image: riad-assala-chambre-04
-    url: /poc/riad-assala-essaouira/riad-assala-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre chaleureuse aux coussins brodés
   - image: riad-assala-salon-01
-    url: /poc/riad-assala-essaouira/riad-assala-salon-01.jpg
+    url: /demo/property.svg
     caption: Salon marocain aux banquettes basses
   - image: riad-assala-salle-de-bains-01
-    url: /poc/riad-assala-essaouira/riad-assala-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Double vasque en zellige bleu
   - image: riad-assala-salle-de-bains-02
-    url: /poc/riad-assala-essaouira/riad-assala-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Salle de bain aux faïences ciselées
   - image: riad-assala-hammam-01
-    url: /poc/riad-assala-essaouira/riad-assala-hammam-01.jpg
+    url: /demo/property.svg
     caption: Hammam habillé de zellige
   - image: riad-assala-petit-dejeuner-01
-    url: /poc/riad-assala-essaouira/riad-assala-petit-dejeuner-01.jpg
+    url: /demo/property.svg
     caption: Petit-déjeuner dressé sur table en zellige
   - image: riad-assala-salon-02
-    url: /poc/riad-assala-essaouira/riad-assala-salon-02.jpg
+    url: /demo/property.svg
     caption: Salon ouvert sur le jardin par les arches
   - image: riad-assala-patio-02
-    url: /poc/riad-assala-essaouira/riad-assala-patio-02.jpg
+    url: /demo/property.svg
     caption: Patio planté aux assises colorées
 realEstateAgent: null
 highlight: null

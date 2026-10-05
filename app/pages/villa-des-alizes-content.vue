@@ -658,13 +658,7 @@ import type { ComponentPublicInstance } from 'vue'
 type ScreenLayout = 'split' | 'full-overlay' | 'full' | 'triptych' | 'carousel' | 'duo' | 'contact'
 
 type ScreenTemplate =
-  | 'SCREEN_01'
-  | 'SCREEN_02'
-  | 'SCREEN_03'
-  | 'SCREEN_04'
-  | 'SCREEN_05'
-  | 'SCREEN_06'
-  | 'CONTACT'
+  'SCREEN_01' | 'SCREEN_02' | 'SCREEN_03' | 'SCREEN_04' | 'SCREEN_05' | 'SCREEN_06' | 'CONTACT'
 
 // Variante chromatique du panneau SCREEN_02.
 type OverlayMode = 'dark' | 'light'

@@ -6,15 +6,15 @@
       <section class="flex flex-col gap-16 text-center">
         <div class="space-y-4">
           <div class="flex items-center justify-center gap-2">
-            <LogoGd class="h-5 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
+            <LogoShowcaseMark class="h-5 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
             <p class="text-xs font-semibold tracking-[0.18em] uppercase">
               <span class="text-white/40">Dashboard</span>
-              <span class="text-[#6B7A4A]"> Graines Digitales</span>
+              <span class="text-[#6B7A4A]"> Showcase Immobilier</span>
             </p>
           </div>
 
           <h1 class="text-4xl leading-tight text-white uppercase sm:text-5xl lg:text-6xl">
-            MLK - My Little Kasbah
+            Showcase Immobilier
           </h1>
         </div>
 
@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 // 1. Imports
-import LogoGd from '~/assets/logo/logo_gd.svg'
+import LogoShowcaseMark from '~/assets/logo/showcase-picto.svg'
 
 // 4. Composables, stores, routeur
 const { loggedIn, fetch } = useUserSession()

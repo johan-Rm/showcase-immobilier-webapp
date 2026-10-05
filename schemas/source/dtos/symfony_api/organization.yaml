@@ -1,0 +1,23 @@
+organization:
+  id:
+    type: string
+  name:
+    type: string
+  slug:
+    type: string
+  acronym:
+    type: string|null
+  fullName:
+    type: string|null
+  alternateName:
+    type: string|null
+  location:
+    type: string|null
+  image:
+    type: string|null
+  email:
+    type: array<string>
+  phoneNumbers:
+    type: array<string>
+  description:
+    type: string|null

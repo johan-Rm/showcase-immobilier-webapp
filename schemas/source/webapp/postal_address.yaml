@@ -1,0 +1,61 @@
+postalAddress:
+  additionalType:
+    type: array<string|URL>
+  addressCountry:
+    type: Country|string
+  addressLocality:
+    type: string
+  addressRegion:
+    type: AdministrativeArea|string
+  alternateName:
+    type: string
+  areaServed:
+    type: AdministrativeArea|GeoShape|Place|string
+  availableLanguage:
+    type: Language|string
+  contactOption:
+    type: ContactPointOption
+  contactType:
+    type: string
+  description:
+    type: string|TextObject
+  disambiguatingDescription:
+    type: string
+  email:
+    type: string
+  extendedAddress:
+    type: string
+  faxNumber:
+    type: string
+  hoursAvailable:
+    type: OpeningHoursSpecification
+  identifier:
+    type: PropertyValue|string|URL
+  image:
+    type: array<MediaObject|URL>
+  mainEntityOfPage:
+    type: array<CreativeWork|URL>
+  name:
+    type: string
+  owner:
+    type: Organization|Person
+  postOfficeBoxNumber:
+    type: string
+  postalCode:
+    type: string
+  potentialAction:
+    type: array<Action>
+  productSupported:
+    type: Product|string
+  sameAs:
+    type: array<URL>
+  serviceArea:
+    type: AdministrativeArea|GeoShape|Place
+  streetAddress:
+    type: string
+  subjectOf:
+    type: array<CreativeWork|Event>
+  telephone:
+    type: string
+  url:
+    type: array<URL>

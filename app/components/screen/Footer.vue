@@ -28,7 +28,10 @@
               Une colonne sur mobile,
               deux colonnes en grand écran.
             -->
-          <div class="grid flex-1 grid-cols-1 content-center gap-6 md:grid-cols-2">
+          <div
+            v-if="socialButtonLinks.length || contactEntries.length"
+            class="grid flex-1 grid-cols-1 content-center gap-6 md:grid-cols-2"
+          >
             <!--
                 Colonne des liens sociaux
                 et du contact direct.
@@ -284,8 +287,8 @@ type ContactEntry = {
 
 const SCREEN_ID = 'screen-footer'
 const COLUMN_TEMPLATE: ScreenColumnTemplate = 'split-67-33'
-const DEFAULT_BACKGROUND_IMAGE_URL = '/images/essaouira-navigation-hero.jpg'
-const DEFAULT_BACKGROUND_IMAGE_ALT = 'MLK - My Little Kasbah'
+const DEFAULT_BACKGROUND_IMAGE_URL = '/demo/coast.svg'
+const DEFAULT_BACKGROUND_IMAGE_ALT = 'Showcase Immobilier'
 const LINK_FILL_TEXT_CLASS = 'from-secondary to-foreground/70 inline-block'
 
 // 3. Props et emits

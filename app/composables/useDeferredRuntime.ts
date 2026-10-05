@@ -28,17 +28,20 @@
  * @see ../../docs/2.architecture/4.ssr-safety.md
  */
 export const useDeferredRuntime = () => {
+  // Sortie statique : le plugin client qui ouvre ces paliers ne s'executera jamais.
+  // Sans cette bascule, tous les visuels differes resteraient absents du livrable.
+  const isStaticOutput = useRuntimeConfig().public.staticOutput === true
   // Premier palier : la navigation Nuxt est terminée et la page peut être considérée visible.
   // Il sert de point de départ aux traitements différés enchaînés ensuite par le plugin.
-  const pageFinished = useState<boolean>('runtime.page-finished', () => false)
+  const pageFinished = useState<boolean>('runtime.page-finished', () => isStaticOutput)
 
   // Ce palier s'ouvre après la fin de navigation et un délai post-rendu contrôlé.
   // Il sert de garde pour les travaux UI qui ne doivent pas concurrencer le rendu initial.
-  const runtimeReady = useState<boolean>('deferred.runtime.ready', () => false)
+  const runtimeReady = useState<boolean>('deferred.runtime.ready', () => isStaticOutput)
 
   // Ce second palier attend une interaction utilisateur ou un fallback temporel.
   // Il reserve les tâches encore moins prioritaires aux phases vraiment passives.
-  const passiveReady = useState<boolean>('deferred.passive.ready', () => false)
+  const passiveReady = useState<boolean>('deferred.passive.ready', () => isStaticOutput)
 
   return {
     pageFinished: readonly(pageFinished),

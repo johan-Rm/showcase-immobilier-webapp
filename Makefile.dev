@@ -94,10 +94,40 @@ quality-generate-schemas:
 	$(DOCKER_RUN) bun run scripts/run-schema-hook.mjs
 
 quality-conventions-check:
-	$(DOCKER_RUN) sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards"
+	docker compose -f $(COMPOSE_FILE) run --rm --volume "$(CURDIR)/.git:/app/.git:ro" webapp-localhost sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards && bun run check:services:no-framework-imports"
 
 dev-content-sync:
 	$(DOCKER_RUN) bun scripts/content-sync.ts
 
 dev-content-sync-dry:
 	$(DOCKER_RUN) bun scripts/content-sync.ts --dry-run
+
+.PHONY: maquette-html
+
+maquette-html:
+	bash scripts/build/maquette-statique.sh
+
+.PHONY: generate-static
+
+generate-static:
+	STATIC_OUTPUT=true NODE_ENV=production bun run generate
+
+.PHONY: export-maquette
+
+# Exporte la maquette HTML autonome vers un dossier de livraison.
+# Usage : make export-maquette DEST=/chemin/vers/le/dossier
+DEST ?= exports/maquette-html
+
+export-maquette:
+	@test -n "$(DEST)" || { echo "DEST est requis : make export-maquette DEST=/chemin"; exit 1; }
+	STATIC_OUTPUT=true NODE_ENV=production bun run generate
+	@mkdir -p "$(DEST)"
+	cp -r .output/public/. "$(DEST)"/
+	bun scripts/build/maquette-html.ts "$(DEST)"
+	@echo "Variante des fiches, panneau de details ouvert"
+	@bash scripts/build/variante-panneaux.sh "$(DEST)"
+	@echo "Variante des accueils, menu principal ouvert"
+	@bash scripts/build/variante-menu.sh "$(DEST)"
+	@echo
+	@echo "Maquette exportee : $(DEST)"
+	@echo "Ouvrir : $(DEST)/fr/index.html"

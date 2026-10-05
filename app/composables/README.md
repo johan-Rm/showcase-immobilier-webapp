@@ -1,49 +1,85 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/app/composables/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# app/composables/
 
-# Dossier `composables`
+Passerelle réactive entre l'UI et la logique applicative.
 
-## 1. Rôle et responsabilités
+## Rôle et responsabilités
 
-- Fonctions de composition Vue réutilisables pour extraire la logique UI.
-- Gestion d’état/réactivité et partage de code entre composants.
-- Point d’auto-import Nuxt (`camelCase` du fichier) utilisable en `.js/.ts/.vue`.
-- Pas de dépendance aux composants : rester léger, stateless côté composable.
-- Vérifier l’existence dans [VueUse](https://vueuse.org/functions.html) avant de créer.
-- Types générés via `.nuxt/imports.d.ts` (lancer `nuxt dev/build/prepare`).
+**Rôle Nuxt :** un composable est une fonction de composition auto-importée qui encapsule
+une logique réactive réutilisable — état, valeurs dérivées (`computed`), watchers, cycle de
+vie — exposée via une API nommée explicite. Nuxt auto-importe les exports du premier niveau
+du dossier. Réf. : [doc Nuxt — `composables/`](https://nuxt.com/docs/4.x/directory-structure/app/composables).
 
----
+**Rôle attendu :** la couche composable est la passerelle réactive entre les couches
+d'affichage (pages, composants) et les couches de données (stores, services). Elle
+orchestre la réactivité — état, valeurs dérivées, synchronisation UI / URL / cycle de vie —
+et expose à l'affichage des données déjà prêtes à être rendues, afin que les composants
+restent passifs. La logique métier pure ne lui appartient pas : elle est déléguée aux
+services. Elle distingue explicitement l'état local qu'elle crée de l'état global qu'elle
+partage.
 
-## 2. Bonnes pratiques
+La place de cette couche dans l'architecture et la structure interne recommandée sont
+définies dans
+[docs/2.architecture/8.composables-standard.md](../../docs/2.architecture/8.composables-standard.md).
 
-- Un composable = une responsabilité ; exports nommés explicites.
-- Rester pur autant que possible ; pas de side-effects inattendus.
-- Documenter brièvement les cas limites dans le fichier concerné.
-- Les composables de synchronisation runtime, comme `useContentVersion`, doivent rester
-  client-only, SSR-safe et stopper leurs timers au démontage.
+## Conventions techniques
 
-## 3. Conventions de nommage
+### Responsabilité unique
 
-- Fichiers en `camelCase.ts`.
-- Préfixe obligatoire « use » + nom descriptif (`useFoo`, `useFeatureToggle`).
+Un composable a une responsabilité claire et identifiable (`useSearch`, `useUserProfile`,
+`useInfiniteScroll`) — pas de fourre-tout (`useGlobalStuff`, `useHelpers`).
 
-## 4. Performance
+### API explicite
 
-- Fonctions courtes, sans I/O bloquantes.
-- Éviter les allocations inutiles et la duplication de logique.
+Les noms exposés dans le `return {}` reflètent le métier (`users`, `isLoading`,
+`refreshUsers`), pas la mécanique (`data`, `loading`, `execute`).
 
-## 5. Structure et organisation
+### Side effects explicites
 
-- Nuxt scanne uniquement le premier niveau de `app/composables/`.
-- Pour les sous-dossiers, re-exporter via `app/composables/index.ts` ou configurer `imports.dirs`.
-
----
-
-### Ex. : Structure de template
+Aucun appel API ni comportement critique déclenché implicitement à l'invocation du
+composable. L'appelant déclenche l'effet lui-même :
 
 ```ts
-// app/composables/useFoo.ts
-export const useFoo = () => useState('foo', () => 'bar')
+const { loadUser } = useUser()
+await loadUser()
 ```
+
+### Watchers limités
+
+Les `watch()` restent rares et justifiés : synchronisation URL, déclenchement API,
+interaction externe. Préférer `computed` et une architecture déclarative.
+
+### Pas de composable « magique »
+
+Un composable ne modifie pas silencieusement des stores, ne déclenche pas d'analytics
+cachés ni d'appels réseau invisibles. Les effets sont lisibles et prévisibles.
+
+### Séparer orchestration et logique métier
+
+Le composable orchestre la réactivité Vue. La transformation métier est externalisée dans
+`services/`, `utils/` ou des fonctions pures.
+
+### Taille et nombre de retours
+
+Un composable volumineux cache plusieurs responsabilités : découper en composables
+spécialisés. Un composable (`use*.ts`) ne doit pas exposer plus de 8 valeurs dans son
+`return {}`.
+
+Règle YAML : `app-composable-many-returns`
+
+### État local vs état partagé
+
+Le composable exprime clairement s'il crée un état local (`ref`) ou partage un état
+global (`useState('key', ...)`).
+
+### Composables orientés feature
+
+Préférer des composables métier cohérents (`usePropertyFilters`, `useBookingCalendar`)
+à une accumulation de micro-composables techniques.
+
+### Documentation des effets
+
+Les comportements importants (synchronisation URL, refresh automatique…) sont documentés
+en tête de composable.
+
+Les règles transverses de la couche `app/` s'appliquent également
+(voir [../README.md](../README.md)).

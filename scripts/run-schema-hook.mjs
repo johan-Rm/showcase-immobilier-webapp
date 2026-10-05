@@ -10,6 +10,6 @@ const jiti = require('jiti')(__filename)
 const { config: loadEnv } = require('dotenv')
 loadEnv({ path: resolve(__dirname, '../.env') })
 
-const { runSchemaHook } = jiti(resolve(__dirname, '../services/hooks/schema.ts'))
+const { runSchemaHook } = await jiti.import(resolve(__dirname, './build/schema-hook.ts'))
 
 await runSchemaHook()

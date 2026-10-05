@@ -12,24 +12,10 @@ export type ScreenColumnTemplateDefinition = {
 }
 
 export type ScreenContentZonePlacement =
-  | 'full'
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'multiple'
-  | 'none'
+  'full' | 'top' | 'bottom' | 'left' | 'right' | 'multiple' | 'none'
 
 export type ScreenImageZonePlacement =
-  | 'none'
-  | 'full'
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'background'
-  | 'center'
-  | 'multiple'
+  'none' | 'full' | 'top' | 'bottom' | 'left' | 'right' | 'background' | 'center' | 'multiple'
 
 export type ScreenLayoutMeta = {
   column?: ScreenColumnTemplate
@@ -273,7 +259,19 @@ export const useScreenSystem = <T extends string = string>(
 
   const currentMeta = computed<ScreenMeta | null>(() => {
     const id = screenStatus.value.currentId
-    if (!id) return null
+
+    if (!id) {
+      // Sortie statique : aucun ecran ne devient actif faute de script. On
+      // retombe sur le premier ecran declare, ce qui donne au logo, aux
+      // couleurs et aux blocs conditionnes un etat coherent dans le livrable.
+      if (useRuntimeConfig().public.staticOutput === true) {
+        const [firstMeta] = Object.values(screenStatus.value.screens)
+        return firstMeta ?? null
+      }
+
+      return null
+    }
+
     return screenStatus.value.screens[id] ?? null
   })
 

@@ -53,3 +53,10 @@ firefox.*
 
 # Bootstrap state
 scripts/bootstrap-data/.state
+
+# Artefacts de build temporaires (maquette HTML)
+.tmp
+
+# Contrats générés ; les sources YAML restent versionnées
+schemas/interfaces/
+schemas/dtos/

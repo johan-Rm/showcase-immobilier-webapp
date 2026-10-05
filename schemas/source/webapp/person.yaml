@@ -1,0 +1,15 @@
+person:
+  required:
+    - identifier
+    - name
+    - phone
+    - email
+  properties:
+    identifier:
+      type: string
+    name:
+      type: string
+    phone:
+      type: string
+    email:
+      type: string

@@ -1,47 +1,20 @@
----
-blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/shared/README.md
-blueprint_copied_at: 2026-01-22T13:03:48+00:00
----
+# shared/
 
-# Dossier `shared`
+Code partagé entre la couche Vue (`app/`) et la couche serveur (`server/`).
 
-## 1. Rôle et responsabilités
+## Rôle et responsabilités
 
-- Partager des helpers/constantes utilisables côté app et côté Nitro.
-- Fournir des fonctions pures, sans dépendance à Vue/Nuxt/Nitro (pas de DOM, route, store).
-- Servir de point d’auto-import pour `shared/utils` et `shared/types` (niveau racine uniquement).
+**Rôle Nuxt :** le dossier `shared/` héberge le code utilisable à la fois par l'app Vue et
+par le serveur Nitro. Nuxt auto-importe le premier niveau de `shared/utils/` et
+`shared/types/` des deux côtés ; le reste s'importe explicitement via l'alias `#shared`.
+Réf. : [doc Nuxt — `shared/`](https://nuxt.com/docs/4.x/directory-structure/shared).
 
----
+**Rôle attendu :** cette couche porte les briques neutres communes aux deux runtimes —
+helpers purs, constantes et contrats de types transverses. Son code ne dépend d'aucun
+runtime (ni Vue, ni Nitro, ni DOM, ni route, ni store) : c'est la condition pour qu'il
+s'exécute indifféremment côté client et côté serveur. Ce qui est propre à un seul runtime
+appartient à sa couche dédiée.
 
-## 2. Bonnes pratiques
+## Conventions techniques
 
-- Un fichier = une responsabilité ; exports nommés explicites.
-- Valider/typer les entrées ; éviter les dépendances lourdes.
-- Tester les helpers critiques si la logique est non triviale.
-
-## 3. Conventions de nommage
-
-- Fichiers en `kebab-case.ts` ; noms d’exports descriptifs.
-- Helpers auto-importés placés à la racine de `shared/utils` et `shared/types`.
-- Sous-dossiers permis ; importer alors via l’alias `#shared/...`.
-
-## 4. Performance
-
-- Code court, pur et tree-shakeable ; aucune I/O ni appels réseau.
-- Pas d’allocations inutiles ; privilégier des constantes réutilisées.
-
-## 5. Structure et organisation
-
-- `shared/utils/*` : helpers auto-importés (pas de sous-dossiers scannés par défaut).
-- `shared/types/*` : types auto-importés.
-- Autres dossiers/fichiers : imports explicites avec `#shared`.
-
----
-
-### Ex. : Structure de template
-
-```ts
-// shared/utils/capitalize.ts
-export const capitalize = (input: string) =>
-  input[0] ? input[0].toUpperCase() + input.slice(1) : ''
-```
+Aucune règle CI spécifique à ce dossier à ce jour.

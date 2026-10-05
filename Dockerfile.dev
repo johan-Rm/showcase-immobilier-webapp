@@ -1,4 +1,4 @@
-FROM oven/bun:1-alpine
+FROM oven/bun:1.4.0-alpine
 
 RUN apk add --no-cache bash git curl python3 make g++ nodejs
 RUN git config --global --add safe.directory /app
@@ -9,6 +9,11 @@ COPY package.json bun.lock ./
 RUN bun install
 
 COPY . ./
+
+# Nuxt runs as the host UID/GID (1000 by default), not as root.
+RUN mkdir -p /app/.nuxt /app/node_modules/.cache \
+    && chown -R bun:bun /app/.nuxt /app/node_modules/.cache \
+    && chown bun:bun /app
 
 ENV NODE_ENV=development
 ENV CONTENT_PATH=/app/content

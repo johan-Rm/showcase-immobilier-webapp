@@ -20,6 +20,7 @@ const config: Linter.FlatConfig[] = [
       '**/.nuxt/**',
       '**/.output/**',
       '**/.data/**',
+      '**/.tmp/**',
       '**/coverage/**',
       '**/dist/**',
       '**/node_modules/**',

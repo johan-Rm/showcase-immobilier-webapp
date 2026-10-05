@@ -30,50 +30,52 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: dar-zahra-vue-ensemble-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: La demeure et sa piscine dans le jardin
     representativeOfPage: true
   - image: dar-zahra-patio-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-patio-01.jpg
+    url: /demo/property.svg
     caption: Patio intérieur aux arches fleuries
   - image: dar-zahra-exterieur-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Piscine et patio fleuris
   - image: dar-zahra-exterieur-02
-    url: /poc/dar-zahra-essaouira/dar-zahra-exterieur-02.jpg
+    url: /demo/property.svg
     caption: Grande table dressée sous les arbres
   - image: dar-zahra-tennis-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-tennis-01.jpg
+    url: /demo/property.svg
     caption: Court de tennis bordé de cyprès
   - image: dar-zahra-chambre-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre aux tons vert d'eau
   - image: dar-zahra-chambre-02
-    url: /poc/dar-zahra-essaouira/dar-zahra-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre en terre ocre et tapis rouge
   - image: dar-zahra-chambre-03
-    url: /poc/dar-zahra-essaouira/dar-zahra-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre claire aux fenêtres cintrées
   - image: dar-zahra-chambre-04
-    url: /poc/dar-zahra-essaouira/dar-zahra-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre verte aux accents traditionnels
   - image: dar-zahra-salon-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-salon-01.jpg
+    url: /demo/property.svg
     caption: Salon avec cheminée et assises profondes
   - image: dar-zahra-salle-a-manger-01
-    url: /poc/dar-zahra-essaouira/dar-zahra-salle-a-manger-01.jpg
+    url: /demo/property.svg
     caption: Salle à manger aux grands miroirs
   - image: dar-zahra-salon-02
-    url: /poc/dar-zahra-essaouira/dar-zahra-salon-02.jpg
+    url: /demo/property.svg
     caption: Séjour rustique en bois patiné
   - image: dar-zahra-salon-03
-    url: /poc/dar-zahra-essaouira/dar-zahra-salon-03.jpg
+    url: /demo/property.svg
     caption: Salon-bibliothèque aux teintes sable
   - image: dar-zahra-exterieur-03
-    url: /poc/dar-zahra-essaouira/dar-zahra-exterieur-03.jpg
+    url: /demo/property.svg
     caption: Allée du jardin le long de la demeure
 realEstateAgent: null
 highlight: null

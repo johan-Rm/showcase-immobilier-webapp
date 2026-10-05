@@ -7,7 +7,7 @@ source: brief dashboard sauvegarde biens
 
 ## Intention
 
-Brancher l editeur dashboard MLK sur l API Symfony 8 / API Platform pour persister les
+Brancher l editeur dashboard Showcase Immobilier sur l API Symfony 8 / API Platform pour persister les
 modifications de biens immobiliers en base PostgreSQL.
 
 La task 007 a produit un editeur read-only avec un payload local pret. Cette task cible
@@ -18,7 +18,7 @@ lit toujours depuis les Markdown en V1 ; seule la sauvegarde passe par Symfony.
 
 ## Perimetre
 
-### Cote Nuxt (mlk-my-little-kasbah)
+### Cote Nuxt (showcase-immobilier-webapp)
 
 - creer un script d import `scripts/import-accommodations.ts` qui :
   - lit les 7 biens reels (filtre : absence de `additionalProperty.dataSource = fixture`)
@@ -49,7 +49,7 @@ lit toujours depuis les Markdown en V1 ; seule la sauvegarde passe par Symfony.
 - sauvegarde de `additionalProperty` (absent de l entite Symfony)
 - traductions automatiques
 - suppression ou creation reelle de biens depuis le dashboard
-- gestion multi-projet cote UI (MLK est mono-projet sur cette task)
+- gestion multi-projet cote UI (Showcase Immobilier est mono-projet sur cette task)
 - changement du circuit de lecture public (toujours Markdown)
 - re-export du bien sauvegarde en fichier Markdown (task 009)
 
@@ -91,7 +91,7 @@ de sauvegarde d un bien.
 
 ```env
 SYMFONY_API_URL=http://localhost:18080
-SYMFONY_PROJECT_ID=<uuid-projet-mlk>
+SYMFONY_PROJECT_ID=<uuid-projet-showcase>
 SYMFONY_SERVICE_EMAIL=<compte-service>
 SYMFONY_SERVICE_PASSWORD=<mot-de-passe-service>
 ```

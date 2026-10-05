@@ -64,7 +64,9 @@ const currentScreenId = useState<string | null>('screen.current', () => null)
 
 // 5. Etat local
 const activeIndex = ref(0)
-const hasMounted = ref(false)
+// Sortie statique : aucun montage client n'aura lieu, les visuels doivent etre
+// presents des le rendu serveur.
+const hasMounted = ref(useRuntimeConfig().public.staticOutput === true)
 const hasLoadedCarouselImages = ref(false)
 
 let autoplayIntervalId: number | null = null

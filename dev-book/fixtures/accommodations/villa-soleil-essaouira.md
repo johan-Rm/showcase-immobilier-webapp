@@ -30,56 +30,58 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: villa-soleil-vue-ensemble-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: La demeure et son bassin au crépuscule
     representativeOfPage: true
   - image: villa-soleil-salon-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-salon-01.jpg
+    url: /demo/property.svg
     caption: Grand salon voûté ouvert sur le jardin
   - image: villa-soleil-piscine-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-piscine-01.jpg
+    url: /demo/property.svg
     caption: Piscine et parasols devant la demeure
   - image: villa-soleil-exterieur-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Terrasse ombragée ouverte sur le jardin
   - image: villa-soleil-terrasse-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-terrasse-01.jpg
+    url: /demo/property.svg
     caption: Toit-terrasse lounge panoramique
   - image: villa-soleil-chambre-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre double aux fenêtres cintrées
   - image: villa-soleil-chambre-02
-    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre blanche baignée de lumière
   - image: villa-soleil-chambre-03
-    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre aux teintes douces
   - image: villa-soleil-chambre-04
-    url: /poc/villa-soleil-essaouira/villa-soleil-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre claire ouverte sur le jardin
   - image: villa-soleil-salon-02
-    url: /poc/villa-soleil-essaouira/villa-soleil-salon-02.jpg
+    url: /demo/property.svg
     caption: Salon avec cheminée et assises colorées
   - image: villa-soleil-salle-de-bains-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Double vasque sous fenêtre en mashrabiya
   - image: villa-soleil-salle-de-bains-02
-    url: /poc/villa-soleil-essaouira/villa-soleil-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Baignoire devant la fenêtre cintrée
   - image: villa-soleil-salle-a-manger-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-salle-a-manger-01.jpg
+    url: /demo/property.svg
     caption: Salle à manger sous voûtes autour d'une grande table
   - image: villa-soleil-piscine-interieure-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-piscine-interieure-01.jpg
+    url: /demo/property.svg
     caption: Piscine intérieure couverte et voûtée
   - image: villa-soleil-golf-01
-    url: /poc/villa-soleil-essaouira/villa-soleil-golf-01.jpg
+    url: /demo/property.svg
     caption: Putting green privatif dans le jardin
   - image: villa-soleil-salon-03
-    url: /poc/villa-soleil-essaouira/villa-soleil-salon-03.jpg
+    url: /demo/property.svg
     caption: Salon lounge aux banquettes basses
 realEstateAgent: null
 highlight: null
