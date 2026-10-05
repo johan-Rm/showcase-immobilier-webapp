@@ -1,5 +1,5 @@
 {
-  "name": "blueprint-immobilier",
+  "name": "showcase-immobilier-webapp",
   "type": "module",
   "private": true,
   "scripts": {
@@ -28,7 +28,8 @@
     "test:dashboard": "vitest run server/utils/dashboard/*.vitest.ts",
     "test:e2e": "playwright test",
     "test:e2e:report": "playwright show-report .tmp/playwright/report",
-    "type-check": "nuxt prepare && vue-tsc --noEmit"
+    "type-check": "nuxt prepare && vue-tsc --noEmit",
+    "setup:local": "bun scripts/setup-local.ts && bun scripts/run-schema-hook.mjs && nuxt prepare"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.123",

@@ -3,4 +3,6 @@ blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/sc
 blueprint_copied_at: 2026-01-22T13:03:48+00:00
 ---
 
-The silence is golden
+`setup-local.ts` prépare les données fictives et `.env` sans API ni secret hérité.
+Il refuse d’écraser des données non fictives. `run-schema-hook.mjs` génère les
+contrats YAML locaux. Lancer `bun run setup:local` après installation.

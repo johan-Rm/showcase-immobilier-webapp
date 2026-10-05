@@ -35,9 +35,9 @@ Un bien mis en valeur permet :
 
 👉 La première impression est décisive.
 
-## Notre approche chez BPI
+## Notre approche chez Showcase Immobilier
 
-Chez **BPI – Blueprint Immobilier**, nous accompagnons les propriétaires dans la mise en valeur de leur bien, en respectant l’identité du lieu et l’esprit d’Essaouira.
+Chez **Showcase Immobilier**, nous accompagnons les propriétaires dans la mise en valeur de leur bien, en respectant l’identité du lieu et l’esprit d’Essaouira.
 
 Notre approche repose sur :
 
@@ -74,7 +74,7 @@ Un bien bien présenté génère :
 
 ## Une solution intégrée avec la gestion locative
 
-Dans le cadre de notre accompagnement, **BPI – Blueprint Immobilier** peut intégrer le home staging à la mise en location de votre bien.
+Dans le cadre de notre accompagnement, **Showcase Immobilier** peut intégrer le home staging à la mise en location de votre bien.
 
 Cette approche globale permet :
 
@@ -88,4 +88,4 @@ Valoriser son bien, c’est lui donner toutes les chances de séduire.
 
 À Essaouira, où l’esthétique et l’expérience jouent un rôle central, le home staging est une étape clé pour réussir son projet de location saisonnière.
 
-**BPI – Blueprint Immobilier** vous accompagne pour révéler tout le potentiel de votre bien et en faire un lieu unique, attractif et rentable.
+**Showcase Immobilier** vous accompagne pour révéler tout le potentiel de votre bien et en faire un lieu unique, attractif et rentable.

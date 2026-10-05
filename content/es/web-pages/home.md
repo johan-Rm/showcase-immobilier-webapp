@@ -2,11 +2,11 @@
 identifier: 9
 slug: 'home'
 inLanguage: 'es'
-metaTitle: 'BPI – Blueprint Immobilier | Inmobiliaria en Essaouira'
-metaDescription: 'Descubra BPI – Blueprint Immobilier, su socio inmobiliario en Essaouira para la compra, venta, gestión de alquileres e inversión.'
+metaTitle: 'Showcase Immobilier | Inmobiliaria en Essaouira'
+metaDescription: 'Descubra Showcase Immobilier, su socio inmobiliario en Essaouira para la compra, venta, gestión de alquileres e inversión.'
 associatedMedia:
   - '/images/bpi-logo.jpg'
-headline: 'BPI – Blueprint Immobilier'
+headline: 'Showcase Immobilier'
 alternativeHeadline: 'Su socio inmobiliario en Essaouira'
 highlight: 'Compra, venta, gestión de alquileres e inversión con experiencia local e internacional'
 articleSection: ''
@@ -19,7 +19,7 @@ dateModified: '2023-02-16T11:40:34+01:00'
 ::screen-landing
 ---
 identifier: 'screen-real-estate-full-image'
-headline: 'BPI - Blueprint Immobilier - Agencia Inmobiliaria en Essaouira'
+headline: 'Showcase Immobilier - Agencia Inmobiliaria en Essaouira'
 image: '/images/essaouira-en-drone.jpg'
 hasPart:
   - additionalType: 'mobile-portrait-background'
@@ -39,9 +39,9 @@ additionalType: 'Agencia inmobiliaria online'
 headline: 'Su socio inmobiliario'
 alternativeHeadline: 'en Essaouira'
 text: |
-  Bienvenido a BPI – Blueprint Immobilier, una agencia inmobiliaria online dedicada a la inversión inmobiliaria en Essaouira y su región.
+  Bienvenido a Showcase Immobilier, una agencia inmobiliaria online dedicada a la inversión inmobiliaria en Essaouira y su región.
 
-  Impulsada por un equipo franco-marroquí apasionado por el sector inmobiliario y profundamente unido a la ciudad, BPI acompaña a sus clientes en todos sus proyectos de compra, venta y gestión de alquileres, con rigor, transparencia y cercanía.
+  Impulsada por un equipo franco-marroquí apasionado por el sector inmobiliario y profundamente unido a la ciudad, Showcase Immobilier acompaña a sus clientes en todos sus proyectos de compra, venta y gestión de alquileres, con rigor, transparencia y cercanía.
 image: '/images/skala-du-port-bateaux.jpg'
 links:
   - for-sale
@@ -63,8 +63,8 @@ links:
 
 ::screen-panel
 ---
-identifier: 'screen-why-choose-bpi'
-headline: '¿Por qué elegir BPI?'
+identifier: 'screen-why-choose-showcase'
+headline: '¿Por qué elegir Showcase Immobilier?'
 alternativeHeadline: 'El sector inmobiliario en Essaouira, entre exigencia local y visión internacional.'
 image: '/images/portrait-lifestyle-en-lumiere-naturelle.jpg'
 hasPart:
@@ -144,7 +144,7 @@ alternativeHeadline: 'Invertir en Essaouira'
 text: |
   Invertir aquí es elegir un lugar de vida auténtico disfrutando al mismo tiempo de una rentabilidad real y duradera.
 
-  BPI Blueprint Immobilier acompaña a cada inversor en la materialización de su proyecto, con pasión y experiencia.
+  Showcase Immobilier acompaña a cada inversor en la materialización de su proyecto, con pasión y experiencia.
 image: '/images/essaouira-porte-de-bab-sbah.jpg'
 links:
   - contact
@@ -238,7 +238,7 @@ identifier: 'screen-blockquote'
 headline: 'Su socio en Essaouira'
 url: 'agency'
 hasPart:
-  - headline: 'En BPI – Blueprint Immobilier, valoramos las propiedades con carácter.'
+  - headline: 'En Showcase Immobilier, valoramos las propiedades con carácter.'
   - headline: 'Acompañamos cada proyecto con exigencia, claridad y discreción.'
   - headline: 'Promoviendo al mismo tiempo el arte de vivir en Essaouira.'
 ---

@@ -30,41 +30,43 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: villa-najma-vue-ensemble-01
-    url: /poc/villa-najma-mogador/villa-najma-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: Façade contemporaine ouverte sur la pelouse
     representativeOfPage: true
   - image: villa-najma-salon-01
-    url: /poc/villa-najma-mogador/villa-najma-salon-01.jpg
+    url: /demo/property.svg
     caption: Séjour et salle à manger en enfilade
   - image: villa-najma-exterieur-01
-    url: /poc/villa-najma-mogador/villa-najma-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Jardin et piscine ouverts sur le plan d'eau
   - image: villa-najma-piscine-01
-    url: /poc/villa-najma-mogador/villa-najma-piscine-01.jpg
+    url: /demo/property.svg
     caption: Piscine à débordement face au golf
   - image: villa-najma-terrasse-01
-    url: /poc/villa-najma-mogador/villa-najma-terrasse-01.jpg
+    url: /demo/property.svg
     caption: Terrasse repas ombragée sous parasol
   - image: villa-najma-chambre-01
-    url: /poc/villa-najma-mogador/villa-najma-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre lumineuse ouverte sur le jardin
   - image: villa-najma-chambre-02
-    url: /poc/villa-najma-mogador/villa-najma-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre aux accents bleus
   - image: villa-najma-salon-02
-    url: /poc/villa-najma-mogador/villa-najma-salon-02.jpg
+    url: /demo/property.svg
     caption: Salon TV avec assises profondes
   - image: villa-najma-terrasse-02
-    url: /poc/villa-najma-mogador/villa-najma-terrasse-02.jpg
+    url: /demo/property.svg
     caption: Toit-terrasse lounge avec vue panoramique
   - image: villa-najma-salle-de-bains-01
-    url: /poc/villa-najma-mogador/villa-najma-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Douche à l'italienne et plan vasque en bois
   - image: villa-najma-salle-de-bains-02
-    url: /poc/villa-najma-mogador/villa-najma-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Double vasque ouverte sur le jardin
 realEstateAgent: null
 highlight: null

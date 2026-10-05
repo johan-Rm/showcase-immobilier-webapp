@@ -1,4 +1,4 @@
-# AGENTS — Contexte projet : blueprint-immobilier
+# AGENTS — Contexte projet : showcase-immobilier-webapp
 
 Fichier de gouvernance local Codex. Complète le socle global `~/.agents/AGENTS.md` sans le
 répéter. Les profils, principes d'ingénierie et mode d'exécution sont dans le global.

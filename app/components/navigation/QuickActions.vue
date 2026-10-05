@@ -280,7 +280,7 @@ const quickActions = computed<QuickActionItem[]>(() => [
 const colorClass = computed<QuickActionsColorClass>(() => {
   if (props.colorClass) return props.colorClass
 
-  // Sortie statique : voir `BpiFull.vue`, meme mecanisme d'observateur inactif
+  // Sortie statique : voir `ShowcaseFull.vue`, meme mecanisme d'observateur inactif
   // au rendu serveur. La couleur est deduite du contexte visuel de l'ecran.
   if (useRuntimeConfig().public.staticOutput === true) {
     const meta = currentMeta.value

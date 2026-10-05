@@ -1,0 +1,103 @@
+accommodation:
+  label:
+    type: string
+  id:
+    type: uuid
+  name:
+    type: string
+  body:
+    type: string
+  category:
+    type: uuid
+  offer:
+    type: object
+    properties:
+      price:
+        type: string
+      priceCurrency:
+        type: string
+      priceSpecification:
+        type: string
+      availability:
+        type: string
+  yearBuilt:
+    type: number
+  place:
+    type: uuid
+  floorSize:
+    type: string
+  numberOfRooms:
+    type: number
+  landArea:
+    type: string
+  numberOfGarages:
+    type: number
+  numberOfBedrooms:
+    type: number
+  numberOfBathroomsTotal:
+    type: number
+  level:
+    type: number
+  occupancy:
+    type: number
+  amenityFeature:
+    type: array<uuid>
+  qualities:
+    type: array<PropertyValue>
+  associatedMedia:
+    type: array<object>
+    properties:
+      mediaObject:
+        type: uuid
+      position:
+        type: integer
+      caption:
+        type: string
+      keywords:
+        type: array<string>
+  realEstateListing:
+    type: object
+    properties:
+      slug:
+        type: string
+      name:
+        type: string
+      text:
+        type: string
+      isEnabled:
+        type: boolean
+  areaSize:
+    type: string
+  areaTerrace:
+    type: string
+  isActive:
+    type: boolean
+  tags:
+    type: array<uuid>
+  metaTitle:
+    type: string
+  metaDescription:
+    type: string
+  slug:
+    type: string
+  review:
+    type: string
+  highlight:
+    type: string
+  hasPart:
+    type: array<object>
+    properties:
+      additionalType:
+        type: string
+      name:
+        type: string
+      headline:
+        type: string
+      text:
+        type: string
+      position:
+        type: integer
+      associatedMedia:
+        type: array<uuid>
+      meta:
+        type: object

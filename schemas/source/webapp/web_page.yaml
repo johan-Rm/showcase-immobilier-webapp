@@ -1,0 +1,61 @@
+webPage:
+  required:
+    - datePublished
+    - dateCreated
+    - dateModified
+    - headline
+    - image
+    - metaTitle
+    - metaDescription
+    - slug
+  properties:
+    slug:
+      type: string
+    headline:
+      type: string
+    alternativeHeadline:
+      type: string
+    datePublished:
+      type: datetime
+    dateCreated:
+      type: datetime
+    dateModified: # ex-createdAt
+      type: datetime
+    articleSection: # ex-category
+      type: CategoryCode
+    keywords: # ex-tags
+      type: array<CategoryCode>
+    additionalProperty: # ex-propertyValues + champs techniques (alignPrimaryImage, isLocked, isEnabled, isIndexed, structuredData, translatable, pushForward)
+      type: array<PropertyValue>
+    video:
+      type: MediaObject
+    associatedMedia: # ex-primaryImage / secondaryImage / icon
+      type: array<MediaObject>
+    identifier: # ex-slug
+      type: string
+    inLanguage: # ex-locale
+      type: string
+    name:
+      type: string
+    alternateName:
+      type: string
+    description:
+      type: string
+    url:
+      type: URL
+    mainEntityOfPage:
+      type: URL
+    hasPart: # ex-components / sections de page (blocs de contenu generiques)
+      type: array<object>
+    text:
+      type: string
+    body:
+      type: string
+    abstract: # ex-textResume
+      type: string
+    expires: # ex-expire
+      type: date
+    metaTitle:
+      type: string
+    metaDescription:
+      type: string

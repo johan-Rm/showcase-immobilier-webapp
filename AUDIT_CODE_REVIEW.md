@@ -1,4 +1,4 @@
-# Audit Code Review — Blueprint Immobilier
+# Audit Code Review — Showcase Immobilier
 
 > Branche : `audit/code-review-2026-05-03`  
 > Date : 2026-05-03  

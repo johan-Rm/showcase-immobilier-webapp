@@ -53,7 +53,12 @@
                 </div>
               </div>
 
-              <div class="flex flex-col gap-8 2xl:gap-14">
+              <div
+                v-if="
+                  socialButtonLinks.length || organizationEmail || organizationPhoneEntries.length
+                "
+                class="flex flex-col gap-8 2xl:gap-14"
+              >
                 <article class="flex flex-col gap-5 2xl:gap-8">
                   <div class="flex items-center gap-4 2xl:gap-6">
                     <span class="bg-foreground block h-px w-8 2xl:w-14" />

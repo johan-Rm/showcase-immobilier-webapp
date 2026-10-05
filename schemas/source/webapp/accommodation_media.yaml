@@ -1,0 +1,13 @@
+AccommodationMedia:
+  required:
+    - image
+    - caption
+  properties:
+    image:
+      type: MediaObject
+    caption:
+      type: string
+    keywords:
+      type: array<string>
+    representativeOfPage:
+      type: boolean

@@ -19,7 +19,6 @@ BASE_URL="http://127.0.0.1:${CAPTURE_PORT}"
 FALLBACK_URL="http://127.0.0.1:${FALLBACK_PORT}"
 
 export NODE_ENV=production
-export SYMFONY_API_URL="${SYMFONY_API_URL:-http://localhost:18080}"
 
 echo "[1/4] Build du site"
 bun run build

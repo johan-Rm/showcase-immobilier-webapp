@@ -30,56 +30,58 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: villa-lumiere-vue-ensemble-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: La villa et sa piscine privée ouvertes sur le jardin
     representativeOfPage: true
   - image: villa-lumiere-salon-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salon-01.jpg
+    url: /demo/property.svg
     caption: Salon ouvert sur le jardin par de larges baies
   - image: villa-lumiere-exterieur-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Terrasse et piscine bordées de grandes jarres
   - image: villa-lumiere-exterieur-02
-    url: /poc/villa-lumiere-mogador/villa-lumiere-exterieur-02.jpg
+    url: /demo/property.svg
     caption: Pergola ombragée au cœur du jardin
   - image: villa-lumiere-exterieur-03
-    url: /poc/villa-lumiere-mogador/villa-lumiere-exterieur-03.jpg
+    url: /demo/property.svg
     caption: Grande table conviviale sous les arbres
   - image: villa-lumiere-chambre-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre double aux teintes claires
   - image: villa-lumiere-chambre-02
-    url: /poc/villa-lumiere-mogador/villa-lumiere-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre en bois ouverte sur la terrasse
   - image: villa-lumiere-chambre-03
-    url: /poc/villa-lumiere-mogador/villa-lumiere-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre lumineuse aux rideaux chaleureux
   - image: villa-lumiere-chambre-04
-    url: /poc/villa-lumiere-mogador/villa-lumiere-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre avec moustiquaire et coin salon
   - image: villa-lumiere-cuisine-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-cuisine-01.jpg
+    url: /demo/property.svg
     caption: Cuisine ouverte sur les espaces de vie
   - image: villa-lumiere-salle-de-bains-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Double vasque et baignoire
   - image: villa-lumiere-salle-de-bains-02
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Salle d'eau habillée de bois
   - image: villa-lumiere-salon-02
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salon-02.jpg
+    url: /demo/property.svg
     caption: Second salon ouvert et lumineux
   - image: villa-lumiere-salle-a-manger-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salle-a-manger-01.jpg
+    url: /demo/property.svg
     caption: Salle à manger autour d'une grande table
   - image: villa-lumiere-terrasse-01
-    url: /poc/villa-lumiere-mogador/villa-lumiere-terrasse-01.jpg
+    url: /demo/property.svg
     caption: Terrasse lounge ouverte sur le jardin
   - image: villa-lumiere-salon-03
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salon-03.jpg
+    url: /demo/property.svg
     caption: Salon de réception aux tons clairs
 realEstateAgent: null
 highlight: null

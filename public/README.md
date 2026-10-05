@@ -3,4 +3,5 @@ blueprint_source: /app/docs/blueprints/modern-webapp-nuxt/directory-structure/pu
 blueprint_copied_at: 2026-01-22T13:03:48+00:00
 ---
 
-The silence is golden
+Les illustrations neutres sont versionnées dans `demo/`. Le favicon représente
+un bâtiment générique. Le setup ne télécharge aucun média client.

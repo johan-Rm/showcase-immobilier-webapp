@@ -7,7 +7,7 @@
     aria-busy="true"
     :aria-label="props.ariaLabel"
   >
-    <LogoBpiFull
+    <LogoShowcaseFull
       class="-mt-24 transition-opacity duration-500 ease-out md:mt-0"
       :class="isLandingShellVisible ? 'opacity-100' : 'opacity-0'"
       size="5xl"
@@ -28,7 +28,7 @@ const LANDING_SHELL_EXIT_DURATION_MS = 500
 const LANDING_SHELL_FAILSAFE_MS = 8000
 
 // 3. Props et emits
-// Doit rester un sous-ensemble de LogoColorClass (LogoBpiFull).
+// Doit rester un sous-ensemble de LogoColorClass (LogoShowcaseFull).
 type BootShellLogoColorClass = 'text-foreground/90' | 'text-white/90' | 'text-surface'
 
 const props = withDefaults(
@@ -39,7 +39,7 @@ const props = withDefaults(
   }>(),
   {
     ariaLabel: 'Chargement initial de l application',
-    logoAriaLabel: 'BPI - Blueprint Immobilier',
+    logoAriaLabel: 'Showcase Immobilier',
     logoColorClass: 'text-surface',
   },
 )

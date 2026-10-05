@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "nuxt-4-tech-lab",
+      "name": "showcase-immobilier-webapp",
       "dependencies": {
         "@iconify-json/lucide": "^1.2.123",
         "@iconify-json/simple-icons": "^1.2.93",

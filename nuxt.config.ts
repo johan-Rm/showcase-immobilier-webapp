@@ -8,9 +8,7 @@ import { FALLBACK_LOCALE, AVAILABLES_LOCALES } from './shared/utils/locale'
 const appEnv = process.env.APP_ENV?.trim().toLowerCase() === 'prod' ? 'prod' : 'dev'
 const nodeEnv = process.env.NODE_ENV?.trim().toLowerCase()
 const isDevRuntime = nodeEnv !== 'production'
-const isNuxtBuild = process.argv.some((argument) => argument.includes('build'))
-const isScalarApiDocsEnabled =
-  process.env.SCALAR_API_DOCS_ENABLED === 'true' || (isDevRuntime && !isNuxtBuild)
+const isScalarApiDocsEnabled = process.env.SCALAR_API_DOCS_ENABLED === 'true'
 const nitroContentCacheMaxAge = isDevRuntime ? 0 : 300
 const isStaticOutput = process.env.STATIC_OUTPUT === 'true'
 const siteUrl = process.env.SITE_URL?.trim() || 'http://localhost:3000'
@@ -67,12 +65,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     resendApiKey: process.env.RESEND_API_KEY,
-    resendFromEmail:
-      process.env.RESEND_FROM_EMAIL ??
-      'BPI - Blueprint Immobilier <contact@blueprint-immobilier.immo>',
-    contactToEmail: process.env.CONTACT_TO_EMAIL ?? 'contact@blueprint-immobilier.immo',
-    contactBccEmails: process.env.CONTACT_BCC_EMAILS ?? 'developer@graines-digitales.online',
-    contactReplyToEmail: process.env.CONTACT_REPLY_TO_EMAIL ?? 'contact@blueprint-immobilier.immo',
+    resendFromEmail: process.env.RESEND_FROM_EMAIL ?? 'Showcase Immobilier <contact@example.com>',
+    contactToEmail: process.env.CONTACT_TO_EMAIL ?? '',
+    contactBccEmails: process.env.CONTACT_BCC_EMAILS ?? '',
+    contactReplyToEmail: process.env.CONTACT_REPLY_TO_EMAIL ?? '',
     contactSubmissionsPath:
       process.env.CONTACT_SUBMISSIONS_PATH ??
       join(process.cwd(), '.data', 'contact-submissions.csv'),
@@ -86,7 +82,7 @@ export default defineNuxtConfig({
 
     public: {
       appEnv,
-      siteName: process.env.SITE_NAME?.trim() || 'BPI Blueprint Immobilier',
+      siteName: process.env.SITE_NAME?.trim() || 'Showcase Immobilier',
       siteUrl,
       isIndexable: appEnv === 'prod' && !isDevRuntime,
       webVitalsEnabled: process.env.WEB_VITALS_ENABLED === 'true',
@@ -242,7 +238,7 @@ export default defineNuxtConfig({
     },
     url: '/api/openapi',
     metaData: {
-      title: 'BPI API Documentation',
+      title: 'Showcase Immobilier API Documentation',
     },
   },
 

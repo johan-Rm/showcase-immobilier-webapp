@@ -8,10 +8,10 @@ dependances: []
 ## Intention
 
 Les 5 enums PHP (`AccommodationQuality`, `AiReviewStatus`, `ContentStatus`, `MediaStatus`,
-`ProjectRole`) n'ont aucun équivalent TypeScript dans bpi.
+`ProjectRole`) n'ont aucun équivalent TypeScript dans showcase.
 
 Une fois les enums YAML créés côté DGDOC (TASK-DGDOC-002), cette tâche génère ou déclare
-les types TS correspondants dans bpi pour permettre un typage explicite des champs
+les types TS correspondants dans showcase pour permettre un typage explicite des champs
 qui consomment ces valeurs.
 
 ## Dépendance
@@ -63,6 +63,6 @@ bun run type-check
 bun run lint:check
 ```
 
-- Les 5 types union sont accessibles via import dans bpi
+- Les 5 types union sont accessibles via import dans showcase
 - Aucun `string` générique ne remplace un type enum là où c'est exploitable
 - Les valeurs correspondent exactement aux enums PHP (vérifier avec `schemas/enums/*.yaml`)

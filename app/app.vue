@@ -30,7 +30,6 @@ preloadDashboard()
 // Résolus en setup (contexte Nuxt valide) : useRuntimeConfig() ne peut pas être appelé
 // dans le getter de useHead, qui est évalué par unhead hors contexte Vue côté SSR.
 const faviconSvgHref = assetUrl('favicon.svg')
-const faviconIcoHref = assetUrl('favicon.ico')
 const themesCssHref = assetUrl('themes.css')
 
 // 5. Etat local
@@ -137,7 +136,7 @@ watch(
 // 11. Metadonnees ecran ou page
 
 useHead(() => ({
-  title: 'BPI - Blueprint Immobilier',
+  title: 'Showcase Immobilier',
   htmlAttrs: {
     // Synchronise l'attribut lang du document HTML avec la locale active.
     lang: localeSetting.value,
@@ -149,12 +148,6 @@ useHead(() => ({
       rel: 'icon',
       type: 'image/svg+xml',
       href: faviconSvgHref,
-    },
-    {
-      key: 'app-favicon-ico',
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: faviconIcoHref,
     },
     {
       key: 'app-themes-stylesheet',

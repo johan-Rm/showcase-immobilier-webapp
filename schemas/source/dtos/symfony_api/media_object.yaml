@@ -1,0 +1,11 @@
+mediaObject:
+  id:
+    type: uuid
+  url:
+    type: string
+  caption:
+    type: string
+  createdAt:
+    type: datetime
+  updatedAt:
+    type: datetime

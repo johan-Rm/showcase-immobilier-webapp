@@ -5,7 +5,7 @@
 
     <div class="flex shrink-0 items-center gap-3 px-4 py-3">
       <div class="flex min-w-0 flex-1 items-center gap-3">
-        <LogoGd class="h-7 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
+        <LogoShowcaseMark class="h-7 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
         <div class="min-w-0">
           <span
             class="block text-[0.6rem] leading-none font-semibold tracking-[0.28em] whitespace-nowrap text-white/40 uppercase"
@@ -15,7 +15,7 @@
           <span
             class="mt-1 block truncate font-[rationale] text-base leading-none font-medium tracking-wider text-[#6B7A4A]/70 uppercase"
           >
-            Graines Digitales
+            Showcase Immobilier
           </span>
         </div>
       </div>
@@ -123,7 +123,7 @@
 
   <div class="flex shrink-0 items-center justify-between px-5 pt-5 pb-4">
     <div class="flex min-w-0 flex-1 items-center gap-3">
-      <LogoGd class="h-8 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
+      <LogoShowcaseMark class="h-8 w-auto shrink-0 text-[#6B7A4A]" aria-hidden="true" />
       <div>
         <span
           class="block text-[0.6rem] leading-none font-semibold tracking-[0.28em] whitespace-nowrap text-white/40 uppercase"
@@ -133,7 +133,7 @@
         <span
           class="mt-1 block font-[rationale] text-lg leading-none font-medium tracking-wider whitespace-nowrap text-[#6B7A4A]/70 uppercase"
         >
-          Graines Digitales
+          Showcase Immobilier
         </span>
       </div>
     </div>
@@ -218,7 +218,7 @@
 // 1. Imports
 import type { ComponentPublicInstance } from 'vue'
 
-import LogoGd from '~/assets/logo/logo_gd.svg'
+import LogoShowcaseMark from '~/assets/logo/showcase-picto.svg'
 
 // 2. Types et constantes statiques
 type WorkspaceUser = {

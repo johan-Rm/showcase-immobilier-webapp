@@ -17,13 +17,7 @@ export const resolveSchemaPath = async (
   log: (message: string) => void,
   optionPath?: string,
 ): Promise<string> => {
-  const envPath = process.env.SCHEMAS_PATH?.trim()
-
-  if (!envPath) {
-    throw new Error(
-      'SCHEMAS_PATH est obligatoire (définis un chemin valide vers les schémas YAML).',
-    )
-  }
+  const envPath = process.env.SCHEMAS_PATH?.trim() || join(process.cwd(), 'schemas/source')
 
   const normalizedEnvPath = normalizePath(envPath)
   const webappCandidate = normalizePath(join(envPath, 'webapp'))
@@ -82,13 +76,7 @@ export const resolveDtoPath = async (
   log: (message: string) => void,
   optionPath?: string,
 ): Promise<string> => {
-  const envPath = process.env.SCHEMAS_PATH?.trim()
-
-  if (!envPath) {
-    throw new Error(
-      'SCHEMAS_PATH est obligatoire (définis un chemin valide vers les schémas YAML).',
-    )
-  }
+  const envPath = process.env.SCHEMAS_PATH?.trim() || join(process.cwd(), 'schemas/source')
 
   const normalizedEnvPath = normalizePath(envPath)
   const schemaRoot =

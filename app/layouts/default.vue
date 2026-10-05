@@ -6,7 +6,7 @@
         :class="headerBackgroundClass"
       >
         <div class="justify-self-start">
-          <LazyLogoBpiFull size="lg" aria-label="Retour à l'accueil" />
+          <LazyLogoShowcaseFull size="lg" aria-label="Retour à l'accueil" />
         </div>
         <div class="justify-self-end">
           <LazyNavigationQuickActions />

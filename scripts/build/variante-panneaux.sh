@@ -17,7 +17,6 @@ OUT_DIR="${1:?dossier d export requis}"
 export NODE_ENV=production
 export STATIC_OUTPUT=true
 export STATIC_PANELS_OPEN=true
-export SYMFONY_API_URL="${SYMFONY_API_URL:-http://localhost:18080}"
 
 VARIANT_DIR="$(mktemp -d)"
 trap 'rm -rf "$VARIANT_DIR"' EXIT

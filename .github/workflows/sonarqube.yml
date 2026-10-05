@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   push:
-    branches: [develop, main]
+    branches: [develop, master]
 
 jobs:
   sonarqube:
@@ -16,7 +16,7 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.2.22
+          bun-version: 1.4.0
 
       - run: bun install
 

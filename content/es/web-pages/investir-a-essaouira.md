@@ -46,7 +46,7 @@ Ces niveaux de prix positionnent Essaouira comme une **alternative stratégique*
 
 ## Rentabilité et perspectives d’investissement
 
-Le marché immobilier d’Essaouira connaît une **croissance progressive et maîtrisée**.  
+Le marché immobilier d’Essaouira connaît une **croissance progressive et maîtrisée**.
 Les prix restent abordables tandis que la demande locative, saisonnière comme annuelle, continue d’augmenter.
 
 La **rentabilité brute moyenne** pour les locations touristiques se situe généralement entre **6 et 8 %**, avec un potentiel supérieur pour les biens bien situés, rénovés et correctement gérés.
@@ -65,7 +65,7 @@ Pour sécuriser et optimiser votre investissement à Essaouira :
 
 ## Conclusion
 
-Essaouira incarne un **équilibre rare entre charme, sécurité et potentiel économique**.  
+Essaouira incarne un **équilibre rare entre charme, sécurité et potentiel économique**.
 Investir ici, c’est faire le choix d’un lieu de vie authentique tout en bénéficiant d’une **rentabilité réelle et durable**.
 
-**BPI – Blueprint Immobilier** accompagne chaque investisseur dans la concrétisation de son projet immobilier, avec exigence, transparence et expertise locale.
+**Showcase Immobilier** accompagne chaque investisseur dans la concrétisation de son projet immobilier, avec exigence, transparence et expertise locale.

@@ -1,5 +1,6 @@
 <template>
   <UDropdownMenu
+    v-if="isActive"
     v-model:open="open"
     :items="items"
     :content="{ align: 'start', side: 'bottom', sideOffset: 4, collisionPadding: 8 }"

@@ -249,7 +249,7 @@ dropdowns absolus pour eviter le decalage du contenu scrollable.
 
 ### Sidebar droite : header avec logo SVG et identite Graines Digitales
 
-- Logo SVG `logo_gd.svg` integre inline dans le template (import Vite ne retournait pas d URL)
+- Logo SVG `showcase-picto.svg` integre inline dans le template (import Vite ne retournait pas d URL)
 - Texte deux lignes : `DASHBOARD` (tracking large, white/40) / `GRAINES DIGITALES` (tres petit,
   tracking serré, white/25)
 - Separateurs olive `h-0.5 bg-[#6B7A4A]` avant et apres la zone filtres (desktop)

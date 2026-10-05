@@ -30,62 +30,64 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: domaine-tilila-vue-ensemble-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: Le domaine et sa piscine au cœur du jardin
     representativeOfPage: true
   - image: domaine-tilila-salon-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-salon-01.jpg
+    url: /demo/property.svg
     caption: Séjour aux bibliothèques intégrées et cheminée
   - image: domaine-tilila-piscine-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-piscine-01.jpg
+    url: /demo/property.svg
     caption: Piscine et transats sous les palmiers
   - image: domaine-tilila-exterieur-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Piscine bordée de palmiers et de pelouse
   - image: domaine-tilila-exterieur-02
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-02.jpg
+    url: /demo/property.svg
     caption: Lounge de jardin au bord de l'eau
   - image: domaine-tilila-chambre-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre aux accents turquoise
   - image: domaine-tilila-chambre-02
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre aux teintes safran
   - image: domaine-tilila-chambre-03
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre corail ouverte sur la vue
   - image: domaine-tilila-chambre-04
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre vert sauge ouverte sur le jardin
   - image: domaine-tilila-chambre-05
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-chambre-05.jpg
+    url: /demo/property.svg
     caption: Chambre turquoise spacieuse
   - image: domaine-tilila-salon-02
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-salon-02.jpg
+    url: /demo/property.svg
     caption: Grand salon avec cheminée et larges baies
   - image: domaine-tilila-salle-de-bains-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Double vasque de pierre ouverte sur la vue
   - image: domaine-tilila-salle-de-bains-02
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Salle de bain avec double vasque et douche
   - image: domaine-tilila-salle-a-manger-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-a-manger-01.jpg
+    url: /demo/property.svg
     caption: Grande table de banquet sous les baies
   - image: domaine-tilila-salle-a-manger-02
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-salle-a-manger-02.jpg
+    url: /demo/property.svg
     caption: Salle à manger ouverte sur le séjour
   - image: domaine-tilila-cuisine-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-cuisine-01.jpg
+    url: /demo/property.svg
     caption: Cuisine équipée à l'îlot central
   - image: domaine-tilila-exterieur-03
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-exterieur-03.jpg
+    url: /demo/property.svg
     caption: Table de plein air dressée sur la terrasse
   - image: domaine-tilila-terrasse-01
-    url: /poc/domaine-tilila-essaouira/domaine-tilila-terrasse-01.jpg
+    url: /demo/property.svg
     caption: Terrasse lounge ouverte sur la piscine
 realEstateAgent: null
 highlight: null

@@ -1,4 +1,4 @@
-# CLAUDE — Contexte projet : blueprint-immobilier
+# CLAUDE — Contexte projet : showcase-immobilier-webapp
 
 Fichier de gouvernance local. Complète le socle global `~/.agents/.claude/CLAUDE.md` sans le
 répéter. Les profils, principes et skills sont définis dans le global.

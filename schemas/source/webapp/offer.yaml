@@ -1,0 +1,18 @@
+offer:
+  required:
+    - price
+    - priceCurrency
+  properties:
+    price:
+      type: string
+    priceCurrency:
+      type: string
+    priceSpecification:
+      type: string
+    availability:
+      type: string
+      enum:
+        - available
+        - unavailable
+        - sold
+        - rented

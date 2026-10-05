@@ -15,10 +15,10 @@
     <!-- Sections secondaires montées après préparation du runtime pour alléger l'hydratation initiale. -->
     <UPageSection
       v-if="shouldRenderDeferredScreens"
-      :data-screen="SCREEN_IDS.whyChooseBpi"
+      :data-screen="SCREEN_IDS.whyChooseShowcase"
       :ui="screenUi.pageSection"
     >
-      <LazyScreenWhyChooseBpi :data="whyChooseBpiData" />
+      <LazyScreenWhyChooseShowcase :data="whyChooseShowcaseData" />
     </UPageSection>
 
     <!-- Section éditoriale desktop uniquement : son format visuel est moins adapté aux petits écrans. -->
@@ -99,7 +99,7 @@ const SCREEN_IDS = {
   realEstateFullImage: 'screen-real-estate-full-image',
   realEstateSplit: 'screen-real-estate-split',
   realEstateThreeColProperties: 'screen-real-estate-three-col-properties',
-  whyChooseBpi: 'screen-why-choose-bpi',
+  whyChooseShowcase: 'screen-why-choose-showcase',
   essaouiraTheJewel: 'screen-essaouira-the-jewel',
   invest: 'screen-invest',
   panelScrollDualSynced: 'screen-panel-scroll-dual-synced',
@@ -261,8 +261,8 @@ const landingScreenData = computed(
 
 // Les computed suivants exposent au template un contrat simple par screen.
 // La page reste responsable de l'orchestration, pas du rendu détaillé des blocs.
-const whyChooseBpiData = computed(
-  () => getComponentByIdentifier(SCREEN_IDS.whyChooseBpi) ?? undefined,
+const whyChooseShowcaseData = computed(
+  () => getComponentByIdentifier(SCREEN_IDS.whyChooseShowcase) ?? undefined,
 )
 
 const essaouiraTheJewelData = computed(

@@ -1,0 +1,28 @@
+categoryCode:
+  required:
+    - id
+    - codeValue
+    - name
+  properties:
+    id:
+      type: uuid
+    codeValue:
+      type: string
+      # Code stable kebab-case utilise comme identifiant metier dans un code set.
+    name:
+      type: string
+      # Libelle localise expose cote orchestrateur. Correspond au label de traduction API.
+    inCodeSet:
+      type: string
+      # Famille fonctionnelle du code, par exemple real-estate-listing ou accommodation-place.
+    text:
+      type: string
+      # Texte localise optionnel associe au code.
+    metadata:
+      type: object
+      # Donnees non localisees et non structurelles portees par CategoryCode.metadata.
+      # Cet objet JSON ne doit jamais contenir de contenu traduisible ni de relation.
+      properties:
+        isEnabled:
+          type: boolean
+          # Flag d'activation global du code. Stocke dans metadata, pas comme colonne dediee.

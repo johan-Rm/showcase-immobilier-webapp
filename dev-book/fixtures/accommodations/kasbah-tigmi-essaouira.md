@@ -30,26 +30,28 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: kasbah-tigmi-vue-ensemble-01
-    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: Piscine et terrasses éclairées au crépuscule
     representativeOfPage: true
   - image: kasbah-tigmi-salon-01
-    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-salon-01.jpg
+    url: /demo/property.svg
     caption: Salon voûté ouvert sur la terrasse
   - image: kasbah-tigmi-cuisine-01
-    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-cuisine-01.jpg
+    url: /demo/property.svg
     caption: Cuisine rustique avec foyer maçonné
   - image: kasbah-tigmi-chambre-01
-    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre aux teintes profondes et plafond de bois
   - image: kasbah-tigmi-chambre-02
-    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre lumineuse et son coin salon
   - image: kasbah-tigmi-salle-de-bains-01
-    url: /poc/kasbah-tigmi-essaouira/kasbah-tigmi-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Dressing et salle d'eau en tadelakt
 realEstateAgent: null
 highlight: null

@@ -36,7 +36,7 @@
       <div
         class="flex h-full w-full -translate-y-24 flex-col items-center justify-center text-white md:translate-y-0"
       >
-        <LogoBpiFull
+        <LogoShowcaseFull
           size="5xl"
           :force-visible="true"
           color-class="text-white/90"
@@ -122,12 +122,16 @@ const { getItemsByRealEstateListing } = useAccommodation()
 const { isPhoneDevice, isTabletPortrait } = useDeviceDetect()
 const metadataStore = useMetadataStore()
 const appConfig = useAppConfig()
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
 const localePath = useLocalePath()
 const { setScreenMeta, screenColumnTemplate } = useScreenSystem()
 const isHeroImageReady = useState<boolean>(HERO_IMAGE_READY_STATE_KEY, () => false)
 
 // 5. Etat local
 const isPortraitHeroViewport = ref(isPhoneDevice.value || isTabletPortrait.value)
+// Les biens différés peuvent arriver avant l'hydratation de ce composant lazy.
+// Garder le même élément de navigation entre SSR et premier rendu client.
+const hasHydrated = ref(false)
 
 let portraitHeroMediaQuery: MediaQueryList | null = null
 const warmedHeroNavigationTargets = new Set<string>()
@@ -151,7 +155,7 @@ const menuItemsWithAvailability = computed<MenuItemWithAvailability[]>(() =>
     return {
       ...item,
       count,
-      disabled: count === 0,
+      disabled: (hasHydrated.value || isStaticOutput) && count === 0,
     }
   }),
 )
@@ -271,6 +275,7 @@ watch(heroNavigationTargets, warmHeroNavigationTargets, { immediate: true })
 
 // 12. Lifecycle
 onMounted(() => {
+  hasHydrated.value = true
   if (hasLandingScreenData.value && !hasHeroImage.value) {
     isHeroImageReady.value = true
   }

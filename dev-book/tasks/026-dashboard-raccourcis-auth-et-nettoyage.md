@@ -111,7 +111,7 @@ defineShortcuts({
 Avant suppression, vérifier qu'aucun autre fichier n'ouvre la palette (attendu : seuls `useDashboard.ts` et `CommandPaletteModal.vue` ressortent) :
 
 ```bash
-cd /home/johan/www/graines-digitales/modern-web-apps/blueprint-immobilier
+cd /home/johan/www/graines-digitales/modern-web-apps/showcase-immobilier-webapp
 grep -rn "isCommandPaletteOpen\|openCommandPalette\|closeCommandPalette\|toggleCommandPalette\|CommandPaletteModal" app/ server/ --include="*.vue" --include="*.ts"
 ```
 
@@ -140,7 +140,7 @@ Le composant n'est monté nulle part (vérifié) et, après Task 2, n'a plus auc
 - [ ] **Étape 1 : Re-confirmer qu'il n'est monté nulle part**
 
 ```bash
-cd /home/johan/www/graines-digitales/modern-web-apps/blueprint-immobilier
+cd /home/johan/www/graines-digitales/modern-web-apps/showcase-immobilier-webapp
 grep -rn "CommandPaletteModal" app/ --include="*.vue" | grep -v "components/CommandPaletteModal.vue"
 ```
 
@@ -179,7 +179,7 @@ Référence de style de liste : [PropertySidebar.vue](../../app/components/dashb
 - [ ] **Étape 1 : Renommer le fichier**
 
 ```bash
-cd /home/johan/www/graines-digitales/modern-web-apps/blueprint-immobilier
+cd /home/johan/www/graines-digitales/modern-web-apps/showcase-immobilier-webapp
 git mv app/components/CommandPropertyModal.vue app/components/CommandPropertySlideover.vue
 ```
 
@@ -318,7 +318,7 @@ par :
 - [ ] **Étape 1 : Type-check**
 
 ```bash
-cd /home/johan/www/graines-digitales/modern-web-apps/blueprint-immobilier
+cd /home/johan/www/graines-digitales/modern-web-apps/showcase-immobilier-webapp
 make type-check 2>&1 | head -40
 ```
 

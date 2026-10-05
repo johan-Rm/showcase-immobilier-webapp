@@ -1,0 +1,17 @@
+mediaObject:
+  required:
+    - identifier
+    - caption
+    - url
+    - mainEntity
+  properties:
+    identifier:
+      type: string
+    caption:
+      type: string
+    url:
+      type: string
+    mainEntity:
+      type: string
+    representativeOfPage:
+      type: boolean
