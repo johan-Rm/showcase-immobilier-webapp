@@ -1,0 +1,27 @@
+trip:
+  arrivalTime:
+    type: datetime
+  departureTime:
+    type: datetime
+  offers:
+    type: array<Offer>
+  category:
+    type: string
+  keywords: # ex-tags
+    type: array<string>
+  image: # ex-primaryImage / secondaryImage
+    type: array<URL>
+  identifier: # ex-slug
+    type: string
+  inLanguage: # ex-locale
+    type: string
+  name:
+    type: string
+  alternateName:
+    type: string
+  description:
+    type: string
+  url:
+    type: URL
+  additionalProperty: # champs non mappés schema.org (alignPrimaryImage, discountCodes, isLocked, isEnabled, isIndexed, structuredData, activities, lengthOfStayText, translatable, mainEntityOfPage, pushForward, text, textResume, datePublished, expire)
+    type: array<PropertyValue>

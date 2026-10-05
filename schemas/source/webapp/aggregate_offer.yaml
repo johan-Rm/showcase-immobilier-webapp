@@ -1,0 +1,27 @@
+aggregateOffer:
+  name:
+    type: string
+  price:
+    type: number
+  priceCurrency:
+    type: string
+  highPrice:
+    type: number
+  lowPrice:
+    type: number
+  offerCount:
+    type: integer
+  availabilityStarts: # ex-availabilityStart
+    type: datetime
+  availabilityEnds: # ex-availabilityEnd
+    type: datetime
+  dateCreated: # ex-createdAt
+    type: datetime
+  dateModified: # ex-updatedAt
+    type: datetime
+  addOn:
+    type: array<Offer>
+  itemOffered: # ex-trips
+    type: array<Trip>
+  additionalProperty: # ex-rooms + champs non mappés
+    type: array<PropertyValue>

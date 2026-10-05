@@ -22,13 +22,14 @@ const logger = useLogger({ module: 'app' })
 const { localeSetting } = useLang()
 // Statut et données critiques de l'application (web pages, métadonnées).
 const { initCoreData, isInitCoreDataReady, loadBackgroundData } = useNuxtServerInit()
+// Drapeau de sortie statique : voir `runtimeConfig.public.staticOutput`.
+const isStaticOutput = useRuntimeConfig().public.staticOutput === true
 const { preloadDashboard, seedDashboardHeroImageUrl } = useApp()
 preloadDashboard()
 
 // Résolus en setup (contexte Nuxt valide) : useRuntimeConfig() ne peut pas être appelé
 // dans le getter de useHead, qui est évalué par unhead hors contexte Vue côté SSR.
 const faviconSvgHref = assetUrl('favicon.svg')
-const faviconIcoHref = assetUrl('favicon.ico')
 const themesCssHref = assetUrl('themes.css')
 
 // 5. Etat local
@@ -97,6 +98,20 @@ await callOnce('app.init-core-data', async () => {
       message: error instanceof Error ? error.message : String(error),
     })
   }
+
+  // Pre-rendu ou sortie statique : les donnees d'arriere-plan (accommodations)
+  // sont normalement chargees apres l'hydratation, donc absentes du HTML produit.
+  // Sans elles, les listes de biens sortent vides dans le livrable statique.
+  // Le rendu serveur classique et le client conservent leur comportement.
+  if (import.meta.prerender || (import.meta.server && isStaticOutput)) {
+    try {
+      await loadBackgroundData()
+    } catch (error) {
+      logger.error('app:prerender-background-data-failed', {
+        message: error instanceof Error ? error.message : String(error),
+      })
+    }
+  }
 })
 
 // 10. Watch et watchEffect
@@ -121,7 +136,7 @@ watch(
 // 11. Metadonnees ecran ou page
 
 useHead(() => ({
-  title: 'MLK - My Little Kasbah',
+  title: 'Showcase Immobilier',
   htmlAttrs: {
     // Synchronise l'attribut lang du document HTML avec la locale active.
     lang: localeSetting.value,
@@ -133,12 +148,6 @@ useHead(() => ({
       rel: 'icon',
       type: 'image/svg+xml',
       href: faviconSvgHref,
-    },
-    {
-      key: 'app-favicon-ico',
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: faviconIcoHref,
     },
     {
       key: 'app-themes-stylesheet',

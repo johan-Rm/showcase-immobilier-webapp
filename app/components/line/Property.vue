@@ -73,7 +73,7 @@
                 />
               </template>
               <div v-else class="bg-foreground absolute inset-0 flex items-center justify-center">
-                <LogoMlkFull size="3xl" color-class="text-white/90" :force-visible="true" />
+                <LogoShowcaseFull size="3xl" color-class="text-white/90" :force-visible="true" />
               </div>
               <div class="absolute right-4 bottom-[15%] left-4 z-10">
                 <CardTitleProperty
@@ -111,7 +111,7 @@
                 />
               </template>
               <div v-else class="bg-foreground absolute inset-0 flex items-center justify-center">
-                <LogoMlkFull size="2xl" color-class="text-white/90" :force-visible="true" />
+                <LogoShowcaseFull size="2xl" color-class="text-white/90" :force-visible="true" />
               </div>
               <div class="absolute right-4 bottom-[15%] left-4 z-10">
                 <CardTitleProperty

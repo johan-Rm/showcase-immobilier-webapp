@@ -18,6 +18,9 @@ services:
       - ./.data:/app/.data
       - ./public:/app/public
       - ./scripts:/app/scripts
+      # Setup reads the existing host config; it must not create a container-only .env.
+      - ./.env:/app/.env:ro
+      - ./dev-book/fixtures:/app/dev-book/fixtures:ro
       - ${SCHEMAS_PATH:?SCHEMAS_PATH must be set}:/opt/app-schemas
     extra_hosts:
       - 'host.docker.internal:host-gateway'

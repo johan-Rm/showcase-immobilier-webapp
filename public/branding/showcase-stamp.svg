@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="160" viewBox="0 0 720 160">
+  <g fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85">
+    <path d="M28 80 80 36l52 44v58H40V80M67 138V99h26v39"/>
+    <path d="M156 36v102" stroke-width="2"/>
+  </g>
+  <g fill="white" font-family="sans-serif" opacity=".85">
+    <text x="184" y="87" font-size="48" letter-spacing="5">SHOWCASE</text>
+    <text x="187" y="124" font-size="22" letter-spacing="8">IMMOBILIER</text>
+  </g>
+</svg>

@@ -22,7 +22,7 @@ l'image Playwright (~791 MB, lente a pull et source de cache BuildKit corrompu).
 ## Perimetre
 
 - creer un `docker-compose.e2e.yml` dedie contenant uniquement le service `playwright`.
-- le brancher sur la webapp via un reseau partage externe (nomme, ex. `blue-bay-dev`), la
+- le brancher sur la webapp via un reseau partage externe (nomme, ex. `blueprint-dev`), la
   webapp dev devant tourner avant le lancement des E2E.
 - retirer `playwright` de `docker-compose.dev.yml` (et le profil `e2e` devenu inutile).
 - adapter `Makefile.dev` : cible `dev-playwright` pointant sur le nouveau fichier compose.

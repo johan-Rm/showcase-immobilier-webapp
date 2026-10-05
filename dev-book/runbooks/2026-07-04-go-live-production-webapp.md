@@ -74,7 +74,7 @@ Checklist de mise en production. Chaque point annoté avec l'état réel du proj
 - [ ] ✅ SSL : Let's Encrypt via certbot sur l'edge (`edge-cert.sh`) — émettre le certificat du domaine final avant le basculement DNS
 - [ ] ✅ Redirection HTTP → HTTPS gérée par l'edge — vérifier sur le domaine final
 - [ ] ✅ HSTS : `max-age=31536000` dans `ssl-common.conf` — ⚠️ sans `includeSubDomains` ni `preload` (choix à confirmer)
-- [ ] ✅ CSP posée sur le vhost edge `mlk-webapp.conf` (`object-src 'none'`, `frame-ancestors 'self'`, `form-action 'self'`, sandbox) — tester le site complet avec la console ouverte (aucune violation)
+- [ ] ✅ CSP posée sur le vhost edge `showcase-webapp.conf` (`object-src 'none'`, `frame-ancestors 'self'`, `form-action 'self'`, sandbox) — tester le site complet avec la console ouverte (aucune violation)
 - [ ] ✅ `X-Content-Type-Options: nosniff` + `Referrer-Policy` (nginx applicatif) — contrôler les en-têtes de réponse avec `curl -I`
 - [ ] ⚠️ Pas de reCAPTCHA sur le formulaire de contact — protection actuelle : honeypot (champ `website`). Décider si suffisant pour le lancement ; vérifier que le rate-limiting edge (`rate-limit-dynamic.conf`) couvre `/api/contact`
 - [ ] 🔧 `NUXT_SESSION_PASSWORD` : vrai secret ≥ 32 caractères (`openssl rand -base64 48`) — le préflight refuse le placeholder

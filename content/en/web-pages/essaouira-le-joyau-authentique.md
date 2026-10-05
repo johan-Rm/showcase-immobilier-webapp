@@ -18,7 +18,7 @@ dateModified: '2023-02-16T11:40:34+01:00'
 
 ## Essaouira – Le joyau authentique de la côte atlantique
 
-Nichée sur la côte atlantique du Maroc, Essaouira est une ville qui séduit par son **charme intemporel**.  
+Nichée sur la côte atlantique du Maroc, Essaouira est une ville qui séduit par son **charme intemporel**.
 Entre ses ruelles blanches et bleues, son port de pêche animé et ses plages infinies, cette perle du littoral offre une **douceur de vivre rare**.
 
 Connue pour son atmosphère bohème et son **équilibre subtil entre tradition et modernité**, Essaouira attire autant les voyageurs en quête d’authenticité que les investisseurs sensibles à la valeur du temps long.
@@ -51,7 +51,7 @@ Avec un accompagnement adapté, il est possible de **valoriser son bien tout en 
 
 ## Une destination, un refuge, une évidence
 
-Essaouira n’est pas seulement une destination de voyage.  
+Essaouira n’est pas seulement une destination de voyage.
 C’est un **art de vivre**, un refuge pour l’esprit et un investissement dans la sérénité.
 
 Que ce soit pour y séjourner, y développer un projet ou **valoriser un bien en location saisonnière**, Essaouira accueille chacun avec simplicité, authenticité et le souffle apaisant de l’océan.

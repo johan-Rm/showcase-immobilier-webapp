@@ -1,6 +1,6 @@
-import { readFile } from 'node:fs/promises'
-
 import { parse } from 'yaml'
+
+import { readThemeSource } from '../utils/content/themeSource'
 
 type ThemeDefinition = {
   name?: string
@@ -135,7 +135,7 @@ const buildThemeCss = (key: string, theme: ThemeDefinition, palettes: ThemeYaml[
 }
 
 export default defineEventHandler(async (event) => {
-  const raw = await readFile(new URL('../../themes.yaml', import.meta.url), 'utf-8')
+  const raw = await readThemeSource(import.meta.url)
   const themesData = parse(raw) as ThemeYaml
   const themes = themesData?.themes ?? {}
   const palettes = themesData?.colors ?? themes.colors ?? {}

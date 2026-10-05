@@ -84,9 +84,9 @@ check_distinct() {
     ok "$key=$value"
   fi
 }
-check_distinct COMPOSE_PROJECT_NAME mon-webapp-dev
-check_distinct APP_STACK_NETWORK_NAME mon_webapp_network_dev
-check_distinct EDGE_ALIAS mon-webapp-dev
+check_distinct COMPOSE_PROJECT_NAME showcase-immobilier-dev
+check_distinct APP_STACK_NETWORK_NAME showcase_immobilier_network_dev
+check_distinct EDGE_ALIAS showcase-immobilier-dev
 
 # --- Dossiers hôtes montés ---------------------------------------------------
 COMPOSE_DIR="$(unset CDPATH; cd "$(dirname "$COMPOSE_FILE")" && pwd)"
@@ -109,7 +109,11 @@ check_host_dir() {
     fail "$key → $path inexistant (Docker créerait un dossier vide)"
   fi
 }
-check_host_dir MEDIA_HOST_DIR ./public/images yes
+media_default=./public/images
+if [ "$LABEL" = "preprod" ]; then
+  media_default=/var/www/graines-digitales/webapps/showcase-immobilier/public/images
+fi
+check_host_dir MEDIA_HOST_DIR "$media_default" yes
 check_host_dir CONTENT_HOST_DIR ./content yes
 check_host_dir DATA_HOST_DIR ./.data create
 

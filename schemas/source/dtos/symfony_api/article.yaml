@@ -1,0 +1,25 @@
+article:
+  identifier:
+    type: string
+  slug:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+  body:
+    type: string
+  headline:
+    type: string
+  datePublished:
+    type: string
+  isActive:
+    type: boolean
+  metaTitle:
+    type: string
+  metaDescription:
+    type: string
+  dateCreated:
+    type: string
+  dateModified:
+    type: string

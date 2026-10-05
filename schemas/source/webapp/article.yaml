@@ -1,0 +1,45 @@
+article:
+  datePublished:
+    type: datetime
+  dateModified: # ex-lastReview
+    type: datetime
+  dateCreated: # ex-createdAt
+    type: datetime
+  articleSection: # ex-category
+    type: string
+  keywords: # ex-tags
+    type: array<string>
+  additionalProperty: # ex-propertyValues (metaDescription, metaTitle, translatable, alignPrimaryImage, isEnabled, isIndexed, structuredData, isLocked)
+    type: array<PropertyValue>
+  image: # ex-primaryImage / secondaryImage
+    type: array<MediaObject|URL>
+  identifier: # ex-slug
+    type: string
+  inLanguage: # ex-locale
+    type: string
+  headline:
+    type: string
+  video:
+    type: MediaObject
+  name:
+    type: string
+  alternateName:
+    type: string
+  description:
+    type: string
+  url:
+    type: URL
+  mainEntityOfPage:
+    type: URL
+  alternativeHeadline: # ex-pushForward
+    type: string
+  abstract: # ex-textResume / articleResume
+    type: string
+  expires: # ex-expire (pour Article, optionnel)
+    type: date
+  text:
+    type: string
+  articleBody:
+    type: string
+  hasPart: # ex-components / sections de page (blocs de contenu generiques)
+    type: array<object>

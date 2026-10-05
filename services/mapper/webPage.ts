@@ -459,7 +459,7 @@ export const mapWebPages = (
 }
 
 export const accommodationToWebPage = (item: Accommodation): WebPage => {
-  const metaTitle = item.metaTitle || `${item.name} à Essaouira – MLK My Little Kasbah`
+  const metaTitle = item.metaTitle || `${item.name} à Essaouira – Showcase Immobilier`
   const metaDescription = item.metaDescription || item.highlight || ''
   const now = new Date().toISOString()
 

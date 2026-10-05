@@ -1,0 +1,13 @@
+realEstateListing:
+  required:
+    - slug
+    - name
+  properties:
+    slug:
+      type: string
+    name:
+      type: string
+    text:
+      type: string
+    isEnabled:
+      type: boolean

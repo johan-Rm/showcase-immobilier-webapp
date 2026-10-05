@@ -8,7 +8,7 @@ services:
       - ${ENV_FILE:-.env.preprod}
     volumes:
       - ./:/app
-      - ${MEDIA_HOST_DIR:-./public/images}:/app/public/images
+      - ${MEDIA_HOST_DIR:-/var/www/graines-digitales/webapps/showcase-immobilier/public/images}:/app/public/images
       - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
     environment:
       NODE_ENV: production
@@ -56,7 +56,9 @@ services:
     volumes:
       - ${SCHEMAS_PATH:-../../schemas}:/opt/app-schemas
       - ${CONTENT_HOST_DIR:-./content}:/app/content
-      - ${MEDIA_HOST_DIR:-./public/images}:/app/.output/public/images
+      - ${MEDIA_HOST_DIR:-/var/www/graines-digitales/webapps/showcase-immobilier/public/images}:/app/.output/public/images:ro
+      # IPX lit les sources dans le dossier public, indépendamment du build.
+      - ${MEDIA_HOST_DIR:-/var/www/graines-digitales/webapps/showcase-immobilier/public/images}:/app/public/images:ro
       # Persistance des demandes de contact (survit à la recréation du conteneur).
       - ${DATA_HOST_DIR:-./.data}:/app/.data
     networks:

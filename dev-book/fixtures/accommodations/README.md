@@ -9,19 +9,22 @@ Source de vérité **versionnée** des biens d'exemple **fictifs** créés pour 
 (pull-only depuis l'API Symfony). Les fixtures de démo n'y survivraient pas. On les
 versionne donc ici, et on les **repose** dans `content/fr/accommodations/` au besoin.
 
-## Reposer les fixtures après un sync
+## Préparer les fixtures locales
 
 ```bash
-cp dev-book/fixtures/accommodations/villa-*.md content/fr/accommodations/
+bun run setup:local
 ```
 
-Les images correspondantes vivent dans `public/poc/<slug>/` (suivies par Git, non purgées).
+Le script les prépare dans les trois langues avec le marqueur `dataSource: fixture`.
+Les photos de démonstration originales sont conservées dans `public/poc/` et
+`public/images/` ; les illustrations de `public/demo/` restent disponibles.
+Le setup refuse de remplacer un bien ou un référentiel non fictif.
 
 ## Anonymisation
 
 Données **fictives** : noms, références et textes réécrits, inspirés de listings réels
 sans copie verbatim. Caractéristiques factuelles génériques uniquement (surfaces, nombre
-de chambres, piscine, localisation régionale). Images : usage démo/POC interne.
+de chambres, piscine, localisation régionale). Images : photos de démonstration conservées et illustrations SVG complémentaires.
 
 ## Fixtures
 
@@ -57,7 +60,7 @@ un identifiant lisible, son url et sa légende :
 ```yaml
 associatedMedia:
   - image: villa-lumiere-salon-01 # identifiant (clé de référence)
-    url: /poc/villa-lumiere-mogador/villa-lumiere-salon-01.jpg
+    url: /demo/property.svg
     caption: Salon ouvert sur le jardin
     representativeOfPage: true # 1er média = visuel représentatif
 ```

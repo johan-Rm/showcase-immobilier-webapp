@@ -1,0 +1,629 @@
+items:
+  - id: 019f32db-e43d-74b3-b723-57a0dcfe4693
+    codeValue: aeroport
+    name: Route de l'aéroport
+    inCodeSet: accommodation-place
+    text: Zone reliant Essaouira à son aéroport, appréciée pour son accessibilité et
+      son potentiel de développement.
+  - id: 019f32db-e43b-7edf-8da5-7c5a93286501
+    codeValue: bouzama
+    name: Bouzama
+    inCodeSet: accommodation-place
+    text: Village situé aux alentours d’Essaouira, offrant un environnement calme et
+      authentique, propice à la vie en pleine nature.
+  - id: 019f32db-e433-7e4e-a446-7b36463ca6c4
+    codeValue: campagne
+    name: Campagne
+    inCodeSet: accommodation-place
+    text: Environnement calme autour d’Essaouira, idéal pour profiter d’espaces
+      naturels, de tranquillité et de propriétés avec terrain.
+  - id: 019f32db-e444-7042-8887-ea66f65a7ce3
+    codeValue: chicht
+    name: Chicht
+    inCodeSet: accommodation-place
+    text: Village situé dans la région d’Essaouira, proposant un environnement
+      paisible et typique de la campagne marocaine.
+  - id: 019f32db-e434-7ecd-b82f-e0c5faa18cdd
+    codeValue: diabet
+    name: Diabet
+    inCodeSet: accommodation-place
+    text: Situé à l’ouest d’Essaouira, Diabat est un village emblématique connu pour
+      ses dunes, son ambiance bohème et sa proximité immédiate avec la plage.
+      Très prisé pour les résidences secondaires et les maisons de charme, le
+      secteur bénéficie également de la présence du golf de Mogador à proximité.
+      Diabat séduit par son atmosphère paisible, son authenticité et son cadre
+      naturel unique entre océan et désert.
+  - id: 019f32db-e436-7abb-9bdd-876ff1a61aea
+    codeValue: douar-larab
+    name: Douar Laarab
+    inCodeSet: accommodation-place
+    text: Douar situé dans l’arrière-pays d’Essaouira, offrant un cadre authentique
+      et rural, apprécié pour son calme et ses espaces naturels.
+  - id: 019f32db-e435-7d0f-b3ee-a7a93c1ab603
+    codeValue: ghazoua
+    name: Ghazoua
+    inCodeSet: accommodation-place
+    text: Située à quelques minutes d’Essaouira, Ghazoua est une zone résidentielle
+      en plein développement, très recherchée pour ses villas avec jardin et
+      piscine. Le secteur offre un bon compromis entre calme, accessibilité et
+      proximité des commodités. On y trouve de nombreuses propriétés modernes
+      ainsi que des maisons d’hôtes, dans un environnement paisible à seulement
+      quelques minutes du centre-ville et des plages.
+  - id: 019f32db-e432-7eb1-b6f1-f8df5022ef9b
+    codeValue: golf-mogador
+    name: Mogador
+    inCodeSet: accommodation-place
+    text: Situé à proximité de Diabat, le golf de Mogador est un domaine réputé
+      offrant un cadre sécurisé avec villas haut de gamme, entre océan et
+      nature.
+  - id: 019f32db-e43f-720b-9a8e-6e20104278eb
+    codeValue: had-draa
+    name: Had Draa
+    inCodeSet: accommodation-place
+    text: Localité rurale proche d’Essaouira, connue pour son ambiance
+      traditionnelle et ses marchés locaux.
+  - id: 019f32db-e43a-7b20-b4af-0671e852a533
+    codeValue: hrarta
+    name: Hrarta
+    inCodeSet: accommodation-place
+    text: Secteur en développement autour d’Essaouira, offrant un cadre paisible
+      entre ville et campagne, adapté aux projets immobiliers.
+  - id: 019f32db-e439-732a-b8f2-8701adebb300
+    codeValue: ida-ougourd
+    name: Ida Ougourd
+    inCodeSet: accommodation-place
+    text: Zone rurale située à proximité d’Essaouira, appréciée pour son
+      authenticité, son calme et ses paysages naturels.
+  - id: 019f32db-e442-7f10-a0e8-3418e213eaee
+    codeValue: laraich
+    name: Laraiche
+    inCodeSet: accommodation-place
+    text: Zone rurale aux environs d’Essaouira, offrant un cadre calme et
+      authentique, idéal pour des projets résidentiels.
+  - id: 019f32db-e430-7de0-ad9d-c83ab183f490
+    codeValue: medina
+    name: Médina
+    inCodeSet: accommodation-place
+    text: Construite à la fin du XVIIIe siècle, la Médina est le cœur historique
+      d’Essaouira, animée par ses souks, ses remparts et son port. Classée au
+      patrimoine mondial de l’UNESCO, elle séduit par son authenticité et son
+      architecture unique.
+  - id: 019f32db-e441-7c54-ae0b-c512e7513b65
+    codeValue: moulay-bouzerktoun
+    name: Moulay Bouzerktoun
+    inCodeSet: accommodation-place
+    text: Spot réputé pour le kitesurf et le windsurf, attirant les amateurs de
+      sports nautiques et de nature.
+  - id: 019f32db-e431-7d15-a470-60aba63e4496
+    codeValue: nouvelle-ville
+    name: Nouvelle-ville
+    inCodeSet: accommodation-place
+    text: Quartier moderne d’Essaouira regroupant commerces, services et habitations
+      récentes, idéal pour un quotidien pratique à proximité du centre.
+  - id: 019f32db-e440-798c-801f-21ae127bbe69
+    codeValue: ounagha
+    name: Ounagha
+    inCodeSet: accommodation-place
+    text: Commune située à proximité d’Essaouira, combinant accessibilité,
+      authenticité et cadre naturel agréable.
+  - id: 019f32db-e446-72bf-b809-3c5bde3eab64
+    codeValue: route-d-agadir
+    name: Route d'Agadir
+    inCodeSet: accommodation-place
+  - id: 019f32db-e445-717b-b55b-9be2070517d7
+    codeValue: route-de-marrakech
+    name: Route de Marrakech
+    inCodeSet: accommodation-place
+    text: Axe majeur reliant Essaouira à Marrakech, offrant un bon compromis entre
+      accessibilité et opportunités immobilières.
+  - id: 019f32db-e447-71fa-a0d8-261f517f2e1e
+    codeValue: route-de-safi
+    name: Route de Safi
+    inCodeSet: accommodation-place
+    text: Secteur desservi par la route de Safi, apprécié pour son accessibilité et
+      ses possibilités de développement immobilier.
+  - id: 019f32db-e437-7c54-b9b5-478927a77c01
+    codeValue: sidi-kaouki
+    name: Sidi Kaouki
+    inCodeSet: accommodation-place
+    text: À une trentaine de minutes au sud d’Essaouira, Sidi Kaouki est une
+      destination réputée pour ses plages sauvages et son cadre naturel
+      préservé. Très apprécié des amateurs de surf et de tranquillité, le
+      secteur attire une clientèle en quête d’évasion et d’authenticité.
+      L’immobilier y est orienté vers des maisons de charme, des villas et des
+      projets touristiques dans un environnement encore préservé.
+  - id: 019f32db-e426-77df-ad0f-ec5db3059061
+    codeValue: affaires-commerciales
+    name: Affaire commerciale
+    inCodeSet: accommodation-type
+    text: 'Fonds de commerce à vendre à Essaouira : restaurants, hôtels et maisons
+      d’hôtes.'
+  - id: 019f32db-e41f-75a2-b136-3494a920ff74
+    codeValue: appartement
+    name: Appartement
+    inCodeSet: accommodation-type
+    text: Notre agence vous propose une sélection d’appartements à vendre à
+      Essaouira. Appartements neufs ou de caractère, adaptés à tous les projets.
+  - id: 019f32db-e42c-757a-98a9-91b17adc848c
+    codeValue: chambre-dhotes
+    name: Chambre d'hôtes
+    inCodeSet: accommodation-type
+  - id: 019f32db-e42a-798d-bfb8-7dd06d1cdea0
+    codeValue: dar
+    name: Dar
+    inCodeSet: accommodation-type
+    text: Sélection de dars à vendre à Essaouira.
+  - id: 019f32db-e42d-77ba-a707-7b089ee5a671
+    codeValue: domaine
+    name: Domaine
+    inCodeSet: accommodation-type
+  - id: 019f32db-e42e-7eb5-8dfe-fb333effb8b9
+    codeValue: kasbah
+    name: Kasbah
+    inCodeSet: accommodation-type
+  - id: 019f32db-e429-74d5-8740-23922e66fcde
+    codeValue: local-commercial
+    name: Local commercial
+    inCodeSet: accommodation-type
+    text: 'Vente Locaux de commerce Essaouira : sélection de fonds de commerce à
+      vendre à Essaouira et sa région. Nos spécialistes vous accompagnent pour
+      trouver l’affaire adaptée à votre projet.'
+  - id: 019f32db-e427-7ca9-b332-12404a2fe8a3
+    codeValue: location-gerance
+    name: Location gérance
+    inCodeSet: accommodation-type
+    text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  - id: 019f32db-e423-73fc-a3ec-ca8046d599ab
+    codeValue: maison-de-campagne
+    name: Maison de campagne
+    inCodeSet: accommodation-type
+    text: Sélection de maisons de campagne à vendre à Essaouira et sa région.
+      Accompagnement dans toutes les étapes de votre projet immobilier.
+  - id: 019f32db-e424-717b-b27b-7140172924db
+    codeValue: maison-de-ville
+    name: Maison de ville
+    inCodeSet: accommodation-type
+  - id: 019f32db-e421-75f3-b56b-069ad9aebe4c
+    codeValue: maisons-dhotes
+    name: Maison d'hôtes
+    inCodeSet: accommodation-type
+    text: Maisons d’hôtes à vendre à Essaouira avec potentiel de rentabilité.
+  - id: 019f32db-e420-758f-84b0-7733ad7e7d34
+    codeValue: riad
+    name: Riad
+    inCodeSet: accommodation-type
+    text: Notre agence vous propose une sélection de riads à vendre à Essaouira.
+      Découvrez des biens de charme dans la médina, rénovés ou à rénover, avec
+      accompagnement complet dans vos démarches d’achat.
+  - id: 019f32db-e425-72b0-b458-e3a380c14d33
+    codeValue: terrain
+    name: Terrain
+    inCodeSet: accommodation-type
+    text: Les terrains à Essaouira peuvent être situés en zone urbaine ou rurale.
+      Des règles spécifiques s’appliquent selon la localisation et le type de
+      projet.
+  - id: 019f32db-e42f-7f3b-82c6-6f526c0f8ba2
+    codeValue: villa
+    name: Villa
+    inCodeSet: accommodation-type
+  - id: 019f32db-e422-7475-be6c-ee2bc804741e
+    codeValue: villa-golf
+    name: Villa golf
+    inCodeSet: accommodation-type
+    text: Le marché des villas sur le golf de Mogador est spécifique, avec peu de
+      biens disponibles. Certaines villas offrent des vues mer exceptionnelles
+      et un cadre haut de gamme.
+  - id: 019f32db-e3d7-7b49-9a4b-2deaef7dbf2d
+    codeValue: acces-route
+    name: Accès route
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d8-7c3f-bd62-5b459791d59c
+    codeValue: accessibilite
+    name: Accessibilité
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3de-7859-a66f-6dd101f1d029
+    codeValue: air-conditionne
+    name: Air conditionné
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3e0-7035-8893-c97cfdbf8d88
+    codeValue: alarme
+    name: Alarme
+    inCodeSet: amenity-feature
+  - id: 019f32db-e345-7a5e-8379-eb368e6873b3
+    codeValue: ambiance
+    name: Ambiance
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3a9-7631-951a-e2950323495f
+    codeValue: ascenseur
+    name: Ascenseur
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ac-74a0-851c-d8eafe14efb4
+    codeValue: balcon
+    name: Balcon
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ad-7835-9af4-d63e45f5e546
+    codeValue: barbecue-ou-plancha
+    name: Barbecue ou plancha
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ae-791c-a3ac-2ecc228c05af
+    codeValue: belle-hauteur-sous-plafond
+    name: Belle hauteur sous plafond
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3af-7e8e-bf5c-57d2baad33c6
+    codeValue: cave-a-vin
+    name: Cave a vin
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ec-7e93-b874-31bc656ba13b
+    codeValue: chateau-d-eau
+    name: Château d'eau
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b1-79d5-8b87-7b8a91a130f1
+    codeValue: cheminee
+    name: Cheminee
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ef-7a1b-b8a0-369aa393fd7d
+    codeValue: climatisation
+    name: Climatisation
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3f0-7a7f-bbbe-582f59235893
+    codeValue: climatisation-reversible
+    name: Climatisation réversible
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b2-7f1e-aeb0-d1778adf2e75
+    codeValue: congelateur
+    name: Congelateur
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b3-7f76-be0e-270d797c32b8
+    codeValue: douche-exterieure
+    name: Douche exterieure
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b5-7132-9907-794de9d09b4a
+    codeValue: enceinte-portable
+    name: Enceinte portable
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b6-7360-966b-8034cba98cb3
+    codeValue: exploitation-commerciale
+    name: Exploitation commerciale
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3f4-7314-b7d7-dce42f96eec9
+    codeValue: exposition-sud
+    name: Exposition Sud
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b7-7c2e-97b0-a785732d859e
+    codeValue: fer-a-repasser
+    name: Fer a repasser
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3b9-7268-8b43-16a683cf3e21
+    codeValue: fort-potentiel
+    name: Fort potentiel
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ba-7704-906f-b95af0794728
+    codeValue: four
+    name: Four
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3bb-7b56-a294-521544156658
+    codeValue: frigo-americain
+    name: Frigo americain
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3f6-7507-8553-a95479fa139f
+    codeValue: garage
+    name: Garage
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3f7-75e4-a4a7-c0377982c828
+    codeValue: gardien
+    name: Gardien
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3fa-76bc-be7d-b225e25c7a26
+    codeValue: hammam
+    name: Hammam
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3bc-7c90-91b1-17a6e26fdaa4
+    codeValue: home-cinema
+    name: Home cinema
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3fd-7dbd-a2c8-cbfc5b370ac9
+    codeValue: jacuzzi
+    name: Jacuzzi
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3bd-7db3-87e3-673ad30ac6fc
+    codeValue: jardin
+    name: Jardin
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3bf-703d-b27a-f57d27cb0e80
+    codeValue: lave-linge
+    name: Lave-linge
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c0-7064-93f5-cf84140b78a2
+    codeValue: lave-vaisselle
+    name: Lave-vaisselle
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c0-7ea0-93f5-cf8415b2ed13
+    codeValue: lumiere-naturelle
+    name: Lumiere naturelle
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c1-7dbf-96e1-77637a75da7a
+    codeValue: machine-a-cafe
+    name: Machine a cafe
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c2-7e99-93fe-f00268296e43
+    codeValue: mezzanine
+    name: Mezzanine
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c4-7064-9e10-6676d10a0b5d
+    codeValue: micro-onde
+    name: Micro-onde
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c5-7458-a58f-3e6a524f6b40
+    codeValue: mobilier-exterieur
+    name: Mobilier exterieur
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c6-7eb2-bed8-5ecd93b7259c
+    codeValue: parking
+    name: Parking
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c8-77f5-a665-d1bb891eeb25
+    codeValue: patio
+    name: Patio
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3c9-7d68-9191-39586373b10e
+    codeValue: petit-dejeuner
+    name: Petit dejeuner
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3cb-7621-a037-8c4ccaa83968
+    codeValue: piscine
+    name: Piscine
+    inCodeSet: amenity-feature
+  - id: 019f32db-e408-7b72-b87d-97dc3105c439
+    codeValue: piscine-chauffee
+    name: Piscine chauffée
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3cc-78ad-b6a7-42a2337e3ebb
+    codeValue: proximite-des-commerces
+    name: Proximite des commerces
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3cd-78b1-a81e-8c0c4b99fb2c
+    codeValue: refrigerateur
+    name: Refrigerateur
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3ce-776b-9599-ec653695fad8
+    codeValue: robot-menager
+    name: Robot menager
+    inCodeSet: amenity-feature
+  - id: 019f32db-e40b-73d2-b91d-040b218cb7b6
+    codeValue: room-service
+    name: Room service
+    inCodeSet: amenity-feature
+  - id: 019f32db-e40d-79d8-a216-1e0a5d24c5a5
+    codeValue: salle-de-bain
+    name: Salle de bain
+    inCodeSet: amenity-feature
+  - id: 019f32db-e40e-7c07-ab80-ba8d15ed99ef
+    codeValue: salle-de-sport
+    name: Salle de sport
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3cf-7624-938c-59a2812cba52
+    codeValue: seche-linge
+    name: Seche-linge
+    inCodeSet: amenity-feature
+  - id: 019f32db-e411-7699-8ff7-5511b0b3e667
+    codeValue: solarium
+    name: Solarium
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d0-73da-92a8-c815797918ae
+    codeValue: spa
+    name: Spa
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d1-72af-8ef0-5efba3691b02
+    codeValue: television
+    name: Television
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d2-7471-92d7-79ab9e35611d
+    codeValue: terrasse
+    name: Terrasse
+    inCodeSet: amenity-feature
+  - id: 019f32db-e415-7ede-9fab-3d45b88f7efa
+    codeValue: terrasse-attenante
+    name: Terrasse attenante
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d3-756a-880a-e621d5e930df
+    codeValue: toit-terrasse
+    name: Toit terrasse
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d4-7510-adc1-2a2da14adf2c
+    codeValue: viabilise
+    name: Viabilise
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d5-736b-aef3-9d3dcb00945d
+    codeValue: vitrine
+    name: Vitrine
+    inCodeSet: amenity-feature
+  - id: 019f32db-e41a-7d19-a358-a935d78176d9
+    codeValue: vue-degagee
+    name: Vue dégagée
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d6-74a8-b990-1f3223ec29fb
+    codeValue: vue-ocean
+    name: Vue ocean
+    inCodeSet: amenity-feature
+  - id: 019f32db-e41d-71f5-bd76-3ab30fec193e
+    codeValue: vue-sur-mer
+    name: Vue sur mer
+    inCodeSet: amenity-feature
+  - id: 019f32db-e41e-72de-9f96-78462402b915
+    codeValue: wifi
+    name: Wifi
+    inCodeSet: amenity-feature
+  - id: 019f32db-e3d9-7ee1-a296-c03494ed2b3f
+    codeValue: agence-immobiliere
+    name: Agence immobilière
+    inCodeSet: article-section
+  - id: 019f32db-e448-70d5-856d-14df5efc732f
+    codeValue: bien-a-vendre
+    name: Biens a vendre
+    inCodeSet: real-estate-listing
+    text: Découvrez notre sélection de maisons, riads et villas à vendre à
+      Essaouira. Que vous recherchiez une résidence principale, secondaire ou un
+      investissement locatif, nos biens sont sélectionnés pour leur emplacement
+      et leur potentiel.
+  - id: 019f32db-e44a-73a9-bcef-7c7f3ce0f932
+    codeValue: location-longue-duree
+    name: Locations longue durée
+    inCodeSet: real-estate-listing
+    text: Nous proposons également des biens en location longue durée, adaptés à une
+      installation durable dans la région, avec des options variées selon vos
+      besoins.
+  - id: 019f32db-e449-7557-bcb5-dedef4c9184f
+    codeValue: location-saisonniere
+    name: Locations saisonniere
+    inCodeSet: real-estate-listing
+    text: Profitez d’une expérience unique grâce à nos locations saisonnières à
+      Essaouira. Des biens confortables et authentiques, idéalement situés pour
+      découvrir la médina et le littoral.
+  - id: 019f32db-e44b-7f18-9bc2-a4feb3f14ebc
+    codeValue: professionnels
+    name: Professionnels
+    inCodeSet: real-estate-listing
+    text: 'Explorez nos opportunités pour les professionnels : locaux commerciaux,
+      maisons d’hôtes, projets touristiques ou investissements à fort
+      potentiel.'
+  - id: 019f32db-e3e1-7307-a1f8-d7cc8d5dd6b7
+    codeValue: arganier
+    name: Arganier
+    inCodeSet: tag
+  - id: 019f32db-e3e2-749b-b66d-d6c7062b5e13
+    codeValue: ascenseur
+    name: Ascenseur
+    inCodeSet: tag
+  - id: 019f32db-e3e3-78c2-9369-eb7e952b9011
+    codeValue: atelier
+    name: Atelier
+    inCodeSet: tag
+  - id: 019f32db-e3e4-7af1-88a4-2a5ff3f18acb
+    codeValue: balcon
+    name: Balcon
+    inCodeSet: tag
+  - id: 019f32db-e3e5-7eec-b1ae-4d38a40eb26b
+    codeValue: bien-titre
+    name: Bien titré
+    inCodeSet: tag
+  - id: 019f32db-e3e7-70ee-bfe4-cb859315a935
+    codeValue: boutique
+    name: Boutique
+    inCodeSet: tag
+  - id: 019f32db-e3e8-7595-bcb2-73b51dc8cf97
+    codeValue: campagne
+    name: Campagne
+    inCodeSet: tag
+  - id: 019f32db-e3e9-7b7f-917a-8746e7a22bb8
+    codeValue: centre
+    name: Centre
+    inCodeSet: tag
+  - id: 019f32db-e3eb-76c9-b5a0-e2d7691ee509
+    codeValue: centre-ville
+    name: Centre Ville
+    inCodeSet: tag
+  - id: 019f32db-e3ee-787d-b9e1-0e49ba70aaa9
+    codeValue: cheminee
+    name: Cheminee
+    inCodeSet: tag
+  - id: 019f32db-e3f1-7b97-a337-31ad05fffe69
+    codeValue: commerce
+    name: Commerce
+    inCodeSet: tag
+  - id: 019f32db-e3f3-7119-9270-b30b009a54e1
+    codeValue: contemporaine
+    name: Contemporaine
+    inCodeSet: tag
+  - id: 019f32db-e3f5-7578-8284-e07591738e8e
+    codeValue: essaouira
+    name: Essaouira
+    inCodeSet: tag
+  - id: 019f32db-e3f8-77cf-b423-fa4f829c1fee
+    codeValue: gestion-locative
+    name: Gestion locative
+    inCodeSet: tag
+  - id: 019f32db-e3f9-774d-980b-8b4dd8e15bbd
+    codeValue: golf
+    name: Golf
+    inCodeSet: tag
+  - id: 019f32db-e3fb-79ff-a69f-cb8e54de9d36
+    codeValue: immobilier
+    name: Immobilier
+    inCodeSet: tag
+  - id: 019f32db-e3fc-78ff-8e5d-dce536d990ec
+    codeValue: investissement
+    name: Investissement
+    inCodeSet: tag
+  - id: 019f32db-e3ff-7148-b652-7b245d179aad
+    codeValue: jardin
+    name: Jardin
+    inCodeSet: tag
+  - id: 019f32db-e400-7060-9120-73d68e158d12
+    codeValue: marina
+    name: Marina
+    inCodeSet: tag
+  - id: 019f32db-e400-7e78-9120-73d68fbb4995
+    codeValue: medina
+    name: Medina
+    inCodeSet: tag
+  - id: 019f32db-e401-7edb-88f4-ad0974be6ef8
+    codeValue: mezzanine
+    name: Mezzanine
+    inCodeSet: tag
+  - id: 019f32db-e402-7d4e-b3d9-d93f09d61882
+    codeValue: parking
+    name: Parking
+    inCodeSet: tag
+  - id: 019f32db-e403-7d2b-a87a-849c2e0a207d
+    codeValue: patio
+    name: Patio
+    inCodeSet: tag
+  - id: 019f32db-e405-79eb-ab25-f74ef0d0ed4e
+    codeValue: petit-dejeuner
+    name: Petit Dejeuner
+    inCodeSet: tag
+  - id: 019f32db-e407-701d-bf39-3106641a3e89
+    codeValue: piscine
+    name: Piscine
+    inCodeSet: tag
+  - id: 019f32db-e40a-70b3-a64d-7ed1891d1d41
+    codeValue: riad
+    name: Riad
+    inCodeSet: tag
+  - id: 019f32db-e40c-7863-a758-bda55c74bd68
+    codeValue: route-de-safi
+    name: Route De Safi
+    inCodeSet: tag
+  - id: 019f32db-e40f-7f50-9f7b-f976cbd61588
+    codeValue: sidi-kaouki
+    name: Sidi Kaouki
+    inCodeSet: tag
+  - id: 019f32db-e412-7738-9f93-cb227f54e456
+    codeValue: spa
+    name: Spa
+    inCodeSet: tag
+  - id: 019f32db-e413-7bd3-af01-30fee3efd778
+    codeValue: terrain
+    name: Terrain
+    inCodeSet: tag
+  - id: 019f32db-e414-7c93-bf06-9c23b83b7e0a
+    codeValue: terrasse
+    name: Terrasse
+    inCodeSet: tag
+  - id: 019f32db-e417-702c-88cb-a5292c90f79a
+    codeValue: toit-terrasse
+    name: Toit Terrasse
+    inCodeSet: tag
+  - id: 019f32db-e418-7306-ac9c-2d7e5509c47e
+    codeValue: viabilise
+    name: Viabilise
+    inCodeSet: tag
+  - id: 019f32db-e419-7ae7-95f0-8f09461a818a
+    codeValue: vitrine
+    name: Vitrine
+    inCodeSet: tag
+  - id: 019f32db-e41c-723b-bdf1-973d47871994
+    codeValue: vue-ocean
+    name: Vue Ocean
+    inCodeSet: tag
+dataSource: fixture

@@ -1,0 +1,31 @@
+message:
+  id:
+    type: uuid
+  projectId:
+    type: uuid
+  firstName:
+    type: string
+    maxLength: 120
+  lastName:
+    type: string
+    maxLength: 120
+  email:
+    type: string
+    maxLength: 254
+  phone:
+    type: string
+    maxLength: 40
+  message:
+    type: text
+    minLength: 10
+    maxLength: 5000
+  propertyValue:
+    type: object
+  status:
+    type: string
+  createdAt:
+    type: datetime
+  updatedAt:
+    type: datetime
+  deletedAt:
+    type: datetime

@@ -2,11 +2,11 @@
 identifier: 9
 slug: 'home'
 inLanguage: 'fr'
-metaTitle: 'MLK – My Little Kasbah | Immobilier à Essaouira'
-metaDescription: 'Découvrez MLK – My Little Kasbah, votre partenaire immobilier à Essaouira pour l’achat, la vente, la gestion locative et l’investissement.'
+metaTitle: 'Showcase Immobilier | Immobilier à Essaouira'
+metaDescription: 'Découvrez Showcase Immobilier, votre partenaire immobilier à Essaouira pour l’achat, la vente, la gestion locative et l’investissement.'
 associatedMedia:
-  - '/images/mlk-logo.jpg'
-headline: 'MLK – My Little Kasbah'
+  - '/images/bpi-logo.jpg'
+headline: 'Showcase Immobilier'
 alternativeHeadline: 'Votre partenaire immobilier à Essaouira'
 highlight: 'Achat, vente, gestion locative et investissement avec une expertise locale et internationale'
 articleSection: ''
@@ -19,7 +19,7 @@ dateModified: '2023-02-16T11:40:34+01:00'
 ::screen-landing
 ---
 identifier: 'screen-real-estate-full-image'
-headline: 'MLK - My Little Kasbah - Agence Immobilière à Essaouira'
+headline: 'Showcase Immobilier - Agence Immobilière à Essaouira'
 image: '/images/essaouira-en-drone.jpg'
 hasPart:
   - additionalType: 'mobile-portrait-background'
@@ -39,9 +39,9 @@ additionalType: 'Agence immobilière en ligne'
 headline: 'Votre partenaire immobilier'
 alternativeHeadline: 'à Essaouira'
 text: |
-  Bienvenue chez MLK – My Little Kasbah, une agence immobilière en ligne dédiée à l’investissement immobilier à Essaouira et dans sa région.
+  Bienvenue chez Showcase Immobilier, une agence immobilière en ligne dédiée à l’investissement immobilier à Essaouira et dans sa région.
 
-  Portée par une équipe franco-marocaine passionnée par l’immobilier et profondément attachée à la ville, MLK accompagne ses clients dans tous leurs projets d’achat, de vente et de gestion locative, avec rigueur, transparence et proximité.
+  Portée par une équipe franco-marocaine passionnée par l’immobilier et profondément attachée à la ville, Showcase Immobilier accompagne ses clients dans tous leurs projets d’achat, de vente et de gestion locative, avec rigueur, transparence et proximité.
 image: '/images/skala-du-port-bateaux.jpg'
 links:
   - for-sale
@@ -63,8 +63,8 @@ links:
 
 ::screen-panel
 ---
-identifier: 'screen-why-choose-mlk'
-headline: 'Pourquoi choisir MLK ?'
+identifier: 'screen-why-choose-showcase'
+headline: 'Pourquoi choisir Showcase Immobilier ?'
 alternativeHeadline: 'L’immobilier à Essaouira, entre exigence locale et vision internationale.'
 image: '/images/portrait-lifestyle-en-lumiere-naturelle.jpg'
 hasPart:
@@ -144,7 +144,7 @@ alternativeHeadline: 'Investir à Essaouira'
 text: |
   Investir ici, c’est choisir un lieu de vie authentique tout en profitant d’une rentabilité réelle et durable.
 
-  MLK My Little Kasbah accompagne chaque investisseur dans la concrétisation de son projet, avec passion et expertise.
+  Showcase Immobilier accompagne chaque investisseur dans la concrétisation de son projet, avec passion et expertise.
 image: '/images/essaouira-porte-de-bab-sbah.jpg'
 links:
   - contact
@@ -238,7 +238,7 @@ identifier: 'screen-blockquote'
 headline: 'Votre partenaire à Essaouira'
 url: 'agency'
 hasPart:
-  - headline: 'Chez MLK – My Little Kasbah, nous valorisons les biens de caractère.'
+  - headline: 'Chez Showcase Immobilier, nous valorisons les biens de caractère.'
   - headline: 'Nous accompagnons chaque projet avec exigence, clarté et discrétion.'
   - headline: 'Tout en promouvant l’art de vivre à Essaouira.'
 ---
@@ -247,6 +247,6 @@ hasPart:
 ::screen-panel
 ---
 identifier: 'screen-footer'
-image: '/images/mlk-logo.jpg'
+image: '/images/bpi-logo.jpg'
 ---
 ::

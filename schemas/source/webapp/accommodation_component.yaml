@@ -1,0 +1,28 @@
+AccommodationComponent:
+  # Bloc de contenu ("écran") composant une fiche accommodation (Schema.org hasPart).
+  # La structure est partagée entre les langues ; seuls headline / text / name sont localisés.
+  required:
+    - additionalType
+  properties:
+    additionalType:
+      type: AccommodationComponentType
+      # Type d'écran (gabarit de rendu)
+    name:
+      type: string
+      # Désignation du bloc — localisé
+    headline:
+      type: string
+      # Titre du bloc — localisé
+    text:
+      type: string
+      # Paragraphe du bloc — localisé
+    position:
+      type: number
+      # Ordre du bloc dans la fiche (ascendant)
+    associatedMedia:
+      type: array<MediaObject>
+      # Médias référencés par le bloc (ordonnés)
+    meta:
+      type: object
+      # Options d'affichage du bloc (objet JSON libre, forme non contrainte),
+      # partagées entre langues. Ex. courants : reverse (bool), overlayMode (string).

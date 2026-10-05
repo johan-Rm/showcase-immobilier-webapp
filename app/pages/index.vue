@@ -15,10 +15,10 @@
     <!-- Sections secondaires montées après préparation du runtime pour alléger l'hydratation initiale. -->
     <UPageSection
       v-if="shouldRenderDeferredScreens"
-      :data-screen="SCREEN_IDS.whyChooseMlk"
+      :data-screen="SCREEN_IDS.whyChooseShowcase"
       :ui="screenUi.pageSection"
     >
-      <LazyScreenWhyChooseMlk :data="whyChooseMlkData" />
+      <LazyScreenWhyChooseShowcase :data="whyChooseShowcaseData" />
     </UPageSection>
 
     <!-- Section éditoriale desktop uniquement : son format visuel est moins adapté aux petits écrans. -->
@@ -99,7 +99,7 @@ const SCREEN_IDS = {
   realEstateFullImage: 'screen-real-estate-full-image',
   realEstateSplit: 'screen-real-estate-split',
   realEstateThreeColProperties: 'screen-real-estate-three-col-properties',
-  whyChooseMlk: 'screen-why-choose-mlk',
+  whyChooseShowcase: 'screen-why-choose-showcase',
   essaouiraTheJewel: 'screen-essaouira-the-jewel',
   invest: 'screen-invest',
   panelScrollDualSynced: 'screen-panel-scroll-dual-synced',
@@ -206,7 +206,12 @@ const { next, screenUi } = useScreenSystem({
 // 5. Etat local
 // Les sections non critiques attendent que le runtime client soit prêt afin de préserver
 // le rendu initial, l'hydratation et le poids JavaScript de la première vue.
-const shouldRenderDeferredScreens = ref(false)
+// Les ecrans secondaires sont montes apres stabilisation du runtime, cote client.
+// En capture statique, aucun script ne s'executera : ils doivent donc etre rendus
+// des le serveur, faute de quoi la maquette se limite au premier ecran.
+const shouldRenderDeferredScreens = ref(
+  import.meta.prerender || useRuntimeConfig().public.staticOutput === true,
+)
 
 // 6. Data inputs
 // Donnée éditoriale normalisée de la page d'accueil, résolue par slug stable.
@@ -256,8 +261,8 @@ const landingScreenData = computed(
 
 // Les computed suivants exposent au template un contrat simple par screen.
 // La page reste responsable de l'orchestration, pas du rendu détaillé des blocs.
-const whyChooseMlkData = computed(
-  () => getComponentByIdentifier(SCREEN_IDS.whyChooseMlk) ?? undefined,
+const whyChooseShowcaseData = computed(
+  () => getComponentByIdentifier(SCREEN_IDS.whyChooseShowcase) ?? undefined,
 )
 
 const essaouiraTheJewelData = computed(

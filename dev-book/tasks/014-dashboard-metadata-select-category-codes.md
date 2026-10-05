@@ -16,7 +16,7 @@ depuis le select sans quitter l'éditeur.
 
 ## Périmètre
 
-### Côté Nuxt (mlk-my-little-kasbah)
+### Côté Nuxt (showcase-immobilier-webapp)
 
 #### Routes Nitro serveur
 

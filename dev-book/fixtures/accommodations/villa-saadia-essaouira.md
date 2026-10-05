@@ -30,56 +30,58 @@ areaSize: null
 areaTerrace: null
 numberOfGarages: null
 amenityFeature: []
-additionalProperty: []
+additionalProperty:
+  - name: dataSource
+    value: fixture
 associatedMedia:
   - image: villa-saadia-vue-ensemble-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-vue-ensemble-01.jpg
+    url: /demo/property.svg
     caption: Bassin et palmeraie au cœur de la demeure
     representativeOfPage: true
   - image: villa-saadia-patio-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-patio-01.jpg
+    url: /demo/property.svg
     caption: Patio ombragé sous les arches en terre
   - image: villa-saadia-piscine-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-piscine-01.jpg
+    url: /demo/property.svg
     caption: Piscine entourée de verdure et de palmiers
   - image: villa-saadia-exterieur-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-exterieur-01.jpg
+    url: /demo/property.svg
     caption: Bassin fleuri au cœur du jardin
   - image: villa-saadia-exterieur-02
-    url: /poc/villa-saadia-essaouira/villa-saadia-exterieur-02.jpg
+    url: /demo/property.svg
     caption: Grande table dressée pour les repas au jardin
   - image: villa-saadia-chambre-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-01.jpg
+    url: /demo/property.svg
     caption: Chambre aux teintes sable et coussins moelleux
   - image: villa-saadia-chambre-02
-    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-02.jpg
+    url: /demo/property.svg
     caption: Chambre à la tête de lit colorée
   - image: villa-saadia-chambre-03
-    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-03.jpg
+    url: /demo/property.svg
     caption: Chambre aux poutres de bois et fenêtre cintrée
   - image: villa-saadia-chambre-04
-    url: /poc/villa-saadia-essaouira/villa-saadia-chambre-04.jpg
+    url: /demo/property.svg
     caption: Chambre en alcôve voûtée
   - image: villa-saadia-salon-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-salon-01.jpg
+    url: /demo/property.svg
     caption: Salon voûté aux assises profondes
   - image: villa-saadia-salle-de-bains-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-salle-de-bains-01.jpg
+    url: /demo/property.svg
     caption: Plan vasque en pierre et miroir
   - image: villa-saadia-salle-de-bains-02
-    url: /poc/villa-saadia-essaouira/villa-saadia-salle-de-bains-02.jpg
+    url: /demo/property.svg
     caption: Salle d'eau en tadelakt ocre et lanternes
   - image: villa-saadia-salon-02
-    url: /poc/villa-saadia-essaouira/villa-saadia-salon-02.jpg
+    url: /demo/property.svg
     caption: Séjour lumineux ouvert sur le jardin
   - image: villa-saadia-salon-03
-    url: /poc/villa-saadia-essaouira/villa-saadia-salon-03.jpg
+    url: /demo/property.svg
     caption: Salon cosy ponctué de plantes et lanternes
   - image: villa-saadia-salon-04
-    url: /poc/villa-saadia-essaouira/villa-saadia-salon-04.jpg
+    url: /demo/property.svg
     caption: Salon marocain aux tapis et coussins
   - image: villa-saadia-terrasse-01
-    url: /poc/villa-saadia-essaouira/villa-saadia-terrasse-01.jpg
+    url: /demo/property.svg
     caption: Lounge ombragé sous pergola
 realEstateAgent: null
 highlight: null
