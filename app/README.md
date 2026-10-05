@@ -116,7 +116,9 @@ Règle YAML : `app-components-no-business-logic`
 
 ### Placement des types
 
-Un type TypeScript utilisé par plus d'un fichier doit être défini dans `shared/types/`.
+Un type TypeScript manuel utilisé par plus d'un fichier doit être défini dans `shared/types/`.
+Les contrats générés restent dans `schemas/interfaces/` et `schemas/dtos/` ; leur
+source de vérité est le schéma YAML, et leur compatibilité est contrôlée par TypeScript.
 
 Un type local non exporté reste dans le fichier qui l'utilise.
 
