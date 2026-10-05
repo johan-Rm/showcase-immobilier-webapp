@@ -2,8 +2,11 @@ rules:
   - name: app-types-placement
     requiresManualReview: false
     severity: error
-    description: 'Un type TypeScript utilise par plus d un fichier doit etre defini dans shared/types/.'
+    description: 'Un type TypeScript manuel partage doit etre defini dans shared/types/ ; les contrats generes restent dans schemas/.'
     sharedTypesDir: shared/types
+    generatedTypesDirs:
+      - schemas/interfaces
+      - schemas/dtos
     aliases:
       '~/': app
       '@/': app

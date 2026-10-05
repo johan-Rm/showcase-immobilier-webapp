@@ -1,11 +1,6 @@
-import type { JsonFetcher } from '#shared/types/echo'
+import type { JsonFetcher, EchoRequest, EchoResponse } from '#shared/types/echo'
 
-import {
-  echoRequestSchema,
-  echoResponseSchema,
-  type EchoRequest,
-  type EchoResponse,
-} from '#shared/schemas'
+import { echoRequestSchema, echoResponseSchema } from '#shared/schemas'
 
 export const postEcho = async (input: EchoRequest, fetcher: JsonFetcher): Promise<EchoResponse> => {
   const payload = echoRequestSchema.parse(input)

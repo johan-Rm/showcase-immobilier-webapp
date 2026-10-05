@@ -195,3 +195,7 @@ export type DashboardAccommodationsResponse = {
   items: DashboardAccommodation[]
   filters: DashboardAccommodationFilters
 }
+
+export type LocaleMarkdownResult =
+  | { locale: string; updated: true; filePath: string }
+  | { locale: string; updated: false; reason: string }

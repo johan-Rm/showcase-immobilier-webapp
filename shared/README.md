@@ -18,3 +18,8 @@ appartient à sa couche dédiée.
 ## Conventions techniques
 
 Aucune règle CI spécifique à ce dossier à ce jour.
+
+Les types manuels partagés vivent dans `shared/types/`. Les contrats générés
+restent dans `schemas/interfaces/` et `schemas/dtos/` et sont vérifiés par TypeScript.
+Les schémas de validation runtime restent dans `shared/schemas.ts` ; leurs types
+inférés sont exportés depuis `shared/types/echo.ts` via des imports de types.

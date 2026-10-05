@@ -2,8 +2,8 @@ import type {
   DashboardAccommodation,
   DashboardAccommodationSavePayload,
   DashboardAccommodationTranslationPayload,
+  LocaleMarkdownResult,
 } from '#shared/types/dashboardAccommodation'
-import type { LocaleMarkdownResult } from '../../../utils/dashboard/markdownExporter'
 
 import { mapToApiPlatform } from '../../../utils/dashboard/accommodationMapper'
 import {
