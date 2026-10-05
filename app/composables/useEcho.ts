@@ -1,4 +1,4 @@
-import type { EchoRequest } from '#shared/schemas'
+import type { EchoRequest } from '#shared/types/echo'
 import type { Ref } from 'vue'
 
 import { storeToRefs } from 'pinia'

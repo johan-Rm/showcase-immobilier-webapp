@@ -4,6 +4,7 @@ import type {
   DashboardAccommodationTranslationPayload,
   DashboardEditableRecord,
   DashboardEditableValue,
+  LocaleMarkdownResult,
 } from '#shared/types/dashboardAccommodation'
 
 import { randomUUID } from 'node:crypto'
@@ -163,10 +164,6 @@ export async function deleteOrphanFile(
     // Fichier déjà absent ou non accessible — non bloquant
   }
 }
-
-export type LocaleMarkdownResult =
-  | { locale: string; updated: true; filePath: string }
-  | { locale: string; updated: false; reason: string }
 
 const hasLocalizedContent = (translation: DashboardAccommodationTranslationPayload): boolean =>
   Object.entries(translation).some(

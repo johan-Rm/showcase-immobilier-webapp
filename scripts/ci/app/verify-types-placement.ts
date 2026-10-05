@@ -1,13 +1,14 @@
 /**
  * @rule app/README.md — Convention : Placement des types
  *
- * Vérifie que tout type TypeScript utilisé par plus d'un fichier est défini dans shared/types/.
+ * Vérifie que tout type TypeScript manuel partagé est défini dans shared/types/.
+ * Les contrats générés sont exclus selon la règle YAML.
  * Détecte les doublons (même nom exporté dans ≥2 fichiers hors shared/types/)
  * et les types à migrer (importés par un fichier externe à leur fichier de définition).
  */
 
 import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { dirname, extname, join, resolve } from 'node:path'
+import { dirname, extname, join, resolve, relative, isAbsolute, sep } from 'node:path'
 
 import { parse } from '@typescript-eslint/parser'
 
@@ -17,12 +18,19 @@ type TypesPlacementRule = {
   name: string
   requiresManualReview: boolean
   sharedTypesDir?: string
+  generatedTypesDirs?: string[]
   aliases?: Record<string, string>
 }
 
 const RULE = loadValidationRule<TypesPlacementRule>('app-types-placement')
 const EXCLUDED = new Set(['node_modules', '.nuxt', 'dist', '.git', '.tmp-test'])
 const DEFAULT_SHARED_TYPES_DIR = projectPath(RULE.sharedTypesDir ?? 'shared/types')
+const GENERATED_TYPES_DIRS = (RULE.generatedTypesDirs ?? []).map(projectPath)
+
+const isWithinDirectory = (file: string, directory: string): boolean => {
+  const path = relative(directory, file)
+  return path === '' || (!isAbsolute(path) && path !== '..' && !path.startsWith(`..${sep}`))
+}
 
 const ALIAS_MAP: [prefix: string, target: string][] = [
   ...Object.entries(
@@ -159,11 +167,14 @@ export function extractUsages(content: string, file: FilePath): Usage[] {
 export function analyze(
   files: FilePath[],
   sharedTypesDir: string = DEFAULT_SHARED_TYPES_DIR,
+  generatedTypesDirs: string[] = GENERATED_TYPES_DIRS,
 ): Violation[] {
   const allDefs: Definition[] = []
   const allUsages: Usage[] = []
 
   for (const file of files) {
+    // Generated contracts belong to their schema layer; placement applies to handwritten types.
+    if (generatedTypesDirs.some((directory) => isWithinDirectory(file, directory))) continue
     let content: string
     try {
       content = readFileSync(file, 'utf-8')
@@ -181,7 +192,7 @@ export function analyze(
   // Les types locaux de composants comme Props/Emits peuvent légitimement partager un nom.
   const defsByName = new Map<TypeName, FilePath[]>()
   for (const def of allDefs) {
-    if (def.file.startsWith(sharedTypesDir) || !def.exported) continue
+    if (isWithinDirectory(def.file, sharedTypesDir) || !def.exported) continue
     defsByName.set(def.name, [...(defsByName.get(def.name) ?? []), def.file])
   }
   for (const [name, filePaths] of defsByName) {
@@ -190,7 +201,7 @@ export function analyze(
 
   // Règle 2 — SHOULD_MIGRATE : type hors shared/types/ importé par ≥1 autre fichier
   for (const def of allDefs) {
-    if (def.file.startsWith(sharedTypesDir)) continue
+    if (isWithinDirectory(def.file, sharedTypesDir)) continue
     const importers = allUsages
       .filter(
         (u) => u.typeName === def.name && u.importedFrom === def.file && u.importedBy !== def.file,

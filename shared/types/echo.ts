@@ -1,3 +1,9 @@
+import type { echoRequestSchema, echoResponseSchema } from '../schemas'
+import type { z } from 'zod'
+
+export type EchoRequest = z.infer<typeof echoRequestSchema>
+export type EchoResponse = z.infer<typeof echoResponseSchema>
+
 export type ApiError = {
   status: number
   message: string

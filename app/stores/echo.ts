@@ -1,4 +1,4 @@
-import type { EchoRequest, EchoResponse } from '#shared/schemas'
+import type { EchoRequest, EchoResponse } from '#shared/types/echo'
 import type { FetchError } from 'ofetch'
 
 import { defineStore } from 'pinia'
