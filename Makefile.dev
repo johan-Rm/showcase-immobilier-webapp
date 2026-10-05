@@ -94,7 +94,7 @@ quality-generate-schemas:
 	$(DOCKER_RUN) bun run scripts/run-schema-hook.mjs
 
 quality-conventions-check:
-	$(DOCKER_RUN) sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards"
+	docker compose -f $(COMPOSE_FILE) run --rm --volume "$(CURDIR)/.git:/app/.git:ro" webapp-localhost sh -c "bun run check:app:types && bun run check:app:images && bun run check:app:components:no-business-logic && bun run check:app:script-setup-standard && bun run check:app:soc && bun run check:app:code-quality && bun run check:app:solid && bun run check:app:guards && bun run check:services:no-framework-imports"
 
 dev-content-sync:
 	$(DOCKER_RUN) bun scripts/content-sync.ts
